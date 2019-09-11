@@ -9,8 +9,6 @@ import (
 
 const Timestamp = "060102_150405"
 
-const DataDir = "data"
-
 /*
 func Type(e interface{}) string {
 	return reflect.TypeOf(e).String()

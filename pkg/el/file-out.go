@@ -57,7 +57,11 @@ func locationPath(page, parentAcronym, filename string) string {
 }
 
 func (f *File) Rel() string {
-	return rel(DataDir, f.Path)
+	i := strings.Index(f.Path, "data")
+	if i <= 0 || len(f.Path) < i + 4 {
+		return f.Path
+	}
+	return f.Path[i+4:]
 }
 
 func (f *File) Section() string {
