@@ -1,0 +1,98 @@
+{{define "index-hold"}}
+{{template "head" .Head}}
+{{template "top" .}}
+
+{{template "subnav" (snavArg .Hold "" .Head.Lang)}}
+
+<main class="margin">
+
+    {{$isMain := eq (.Head.Title) "Index"}}
+
+    {{if $isMain}}
+    <div class="section-title-box {{if $isMain}}index-title{{end}}">
+        <h1 class="section-title">
+            {{.Hold.Info.Title .Head.Lang}}
+        </h1>
+        <h4 class="section-lead">
+            {{var "index-subtitle" .Head.Lang}}
+        </h4>
+    </div>
+    {{else}}
+        <h1 class="hold-title">
+            {{.Hold.Info.Field "title-hyph" .Head.Lang}}
+        </h1>
+    {{end}}
+
+    {{$lang := .Head.Lang}}
+    {{range .Hold.Els}}
+        {{template "hold-el" (elArg . false $lang)}}
+    {{end}}
+
+    {{if eq 0 (len .Hold.Els)}}
+    <div class="index-el">
+      –
+    </div>
+    {{end}}
+
+
+    {{if $isMain}}
+
+        <section class="index-map">
+            <h2 id="map" class="subh subtitle">
+              <a href="#map">{{var "map" .Head.Lang}}</a>
+            </h2>
+
+            {{var "indexmap" .Head.Lang}}
+        </section>
+
+        <section id="serial">
+            <h2 class="subh subtitle">
+              <a href="/index/serial/">Serial</a>
+            </h2>
+
+            {{range .Recents.Offset 0 35}}
+            {{template "index-el-front" elArg . false $lang}}
+            {{end}}
+
+            <div class="more-tip">
+                {{var "serial-link" .Head.Lang}}
+            </div>
+        </section>
+    {{end}}
+</main>
+
+{{template "bot" .Head}}
+{{end}}
+
+{{define "hold-el"}}
+    <article class="index-el">
+        <div class="index-date-top">
+        {{template "index-date" .}}
+        </div>
+        <div id="{{.El.AcronymShort}}">
+        {{template "el" .}}
+        </div>
+        <div class="index-date-bot">
+            {{template "index-date" .}}
+        </div>
+      {{template "edit-link" .}}
+    </article>
+{{end}}
+
+{{define "index-date-link"}}
+    {{$year := .El.Date.Format "06"}}
+    <a class="index-datel" href="{{.El.Permalink .Lang}}">
+        {{.El.Date.Format "2. 1."}}
+        {{- with ne $year "19"}}
+         {{$year}}
+        {{end}}
+    </a>
+{{end}}
+
+{{define "index-date"}}
+    <div class="index-date">
+      {{template "index-date-link" .}}
+    </div>
+{{end}}
+
+

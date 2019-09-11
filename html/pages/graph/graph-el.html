@@ -1,0 +1,111 @@
+{{define "graph-el"}}
+
+    {{template "head" .Head}}
+    {{template "top" .}}
+    <div id="swipe-bar-bg">
+        <div id="swipe-bar">
+        </div>
+    </div>
+    <div id="part">
+    {{template "graph-el-part" .}}
+    </div>
+
+    <div class="margin">
+    <div id="nav-tip">
+        {{template "tip" var "navigate" .Head.Lang}}
+    </div>
+    </div>
+
+    <div id="preload">
+    </div>
+    <script>
+    var pageVars = {
+        type   : "graph-el",
+        nav : {
+            parent : "{{.Parent.Permalink .Head.Lang}}",
+            next   : "{{if .Next}}{{.Next.Permalink .Head.Lang}}{{end}}",
+            prev   : "{{if .Prev}}{{.Prev.Permalink .Head.Lang}}{{end}}"
+        }
+    };
+    </script>
+
+    {{template "bot" .Head}}
+
+{{end}}}
+
+{{define "graph-el-part"}}
+    {{template "subnav" (snavArg .El.File.Hold "" .Head.Lang)}}
+
+
+    <div id="body">
+        <div class="title-bar margin">
+            <span class="graph-date">
+                {{.El.Date.Format "2. 1."}}
+            </span>
+            <span class="el-title">
+                {{.El.Title .Head.Lang}}
+            </span>
+        </div>
+        {{if eq (elType .El) "text"}}
+        <div class="el-text margin">
+            {{template "el" (elArg .El false .Head.Lang)}}
+        </div>
+        {{else}}
+        {{template "el" (elArg .El false .Head.Lang)}}
+        {{end}}
+    </div>
+
+  {{template "prev-next" .}}
+
+
+  {{if isLocal}}
+  <div class="margin">
+  {{template "edit-link" (elArg .El false .Head.Lang)}}
+  </div>
+  {{end}}
+
+{{end}}
+
+
+  {{define "prev-next"}}
+    {{$lang := .Head.Lang}}
+    <nav id="prev-next" class="prev-next-nav margin">
+        <div>
+            {{with .Prev}}
+            &larr; <a href="{{.Permalink $lang}}">{{.Title $lang}}</a>
+            {{else}}
+            &nbsp;
+            {{end}}
+
+            {{with .Next}}
+            <span class="right">
+                <a href="{{.Permalink $lang}}">{{.Title $lang}}</a>
+                &rarr;
+            </span>
+            {{end}}
+        </div>
+        <div class="prev-next-tip">
+        {{var "navigate" $lang}}
+        </div>
+    </nav>
+  {{end}}
+
+{{define "el-date"}}
+  <span class="el-date-day">
+  {{.El.Date.Format "2"}}
+  </span>
+  <a href="{{.El.File.Hold.Permalink .Lang}}">
+  {{.El.Date.Format "Jan 2006"}}
+  </a>
+{{end}}
+
+{{define "image-description"}}
+    {{$type := elType .El}}
+    {{$lang := .Lang}}
+    {{if eq $type "image"}}
+    {{with .El.Info.Alt .Lang}}
+      {{.}}
+    {{end}}
+    {{end}}
+{{end}}
+

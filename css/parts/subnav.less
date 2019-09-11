@@ -1,0 +1,66 @@
+.subnavs {
+    font-size: @third-size;
+    margin-top:.75rem;
+}
+.subnav {
+    margin-bottom:.375rem;
+}
+
+.snavl.active {
+    color: #000;
+}
+
+.subnav:last-child .snavl {
+    color: #000;
+}
+
+.subnav:last-child .active {
+    color: @dark-red;
+}
+
+.snavl {
+    color: #666;
+    margin-right:.5rem;
+}
+
+.last-subnav .subnav .snavl {
+    color: @linkColor;
+}
+
+.topl {
+    color:#000;
+    font-weight:bold;
+    margin-left:-2rem;
+    position:absolute;
+    display:none;
+}
+
+#subnav-fixed {
+    position:fixed;
+    width:100%;
+    top:0;
+    z-index:1;
+}
+
+#subnav-fixed .topl {
+    display:inline-block;
+}
+
+#subnav-fixed .subnavs-steps {
+    display:none;
+}
+
+.graph-subnavs .subnav {
+    white-space:nowrap;
+    overflow:auto;
+}
+
+/*
+#subnav-fixed {
+    background:#fff;
+}
+*/
+
+#subnav-fixed .subnavs {
+    margin-top:.5rem;
+}

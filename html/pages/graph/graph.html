@@ -1,0 +1,317 @@
+{{define "graph-main"}}
+
+{{template "head" .Head}}
+
+{{template "top" .}}
+
+    {{template "subnav" (snavArg .Hold "" .Head.Lang)}}
+
+
+    {{$isMain := lt .Hold.Depth 1}}
+
+
+    <div class="section-title-box {{if not $isMain}}year-title{{else}}graph-title{{end}} margin">
+        {{if $isMain}}
+        <h1 class="section-title">
+            {{.Head.Title}}
+        </h1>
+        <h4 class="section-lead">
+            {{var "graph-subtitle" .Head.Lang}}
+        </h4>
+
+        {{else}}
+        <h1 class="section-title">
+            {{.Hold.Date.Format "2006"}}
+        </h1>
+        {{end}}
+    </div>
+
+
+    <section class="graph-grid margin">
+
+        {{$depth := .Hold.Depth}}
+
+        {{if eq $depth 0}}
+            <!-- MAIN -->
+            {{$lang := .Head.Lang}}
+            {{$months := (.Els.Offset 0 35).Months}} <!-- 25 -->
+            {{range $i, $els := $months}}
+            {{if $i}}
+            <h2 class="month-title">
+            {{(index $els 0).Date.Month}}
+            </h2>
+            {{end}}
+                {{template "media-groups" (elsArg $els false $lang)}}
+            {{end}}
+
+            <div class="graph-tip">
+                {{var "graph-main-more" .Head.Lang}}
+            </div>
+
+            {{/* template "graph-main-more" .*/}}
+
+        {{else if lt .Hold.Depth 2}}
+            <!-- YEAR -->
+            {{$lang := .Head.Lang}}
+            {{$count := 0}}
+            {{range $i, $hold := .Hold.Holds}}
+              {{if or (gt $i 2) (ge $count 6)}}
+                {{template "graph-month" (holdArg $hold true $lang)}}
+              {{else}}
+                {{template "graph-month" (holdArg $hold false $lang)}}
+                {{$count = add $count $hold.ImgLen}}
+              {{end}}
+            {{end}}
+
+            {{template "prev-next-year" .}}
+        {{else}}
+            <!-- MONTH -->
+            {{template "graph-month" (holdArg .Hold false .Lang)}}
+        {{end}}
+
+        {{if eq .Head.Path "/graph/"}}
+        {{end}}
+
+    </section>
+
+    {{template "subnav-fixed" (snavArg .Hold "" .Head.Lang)}}
+
+    <div id="top-link" class="hide">
+            <!--
+            <img src="/static/img/uarr.svg" alt="↑"
+            --->
+        <a class="topl-corner uarr" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14.76 17.96" height="67.88" width="55.786"><path d="M7.38 0L0 10.087v.001h3.834v7.872h7.092v-7.872h3.833z" fill="#002f74"/></svg>
+        </a>
+    </div>
+
+    <script>
+    {{if eq $depth 0}}
+      var pageVars = { type: "graph-main" }
+    {{else}}
+      var pageVars = { type: "graph-year" }
+    {{end}}
+    </script>
+
+    {{template "bot" .Head}}
+
+{{end}}
+
+{{define "prev-next-year"}}
+    {{$lang := .Head.Lang}}
+    <div class="prev-next-year graph-tip">
+        {{with .Next}}
+            &larr; <a href="{{.Permalink $lang}}">{{.Title $lang}}</a>
+        {{else}}
+            &nbsp;
+        {{end}}
+        {{with .Prev}}
+            <span class="right">
+            <a href="{{.Permalink $lang}}">{{.Title $lang}}</a>
+            &rarr; 
+            </span>
+        {{end}}
+    </div>
+{{end}}
+
+{{define "graph-full-tip"}}
+<div class="more-tip">
+ (var "graph-full" .Lang)
+</div>
+{{end}}
+
+{{define "graph-els"}}
+{{$lang := .Lang}}
+{{with .El}}
+  {{range .Days}}
+    {{range .}}
+      {{template "graph-main-el" (elArg . $lang)}}
+    {{end}}
+  {{end}}
+{{end}}
+{{end}}
+
+{{define "media-groups"}}
+    {{$lang := .Lang}}
+    {{$lazy := .Lazy}}
+    <div class="media-groups">
+    {{range $i, $group := .Els.MediaGroups}}
+      {{$firstType := (elType (index $group 0))}}
+      {{if eq $firstType "image"}}
+      <section class="images">
+      {{else if eq $firstType "set"}}
+      <section class="images">
+      {{else if eq $firstType "text"}}
+      <section class="texts">
+      {{else}}
+      <section class="images">
+      {{end}}
+
+        {{range $group}}
+            {{template "graph-main-el" (elArg . $lazy $lang)}}
+        {{end}}
+        <!--
+        <div class="phantom"></div>
+        -->
+
+      </section>
+    {{end}}
+    </div>
+{{end}}
+
+{{define "graph-month"}}
+    <section id="{{.Hold.Date.Format "01"}}" class="month">
+
+        <h2 class="subh month-title">
+            <a href="{{.Hold.Permalink .Lang}}">{{.Hold.Info.Title .Lang}}</a>
+        </h2>
+
+        {{template "media-groups" (elsArg .Hold.Els .Lazy .Lang)}}
+    </section>
+{{end}}
+
+{{define "graph-main-el"}}
+
+  {{$lang := .Lang}}
+  {{$lazy := .Lazy}}
+  {{$type := elType .El}}
+
+  {{with .El}}
+
+    {{if eq $type "image"}}
+
+      <span class="thumb">
+        <a class="thumbl" href="{{.Permalink $lang}}">
+          {{template "graph-image-thumbnail" (elArg . $lazy $lang)}}
+        </a>
+      </span>
+
+    {{else if eq $type "set"}}
+
+      <span class="thumb">
+        {{template "graph-main-set" (elArg . $lazy $lang)}}
+      </span>
+
+    {{else if eq $type "text"}}
+
+        <article class="graph-text">
+            {{template "edit-link" (elArg . false $lang)}}
+            {{template "graph-date" (elArg . false $lang)}}
+            {{.TextLang $lang}}
+        </article>
+
+    {{else if eq $type "video"}}
+        {{template "video" (elArg . false $lang)}}
+    {{else}}
+        Didn’t catch. Type: “{{$type}}”
+        {{.}}
+    {{end}}
+
+  {{end}}
+{{end}}
+
+
+{{define "graph-date"}}
+<header class="graph-date">
+    <a class="blackl" href="{{.El.Permalink .Lang}}">
+      {{.El.Date.Format "2. 1."}}
+    </a>
+</header>
+{{end}}
+
+
+{{define "graph-image-thumbnail"}}
+
+  {{$lang := .Lang}}
+  {{$lazy := .Lazy}}
+
+
+    {{$alt := .El.Title $lang}}
+    {{$src := ""}}
+    {{$realSrc := .El.ImagePath 320 $lang}}
+    {{$sizes := "(max-width: 450px) 177px, (max-width: 1024px) 222px, 320px"}}
+
+    {{if .Lazy}}
+      {{$src = .El.PlaceholderPath}}
+    {{else}}
+      {{$src = $realSrc}}
+    {{end}}
+
+    <img class="thumbi{{if .Lazy}} lazy{{end}}" src="{{$src}}" alt="{{$alt}}"  {{/*sizes="{{$sizes}}"*/}}
+         {{if .Lazy}}
+             data-src="{{$realSrc}}"
+             data-srcset="{{- template "graph-thumb-srcset" (elArg .El .Lazy .Lang)}}"
+         {{else}}
+             srcset="{{template "graph-thumb-srcset" (elArg .El .Lazy .Lang)}}"
+         {{end}}
+    >
+
+
+{{end}}
+
+{{define "park-s"}}
+{{$lang := "de"}}
+    <img {{with .Info.Title $lang}}alt="{{.}}"{{end}}
+    class="thumbi" src="{{.ImagePath 320 $lang}}"
+    sizes="(max-width: 450px) 177px, (max-width: 1024px) 222px, 320px"
+    srcset="">
+
+    <!--
+    {{.RatioCode}}
+    -->
+{{end}}
+
+{{define "graph-thumb-srcset" -}}
+{{.El.SrcSet 320 .Lang}}, {{.El.SrcSet 480 .Lang}}, {{.El.SrcSet 960 .Lang}}, {{.El.SrcSet 1280 .Lang}}{{- end}}
+
+{{define "graph-main-set"}}
+
+{{if .El.Cover}}
+    <a class="thumbl" href="{{.El.Permalink .Lang}}">
+    {{template "graph-image-thumbnail" (elArg .El.Cover .Lazy .Lang)}}
+    </a>
+{{else}}
+    <li><a href="{{.El.Permalink .Lang}}">{{.El.Info.Title .Lang}}</a></li>
+{{end}}
+
+{{end}}
+
+
+{{define "graph-days"}}
+  {{$lang := "de"}}
+  {{range .Els.Days}}
+    {{if eq (elType (index . 0)) "text"}}
+      <div class="margin">
+      {{template "graph-date" (elArg (index . 0) $lang)}}
+      </div>
+    {{end}}
+  {{end}}
+{{end}}
+
+
+{{define "graph-main-more-old"}}
+    <div id="graph-main-more">
+            {{$lang := .Lang}}
+            {{$months := (.Els.Offset 20 0).Months}}
+            {{range $i, $els := $months}}
+            {{if $i}}
+            <h2 class="month-title">
+            {{(index $els 0).Date.Month}}
+            </h2>
+            {{end}}
+            {{template "media-groups" (elsArg $els true $lang)}}
+            {{end}}
+
+        {{$lang := .Lang}}
+        {{with .PrevYear}}
+        <div class="graph-main-more-tip more-tip">
+            {{if eq $lang "de"}}
+                Weiter zum Jahr &rarr; <a href="{{.Permalink $lang}}">{{.Title $lang}}</a>.
+            {{else}}
+                Go to year &rarr; <a href="{{.Permalink $lang}}">{{.Title $lang}}</a>.
+            {{end}}
+        </div>
+        {{end}}
+    </div>
+{{end}}
+

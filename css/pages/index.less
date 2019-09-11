@@ -1,0 +1,91 @@
+
+/*
+text[font-family=x1] {
+    font-family:@ebg12;
+    font-size:1rem;
+    font-style:italic;
+}
+
+text[font-family=x2] {
+    font-family:@ebg;
+    font-size:1rem;
+    letter-spacing:.03rem;
+}
+*/
+
+.hold-title {
+    margin:1.5rem 0 1.75rem;
+
+    font-family:@ebg12;
+    //font-style:italic;
+
+    //font-size:1.5rem;
+    font-size:2.125rem;
+    //font-size:1.5625rem;
+    //letter-spacing:.04rem;
+    letter-spacing:.3rem;
+    text-transform:uppercase;
+    font-feature-settings:"calt";
+    /*
+    */
+}
+
+.hold-title .fleuron {
+    //font-size:1.55rem;
+    font-size:112%;
+    display:none;
+}
+
+.index-el .el {
+    //display:inline-block;
+}
+
+.index-date {
+    font-family: @alegreya-sc;
+    font-size:.9375rem;
+}
+
+.index-date-bot {
+    // “text-align:justify” führt dazu, dass so gut
+    // wie nie ein Wort am Zeilenende steht.
+    // Daher -1rem, und nicht -.75rem.
+    margin-top:-1rem;
+    text-align:right;
+}
+
+.index-date-top {
+    display:none;
+}
+
+.media-mixin(@break) when (@break = @break-single) {
+    .index-date-bot {
+        display:none;
+    }
+    .index-date-top {
+        display:block;
+        line-height:1.6625rem; //1.7rem
+        //vertical-align:text-top;
+        margin-top:-1px;
+        float:right;
+    }
+}
+
+.index-datel {
+    //letter-spacing:.06rem;
+    //font-size:.875rem;
+    color: #000;
+}
+
+.index-el {
+    //margin-bottom:1.1625rem;
+    margin-bottom:1.75rem;
+}
+
+.index-graph text:hover {
+    fill:@dark-red;
+}
+
+.index-map .index-graph {
+    display:block;
+    margin:0 auto;
+}

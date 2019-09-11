@@ -1,0 +1,99 @@
+{{define "index-el-page"}}
+
+    {{template "head" .Head}}
+    {{template "top" .}}
+
+    <main>
+        {{template "el-index" .Arg}}
+    </main>
+
+    {{template "bot" .Head}}
+
+{{end}}
+
+
+
+{{define "el-index"}}
+
+{{$type := elType .El}}
+  {{$infoTitle := .El.Info.Title .Lang}}
+  {{$isAbout := eq "About" (.El.File.Hold.Info.Title "en")}}
+
+  {{if not $isAbout}}
+      {{template "subnav" (snavArg .El.File.Hold "" .Lang)}}
+  {{end}}
+
+  <article class="margin">
+
+      <div class="index-title-box">
+          <h1 class="former-set-title">
+              {{if $infoTitle}}
+                  {{$infoTitle}}
+              {{else}}
+                  {{.El.Title .Lang}}
+              {{end}}
+              {{$lang := .Lang}}
+              {{with .El.File.Hold}}
+                  <span class="el-combined-title">
+                      <a href="{{.Permalink $lang}}">
+                          {{.Info.Title $lang}}
+                      </a>
+                  </span>
+              {{end}}
+          </h1>
+          <span class="el-date right">
+              <span class="el-date-day">
+              {{.El.Date.Format "2"}}
+              </span>
+              {{.El.Date.Format "Jan 2006"}}
+          </span>
+      </div>
+
+      {{template "el" .}}
+
+  </article>
+{{end}}
+
+{{define "pine-logo"}}
+<div class="pine-logo">
+    <img alt="Logo of a pine branch." src="/static/img/pine.png">
+</div>
+{{end}}
+
+
+
+{{define "compare-link"}}
+<div class="compare-link margin">
+{{$prim := ""}}{{/*primLang .Head.Lang*/}}
+{{$sec := ""}}{{/*secLang .Head.Lang*/}}
+{{$perma := .Set.Permalink $prim}}
+<p>
+{{if $sec}}
+    {{if eq $prim "de"}}
+        <em>[<a href="{{$perma}}">Englische Über&shy;set&shy;zung aus&shy;blen&shy;den.</a>]</em>
+    {{else}}
+        <em>[<a href="{{$perma}}">Hide the orig&shy;i&shy;nal Ger&shy;man text.</a>]</em>
+    <!--
+    <div class="col"></div><div class="col">
+    </div>
+    -->
+    {{end}}
+{{else}}
+    {{if eq $prim "de"}}
+    <em>[<a href="{{$perma}}/en">Mit der eng&shy;lisch&shy;en Über&shy;set&shy;zung ver&shy;glei&shy;chen.</a>]</em>
+    {{else}}
+    <em>[<a href="{{$perma}}/de">Com&shy;pare with the orig&shy;i&shy;nal Ger&shy;man text.</a>]</em>
+    {{end}}
+{{end}}
+</p>
+</div>
+{{end}}
+
+
+{{define "old-pine-logo"}}
+    {{if or (eq .Head.Title "Über") (eq .Head.Title "About")}}
+    <!--
+    {{template "pine-logo"}}
+    -->
+    {{end}}
+{{end}}

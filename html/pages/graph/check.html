@@ -1,0 +1,47 @@
+{{define "graph-check"}}
+
+  {{template "head" .Head}}
+  {{template "top" .}}
+
+  <main class="margin">
+  {{template "sitemap-hold" (holdArg .Tree false .Head.Lang)}}
+  </main>
+
+  {{template "bot" .Head}}
+
+{{end}}
+
+{{define "sitemap-hold"}}
+{{$lang := .Lang}}
+{{$title := .Hold.Info.Title $lang}}
+{{$code := .Hold.Date.Format "06-01"}}
+<h3 id="{{$code}}">
+  {{if eq $title (.Hold.Date.Format "2006")}}
+  —
+  {{end}}
+  <a href="#{{$code}}">
+  {{$title}}
+  </a>
+</h3>
+{{range .Hold.Holds}}
+{{template "sitemap-hold" (holdArg . false $lang)}}
+{{end}}
+<ul>
+{{range .Hold.Els}}
+<li>
+  <a {{if not (.Info.Title $lang)}}class="no-title"{{end}}
+   href="{{.Permalink $lang}}">
+{{.Title $lang}}
+  </a>
+  {{if eq (elType .) "image"}}
+  {{if not (.Info.Alt $lang)}}
+  &nbsp;
+  <span class="no-alt">
+    No alt text.
+  </span>
+  {{end}}
+  {{end}}
+</li>
+{{end}}
+</ul>
+{{end}}

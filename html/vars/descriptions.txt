@@ -1,0 +1,8 @@
+front-de: Stef Feral ist ein deutschsprachiger Künstler und Denker.
+front-en: Stef Feral is a German-speaking artist and thinker.
+serial-de: Eine Liste der serialisierten Einträge des Index.
+serial-en: A list of the serialized entries of Index.
+index-subtitle-en: Topical&nbsp;structure
+graph-subtitle-en: Temporal&nbsp;structure
+index-subtitle-de: Thematische&nbsp;Struktur
+graph-subtitle-de: Zeitliche&nbsp;Struktur

@@ -1,0 +1,80 @@
+package graph
+
+import (
+	"fmt"
+	"log"
+	"net/http"
+	"st/pkg/el"
+	"st/pkg/head"
+	"st/pkg/server"
+)
+
+type graphMain struct {
+	Head *head.Head
+	Hold *el.Hold
+	Els  el.Els
+	Prev *el.Hold
+	Next *el.Hold
+}
+
+func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
+	head := &head.Head{
+		Title:   "Graph",
+		Section: "graph",
+		Path:    r.URL.Path,
+		Host:    r.Host,
+		El:      s.Trees["graph"],
+	}
+	err := head.Make()
+	if err != nil {
+		s.Log.Println(err)
+		return
+	}
+
+	prev, _, err := yearSiblings(lastHold(s.Trees["graph"]))
+	if err != nil {
+		s.Log.Println(err)
+		return
+	}
+
+	err = s.ExecuteTemplate(w, "graph-main", &graphMain{
+		Head: head,
+		Hold: s.Trees["graph"],
+		Els:  s.Recents["graph"].Year(2019),
+		Prev: prev,
+	})
+	if err != nil {
+		log.Println(err)
+	}
+}
+
+func lastHold(hold *el.Hold) *el.Hold {
+	if len(hold.Holds) < 1 {
+		return nil
+	}
+	return hold.Holds.Reverse()[0]
+}
+
+func yearSiblings(h *el.Hold) (prev, next *el.Hold, err error) {
+	if h == nil {
+		err = fmt.Errorf("yearSiblings: Hold is nil.")
+		return
+	}
+	if h.Mother == nil {
+		err = fmt.Errorf("yearSiblings: Mother is nil.")
+		return
+	}
+
+	for i, child := range h.Mother.Holds {
+		if h.File.Id == child.File.Id {
+			if i > 0 {
+				prev = h.Mother.Holds[i-1]
+			}
+
+			if i+1 < len(h.Mother.Holds) {
+				next = h.Mother.Holds[i+1]
+			}
+		}
+	}
+	return
+}

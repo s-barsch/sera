@@ -1,0 +1,22 @@
+{
+  "name": "st",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "babel": "^6.23.0",
+    "hammerjs": "^2.0.8",
+    "webpack-cli": "^3.3.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "babel-loader": "^8.0.6",
+    "webpack": "^4.35.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "author": "",
+  "license": "ISC"
+}

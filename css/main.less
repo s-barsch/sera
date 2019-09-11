@@ -1,0 +1,88 @@
+@import "vars.less";
+@import "extra/fonts.less";
+
+* {
+    box-sizing:border-box;
+}
+
+body {
+  line-height:1.4;
+  font-family: @ebg;
+  font-size: @prim-size;
+  font-variant-ligatures: common-ligatures;
+
+  margin:0;
+  padding:0;
+}
+
+html {
+    height:100%;
+}
+
+body {
+    position:relative;
+    min-height:100%;
+    padding-bottom:4rem;
+}
+
+@import "links.less";
+@import "headings.less";
+@import "media.less";
+@import "text.less";
+
+.margin {
+    width:100%;
+    max-width:50rem;
+    margin-left:auto;
+    margin-right:auto;
+    padding:0 .75rem;
+
+}
+
+@media (min-width: 25rem) {
+    .margin {
+        padding:0 1rem;
+    }
+}
+
+@media (min-width: 36rem) and (max-width: @break-single) {
+    .margin {
+        //padding:0 1rem;
+        width:85%;
+    }
+}
+
+.hide {
+    display:none;
+}
+
+
+@import "parts/top.less";
+@import "parts/bot.less";
+@import "parts/subnav.less";
+
+@import "pages/front.less";
+@import "pages/graph-main.less";
+@import "pages/graph-el.less";
+@import "pages/index.less";
+@import "pages/about.less";
+@import "pages/impressum.less";
+@import "pages/sitemap.less";
+
+@import "extra/narrow-screen.less";
+
+@media (min-width: @break-single) {
+    .margin {
+        width:90%;
+        max-width: 92rem;
+    }
+    .media-mixin(@break-single);
+}
+
+@media (min-width: @break-desk) {
+    .media-mixin(@break-desk);
+}
+
+@media (min-width: @break-wide) {
+    .media-mixin(@break-wide);
+}

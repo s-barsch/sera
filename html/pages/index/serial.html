@@ -1,0 +1,19 @@
+{{define "index-serial" -}}
+{{template "head" .Head}}
+<body>
+{{template "top" .}}
+
+<div class="main-title-box margin">
+    <h1 class="mainh hold-title">
+        Serial
+    </h1>
+</div>
+<main id="front" class="margin">
+{{$page := .}}
+{{$lang := .Head.Lang}}
+{{range .Els}}
+{{template "index-el-front" (elArg . false $lang)}}
+{{end}}
+</main>
+{{template "bot" .Head}}
+{{end}}

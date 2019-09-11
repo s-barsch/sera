@@ -1,0 +1,39 @@
+{{define "top"}}
+
+<header id="top" class="margin">
+{{template "lang-nav" (objArg .Head.Langs .Head.Lang)}}
+{{template "logo" .}}
+{{template "nav" .Head.Nav}}
+</header>
+
+{{end}}
+
+
+{{define "logo"}}
+<div id="logo" class="logo">
+    <a class="logol" href="/">
+      {{varRaw "logo"}}
+      <!--
+    <img class="logo" alt="Stef Feral" src="/static/st-feral-logo.svg?v=07">
+      -->
+    </a>
+</div>
+{{end}}
+
+
+{{define "lang-nav"}}
+<nav id="lang" class="lang-nav">
+  {{$lang := .Lang}}
+  {{range .Obj}}
+      <a class="lnavl{{if eq .Name $lang}} active{{end}}" href="{{.Href}}">{{langName .Name}}</a>
+  {{end}}
+</nav>
+{{end}}
+
+{{define "nav"}}
+<nav id="nav" class="main-nav">
+    {{range .}}
+    <a class="mnavl{{if .IsActive}} active{{end}}" href="{{.Href}}">{{.Name}}</a>
+    {{end}}
+</nav>
+{{end}}

@@ -1,0 +1,29 @@
+{{define "sitemap-index" -}}
+<?xml version="1.0" encoding="UTF-8"?>
+   <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+       <sitemap>
+           <loc>{{.Domain}}/sitemaps/core.xml</loc>
+       </sitemap>
+       <sitemap>
+           <loc>{{.Domain}}/sitemaps/holds.xml</loc>
+       </sitemap>
+       <sitemap>
+           <loc>{{.Domain}}/sitemaps/graph-els.xml</loc>
+       </sitemap>
+   </sitemapindex>
+   
+{{end}}
+
+{{define "sitemap" -}}
+<?xml version="1.0" encoding="UTF-8"?>
+
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    {{range .}}
+        <url>
+            <loc>{{.Loc}}</loc>
+            {{with .Lastmod}}<lastmod>{{.}}</lastmod>{{end}}
+            <priority>{{.Priority}}</priority>
+        </url>
+    {{end}}
+</urlset> 
+{{end}}

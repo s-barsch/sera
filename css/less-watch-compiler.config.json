@@ -1,0 +1,5 @@
+{
+    "watchFolder": ".",
+    "outputFolder": "dist",
+    "mainFile": "main.less"
+}

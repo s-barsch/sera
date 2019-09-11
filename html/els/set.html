@@ -1,0 +1,8 @@
+{{define "set"}}
+
+{{$lang := .Lang}}
+
+{{range $i, $e := .El.Els}}
+    {{template "el-set-child" (elArg $e false $lang)}}
+{{end}}
+{{end}}

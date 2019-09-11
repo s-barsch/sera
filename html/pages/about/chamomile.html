@@ -1,0 +1,18 @@
+{{define "chamomile"}}
+{{$lang := .}}
+{{$alt := ""}}
+{{$caption := ""}}
+{{if eq $lang "de"}}
+{{$alt = "Kamillenblüten und Kornblumen in einem Gerstenfeld."}}
+{{$caption = `Foto von <a href="https://commons.wikimedia.org/wiki/File:XN_Matricaria_recutita_00.jpg">Guido Gerding</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC&nbsp;BY&#8209;SA&nbsp;3.0</a>.`}}
+{{else}}
+{{$alt = "Chamomile and cornflowers in a field of barleycorn."}}
+{{$caption = `Photograph by <a href="https://commons.wikimedia.org/wiki/File:XN_Matricaria_recutita_00.jpg">Guido Gerding</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC&nbsp;BY&#8209;SA&nbsp;3.0</a>.`}}
+{{end}}
+<figure>
+    <img alt="{{$alt}}" class="about-image" src="/static/img/1280px-XN_Matricaria_recutita_00.jpg">
+    <figcaption class="about-image-desc">
+        {{$caption}}
+    </figcaption>
+</figure>
+{{end}}

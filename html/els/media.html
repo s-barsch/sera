@@ -1,0 +1,136 @@
+{{define "audio"}}
+{{$audio := .El}}
+{{$lang := .Lang}}
+<div>
+<audio src="{{.El.File.Location .Lang}}" controls>
+    {{range .El.Subtitles}}
+    <track label="{{langName .}}" srclang="{{.}}" kind="captions"
+    src="{{$audio.CaptionPath .}}"{{if and (ne $lang "de") (eq $lang .)}} default{{end}}>
+    {{end}}
+</audio>
+<p class="lines captions">
+</p>
+{{if (eq $lang "de")}}
+{{with .El.Info.Field "transcript" $lang}}
+<div class="el">
+    <br>
+<p class="lines">
+<span class="sc">Transkript:</span> {{.}}
+</p>
+</div>
+{{end}}
+{{end}}
+</div>
+{{end}}
+
+{{define "video"}}
+<figure>
+{{$vid := .El}}
+{{$lang := .Lang}}
+<video src="{{.El.File.Location .Lang}}" controls>
+    {{range .El.Subtitles}}
+    <track label="{{langName .}}" srclang="{{.}}" kind="subtitles"
+    src="{{$vid.SubtitlePath .}}"{{if and (ne $lang "de") (eq $lang .)}} default{{end}}>
+    {{end}}
+</video>
+</figure>
+{{end}}
+
+{{define "media-query-portrait"}}(orientation: landscape) 50vw, 100vw{{end}}
+{{define "media-query-landscape-old"}}((orientation: landscape) and (max-height: {{.Height 1280}}px)) {{.Width 1280}}px, 100vw{{end}}
+{{define "media-query-landscape"}}{{end}}
+
+{{define "image"}}
+  {{$lang := .Lang}}
+
+  <figure>
+  {{with .El}}
+
+    {{$alt := .Info.Alt $lang}}
+
+    <img
+      alt="{{$alt}}"
+      src="{{.ImagePath 1280 $lang}}"
+      srcset="{{.SrcSet 1280 $lang}}, {{.SrcSet 1600 $lang}}, {{.SrcSet 1920 $lang}}, {{.SrcSet 2560 $lang}}, {{.SrcSet 3200 $lang}}">
+
+    {{if eq .File.Hold.Section "graph"}}
+        <figcaption class="margin caption">
+            {{with .Info.Caption $lang}}
+            <div class="caption-text">
+            {{.}}
+            </div>
+            {{end}}
+            <!--
+            {{template "image-alt" (elArg . false $lang)}}
+            -->
+        </figcaption>
+    {{end}}
+
+  {{end}}
+  </figure>
+
+{{end}}
+
+{{define "image-alt"}}
+
+{{$lang := .Lang}}
+
+{{with .El.Info }}
+{{with .Alt $lang}}
+<div class="alt-text">
+    <a href="/alt-text/" target="_blank"rel="nofollow" class="altl alt-sign">
+        †
+    </a>
+    {{- .}}
+</div>
+{{end}}
+{{end}}
+
+{{end}}
+
+{{define "photo" -}}
+<figure>
+  <img srcset="{{.PhotoName "1280"}} 1280w, {{.PhotoName "1600"}} 1550w, {{.PhotoName "1920"}} 1920w, {{.PhotoName "2560"}} 2560w, {{.PhotoName "3200"}} 3200w" src="{{.PhotoName "1280"}}">
+</figure>
+{{- end}}
+
+{{define "image-old"}}
+{{$lang := .Lang}}
+{{with .El}}
+<figure>
+{{if eq .Ext ".svg"}}{{minifySvg (printf "%s" .Content)}}
+{{else if eq .Ext ".jpg"}}
+    <img {{with .Info.Alt $lang}}alt="{{.}}"{{end}}
+ sizes="{{if eq .Orientation "landscape"}}{{template "media-query-landscape" .}}{{else}}{{template "media-query-portrait"}}{{end}}"
+ srcset="{{.SrcSet 1280}}, {{.SrcSet 1600}}, {{.SrcSet 1920}}, {{.SrcSet 2560}}" src="{{.PhotoName 1280}}">
+{{$date := .DateFormat "02.01.2006"}}
+{{if eq (.Page $lang) "graph"}}
+{{with .Info }}
+<figcaption class="margin caption">
+    {{with .Title $lang}}<h1 class="image-title">{{.}}</h1>{{end}}
+    <div class="alt-text">{{.Alt $lang}}</div>
+    {{$date}}
+</figcaption>
+{{end}}
+{{end}}
+{{else}}
+<img src="{{.Path}}">
+{{end}}
+</figure>
+{{end}}
+{{end}}
+
+{{define "tmp-description"}}
+{{end}}
+
+{{define "audio-vtt"}}
+{{$lang := "de"}}
+video:<video controls style="background:black">
+    <source  src="{{.El.Location .Lang}}" type="audio/mpeg">
+    <track label="Deutsch" kind="descriptions" srclang="de"
+        src="/index/welt/pieta-341ec4f2/files/vtt/pieta-de.vtt">
+    <track label="English" kind="captions" srclang="en"
+        src="/index/welt/pieta-341ec4f2/files/vtt/pieta-en.vtt" default>
+</video>
+<br>
+{{end}}

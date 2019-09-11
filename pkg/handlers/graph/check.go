@@ -1,0 +1,38 @@
+package graph 
+
+import (
+	"log"
+	"net/http"
+	"st/pkg/el"
+	"st/pkg/head"
+	"st/pkg/server"
+)
+
+type graphSitemap struct {
+	Head *head.Head
+	Tree *el.Hold
+}
+
+func Check(s *server.Server, w http.ResponseWriter, r *http.Request) {
+	head := &head.Head{
+		Title:   "Check - Graph",
+		Section: "graph",
+		Path:    r.URL.Path,
+		Host:    r.Host,
+		El:      s.Trees["graph"],
+	}
+	err := head.Make()
+	if err != nil {
+		s.Log.Println(err)
+		return
+	}
+
+	err = s.ExecuteTemplate(w, "graph-check", &graphSitemap{
+		Head: head,
+		Tree: s.Trees["graph"],
+	})
+	if err != nil {
+		log.Println(err)
+	}
+	return
+}

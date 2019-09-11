@@ -1,0 +1,75 @@
+{{define "bot"}}
+
+<footer id="bot">
+  {{template "impressum" .}}
+</footer>
+
+{{template "javascript" .}}
+
+
+</body> 
+{{end}}
+
+{{define "impressum"}}
+<nav class="bot-nav margin">
+    {{if eq .Lang "de"}}
+        <a class="bnavl" rel="nofollow" href="/impressum/">Impressum</a>
+    {{else}}
+        <a class="bnavl" rel="nofollow" href="/legal/">Legal</a>
+    {{end}}
+    {{if isLocal}}
+        {{if eq .Lang "de"}}
+        <a class="bnavl" rel="nofollow" href="/datenschutz/">Datenschutz</a>
+        {{else}}
+        <a class="bnavl" rel="nofollow" href="/privacy/">Privacy</a>
+        {{end}}
+    {{end}}
+</nav>
+{{end}}
+
+{{define "javascript"}}
+    <script src="{{polyfillPath}}"></script>
+    <script src="/js/bundle.js?v={{var "jsmodtime" .Lang}}"></script>
+{{end}}
+
+
+
+
+
+
+{{define "bot-el"}}
+{{$lang := .Lang}}
+<div id="bot">
+<nav class="footer margin">
+  {{template "impressum" .}}
+</nav>
+</div>
+{{template "javascript"}}
+{{template "analytics" .}}
+</body> 
+{{end}}
+
+{{/* template "analytics" . */}}
+
+{{define "analytics"}}
+{{if eq .Lang "de"}}
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-16166443-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-16166443-3');
+</script>
+{{else}}
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-16166443-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-16166443-4');
+</script>
+{{end}}
+{{end}}
+

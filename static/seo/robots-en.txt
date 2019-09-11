@@ -1,0 +1,16 @@
+User-agent: ia_archiver
+Disallow: /
+
+User-agent: AhrefsBot 
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DomainCrawler
+Disallow: /
+
+Sitemap: https://en.stferal.com/sitemaps.xml

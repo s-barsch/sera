@@ -1,0 +1,81 @@
+{{define "subnav"}}
+  <nav id="subnav">
+    {{template "subnavs" .}}
+  </nav>
+{{end}}
+
+{{define "subnav-fixed"}}
+    <nav id="subnav-fixed" class="hide">
+        {{template "subnavs" .}}
+    </nav>
+{{end}}
+
+{{define "subnavs"}}
+    <div class="margin subnavs {{.Hold.Section}}-subnavs">
+        <div class="subnavs-steps">
+            {{template "subnav-recursive" (objArg .Hold .Lang)}}
+        </div>
+        <div class="last-subnav">
+            {{template "subnav-row" (snavArg .Hold .Current .Lang)}}
+        </div>
+    </div>
+{{end}}
+
+{{define "subnav-el"}}
+    <div class="margin snavs elnav">
+      <div>
+        {{template "subnav-recursive" (objArg .Hold .Lang)}}
+      </div>
+      <div class="last">
+        {{template "subnav-row" (snavArg .Hold .Current .Lang)}}
+      </div>
+    </div>
+{{end}}
+
+{{define "subnav-recursive"}}
+    {{$lang := .Lang}}
+    {{$current := .Obj.Info.Label $lang}}
+    {{with .Obj.Mother}}
+        {{if .Mother}}
+            {{template "subnav-recursive" (objArg . $lang)}}
+        {{end}}
+        {{template "subnav-row" (snavArg . $current $lang)}}
+    {{end}}
+{{end}}
+
+{{define "tmppark"}}
+{{end}}
+
+{{define "subnav-row"}}
+    {{$lang := .Lang}}
+    {{$current := .Current}}
+    {{$hold := .Hold}}
+    {{with .Hold.Subnav}}
+        <div class="subnav">
+            {{with .Label}}
+              {{index . $lang}}:&ensp;
+            {{end}}
+
+            {{range $i, $a := .Items -}}
+                {{- $isMonth := and (eq 1 .File.Hold.Depth) (eq "graph" .Section) -}}
+                {{if and (eq $i 0) $isMonth}}
+                <a class="topl" href="#">
+                &uarr;
+                </a>
+                {{- end -}}
+
+                {{- with $a -}}
+                    {{- $title := .Info.Label $lang -}}
+                    {{- if eq $title "" -}}
+                          {{- $title = .Date.Format "06" -}}
+                    {{- end -}}
+
+                    {{- " "}}<a class="snavl{{if eq $current $title}} active{{end}}"
+                    {{if $isMonth}}data-id={{.Date.Format "01"}}{{end}}
+                    href="{{.Permalink $lang}}">{{$title}}</a>
+                {{- end -}}
+            {{- end -}}
+        </div>
+    {{end}}
+{{end}}
+

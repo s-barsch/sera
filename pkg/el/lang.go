@@ -1,0 +1,6 @@
+package el
+
+var LangNames = map[string]string{
+	"de": "Deutsch",
+	"en": "English",
+}
