@@ -2,9 +2,9 @@ package graph
 
 import (
 	"net/http"
-	"st/pkg/handlers/extra"
-	"st/pkg/paths"
-	"st/pkg/server"
+	"stferal/pkg/handlers/extra"
+	"stferal/pkg/paths"
+	"stferal/pkg/server"
 	"strconv"
 )
 

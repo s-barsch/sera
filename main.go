@@ -2,7 +2,7 @@ package main
 
 import (
 	"net/http"
-	"st/pkg/server"
+	"stferal/pkg/server"
 )
 
 func main() {

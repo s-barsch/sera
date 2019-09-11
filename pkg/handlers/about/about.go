@@ -3,14 +3,14 @@ package about
 import (
 	"log"
 	"net/http"
-	"st/pkg/el"
-	"st/pkg/head"
-	"st/pkg/server"
+	"stferal/pkg/el"
+	"stferal/pkg/head"
+	"stferal/pkg/server"
 	/*
 		"strings"
 		"path/filepath"
-		"st/pkg/el"
-		"st/pkg/head"
+		"stferal/pkg/el"
+		"stferal/pkg/head"
 	*/)
 
 type aboutHold struct {

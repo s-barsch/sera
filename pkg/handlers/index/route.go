@@ -4,11 +4,11 @@ import (
 	"net/http"
 	"path/filepath"
 	"strings"
-	"st/pkg/el"
-	"st/pkg/handlers/extra"
-	"st/pkg/head"
-	"st/pkg/server"
-	"st/pkg/paths"
+	"stferal/pkg/el"
+	"stferal/pkg/handlers/extra"
+	"stferal/pkg/head"
+	"stferal/pkg/server"
+	"stferal/pkg/paths"
 )
 
 func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {

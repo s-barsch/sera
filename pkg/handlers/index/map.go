@@ -7,9 +7,9 @@ import (
 	"log"
 	"net/http"
 	"os/exec"
-	"st/pkg/el"
-	"st/pkg/head"
-	"st/pkg/server"
+	"stferal/pkg/el"
+	"stferal/pkg/head"
+	"stferal/pkg/server"
 )
 
 func MapDot(s *server.Server, w http.ResponseWriter, r *http.Request) {

@@ -2,8 +2,8 @@ package el
 
 import (
 	"github.com/grokify/html-strip-tags-go"
-	"st/pkg/el/hyph"
-	"st/pkg/el/parser"
+	"stferal/pkg/el/hyph"
+	"stferal/pkg/el/parser"
 )
 
 func markupLangs(langs map[string]string) (map[string]string, error) {

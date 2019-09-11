@@ -5,7 +5,7 @@ import (
 	"gopkg.in/yaml.v2"
 	"io"
 	"os"
-	"st/pkg/el/hyph"
+	"stferal/pkg/el/hyph"
 	//"io/ioutil"
 	"path/filepath"
 	"strings"

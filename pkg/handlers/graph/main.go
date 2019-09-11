@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"st/pkg/el"
-	"st/pkg/head"
-	"st/pkg/server"
+	"stferal/pkg/el"
+	"stferal/pkg/head"
+	"stferal/pkg/server"
 )
 
 type graphMain struct {

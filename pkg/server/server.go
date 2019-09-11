@@ -4,7 +4,7 @@ import (
 	"flag"
 	"log"
 	"os"
-	"st/pkg/el"
+	"stferal/pkg/el"
 	"text/template"
 )
 

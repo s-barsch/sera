@@ -5,9 +5,9 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
-	"st/pkg/el"
-	"st/pkg/paths"
-	"st/pkg/server"
+	"stferal/pkg/el"
+	"stferal/pkg/paths"
+	"stferal/pkg/server"
 )
 
 func Files(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Path) {

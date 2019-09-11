@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 	"path/filepath"
-	"st/pkg/el"
+	"stferal/pkg/el"
 	"strings"
 	"text/template"
 	"time"

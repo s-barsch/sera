@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"net/http"
 	"path/filepath"
-	"st/pkg/head"
-	"st/pkg/paths"
-	"st/pkg/server"
+	"stferal/pkg/head"
+	"stferal/pkg/paths"
+	"stferal/pkg/server"
 	"strings"
 	"time"
 )

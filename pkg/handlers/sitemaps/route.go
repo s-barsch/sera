@@ -2,7 +2,7 @@ package sitemaps
 
 import (
 	"net/http"
-	"st/pkg/server"
+	"stferal/pkg/server"
 )
 
 func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {

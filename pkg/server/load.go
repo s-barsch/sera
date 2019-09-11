@@ -1,7 +1,7 @@
 package server
 
 import (
-	"st/pkg/el"
+	"stferal/pkg/el"
 	"time"
 )
 

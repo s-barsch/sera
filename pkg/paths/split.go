@@ -1,7 +1,7 @@
 package paths
 
 import (
-	"st/pkg/el"
+	"stferal/pkg/el"
 	"strings"
 )
 

@@ -3,7 +3,7 @@ package extra
 import (
 	"log"
 	"net/http"
-	"st/pkg/server"
+	"stferal/pkg/server"
 	"strings"
 )
 

@@ -3,10 +3,10 @@ package index
 import (
 	"log"
 	"net/http"
-	"st/pkg/el"
-	"st/pkg/head"
-	"st/pkg/paths"
-	"st/pkg/server"
+	"stferal/pkg/el"
+	"stferal/pkg/head"
+	"stferal/pkg/paths"
+	"stferal/pkg/server"
 )
 
 type indexMain struct {

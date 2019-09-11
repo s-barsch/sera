@@ -3,13 +3,13 @@ package main
 import (
 	"github.com/gorilla/mux"
 	"net/http"
-	"st/pkg/handlers/about"
-	"st/pkg/handlers/extra"
-	"st/pkg/handlers/front"
-	"st/pkg/handlers/graph"
-	"st/pkg/handlers/index"
-	"st/pkg/handlers/sitemaps"
-	"st/pkg/server"
+	"stferal/pkg/handlers/about"
+	"stferal/pkg/handlers/extra"
+	"stferal/pkg/handlers/front"
+	"stferal/pkg/handlers/graph"
+	"stferal/pkg/handlers/index"
+	"stferal/pkg/handlers/sitemaps"
+	"stferal/pkg/server"
 )
 
 func routes(s *server.Server) *mux.Router {

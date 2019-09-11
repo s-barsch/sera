@@ -2,7 +2,7 @@ package server
 
 import (
 	//"fmt"
-	"st/pkg/el"
+	"stferal/pkg/el"
 )
 
 func findElement(els el.Els, acronym string) (interface{}, error) {

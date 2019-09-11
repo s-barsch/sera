@@ -2,7 +2,7 @@ package head
 
 import (
 	"fmt"
-	"st/pkg/el"
+	"stferal/pkg/el"
 )
 
 func Lang(host string) string {

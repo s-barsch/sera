@@ -2,10 +2,10 @@ package about
 
 import (
 	"net/http"
-	"st/pkg/el"
-	"st/pkg/head"
-	"st/pkg/paths"
-	"st/pkg/server"
+	"stferal/pkg/el"
+	"stferal/pkg/head"
+	"stferal/pkg/paths"
+	"stferal/pkg/server"
 )
 
 func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
