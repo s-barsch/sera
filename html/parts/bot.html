@@ -32,20 +32,3 @@
     <script src="/js/bundle.js?v={{varRaw "jsmodtime"}}"></script>
 {{end}}
 
-
-
-
-
-
-{{define "bot-el"}}
-{{$lang := .Lang}}
-<div id="bot">
-<nav class="footer margin">
-  {{template "impressum" .}}
-</nav>
-</div>
-{{template "javascript"}}
-{{template "analytics" .}}
-</body> 
-{{end}}
-
