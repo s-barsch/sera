@@ -29,7 +29,7 @@
 
 {{define "javascript"}}
     <script src="{{polyfillPath}}"></script>
-    <script src="/js/bundle.js?v={{var "jsmodtime" .Lang}}"></script>
+    <script src="/js/bundle.js?v={{varRaw "jsmodtime"}}"></script>
 {{end}}
 
 
