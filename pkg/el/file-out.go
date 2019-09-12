@@ -67,9 +67,3 @@ func (f *File) Rel() string {
 func (f *File) Section() string {
 	return strings.Split(f.Rel()[1:], "/")[0]
 }
-
-/*
-func (f *File) RelDir() string {
-	return filepath.Dir(f.Rel())
-}
-*/
