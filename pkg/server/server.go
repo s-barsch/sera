@@ -2,9 +2,11 @@ package server
 
 import (
 	"flag"
+	"io/ioutil"
 	"log"
 	"os"
 	"stferal/pkg/el"
+	"strings"
 	"text/template"
 )
 
@@ -52,6 +54,11 @@ func New() *Server {
 
 	s := &Server{}
 
+	p, err := readConfFile()
+	if err == nil {
+		*path = p
+	}
+
 	s.Paths = &paths{
 		Root: *path,
 		Data: *path + "/data",
@@ -78,6 +85,11 @@ func (s *Server) Debug(err error) {
 	if s.Flags.Debug {
 		s.Log.Println(err)
 	}
+}
+
+func readConfFile() (string, error) {
+	b, err := ioutil.ReadFile("/etc/stferal.conf")
+	return strings.TrimSpace(string(b)), err
 }
 
 /*
