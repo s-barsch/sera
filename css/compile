@@ -1,1 +1,0 @@
-lessc --clean-css ~/go/src/st/css/main.less ~/go/src/st/css/dist/main.css
