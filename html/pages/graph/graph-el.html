@@ -42,7 +42,7 @@
             <span class="graph-date">
                 {{.El.Date.Format "2. 1."}}
             </span>
-            <span class="el-title">
+            <span class="el-title{{if eq (.El.Info.Title .Head.Lang) ""}} acr-title{{end}}">
                 {{.El.Title .Head.Lang}}
             </span>
         </div>
