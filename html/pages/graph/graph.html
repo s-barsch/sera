@@ -34,7 +34,7 @@
         {{if eq $depth 0}}
             <!-- MAIN -->
             {{$lang := .Head.Lang}}
-            {{$months := (.Els.Offset 0 35).Months}} <!-- 25 -->
+            {{$months := (.Els.Offset 0 60).Months}} <!-- 25 -->
             {{range $i, $els := $months}}
             {{if $i}}
             <h2 class="month-title">
