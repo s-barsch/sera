@@ -137,7 +137,12 @@
             {{template "graph-date" (elArg .El false .Lang)}}
             {{.El.TextLang .Lang}}
         </article>
-
+    {{else if eq $type "audio"}}
+        <article>
+            {{template "edit-link" (elArg .El false .Lang)}}
+            {{template "graph-date" (elArg .El false .Lang)}}
+            {{template "el" .}}
+        <article>
     {{else}}
         didnt catch: "{{$type}}"
         {{.}}

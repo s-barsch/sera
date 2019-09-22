@@ -28,13 +28,13 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 
 	p := paths.Split(r.URL.Path)
 
-	if isTimePage(p.Acronym) {
-		Year(s, w, r, p)
+	if p.Type != "" {
+		extra.Files(s, w, r, p)
 		return
 	}
 
-	if p.Type != "" {
-		extra.Files(s, w, r, p)
+	if isTimePage(p.Acronym) {
+		Year(s, w, r, p)
 		return
 	}
 

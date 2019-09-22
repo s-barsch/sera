@@ -368,7 +368,7 @@ func checkTemplate() error {
 			return x + 1
 		},
 	}
-	t, err := template.New("").Funcs(fm).ParseGlob("/home/stef/go/src/st/pkg/el/parser/tags.html")
+	t, err := template.New("").Funcs(fm).ParseGlob("/home/stef/go/src/stferal/pkg/el/parser/tags.html")
 	if err != nil {
 		return err
 	}

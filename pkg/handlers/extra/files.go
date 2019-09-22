@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"path/filepath"
 	"stferal/pkg/el"
 	"stferal/pkg/paths"
 	"stferal/pkg/server"
+	"path/filepath"
 )
 
 func Files(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Path) {
@@ -19,6 +19,7 @@ func Files(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Pa
 		return
 	}
 
+
 	// What would be an example for this?
 	if p.Type == "files" {
 		f, err := el.ElFileSafe(eh)
@@ -27,15 +28,11 @@ func Files(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Pa
 			http.NotFound(w, r)
 			return
 		}
-		serveElFile(w, r, f.Path, p.Descriptor)
+		serveStatic(w, r, filepath.Join(f.Hold.File.Path, p.Descriptor))
 		return
 	}
 
 	serveCacheFile(w, r, eh, p.Descriptor)
-}
-
-func serveElFile(w http.ResponseWriter, r *http.Request, path, descriptor string) {
-	serveStatic(w, r, filepath.Join(path, descriptor))
 }
 
 func serveCacheFile(w http.ResponseWriter, r *http.Request, eh interface{}, descriptor string) {
@@ -47,8 +44,8 @@ func serveCacheFile(w http.ResponseWriter, r *http.Request, eh interface{}, desc
 	switch eh.(type) {
 	case *el.Image:
 		abs, err = eh.(*el.Image).ImageAbs(size), nil
-			case *el.Set:
-				abs, err = findSetFile(eh.(*el.Set), name, size)
+	case *el.Set:
+		abs, err = findSetFile(eh.(*el.Set), name, size)
 		/*
 			case *el.Hold:
 				abs, err = findHoldFile(eh.(*el.Hold), name, size)

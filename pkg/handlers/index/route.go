@@ -1,14 +1,14 @@
-package index 
+package index
 
 import (
 	"net/http"
 	"path/filepath"
-	"strings"
 	"stferal/pkg/el"
 	"stferal/pkg/handlers/extra"
 	"stferal/pkg/head"
-	"stferal/pkg/server"
 	"stferal/pkg/paths"
+	"stferal/pkg/server"
+	"strings"
 )
 
 func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
@@ -48,9 +48,8 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 
 	e, err := s.Trees["index"].LookupAcronym(p.Acronym)
 	if err != nil {
-		println(p.Name)
 		path := strings.TrimRight(r.URL.Path, "/")
-		http.Redirect(w, r, filepath.Dir(path) + "/", 301)
+		http.Redirect(w, r, filepath.Dir(path)+"/", 301)
 		return
 	}
 
@@ -66,10 +65,9 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	}
 	/*
 
-	serveIndexHoldOrEl(w, r, rp)
+		serveIndexHoldOrEl(w, r, rp)
 	*/
 }
-
 
 /*
 func serveIndexHoldOrEl(w http.ResponseWriter, r *http.Request, p *paths.Path) {

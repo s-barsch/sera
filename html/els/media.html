@@ -2,7 +2,7 @@
 {{$audio := .El}}
 {{$lang := .Lang}}
 <div>
-<audio src="{{.El.File.Location .Lang}}" controls>
+<audio src="{{.El.Path .Lang}}" controls>
     {{range .El.Subtitles}}
     <track label="{{langName .}}" srclang="{{.}}" kind="captions"
     src="{{$audio.CaptionPath .}}"{{if and (ne $lang "de") (eq $lang .)}} default{{end}}>

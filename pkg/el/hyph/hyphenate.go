@@ -89,7 +89,7 @@ var langs = map[string]*Patterns{}
 
 // TODO: create an object for this.
 func checkEngine() error {
-	var path = "/home/stef/go/src/st/pkg/el/hyph"
+	var path = "/home/stef/go/src/stferal/pkg/el/hyph"
 
 	if langs["en"] == nil {
 		f, err := os.Open(path + "/hyph-uk.dic")

@@ -20,6 +20,11 @@ func (a *Audio) Title(lang string) string {
 	return t
 }
 
+func (a *Audio) Path(lang string) string {
+	//return fmt.Sprintf("%v/files/%v", a.File.Hold.Path(lang), a.File.Base())
+	return fmt.Sprintf("%v/files/%v", a.Permalink(lang), a.File.Base())
+}
+
 func (a *Audio) Permalink(lang string) string {
 	if a.Info.Title(lang) == "" {
 		return fmt.Sprintf("%v/%v", a.File.Hold.Path(lang), ToB16(a.Date))
@@ -27,11 +32,11 @@ func (a *Audio) Permalink(lang string) string {
 	return fmt.Sprintf("%v/%v-%v", a.File.Hold.Path(lang), a.Info.Slug(lang), ToB16(a.Date))
 }
 
-func (v *Audio) CaptionPath(lang string) string {
+func (a *Audio) CaptionPath(lang string) string {
 	return fmt.Sprintf(
 		"%v/files/vtt/%v-%v.vtt",
-		v.File.Hold.Permalink(lang),
-		v.File.BaseNoExt(),
+		a.Permalink(lang),
+		a.File.BaseNoExt(),
 		lang,
 	)
 }
