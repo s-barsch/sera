@@ -202,6 +202,8 @@
 
     {{else if eq $type "video"}}
         {{template "video" (elArg . false $lang)}}
+    {{else if eq $type "audio"}}
+        {{template "audio" (elArg . false $lang)}}
     {{else}}
         Didn’t catch. Type: “{{$type}}”
         {{.}}
