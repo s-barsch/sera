@@ -35,6 +35,11 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 
 	p := paths.Split(path)
 
+	if p.Type != "" {
+		extra.Files(s, w, r, p)
+		return
+	}
+
 	if p.Acronym == "" {
 		h, err := s.Trees["index"].Search(p.Name, head.Lang(r.Host))
 		if err != nil {
@@ -48,6 +53,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 
 	e, err := s.Trees["index"].LookupAcronym(p.Acronym)
 	if err != nil {
+		println("hare")
 		path := strings.TrimRight(r.URL.Path, "/")
 		http.Redirect(w, r, filepath.Dir(path)+"/", 301)
 		return
@@ -59,10 +65,6 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if p.Type != "" {
-		extra.Files(s, w, r, p)
-		return
-	}
 	/*
 
 		serveIndexHoldOrEl(w, r, rp)

@@ -46,10 +46,8 @@ func serveCacheFile(w http.ResponseWriter, r *http.Request, eh interface{}, desc
 		abs, err = eh.(*el.Image).ImageAbs(size), nil
 	case *el.Set:
 		abs, err = findSetFile(eh.(*el.Set), name, size)
-		/*
-			case *el.Hold:
-				abs, err = findHoldFile(eh.(*el.Hold), name, size)
-		*/
+	case *el.Hold:
+		abs, err = findHoldFile(eh.(*el.Hold), name, size)
 	default:
 		err = fmt.Errorf("Cannot search cache file in #%v#. %v", el.Type(eh), eh)
 	}
@@ -63,7 +61,6 @@ func serveCacheFile(w http.ResponseWriter, r *http.Request, eh interface{}, desc
 	serveStatic(w, r, abs)
 }
 
-/*
 func findHoldFile(h *el.Hold, name, size string) (string, error) {
 		//if name == "cover.jpg" && set.Cover != nil {
 		//	return set.Cover.ImageAbs(size), nil
@@ -80,7 +77,6 @@ func findHoldFile(h *el.Hold, name, size string) (string, error) {
 
 	return "", fmt.Errorf("Could not find cache file (%v) in Hold (%v)", name, h)
 }
-*/
 
 func findSetFile(set *el.Set, name, size string) (string, error) {
 	if name == "cover.jpg" && set.Cover != nil {
