@@ -48,6 +48,9 @@ func (s *Server) TemplateFuncs() template.FuncMap {
 		"hyphen": func(str, lang string) (string, error) {
 			return "", fmt.Errorf("Template hyphen function currently not implemented.")
 		},
+		"normalize": func(str string) string {
+			return el.Normalize(str)
+		},
 		"executeTemplate": func(name string, data interface{}) string {
 			buf := &bytes.Buffer{}
 			if err := s.Templates.ExecuteTemplate(buf, name, data); err != nil {

@@ -8,7 +8,7 @@ import (
 
 var validSlug = regexp.MustCompile("[^a-z0-9-]+")
 
-func normalize(name string) string {
+func Normalize(name string) string {
 	name = strings.Replace(name, "⹀", "-", -1)
 	name = strings.Replace(name, " ", "-", -1)
 	name = strings.ToLower(name)

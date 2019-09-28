@@ -110,7 +110,7 @@ func (i Info) Slug(lang string) string {
 	if slug := i.Field("slug", lang); slug != "" {
 		return slug
 	}
-	return normalize(i.Title(lang))
+	return Normalize(i.Title(lang))
 }
 
 func (i Info) Label(lang string) string {

@@ -71,7 +71,7 @@
         <div class="index-date-top">
         {{template "index-date" .}}
         </div>
-        <div id="{{.El.AcronymShort}}">
+        <div id="{{normalize (.El.Title .Lang)}}">
         {{template "el" .}}
         </div>
         <div class="index-date-bot">

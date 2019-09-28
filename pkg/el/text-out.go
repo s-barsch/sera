@@ -29,8 +29,7 @@ func (t *Text) Permalink(lang string) string {
 	case "about":
 		return t.File.Hold.Permalink(lang)
 	case "index":
-		// TODO: Titles have no effect so far.
-		return fmt.Sprintf("%v#%v", t.File.Hold.Permalink(lang), t.AcronymShort())
+		return fmt.Sprintf("%v#%v", t.File.Hold.Permalink(lang), Normalize(t.Title(lang)))
 	case "graph":
 		if t.Info.Title(lang) == "" {
 			return fmt.Sprintf("%v/%v", t.File.Hold.Path(lang), ToB16(t.Date))
