@@ -81,11 +81,27 @@ text[font-family=x2] {
     margin-bottom:1.75rem;
 }
 
-.index-graph text:hover {
+.indexmap polygon {
+    fill: transparent;
+}
+
+.indexmap text:hover {
+    fill:@second-red;
+}
+
+.dark .indexmap text:hover {
     fill:@dark-red;
 }
 
-.index-map .index-graph {
+.dark .indexmap text {
+    fill:@dark-white;
+}
+
+.dark .indexmap path {
+    stroke: @dark-white;
+}
+
+.index-map .indexmap {
     display:block;
     margin:0 auto;
 }

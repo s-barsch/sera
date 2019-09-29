@@ -24,6 +24,10 @@
     fill: #000;
 }
 
+.dark .logol:hover path {
+    fill: @dark-white;
+}
+
 .logo-st {
     transform: translate(0.025rem);
 }
@@ -63,10 +67,8 @@
         transform: translate(0.0375rem);
     }
     .logo svg {
-        //margin:.5rem 0 .625rem;
         margin-bottom:-.5rem;
     }
-    // @media (min-width: @break-wide) {
 }
 
 .main-nav {
@@ -76,8 +78,12 @@
     color: #000;
     font-family: @cmut;
     font-size: @third-size;
-    padding: .25rem .375rem; /* 4px 6px */
+    padding: .25rem .375rem;
     margin-right: .875rem;
+}
+
+.dark .mnavl {
+    color:@dark-white;
 }
 
 a.mnavl:hover {
@@ -90,7 +96,15 @@ a.mnavl:hover {
 }
 
 .mnavl:hover {
-    color: @dark-red;
+    color: @second-red;
+}
+
+.mnavl:hover {
+    color: @prim-red;
+}
+
+.dark .mnavl:hover {
+    color:@dark-red;
 }
 
 .mnavl:first-child {
@@ -101,11 +115,23 @@ a.mnavl:hover {
     border-bottom:2px #000 solid;
 }
 
+.dark .mnavl.active {
+    border-color:@dark-white;
+}
+
 .lnavl {
-    color:#666;
+    color:@inactive-gray;
     margin-left:6px;
+}
+
+.dark .lnavl {
+    color:@inactive-gray;
 }
 
 .lnavl.active {
     color: #000;
+}
+
+.dark .lnavl.active {
+    color:@dark-white;
 }

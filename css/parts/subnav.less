@@ -14,7 +14,20 @@
     color: #000;
 }
 
+.dark .snavl.active {
+    color:@dark-white;
+}
+
+.dark .subnav:last-child .snavl {
+    color:@dark-white;
+}
+
+
 .subnav:last-child .active {
+    color: @second-red;
+}
+
+.dark .subnav:last-child .active {
     color: @dark-red;
 }
 
@@ -24,7 +37,11 @@
 }
 
 .last-subnav .subnav .snavl {
-    color: @linkColor;
+    color: @link-color;
+}
+
+.dark .last-subnav .subnav .snavl {
+    color: @dark-link-color;
 }
 
 .topl {
