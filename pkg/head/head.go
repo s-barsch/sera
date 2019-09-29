@@ -11,7 +11,7 @@ type Head struct {
 	Path    string
 	Host    string
 	Local   bool
-	Dark    bool
+	Night   bool
 	El      interface{}
 
 	Nav   Nav
@@ -59,8 +59,8 @@ func (h *Head) DontIndex() bool {
 	return false
 }
 
-func DarkMode(r *http.Request) bool {
-	c, err := r.Cookie("darkmode")
+func NightMode(r *http.Request) bool {
+	c, err := r.Cookie("nightmode")
 	if err != nil {
 		return false
 	}
