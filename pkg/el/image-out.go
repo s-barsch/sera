@@ -41,8 +41,11 @@ func (i *Image) RatioCode() string {
 		return "43h"
 	case "1.3":
 		return "43w"
+	case "1.4":
+		return "a4w"
 	case "0.7":
 		return "32h"
+		//return "a4h"
 	case "1.5":
 		return "32w"
 	case "0.6":
