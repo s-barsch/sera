@@ -23,7 +23,17 @@
         {{else}}
         <a class="bnavl" rel="nofollow" href="/privacy/">Privacy</a>
         {{end}}
+        {{if eq .Lang "de"}}
+            {{if .Dark}}
+            <a class="bnavl" rel="nofollow" href="/disable-darkmode/">Tagfarben</a>
+            {{else}}
+            <a class="bnavl" rel="nofollow" href="/enable-darkmode/">Nachtfarben</a>
+            {{end}}
+        {{else}}
+        <a class="bnavl" rel="nofollow" href="/enable-darkmode/">Night colors</a>
+        {{end}}
     {{end}}
+
 </nav>
 {{end}}
 

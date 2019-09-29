@@ -38,6 +38,9 @@ func routes(s *server.Server) *mux.Router {
 	r.PathPrefix("/datenschutz/").HandlerFunc(makeHandler(s, extra.Route))
 	r.PathPrefix("/privacy/").HandlerFunc(makeHandler(s, extra.Route))
 
+	r.PathPrefix("/enable-darkmode/").HandlerFunc(makeHandler(s, extra.EnableDarkMode))
+	r.PathPrefix("/disable-darkmode/").HandlerFunc(makeHandler(s, extra.DisableDarkMode))
+
 	r.HandleFunc("/index", extra.AddSlash)
 	r.HandleFunc("/graph", extra.AddSlash)
 	r.HandleFunc("/ueber", extra.AddSlash)

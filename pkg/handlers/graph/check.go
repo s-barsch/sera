@@ -20,6 +20,7 @@ func Check(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		Path:    r.URL.Path,
 		Host:    r.Host,
 		El:      s.Trees["graph"],
+		Dark:    head.DarkMode(r),
 	}
 	err := head.Make()
 	if err != nil {

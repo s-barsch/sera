@@ -2,6 +2,7 @@ package head
 
 import (
 	"fmt"
+	"net/http"
 )
 
 type Head struct {
@@ -10,6 +11,7 @@ type Head struct {
 	Path    string
 	Host    string
 	Local   bool
+	Dark    bool
 	El      interface{}
 
 	Nav   Nav
@@ -55,4 +57,12 @@ func (h *Head) DontIndex() bool {
 		return true
 	}
 	return false
+}
+
+func DarkMode(r *http.Request) bool {
+	c, err := r.Cookie("darkmode")
+	if err != nil {
+		return false
+	}
+	return c.Value == "true"
 }

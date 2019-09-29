@@ -58,6 +58,7 @@ func El(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Path)
 		Path:    r.URL.Path,
 		Host:    r.Host,
 		El:      e,
+		Dark:    head.DarkMode(r),
 	}
 	err = head.Make()
 	if err != nil {

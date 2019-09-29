@@ -22,6 +22,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		Host:    r.Host,
 		El:      nil,
 		Desc:    s.Vars.Lang("front", head.Lang(r.Host)),
+		Dark:    head.DarkMode(r),
 	}
 	err := head.Make()
 	if err != nil {
