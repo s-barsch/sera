@@ -23,14 +23,18 @@
         {{else}}
         <a class="bnavl" rel="nofollow" href="/privacy/">Privacy</a>
         {{end}}
-        {{if eq .Lang "de"}}
-            {{if .Dark}}
-            <a class="bnavl" rel="nofollow" href="/disable-darkmode/">Tagfarben</a>
-            {{else}}
-            <a class="bnavl" rel="nofollow" href="/enable-darkmode/">Nachtfarben</a>
-            {{end}}
+    {{end}}
+    {{if eq .Lang "de"}}
+        {{if .Dark}}
+        <a class="bnavl" rel="nofollow" href="/disable-darkmode/">Tagmodus</a>
         {{else}}
-        <a class="bnavl" rel="nofollow" href="/enable-darkmode/">Night colors</a>
+        <a class="bnavl" rel="nofollow" href="/enable-darkmode/">Nachtmodus</a>
+        {{end}}
+    {{else}}
+        {{if .Dark}}
+        <a class="bnavl" rel="nofollow" href="/disable-darkmode/">Day mode</a>
+        {{else}}
+        <a class="bnavl" rel="nofollow" href="/enable-darkmode/">Night mode</a>
         {{end}}
     {{end}}
 
