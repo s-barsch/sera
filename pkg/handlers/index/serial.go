@@ -1,4 +1,4 @@
-package index 
+package index
 
 import (
 	"log"
@@ -10,18 +10,18 @@ import (
 
 type indexSerial struct {
 	Head *head.Head
-	Els el.Els
+	Els  el.Els
 }
 
 func Serial(s *server.Server, w http.ResponseWriter, r *http.Request) {
-	h:= &head.Head{
+	h := &head.Head{
 		Title:   "Serial - Index",
 		Section: "index",
 		Path:    r.URL.Path,
 		Host:    r.Host,
 		El:      nil,
 		Desc:    s.Vars.Lang("serial", head.Lang(r.Host)),
-		Night:    head.NightMode(r),
+		Night:   head.NightMode(r),
 	}
 	err := h.Make()
 	if err != nil {
@@ -44,7 +44,7 @@ func Serial(s *server.Server, w http.ResponseWriter, r *http.Request) {
 
 	err = s.ExecuteTemplate(w, "index-serial", &indexSerial{
 		Head: h,
-		Els: s.Recents["index"],
+		Els:  s.Recents["index"],
 	})
 	if err != nil {
 		log.Println(err)

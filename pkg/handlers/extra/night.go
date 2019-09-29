@@ -10,7 +10,7 @@ func NightMode(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		Name:   "nightmode",
 		Value:  "true",
 		Path:   "/",
-		MaxAge: 60 * 60 * 24 * 365, 
+		MaxAge: 60 * 60 * 24 * 365,
 	})
 	ref := r.Referer()
 	if ref == "" {

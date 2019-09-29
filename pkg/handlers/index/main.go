@@ -1,4 +1,4 @@
-package index 
+package index
 
 import (
 	"log"
@@ -28,7 +28,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		Path:    path,
 		Host:    r.Host,
 		El:      s.Trees["index"],
-		Night:    head.NightMode(r),
+		Night:   head.NightMode(r),
 	}
 	err = head.Make()
 	if err != nil {

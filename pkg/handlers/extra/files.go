@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"path/filepath"
 	"stferal/pkg/el"
 	"stferal/pkg/paths"
 	"stferal/pkg/server"
-	"path/filepath"
 )
 
 func Files(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Path) {
@@ -18,7 +18,6 @@ func Files(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Pa
 		http.NotFound(w, r)
 		return
 	}
-
 
 	// What would be an example for this?
 	if p.Type == "files" {
@@ -62,9 +61,9 @@ func serveCacheFile(w http.ResponseWriter, r *http.Request, eh interface{}, desc
 }
 
 func findHoldFile(h *el.Hold, name, size string) (string, error) {
-		//if name == "cover.jpg" && set.Cover != nil {
-		//	return set.Cover.ImageAbs(size), nil
-		//}
+	//if name == "cover.jpg" && set.Cover != nil {
+	//	return set.Cover.ImageAbs(size), nil
+	//}
 
 	for _, e := range h.Els {
 		switch e.(type) {
@@ -94,4 +93,3 @@ func findSetFile(set *el.Set, name, size string) (string, error) {
 
 	return "", fmt.Errorf("Could not find cache file (%v) in Set (%v)", name, set)
 }
-

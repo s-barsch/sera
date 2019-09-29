@@ -1,4 +1,4 @@
-package index 
+package index
 
 import (
 	"bytes"
@@ -18,7 +18,6 @@ func MapDot(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 	}
 }
-
 
 func printMapDot(s *server.Server, w io.Writer, lang string) error {
 	return s.Templates.ExecuteTemplate(w, "map", struct {
@@ -65,4 +64,3 @@ func renderMap(s *server.Server, lang string, filetype string) ([]byte, error) {
 	}
 	return out, nil
 }
-

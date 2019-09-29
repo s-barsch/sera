@@ -43,7 +43,7 @@ func Year(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Pat
 		Path:    r.URL.Path,
 		Host:    r.Host,
 		El:      eh,
-		Night:    head.NightMode(r),
+		Night:   head.NightMode(r),
 	}
 	err = head.Make()
 	if err != nil {
