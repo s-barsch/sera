@@ -45,7 +45,7 @@ a:hover {
 }
 
 .night a:hover {
-    border-color:@night-red;
+    border-color:@night-prim-red;
 }
 
 .altl:hover,
@@ -65,6 +65,11 @@ a:hover {
 
 .images img:hover {
     opacity:.85;
+}
+
+.night .images img:hover {
+    opacity:1;
+    filter:brightness(1.15);
 }
 
 .tip {

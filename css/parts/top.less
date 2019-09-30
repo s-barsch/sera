@@ -1,17 +1,3 @@
-.night-nav {
-    display:inline-block;
-    position:absolute;
-    background:#000;
-    height:.75rem;
-    width:.75rem;
-    top:.375rem;
-    display:none;
-}
-
-.night .night-nav {
-    background:@night-white;
-}
-
 .lang-nav {
     text-align:right;
     padding-top:.25rem;
@@ -31,7 +17,12 @@
 }
 
 .logo path  {
-    fill:#da0000;
+    //fill:#da0000;
+    fill:@logo-red;
+}
+
+.night .logo path {
+    fill:@night-logo-red;
 }
 
 .logol:hover path {
@@ -113,12 +104,8 @@ a.mnavl:hover {
     color: @second-red;
 }
 
-.mnavl:hover {
-    color: @prim-red;
-}
-
 .night .mnavl:hover {
-    color:@night-red;
+    color:@night-second-red;
 }
 
 .mnavl:first-child {
@@ -139,7 +126,7 @@ a.mnavl:hover {
 }
 
 .night .lnavl {
-    color:@inactive-gray;
+    color:@night-inactive-gray;
 }
 
 .lnavl.active {
