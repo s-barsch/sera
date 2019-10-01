@@ -1,6 +1,7 @@
 package el
 
 import (
+	"strings"
 	"bufio"
 	"bytes"
 	"fmt"
@@ -49,7 +50,12 @@ func NewSingleText(path string, hold *Hold) (*Text, error) {
 
 	delete(parts, "info")
 
-	html, err := markupLangs(parts)
+	style := "lines"
+	if info["style"] != "" {
+		style = strings.TrimSpace(info["style"])
+	}
+
+	html, err := markupLangs(parts, style)
 	if err != nil {
 		return nil, err
 	}

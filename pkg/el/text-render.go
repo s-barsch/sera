@@ -6,10 +6,10 @@ import (
 	"stferal/pkg/el/parser"
 )
 
-func markupLangs(langs map[string]string) (map[string]string, error) {
+func markupLangs(langs map[string]string, paragraphstyle string) (map[string]string, error) {
 	html := map[string]string{}
 	for lang, text := range langs {
-		h, err := parser.MarkupText(text, "lines")
+		h, err := parser.MarkupText(text, paragraphstyle)
 		if err != nil {
 			return nil, err
 		}

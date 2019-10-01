@@ -22,7 +22,8 @@ func NewMultiText(path string, hold *Hold) (*Text, error) {
 		return nil, err
 	}
 
-	html, err := markupLangs(langs)
+	// TODO: Undetermined paragraph style.
+	html, err := markupLangs(langs, "lines")
 	if err != nil {
 		return nil, err
 	}

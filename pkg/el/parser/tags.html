@@ -42,4 +42,18 @@
 {{end}}
 {{end}}
 
+{{define "text-indent"}}
+{{range .Lines}}
+{{template "p-indent-html" .}}
+{{end}}
+{{with .Notes}}
+<div class="footnotes">
+{{$multi := gt (len .) 1}}
+{{range $i, $n := .}}
+<div class="note">{{if $multi}}<span class="note-number">{{plus1 $i}}</span> {{end}}{{$n}}</div>
+{{end}}
+</div>
+{{end}}
+{{end}}
+
 {{define "html-link"}}<a href="{{.Href}}">{{.Name}}</a>{{end}}
