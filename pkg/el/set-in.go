@@ -149,15 +149,6 @@ func (a SetDesc) Len() int           { return len(a) }
 func (a SetDesc) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 func (a SetDesc) Less(i, j int) bool { return a[i].File.Id > a[j].File.Id }
 
-/*
-func getHidden(hidden string) bool {
-	if hidden == "true" {
-		return true
-	}
-	return false
-}
-*/
-
 func sortPath(path string) string {
 	return filepath.Join(path, "/.sort")
 }

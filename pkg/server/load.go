@@ -58,7 +58,7 @@ func (s *Server) LoadData() error {
 	}
 
 	recents := map[string]el.Els{}
-	recents["index"] = trees["index"].TraverseEls().Desc().NoHidden()
+	recents["index"] = trees["index"].TraverseEls().Desc().Exclude()
 	recents["graph"] = trees["graph"].TraverseElsReverse()
 
 	s.Trees = trees

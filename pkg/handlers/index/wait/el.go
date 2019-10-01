@@ -99,25 +99,3 @@ func getActivePage(path, lang string) string {
 	}
 	return "index"
 }
-
-/*
-func getComparePosition() int {
-	compare := -1
-	if v["acronym"] != "" {
-		for i, e := range s.Els {
-			if e.Type == "text" && e.HasLang("en") {
-				compare = i
-			}
-		}
-	}
-}
-*/
-
-/*
-func isPrivate(state string) bool {
-	if state == "live" || state == "hidden" {
-		return false
-	}
-	return true
-}
-*/

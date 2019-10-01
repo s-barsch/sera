@@ -37,19 +37,6 @@ func (els Els) Year(year int) Els {
 	return nl
 }
 
-/*
-func (els Els) Public() Els {
-	nl := Els{}
-	for _, e := range els {
-		// if state := State(e); state != "draft" && state != "hidden" {
-		if State(e) == "live" {
-			nl = append(nl, e)
-		}
-	}
-	return nl
-}
-*/
-
 func (els Els) Offset(start, end int) Els {
 	l := len(els)
 	if l < start {
@@ -239,10 +226,11 @@ func (els Els) DayOrder() Els {
 	return nl
 }
 
-func (els Els) NoHidden() Els {
+func (els Els) Exclude() Els {
 	l := Els{}
 	for _, e := range els {
-		if InfoSafe(e)["hidden"] == "true" {
+		i := InfoSafe(e)
+		if i["hidden"] == "true" || i["exclude"] == "true" {
 			continue
 		}
 		l = append(l, e)

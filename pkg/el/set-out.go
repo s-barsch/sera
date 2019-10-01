@@ -28,17 +28,6 @@ func (s *Set) Permalink(lang string) string {
 	return fmt.Sprintf("%v/%v-%v", s.File.Hold.Path(lang), s.Info.Slug(lang), s.Acronym())
 }
 
-func (sets Sets) Public() Sets {
-	nl := Sets{}
-	for _, s := range sets {
-		//if s.State != "draft" && s.State != "hidden" {
-		if s.Info.State() == "live" {
-			nl = append(nl, s)
-		}
-	}
-	return nl
-}
-
 func (sets Sets) Limit(n int) Sets {
 	if len(sets) <= n {
 		return sets
