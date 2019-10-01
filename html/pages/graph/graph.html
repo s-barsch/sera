@@ -216,7 +216,7 @@
 {{define "graph-date"}}
 <header class="graph-date">
     <a class="" href="{{.El.Permalink .Lang}}">
-      {{.El.Date.Format "2. 1."}}
+        {{.El.Date.Format "2<span class=\"ddot\">.</span> 1<span class=\"ddot\">.</span>"}}
     </a>
 </header>
 {{end}}
