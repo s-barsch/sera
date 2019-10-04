@@ -21,7 +21,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		Path:    "/",
 		Host:    r.Host,
 		El:      nil,
-		Desc:    s.Vars.Lang("front", head.Lang(r.Host)),
+		Desc:    s.Vars.Lang("site", head.Lang(r.Host)),
 		Night:   head.NightMode(r),
 	}
 	err := head.Make()

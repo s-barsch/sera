@@ -4,7 +4,7 @@
     <title>{{.PageTitle}}</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="{{if .Night}}#000000{{else}}#ffffff{{end}}">
 
 {{with .Schema}}
 {{template "schema" .}}
@@ -19,7 +19,7 @@
 {{end}}
 
 {{template "icons"}}
-<link rel="manifest" href="/manifest-{{$lang}}.webmanifest">
+<link rel="manifest" href="/manifest{{if .Night}}-night{{end}}.json">
 
 {{range $i, $l := .Langs}}
     {{with $l}}

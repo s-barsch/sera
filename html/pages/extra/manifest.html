@@ -1,11 +1,13 @@
+{{define "manifest" -}}
+{{$bgColor := "#ffffff"}}{{if .Night}}{{$bgColor = "#111111"}}{{end -}}
 {
   "name": "Stef Feral",
   "short_name": "Stef Feral",
   "display": "standalone",
   "start_url": "/",
-  "background_color": "#ffffff",
-  "theme_color": "#ffffff",
-  "description": "Stef Feral is a German-speaking artist and thinker.",
+  "background_color": "{{$bgColor}}",
+  "theme_color": "{{$bgColor}}",
+  "description": "{{.Desc}}",
   "icons": [
       {
           "src": "/static/img/icons/android-chrome-192x192.png",
@@ -24,3 +26,4 @@
       }
   ]
 }
+{{- end}}
