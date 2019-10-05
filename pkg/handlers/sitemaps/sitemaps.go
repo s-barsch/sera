@@ -222,7 +222,7 @@ func elEntries(s *server.Server, page, lang string) ([]*Entry, error) {
 
 func absoluteURL(path, lang string) string {
 	if lang == "en" {
-		return fmt.Sprintf("https://en.stferal.com/%v", path)
+		return fmt.Sprintf("https://en.stferal.com%v", path)
 	}
-	return fmt.Sprintf("https://stferal.com/%v", path)
+	return fmt.Sprintf("https://stferal.com%v", path)
 }
