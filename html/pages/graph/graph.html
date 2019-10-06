@@ -197,7 +197,9 @@
         <article class="graph-text">
             {{template "edit-link" (elArg . false $lang)}}
             {{template "graph-date" (elArg . false $lang)}}
+            <div>
             {{.TextLang $lang}}
+            </div>
         </article>
 
     {{else if eq $type "video"}}

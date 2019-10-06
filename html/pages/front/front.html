@@ -135,7 +135,9 @@
         <article class="graph-text">
             {{template "edit-link" (elArg .El false .Lang)}}
             {{template "graph-date" (elArg .El false .Lang)}}
+            <div>
             {{.El.TextLang .Lang}}
+            </div>
         </article>
     {{else if eq $type "audio"}}
         <article>
