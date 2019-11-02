@@ -41,40 +41,6 @@
     transform: translate(-0.025rem);
 }
 
-.media-mixin(@break) when (@break = @break-single) {
-    .logo-st {
-        //transform: translate(-0.03rem);
-        transform: translate(-0.0375rem);
-    }
-
-    .logo-feral{
-        //transform: translate(0.03rem);
-        transform: translate(0.0375rem);
-    }
-
-    .logo svg {
-        // height:1.75rem; original size
-        /*
-        height:1.9rem;
-        height:1.85rem;
-        */
-        height:1.75rem;
-    }
-    //@media (min-width: @break-single) {
-}
-
-.media-mixin(@break) when (@break = @break-wide) {
-    .logo-st {
-        transform: translate(-0.0375rem);
-    }
-
-    .logo-feral{
-        transform: translate(0.0375rem);
-    }
-    .logo svg {
-        margin-bottom:-.5rem;
-    }
-}
 
 .main-nav {
 }
@@ -139,12 +105,50 @@ a.mnavl:hover {
 
 .nightl {
     vertical-align:middle;
-    margin-left:.5rem;
+    margin-left:.375rem;
     color:#000;
-    line-height:18px;
-    font-size:18px;
+    line-height:1.125rem;
+    font-size:1.125rem;
 }
 
 .night .nightl {
     color:#fff;
+}
+
+.media-mixin(@break) when (@break = @break-single) {
+    .nightl {
+        margin-left:.5rem;
+    }
+    .logo-st {
+        //transform: translate(-0.03rem);
+        transform: translate(-0.0375rem);
+    }
+
+    .logo-feral{
+        //transform: translate(0.03rem);
+        transform: translate(0.0375rem);
+    }
+
+    .logo svg {
+        // height:1.75rem; original size
+        /*
+        height:1.9rem;
+        height:1.85rem;
+        */
+        height:1.75rem;
+    }
+    //@media (min-width: @break-single) {
+}
+
+.media-mixin(@break) when (@break = @break-wide) {
+    .logo-st {
+        transform: translate(-0.0375rem);
+    }
+
+    .logo-feral{
+        transform: translate(0.0375rem);
+    }
+    .logo svg {
+        margin-bottom:-.5rem;
+    }
 }

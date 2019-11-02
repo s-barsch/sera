@@ -18,7 +18,10 @@
         </h4>
     </div>
     {{else}}
-        <h1 class="hold-title">
+    <h1 class="hold-title l{{.Hold.Depth}}">
+        {{if eq .Hold.Depth 1}}
+        <span class="fleuron">❧</span>
+        {{end}}
             {{.Hold.Info.Field "title-hyph" .Head.Lang}}
         </h1>
     {{end}}
