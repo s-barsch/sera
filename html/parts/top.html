@@ -24,7 +24,7 @@
   {{range .Langs}}
       <a class="lnavl{{if eq .Name $lang}} active{{end}}" href="{{.Href}}">{{langName .Name}}</a>
   {{end}}
-  <a href="{{.NightLink .Lang}}" title="{{.NightLinkTitle .Lang}}" class="lnavl nightl">◨</a>
+  <a href="{{.NightLink .Lang}}" title="{{.NightLinkTitle .Lang}}" rel="nofollow" class="lnavl nightl">◨</a>
 </nav>
 {{end}}
 
