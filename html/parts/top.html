@@ -1,7 +1,7 @@
 {{define "top"}}
 <body {{if .Head.Night}}class="night"{{end}}>
 <header id="top" class="margin">
-{{template "lang-nav" (objArg .Head.Langs .Head.Lang)}}
+{{template "lang-nav" .Head}}
 {{template "logo" .}}
 {{template "nav" .Head.Nav}}
 </header>
@@ -21,9 +21,10 @@
 {{define "lang-nav"}}
 <nav id="lang" class="lang-nav">
   {{$lang := .Lang}}
-  {{range .Obj}}
+  {{range .Langs}}
       <a class="lnavl{{if eq .Name $lang}} active{{end}}" href="{{.Href}}">{{langName .Name}}</a>
   {{end}}
+  <a href="{{.NightLink .Lang}}" title="{{.NightLinkTitle .Lang}}" class="lnavl nightl">◨</a>
 </nav>
 {{end}}
 

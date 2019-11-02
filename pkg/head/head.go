@@ -22,6 +22,40 @@ type Head struct {
 	Schema *Schema
 }
 
+func (h *Head) NightLinkTitle(lang string) string {
+	switch lang {
+	case "en":
+		if h.Night {
+			return "Switch to Day mode"
+		} else {
+			return "Switch to Night mode"
+		}
+	default:
+		if h.Night {
+			return "Wechsle zu Tagmodus"
+		} else {
+			return "Wechsle zu Nachtmodus"
+		}
+	}
+}
+
+func (h *Head) NightLink(lang string) string {
+	switch lang {
+	case "en":
+		if h.Night {
+			return "/daymode/"
+		} else {
+			return "/nightmode/"
+		}
+	default:
+		if h.Night {
+			return "/tagmodus/"
+		} else {
+			return "/nachtmodus/"
+		}
+	}
+}
+
 func (h *Head) Make() error {
 	// can check for missing entries?
 	h.Lang = Lang(h.Host)
