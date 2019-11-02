@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"path/filepath"
+	//"path/filepath"
 	"stferal/pkg/el"
 	"stferal/pkg/paths"
 	"stferal/pkg/server"
@@ -20,6 +20,7 @@ func Files(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Pa
 	}
 
 	// What would be an example for this?
+	/*
 	if p.Type == "files" {
 		f, err := el.ElFileSafe(eh)
 		if err != nil {
@@ -30,6 +31,7 @@ func Files(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Pa
 		serveStatic(w, r, filepath.Join(f.Hold.File.Path, p.Descriptor))
 		return
 	}
+	*/
 
 	serveCacheFile(w, r, eh, p.Descriptor)
 }
@@ -39,6 +41,7 @@ func serveCacheFile(w http.ResponseWriter, r *http.Request, eh interface{}, desc
 
 	var abs string
 	var err error
+
 
 	switch eh.(type) {
 	case *el.Image:
@@ -87,6 +90,14 @@ func findSetFile(set *el.Set, name, size string) (string, error) {
 		case *el.Image:
 			if e.(*el.Image).File.Base() == name {
 				return e.(*el.Image).ImageAbs(size), nil
+			}
+		case *el.Audio:
+			if e.(*el.Audio).File.Base() == name {
+				return e.(*el.Audio).File.Path, nil
+			}
+		case *el.Video:
+			if e.(*el.Video).File.Base() == name {
+				return e.(*el.Video).File.Path, nil
 			}
 		}
 	}
