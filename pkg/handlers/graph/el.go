@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"stferal/pkg/el"
+	"stferal/pkg/entry"
 	"stferal/pkg/head"
 	"stferal/pkg/paths"
 	"stferal/pkg/server"
@@ -13,7 +13,7 @@ import (
 type graphEl struct {
 	Head   *head.Head
 	El     interface{}
-	Parent *el.Hold
+	Parent *entry.Hold
 	Prev   interface{}
 	Next   interface{}
 }
@@ -25,7 +25,7 @@ func El(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Path)
 		return
 	}
 
-	perma := el.Permalink(e, head.Lang(r.Host))
+	perma := entry.Permalink(e, head.Lang(r.Host))
 	if r.URL.Path != perma {
 		http.Redirect(w, r, perma, 301)
 		return
@@ -38,7 +38,7 @@ func El(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Path)
 		return
 	}
 
-	parent, err := el.ElHold(e)
+	parent, err := entry.ElHold(e)
 	if err != nil {
 		http.NotFound(w, r)
 		s.Log.Println(err)
@@ -86,15 +86,15 @@ func El(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Path)
 }
 
 func titleDate(e interface{}, lang string) (string, error) {
-	d, err := el.DateSafe(e)
+	d, err := entry.DateSafe(e)
 	if err != nil {
 		return "", err
 	}
-	return fmt.Sprintf(d.Format("2 %v 2006"), el.MonthLang(d, lang)), nil
+	return fmt.Sprintf(d.Format("2 %v 2006"), entry.MonthLang(d, lang)), nil
 }
 
 func elTitle(e interface{}, lang string) (string, error) {
-	title := el.Title(e, lang)
+	title := entry.Title(e, lang)
 
 	date, err := titleDate(e, lang)
 	if err != nil {
@@ -104,8 +104,8 @@ func elTitle(e interface{}, lang string) (string, error) {
 	return fmt.Sprintf("%v - %v", title, date), nil
 }
 
-func getPrevNext(els el.Els, acronym string) (prev, next interface{}, Err error) {
-	id, err := el.DecodeAcronym(acronym)
+func getPrevNext(els entry.Els, acronym string) (prev, next interface{}, Err error) {
+	id, err := entry.DecodeAcronym(acronym)
 	if err != nil {
 		Err = err
 		return

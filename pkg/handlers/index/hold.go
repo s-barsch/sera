@@ -3,17 +3,17 @@ package index
 import (
 	"log"
 	"net/http"
-	"stferal/pkg/el"
+	"stferal/pkg/entry"
 	"stferal/pkg/head"
 	"stferal/pkg/server"
 )
 
 type holdPage struct {
 	Head *head.Head
-	Hold *el.Hold
+	Hold *entry.Hold
 }
 
-func Hold(s *server.Server, w http.ResponseWriter, r *http.Request, hold *el.Hold) {
+func Hold(s *server.Server, w http.ResponseWriter, r *http.Request, hold *entry.Hold) {
 	if perma := hold.Permalink(head.Lang(r.Host)); r.URL.Path != perma {
 		http.Redirect(w, r, perma, 301)
 		return
@@ -41,7 +41,7 @@ func Hold(s *server.Server, w http.ResponseWriter, r *http.Request, hold *el.Hol
 	}
 }
 
-func holdTitle(hold *el.Hold, lang string) string {
+func holdTitle(hold *entry.Hold, lang string) string {
 	title := hold.Info.Title(lang)
 
 	c := hold.Chain(lang)

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"stferal/pkg/el"
+	"stferal/pkg/entry"
 	"stferal/pkg/head"
 	"stferal/pkg/server"
 	"time"
@@ -90,12 +90,12 @@ func GraphEls(s *server.Server, w http.ResponseWriter, r *http.Request) {
 func coreEntries(s *server.Server, lang string) ([]*Entry, error) {
 	entries := []*Entry{}
 
-	tIndex, err := el.DateSafe(s.Recents["index"][0])
+	tIndex, err := entry.DateSafe(s.Recents["index"][0])
 	if err != nil {
 		return nil, err
 	}
 
-	tGraph, err := el.DateSafe(s.Recents["graph"][0])
+	tGraph, err := entry.DateSafe(s.Recents["graph"][0])
 	if err != nil {
 		return nil, err
 	}
@@ -131,7 +131,7 @@ func coreEntries(s *server.Server, lang string) ([]*Entry, error) {
 
 func categoryEntries(s *server.Server, lang string) []*Entry {
 	entries := []*Entry{}
-	trees := []*el.Hold{
+	trees := []*entry.Hold{
 		s.Trees["graph"],
 		s.Trees["index"],
 	}
@@ -185,7 +185,7 @@ func indexHolds(s *server.Server, lang string) []*Entry {
 func elEntries(s *server.Server, page, lang string) ([]*Entry, error) {
 	entries := []*Entry{}
 
-	els := el.Els{}
+	els := entry.Els{}
 	prio := ""
 
 	if page == "graph" {
@@ -197,14 +197,14 @@ func elEntries(s *server.Server, page, lang string) ([]*Entry, error) {
 	}
 
 	for _, e := range els {
-		file, err := el.ElFileSafe(e)
+		file, err := entry.ElFileSafe(e)
 		if err != nil {
 			log.Println("sitemaps: els TODO")
 			log.Println(err)
 			continue
 			return nil, err
 		}
-		path, err := el.PermalinkSafe(e, lang)
+		path, err := entry.PermalinkSafe(e, lang)
 		if err != nil {
 			log.Println("sitemaps: els TODO")
 			log.Println(err)

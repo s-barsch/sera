@@ -2,19 +2,19 @@ package server
 
 import (
 	//"fmt"
-	"stferal/pkg/el"
+	"stferal/pkg/entry"
 )
 
-func findElement(els el.Els, acronym string) (interface{}, error) {
-	id, err := el.DecodeAcronym(acronym)
+func findElement(els entry.Els, acronym string) (interface{}, error) {
+	id, err := entry.DecodeAcronym(acronym)
 	if err != nil {
 		return nil, err
 	}
 	return els.Lookup(id)
 }
 
-func findSet(sets el.Sets, acronym string) (*el.Set, error) {
-	id, err := el.DecodeAcronym(acronym)
+func findSet(sets entry.Sets, acronym string) (*entry.Set, error) {
+	id, err := entry.DecodeAcronym(acronym)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func (s *Server) lookupAcronymMulti(page, acronym string) (interface{}, error) {
 
 /*
 func (s *Server) LookupAcronym(section, acronym string) (interface{}, error) {
-	tree := &el.Hold{}
+	tree := &entry.Hold{}
 	switch page {
 	case "index":
 		tree = s.Trees["index"]

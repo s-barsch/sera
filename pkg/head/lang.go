@@ -2,7 +2,7 @@ package head
 
 import (
 	"fmt"
-	"stferal/pkg/el"
+	"stferal/pkg/entry"
 )
 
 func Lang(host string) string {
@@ -30,7 +30,7 @@ func (h *Head) MakeLangs() Langs {
 	for _, lang := range []string{"de", "en"} {
 		langs = append(langs, &Link{
 			Name: lang,
-			Href: h.AbsoluteURL(el.Permalink(h.El, lang), lang),
+			Href: h.AbsoluteURL(entry.Permalink(h.El, lang), lang),
 		})
 	}
 	return langs

@@ -7,7 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os/exec"
-	"stferal/pkg/el"
+	"stferal/pkg/entry"
 	"stferal/pkg/head"
 	"stferal/pkg/server"
 )
@@ -22,7 +22,7 @@ func MapDot(s *server.Server, w http.ResponseWriter, r *http.Request) {
 func printMapDot(s *server.Server, w io.Writer, lang string) error {
 	return s.Templates.ExecuteTemplate(w, "map", struct {
 		Lang string
-		Tree *el.Hold
+		Tree *entry.Hold
 	}{
 		Lang: lang,
 		Tree: s.Trees["index"],

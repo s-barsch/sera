@@ -1,7 +1,7 @@
 package server
 
 import (
-	"stferal/pkg/el"
+	"stferal/pkg/entry"
 	"time"
 )
 
@@ -47,17 +47,17 @@ func (s *Server) LoadData() error {
 		"extra",
 	}
 
-	trees := map[string]*el.Hold{}
+	trees := map[string]*entry.Hold{}
 
 	for _, section := range sections {
-		t, err := el.ReadHold(s.Paths.Data+"/"+section, nil)
+		t, err := entry.ReadHold(s.Paths.Data+"/"+section, nil)
 		if err != nil {
 			return err
 		}
 		trees[section] = t
 	}
 
-	recents := map[string]el.Els{}
+	recents := map[string]entry.Els{}
 	recents["index"] = trees["index"].TraverseEls().Desc().Exclude()
 	recents["graph"] = trees["graph"].TraverseElsReverse()
 

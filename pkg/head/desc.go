@@ -1,7 +1,7 @@
 package head
 
 import (
-	"stferal/pkg/el"
+	"stferal/pkg/entry"
 	"strings"
 )
 
@@ -10,7 +10,7 @@ func (h *Head) GetDesc() string {
 		return h.Desc
 	}
 
-	d := el.InfoSafe(h.El).Field("description", h.Lang)
+	d := entry.InfoSafe(h.El).Field("description", h.Lang)
 	if d != "" {
 		return d
 	}
@@ -24,11 +24,11 @@ func (h *Head) GetDesc() string {
 
 func (h *Head) MakeElDesc() string {
 	desc := ""
-	switch el.Type(h.El) {
+	switch entry.Type(h.El) {
 	case "image":
-		desc = h.El.(*el.Image).Info.Alt(h.Lang)
+		desc = h.El.(*entry.Image).Info.Alt(h.Lang)
 	case "text":
-		desc = h.El.(*el.Text).MetaDesc(h.Lang)
+		desc = h.El.(*entry.Text).MetaDesc(h.Lang)
 	}
 	return strings.TrimSpace(desc)
 }

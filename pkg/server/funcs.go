@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 	"path/filepath"
-	"stferal/pkg/el"
+	"stferal/pkg/entry"
 	"strings"
 	"text/template"
 	"time"
@@ -23,19 +23,19 @@ type elArg struct {
 }
 
 type elsArg struct {
-	Els  el.Els
+	Els  entry.Els
 	Lazy bool
 	Lang string
 }
 
 type holdArg struct {
-	Hold *el.Hold
+	Hold *entry.Hold
 	Lazy bool
 	Lang string
 }
 
 type subNavArg struct {
-	Hold    *el.Hold
+	Hold    *entry.Hold
 	Current string
 	Lang    string
 }
@@ -49,7 +49,7 @@ func (s *Server) TemplateFuncs() template.FuncMap {
 			return "", fmt.Errorf("Template hyphen function currently not implemented.")
 		},
 		"normalize": func(str string) string {
-			return el.Normalize(str)
+			return entry.Normalize(str)
 		},
 		"executeTemplate": func(name string, data interface{}) string {
 			buf := &bytes.Buffer{}
@@ -68,7 +68,7 @@ func (s *Server) TemplateFuncs() template.FuncMap {
 		"add": func(a, b int) int {
 			return a + b
 		},
-		"lastEl": func(els el.Els) interface{} {
+		"lastEl": func(els entry.Els) interface{} {
 			if len(els) <= 0 {
 				return nil
 			}
@@ -89,7 +89,7 @@ func (s *Server) TemplateFuncs() template.FuncMap {
 			return s.Flags.Local
 		},
 		"langName": func(lang string) string {
-			return el.LangNames[lang]
+			return entry.LangNames[lang]
 		},
 		"filepathDir": filepath.Dir,
 		"title":       strings.Title,
@@ -97,7 +97,7 @@ func (s *Server) TemplateFuncs() template.FuncMap {
 		"tolower":     strings.ToLower,
 		"esc":         template.HTMLEscapeString,
 		"render":      s.RenderTemplate,
-		"snavArg": func(hold *el.Hold, current, lang string) *subNavArg {
+		"snavArg": func(hold *entry.Hold, current, lang string) *subNavArg {
 			return &subNavArg{
 				Hold:    hold,
 				Current: current,
@@ -116,7 +116,7 @@ func (s *Server) TemplateFuncs() template.FuncMap {
 		"iso8601": func(date time.Time) string {
 			return date.Format(time.RFC3339)
 		},
-		"holdArg": func(h *el.Hold, lazy bool, lang string) *holdArg {
+		"holdArg": func(h *entry.Hold, lazy bool, lang string) *holdArg {
 			return &holdArg{
 				Hold: h,
 				Lazy: lazy,
@@ -130,7 +130,7 @@ func (s *Server) TemplateFuncs() template.FuncMap {
 				Lang: lang,
 			}
 		},
-		"elsArg": func(els el.Els, lazy bool, lang string) *elsArg {
+		"elsArg": func(els entry.Els, lazy bool, lang string) *elsArg {
 			return &elsArg{
 				Els:  els,
 				Lazy: lazy,
@@ -143,7 +143,7 @@ func (s *Server) TemplateFuncs() template.FuncMap {
 				Lang: lang,
 			}
 		},
-		"elType":    el.Type,
+		"elType":    entry.Type,
 		"minifySvg": minifySVG,
 	}
 }

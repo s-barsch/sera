@@ -3,14 +3,14 @@ package index
 import (
 	"log"
 	"net/http"
-	"stferal/pkg/el"
+	"stferal/pkg/entry"
 	"stferal/pkg/head"
 	"stferal/pkg/server"
 )
 
 type indexSerial struct {
 	Head *head.Head
-	Els  el.Els
+	Els  entry.Els
 }
 
 func Serial(s *server.Server, w http.ResponseWriter, r *http.Request) {

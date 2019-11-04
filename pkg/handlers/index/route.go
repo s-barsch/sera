@@ -3,7 +3,7 @@ package index
 import (
 	"net/http"
 	"path/filepath"
-	"stferal/pkg/el"
+	"stferal/pkg/entry"
 	"stferal/pkg/handlers/extra"
 	"stferal/pkg/head"
 	"stferal/pkg/paths"
@@ -59,7 +59,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	h, ok := e.(*el.Hold)
+	h, ok := e.(*entry.Hold)
 	if ok {
 		Hold(s, w, r, h)
 		return
@@ -84,7 +84,7 @@ func serveIndexHoldOrEl(w http.ResponseWriter, r *http.Request, p *paths.Path) {
 
 	// Hold
 	if treeType(x) == "hold" {
-		serveIndexHold(w, r, x.(*el.Hold))
+		serveIndexHold(w, r, x.(*entry.Hold))
 		return
 	}
 
@@ -97,7 +97,7 @@ func serveIndexHoldOrEl(w http.ResponseWriter, r *http.Request, p *paths.Path) {
 
 func treeType(x interface{}) string {
 	switch x.(type) {
-	case *el.Hold:
+	case *entry.Hold:
 		return "hold"
 	default:
 		return "el"

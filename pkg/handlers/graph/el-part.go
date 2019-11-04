@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"stferal/pkg/el"
+	"stferal/pkg/entry"
 	"stferal/pkg/head"
 	"stferal/pkg/paths"
 	"stferal/pkg/server"
@@ -40,7 +40,7 @@ func ElPart(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	parent, err := el.ElHold(e)
+	parent, err := entry.ElHold(e)
 	if err != nil {
 		http.NotFound(w, r)
 		s.Log.Println(err)
@@ -86,11 +86,11 @@ func ElPart(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	enc := json.NewEncoder(w)
 	err = enc.Encode(&graphPart{
 		Title:  graphEl.Head.PageTitle(),
-		URL:    el.Permalink(e, lang),
+		URL:    entry.Permalink(e, lang),
 		Html:   html.String(),
-		Prev:   el.Permalink(prev, lang),
-		Next:   el.Permalink(next, lang),
-		Parent: el.Permalink(graphEl.Parent, lang),
+		Prev:   entry.Permalink(prev, lang),
+		Next:   entry.Permalink(next, lang),
+		Parent: entry.Permalink(graphEl.Parent, lang),
 		// TODO: sketchy.
 		Langs: map[string]string{
 			"de": head.Langs.Hreflang("de").Href,

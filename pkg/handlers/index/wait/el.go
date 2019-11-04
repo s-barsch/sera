@@ -13,7 +13,7 @@ type emblemPage struct {
 
 	Lang string
 
-	Arg el.Arg
+	Arg entry.Arg
 
 	Compare int
 }
@@ -33,22 +33,22 @@ func serveIndexEl(w http.ResponseWriter, r *http.Request, page, acronym string) 
 		page = "über"
 	}
 
-	perma := el.Permalink(e, lang)
+	perma := entry.Permalink(e, lang)
 	if r.URL.Path != perma {
 		http.Redirect(w, r, perma, 301)
 		return
 	}
 
-	title := el.Title(e, lang)
+	title := entry.Title(e, lang)
 
 	if title == "" {
-		date, err := el.DateSafe(e)
+		date, err := entry.DateSafe(e)
 		if err == nil {
-			title = el.EncodeAcronym(date)
+			title = entry.EncodeAcronym(date)
 		}
 	}
 
-	f, err := el.ElFileSafe(e)
+	f, err := entry.ElFileSafe(e)
 	if err != nil {
 		log.Println(err)
 		http.NotFound(w, r)
@@ -77,7 +77,7 @@ func serveIndexEl(w http.ResponseWriter, r *http.Request, page, acronym string) 
 		Lang:    lang,
 		Compare: -1,
 
-		Arg: el.Arg{
+		Arg: entry.Arg{
 			El:   e,
 			Lang: lang,
 		},

@@ -3,19 +3,19 @@ package about
 import (
 	"log"
 	"net/http"
-	"stferal/pkg/el"
+	"stferal/pkg/entry"
 	"stferal/pkg/head"
 	"stferal/pkg/server"
 	/*
 		"strings"
 		"path/filepath"
-		"stferal/pkg/el"
+		"stferal/pkg/entry"
 		"stferal/pkg/head"
 	*/)
 
 type aboutHold struct {
 	Head *head.Head
-	Hold *el.Hold
+	Hold *entry.Hold
 }
 
 var aboutName = map[string]string{
@@ -23,7 +23,7 @@ var aboutName = map[string]string{
 	"en": "about",
 }
 
-func Hold(s *server.Server, w http.ResponseWriter, r *http.Request, hold *el.Hold) {
+func Hold(s *server.Server, w http.ResponseWriter, r *http.Request, hold *entry.Hold) {
 	if perma := hold.Permalink(head.Lang(r.Host)); r.URL.Path != perma {
 		http.Redirect(w, r, perma, 301)
 		return

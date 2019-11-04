@@ -3,7 +3,7 @@ package index
 import (
 	"log"
 	"net/http"
-	"stferal/pkg/el"
+	"stferal/pkg/entry"
 	"stferal/pkg/head"
 	"stferal/pkg/paths"
 	"stferal/pkg/server"
@@ -11,8 +11,8 @@ import (
 
 type indexMain struct {
 	Head    *head.Head
-	Hold    *el.Hold
-	Recents el.Els
+	Hold    *entry.Hold
+	Recents entry.Els
 }
 
 func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {

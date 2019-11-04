@@ -1,7 +1,7 @@
 package paths
 
 import (
-	"stferal/pkg/el"
+	"stferal/pkg/entry"
 	"strings"
 )
 
@@ -50,7 +50,7 @@ func splitName(str string) (name, acronym string) {
 	//TODO: Function doesn’t discern between “innen-aussen” and “form-a9faad9”.
 	i := strings.LastIndex(str, "-")
 	if i < 0 {
-		_, err := el.DecodeAcronym(str)
+		_, err := entry.DecodeAcronym(str)
 		if err != nil {
 			return str, ""
 		}
@@ -60,7 +60,7 @@ func splitName(str string) (name, acronym string) {
 
 	acronym = str[i+1:]
 
-	_, err := el.DecodeAcronym(acronym)
+	_, err := entry.DecodeAcronym(acronym)
 	if err != nil {
 		return str, ""
 	}
@@ -70,7 +70,7 @@ func splitName(str string) (name, acronym string) {
 
 func decodeDirName(str string) (name, acronym string) {
 	// case: /index/34188329 or /index/art/
-	_, err := el.DecodeAcronym(str)
+	_, err := entry.DecodeAcronym(str)
 	if err == nil {
 		return "", str
 	}

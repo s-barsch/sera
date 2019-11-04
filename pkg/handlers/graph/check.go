@@ -3,14 +3,14 @@ package graph
 import (
 	"log"
 	"net/http"
-	"stferal/pkg/el"
+	"stferal/pkg/entry"
 	"stferal/pkg/head"
 	"stferal/pkg/server"
 )
 
 type graphSitemap struct {
 	Head *head.Head
-	Tree *el.Hold
+	Tree *entry.Hold
 }
 
 func Check(s *server.Server, w http.ResponseWriter, r *http.Request) {

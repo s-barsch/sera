@@ -4,17 +4,17 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"stferal/pkg/el"
+	"stferal/pkg/entry"
 	"stferal/pkg/head"
 	"stferal/pkg/server"
 )
 
 type graphMain struct {
 	Head *head.Head
-	Hold *el.Hold
-	Els  el.Els
-	Prev *el.Hold
-	Next *el.Hold
+	Hold *entry.Hold
+	Els  entry.Els
+	Prev *entry.Hold
+	Next *entry.Hold
 }
 
 func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
@@ -49,14 +49,14 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func lastHold(hold *el.Hold) *el.Hold {
+func lastHold(hold *entry.Hold) *entry.Hold {
 	if len(hold.Holds) < 1 {
 		return nil
 	}
 	return hold.Holds.Reverse()[0]
 }
 
-func yearSiblings(h *el.Hold) (prev, next *el.Hold, err error) {
+func yearSiblings(h *entry.Hold) (prev, next *entry.Hold, err error) {
 	if h == nil {
 		err = fmt.Errorf("yearSiblings: Hold is nil.")
 		return

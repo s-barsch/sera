@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
-	"stferal/pkg/el"
+	"stferal/pkg/entry"
 	"strings"
 	"text/template"
 )
@@ -15,8 +15,8 @@ type Server struct {
 	Flags *flags
 	Log   *log.Logger
 
-	Trees   map[string]*el.Hold
-	Recents map[string]el.Els
+	Trees   map[string]*entry.Hold
+	Recents map[string]entry.Els
 
 	Templates *template.Template
 	Vars      vars
@@ -119,13 +119,13 @@ type server struct {
 
 	flags *flags
 
-	indexRecent el.Els
-	graphRecent el.Els
+	indexRecent entry.Els
+	graphRecent entry.Els
 
-	indexTree *el.Hold
-	graphTree *el.Hold
-	aboutTree *el.Hold
-	extraTree *el.Hold
+	indexTree *entry.Hold
+	graphTree *entry.Hold
+	aboutTree *entry.Hold
+	extraTree *entry.Hold
 
 	vars map[string]string
 

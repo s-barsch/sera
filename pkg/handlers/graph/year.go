@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"stferal/pkg/el"
+	"stferal/pkg/entry"
 	"stferal/pkg/head"
 	"stferal/pkg/paths"
 	"stferal/pkg/server"
@@ -24,7 +24,7 @@ func Year(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Pat
 		s.Log.Println(err)
 		return
 	}
-	h, ok := eh.(*el.Hold)
+	h, ok := eh.(*entry.Hold)
 	if !ok {
 		http.NotFound(w, r)
 		return
@@ -85,10 +85,10 @@ func getTimestamp(p *paths.Path) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return t.Format(el.Timestamp), nil
+	return t.Format(entry.Timestamp), nil
 }
 
-func yearTitle(h *el.Hold, lang string) string {
+func yearTitle(h *entry.Hold, lang string) string {
 	title := h.Info.Title(lang)
 	if h.Depth() == 1 {
 		title += " - Graph"

@@ -2,7 +2,7 @@ package about
 
 import (
 	"net/http"
-	"stferal/pkg/el"
+	"stferal/pkg/entry"
 	"stferal/pkg/head"
 	"stferal/pkg/paths"
 	"stferal/pkg/server"
@@ -38,7 +38,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	Hold(s, w, r, hold)
 }
 
-func findHold(s *server.Server, lang string, p *paths.Path) (*el.Hold, error) {
+func findHold(s *server.Server, lang string, p *paths.Path) (*entry.Hold, error) {
 	hold, err := s.Trees["about"].Search(p.Name, lang)
 	if err == nil {
 		return hold, nil
@@ -47,7 +47,7 @@ func findHold(s *server.Server, lang string, p *paths.Path) (*el.Hold, error) {
 	if p.Acronym != "" {
 		hold, err := s.Trees["about"].LookupAcronym(p.Acronym)
 		if err == nil {
-			return hold.(*el.Hold), nil
+			return hold.(*entry.Hold), nil
 		}
 		return nil, err
 	}

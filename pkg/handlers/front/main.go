@@ -3,15 +3,15 @@ package front
 import (
 	"log"
 	"net/http"
-	"stferal/pkg/el"
+	"stferal/pkg/entry"
 	"stferal/pkg/head"
 	"stferal/pkg/server"
 )
 
 type frontMain struct {
 	Head  *head.Head
-	Index el.Els
-	Graph el.Els
+	Index entry.Els
+	Graph entry.Els
 }
 
 func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {

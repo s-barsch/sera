@@ -3,7 +3,7 @@ package extra
 import (
 	"log"
 	"net/http"
-	"stferal/pkg/el"
+	"stferal/pkg/entry"
 	"stferal/pkg/head"
 	"stferal/pkg/paths"
 	"stferal/pkg/server"
@@ -12,7 +12,7 @@ import (
 
 type extraHold struct {
 	Head *head.Head
-	Hold *el.Hold
+	Hold *entry.Hold
 }
 
 func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
@@ -34,7 +34,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	Extra(s, w, r, h)
 }
 
-func Extra(s *server.Server, w http.ResponseWriter, r *http.Request, h *el.Hold) {
+func Extra(s *server.Server, w http.ResponseWriter, r *http.Request, h *entry.Hold) {
 	if perma := h.Permalink(head.Lang(r.Host)); r.URL.Path != perma {
 		http.Redirect(w, r, perma, 301)
 		return

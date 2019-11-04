@@ -1,7 +1,7 @@
 package head
 
 import (
-	"stferal/pkg/el"
+	"stferal/pkg/entry"
 	"time"
 )
 
@@ -17,26 +17,26 @@ type Schema struct {
 	Host string
 
 	Description string
-	// Image *el.Image
+	// Image *entry.Image
 	// Location
 }
 
 func (h *Head) ElSchema() (*Schema, error) {
-	date, err := el.DateSafe(h.El)
+	date, err := entry.DateSafe(h.El)
 	if err != nil {
 		return nil, err
 	}
 
 	typ := schemaType(h.El)
 
-	perma, err := el.PermalinkSafe(h.El, h.Lang)
+	perma, err := entry.PermalinkSafe(h.El, h.Lang)
 	if err != nil {
 		return nil, err
 	}
 
 	url := h.AbsoluteURL(perma, h.Lang)
 
-	mod, err := el.ModTimeSafe(h.El)
+	mod, err := entry.ModTimeSafe(h.El)
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +59,7 @@ func (h *Head) ElSchema() (*Schema, error) {
 }
 
 func schemaType(e interface{}) string {
-	if el.Type(e) == "image" {
+	if entry.Type(e) == "image" {
 		return "image"
 	}
 	return "article"
