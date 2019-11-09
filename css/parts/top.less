@@ -75,7 +75,7 @@ a.mnavl:hover {
 }
 
 .mnavl:first-child {
-    margin-left:-6px;
+    margin-left:-.375rem;
 }
 
 .mnavl.active {
@@ -88,7 +88,7 @@ a.mnavl:hover {
 
 .lnavl {
     color:@inactive-gray;
-    margin-left:6px;
+    margin-left:.375rem;
 }
 
 .night .lnavl {
@@ -105,7 +105,8 @@ a.mnavl:hover {
 
 .nightl {
     vertical-align:middle;
-    margin-left:.375rem;
+    //margin-left:.375rem;
+    margin:0;
     color:#000;
     line-height:1.125rem;
     font-size:1.125rem;
@@ -117,7 +118,7 @@ a.mnavl:hover {
 
 .media-mixin(@break) when (@break = @break-single) {
     .nightl {
-        margin-left:.5rem;
+        //margin-left:.5rem;
     }
     .logo-st {
         //transform: translate(-0.03rem);
