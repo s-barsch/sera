@@ -21,7 +21,15 @@ let stInit = page => {
 document.addEventListener("DOMContentLoaded", function() {
     initText();
     initAudio();
+    initLargeFont();
     if (typeof pageVars !== "undefined") {
         stInit(pageVars);
     }
 });
+
+let initLargeFont = () => {
+    document.getElementById("large-type").addEventListener("click", evt => {
+        evt.preventDefault();
+        document.body.classList.toggle("large");
+    })
+}

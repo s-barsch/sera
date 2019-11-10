@@ -1,8 +1,12 @@
 .front-lead {
-    font-size: 1.10625rem;
+    font-size: @third-size;
     margin:.75rem 0 1rem;
     text-align:justify;
     letter-spacing:.0075rem;
+}
+
+.large .front-lead {
+    font-size: @large-third-size;
 }
 
 .front-sep {
@@ -65,32 +69,29 @@
 
 .graph-date,
 .topic-front {
-    font-size:1.045rem;
-}
-
-.graph-date {
-    font-size:1rem;
-}
-
-.topic-front,
-.graph-date {
     font-family: @alegreya-sc;
-    line-height:1.6625rem;
-    //font-size:17px;
-    //line-height:1.5rem;
-    //margin-bottom:.125rem;
-    margin-bottom:.25rem;
-    //visibility:hidden;
+    line-height:1.6;
+    font-size:@meta-size;
+    //margin-bottom:.25rem;
+}
+
+.graph-date {
+    font-size:@date-size;
+}
+
+.large .graph-date,
+.large .topic-front {
+    font-size:@large-meta-size;
+}
+
+.large .graph-date {
+    font-size:@large-date-size;
 }
 
 .night .topic-front a {
     color:@night-link-color;
 }
-/*
-.topic-front a {
-    color:#000;
-}
-*/
+
 
 .topicl,
 .graph-datel {
