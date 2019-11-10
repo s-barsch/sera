@@ -15,8 +15,6 @@ import (
 func routes(s *server.Server) *mux.Router {
 	r := mux.NewRouter()
 
-	r.HandleFunc("/rl/", makeHandler(s, extra.Reload))
-
 	if s.Flags.Reload {
 		r.Use(makeMiddleware(s, extra.ConstantReload))
 	}
@@ -48,6 +46,8 @@ func routes(s *server.Server) *mux.Router {
 	r.HandleFunc("/ueber", extra.AddSlash)
 	r.HandleFunc("/about", extra.AddSlash)
 	r.HandleFunc("/impressum", extra.AddSlash)
+
+	r.HandleFunc("/rl/", makeHandler(s, extra.Reload))
 
 	r.PathPrefix("/static/").HandlerFunc(makeHandler(s, extra.StaticFiles))
 	r.PathPrefix("/js/").HandlerFunc(makeHandler(s, extra.JSFiles))
