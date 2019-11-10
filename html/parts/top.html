@@ -1,5 +1,5 @@
 {{define "top"}}
-<body class="large" {{if .Head.Night}}class="night"{{end}}>
+<body {{if .Head.Night}}class="night"{{end}}>
 <header id="top" class="margin">
 {{template "lang-nav" .Head}}
 {{template "logo" .}}
