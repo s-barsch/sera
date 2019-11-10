@@ -33,24 +33,3 @@
 <style>{{varRaw "css"}}</style>
 <script>document.documentElement.classList.remove("no-js")</script>
 {{end}}
-
-{{define "head-old" -}}
-<!DOCTYPE html>
-<html class="no-js" lang="en">
-<title>{{.}}{{if .}} - {{end}}Stef Feral</title>
-<script>document.documentElement.classList.remove("no-js")</script>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width">
-<link rel="icon" sizes="192x192" href="/static/favicon.png">
-
-<script>var vars;</script>
-<style type="text/css">{{template "css"}}</style>
-{{end}}
-
-{{define "icons"}}
-<link rel="icon" type="image/png" sizes="32x32" href="/static/img/icons/favicon-32x32.png?v=121">
-<link rel="icon" type="image/png" sizes="16x16" href="/static/img/icons/favicon-16x16.png?v=121">
-<link rel="shortcut icon" href="/static/img/icons/favicon.ico?v=121">
-<link rel="apple-touch-icon" sizes="180x180" href="/static/img/icons/apple-touch-icon.png?v=121">
-<link rel="mask-icon" href="/static/img/icons/safari-pinned-tab.svg?v=121" color="#5bbad5">
-{{end}}
