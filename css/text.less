@@ -35,18 +35,6 @@ ul {
     letter-spacing:.08rem;
 }
 
-/*
-.notel {
-    color: #000;
-}
-*/
-
-/*
-.notel:hover {
-    color: @second-red;
-}
-*/
-
 .footnotes {
     display:none;
 }
@@ -66,8 +54,13 @@ ul {
     text-align:justify;
 }
 
+.large .indent,
+.large .lines {
+    max-width:32rem;
+}
+
 .indent {
-    text-indent:1.125rem;
+    text-indent:1.5rem;
 }
 
 .indent:first-child {
@@ -84,14 +77,11 @@ ul {
 
 
 .sc {
-    //font-family: @ebg-sc;
-    //padding:0 .08rem;
     font-family:@ebg-sc;
     text-transform:lowercase;
     padding-right:.1rem;
     letter-spacing:.01rem;
     font-feature-settings:"smcp" 1;
-    //font-variant:all-small-caps;
 }
 
 mark.sc {

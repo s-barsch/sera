@@ -79,7 +79,7 @@
     <div id="top-link" class="hide">
             <!--
             <img src="/static/img/uarr.svg" alt="↑"
-            --->
+            -->
         <a class="topl-corner uarr" href="#">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14.76 17.96" height="67.88" width="55.786"><path d="M7.38 0L0 10.087v.001h3.834v7.872h7.092v-7.872h3.833z" fill="#002f74"/></svg>
         </a>
@@ -171,7 +171,6 @@
 {{end}}
 
 {{define "graph-main-el"}}
-
   {{$lang := .Lang}}
   {{$lazy := .Lazy}}
   {{$type := elType .El}}
@@ -195,11 +194,15 @@
     {{else if eq $type "text"}}
 
         <article class="graph-text">
+            <!-- to omit missing translations -->
+            {{$text := .TextLang $lang}}
+            {{if $text}}
             {{template "edit-link" (elArg . false $lang)}}
             {{template "graph-date" (elArg . false $lang)}}
             <div>
-            {{.TextLang $lang}}
+                {{$text}}
             </div>
+            {{end}}
         </article>
 
     {{else if eq $type "video"}}

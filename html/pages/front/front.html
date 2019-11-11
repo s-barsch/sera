@@ -132,13 +132,17 @@
 
     {{else if eq $type "text"}}
 
-        <article class="graph-text">
-            {{template "edit-link" (elArg .El false .Lang)}}
-            {{template "graph-date" (elArg .El false .Lang)}}
-            <div>
-            {{.El.TextLang .Lang}}
-            </div>
-        </article>
+        <!-- to omit missing translations -->
+        {{$text := .El.TextLang .Lang}}
+        {{if $text}}
+            <article class="graph-text">
+                    {{template "edit-link" (elArg .El false .Lang)}}
+                    {{template "graph-date" (elArg .El false .Lang)}}
+                    <div>
+                        {{$text}}
+                    </div>
+            </article>
+        {{end}}
     {{else if eq $type "audio"}}
         <article>
             {{template "edit-link" (elArg .El false .Lang)}}
