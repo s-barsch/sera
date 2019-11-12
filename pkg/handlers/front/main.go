@@ -15,6 +15,8 @@ type frontMain struct {
 }
 
 func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
+	lang := head.Lang(r.Host)
+
 	head := &head.Head{
 		Title:   "",
 		Section: "home",
@@ -30,12 +32,29 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	index := s.Recents["index"].Offset(0, 100)
+	graph := s.Recents["graph"].Offset(0, 100)
+
 	err = s.ExecuteTemplate(w, "front", &frontMain{
 		Head:  head,
-		Index: s.Recents["index"],
-		Graph: s.Recents["graph"],
+		Index: deleteEmpty(index, lang),
+		Graph: deleteEmpty(graph, lang),
 	})
 	if err != nil {
 		log.Println(err)
 	}
+}
+
+// Temporary workaround
+func deleteEmpty(entries entry.Els, lang string) entry.Els {
+	clean := entry.Els{}
+	for _, e := range entries {
+		if entry.Type(e) == "text" {
+			if e.(*entry.Text).Text[lang] == "" {
+				continue
+			}
+		}
+		clean = append(clean, e)
+	}
+	return clean
 }
