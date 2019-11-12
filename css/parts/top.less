@@ -1,20 +1,42 @@
 .lang-nav {
     text-align:right;
     padding-top:.25rem;
-    //margin-bottom:1.125em;
-    font-size: 1rem;
+    font-size: @base-size;
 }
 
-.night-mode {
+.large .lang-nav {
+    font-size:@large-base-size;
+}
+
+.leftnav {
     float:left;
+}
+
+.leftnav a {
+    vertical-align:middle;
     color:#000;
 }
 
-.night .night-mode {
+#large-type {
+    font-family:Inter;
+    font-weight:500;
+}
+
+.small-t {
+    font-size:65%;
+    font-weight:675;
+    margin-left:-1.5px;
+}
+
+.night-mode {
+    color:#000;
+}
+
+.night .leftnav a {
     color:@night-white;
 }
 
-.night-mode:hover {
+.leftnav a:hover {
     color:@second-red;
     border:none;
 }
@@ -155,7 +177,7 @@ a.mnavl:hover {
     }
 
     .large .logo svg {
-        height:1.9375rem;
+        height:2rem;
     }
 
 

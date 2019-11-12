@@ -21,7 +21,10 @@
 {{define "lang-nav"}}
 <nav id="lang" class="lang-nav">
   {{$lang := .Lang}}
+  <span class="leftnav">
   <a href="{{.NightLink .Lang}}" class="night-mode" title="{{.NightLinkTitle .Lang}}" rel="nofollow" class="lnavl nightl">◧</a>
+  <a id="large-type" href="#" style="" class="lnavl">T<span class="small-t">T</span></a>
+  </span>
   {{range .Langs}}
       <a class="lnavl{{if eq .Name $lang}} active{{end}}" href="{{.Href}}">{{langName .Name}}</a>
   {{end}}
