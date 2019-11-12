@@ -12,6 +12,7 @@ type Head struct {
 	Host    string
 	Local   bool
 	Night   bool
+	Large   bool
 	El      interface{}
 
 	Nav   Nav
@@ -20,6 +21,23 @@ type Head struct {
 
 	Desc   string
 	Schema *Schema
+}
+
+func (h *Head) TypeModeTitle(lang string) string {
+	switch lang {
+	case "en":
+		if h.Night {
+			return "Switch to Default type mode"
+		} else {
+			return "Switch to Large type mode"
+		}
+	default:
+		if h.Night {
+			return "Wechsle zum Großschrift-Modus"
+		} else {
+			return "Wechsle zum Standardschrift-Modus"
+		}
+	}
 }
 
 func (h *Head) NightLinkTitle(lang string) string {
@@ -35,6 +53,23 @@ func (h *Head) NightLinkTitle(lang string) string {
 			return "Wechsle zu Tagmodus"
 		} else {
 			return "Wechsle zu Nachtmodus"
+		}
+	}
+}
+
+func (h *Head) TypeModeLink(lang string) string {
+	switch lang {
+	case "en":
+		if h.Night {
+			return "/defaulttype/"
+		} else {
+			return "/largetype/"
+		}
+	default:
+		if h.Night {
+			return "/standardschrift/"
+		} else {
+			return "/grossschrift/"
 		}
 	}
 }
@@ -91,6 +126,14 @@ func (h *Head) DontIndex() bool {
 		return true
 	}
 	return false
+}
+
+func TypeMode(r *http.Request) bool {
+	c, err := r.Cookie("largetype")
+	if err != nil {
+		return false
+	}
+	return c.Value == "true"
 }
 
 func NightMode(r *http.Request) bool {

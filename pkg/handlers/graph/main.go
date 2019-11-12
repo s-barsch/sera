@@ -25,6 +25,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		Host:    r.Host,
 		El:      s.Trees["graph"],
 		Night:   head.NightMode(r),
+		Large:   head.TypeMode(r),
 	}
 	err := head.Make()
 	if err != nil {

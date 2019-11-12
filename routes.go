@@ -41,6 +41,11 @@ func routes(s *server.Server) *mux.Router {
 	r.PathPrefix("/tagmodus/").HandlerFunc(makeHandler(s, extra.DayMode))
 	r.PathPrefix("/daymode/").HandlerFunc(makeHandler(s, extra.DayMode))
 
+	r.PathPrefix("/grossschrift/").HandlerFunc(makeHandler(s, extra.LargeType))
+	r.PathPrefix("/largetype/").HandlerFunc(makeHandler(s, extra.LargeType))
+	r.PathPrefix("/defaulttype/").HandlerFunc(makeHandler(s, extra.DefaultType))
+	r.PathPrefix("/standardschrift/").HandlerFunc(makeHandler(s, extra.DefaultType))
+
 	r.HandleFunc("/index", extra.AddSlash)
 	r.HandleFunc("/graph", extra.AddSlash)
 	r.HandleFunc("/ueber", extra.AddSlash)

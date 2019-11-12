@@ -22,6 +22,7 @@ func Serial(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		El:      nil,
 		Desc:    s.Vars.Lang("serial", head.Lang(r.Host)),
 		Night:   head.NightMode(r),
+		Large:   head.TypeMode(r),
 	}
 	err := h.Make()
 	if err != nil {

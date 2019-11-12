@@ -47,6 +47,7 @@ func Extra(s *server.Server, w http.ResponseWriter, r *http.Request, h *entry.Ho
 		Host:    r.Host,
 		El:      h,
 		Night:   head.NightMode(r),
+		Large:   head.TypeMode(r),
 	}
 	err := head.Make()
 	if err != nil {

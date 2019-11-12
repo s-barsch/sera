@@ -1,5 +1,5 @@
 {{define "top"}}
-<body class="{{if isLocal}}large{{end}}{{if .Head.Night}} night{{end}}">
+<body class="{{if .Head.Large}}large{{end}}{{if .Head.Night}} night{{end}}">
 <header id="top" class="margin">
 {{template "lang-nav" .Head}}
 {{template "logo" .}}
@@ -23,7 +23,7 @@
   {{$lang := .Lang}}
   <span class="leftnav">
   <a href="{{.NightLink .Lang}}" class="night-mode" title="{{.NightLinkTitle .Lang}}" rel="nofollow" class="lnavl nightl">◧</a>
-  <a id="large-type" href="#" style="" class="lnavl">T<span class="small-t">T</span></a>
+  <a class="typemodel lnavl" href="{{.TypeModeLink .Lang}}">T<span class="small-t">T</span></a>
   </span>
   {{range .Langs}}
       <a class="lnavl{{if eq .Name $lang}} active{{end}}" href="{{.Href}}">{{langName .Name}}</a>
