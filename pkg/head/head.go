@@ -60,13 +60,13 @@ func (h *Head) NightLinkTitle(lang string) string {
 func (h *Head) TypeModeLink(lang string) string {
 	switch lang {
 	case "en":
-		if h.Night {
+		if h.Large {
 			return "/defaulttype/"
 		} else {
 			return "/largetype/"
 		}
 	default:
-		if h.Night {
+		if h.Large {
 			return "/standardschrift/"
 		} else {
 			return "/grossschrift/"
