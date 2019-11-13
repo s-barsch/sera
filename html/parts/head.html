@@ -23,7 +23,7 @@
 
 {{range $i, $l := .Langs}}
     {{with $l}}
-    <link rel="alternate" hreflang="{{.Name}}" href="{{.Href}}" />
+        <link rel="alternate" hreflang="{{.Name}}" href="{{.Href}}" />
     {{end}}
     {{if eq $i 1}}
     <link rel="alternate" hreflang="x-default" href="{{.Href}}" />

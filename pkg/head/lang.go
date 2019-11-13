@@ -28,9 +28,18 @@ func (langs Langs) Hreflang(name string) *Link {
 func (h *Head) MakeLangs() Langs {
 	langs := []*Link{}
 	for _, lang := range []string{"de", "en"} {
+		href := h.AbsoluteURL(entry.Permalink(h.El, lang), lang)
+		if lang != "de" {
+			if entry, ok := h.El.(*entry.Text); ok && entry.Text[lang] == "" {
+				href = h.HostAddress(lang)
+			}
+			if hold, ok := h.El.(*entry.Hold); ok && hold.Info["translated"] == "false" {
+				href = h.HostAddress(lang)
+			}
+		}
 		langs = append(langs, &Link{
 			Name: lang,
-			Href: h.AbsoluteURL(entry.Permalink(h.El, lang), lang),
+			Href: href,
 		})
 	}
 	return langs
