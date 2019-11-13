@@ -18,7 +18,8 @@
         </h4>
     </div>
     {{else}}
-    <h1 class="hold-title l{{.Hold.Depth}}">
+    {{$isArticle := eq (index .Hold.Info "article") "true"}}
+    <h1 class="{{if $isArticle}}article{{else}}hold{{end}}-title l{{.Hold.Depth}}">
         {{if eq .Hold.Depth 1}}
         <span class="fleuron">❧</span>
         {{end}}
