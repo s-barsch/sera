@@ -50,7 +50,7 @@ func NewSingleText(path string, hold *Hold) (*Text, error) {
 
 	delete(parts, "info")
 
-	style := "lines"
+	style := "indent"
 	if info["style"] != "" {
 		style = strings.TrimSpace(info["style"])
 	}
