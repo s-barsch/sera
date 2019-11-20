@@ -26,7 +26,7 @@
 
 {{define "index-col" -}}
   <section class="col">
-      <h3 class="section-title-front"><a href="/index/">Index</a></h3>
+      <h3 class="front-section"><a href="/index/">Index</a></h3>
       {{$lang := .Head.Lang}}
       {{range .Index.Offset 0 4}}
       {{template "index-el-front" (elArg . false $lang)}}
@@ -44,7 +44,7 @@
 
 {{define "graph-col" -}}
   <section class="col graph-col">
-      <h3 class="section-title-front"><a href="/graph/">Graph</a></h3>
+      <h3 class="front-section"><a href="/graph/">Graph</a></h3>
       {{template "media-groups-front" (elsArg (.Graph.Offset 0 10) false .Head.Lang)}}
       <div class="more-tip">
       {{var "graph-more" .Head.Lang}}
@@ -66,7 +66,6 @@
 
 {{define "index-el-front"}}
   <article class="index-el-front">
-    {{template "index-topic-front" .}}
     {{if eq (elType .El) "image"}}
         <span class="thumb index-thumb">
             <a class="thumbl" href="{{.El.Permalink .Lang}}">
@@ -76,6 +75,7 @@
     {{else}}
         {{template "el" .}}
     {{end}}
+    {{template "front-index-title" .}}
   </article>
 {{end}}
 
@@ -137,16 +137,16 @@
         {{if $text}}
             <article class="graph-text">
                     {{template "edit-link" (elArg .El false .Lang)}}
-                    {{template "graph-date" (elArg .El false .Lang)}}
                     <div>
                         {{$text}}
                     </div>
+                    {{template "front-date" (elArg .El false .Lang)}}
             </article>
         {{end}}
     {{else if eq $type "audio"}}
         <article>
             {{template "edit-link" (elArg .El false .Lang)}}
-            {{template "graph-date" (elArg .El false .Lang)}}
+            {{template "front-date" (elArg .El false .Lang)}}
             {{template "el" .}}
         <article>
     {{else}}
@@ -167,13 +167,21 @@
 {{.El.SrcSet 320 .Lang}}, {{.El.SrcSet 480 .Lang}}, {{.El.SrcSet 640 .Lang}}
 {{- end}}
 
-{{define "index-topic-front"}}
-    <h4 class="topic-front">
+{{define "front-date"}}
+<header class="front-meta">
+    <a class="" href="{{.El.Permalink .Lang}}">
+        {{.El.Date.Format "2<span class=\"ddot\">.</span> 1<span class=\"ddot\">.</span>"}}
+    </a>
+</header>
+{{end}}
+
+{{define "front-index-title"}}
+<header class="front-meta">
     {{with (.El.File.Hold.Link .Lang)}}
     <a class="topicl" href="{{.Slug}}">{{removeß .Title}}</a> 
     {{end}}
+</header>
     {{template "edit-link" .}}
-    </h4>
 {{end}}
 
 {{define "index-title-front"}}
