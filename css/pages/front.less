@@ -34,12 +34,6 @@
     opacity:.85;
 }
 
-.cols {
-    display:grid;
-    grid-column-gap:2rem;
-    grid-template-columns:50% 50%;
-}
-
 .text-entry {
     max-width:28.5rem;
 }
@@ -160,6 +154,12 @@
 }
 
 .media-mixin(@break) when (@break = @break-single) {
+    .cols {
+        display:grid;
+        grid-column-gap:2rem;
+        grid-template-columns:50% 50%;
+    }
+
     .front-section {
         margin:1.125rem 0 1.75rem;
         letter-spacing:.04rem;
