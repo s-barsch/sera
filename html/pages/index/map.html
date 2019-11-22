@@ -19,7 +19,7 @@ index [label="Index" tooltip="" shape=plaintext fontname="nimbus sans l" fontsiz
 {{$mother := .Current}}
 {{$lang := .Lang}}
 {{- range .Hold.Holds}}
-    {{- if and (eq .Lang "en") (ne (index .Info "translated") "false")}}
+    {{- if or (eq $lang "de") (ne (index .Info "translated") "false")}}
       {{- $current := nodeName .Acronym -}}
       {{$label := .Info.Title $lang}}
       {{$current}} [label="{{$label}}" tooltip="" href="{{.Permalink $lang}}" shape=plaintext]
