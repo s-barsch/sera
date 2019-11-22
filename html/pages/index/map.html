@@ -19,13 +19,15 @@ index [label="Index" tooltip="" shape=plaintext fontname="nimbus sans l" fontsiz
 {{$mother := .Current}}
 {{$lang := .Lang}}
 {{- range .Hold.Holds}}
-  {{- $current := nodeName .Acronym -}}
-  {{$label := .Info.Title $lang}}
-  {{$current}} [label="{{$label}}" tooltip="" href="{{.Permalink $lang}}" shape=plaintext]
-  {{$mother}} -> {{$current}} {{if .IsSymlink}}[]{{end}};
-  {{if not .IsSymlink}}
-  {{- template "print-holds" (snavArg . $current $lang) -}}
-  {{end}}
+    {{- if ne (index .Info "translated") "false"}}
+      {{- $current := nodeName .Acronym -}}
+      {{$label := .Info.Title $lang}}
+      {{$current}} [label="{{$label}}" tooltip="" href="{{.Permalink $lang}}" shape=plaintext]
+      {{$mother}} -> {{$current}} {{if .IsSymlink}}[]{{end}};
+      {{if not .IsSymlink}}
+      {{- template "print-holds" (snavArg . $current $lang) -}}
+      {{end}}
+    {{end}}
 {{end}}
 {{- end}}
 

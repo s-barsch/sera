@@ -9,14 +9,13 @@
 
   <div></div>
 
+  <div class="cols">
   {{template "index-col" .}}
-
-  {{- "" -}}
 
   {{template "graph-col" .}}
 
+  </div>
 
-  {{- "" -}}
 
 
 </main>
@@ -65,7 +64,7 @@
 {{end}}
 
 {{define "index-el-front"}}
-  <article class="index-el-front">
+  <article class="text-entry index-el-front">
     {{if eq (elType .El) "image"}}
         <span class="thumb index-thumb">
             <a class="thumbl" href="{{.El.Permalink .Lang}}">
@@ -135,8 +134,7 @@
         <!-- to omit missing translations -->
         {{$text := .El.TextLang .Lang}}
         {{if $text}}
-            <article class="graph-text">
-                    {{template "edit-link" (elArg .El false .Lang)}}
+            <article class="text-entry graph-text">
                     <div>
                         {{$text}}
                     </div>
@@ -173,6 +171,7 @@
         {{.El.Date.Format "2<span class=\"ddot\">.</span> 1<span class=\"ddot\">.</span>"}}
     </a>
 </header>
+{{template "edit-link" (elArg .El false .Lang)}}
 {{end}}
 
 {{define "front-index-title"}}
