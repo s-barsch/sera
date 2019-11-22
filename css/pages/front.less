@@ -34,13 +34,17 @@
     opacity:.85;
 }
 
-.col .footnotes,
-.col p {
+.cols {
+    display:grid;
+    grid-column-gap:2rem;
+    grid-template-columns:50% 50%;
+}
+
+.text-entry {
     max-width:28.5rem;
 }
 
-.large .col .footnotes,
-.large .col p {
+.large .text-entry {
     max-width:30.5rem;
 }
 
@@ -129,7 +133,7 @@
     font-family:@sans;
     text-transform:capitalize;
     font-feature-settings: "cv10";
-    margin:1.125rem 0 1rem;
+    margin:1.125rem 0 1.5rem;
     font-size:1.5625rem;
     line-height:1.3;
     letter-spacing:0.035rem;
@@ -172,11 +176,6 @@
         margin:.75rem 0 1rem;
     }
 
-    .col {
-        width:50%;
-        display:inline-block;
-        vertical-align:top;
-    }
     /*
     This is necessary: “.col” is maximum 600px wide.
     */
@@ -190,14 +189,6 @@
     .col .phantom {
         display:none;
     }
-    @gap: 2rem;
-    .col:nth-child(odd) {
-        padding-right:@gap;
-    }
-    .col:nth-child(even) {
-        padding-left:@gap;
-    }
-    //@media (min-width: @break-single) {
 }
 
 .media-mixin(@break) when (@break = @break-wide) {

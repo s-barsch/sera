@@ -22,6 +22,8 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	lang := head.Lang(r.Host)
+
 	head := &head.Head{
 		Title:   "Index",
 		Section: "index",
