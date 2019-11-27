@@ -172,6 +172,9 @@ func indexHolds(s *server.Server, lang string) []*Entry {
 	for _, category := range s.Trees["index"].Holds {
 		holds := category.TraverseHolds()
 		for _, h := range holds {
+			if h.Info["translated"] == "false"  {
+				continue
+			}
 			entries = append(entries, &Entry{
 				Loc:      absoluteURL(h.Permalink(lang), lang),
 				Lastmod:  h.File.ModTime.Format(time.RFC3339),
