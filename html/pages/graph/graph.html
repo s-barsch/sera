@@ -278,7 +278,10 @@
     {{template "graph-image-thumbnail" (elArg .El.Cover .Lazy .Lang)}}
     </a>
 {{else}}
+<!--
     <li><a href="{{.El.Permalink .Lang}}">{{.El.Info.Title .Lang}}</a></li>
+-->
+{{template "set-graph" .}}
 {{end}}
 
 {{end}}

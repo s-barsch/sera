@@ -1,3 +1,15 @@
+{{define "set-graph"}}
+{{$lang := .Lang}}
+{{range $i, $e := .El.Els}}
+<article class="text-entry graph-text">
+    <div>
+    {{template "graph-el-set-child" (elArg $e false $lang)}}
+    </div>
+</article>
+{{end}}
+{{template "front-date" (elArg .El false $lang)}}
+{{end}}
+
 {{define "set"}}
 
 {{$lang := .Lang}}
@@ -7,6 +19,10 @@
     {{template "el-set-child" (elArg $e false $lang)}}
 {{end}}
 </div>
+{{end}}
+
+{{define "graph-el-set-child"}}
+        {{template "el" .}}
 {{end}}
 
 {{define "el-set-child"}}
