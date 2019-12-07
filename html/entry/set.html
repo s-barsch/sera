@@ -2,7 +2,28 @@
 
 {{$lang := .Lang}}
 
+<div class="el-text margin">
 {{range $i, $e := .El.Els}}
     {{template "el-set-child" (elArg $e false $lang)}}
 {{end}}
+</div>
 {{end}}
+
+{{define "el-set-child"}}
+
+    <article class="index-el">
+        <div class="index-date-top">
+        {{template "index-date" .}}
+        </div>
+        <div id="{{normalize (.El.Title .Lang)}}">
+        {{template "el" .}}
+        </div>
+        <div class="index-date-bot">
+            {{template "index-date" .}}
+        </div>
+      {{template "edit-link" .}}
+    </article>
+
+{{end}}
+
+

@@ -1,21 +1,4 @@
-{{define "el-set-child"}}
 
-<!--
-{{if ne (elType .El) "file"}}
-{{with .El.Info.Title .Lang}}
-
-<h2 class="set-child margin">
-    {{.}}
-</h2>
-{{end}}
-{{end}}
--->
-
-<div>
-{{template "el" .}}
-</div>
-
-{{end}}
 
 {{define "el-standalone"}}
 {{$type := elType .El}}
