@@ -50,6 +50,8 @@
         <div class="el-text margin">
             {{template "el" (elArg .El false .Head.Lang)}}
         </div>
+        {{else if eq (elType .El) "set"}}
+            {{template "set-graph-el" (elArg .El false .Head.Lang)}}
         {{else}}
         {{template "el" (elArg .El false .Head.Lang)}}
         {{end}}
