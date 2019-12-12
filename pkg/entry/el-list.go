@@ -301,5 +301,8 @@ func amongImages(typ string) bool {
 	if typ == "text" {
 		return false
 	}
+	if typ == "set" {
+		return false
+	}
 	return true
 }
