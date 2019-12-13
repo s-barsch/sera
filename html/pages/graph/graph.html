@@ -277,13 +277,15 @@
 {{define "set-graph"}}
 {{$lang := .Lang}}
 <article class="graph-text">
-{{range $i, $e := .El.Els}}
-<div class="text-entry">
-    <div>
-        {{template "el" (elArg $e false $lang)}}
+<div>
+    {{range $i, $e := .El.Els}}
+    <div class="text-entry">
+        <div>
+            {{template "el" (elArg $e false $lang)}}
+        </div>
     </div>
+    {{end}}
 </div>
-{{end}}
 {{template "graph-date" (elArg .El false $lang)}}
 </article>
 {{end}}
