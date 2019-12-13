@@ -201,10 +201,10 @@
             {{$text := .TextLang $lang}}
             {{if $text}}
             {{template "edit-link" (elArg . false $lang)}}
-            {{template "graph-date" (elArg . false $lang)}}
             <div>
                 {{$text}}
             </div>
+            {{template "graph-date" (elArg . false $lang)}}
             {{end}}
         </article>
 
@@ -259,18 +259,6 @@
 
 {{end}}
 
-{{define "park-s"}}
-{{$lang := "de"}}
-    <img {{with .Info.Title $lang}}alt="{{.}}"{{end}}
-    class="thumbi" src="{{.ImagePath 320 $lang}}"
-    sizes="(max-width: 450px) 177px, (max-width: 1024px) 222px, 320px"
-    srcset="">
-
-    <!--
-    {{.RatioCode}}
-    -->
-{{end}}
-
 {{define "graph-thumb-srcset" -}}
 {{.El.SrcSet 320 .Lang}}, {{.El.SrcSet 480 .Lang}}, {{.El.SrcSet 960 .Lang}}, {{.El.SrcSet 1280 .Lang}}{{- end}}
 
@@ -289,42 +277,31 @@
 
 {{end}}
 
-
-{{define "graph-days"}}
-  {{$lang := "de"}}
-  {{range .Els.Days}}
-    {{if eq (elType (index . 0)) "text"}}
-      <div class="margin">
-      {{template "graph-date" (elArg (index . 0) $lang)}}
-      </div>
-    {{end}}
-  {{end}}
-{{end}}
-
-
-{{define "graph-main-more-old"}}
-    <div id="graph-main-more">
-            {{$lang := .Lang}}
-            {{$months := (.Els.Offset 20 0).Months}}
-            {{range $i, $els := $months}}
-            {{if $i}}
-            <h2 class="month-title">
-            {{(index $els 0).Date.Month}}
-            </h2>
-            {{end}}
-            {{template "media-groups" (elsArg $els true $lang)}}
-            {{end}}
-
-        {{$lang := .Lang}}
-        {{with .PrevYear}}
-        <div class="graph-main-more-tip more-tip">
-            {{if eq $lang "de"}}
-                Weiter zum Jahr &rarr; <a href="{{.Permalink $lang}}">{{.Title $lang}}</a>.
-            {{else}}
-                Go to year &rarr; <a href="{{.Permalink $lang}}">{{.Title $lang}}</a>.
-            {{end}}
-        </div>
-        {{end}}
+{{define "set-graph"}}
+{{$lang := .Lang}}
+<article class="graph-text">
+{{range $i, $e := .El.Els}}
+<div class="text-entry">
+    <div>
+        {{template "el" (elArg $e false $lang)}}
     </div>
+</div>
 {{end}}
+{{template "graph-date" (elArg .El false $lang)}}
+</article>
+{{end}}
+
+{{define "set-graph-el"}}
+{{$lang := .Lang}}
+<div class="el-text margin">
+{{range $i, $e := .El.Els}}
+<article class="text-entry graph-text">
+    <div>
+        {{template "el" (elArg $e false $lang)}}
+    </div>
+</article>
+{{end}}
+</div>
+{{end}}
+
 
