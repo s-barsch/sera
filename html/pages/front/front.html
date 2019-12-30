@@ -88,6 +88,8 @@
       <section class="images">
       {{else if eq $type "text"}}
       <section class="texts">
+      {{else if eq $type "html"}}
+      <section class="texts">
       {{else}}
       <section class="images">
       {{end}}
@@ -147,6 +149,13 @@
             {{template "front-date" (elArg .El false .Lang)}}
             {{template "el" .}}
         <article>
+    {{else if eq $type "html"}}
+            <article class="text-entry graph-text">
+                    <div>
+                        {{template "el" .}}
+                    </div>
+            </article>
+    
     {{else}}
         didnt catch: "{{$type}}"
         {{.}}

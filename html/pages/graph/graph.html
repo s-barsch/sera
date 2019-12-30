@@ -143,6 +143,8 @@
       <section class="text">
       {{else if eq $firstType "text"}}
       <section class="texts">
+      {{else if eq $firstType "html"}}
+      <section class="texts">
       {{else}}
       <section class="images">
       {{end}}
@@ -209,8 +211,15 @@
         {{template "video" (elArg . false $lang)}}
     {{else if eq $type "audio"}}
         {{template "audio" (elArg . false $lang)}}
+    {{else if eq $type "html"}}
+        <article class="graph-text">
+            <div>
+                {{template "el" (elArg . false $lang)}}
+            </div>
+        </article>
     {{else}}
-        Didn’t catch. Type: “{{$type}}”
+    a
+        Didn’t catch. Type: {{$type}}
         {{.}}
     {{end}}
 
