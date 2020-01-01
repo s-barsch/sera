@@ -42,7 +42,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	err = s.ExecuteTemplate(w, "graph-main", &graphMain{
 		Head: head,
 		Hold: s.Trees["graph"],
-		Els:  s.Recents["graph"].Year(2019),
+		Els:  s.Recents["graph"].Year(2020),
 		Prev: prev,
 	})
 	if err != nil {
