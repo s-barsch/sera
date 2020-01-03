@@ -1,5 +1,5 @@
-graph-main-more-de: '→ <a href="/graph/2020/">2020</a> &nbsp;<small>(Aufsteigend, ganzes Jahr.)</small>'
-graph-main-more-en: '→ <a href="/graph/2020/">2020</a> &nbsp;<small>(Ascending, whole year.)</small>'
+graph-main-more-de: '→ <a href="/graph/2019/">2019</a> &nbsp;<small>(Aufsteigend, ganzes Jahr.)</small>'
+graph-main-more-en: '→ <a href="/graph/2019/">2019</a> &nbsp;<small>(Ascending, whole year.)</small>'
 index-more-de: Mehr bei &rarr; <a href="/index/" class="morel">Index</a>.
 index-more-en: More at &rarr; <a class="morel" href="/index/">Index</a>.
 graph-more-de: Mehr bei &rarr; <a class="morel" href="/graph/">Graph</a>.
