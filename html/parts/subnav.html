@@ -56,7 +56,7 @@
               {{index . $lang}}:&ensp;
             {{end}}
 
-            {{range $i, $a := .Items -}}
+            {{range $i, $item := .Items -}}
                 {{- $isMonth := and (eq 1 .File.Hold.Depth) (eq "graph" .Section) -}}
                 {{if and (eq $i 0) $isMonth}}
                 <a class="topl" href="#">
@@ -64,15 +64,19 @@
                 </a>
                 {{- end -}}
 
-                {{- with $a -}}
+                {{- with $item -}}
                     {{- $title := .Info.Label $lang -}}
-                    {{- if eq $title "" -}}
-                          {{- $title = .Date.Format "06" -}}
+                    {{if eq $item.Section "graph"}}
+                        {{- if eq $title "" -}}
+                              {{- $title = .Date.Format "06" -}}
+                        {{- end -}}
                     {{- end -}}
 
-                    {{- " "}}<a class="snavl{{if eq $current $title}} active{{end}}"
-                    {{if $isMonth}}data-id={{.Date.Format "01"}}{{end}}
-                    href="{{.Permalink $lang}}">{{$title}}</a>
+                    {{- if $title -}}
+                        {{- " "}}<a class="snavl{{if eq $current $title}} active{{end}}"
+                        {{if $isMonth}}data-id={{.Date.Format "01"}}{{end}}
+                        href="{{.Permalink $lang}}">{{$title}}</a>
+                    {{- end -}}
                 {{- end -}}
             {{- end -}}
         </div>
