@@ -26,6 +26,7 @@ func Hold(s *server.Server, w http.ResponseWriter, r *http.Request, hold *entry.
 		El:      hold,
 		Night:   head.NightMode(r),
 		Large:   head.TypeMode(r),
+		NoLog:   head.LogMode(r),
 	}
 	err := head.Make()
 	if err != nil {

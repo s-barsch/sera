@@ -60,6 +60,7 @@ func El(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Path)
 		El:      e,
 		Night:   head.NightMode(r),
 		Large:   head.TypeMode(r),
+		NoLog:   head.LogMode(r),
 	}
 	err = head.Make()
 	if err != nil {

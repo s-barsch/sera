@@ -46,6 +46,9 @@ func routes(s *server.Server) *mux.Router {
 	r.PathPrefix("/defaulttype/").HandlerFunc(makeHandler(s, extra.DefaultType))
 	r.PathPrefix("/standardschrift/").HandlerFunc(makeHandler(s, extra.DefaultType))
 
+	r.PathPrefix("/nolog/").HandlerFunc(makeHandler(s, extra.NoLog))
+	r.PathPrefix("/dolog/").HandlerFunc(makeHandler(s, extra.DoLog))
+
 	r.HandleFunc("/index", extra.AddSlash)
 	r.HandleFunc("/graph", extra.AddSlash)
 	r.HandleFunc("/ueber", extra.AddSlash)

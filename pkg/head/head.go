@@ -13,6 +13,7 @@ type Head struct {
 	Local   bool
 	Night   bool
 	Large   bool
+	NoLog   bool
 	El      interface{}
 
 	Nav   Nav
@@ -126,6 +127,14 @@ func (h *Head) DontIndex() bool {
 		return true
 	}
 	return false
+}
+
+func LogMode(r *http.Request) bool {
+	c, err := r.Cookie("nolog")
+	if err != nil {
+		return false
+	}
+	return c.Value == "true"
 }
 
 func TypeMode(r *http.Request) bool {
