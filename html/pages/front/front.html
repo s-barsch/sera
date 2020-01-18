@@ -25,6 +25,7 @@
 
 {{define "index-col" -}}
   <section class="col">
+      <div class="front-sep"></div>
       <h3 class="front-section"><a href="/index/">Index</a></h3>
       {{$lang := .Head.Lang}}
       {{range .Index.Offset 0 4}}
@@ -43,6 +44,7 @@
 
 {{define "graph-col" -}}
   <section class="col graph-col">
+      <div class="front-sep"></div>
       <h3 class="front-section"><a href="/graph/">Graph</a></h3>
       {{template "media-groups-front" (elsArg (.Graph.Offset 0 10) false .Head.Lang)}}
       <div class="more-tip">
