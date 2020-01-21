@@ -6,3 +6,5 @@ index-subtitle-en: Topical&nbsp;structure
 graph-subtitle-en: Temporal&nbsp;structure
 index-subtitle-de: Thematische&nbsp;Struktur
 graph-subtitle-de: Zeitliche&nbsp;Struktur
+map-info-de: Diese Karte wird automatisch generiert.
+map-info-en: This map is automatically generated.
