@@ -305,11 +305,18 @@
 {{$lang := .Lang}}
 <div class="el-text margin">
 {{range $i, $e := .El.Els}}
-<article class="text-entry graph-text">
-    <div>
-        {{template "el" (elArg $e false $lang)}}
-    </div>
-</article>
+    {{$type := elType $e}}
+    {{if eq $type "text"}}
+        <article class="text-entry graph-text">
+            <div>
+                {{template "el" (elArg $e false $lang)}}
+            </div>
+        </article>
+    {{else}}
+        <article>
+                {{template "el" (elArg $e false $lang)}}
+        </article>
+    {{end}}
 {{end}}
 </div>
 {{end}}

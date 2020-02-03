@@ -147,9 +147,15 @@
         {{end}}
     {{else if eq $type "audio"}}
         <article>
+            {{template "el" .}}
             {{template "edit-link" (elArg .El false .Lang)}}
             {{template "front-date" (elArg .El false .Lang)}}
+        <article>
+    {{else if eq $type "video"}}
+        <article>
             {{template "el" .}}
+            {{template "edit-link" (elArg .El false .Lang)}}
+            {{template "front-date" (elArg .El false .Lang)}}
         <article>
     {{else if eq $type "html"}}
             <article class="text-entry graph-text">
