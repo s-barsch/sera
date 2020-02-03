@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 	"stferal/pkg/server"
-	"stferal/pkg/handlers/index"
+	//"stferal/pkg/handlers/index"
 	"strings"
 )
 
@@ -31,5 +31,5 @@ func Reload(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), 500)
 	}
 
-	index.SaveMaps(s)
+	//index.SaveMaps(s)
 }

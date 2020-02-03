@@ -70,7 +70,7 @@ func renderMap(s *server.Server, lang string, filetype string) ([]byte, error) {
 }
 
 func SaveMaps(s *server.Server) error {
-	for _, lang := []string{"en", "de"} {
+	for _, lang := range []string{"en", "de"} {
 		err := saveMap(s, lang)
 		if err != nil {
 			return err
