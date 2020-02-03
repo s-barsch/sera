@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"stferal/pkg/server"
+	"stferal/pkg/handlers/index"
 	"strings"
 )
 
@@ -29,4 +30,6 @@ func Reload(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		http.Error(w, err.Error(), 500)
 	}
+
+	index.SaveMaps(s)
 }
