@@ -27,7 +27,7 @@
 <figure>
 {{$vid := .El}}
 {{$lang := .Lang}}
-<video src="{{.El.File.Location .Lang}}" preload="metadata" controls>
+<video src="{{.El.File.Location .Lang}}" preload="metadata" loop controls>
     {{range .El.Subtitles}}
     <track label="{{langName .}}" srclang="{{.}}" kind="subtitles"
     src="{{$vid.SubtitlePath .}}"{{if and (ne $lang "de") (eq $lang .)}} default{{end}}>
