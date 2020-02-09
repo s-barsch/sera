@@ -69,15 +69,6 @@
             {{end}}
 
             {{template "prev-next-year" .}}
-        {{else}}
-            <!-- MONTH -->
-            <section id="{{(index .Els 0).Date.Format "01"}}" class="month">
-                <h2 class="month-title">
-                    {{monthLang (index .Els 0).Date .Head.Lang}}
-                </h2>
-
-                {{template "media-groups" (elsArg .Els false .Head.Lang)}}
-            </section>
         {{end}}
 
         {{if eq .Head.Path "/graph/"}}

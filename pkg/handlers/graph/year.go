@@ -18,6 +18,7 @@ func Year(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Pat
 		s.Log.Println(err)
 		return
 	}
+
 	eh, err := s.Trees["graph"].Lookup(timestamp)
 	if err != nil {
 		http.NotFound(w, r)
@@ -26,6 +27,12 @@ func Year(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Pat
 	}
 	h, ok := eh.(*entry.Hold)
 	if !ok {
+		http.NotFound(w, r)
+		return
+	}
+
+	// month
+	if h.Depth() > 1 {
 		http.NotFound(w, r)
 		return
 	}
@@ -52,7 +59,7 @@ func Year(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Pat
 		return
 	}
 
-	els := h.TraverseEls().Asc() 
+	els := serializeMonths(h)
 	if !s.Flags.Local {
 		els = els.ExcludePrivate()
 	}
@@ -67,6 +74,16 @@ func Year(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Pat
 	if err != nil {
 		log.Println(err)
 	}
+}
+
+func serializeMonths(h *entry.Hold) entry.Els {
+	els := entry.Els{}
+	for _, month := range h.Holds {
+		for _, e := range month.Els {
+			els = append(els, e)
+		}
+	}
+	return els
 }
 
 func getTime(p *paths.Path) (time.Time, error) {
