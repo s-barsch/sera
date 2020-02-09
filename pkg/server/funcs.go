@@ -104,6 +104,9 @@ func (s *Server) TemplateFuncs() template.FuncMap {
 				Lang:    lang,
 			}
 		},
+		"monthLang": func(t time.Time, lang string) string {
+			return entry.MonthLang(t, lang)
+		},
 		"nodeName": func(acr string) string {
 			return "node_" + acr
 		},

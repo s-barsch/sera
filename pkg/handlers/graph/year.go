@@ -52,10 +52,15 @@ func Year(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Pat
 		return
 	}
 
+	els := h.TraverseEls().Asc() 
+	if !s.Flags.Local {
+		els = els.ExcludePrivate()
+	}
+
 	err = s.ExecuteTemplate(w, "graph-main", &graphMain{
 		Head: head,
 		Hold: h,
-		Els:  h.TraverseEls().ExcludePrivate(),
+		Els:  els,
 		Prev: prev,
 		Next: next,
 	})

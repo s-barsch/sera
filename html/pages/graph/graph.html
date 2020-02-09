@@ -38,7 +38,7 @@
             {{range $i, $els := $months}}
             {{if $i}}
             <h2 class="month-title">
-            {{(index $els 0).Date.Month}}
+                {{monthLang (index $els 0).Date $lang}}
             </h2>
             {{end}}
                 {{template "media-groups" (elsArg $els false $lang)}}
@@ -53,20 +53,31 @@
         {{else if lt .Hold.Depth 2}}
             <!-- YEAR -->
             {{$lang := .Head.Lang}}
-            {{$count := 0}}
-            {{range $i, $hold := .Hold.Holds}}
-              {{if or (gt $i 2) (ge $count 6)}}
-                {{template "graph-month" (holdArg $hold true $lang)}}
-              {{else}}
-                {{template "graph-month" (holdArg $hold false $lang)}}
-                {{$count = add $count $hold.ImgLen}}
-              {{end}}
+            {{$months := .Els.Months}}
+            {{range $i, $els := $months}}
+                <section id="{{(index $els 0).Date.Format "01"}}" class="month">
+                    <h2 class="month-title">
+                        {{monthLang (index $els 0).Date $lang}}
+                    </h2>
+
+                    {{if (gt $i 2)}}
+                        {{template "media-groups" (elsArg $els true $lang)}}
+                    {{else}}
+                        {{template "media-groups" (elsArg $els false $lang)}}
+                    {{end}}
+                </section>
             {{end}}
 
             {{template "prev-next-year" .}}
         {{else}}
             <!-- MONTH -->
-            {{template "graph-month" (holdArg .Hold false .Head.Lang)}}
+            <section id="{{(index .Els 0).Date.Format "01"}}" class="month">
+                <h2 class="month-title">
+                    {{monthLang (index .Els 0).Date .Head.Lang}}
+                </h2>
+
+                {{template "media-groups" (elsArg .Els false .Head.Lang)}}
+            </section>
         {{end}}
 
         {{if eq .Head.Path "/graph/"}}

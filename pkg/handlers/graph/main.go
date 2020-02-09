@@ -41,9 +41,8 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	}
 
 	els := s.Recents["graph"]
-
 	if !s.Flags.Local {
-		els.ExcludePrivate()
+		els = els.ExcludePrivate()
 	}
 
 	err = s.ExecuteTemplate(w, "graph-main", &graphMain{

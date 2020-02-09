@@ -167,6 +167,12 @@ type Day struct {
 	Els  Els
 }
 
+func (els Els) Asc() Els {
+	sort.Sort(Asc(els))
+	return els
+}
+
+
 func (els Els) Desc() Els {
 	sort.Sort(Desc(els))
 	return els
