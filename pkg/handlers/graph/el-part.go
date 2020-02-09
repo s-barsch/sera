@@ -31,6 +31,13 @@ func ElPart(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if entry.InfoSafe(e)["private"] == "true" {
+		if !s.Flags.Local {
+			http.Error(w, "403", 403)
+			return
+		}
+	}
+
 	lang := head.Lang(r.Host)
 
 	prev, next, err := getPrevNext(s.Recents["graph"], p.Acronym)

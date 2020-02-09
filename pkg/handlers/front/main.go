@@ -36,6 +36,10 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	index := s.Recents["index"].Offset(0, 100)
 	graph := s.Recents["graph"].Offset(0, 100)
 
+	if !s.Flags.Local {
+		graph = graph.ExcludePrivate()
+	}
+
 	err = s.ExecuteTemplate(w, "front", &frontMain{
 		Head:  head,
 		Index: deleteEmpty(index, lang),

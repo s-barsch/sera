@@ -192,7 +192,7 @@ func elEntries(s *server.Server, page, lang string) ([]*Entry, error) {
 	prio := ""
 
 	if page == "graph" {
-		els = s.Recents["graph"]
+		els = s.Recents["graph"].ExcludePrivate()
 		prio = "0.5"
 	} else {
 		els = s.Recents["index"]

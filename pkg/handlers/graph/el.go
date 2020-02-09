@@ -25,6 +25,13 @@ func El(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Path)
 		return
 	}
 
+	if entry.InfoSafe(e)["private"] == "true" {
+		if !s.Flags.Local {
+			http.Error(w, "403", 403)
+			return
+		}
+	}
+
 	perma := entry.Permalink(e, head.Lang(r.Host))
 	if r.URL.Path != perma {
 		http.Redirect(w, r, perma, 301)

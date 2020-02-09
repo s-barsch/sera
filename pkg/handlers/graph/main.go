@@ -40,10 +40,16 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	els := s.Recents["graph"]
+
+	if !s.Flags.Local {
+		els.ExcludePrivate()
+	}
+
 	err = s.ExecuteTemplate(w, "graph-main", &graphMain{
 		Head: head,
 		Hold: s.Trees["graph"],
-		Els:  s.Recents["graph"].Offset(0, 100),
+		Els:  els.Offset(0, 100),
 		Prev: prev,
 	})
 	if err != nil {

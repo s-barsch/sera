@@ -238,6 +238,18 @@ func (els Els) Exclude() Els {
 	return l
 }
 
+func (els Els) ExcludePrivate() Els {
+	l := Els{}
+	for _, e := range els {
+		i := InfoSafe(e)
+		if i["private"] == "true" {
+			continue
+		}
+		l = append(l, e)
+	}
+	return l
+}
+
 func (els Els) Reverse() Els {
 	n := Els{}
 	for i := len(els) - 1; i >= 0; i-- {
