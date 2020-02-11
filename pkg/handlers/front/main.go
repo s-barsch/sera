@@ -59,6 +59,11 @@ func deleteEmpty(entries entry.Els, lang string) entry.Els {
 				continue
 			}
 		}
+		if entry.Type(e) == "set" && lang != "de" {
+			if e.(*entry.Set).Info["translated"] == "false" {
+				continue
+			}
+		}
 		clean = append(clean, e)
 	}
 	return clean
