@@ -45,23 +45,9 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	err = s.ExecuteTemplate(w, "index-hold", &indexMain{
 		Head:    head,
 		Hold:    s.Trees["index"],
-		Recents: deleteEmpty(recents, lang),
+		Recents: recents.NoEmpty(lang),
 	})
 	if err != nil {
 		log.Println(err)
 	}
-}
-
-// Temporary workaround
-func deleteEmpty(entries entry.Els, lang string) entry.Els {
-	clean := entry.Els{}
-	for _, e := range entries {
-		if entry.Type(e) == "text" {
-			if e.(*entry.Text).Text[lang] == "" {
-				continue
-			}
-		}
-		clean = append(clean, e)
-	}
-	return clean
 }

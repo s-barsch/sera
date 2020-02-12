@@ -48,7 +48,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	err = s.ExecuteTemplate(w, "graph-main", &graphMain{
 		Head: head,
 		Hold: s.Trees["graph"],
-		Els:  deleteEmpty(els, head.Lang).Offset(0, 100),
+		Els:  els.NoEmpty(head.Lang).Offset(0, 100),
 		Prev: prev,
 	})
 	if err != nil {
@@ -85,23 +85,4 @@ func yearSiblings(h *entry.Hold) (prev, next *entry.Hold, err error) {
 		}
 	}
 	return
-}
-
-// Temporary workaround
-func deleteEmpty(entries entry.Els, lang string) entry.Els {
-	clean := entry.Els{}
-	for _, e := range entries {
-		if entry.Type(e) == "text" {
-			if e.(*entry.Text).Text[lang] == "" {
-				continue
-			}
-		}
-		if entry.Type(e) == "set" && lang != "de" {
-			if e.(*entry.Set).Info["translated"] == "false" {
-				continue
-			}
-		}
-		clean = append(clean, e)
-	}
-	return clean
 }

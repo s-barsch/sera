@@ -42,29 +42,10 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 
 	err = s.ExecuteTemplate(w, "front", &frontMain{
 		Head:  head,
-		Index: deleteEmpty(index, lang),
-		Graph: deleteEmpty(graph, lang),
+		Index: index.NoEmpty(lang),
+		Graph: graph.NoEmpty(lang),
 	})
 	if err != nil {
 		log.Println(err)
 	}
-}
-
-// Temporary workaround
-func deleteEmpty(entries entry.Els, lang string) entry.Els {
-	clean := entry.Els{}
-	for _, e := range entries {
-		if entry.Type(e) == "text" {
-			if e.(*entry.Text).Text[lang] == "" {
-				continue
-			}
-		}
-		if entry.Type(e) == "set" && lang != "de" {
-			if e.(*entry.Set).Info["translated"] == "false" {
-				continue
-			}
-		}
-		clean = append(clean, e)
-	}
-	return clean
 }
