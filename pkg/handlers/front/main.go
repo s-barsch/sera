@@ -38,6 +38,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 
 	if !s.Flags.Local {
 		graph = graph.ExcludePrivate()
+		index = index.ExcludePrivate()
 	}
 
 	err = s.ExecuteTemplate(w, "front", &frontMain{

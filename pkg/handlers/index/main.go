@@ -42,6 +42,10 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 
 	recents := s.Recents["index"].Offset(0, 100)
 
+	if !s.Flags.Local {
+		recents = recents.ExcludePrivate()
+	}
+
 	err = s.ExecuteTemplate(w, "index-hold", &indexMain{
 		Head:    head,
 		Hold:    s.Trees["index"],
