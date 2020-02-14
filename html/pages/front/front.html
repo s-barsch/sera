@@ -184,6 +184,7 @@
 
 {{define "front-date"}}
 <header class="front-meta">
+    {{template "private-mark" .El}}
     <a class="" href="{{.El.Permalink .Lang}}">
         {{.El.Date.Format "2<span class=\"ddot\">.</span> 1<span class=\"ddot\">.</span>"}}
     </a>
@@ -191,9 +192,13 @@
 {{template "edit-link" (elArg .El false .Lang)}}
 {{end}}
 
+{{define "private-mark"}}
+    <span class="private">{{if eq (index .Info "private") "true"}}⦻{{end}}</span>
+{{end}}
+
 {{define "front-index-title"}}
 <header class="front-meta">
-    <span class="private">{{if eq (index .El.Info "private") "true"}}⦻{{end}}</span>
+    {{template "private-mark" .El}}
     {{with (.El.File.Hold.Link .Lang)}}
     <a class="topicl" href="{{.Slug}}">{{removeß .Title}}</a> 
     {{end}}

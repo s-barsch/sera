@@ -232,6 +232,7 @@
 {{define "graph-date"}}
 {{if ne "true" (index .El.Info "nodate")}}
 <header class="graph-date">
+            {{template "private-mark" .El}}
     <a class="" href="{{.El.Permalink .Lang}}">
         {{.El.Date.Format "2<span class=\"ddot\">.</span> 1<span class=\"ddot\">.</span>"}}
     </a>
