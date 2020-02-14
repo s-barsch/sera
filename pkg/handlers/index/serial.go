@@ -46,8 +46,8 @@ func Serial(s *server.Server, w http.ResponseWriter, r *http.Request) {
 
 	recents := s.Recents["index"].NoEmpty(h.Lang)
 
-	if !s.Flags.Local {
-		recents = recents.ExcludePrivate()
+	if s.Flags.Local {
+		recents = s.Recents["index-private"].NoEmpty(h.Lang)
 	}
 
 	err = s.ExecuteTemplate(w, "index-serial", &indexSerial{
