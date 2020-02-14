@@ -193,6 +193,7 @@
 
 {{define "front-index-title"}}
 <header class="front-meta">
+    <span class="private">{{if eq (index .El.Info "private") "true"}}⦻{{end}}</span>
     {{with (.El.File.Hold.Link .Lang)}}
     <a class="topicl" href="{{.Slug}}">{{removeß .Title}}</a> 
     {{end}}
