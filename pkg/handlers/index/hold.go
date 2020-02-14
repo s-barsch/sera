@@ -14,11 +14,6 @@ type holdPage struct {
 }
 
 func Hold(s *server.Server, w http.ResponseWriter, r *http.Request, hold *entry.Hold) {
-	if !s.Flags.Local && hold.Info["private"] == "true" {
-		http.Error(w, "403", 403)
-		return
-	}
-
 	if perma := hold.Permalink(head.Lang(r.Host)); r.URL.Path != perma {
 		http.Redirect(w, r, perma, 301)
 		return

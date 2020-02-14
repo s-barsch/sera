@@ -40,8 +40,14 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	tree := s.Trees["index"]
+
+	if s.Flags.Local {
+		tree = s.Trees["index-private"]
+	}
+
 	if p.Acronym == "" {
-		h, err := s.Trees["index"].Search(p.Name, head.Lang(r.Host))
+		h, err := tree.Search(p.Name, head.Lang(r.Host))
 		if err != nil {
 			s.Log.Println(err)
 			http.NotFound(w, r)
@@ -51,7 +57,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	e, err := s.Trees["index"].LookupAcronym(p.Acronym)
+	e, err := tree.LookupAcronym(p.Acronym)
 	if err != nil {
 		println("hare")
 		path := strings.TrimRight(r.URL.Path, "/")
