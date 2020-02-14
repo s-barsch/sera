@@ -21,7 +21,7 @@ type Hold struct {
 	//Holds  []*Hold
 }
 
-func PublicTree(h *Hold) *Hold {
+func (h *Hold) Public() *Hold {
 	c:= &Hold {
 		Mother: h.Mother,
 		File:   h.File,
@@ -34,7 +34,7 @@ func PublicTree(h *Hold) *Hold {
 		if hold.Info["private"] == "true" {
 			continue
 		}
-		holds = append(holds, PublicTree(hold))
+		holds = append(holds, hold.Public())
 	}
 
 	els := Els{}

@@ -48,18 +48,24 @@ func (s *Server) LoadData() error {
 	}
 
 	trees := map[string]*entry.Hold{}
+	recents := map[string]entry.Els{}
 
 	for _, section := range sections {
 		t, err := entry.ReadHold(s.Paths.Data+"/"+section, nil)
 		if err != nil {
 			return err
 		}
-		trees[section] = t
-	}
+		trees[section + "-private"] = t
+		trees[section] = t.Public()
 
-	recents := map[string]entry.Els{}
-	recents["index"] = entry.PublicTree(trees["index"]).TraverseEls().Desc().Exclude()
-	recents["graph"] = entry.PublicTree(trees["graph"]).TraverseElsReverse()
+		if section == "graph" {
+			recents[section] = trees[section].TraverseElsReverse()
+		} else {
+			recents[section] = trees[section].TraverseEls().Desc().Exclude()
+		}
+
+		recents[section + "-private"] = recents[section].ExcludePrivate()
+	}
 
 	s.Trees = trees
 	s.Recents = recents

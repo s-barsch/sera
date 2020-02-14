@@ -22,6 +22,19 @@ func (hold *Hold) TraverseEls() Els {
 }
 */
 
+func (hold *Hold) TraverseEls() Els {
+	holds := hold.TraverseHolds()
+
+	els := Els{}
+
+	for _, h := range holds {
+		els = append(els, h.Els...)
+		//sort.Sort(Desc(h.Els))
+	}
+
+	return els
+}
+
 func (hold *Hold) TraverseElsReverse() Els {
 	holds := hold.TraverseHolds()
 
@@ -40,19 +53,6 @@ func newEls(els Els) Els {
 		nels = append(nels, e)
 	}
 	return nels
-}
-
-func (hold *Hold) TraverseEls() Els {
-	holds := hold.TraverseHolds()
-
-	els := Els{}
-
-	for _, h := range holds {
-		els = append(els, h.Els...)
-		//sort.Sort(Desc(h.Els))
-	}
-
-	return els
 }
 
 func (hold *Hold) TraverseHolds() Holds {
