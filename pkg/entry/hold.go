@@ -21,6 +21,35 @@ type Hold struct {
 	//Holds  []*Hold
 }
 
+func PublicTree(h *Hold) *Hold {
+	c:= &Hold {
+		Mother: h.Mother,
+		File:   h.File,
+
+		Date:   h.Date,
+		Info:   h.Info,
+	}
+	holds := Holds{}
+	for _, hold := range h.Holds {
+		if hold.Info["private"] == "true" {
+			continue
+		}
+		holds = append(holds, PublicTree(hold))
+	}
+
+	els := Els{}
+	for _, e := range h.Els {
+		if InfoSafe(e)["private"] == "true" {
+			continue
+		}
+		els = append(els, e)
+	}
+	c.Els = els
+	c.Holds = holds
+
+	return c
+}
+
 func getGraphHoldDate(path string, mother *Hold) (time.Time, error) {
 	if mother == nil {
 		return time.Parse("2006_01_02", "1991_01_02")
