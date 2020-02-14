@@ -124,6 +124,14 @@ func readEls(path string, hold *Hold) (Els, error) {
 		els = append(els, e)
 	}
 
+	if hold.Info["private"] == "true" {
+		l, err := makeElsPrivate(els)
+		if err != nil {
+			return nil, err
+		}
+		els = l
+	}
+
 	if exists(sortPath(path)) {
 		sorted, err := SortEls(path, els)
 		if err != nil {
@@ -141,6 +149,23 @@ func readEls(path string, hold *Hold) (Els, error) {
 	sort.Sort(Asc(els))
 
 	return els, nil
+}
+
+func makeElsPrivate(els Els) (Els, error) {
+	l := Els{}
+	for _, e := range els {
+		i, err := EntryInfo(e)
+		if err != nil {
+			return els, err
+		}
+		i["private"] = "true"
+		err = setInfo(e, i)
+		if err != nil {
+			return els, err
+		}
+		l = append(l, e)
+	}
+	return l, nil
 }
 
 type SetDesc []*Set

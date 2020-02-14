@@ -258,3 +258,46 @@ func InfoSafe(eh interface{}) Info {
 		return map[string]string{}
 	}
 }
+
+func EntryInfo(eh interface{}) (Info, error) {
+	switch eh.(type) {
+	case *Hold:
+		return eh.(*Hold).Info, nil
+	case *Image:
+		return eh.(*Image).Info, nil
+	case *Set:
+		return eh.(*Set).Info, nil
+	case *Text:
+		return eh.(*Text).Info, nil
+	case *Audio:
+		return eh.(*Audio).Info, nil
+	case *Video:
+		return eh.(*Video).Info, nil
+	case *Html:
+		return eh.(*Html).Info, nil
+	default:
+		return nil, fmt.Errorf("Info: type not found. %v", eh)
+	}
+}
+
+func setInfo(eh interface{}, i Info) error {
+	switch eh.(type) {
+	case *Hold:
+		eh.(*Hold).Info = i
+	case *Image:
+		eh.(*Image).Info = i
+	case *Set:
+		eh.(*Set).Info = i
+	case *Text:
+		eh.(*Text).Info = i
+	case *Audio:
+		eh.(*Audio).Info = i
+	case *Video:
+		eh.(*Video).Info = i 
+	case *Html:
+		eh.(*Html).Info = i
+	default:
+		return fmt.Errorf("Info: type not found. %v", eh)
+	}
+	return nil
+}
