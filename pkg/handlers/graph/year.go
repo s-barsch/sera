@@ -12,22 +12,16 @@ import (
 )
 
 func Year(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Path) {
-	timestamp, err := getTimestamp(p)
-	if err != nil {
-		http.NotFound(w, r)
-		s.Log.Println(err)
-		return
+	tree := s.Trees["graph"]
+
+	if s.Flags.Local {
+		tree = s.Trees["graph-private"]
 	}
 
-	eh, err := s.Trees["graph"].Lookup(timestamp)
+	h, err := findYear(tree, p)
 	if err != nil {
 		http.NotFound(w, r)
 		s.Log.Println(err)
-		return
-	}
-	h, ok := eh.(*entry.Hold)
-	if !ok {
-		http.NotFound(w, r)
 		return
 	}
 
@@ -49,7 +43,7 @@ func Year(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Pat
 		Section: "graph",
 		Path:    r.URL.Path,
 		Host:    r.Host,
-		El:      eh,
+		El:      h,
 		Night:   head.NightMode(r),
 		Large:   head.TypeMode(r),
 	}
@@ -59,15 +53,10 @@ func Year(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Pat
 		return
 	}
 
-	els := serializeMonths(h)
-	if !s.Flags.Local {
-		els = els.ExcludePrivate()
-	}
-
 	err = s.ExecuteTemplate(w, "graph-main", &graphMain{
 		Head: head,
 		Hold: h,
-		Els:  els,
+		Els:  serializeMonths(h),
 		Prev: prev,
 		Next: next,
 	})
@@ -75,6 +64,24 @@ func Year(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Pat
 		log.Println(err)
 	}
 }
+
+func findYear(tree *entry.Hold, p *paths.Path) (*entry.Hold, error) { 
+	timestamp, err := getTimestamp(p)
+	if err != nil {
+		return nil, err
+	}
+
+	eh, err := tree.Lookup(timestamp)
+	if err != nil {
+		return nil, err
+	}
+	h, ok := eh.(*entry.Hold)
+	if !ok {
+		return nil, fmt.Errorf("findYear: Could not convert interface to type Hold.")
+	}
+	return h, nil
+}
+
 
 func serializeMonths(h *entry.Hold) entry.Els {
 	els := entry.Els{}
