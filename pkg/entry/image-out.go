@@ -23,6 +23,9 @@ func (i *Image) Title(lang string) string {
 }
 
 func (i *Image) Permalink(lang string) string {
+	if i.File.Section() == "index" {
+		return fmt.Sprintf("%v#%v", i.File.Hold.Permalink(lang), Normalize(i.Title(lang)))
+	}
 	if i.Info.Title(lang) == "" {
 		return fmt.Sprintf("%v/%v", i.File.Hold.Path(lang), ToB16(i.Date))
 	}
