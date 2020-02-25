@@ -58,13 +58,15 @@ func (s *Server) LoadData() error {
 		trees[section + "-private"] = t
 		trees[section] = t.Public()
 
+		/*
 		if section == "graph" {
 			recents[section+"-private"] = trees[section+"-private"].TraverseElsReverse()
 		} else {
 			recents[section+"-private"] = trees[section+"-private"].TraverseEls().Desc().Exclude()
 		}
 
-		recents[section] = recents[section+"-private"].ExcludePrivate()
+		recents[section] = recents[section+"-private"].Public()
+		*/
 	}
 
 	s.Trees = trees

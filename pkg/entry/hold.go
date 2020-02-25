@@ -37,14 +37,7 @@ func (h *Hold) Public() *Hold {
 		holds = append(holds, hold.Public())
 	}
 
-	els := Els{}
-	for _, e := range h.Els {
-		if InfoSafe(e)["private"] == "true" {
-			continue
-		}
-		els = append(els, e)
-	}
-	c.Els = els
+	c.Els = h.Els.Public()
 	c.Holds = holds
 
 	return c

@@ -13,6 +13,8 @@ func (els Els) Limit(n int) Els {
 	return els[:n]
 }
 
+
+
 func (els Els) Args(lang string) Args {
 	args := Args{}
 	for _, e := range els {
@@ -244,17 +246,29 @@ func (els Els) Exclude() Els {
 	return l
 }
 
-func (els Els) ExcludePrivate() Els {
+func (els Els) Public() Els {
 	l := Els{}
 	for _, e := range els {
 		i := InfoSafe(e)
 		if i["private"] == "true" {
 			continue
 		}
+		if Type(e) == "set" {
+			s := e.(*Set)
+			l = append(l, &Set{
+				File: s.File,
+				Date: s.Date,
+				Info: s.Info,
+				Cover: s.Cover,
+				Els: s.Els.Public(),
+			})
+			continue
+		}
 		l = append(l, e)
 	}
 	return l
 }
+
 
 func (els Els) Reverse() Els {
 	n := Els{}

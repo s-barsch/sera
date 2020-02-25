@@ -193,7 +193,7 @@
 {{end}}
 
 {{define "private-mark"}}
-    <span class="private">{{if eq (index .Info "private") "true"}}⦻{{end}}</span>
+    {{if eq (index .Info "private") "true"}}<span class="private">⦻</span>{{end}}
 {{end}}
 
 {{define "front-index-title"}}
