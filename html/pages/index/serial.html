@@ -12,8 +12,31 @@
 {{$page := .}}
 {{$lang := .Head.Lang}}
 {{range .Els}}
-{{template "index-el-front" (elArg . false $lang)}}
+{{template "index-entry-serial" (elArg . false $lang)}}
 {{end}}
 </main>
 {{template "bot" .Head}}
 {{end}}
+
+{{define "index-entry-serial"}}
+  <article class="text-entry index-el-front">
+    {{if eq (elType .El) "image"}}
+        <span class="thumb index-thumb">
+            <a class="thumbl" href="{{.El.Permalink .Lang}}">
+            {{template "graph-image-thumbnail" .}}
+            </a>
+        </span>
+    {{else}}
+        {{template "el" .}}
+    {{end}}
+<header class="front-meta">
+    {{template "private-mark" .El}}
+    {{template "index-date-link" .}}
+    {{with (.El.File.Hold.Link .Lang)}}
+    <a class="topicl" href="{{.Slug}}">{{removeß .Title}}</a> 
+    {{end}}
+</header>
+    {{template "edit-link" .}}
+  </article>
+{{end}}
+
