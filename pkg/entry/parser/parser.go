@@ -181,9 +181,16 @@ func (p *parser) parseSnippet(str string) string {
 
 	b := bytes.Buffer{}
 
+	skip := false
+
 	for len(str) > 0 {
 		r, size := utf8.DecodeRuneInString(str)
 		str = str[size:]
+
+		if skip {
+			b.WriteRune(r)
+			continue
+		}
 
 		switch r {
 		case '{':
@@ -198,6 +205,9 @@ func (p *parser) parseSnippet(str string) string {
 				str = str[x:]
 				continue
 			}
+		case '\\':
+			skip = true
+			continue
 		case '/':
 			// Check for // comments.
 			if len(str) >= 1 && str[0] == '/' {
