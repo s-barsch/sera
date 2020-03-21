@@ -228,11 +228,14 @@
   {{end}}
 {{end}}
 
+{{define "private-mark-graph"}}
+    {{if eq (index .Info "private") "true"}}<div class="private-graph"></div>{{end}}
+{{end}}
 
 {{define "graph-date"}}
 {{if ne "true" (index .El.Info "nodate")}}
 <header class="graph-date">
-            {{template "private-mark" .El}}
+            {{template "private-mark-graph" .El}}
     <a class="" href="{{.El.Permalink .Lang}}">
         {{.El.Date.Format "2<span class=\"ddot\">.</span> 1<span class=\"ddot\">.</span>"}}
     </a>
@@ -296,7 +299,7 @@
     <div class="text-entry">
         <div>
             {{template "el" (elArg $e false $lang)}}
-            {{template "private-mark" $e}}
+            {{template "private-mark-graph" $e}}
         </div>
     </div>
     {{end}}
