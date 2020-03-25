@@ -293,15 +293,23 @@
 
 {{define "set-graph"}}
 {{$lang := .Lang}}
-<article class="graph-set graph-text">
+<article class="graph-set">
 <div>
     {{range $i, $e := .El.Els}}
-    <div class="text-entry">
-        <div>
-            {{template "el" (elArg $e false $lang)}}
-            {{template "private-mark-graph" $e}}
-        </div>
-    </div>
+        {{if eq "image" (elType $e)}}
+        <section class="images">
+            <span class="thumb">
+                    {{template "graph-image-thumbnail" (elArg $e false $lang)}}
+            </span>
+        </section>
+        {{else}}
+            <div class="text-entry">
+                <div>
+                    {{template "el" (elArg $e false $lang)}}
+                    {{template "private-mark-graph" $e}}
+                </div>
+            </div>
+        {{end}}
     {{end}}
 </div>
 {{template "graph-date" (elArg .El false $lang)}}
