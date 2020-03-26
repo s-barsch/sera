@@ -34,7 +34,7 @@
         {{if eq $depth 0}}
             <!-- MAIN -->
             {{$lang := .Head.Lang}}
-            {{$months := (.Els.Offset 0 60).Months}} <!-- 25 -->
+            {{$months := (.Els.Offset 0 10).Months}} <!-- 25 -->
             {{range $i, $els := $months}}
             {{if $i}}
             <h2 class="month-title">
@@ -299,7 +299,9 @@
         {{if eq "image" (elType $e)}}
         <section class="images">
             <span class="thumb">
+                <a class="thumbl" href="{{$e.File.Hold.Permalink $lang}}">
                     {{template "graph-image-thumbnail" (elArg $e false $lang)}}
+                </a>
             </span>
         </section>
         {{else}}
