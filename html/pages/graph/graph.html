@@ -191,9 +191,7 @@
 
     {{else if eq $type "set"}}
 
-      <span class="thumb">
-        {{template "graph-main-set" (elArg . $lazy $lang)}}
-      </span>
+    {{template "graph-main-set" (elArg . $lazy $lang)}}
 
     {{else if eq $type "text"}}
 
