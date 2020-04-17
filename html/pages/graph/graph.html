@@ -302,6 +302,11 @@
                 </a>
             </span>
         </section>
+        {{else if eq "video" (elType $e)}}
+            <div class="video-main">
+                {{template "el" (elArg $e false $lang)}}
+                {{template "private-mark-graph" $e}}
+            </div>
         {{else}}
             <div class="text-entry">
                 <div>

@@ -26,12 +26,18 @@ img {
     max-width:100%;
 }
 
+.video-main video {
+    max-width:30rem;
+    max-height:30rem;
+}
+
 .images .thumbi {
     max-width:20rem;
     max-height:20rem;
 }
 
 .media-mixin(@break) when (@break = @break-single) {
+    .video-main video,
     .images .thumbi {
         max-width:100%;
         max-height:100%;
@@ -61,6 +67,7 @@ img {
 }
 
 .media-mixin(@break) when (@break = @break-desk) {
+    .video-main video,
     .images .thumbi {
         max-width:35rem;
         max-height:35rem;
