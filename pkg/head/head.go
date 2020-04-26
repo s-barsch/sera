@@ -62,15 +62,15 @@ func (h *Head) TypeModeLink(lang string) string {
 	switch lang {
 	case "en":
 		if h.Large {
-			return "/defaulttype/"
+			return "/opt/defaulttype/"
 		} else {
-			return "/largetype/"
+			return "/opt/largetype/"
 		}
 	default:
 		if h.Large {
-			return "/standardschrift/"
+			return "/opt/standardschrift/"
 		} else {
-			return "/grossschrift/"
+			return "/opt/grossschrift/"
 		}
 	}
 }
@@ -79,15 +79,15 @@ func (h *Head) NightLink(lang string) string {
 	switch lang {
 	case "en":
 		if h.Night {
-			return "/daymode/"
+			return "/opt/daymode/"
 		} else {
-			return "/nightmode/"
+			return "/opt/nightmode/"
 		}
 	default:
 		if h.Night {
-			return "/tagmodus/"
+			return "/opt/tagmodus/"
 		} else {
-			return "/nachtmodus/"
+			return "/opt/nachtmodus/"
 		}
 	}
 }

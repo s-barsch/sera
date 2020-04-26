@@ -36,15 +36,15 @@ func routes(s *server.Server) *mux.Router {
 	r.PathPrefix("/datenschutz/").HandlerFunc(makeHandler(s, extra.Route))
 	r.PathPrefix("/privacy/").HandlerFunc(makeHandler(s, extra.Route))
 
-	r.PathPrefix("/nachtmodus/").HandlerFunc(makeHandler(s, extra.NightMode))
-	r.PathPrefix("/nightmode/").HandlerFunc(makeHandler(s, extra.NightMode))
-	r.PathPrefix("/tagmodus/").HandlerFunc(makeHandler(s, extra.DayMode))
-	r.PathPrefix("/daymode/").HandlerFunc(makeHandler(s, extra.DayMode))
+	r.PathPrefix("/opt/nachtmodus/").HandlerFunc(makeHandler(s, extra.NightMode))
+	r.PathPrefix("/opt/nightmode/").HandlerFunc(makeHandler(s, extra.NightMode))
+	r.PathPrefix("/opt/tagmodus/").HandlerFunc(makeHandler(s, extra.DayMode))
+	r.PathPrefix("/opt/daymode/").HandlerFunc(makeHandler(s, extra.DayMode))
 
-	r.PathPrefix("/grossschrift/").HandlerFunc(makeHandler(s, extra.LargeType))
-	r.PathPrefix("/largetype/").HandlerFunc(makeHandler(s, extra.LargeType))
-	r.PathPrefix("/defaulttype/").HandlerFunc(makeHandler(s, extra.DefaultType))
-	r.PathPrefix("/standardschrift/").HandlerFunc(makeHandler(s, extra.DefaultType))
+	r.PathPrefix("/opt/grossschrift/").HandlerFunc(makeHandler(s, extra.LargeType))
+	r.PathPrefix("/opt/largetype/").HandlerFunc(makeHandler(s, extra.LargeType))
+	r.PathPrefix("/opt/defaulttype/").HandlerFunc(makeHandler(s, extra.DefaultType))
+	r.PathPrefix("/opt/standardschrift/").HandlerFunc(makeHandler(s, extra.DefaultType))
 
 	r.PathPrefix("/nolog/").HandlerFunc(makeHandler(s, extra.NoLog))
 	r.PathPrefix("/dolog/").HandlerFunc(makeHandler(s, extra.DoLog))
