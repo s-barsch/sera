@@ -59,6 +59,7 @@ func routes(s *server.Server) *mux.Router {
 
 	r.PathPrefix("/static/").HandlerFunc(makeHandler(s, extra.StaticFiles))
 	r.PathPrefix("/js/").HandlerFunc(makeHandler(s, extra.JSFiles))
+	r.HandleFunc("/service-worker.js", makeHandler(s, extra.ServiceWorker))
 	r.HandleFunc("/robots.txt", makeHandler(s, extra.RobotsFiles))
 
 	r.PathPrefix("/manifest.json").HandlerFunc(makeHandler(s, extra.Manifest))

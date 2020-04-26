@@ -19,6 +19,10 @@ func serveStatic(w http.ResponseWriter, r *http.Request, p string) {
 	http.ServeFile(w, r, p)
 }
 
+func ServiceWorker(s *server.Server, w http.ResponseWriter, r *http.Request) {
+	serveStatic(w, r, s.Paths.Data+"/static/js/service-worker.js")
+}
+
 func JSFiles(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	path, err := paths.Sanitize(r.URL.Path)
 	if err != nil {

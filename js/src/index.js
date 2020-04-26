@@ -4,7 +4,7 @@ import initText from "./text";
 import initAudio from "./audio";
 import initGraphMore from "./graph-overview/more";
 
-let stInit = page => {
+const stInit = page => {
     switch (page.type) {
         case "graph-main":
             initGraphMore();
@@ -19,9 +19,22 @@ let stInit = page => {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    initText();
-    initAudio();
-    if (typeof pageVars !== "undefined") {
-        stInit(pageVars);
-    }
+  initText();
+  initAudio();
+  initServiceWorker();
+  if (typeof pageVars !== "undefined") {
+    stInit(pageVars);
+  }
 });
+
+const initServiceWorker = () => {
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function() {
+      navigator.serviceWorker.register("/service-worker.js").then(function(registration) {
+        console.log("ServiceWorker registration successful with scope: ", registration.scope);
+      }, function(err) {
+        console.log("ServiceWorker registration failed: ", err);
+      });
+    });
+  }
+}
