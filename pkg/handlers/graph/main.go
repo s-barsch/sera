@@ -24,7 +24,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		Path:    r.URL.Path,
 		Host:    r.Host,
 		El:      s.Trees["graph"],
-		Night:   head.NightMode(r),
+		Dark:   head.DarkMode(r),
 		Large:   head.TypeMode(r),
 		NoLog:   head.LogMode(r),
 	}

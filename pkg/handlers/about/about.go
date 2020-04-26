@@ -35,7 +35,7 @@ func Hold(s *server.Server, w http.ResponseWriter, r *http.Request, hold *entry.
 		Path:    r.URL.Path,
 		Host:    r.Host,
 		El:      hold,
-		Night:   head.NightMode(r),
+		Dark:   head.DarkMode(r),
 		Large:   head.TypeMode(r),
 	}
 	err := head.Make()

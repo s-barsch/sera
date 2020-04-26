@@ -11,7 +11,7 @@ type Head struct {
 	Path    string
 	Host    string
 	Local   bool
-	Night   bool
+	Dark   bool
 	Large   bool
 	NoLog   bool
 	El      interface{}
@@ -27,13 +27,13 @@ type Head struct {
 func (h *Head) TypeModeTitle(lang string) string {
 	switch lang {
 	case "en":
-		if h.Night {
+		if h.Dark {
 			return "Switch to Default type mode"
 		} else {
 			return "Switch to Large type mode"
 		}
 	default:
-		if h.Night {
+		if h.Dark {
 			return "Wechsle zum Großschrift-Modus"
 		} else {
 			return "Wechsle zum Standardschrift-Modus"
@@ -41,19 +41,19 @@ func (h *Head) TypeModeTitle(lang string) string {
 	}
 }
 
-func (h *Head) NightLinkTitle(lang string) string {
+func (h *Head) DarkLinkTitle(lang string) string {
 	switch lang {
 	case "en":
-		if h.Night {
-			return "Switch to Day mode"
+		if h.Dark {
+			return "Switch to Light mode"
 		} else {
-			return "Switch to Night mode"
+			return "Switch to Dark mode"
 		}
 	default:
-		if h.Night {
+		if h.Dark {
 			return "Wechsle zu Tagmodus"
 		} else {
-			return "Wechsle zu Nachtmodus"
+			return "Wechsle zu Dunkelmodus"
 		}
 	}
 }
@@ -75,19 +75,19 @@ func (h *Head) TypeModeLink(lang string) string {
 	}
 }
 
-func (h *Head) NightLink(lang string) string {
+func (h *Head) DarkLink(lang string) string {
 	switch lang {
 	case "en":
-		if h.Night {
-			return "/opt/daymode/"
+		if h.Dark {
+			return "/opt/lightmode/"
 		} else {
-			return "/opt/nightmode/"
+			return "/opt/darkmode/"
 		}
 	default:
-		if h.Night {
+		if h.Dark {
 			return "/opt/tagmodus/"
 		} else {
-			return "/opt/nachtmodus/"
+			return "/opt/dunkelmodus/"
 		}
 	}
 }
@@ -145,8 +145,8 @@ func TypeMode(r *http.Request) bool {
 	return c.Value == "true"
 }
 
-func NightMode(r *http.Request) bool {
-	c, err := r.Cookie("nightmode")
+func DarkMode(r *http.Request) bool {
+	c, err := r.Cookie("darkmode")
 	if err != nil {
 		return false
 	}

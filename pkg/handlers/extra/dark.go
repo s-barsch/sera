@@ -5,9 +5,9 @@ import (
 	"stferal/pkg/server"
 )
 
-func NightMode(s *server.Server, w http.ResponseWriter, r *http.Request) {
+func DarkMode(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	http.SetCookie(w, &http.Cookie{
-		Name:   "nightmode",
+		Name:   "darkmode",
 		Value:  "true",
 		Path:   "/",
 		MaxAge: 60 * 60 * 24 * 365,
@@ -19,9 +19,9 @@ func NightMode(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, ref, 307)
 }
 
-func DayMode(s *server.Server, w http.ResponseWriter, r *http.Request) {
+func LightMode(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	http.SetCookie(w, &http.Cookie{
-		Name:   "nightmode",
+		Name:   "darkmode",
 		Path:   "/",
 		MaxAge: -1,
 	})

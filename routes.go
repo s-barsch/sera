@@ -36,10 +36,10 @@ func routes(s *server.Server) *mux.Router {
 	r.PathPrefix("/datenschutz/").HandlerFunc(makeHandler(s, extra.Route))
 	r.PathPrefix("/privacy/").HandlerFunc(makeHandler(s, extra.Route))
 
-	r.PathPrefix("/opt/nachtmodus/").HandlerFunc(makeHandler(s, extra.NightMode))
-	r.PathPrefix("/opt/nightmode/").HandlerFunc(makeHandler(s, extra.NightMode))
-	r.PathPrefix("/opt/tagmodus/").HandlerFunc(makeHandler(s, extra.DayMode))
-	r.PathPrefix("/opt/daymode/").HandlerFunc(makeHandler(s, extra.DayMode))
+	r.PathPrefix("/opt/dunkelmodus/").HandlerFunc(makeHandler(s, extra.DarkMode))
+	r.PathPrefix("/opt/darkmode/").HandlerFunc(makeHandler(s, extra.DarkMode))
+	r.PathPrefix("/opt/tagmodus/").HandlerFunc(makeHandler(s, extra.LightMode))
+	r.PathPrefix("/opt/lightmode/").HandlerFunc(makeHandler(s, extra.LightMode))
 
 	r.PathPrefix("/opt/grossschrift/").HandlerFunc(makeHandler(s, extra.LargeType))
 	r.PathPrefix("/opt/largetype/").HandlerFunc(makeHandler(s, extra.LargeType))
@@ -63,7 +63,7 @@ func routes(s *server.Server) *mux.Router {
 	r.HandleFunc("/robots.txt", makeHandler(s, extra.RobotsFiles))
 
 	r.PathPrefix("/manifest.json").HandlerFunc(makeHandler(s, extra.Manifest))
-	r.PathPrefix("/manifest-night.json").HandlerFunc(makeHandler(s, extra.Manifest))
+	r.PathPrefix("/manifest-dark.json").HandlerFunc(makeHandler(s, extra.Manifest))
 
 	fileRoutes := map[string]string{
 		"/googledbd0f1dfe416dbee.html": "/static/seo/googledbd0f1dfe416dbee.html",

@@ -28,12 +28,12 @@
     margin-left:-1.5px;
 }
 
-.night-mode {
+.dark-mode {
     color:#000;
 }
 
-.night .leftnav a {
-    color:@night-white;
+.dark .leftnav a {
+    color:@dark-white;
 }
 
 .leftnav a:hover {
@@ -41,8 +41,8 @@
     border:none;
 }
 
-.night .night-mode:hover {
-    color:@night-second-red;
+.dark .dark-mode:hover {
+    color:@dark-second-red;
 }
 
 .logo {
@@ -70,8 +70,8 @@
     //fill:#f00;
 }
 
-.night .logo path {
-    //fill:@night-logo-red;
+.dark .logo path {
+    //fill:@dark-logo-red;
     fill:#fff;
 }
 
@@ -80,9 +80,9 @@
     fill:@logo-red;
 }
 
-.night .logol:hover path {
-    //fill: @night-white;
-    fill:@night-logo-red;
+.dark .logol:hover path {
+    //fill: @dark-white;
+    fill:@dark-logo-red;
 }
 
 .logo-st {
@@ -109,8 +109,8 @@
     font-size:@large-third-size;
 }
 
-.night .mnavl {
-    color:@night-white;
+.dark .mnavl {
+    color:@dark-white;
 }
 
 a.mnavl:hover {
@@ -126,8 +126,8 @@ a.mnavl:hover {
     color: @second-red;
 }
 
-.night .mnavl:hover {
-    color:@night-second-red;
+.dark .mnavl:hover {
+    color:@dark-second-red;
 }
 
 .mnavl:first-child {
@@ -138,8 +138,8 @@ a.mnavl:hover {
     border-bottom:2px #000 solid;
 }
 
-.night .mnavl.active {
-    border-color:@night-white;
+.dark .mnavl.active {
+    border-color:@dark-white;
 }
 
 .lnavl {
@@ -147,19 +147,19 @@ a.mnavl:hover {
     margin-left:.375rem;
 }
 
-.night .lnavl {
-    color:@night-inactive-gray;
+.dark .lnavl {
+    color:@dark-inactive-gray;
 }
 
 .lnavl.active {
     color: #000;
 }
 
-.night .lnavl.active {
-    color:@night-white;
+.dark .lnavl.active {
+    color:@dark-white;
 }
 
-.nightl {
+.darkl {
     vertical-align:middle;
     //margin-left:.375rem;
     margin:0;
@@ -168,12 +168,12 @@ a.mnavl:hover {
     font-size:1.125rem;
 }
 
-.night .nightl {
+.dark .darkl {
     color:#fff;
 }
 
 .media-mixin(@break) when (@break = @break-single) {
-    .nightl {
+    .darkl {
         //margin-left:.5rem;
     }
     .logo-st {
