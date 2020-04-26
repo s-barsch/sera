@@ -70,7 +70,7 @@ h3 {
 }
 
 .lead {
-    font-size: @second-size;
+    font-size: var(--fontsize-second);
 }
 
 .divi {
@@ -79,7 +79,7 @@ h3 {
 }
 
 .section-lead {
-    font-size:@second-size;
+    font-size: var(--fontsize-second);
     word-spacing:.2rem;
     margin:0;
     display:inline-block;
@@ -87,25 +87,8 @@ h3 {
     padding-top:1.25rem;
 }
 
-/*
-@media (max-width: 23rem) {
-    .section-lead {
-        font-size:1rem;
-        line-height:1.2;
-        max-width:58%;
-    }
-}
-*/
-
 .media-mixin(@break) when (@break = @break-single) {
-    /*
     .section-title-box {
-        margin-top:2.375rem;
-        margin-bottom:3.75rem;
-    }
-    */
-    .section-title-box {
-        //margin-top:2.375rem;
         margin-top:1.5rem;
         margin-bottom:2rem;
     }
@@ -121,18 +104,7 @@ h3 {
         padding-top:1.4375rem;
         font-size:1.125rem;
         float:right;
-        //line-height:2rem;
     }
-    //@media (min-width:38rem) {
-    //@media (min-width: @break-single) {
-}
-
-
-.media-mixin(@break) when (@break = @break-wide) {
-    .section-lead {
-        font-size: @second-size;
-    }
-    //@media (min-width: @break-wide) {
 }
 
 .index-title-box {
