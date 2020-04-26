@@ -38,7 +38,7 @@ func routes(s *server.Server) *mux.Router {
 
 	r.PathPrefix("/opt/dunkelmodus/").HandlerFunc(makeHandler(s, extra.DarkMode))
 	r.PathPrefix("/opt/darkmode/").HandlerFunc(makeHandler(s, extra.DarkMode))
-	r.PathPrefix("/opt/tagmodus/").HandlerFunc(makeHandler(s, extra.LightMode))
+	r.PathPrefix("/opt/hellmodus/").HandlerFunc(makeHandler(s, extra.LightMode))
 	r.PathPrefix("/opt/lightmode/").HandlerFunc(makeHandler(s, extra.LightMode))
 
 	r.PathPrefix("/opt/grossschrift/").HandlerFunc(makeHandler(s, extra.LargeType))

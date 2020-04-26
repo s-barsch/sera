@@ -51,7 +51,7 @@ func (h *Head) DarkLinkTitle(lang string) string {
 		}
 	default:
 		if h.Dark {
-			return "Wechsle zu Tagmodus"
+			return "Wechsle zu Hellmodus"
 		} else {
 			return "Wechsle zu Dunkelmodus"
 		}
@@ -85,7 +85,7 @@ func (h *Head) DarkLink(lang string) string {
 		}
 	default:
 		if h.Dark {
-			return "/opt/tagmodus/"
+			return "/opt/hellmodus/"
 		} else {
 			return "/opt/dunkelmodus/"
 		}
