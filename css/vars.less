@@ -18,6 +18,28 @@
 }
 
 :root {
+    --color-bg:         white;
+    --color-fg:         black;
+    --color-fg-soft:    hsl(0, 0%, 13%);
+    --color-link:       hsl(216, 100%, 23%);
+    --color-inactive:   hsl(0, 0%, 40%);
+    --color-red-logo:   hsl(346, 83%, 40%);
+    --color-red-first:  hsl(0, 100%, 4%);
+    --color-red-second: hsl(0, 100%, 37%);
+}
+
+.dark {
+    --color-bg:         hsl(0, 0%, 3%);
+    --color-fg:         hsl(0, 0%, 93%);
+    --color-fg-soft:    hsl(0, 0%, 87%);
+    --color-link:       hsl(216, 100%, 77%);
+    --color-inactive:   hsl(0, 0%, 60%);
+    --color-red-logo:   hsl(346, 100%, 50%);
+    --color-red-first:  hsl(0, 100%, 51%);
+    --color-red-second: hsl(0, 100%, 55%);
+}
+
+:root {
     --fontfamily-mono:          "CMU Typewriter", "Courier New", monospace;
     --fontfamily-year:          "President Std", "EB garamond12", times, serif;
     --fontfamily-garamond:      "EB Garamond", times, serif;
@@ -32,27 +54,8 @@
     // "Nimbus Sans L", sans-serif;
 }
 
-
-@link-color: hsl(216, 100%, 23%);
-
-@inactive-gray: hsl(0, 0%, 40%);
-
-//@logo-red: hsl(0, 100%, 43%);
-@logo-red: hsl(346, 83%, 40%);
-@prim-red: hsl(0, 100%, 4%);
-@second-red: hsl(0, 100%, 37%);
-
 @break-single: 48rem;
 @break-desk: 58rem;
 @break-wide: 90rem;
 
-@dark-white: #eee;
-@dark-black: hsl(0, 0%, 3%);
 
-@dark-link-color: hsl(216, 100%, 77%);
-@dark-inactive-gray: hsl(0, 0%, 60%);
-
-//@dark-logo-red: hsl(0, 100%, 48%);
-@dark-logo-red: hsl(346, 100%, 50%);
-@dark-prim-red: hsl(0, 100%, 51%);
-@dark-second-red: hsl(0, 100%, 55%);

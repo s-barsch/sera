@@ -6,13 +6,16 @@
 }
 
 body {
-  line-height:1.4;
-  font-family: var(--fontfamily-garamond);
-  font-size: var(--fontsize-first);
-  font-variant-ligatures: common-ligatures;
+    line-height:1.4;
+    font-family: var(--fontfamily-garamond);
+    font-size: var(--fontsize-first);
+    font-variant-ligatures: common-ligatures;
 
-  margin:0;
-  padding:0;
+    margin:0;
+    padding:0;
+
+    background: var(--color-bg);
+    color: var(--color-fg);
 }
 
 html {
@@ -20,7 +23,6 @@ html {
 }
 
 body {
-    //background:hsla(0, 0%, 97%, 1);
     position:relative;
     min-height:100%;
     padding-bottom:4rem;
@@ -71,7 +73,6 @@ body {
 @import "pages/sitemap.less";
 
 @import "extra/narrow-screen.less";
-@import "dark.less";
 
 @media (min-width: @break-single) {
     .margin {

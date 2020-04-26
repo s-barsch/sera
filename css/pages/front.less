@@ -64,11 +64,6 @@
     text-align:right;
 }
 
-.dark .topic-front a {
-    color:@dark-link-color;
-}
-
-
 .topicl,
 .graph-datel {
     vertical-align:top;
@@ -104,19 +99,8 @@
     font-weight:600;
 }
 
-/*
-    DESK
-    .front-section {
-        margin:.5rem 0 1.25rem;
-        font-size:1rem;
-        letter-spacing:.04rem;
-*/
 .front-section a {
-        color:#222;
-}
-
-.dark .front-section a {
-    color:@dark-white;
+        color:var(--color-fg-soft);
 }
 
 .media-mixin(@break) when (@break = @break-single) {

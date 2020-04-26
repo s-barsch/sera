@@ -1,24 +1,15 @@
 a {
     text-decoration:none;
-    color: @link-color;
-}
-
-.dark a {
-    color: @dark-link-color;
+    color: var(--color-link);
 }
 
 .altl,
 .blackl {
-    color: #000;
-}
-
-.dark .altl,
-.dark .blackl {
-    color: @dark-white;
+    color: var(--color-fg);
 }
 
 .topicl {
-    color: @link-color;
+    color: var(--color-link);
 }
 
 .editl {
@@ -40,13 +31,11 @@ a {
 }
 
 a:hover {
-    border-bottom:2px @prim-red solid;
+    border-bottom:2px transparent solid;
+    border-color: var(--color-red-first);
     padding-bottom:1px;
 }
 
-.dark a:hover {
-    border-color:@dark-prim-red;
-}
 
 .altl:hover,
 .thumbl:hover,
@@ -75,7 +64,7 @@ a:hover {
 .tip {
     display:inline-block;
     padding:.5rem;
-    border:2px solid @prim-red;
+    border:2px solid var(--color-red-first);
     margin:.5rem 0 .5rem;
 }
 
@@ -99,12 +88,12 @@ a:hover {
     bottom:.5rem;
 }
 
-.dark .uarr path {
-    fill:@dark-link-color;
+.uarr path {
+    fill:var(--color-link);
 }
 
 .uarr:hover path {
-    fill:@prim-red;
+    fill:var(--color-red-first);
 }
 
 .uarr svg {

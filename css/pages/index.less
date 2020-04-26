@@ -81,13 +81,7 @@ text[font-family=x2] {
 }
 
 .index-datel {
-    //letter-spacing:.06rem;
-    //font-size:.875rem;
-    color: #000;
-}
-
-.dark .index-datel {
-    color:@dark-white;
+    color:var(--color-fg);
 }
 
 .index-el {
@@ -99,20 +93,16 @@ text[font-family=x2] {
     fill: transparent;
 }
 
+.indexmap path {
+    stroke: var(--color-fg);
+}
+
+.indexmap text {
+    fill:var(--color-fg);
+}
+
 .indexmap text:hover {
-    fill:@second-red;
-}
-
-.dark .indexmap text:hover {
-    fill:@dark-prim-red;
-}
-
-.dark .indexmap text {
-    fill:@dark-white;
-}
-
-.dark .indexmap path {
-    stroke: @dark-white;
+    fill:var(--color-red-second);
 }
 
 .index-map .indexmap {
