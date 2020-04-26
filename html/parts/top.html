@@ -10,35 +10,31 @@
 
 
 {{define "logo"}}
-<div id="logo" class="logo">
-    <a class="logol" href="/">
-      {{varRaw "logo"}}
-    </a>
+<div id="logo">
+    <a href="/">{{varRaw "logo"}}</a>
 </div>
 {{end}}
 
 
 {{define "lang-nav"}}
-<nav id="lang" class="lang-nav">
+<nav class="top-nav">
   {{$lang := .Lang}}
-  <span class="leftnav">
-  <a href="{{.DarkLink .Lang}}" class="dark-mode" title="{{.DarkLinkTitle .Lang}}" rel="nofollow" class="lnavl darkl">◧</a>
-  <a class="typemodel lnavl" href="{{.TypeModeLink .Lang}}">T<span class="small-t">T</span></a>
-<!--
-      Nolog: {{.NoLog}}
--->
-  </span>
-  </span>
+  <nav id="langs">
   {{range .Langs}}
-    <a class="lnavl{{if eq .Name $lang}} active{{end}}" href="{{.Href}}">{{langName .Name}}</a>
+    <a {{if eq .Name $lang}}class="active"{{end}} href="{{.Href}}">{{langName .Name}}</a>
   {{end}}
+  </nav>
+  <nav id="options">
+      <a id="colors-mode-link" href="{{.DarkLink .Lang}}" title="{{.DarkLinkTitle .Lang}}">◧</a>
+      <a id="type-mode-link"   href="{{.TypeModeLink .Lang}}">T<span class="small-t">T</span></a>
+  </nav>
 </nav>
 {{end}}
 
 {{define "nav"}}
-<nav id="nav" class="main-nav">
+<nav id="nav">
     {{range .}}
-    <a class="mnavl{{if .IsActive}} active{{end}}" href="{{.Href}}">{{.Name}}</a>
+    <a {{if .IsActive}}class="active"{{end}} href="{{.Href}}">{{.Name}}</a>
     {{end}}
 </nav>
 {{end}}
