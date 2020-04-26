@@ -50,20 +50,8 @@
 
 
 .topic-front {
-    //font-family: @alegreya-sc;
+    font-size: var(--fontsize-meta);
     text-transform:lowercase;
-    //letter-spacing:.05rem;
-    //font-variant:all-small-caps;
-    /*
-    font-family:@ebg;
-    font-variant:all-small-caps;
-    letter-spacing:.05rem;
-    */
-    /*
-    text-transform:uppercase;
-    font-size: 14px;
-    letter-spacing:.03rem;
-    */
     margin:0;
     padding:0;
 }
@@ -72,23 +60,12 @@
 .topic-front {
     //font-family: @alegreya-sc;
     line-height:1.6;
-    font-size:@meta-size;
-    margin-bottom:@prim-size;
+    margin-bottom: var(--fontsize-first);
 }
 
 .graph-date {
+    font-size: var(--fontsize-base);
     text-align:right;
-    font-size:@base-size;
-}
-
-.large .graph-date,
-.large .topic-front {
-    margin-bottom:@large-prim-size;
-    font-size:@large-meta-size;
-}
-
-.large .graph-date {
-    font-size:@large-base-size;
 }
 
 .dark .topic-front a {
