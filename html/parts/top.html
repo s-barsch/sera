@@ -1,5 +1,5 @@
 {{define "top"}}
-<body class="{{if .Head.Large}}large{{end}}{{if .Head.Dark}} dark{{end}}">
+<body class="{{if .Head.Large}}large-type{{end}}{{if .Head.Dark}} dark-colors{{end}}">
 <header id="top" class="margin">
 {{template "lang-nav" .Head}}
 {{template "logo" .}}
@@ -25,8 +25,14 @@
   {{end}}
   </nav>
   <nav id="options">
-      <a id="colors-mode-link" href="{{.DarkLink .Lang}}" title="{{.DarkLinkTitle .Lang}}">◧</a>
-      <a id="type-mode-link"   href="{{.TypeModeLink .Lang}}">T<span class="small-t">T</span></a>
+      <a id="colors-mode-link"
+          href="{{.SwitchColorsLink .Lang}}"
+          title="{{.SwitchColorsTitle .Lang}}"
+          >◧</a>
+      <a id="type-mode-link"
+          href="{{.SwitchTypeLink .Lang}}"
+          title="{{.SwitchTypeTitle .Lang}}"
+          >T<span class="small-t">T</span></a>
   </nav>
 </nav>
 {{end}}

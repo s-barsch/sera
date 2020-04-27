@@ -44,8 +44,8 @@ func Year(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Pat
 		Path:    r.URL.Path,
 		Host:    r.Host,
 		El:      h,
-		Dark:   head.DarkMode(r),
-		Large:   head.TypeMode(r),
+		Dark:   head.DarkColors(r),
+		Large:   head.LargeType(r),
 	}
 	err = head.Make()
 	if err != nil {

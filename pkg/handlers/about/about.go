@@ -35,8 +35,8 @@ func Hold(s *server.Server, w http.ResponseWriter, r *http.Request, hold *entry.
 		Path:    r.URL.Path,
 		Host:    r.Host,
 		El:      hold,
-		Dark:   head.DarkMode(r),
-		Large:   head.TypeMode(r),
+		Dark:   head.DarkColors(r),
+		Large:   head.LargeType(r),
 	}
 	err := head.Make()
 	if err != nil {

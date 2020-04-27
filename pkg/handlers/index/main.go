@@ -30,8 +30,8 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		Path:    path,
 		Host:    r.Host,
 		El:      s.Trees["index"],
-		Dark:   head.DarkMode(r),
-		Large:   head.TypeMode(r),
+		Dark:   head.DarkColors(r),
+		Large:   head.LargeType(r),
 		NoLog:   head.LogMode(r),
 	}
 	err = head.Make()

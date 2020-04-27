@@ -46,8 +46,8 @@ func Extra(s *server.Server, w http.ResponseWriter, r *http.Request, h *entry.Ho
 		Path:    r.URL.Path,
 		Host:    r.Host,
 		El:      h,
-		Dark:   head.DarkMode(r),
-		Large:   head.TypeMode(r),
+		Dark:   head.DarkColors(r),
+		Large:   head.LargeType(r),
 		NoLog:   head.LogMode(r),
 	}
 	err := head.Make()

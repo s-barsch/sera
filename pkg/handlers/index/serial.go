@@ -21,8 +21,8 @@ func Serial(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		Host:    r.Host,
 		El:      nil,
 		Desc:    s.Vars.Lang("serial", head.Lang(r.Host)),
-		Dark:   head.DarkMode(r),
-		Large:   head.TypeMode(r),
+		Dark:   head.DarkColors(r),
+		Large:   head.LargeType(r),
 		NoLog:   head.LogMode(r),
 	}
 	err := h.Make()

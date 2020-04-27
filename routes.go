@@ -36,18 +36,11 @@ func routes(s *server.Server) *mux.Router {
 	r.PathPrefix("/datenschutz/").HandlerFunc(makeHandler(s, extra.Route))
 	r.PathPrefix("/privacy/").HandlerFunc(makeHandler(s, extra.Route))
 
-	r.PathPrefix("/opt/dunkelmodus/").HandlerFunc(makeHandler(s, extra.DarkMode))
-	r.PathPrefix("/opt/darkmode/").HandlerFunc(makeHandler(s, extra.DarkMode))
-	r.PathPrefix("/opt/hellmodus/").HandlerFunc(makeHandler(s, extra.LightMode))
-	r.PathPrefix("/opt/lightmode/").HandlerFunc(makeHandler(s, extra.LightMode))
+	r.HandleFunc("/opt/colors/dark", makeHandler(s, extra.DarkColors))
+	r.HandleFunc("/opt/colors/light", makeHandler(s, extra.LightColors))
 
-	r.PathPrefix("/opt/grossschrift/").HandlerFunc(makeHandler(s, extra.LargeType))
-	r.PathPrefix("/opt/largetype/").HandlerFunc(makeHandler(s, extra.LargeType))
-	r.PathPrefix("/opt/defaulttype/").HandlerFunc(makeHandler(s, extra.DefaultType))
-	r.PathPrefix("/opt/standardschrift/").HandlerFunc(makeHandler(s, extra.DefaultType))
-
-	r.PathPrefix("/nolog/").HandlerFunc(makeHandler(s, extra.NoLog))
-	r.PathPrefix("/dolog/").HandlerFunc(makeHandler(s, extra.DoLog))
+	r.HandleFunc("/opt/type/large", makeHandler(s, extra.LargeType))
+	r.HandleFunc("/opt/type/small", makeHandler(s, extra.SmallType))
 
 	r.HandleFunc("/index", extra.AddSlash)
 	r.HandleFunc("/graph", extra.AddSlash)
