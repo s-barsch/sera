@@ -36,15 +36,26 @@
     margin:0;
 }
 
-#type-mode-link {
+a#type-mode-link {
     font-family:Inter;
     font-weight:500;
+    color: var(--color-inactive);
 }
 
 #type-mode-link .small-t {
     font-size:65%;
     font-weight:675;
     margin-left:-0.09375rem; // 1.5
+}
+
+#type-mode-link .small-t,
+.large a#type-mode-link {
+    color: var(--color-fg-true);
+}
+
+a#type-mode-link,
+.large a#type-mode-link .small-t {
+    color: var(--color-inactive);
 }
 
 // logo
