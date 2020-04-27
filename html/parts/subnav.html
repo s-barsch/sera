@@ -1,7 +1,7 @@
 {{define "subnav"}}
-  <nav id="subnav">
-    {{template "subnavs" .}}
-  </nav>
+    <nav id="subnav">
+        {{template "subnavs" .}}
+    </nav>
 {{end}}
 
 {{define "subnav-fixed"}}
@@ -12,23 +12,12 @@
 
 {{define "subnavs"}}
     <div class="margin subnavs {{.Hold.Section}}-subnavs">
-        <div class="subnavs-steps">
+        <div class="subnav__steps">
             {{template "subnav-recursive" (objArg .Hold .Lang)}}
         </div>
-        <div class="last-subnav">
+        <div class="subnav__last">
             {{template "subnav-row" (snavArg .Hold .Current .Lang)}}
         </div>
-    </div>
-{{end}}
-
-{{define "subnav-el"}}
-    <div class="margin snavs elnav">
-      <div>
-        {{template "subnav-recursive" (objArg .Hold .Lang)}}
-      </div>
-      <div class="last">
-        {{template "subnav-row" (snavArg .Hold .Current .Lang)}}
-      </div>
     </div>
 {{end}}
 
@@ -43,43 +32,42 @@
     {{end}}
 {{end}}
 
-{{define "tmppark"}}
-{{end}}
+// TODO: need to refactor this
 
 {{define "subnav-row"}}
     {{$lang := .Lang}}
     {{$current := .Current}}
     {{$hold := .Hold}}
     {{with .Hold.Subnav}}
-        <div class="subnav">
-            {{with .Label}}
-              {{index . $lang}}:&ensp;
-            {{end}}
+    <div class="subnav">
+        {{with .Label}}
+          {{index . $lang}}:&ensp;
+        {{end}}
 
-            {{range $i, $item := .Items -}}
-                {{- $isMonth := and (eq 1 .File.Hold.Depth) (eq "graph" .Section) -}}
-                {{if and (eq $i 0) $isMonth}}
-                <a class="topl" href="#">
-                &uarr;
-                </a>
+        {{range $i, $item := .Items -}}
+            {{- $isMonth := and (eq 1 .File.Hold.Depth) (eq "graph" .Section) -}}
+            {{if and (eq $i 0) $isMonth}}
+            <a class="top-link" href="#">
+            &uarr;
+            </a>
+            {{- end -}}
+
+            {{- with $item -}}
+                {{- $title := .Info.Label $lang -}}
+                {{if eq $item.Section "graph"}}
+                    {{- if eq $title "" -}}
+                          {{- $title = .Date.Format "06" -}}
+                    {{- end -}}
                 {{- end -}}
 
-                {{- with $item -}}
-                    {{- $title := .Info.Label $lang -}}
-                    {{if eq $item.Section "graph"}}
-                        {{- if eq $title "" -}}
-                              {{- $title = .Date.Format "06" -}}
-                        {{- end -}}
-                    {{- end -}}
-
-                    {{- if $title -}}
-                        {{- " "}}<a class="snavl{{if eq $current $title}} active{{end}}"
-                        {{if $isMonth}}data-id={{.Date.Format "01"}}{{end}}
-                        href="{{.Permalink $lang}}">{{$title}}</a>
-                    {{- end -}}
+                {{- if $title -}}
+                    {{- " "}}<a {{if eq $current $title}}class="active"{{end}}
+                    {{if $isMonth}}data-id={{.Date.Format "01"}}{{end}}
+                    href="{{.Permalink $lang}}">{{$title}}</a>
                 {{- end -}}
             {{- end -}}
-        </div>
+        {{- end -}}
+    </div>
     {{end}}
 {{end}}
 

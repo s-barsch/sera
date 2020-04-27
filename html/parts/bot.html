@@ -13,20 +13,17 @@
 {{define "impressum"}}
 <nav class="bot-nav margin">
     {{if eq .Lang "de"}}
-        <a class="bnavl" rel="nofollow" href="/impressum/">Impressum</a>
+        <a rel="nofollow" href="/impressum/">Impressum</a>
     {{else}}
-        <a class="bnavl" rel="nofollow" href="/legal/">Legal</a>
+        <a rel="nofollow" href="/legal/">Legal</a>
     {{end}}
     {{if isLocal}}
         {{if eq .Lang "de"}}
-        <a class="bnavl" rel="nofollow" href="/datenschutz/">Datenschutz</a>
+        <a rel="nofollow" href="/datenschutz/">Datenschutz</a>
         {{else}}
-        <a class="bnavl" rel="nofollow" href="/privacy/">Privacy</a>
+        <a rel="nofollow" href="/privacy/">Privacy</a>
         {{end}}
     {{end}}
-    <!--
-    <a style="float:right;" id="large-type" href="#">↕</a>
-    -->
 </nav>
 {{end}}
 
