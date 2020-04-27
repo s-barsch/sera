@@ -25,6 +25,11 @@ func Year(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Pat
 		return
 	}
 
+	if perma := h.Permalink(head.Lang(r.Host)); r.URL.Path != perma {
+		http.Redirect(w, r, perma, 301)
+		return
+	}
+
 	// month
 	if h.Depth() > 1 {
 		http.NotFound(w, r)
