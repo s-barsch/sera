@@ -138,14 +138,9 @@ func (h *Hold) Permalink(lang string) string {
 	case "graph":
 		if h.Depth() == 2 {
 			path := h.Path(lang)
-			if len(path) > 2 {
-				month := len(path) - 2
-				/*
-					if path[month:] == "01" {
-						return path[:month] + "#"
-					}
-				*/
-				return path[:month] + "#" + path[month:]
+			if len(path) > 3 {
+				month := len(path) - 3
+				return path[:month] + "#" + path[month+1:]
 			}
 		}
 		if h.Depth() < 3 {

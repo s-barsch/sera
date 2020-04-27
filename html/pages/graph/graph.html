@@ -55,9 +55,11 @@
             {{$lang := .Head.Lang}}
             {{$months := .Els.Months}}
             {{range $i, $els := $months}}
-                <section id="{{(index $els 0).Date.Format "01"}}" class="month">
+            {{$firstEntry := (index $els 0)}}
+            {{$monthNum := $firstEntry.Date.Format "01"}}
+                <section id="{{$monthNum}}" class="month">
                     <h2 class="month-title">
-                        {{monthLang (index $els 0).Date $lang}}
+                        <a href="#{{$monthNum}}">{{monthLang $firstEntry.Date $lang}}</a>
                     </h2>
 
                     {{if (gt $i 2)}}

@@ -47,7 +47,7 @@
         {{range $i, $item := .Items -}}
             {{- $isMonth := and (eq 1 .File.Hold.Depth) (eq "graph" .Section) -}}
             {{if and (eq $i 0) $isMonth}}
-            <a class="top-link" href="#">
+            <a class="top-link" href="#top">
             &uarr;
             </a>
             {{- end -}}
