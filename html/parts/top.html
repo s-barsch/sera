@@ -1,5 +1,6 @@
 {{define "top"}}
-<body class="{{if .Head.Large}}large-type{{end}}{{if .Head.Dark}} dark-colors{{end}}">
+<body {{if .Head.Large}}data-type="large"{{end}}
+      >
 <header id="top" class="margin">
 {{template "lang-nav" .Head}}
 {{template "logo" .}}
