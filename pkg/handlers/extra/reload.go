@@ -15,6 +15,7 @@ func AddSlash(w http.ResponseWriter, r *http.Request) {
 func ConstantReload(s *server.Server, next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if !strings.Contains(r.URL.Path, ".jpg") {
+			log.Println(r.URL.Path)
 			err := s.Load()
 			if err != nil {
 				log.Println(err)

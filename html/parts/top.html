@@ -1,5 +1,7 @@
 {{define "top"}}
-<body {{if .Head.Large}}data-type="large"{{end}}
+<body
+      {{if .Head.Large}}data-type="large"{{end}}
+      {{if .Head.Dark}}data-colors="dark"{{end}}
       >
 <header id="top" class="margin">
 {{template "lang-nav" .Head}}
@@ -26,11 +28,11 @@
   {{end}}
   </nav>
   <nav id="options">
-      <a id="colors-mode-link"
+      <a id="colors-switch-link"
           href="{{.SwitchColorsLink .Lang}}"
           title="{{.SwitchColorsTitle .Lang}}"
           >◧</a>
-      <a id="type-mode-link"
+      <a id="type-switch-link"
           href="{{.SwitchTypeLink .Lang}}"
           title="{{.SwitchTypeTitle .Lang}}"
           >T<span class="small-t">T</span></a>
