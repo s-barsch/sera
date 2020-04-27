@@ -53,4 +53,3 @@ func toRef(path string) string {
 	}
 	return path
 }
-

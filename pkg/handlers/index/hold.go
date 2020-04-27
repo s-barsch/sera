@@ -24,7 +24,7 @@ func Hold(s *server.Server, w http.ResponseWriter, r *http.Request, hold *entry.
 		Path:    r.URL.Path,
 		Host:    r.Host,
 		El:      hold,
-		Dark:   head.DarkColors(r),
+		Dark:    head.DarkColors(r),
 		Large:   head.LargeType(r),
 		NoLog:   head.LogMode(r),
 	}

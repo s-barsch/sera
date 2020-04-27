@@ -21,16 +21,16 @@ func Files(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Pa
 
 	// What would be an example for this?
 	/*
-	if p.Type == "files" {
-		f, err := entry.ElFileSafe(eh)
-		if err != nil {
-			s.Debug(err)
-			http.NotFound(w, r)
+		if p.Type == "files" {
+			f, err := entry.ElFileSafe(eh)
+			if err != nil {
+				s.Debug(err)
+				http.NotFound(w, r)
+				return
+			}
+			serveStatic(w, r, filepath.Join(f.Hold.File.Path, p.Descriptor))
 			return
 		}
-		serveStatic(w, r, filepath.Join(f.Hold.File.Path, p.Descriptor))
-		return
-	}
 	*/
 
 	serveCacheFile(w, r, eh, p.Descriptor)
@@ -41,7 +41,6 @@ func serveCacheFile(w http.ResponseWriter, r *http.Request, eh interface{}, desc
 
 	var abs string
 	var err error
-
 
 	switch eh.(type) {
 	case *entry.Image:

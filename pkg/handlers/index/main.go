@@ -30,7 +30,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		Path:    path,
 		Host:    r.Host,
 		El:      s.Trees["index"],
-		Dark:   head.DarkColors(r),
+		Dark:    head.DarkColors(r),
 		Large:   head.LargeType(r),
 		NoLog:   head.LogMode(r),
 	}

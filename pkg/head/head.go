@@ -11,7 +11,7 @@ type Head struct {
 	Path    string
 	Host    string
 	Local   bool
-	Dark   bool
+	Dark    bool
 	Large   bool
 	NoLog   bool
 	El      interface{}
@@ -23,8 +23,6 @@ type Head struct {
 	Desc   string
 	Schema *Schema
 }
-
-
 
 func (h *Head) Make() error {
 	// can check for missing entries?
@@ -70,5 +68,3 @@ func LogMode(r *http.Request) bool {
 	}
 	return c.Value == "true"
 }
-
-

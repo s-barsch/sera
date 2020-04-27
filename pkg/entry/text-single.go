@@ -1,13 +1,13 @@
 package entry
 
 import (
-	"strings"
 	"bufio"
 	"bytes"
 	"fmt"
 	"io"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 )
 

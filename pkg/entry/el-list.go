@@ -13,8 +13,6 @@ func (els Els) Limit(n int) Els {
 	return els[:n]
 }
 
-
-
 func (els Els) Args(lang string) Args {
 	args := Args{}
 	for _, e := range els {
@@ -174,7 +172,6 @@ func (els Els) Asc() Els {
 	return els
 }
 
-
 func (els Els) Desc() Els {
 	sort.Sort(Desc(els))
 	return els
@@ -256,11 +253,11 @@ func (els Els) Public() Els {
 		if Type(e) == "set" {
 			s := e.(*Set)
 			l = append(l, &Set{
-				File: s.File,
-				Date: s.Date,
-				Info: s.Info,
+				File:  s.File,
+				Date:  s.Date,
+				Info:  s.Info,
 				Cover: s.Cover,
-				Els: s.Els.Public(),
+				Els:   s.Els.Public(),
 			})
 			continue
 		}
@@ -268,7 +265,6 @@ func (els Els) Public() Els {
 	}
 	return l
 }
-
 
 func (els Els) Reverse() Els {
 	n := Els{}
@@ -352,7 +348,7 @@ func (els Els) NoEmpty(lang string) Els {
 				continue
 			}
 		}
-		l = append(l , e)
+		l = append(l, e)
 	}
-	return l 
+	return l
 }

@@ -141,9 +141,9 @@ func (h *Hold) Permalink(lang string) string {
 			if len(path) > 2 {
 				month := len(path) - 2
 				/*
-				if path[month:] == "01" {
-					return path[:month] + "#"
-				}
+					if path[month:] == "01" {
+						return path[:month] + "#"
+					}
 				*/
 				return path[:month] + "#" + path[month:]
 			}

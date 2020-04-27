@@ -293,7 +293,7 @@ func setInfo(eh interface{}, i Info) error {
 	case *Audio:
 		eh.(*Audio).Info = i
 	case *Video:
-		eh.(*Video).Info = i 
+		eh.(*Video).Info = i
 	case *Html:
 		eh.(*Html).Info = i
 	default:

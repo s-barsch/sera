@@ -1,8 +1,8 @@
 package index
 
 import (
-	"bytes"
 	"bufio"
+	"bytes"
 	"fmt"
 	"github.com/tdewolff/minify"
 	"github.com/tdewolff/minify/svg"
@@ -90,7 +90,7 @@ func saveMap(s *server.Server, lang string) error {
 		return err
 	}
 
-	path := fmt.Sprintf(s.Paths.Data + "/static/svg/indexmap-%v.svg", lang)
+	path := fmt.Sprintf(s.Paths.Data+"/static/svg/indexmap-%v.svg", lang)
 
 	err = ioutil.WriteFile(path, minified, 0644)
 	if err != nil {
@@ -130,4 +130,3 @@ func minifySVG(input []byte) ([]byte, error) {
 	m.AddFunc("image/svg+xml", svg.Minify)
 	return m.Bytes("image/svg+xml", input)
 }
-

@@ -55,7 +55,7 @@ func (s *Server) LoadData() error {
 		if err != nil {
 			return err
 		}
-		trees[section + "-private"] = t
+		trees[section+"-private"] = t
 		trees[section] = t.Public()
 
 		if section == "graph" {

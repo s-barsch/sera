@@ -44,7 +44,7 @@ func Year(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Pat
 		Path:    r.URL.Path,
 		Host:    r.Host,
 		El:      h,
-		Dark:   head.DarkColors(r),
+		Dark:    head.DarkColors(r),
 		Large:   head.LargeType(r),
 	}
 	err = head.Make()
@@ -65,7 +65,7 @@ func Year(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Pat
 	}
 }
 
-func findYear(tree *entry.Hold, p *paths.Path) (*entry.Hold, error) { 
+func findYear(tree *entry.Hold, p *paths.Path) (*entry.Hold, error) {
 	timestamp, err := getTimestamp(p)
 	if err != nil {
 		return nil, err
@@ -81,7 +81,6 @@ func findYear(tree *entry.Hold, p *paths.Path) (*entry.Hold, error) {
 	}
 	return h, nil
 }
-
 
 func serializeMonths(h *entry.Hold) entry.Els {
 	els := entry.Els{}

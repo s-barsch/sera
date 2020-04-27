@@ -22,12 +22,12 @@ type Hold struct {
 }
 
 func (h *Hold) Public() *Hold {
-	c:= &Hold {
+	c := &Hold{
 		Mother: h.Mother,
 		File:   h.File,
 
-		Date:   h.Date,
-		Info:   h.Info,
+		Date: h.Date,
+		Info: h.Info,
 	}
 	holds := Holds{}
 	for _, hold := range h.Holds {
