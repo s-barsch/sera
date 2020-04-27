@@ -130,9 +130,9 @@ func (h *Hold) Id() string {
 func (h *Hold) Permalink(lang string) string {
 	switch h.File.Base() {
 	case "index":
-		return "/index/"
+		return "/index"
 	case "graph":
-		return "/graph/"
+		return "/graph"
 	}
 	switch h.Section() {
 	case "graph":
@@ -149,18 +149,18 @@ func (h *Hold) Permalink(lang string) string {
 			}
 		}
 		if h.Depth() < 3 {
-			return h.Path(lang) + "/"
+			return h.Path(lang)
 		}
 	case "extra":
-		return fmt.Sprintf("/%v/", h.Info.Slug(lang))
+		return fmt.Sprintf("/%v", h.Info.Slug(lang))
 	case "about":
 		// following timestamp is the one of "/about/goals/"
 		if h.Depth() < 2 && h.Date.Format(Timestamp) != "190816_194258" {
-			return h.Path(lang) + "/"
+			return h.Path(lang)
 		}
 	default:
 		if h.Depth() < 2 {
-			return h.Path(lang) + "/"
+			return h.Path(lang)
 		}
 	}
 	return fmt.Sprintf("%v-%v", h.Path(lang), EncodeAcronym(h.Date))

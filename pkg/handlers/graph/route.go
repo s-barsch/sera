@@ -21,12 +21,19 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if path == "/graph/" {
+	rel := r.URL.Path[len("/graph"):]
+
+	if rel == "" {
 		Main(s, w, r)
 		return
 	}
 
-	p := paths.Split(r.URL.Path)
+	if rel == "/check" {
+		Check(s, w, r)
+		return
+	}
+
+	p := paths.Split(path)
 
 	if p.Type != "" {
 		extra.Files(s, w, r, p)
@@ -38,10 +45,6 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if path == "/graph/check/" {
-		Check(s, w, r)
-		return
-	}
 
 	El(s, w, r, p)
 }

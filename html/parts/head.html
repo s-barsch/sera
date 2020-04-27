@@ -19,7 +19,7 @@
 {{end}}
 
 {{template "icons"}}
-<link rel="manifest" href="/manifest{{if .Dark}}-dark{{end}}.json">
+<link rel="manifest" href="/manifest.json">
 
 {{range $i, $l := .Langs}}
     {{with $l}}
@@ -35,8 +35,8 @@
 {{end}}
 
 {{define "icons"}}
-<link rel="icon" type="image/png" sizes="32x32" href="/static/img/icons/favicon-32x32.png?v=122">
-<link rel="icon" type="image/png" sizes="16x16" href="/static/img/icons/favicon-16x16.png?v=122">
-<link rel="shortcut icon" href="/static/img/icons/favicon.ico?v=122">
-<link rel="apple-touch-icon" sizes="180x180" href="/static/img/icons/apple-touch-icon.png?v=122">
+<link rel="icon" type="image/png" sizes="32x32" href="/static/img/icons/icon-32.png?v=0">
+<link rel="icon" type="image/png" sizes="16x16" href="/static/img/icons/icon-16.png?v=0">
+<link rel="shortcut icon" href="/static/img/icons/favicon.ico?v=0">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/img/icons/icon-apple.png?v=0">
 {{end}}

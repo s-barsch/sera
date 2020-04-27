@@ -18,17 +18,19 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if path == "/index/" {
+	rel := path[len("/index"):]
+
+	if rel == "" {
 		Main(s, w, r)
 		return
 	}
 
-	if path == "/index/serial/" {
+	if rel == "/serial/" {
 		Serial(s, w, r)
 		return
 	}
 
-	if path == "/index/map.svg" {
+	if rel == "/map.svg" {
 		MapSVG(s, w, r)
 		return
 	}

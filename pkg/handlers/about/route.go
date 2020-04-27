@@ -15,19 +15,14 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if path == "/about/" || path == "/ueber/" {
+	rel := path[len("/about"):] // same length as "ueber"
+
+	if rel == "" {
 		Hold(s, w, r, s.Trees["about"])
 		return
 	}
 
 	p := paths.Split(path)
-
-	/*
-		if p.Type != "" {
-			serveFiles(s, w, r, p)
-			return
-		}
-	*/
 
 	hold, err := findHold(s, head.Lang(r.Host), p)
 	if err != nil {

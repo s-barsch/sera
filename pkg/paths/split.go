@@ -20,6 +20,7 @@ type Path struct {
 // hold ohne id
 // el mit id
 
+/*
 func isFile(path string) bool {
 	for _, c := range path {
 		switch c {
@@ -31,6 +32,7 @@ func isFile(path string) bool {
 	}
 	return false
 }
+*/
 
 func last(chain []string) string {
 	if len(chain) == 0 {

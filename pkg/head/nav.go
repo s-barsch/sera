@@ -46,15 +46,15 @@ func NewNav(lang string) Nav {
 		},
 		&Link{
 			Name: "index",
-			Href: "/index/",
+			Href: "/index",
 		},
 		&Link{
 			Name: "graph",
-			Href: "/graph/",
+			Href: "/graph",
 		},
 		&Link{
 			Name: about,
-			Href: fmt.Sprintf("/%v/", sanitize.Name(about)),
+			Href: fmt.Sprintf("/%v", sanitize.Name(about)),
 		},
 	}
 }
