@@ -59,7 +59,7 @@
             {{$monthNum := $firstEntry.Date.Format "01"}}
                 <section id="{{$monthNum}}" class="month">
                     <h2 class="month-title">
-                        <a href="#{{$monthNum}}">{{monthLang $firstEntry.Date $lang}}</a>
+                        <a href="#{{$monthNum}}t d">{{monthLang $firstEntry.Date $lang}}</a>
                     </h2>
 
                     {{if (gt $i 2)}}
@@ -84,7 +84,7 @@
             <!--
             <img src="/static/img/uarr.svg" alt="↑"
             -->
-        <a class="topl-corner uarr" href="#">
+        <a class="topl-corner uarr" href="#top">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14.76 17.96" height="67.88" width="55.786"><path d="M7.38 0L0 10.087v.001h3.834v7.872h7.092v-7.872h3.833z" fill="#002f74"/></svg>
         </a>
     </div>
