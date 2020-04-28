@@ -11,7 +11,7 @@ func main() {
 
 	err := s.Load()
 	if err != nil {
-		s.Log.Println(err)
+		s.Log.Fatal(err)
 	}
 
 	http.Handle("/", routes.Router(s))
