@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 	"stferal/go/server"
+	"stferal/go/routes"
 )
 
 func main() {
@@ -13,6 +14,6 @@ func main() {
 		s.Log.Println(err)
 	}
 
-	http.Handle("/", routes(s))
+	http.Handle("/", routes.Router(s))
 	http.ListenAndServe(":8013", nil)
 }

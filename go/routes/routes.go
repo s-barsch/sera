@@ -1,4 +1,4 @@
-package main
+package routes 
 
 import (
 	"github.com/gorilla/mux"
@@ -12,7 +12,7 @@ import (
 	"stferal/go/server"
 )
 
-func routes(s *server.Server) *mux.Router {
+func Router(s *server.Server) *mux.Router {
 	r := mux.NewRouter().StrictSlash(true)
 
 	if s.Flags.Reload {
