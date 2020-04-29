@@ -123,8 +123,15 @@ func (h *Hold) Crumbs(lang string) []*chain {
 }
 
 func (h *Hold) Id() string {
-	//println(h.Date.Format(Timestamp))
 	return h.Date.Format(Timestamp)
+}
+
+func monthAnchor(path string) string {
+	if len(path) > 3 {
+		month := len(path) - 3
+		return path[:month] + "#" + path[month+1:]
+	}
+	return path
 }
 
 func (h *Hold) Permalink(lang string) string {
@@ -137,22 +144,13 @@ func (h *Hold) Permalink(lang string) string {
 	switch h.Section() {
 	case "graph":
 		if h.Depth() == 2 {
-			path := h.Path(lang)
-			if len(path) > 3 {
-				month := len(path) - 3
-				return path[:month] + "#" + path[month+1:]
-			}
+			return monthAnchor(h.Path(lang))
 		}
 		if h.Depth() < 3 {
 			return h.Path(lang)
 		}
 	case "extra":
 		return fmt.Sprintf("/%v", h.Info.Slug(lang))
-	case "about":
-		// following timestamp is the one of "/about/goals/"
-		if h.Depth() < 2 && h.Date.Format(Timestamp) != "190816_194258" {
-			return h.Path(lang)
-		}
 	default:
 		if h.Depth() < 2 {
 			return h.Path(lang)
