@@ -14,6 +14,21 @@ type Path struct {
 	Descriptor string
 }
 
+/*
+
+	/graph/2020/03/09-36e55605/cache/200310_012140-1280.jpg
+
+    &paths.Path{
+            Page:       "graph",
+            Holds:      {"2020", "03"},
+            Name:       "09",
+            Acronym:    "36e55605",
+            Type:       "cache",
+            Descriptor: "200310_012140-1280.jpg",
+        }
+
+*/
+
 // files (punkt)
 // cache (punkt)
 // hold mit id
