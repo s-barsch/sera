@@ -7,6 +7,7 @@ import (
 	"os"
 	"strings"
 	"text/template"
+	"time"
 )
 
 func (s *Server) loadRender() error {
@@ -70,7 +71,6 @@ func (s *Server) loadVars() error {
 	if err != nil {
 		return err
 	}
-
 	v["jsmodtime"] = modtime
 	v["indexmap-de"] = maps["de"]
 	v["indexmap-en"] = maps["en"]
@@ -108,12 +108,21 @@ func (s *Server) readVarFiles() (map[string]string, error) {
 	return vars, nil
 }
 
+func makeTimestamp(t time.Time) string {
+	s := fmt.Sprintf("%x", t.Unix())
+	const length = 3
+	if len(s) > length {
+		return s[len(s)-length:]
+	}
+	return s
+}
+
 func (s *Server) readJsModtime() (string, error) {
 	fi, err := os.Stat(s.Paths.Data + "/static/js/bundle.js")
 	if err != nil {
 		return "", err
 	}
-	return fi.ModTime().Format("0102150405"), nil
+	return makeTimestamp(fi.ModTime()), nil
 }
 
 func (s *Server) readLogo() (string, error) {
