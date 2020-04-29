@@ -40,12 +40,12 @@ func Id(e interface{}) string {
 		return e.(*Audio).Date.Format(Timestamp)
 	case *Set:
 		return e.(*Set).Date.Format(Timestamp)
-	case *File:
-		return e.(*File).Id
 	case *Hold:
 		return e.(*Hold).Date.Format(Timestamp)
 	case *Html:
 		return e.(*Html).Date.Format(Timestamp)
+	case *File:
+		return e.(*File).Id
 	default:
 		return ""
 	}
@@ -63,12 +63,12 @@ func ElHold(e interface{}) (*Hold, error) {
 		return e.(*Audio).File.Hold, nil
 	case *Set:
 		return e.(*Set).File.Hold, nil
+	case *Html:
+		return e.(*Html).File.Hold, nil
 	case *File:
 		return e.(*File).Hold, nil
 	case *Hold:
 		return e.(*Hold).Mother, nil
-	case *Html:
-		return e.(*Html).File.Hold, nil
 	default:
 		return nil, fmt.Errorf("Hold not found. %v", e)
 	}

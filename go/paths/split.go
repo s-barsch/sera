@@ -15,7 +15,6 @@ type Path struct {
 }
 
 /*
-
 	/graph/2020/03/09-36e55605/cache/200310_012140-1280.jpg
 
     &paths.Path{
@@ -26,7 +25,6 @@ type Path struct {
             Subdir:     "cache",
             Subpath: "200310_012140-1280.jpg",
         }
-
 */
 
 func last(chain []string) string {
