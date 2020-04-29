@@ -64,40 +64,6 @@ func getGraphHoldDate(path string, mother *Hold) (time.Time, error) {
 	return time.Time{}, fmt.Errorf("Could not determine graph hold date. %v", path)
 }
 
-/*
-func ReadGraphHold(path string, mother *Hold) (*Hold, error) {
-	date := getGraphHold(path, mother)
-
-	file, err := NewFile(path, mother)
-	if err != nil {
-		return nil, err
-	}
-
-	h := &Hold{
-		Mother: mother,
-		File: file,
-
-		Date: date,
-		Info: info,
-	}
-
-	els, err := readEls(path, h)
-	if err != nil {
-		return nil, err
-	}
-
-	holds, err := readHolds(path, h)
-	if err != nil {
-		return nil, err
-	}
-
-	h.Els = els
-	h.Holds = holds
-
-	return h, nil
-}
-*/
-
 func ReadHold(path string, mother *Hold) (*Hold, error) {
 	file, err := NewFile(path, mother)
 	if err != nil {

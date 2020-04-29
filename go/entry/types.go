@@ -35,14 +35,6 @@ func (args Args) Offset(start, end int) Args {
 
 type Els []interface{}
 
-type File struct {
-	Id   string
-	Path string
-
-	ModTime time.Time
-	Hold    *Hold
-}
-
 type Set struct {
 	File *File
 
