@@ -24,9 +24,6 @@ func (h *Hold) IsSymlink() bool {
 	if err != nil {
 		return false
 	}
-	if h.File.Path == "/srv/rg-s/st/data/index/miteinander/fuer-mich/sorge" {
-		return true
-	}
 	return fi.Mode()&os.ModeSymlink != 0
 }
 
@@ -47,28 +44,11 @@ func (h *Hold) Subnav() *Subnav {
 				return nil
 			}
 			return &Subnav{
-				/*
-					Label: map[string]string{
-						"de": "Monate",
-						"en": "Months",
-					},
-				*/
 				//Items: toInterface(h.Holds.Reverse()),
 				Items: toInterface(h.Holds),
 			}
 		}
 	}
-	/*
-		if h.Depth() == 0 {
-			return &Subnav{
-				Label: map[string]string{
-					"de": "Themen",
-					"en": "Topics",
-				},
-				Items: toInterface(h.Holds),
-			}
-		}
-	*/
 	return &Subnav{
 		Items: toInterface(h.Holds),
 	}
