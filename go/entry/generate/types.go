@@ -42,7 +42,7 @@ func readTypesDir() ([]string, error) {
 	for _, fi := range l {
 		types = append(types, fi.Name())
 	}
-	
+
 	return types, nil
 }
 

@@ -9,9 +9,9 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"os/exec"
 	"strings"
 	"text/template"
-	"os/exec"
 )
 
 func main() {
@@ -54,13 +54,13 @@ func outName(src string) string {
 
 func generateFile(types *Types, src string) error {
 	t := template.New("").Funcs(template.FuncMap{
-		"action":  func(list []string, prop string) *action { 
+		"action": func(list []string, prop string) *action {
 			return &action{
 				List: list,
 				Prop: prop,
 			}
 		},
-		"title":   strings.Title,
+		"title": strings.Title,
 		"typeDef": func(name string) string {
 			return fmt.Sprintf("*%v.%v", name, strings.Title(name))
 		},
@@ -87,5 +87,3 @@ func goFmt(files []string) error {
 	}
 	return nil
 }
-
-
