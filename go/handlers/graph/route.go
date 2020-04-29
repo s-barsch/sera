@@ -35,7 +35,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 
 	p := paths.Split(path)
 
-	if p.Type != "" {
+	if p.Subdir != "" {
 		extra.Files(s, w, r, p)
 		return
 	}

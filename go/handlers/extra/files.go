@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+
 	//"path/filepath"
 	"stferal/go/entry"
 	"stferal/go/paths"
@@ -33,11 +34,11 @@ func Files(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Pa
 		}
 	*/
 
-	serveCacheFile(w, r, eh, p.Descriptor)
+	serveCacheFile(w, r, eh, p.Subpath)
 }
 
-func serveCacheFile(w http.ResponseWriter, r *http.Request, eh interface{}, descriptor string) {
-	name, size := paths.SplitDescriptor(descriptor)
+func serveCacheFile(w http.ResponseWriter, r *http.Request, eh interface{}, subpath string) {
+	name, size := paths.SplitSubpath(subpath)
 
 	var abs string
 	var err error

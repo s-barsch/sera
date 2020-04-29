@@ -6,12 +6,12 @@ import (
 )
 
 type Path struct {
-	Page       string
-	Holds      []string
-	Name       string
-	Acronym    string
-	Type       string
-	Descriptor string
+	Page    string
+	Holds   []string
+	Name    string
+	Acronym string
+	Subdir  string
+	Subpath string
 }
 
 /*
@@ -23,8 +23,8 @@ type Path struct {
             Holds:      {"2020", "03"},
             Name:       "09",
             Acronym:    "36e55605",
-            Type:       "cache",
-            Descriptor: "200310_012140-1280.jpg",
+            Subdir:     "cache",
+            Subpath: "200310_012140-1280.jpg",
         }
 
 */
@@ -100,13 +100,13 @@ func Split(path string) *Path {
 	page := chain[0]
 	chain = chain[1:]
 
-	typ := ""
-	descriptor := ""
+	subdir := ""
+	subpath := ""
 
 	for i, c := range chain {
 		if c == "files" || c == "cache" {
-			typ = c
-			descriptor = strings.Join(chain[i+1:], "/")
+			subdir = c
+			subpath = strings.Join(chain[i+1:], "/")
 			chain = chain[:i]
 			break
 		}
@@ -117,29 +117,30 @@ func Split(path string) *Path {
 	holds := removeLast(chain)
 
 	return &Path{
-		Page:       page,
-		Holds:      holds,
-		Name:       name,
-		Acronym:    acronym,
-		Type:       typ,
-		Descriptor: descriptor,
+		Page:    page,
+		Holds:   holds,
+		Name:    name,
+		Acronym: acronym,
+		Subdir:  subdir,
+		Subpath: subpath,
 	}
 }
 
-// descriptor == 160403_124512-1600.jpg
+// subpath == 160403_124512-1600.jpg
 //				 |             |
 //				 filename	   size
-func SplitDescriptor(desc string) (filename, size string) {
-	i := strings.LastIndex(desc, "-")
+
+func SplitSubpath(subp string) (filename, size string) {
+	i := strings.LastIndex(subp, "-")
 	if i < 0 {
-		return desc, ""
+		return subp, ""
 	}
-	j := strings.LastIndex(desc, ".")
+	j := strings.LastIndex(subp, ".")
 	if j < 0 {
-		// Descriptor "file_no_ext-1600", kommt eigentlich nicht vor.
-		return desc[:i], desc[i+1:]
+		// subpath "file_no_ext-1600", kommt eigentlich nicht vor.
+		return subp[:i], subp[i+1:]
 	}
-	filename = desc[:i] + desc[j:]
-	size = desc[i+1 : j]
+	filename = subp[:i] + subp[j:]
+	size = subp[i+1 : j]
 	return
 }
