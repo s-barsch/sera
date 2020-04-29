@@ -29,26 +29,6 @@ type Path struct {
 
 */
 
-// files (punkt)
-// cache (punkt)
-// hold mit id
-// hold ohne id
-// el mit id
-
-/*
-func isFile(path string) bool {
-	for _, c := range path {
-		switch c {
-		case '.':
-			return true
-		case '/':
-			return false
-		}
-	}
-	return false
-}
-*/
-
 func last(chain []string) string {
 	if len(chain) == 0 {
 		return ""
@@ -64,7 +44,6 @@ func removeLast(chain []string) []string {
 }
 
 func splitName(str string) (name, acronym string) {
-	//TODO: Function doesn’t discern between “innen-aussen” and “form-a9faad9”.
 	i := strings.LastIndex(str, "-")
 	if i < 0 {
 		_, err := entry.DecodeAcronym(str)
@@ -73,7 +52,6 @@ func splitName(str string) (name, acronym string) {
 		}
 		return "", str
 	}
-	// /index/art-34188329/
 
 	acronym = str[i+1:]
 
@@ -86,7 +64,6 @@ func splitName(str string) (name, acronym string) {
 }
 
 func decodeDirName(str string) (name, acronym string) {
-	// case: /index/34188329 or /index/art/
 	_, err := entry.DecodeAcronym(str)
 	if err == nil {
 		return "", str
@@ -127,17 +104,17 @@ func Split(path string) *Path {
 }
 
 // subpath == 160403_124512-1600.jpg
-//				 |             |
-//				 filename	   size
+//			  |             |
+//			  filename	    size
 
 func SplitSubpath(subp string) (filename, size string) {
 	i := strings.LastIndex(subp, "-")
 	if i < 0 {
 		return subp, ""
 	}
+	// expect a file extension
 	j := strings.LastIndex(subp, ".")
 	if j < 0 {
-		// subpath "file_no_ext-1600", kommt eigentlich nicht vor.
 		return subp[:i], subp[i+1:]
 	}
 	filename = subp[:i] + subp[j:]
