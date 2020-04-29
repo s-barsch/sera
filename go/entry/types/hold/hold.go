@@ -1,4 +1,4 @@
-package entry
+package file
 
 import (
 	"fmt"
@@ -15,7 +15,7 @@ type Hold struct {
 
 	Date time.Time
 	Info Info
-	Els  Els
+	Els  list.Els
 
 	Holds Holds
 	//Holds  []*Hold

@@ -70,7 +70,7 @@ func NewVideo(path string, hold *Hold) (*Video, error) {
 
 func getSubtitles(path string) []string {
 	dir := filepath.Dir(path)
-	name := stripExt(filepath.Base(path))
+	name := helper.StripExt(filepath.Base(path))
 	langs := []string{}
 	for _, lang := range []string{"de", "en"} {
 		_, err := os.Stat(filepath.Join(dir, "vtt", fmt.Sprintf("%v-%v.vtt", name, lang)))

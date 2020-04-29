@@ -1,7 +1,8 @@
-package entry
+package file 
 
 import (
 	"fmt"
+	"stferal/go/entry/list"
 )
 
 type Holds []*Hold
@@ -15,17 +16,17 @@ func (holds Holds) Reverse() Holds {
 }
 
 /*
-func (hold *Hold) TraverseEls() Els {
+func (hold *Hold) TraverseEls() list.Els {
 	els := hold.traverseEls([]*Hold{})
 	//sort.Sort(Desc(els))
 	return els
 }
 */
 
-func (hold *Hold) TraverseEls() Els {
+func (hold *Hold) TraverseEls() list.Els {
 	holds := hold.TraverseHolds()
 
-	els := Els{}
+	els := list.Els{}
 
 	for _, h := range holds {
 		els = append(els, h.Els...)
@@ -35,10 +36,10 @@ func (hold *Hold) TraverseEls() Els {
 	return els
 }
 
-func (hold *Hold) TraverseElsReverse() Els {
+func (hold *Hold) TraverseElsReverse() list.Els {
 	holds := hold.TraverseHolds()
 
-	els := Els{}
+	els := list.Els{}
 
 	for _, h := range holds {
 		els = append(els, h.Els.Reverse()...)
@@ -47,8 +48,8 @@ func (hold *Hold) TraverseElsReverse() Els {
 	return els
 }
 
-func newEls(els Els) Els {
-	nels := Els{}
+func newEls(els list.Els) list.Els {
+	nels := list.Els{}
 	for _, e := range els {
 		nels = append(nels, e)
 	}
@@ -65,8 +66,8 @@ func (hold *Hold) TraverseHolds() Holds {
 }
 
 /*
-func (hold *Hold) traverseEls(stack []*Hold) Els {
-	els := Els{}
+func (hold *Hold) traverseEls(stack []*Hold) list.Els {
+	els := list.Els{}
 	for _, e := range hold.Els {
 		els = append(els, e)
 	}

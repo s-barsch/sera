@@ -1,10 +1,12 @@
-package entry
+package helper
 
 import (
 	"fmt"
 	"time"
 	"unicode/utf8"
 )
+
+const Timestamp = "060102_150405"
 
 func ParseDate(date string) (time.Time, error) {
 	return time.Parse(Timestamp, date)

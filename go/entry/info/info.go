@@ -1,11 +1,14 @@
-package entry
+package info
 
 import (
 	"fmt"
-	"gopkg.in/yaml.v2"
 	"io"
 	"os"
-	"stferal/go/entry/hyph"
+	"stferal/go/entry/helper"
+	"stferal/go/entry/helper/hyph"
+
+	"gopkg.in/yaml.v2"
+
 	//"io/ioutil"
 	"path/filepath"
 	"strings"
@@ -14,22 +17,22 @@ import (
 type Info map[string]string
 
 func ReadInfo(path string) (Info, error) {
-	return parseInfoFile(infoPath(path))
+	return ParseInfoFile(infoPath(path))
 }
 
-func parseInfoFile(path string) (Info, error) {
+func ParseInfoFile(path string) (Info, error) {
 	//i := map[string]string{}
 	i := Info{}
 	f, err := os.Open(path)
 	if err != nil {
-		return i, fmt.Errorf("parseInfoFile: %v", err)
+		return i, fmt.Errorf("ParseInfoFile: %v", err)
 	}
 	defer f.Close()
 
 	d := yaml.NewDecoder(io.Reader(f))
 	err = d.Decode(&i)
 	if err != nil {
-		return i, fmt.Errorf("parseInfoFile: %v, %v", err, path)
+		return i, fmt.Errorf("ParseInfoFile: %v, %v", err, path)
 	}
 
 	for k, v := range i {
@@ -110,7 +113,7 @@ func (i Info) Slug(lang string) string {
 	if slug := i.Field("slug", lang); slug != "" {
 		return slug
 	}
-	return Normalize(i.Title(lang))
+	return helper.Normalize(i.Title(lang))
 }
 
 func (i Info) Label(lang string) string {
@@ -134,7 +137,7 @@ func (i Info) Field(key, lang string) string {
 /*
 func slug(f *File, info Info, lang string) string {
 	if lang == "de" {
-		return stripExt(f.Base())
+		return helper.StripExt(f.Base())
 	}
 	if slug := info.Field("slug", lang); slug != "" {
 		return slug
@@ -142,14 +145,6 @@ func slug(f *File, info Info, lang string) string {
 	return slugify(info.Title(lang))
 }
 */
-
-func stripExt(base string) string {
-	i := strings.LastIndex(base, ".")
-	if i <= 0 {
-		return base
-	}
-	return base[:i]
-}
 
 func infoPath(path string) string {
 	return filepath.Join(path, "info")

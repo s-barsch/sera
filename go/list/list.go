@@ -6,6 +6,26 @@ import (
 	"time"
 )
 
+type Els []interface{}
+
+type Args []*Arg
+
+type Arg struct {
+	El   interface{}
+	Lang string
+}
+
+func (args Args) Offset(start, end int) Args {
+	l := len(args)
+	if l < start {
+		return Args{}
+	}
+	if end > l || end <= 0 {
+		return args[start:]
+	}
+	return args[start:end]
+}
+
 func (els Els) Limit(n int) Els {
 	if len(els) <= n {
 		return els

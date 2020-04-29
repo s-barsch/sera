@@ -1,9 +1,11 @@
-package entry
+package file 
 
 import (
 	"fmt"
 	"os"
 )
+
+type Holds []*Hold
 
 func (h *Hold) Title(lang string) string {
 	title := h.Info.Title(lang)

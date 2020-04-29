@@ -2,7 +2,19 @@ package entry
 
 import (
 	"fmt"
+	"stferal/go/entry/helper"
+	"stferal/go/entry/types/file"
+	"time"
 )
+
+type Audio struct {
+	File *File
+
+	Date time.Time
+	Info Info
+
+	Subtitles []string
+}
 
 func (a *Audio) Acronym() string {
 	return ToB16(a.Date)

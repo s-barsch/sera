@@ -7,33 +7,12 @@ import (
 
 //var Debug bool
 
-const Timestamp = "060102_150405"
 
 /*
 func Type(e interface{}) string {
 	return reflect.TypeOf(e).String()
 }
 */
-
-type Args []*Arg
-
-type Arg struct {
-	El   interface{}
-	Lang string
-}
-
-func (args Args) Offset(start, end int) Args {
-	l := len(args)
-	if l < start {
-		return Args{}
-	}
-	if end > l || end <= 0 {
-		return args[start:]
-	}
-	return args[start:end]
-}
-
-type Els []interface{}
 
 type Set struct {
 	File *File
@@ -70,15 +49,6 @@ type Image struct {
 	Date time.Time
 	Dims *dims
 	Info Info
-}
-
-type Audio struct {
-	File *File
-
-	Date time.Time
-	Info Info
-
-	Subtitles []string
 }
 
 type Video struct {

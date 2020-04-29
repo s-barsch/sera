@@ -1,11 +1,11 @@
-package entry
+package file 
 
 import (
 	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
-
+	"stferal/go/entry/helper"
 	"code.cloudfoundry.org/bytefmt"
 )
 
@@ -14,7 +14,7 @@ func (f *File) Base() string {
 }
 
 func (f *File) BaseNoExt() string {
-	return stripExt(filepath.Base(f.Path))
+	return helper.StripExt(filepath.Base(f.Path))
 }
 
 func (f *File) Ext() string {
@@ -22,7 +22,7 @@ func (f *File) Ext() string {
 }
 
 func (f *File) Type() string {
-	return FileType(f.Path)
+	return helper.FileType(f.Path)
 }
 
 func (f *File) Size() (string, error) {

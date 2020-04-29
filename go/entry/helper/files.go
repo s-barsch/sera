@@ -2,7 +2,17 @@ package helper
 
 import (
 	"os"
+	"path/filepath"
+	"strings"
 )
+
+func StripExt(base string) string {
+	i := strings.LastIndex(base, ".")
+	if i <= 0 {
+		return base
+	}
+	return base[:i]
+}
 
 func FileType(path string) string {
 	switch filepath.Ext(path) {

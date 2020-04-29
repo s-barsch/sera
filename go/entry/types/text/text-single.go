@@ -12,7 +12,7 @@ import (
 )
 
 func getSingleTextDate(path, dateEntry string) (time.Time, error) {
-	date, err := ParseDate(Shorten(stripExt(filepath.Base(path))))
+	date, err := ParseDate(Shorten(helper.StripExt(filepath.Base(path))))
 	// Ignore error.
 	if err == nil {
 		return date, nil

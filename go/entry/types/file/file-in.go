@@ -1,9 +1,11 @@
-package entry
+package file 
 
 import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"stferal/go/entry/helper"
+	"stferal/go/entry/info"
 	"time"
 )
 
@@ -16,8 +18,7 @@ type File struct {
 }
 
 func getModTime(path string) (time.Time, error) {
-
-	switch FileType(path) {
+	switch helper.FileType(path) {
 	case "image", "video":
 		return getModTimeMedia(path)
 	case "dir":
@@ -120,15 +121,15 @@ func Shorten(n string) string {
 	return n
 }
 
-func loadFileInfo(path string) (Info, error) {
+func loadFileInfo(path string) (info.Info, error) {
 	path += ".info"
 	_, err := os.Stat(path)
 	if err == nil {
-		return parseInfoFile(path)
+		return info.ParseInfoFile(path)
 	}
 	return map[string]string{}, nil
 }
 
 func getFilenameDate(path string) (time.Time, error) {
-	return time.Parse(Timestamp, Shorten(filepath.Base(path)))
+	return time.Parse(helper.Timestamp, Shorten(filepath.Base(path)))
 }

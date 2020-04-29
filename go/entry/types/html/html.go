@@ -42,7 +42,7 @@ func NewHtml(path string, hold *Hold) (*Html, error) {
 		return nil, fmt.Errorf("%v (%v)", err, path)
 	}
 
-	date, err := ParseDate(Shorten(stripExt(file.Base())))
+	date, err := ParseDate(Shorten(helper.StripExt(file.Base())))
 	if err != nil {
 		date, err = ParseDate(info["date"])
 		if err != nil {

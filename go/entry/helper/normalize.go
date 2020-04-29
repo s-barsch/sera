@@ -1,4 +1,4 @@
-package entry
+package helper 
 
 import (
 	"github.com/kennygrant/sanitize"
@@ -17,3 +17,4 @@ func Normalize(name string) string {
 	name = validSlug.ReplaceAllString(name, "")
 	return name
 }
+
