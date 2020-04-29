@@ -1,3 +1,5 @@
+// +build ignore
+
 package entry
 
 func NewEl(path string, hold *Hold) (interface{}, error) {
