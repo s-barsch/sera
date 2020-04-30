@@ -9,6 +9,14 @@ import (
 	"time"
 )
 
+type Image struct {
+	File *File
+
+	Date time.Time
+	Dims *dims
+	Info Info
+}
+
 func NewImage(path string, hold *Hold) (*Image, error) {
 	path = strings.Replace(path, "cache/1600/", "", -1)
 

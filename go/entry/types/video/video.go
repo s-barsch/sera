@@ -6,6 +6,15 @@ import (
 	"path/filepath"
 )
 
+type Video struct {
+	File *File
+
+	Date time.Time
+	Info Info
+
+	Subtitles []string
+}
+
 func (v *Video) Acronym() string {
 	return ToB16(v.Date)
 }

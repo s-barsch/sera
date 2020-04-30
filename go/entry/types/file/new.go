@@ -34,7 +34,7 @@ func NewFile(path string) (*File, error) {
 func getFileId(path string) (string, error) {
 	id := helper.Shorten(filepath.Base(path))
 
-	_, err := time.Parse(helper.Timestamp, id)
+	_, err := helper.ParseDate(id)
 	if err != nil {
 		return "", err
 	}

@@ -1,5 +1,6 @@
-package file 
+package hold
 
+/*
 import (
 	"path/filepath"
 	"testing"
@@ -20,3 +21,4 @@ func runReadHold(t *testing.T) {
 		t.Fatal(err)
 	}
 }
+*/

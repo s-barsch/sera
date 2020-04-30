@@ -5,6 +5,15 @@ import (
 	//"st/el/hyph"
 )
 
+type Html struct {
+	File *File
+
+	Date time.Time
+	Info Info
+
+	Html map[string]string
+}
+
 func (ht *Html) Acronym() string {
 	return ToB16(ht.Date)
 }

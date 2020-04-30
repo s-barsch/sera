@@ -5,6 +5,16 @@ import (
 	"path/filepath"
 )
 
+type Text struct {
+	File *File
+
+	Date time.Time
+	Info Info
+
+	Text  map[string]string
+	Blank map[string]string
+}
+
 func NewText(path string, hold *Hold) (*Text, error) {
 	if exists(enFile(path)) {
 		return NewMultiText(path, hold)

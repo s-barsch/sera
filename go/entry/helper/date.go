@@ -8,11 +8,11 @@ import (
 
 const Timestamp = "060102_150405"
 
-func ParseDate(date string) (time.Time, error) {
-	return time.Parse(Timestamp, date)
+func ParseDate(id string) (time.Time, error) {
+	return time.Parse(Timestamp, id)
 }
 
-func invalidDate(path string, err error) error {
+func InvalidDateErr(path string, err error) error {
 	return fmt.Errorf("File has invalid date: %v\nERR: %v", path, err)
 }
 

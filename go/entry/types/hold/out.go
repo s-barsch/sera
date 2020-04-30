@@ -1,11 +1,12 @@
-package file 
+package hold
+
+/*
 
 import (
 	"fmt"
+	"stferal/go/entry/helper"
 	"os"
 )
-
-type Holds []*Hold
 
 func (h *Hold) Title(lang string) string {
 	title := h.Info.Title(lang)
@@ -27,6 +28,11 @@ func (h *Hold) IsSymlink() bool {
 		return false
 	}
 	return fi.Mode()&os.ModeSymlink != 0
+}
+
+func (h Holds) Reverse() Holds {
+	panic("not implemented")
+	return nil
 }
 
 func (h *Hold) Subnav() *Subnav {
@@ -72,7 +78,7 @@ func (h *Hold) Section() string {
 }
 
 func (h *Hold) IsEmpty() bool {
-	if len(h.Els) == 0 && len(h.Holds) == 0 {
+	if len(h.Entries) == 0 && len(h.Holds) == 0 {
 		return true
 	}
 	return false
@@ -87,7 +93,7 @@ func (h *Hold) Link(lang string) *chain {
 }
 
 func (h *Hold) Acronym() string {
-	return EncodeAcronym(h.Date)
+	return helper.EncodeAcronym(h.Date)
 }
 
 func (h *Hold) Crumbs(lang string) []*chain {
@@ -105,7 +111,7 @@ func (h *Hold) Crumbs(lang string) []*chain {
 }
 
 func (h *Hold) Id() string {
-	return h.Date.Format(Timestamp)
+	return h.Date.Format(helper.Timestamp)
 }
 
 func monthAnchor(path string) string {
@@ -138,7 +144,7 @@ func (h *Hold) Permalink(lang string) string {
 			return h.Path(lang)
 		}
 	}
-	return fmt.Sprintf("%v-%v", h.Path(lang), EncodeAcronym(h.Date))
+	return fmt.Sprintf("%v-%v", h.Path(lang), helper.EncodeAcronym(h.Date))
 }
 
 func (h *Hold) Depth() int {
@@ -178,9 +184,12 @@ func (h *Hold) Chain(lang string) []*chain {
 	return append(h.Mother.Chain(lang), c)
 }
 
+*/
+
+/*
 func (h *Hold) ImgLen() int {
 	i := 0
-	for _, e := range h.Els {
+	for _, e := range h.Entries {
 		_, ok := e.(*Image)
 		if ok {
 			i++
@@ -188,3 +197,4 @@ func (h *Hold) ImgLen() int {
 	}
 	return i
 }
+*/
