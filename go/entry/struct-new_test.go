@@ -6,7 +6,7 @@ import (
 )
 
 func TestReadStructure(t *testing.T) {
-	s, err := ReadStructure("./test/index", nil)
+	s, err := ReadStruct("./test/index", nil)
 	if err != nil {
 		t.Error(err)
 	}

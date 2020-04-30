@@ -51,21 +51,7 @@ func ParentDir(path string) string {
 	return filepath.Base(filepath.Dir(path))
 }
 
-/*
-func IsHold(path string) bool {
-	info, err := os.Stat(path)
-	if err != nil {
-		if strings.Contains(path, "/graph") {
-			return true
-		}
-		return false
-	}
-	if info["inline"] == "true" {
-		return false
-	}
-	return true
-}
-*/
+
 
 func IsDir(path string) bool {
 	fi, err := os.Stat(path)

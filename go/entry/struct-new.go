@@ -16,13 +16,13 @@ type Struct struct {
 	Date time.Time
 	Info info.Info
 
-	Entries []*Entry
+	Entries []interface{}
 	Structs Structs
 }
 
 type Structs []*Struct
 
-func ReadStructure(path string, parent *Struct) (*Struct, error) {
+func ReadStruct(path string, parent *Struct) (*Struct, error) {
 	file, err := file.New(path)
 	if err != nil {
 		return nil, err
@@ -44,6 +44,11 @@ func ReadStructure(path string, parent *Struct) (*Struct, error) {
 		return nil, err
 	}
 
+	structs, err := readStructs(path, parent)
+	if err != nil {
+		return nil, err
+	}
+
 	stru := &Struct{
 		Parent: parent,
 		File:   file,
@@ -52,6 +57,7 @@ func ReadStructure(path string, parent *Struct) (*Struct, error) {
 		Info: inf,
 
 		Entries: entries,
+		Structs: structs,
 	}
 
 	return stru, nil
