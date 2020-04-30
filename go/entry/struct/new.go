@@ -17,18 +17,18 @@ import (
 )
 */
 
-type Hold struct {
-	Hold *Hold
-	File *file.File
+type Struct struct {
+	Parent  *Struct
+	File    *file.File
 
-	Date time.Time
-	Info info.Info
+	Date    time.Time
+	Info    info.Info
 
-	Entries []interface{}
-	Holds   Holds
+	Entries  []*Entry
+	Structs  Structs
 }
 
-type Holds []*Hold
+type Structs []*Struct
 
 /*
 func ReadHold(path string, mother *Hold) (*Hold, error) {

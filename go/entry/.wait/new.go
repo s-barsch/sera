@@ -5,11 +5,6 @@
 
 package entry
 
-type Entry struct {
-	Parent  *Struct
-	Element interface{}
-}
-
 func NewEntry(path string, hold *Hold) (interface{}, error) {
 	switch FileType(path) {
 {{- range $, $name := .Media}}
