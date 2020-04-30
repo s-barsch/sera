@@ -32,16 +32,8 @@ func NewEntry(path string, parent *Struct) (*Entry, error) {
 func NewEntryObject(path string) (interface{}, error) {
 	switch helper.FileType(path) {
 	/*
-		case "audio":
-			return audio.New(path)
-		case "html":
-			return html.New(path)
-		case "image":
-			return image.New(path)
 		case "text":
 			return text.New(path)
-		case "video":
-			return video.New(path)
 		case "dir":
 			return set.New(path)
 	*/
