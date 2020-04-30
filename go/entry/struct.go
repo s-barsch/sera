@@ -1,3 +1,5 @@
+//go:generate go run generate/gen.go generate/types.go
+
 package entry
 
 import (
@@ -21,7 +23,7 @@ type Struct struct {
 type Structs []*Struct
 
 func ReadStructure(path string, parent *Struct) (*Struct, error) {
-	file, err := file.NewFile(path)
+	file, err := file.New(path)
 	if err != nil {
 		return nil, err
 	}

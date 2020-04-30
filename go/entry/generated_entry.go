@@ -5,6 +5,7 @@ package entry
 import (
 	"fmt"
 	"stferal/go/entry/helper"
+	"stferal/go/entry/types/text"
 )
 
 type Entry struct {
@@ -31,12 +32,12 @@ func NewEntry(path string, parent *Struct) (*Entry, error) {
 
 func NewEntryObject(path string) (interface{}, error) {
 	switch helper.FileType(path) {
-	/*
-		case "text":
-			return text.New(path)
-		case "dir":
-			return set.New(path)
-	*/
+	case "text":
+		return text.New(path)
+		/*
+			case "dir":
+				return set.New(path)
+		*/
 	}
 	return nil, fmt.Errorf("invalid entry type: %v", path)
 }
