@@ -10,7 +10,7 @@ type File struct {
 	ModTime time.Time
 }
 
-func NewFile(path string) (*File, error) {
+func New(path string) (*File, error) {
 	mod, err := getModTime(path)
 	if err != nil {
 		return nil, err

@@ -1,5 +1,6 @@
-package entry
+package text
 
+/*
 import (
 	"fmt"
 )
@@ -64,3 +65,4 @@ func shortenDesc(str string, length int) string {
 	}
 	return desc
 }
+*/

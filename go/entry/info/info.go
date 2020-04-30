@@ -150,7 +150,7 @@ func infoPath(path string) string {
 	return filepath.Join(path, "info")
 }
 
-func unmarshalInfo(input []byte) (Info, error) {
+func UnmarshalInfo(input []byte) (Info, error) {
 	i := map[string]string{}
 	err := yaml.Unmarshal(input, &i)
 	if err != nil {

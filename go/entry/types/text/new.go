@@ -1,35 +1,67 @@
-package entry
+package text 
 
 import (
-	"os"
-	"path/filepath"
+	"fmt"
+	"stferal/go/entry/file"
+	"stferal/go/entry/info"
+	"stferal/go/entry/helper"
+	"time"
 )
 
 type Text struct {
-	File *File
+	File *file.File
 
 	Date time.Time
-	Info Info
+	Info info.Info
 
 	Text  map[string]string
 	Blank map[string]string
 }
 
-func NewText(path string, hold *Hold) (*Text, error) {
-	if exists(enFile(path)) {
-		return NewMultiText(path, hold)
+func New(path string) (*Text, error) {
+	file, err := file.New(path)
+	if err != nil {
+		return nil, err
 	}
-	return NewSingleText(path, hold)
+
+	inf, parts, err := readTextFile(path)
+	if err != nil {
+		return nil, err
+	}
+
+	date, err := helper.ParseDate(inf["date"])
+	if err != nil {
+		date, err = helper.ParseDatePath(path)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return &Text{
+		File: file,
+
+		Date: date,
+		Info: inf,
+
+		Text: parts,
+		Blank: parts,
+	}, nil
 }
 
-func enFile(path string) string {
-	return filepath.Join(filepath.Dir(path), "en", filepath.Base(path))
+func readTextFile(path string) (inf info.Info, parts map[string]string, err error) {
+	parts, err = splitTextFile(path)
+	if err != nil {
+		return
+	}
+
+	inf, err = info.UnmarshalInfo([]byte(parts["info"]))
+	if err != nil {
+		err = fmt.Errorf("%v (%v)", err, path)
+		return
+	}
+
+	delete(parts, "info")
+	return
 }
 
-func exists(path string) bool {
-	_, err := os.Stat(path)
-	if err == nil {
-		return true
-	}
-	return false
-}
+

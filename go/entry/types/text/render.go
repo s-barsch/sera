@@ -1,5 +1,6 @@
-package entry
+package text
 
+/*
 import (
 	"github.com/grokify/html-strip-tags-go"
 	"stferal/go/entry/hyph"
@@ -38,3 +39,4 @@ func hyphenateLangs(langs map[string]string) (map[string]string, error) {
 	}
 	return hyphed, nil
 }
+*/

@@ -1,5 +1,6 @@
-package entry
+package text 
 
+/*
 import (
 	"bufio"
 	"bytes"
@@ -10,20 +11,6 @@ import (
 	"strings"
 	"time"
 )
-
-func getSingleTextDate(path, dateEntry string) (time.Time, error) {
-	date, err := ParseDate(Shorten(helper.StripExt(filepath.Base(path))))
-	// Ignore error.
-	if err == nil {
-		return date, nil
-	}
-
-	date, err = ParseDate(dateEntry)
-	if err != nil {
-		err = fmt.Errorf("Cannot read date of %v\nErr: %v", path, err)
-	}
-	return date, err
-}
 
 func NewSingleText(path string, hold *Hold) (*Text, error) {
 	file, err := NewFile(path, hold)
@@ -79,43 +66,5 @@ func NewSingleText(path string, hold *Hold) (*Text, error) {
 	}, nil
 }
 
-var partNames = map[int]string{
-	0: "info",
-	1: "de",
-	2: "en",
 }
-
-func splitSingleText(path string) (map[string]string, error) {
-	f, err := os.Open(path)
-	if err != nil {
-		return nil, err
-	}
-	defer f.Close()
-
-	parts := map[string]string{}
-
-	s := bufio.NewScanner(io.Reader(f))
-	buf := bytes.Buffer{}
-
-	i := 0
-	for s.Scan() {
-		//fmt.Printf("SCAN: %v\n", s.Text())
-		line := s.Text()
-		if len(line) >= 3 && line[:3] == "---" {
-			parts[partNames[i]] = buf.String()
-			i++
-			buf.Reset()
-			continue
-		}
-		buf.WriteString(line)
-		buf.WriteString("\n")
-	}
-	parts[partNames[i]] = buf.String()
-
-	if i == 0 {
-		parts["de"] = parts["info"]
-		parts["info"] = ""
-	}
-
-	return parts, nil
-}
+*/

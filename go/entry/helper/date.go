@@ -4,12 +4,24 @@ import (
 	"fmt"
 	"time"
 	"unicode/utf8"
+	p "path/filepath"
 )
 
 const Timestamp = "060102_150405"
 
-func ParseDate(id string) (time.Time, error) {
-	return time.Parse(Timestamp, id)
+func ParseDatePath(path string) (time.Time, error) {
+	id := Shorten(StripExt(p.Base(path)))
+
+	date, err := ParseDate(id)
+	if err != nil {
+		return time.Time{}, DateErr(path, err)
+	}
+
+	return date, nil
+}
+
+func ParseDate(ts string) (time.Time, error) {
+	return time.Parse(Timestamp, ts)
 }
 
 func DateErr(path string, err error) error {
