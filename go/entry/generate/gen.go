@@ -20,8 +20,8 @@ func main() {
 		log.Fatal(err)
 	}
 	files := []string{
-		"new.go",
-		"out.go",
+		"entry.go",
+		//"out.go",
 	}
 	err = generate(types, files)
 	if err != nil {

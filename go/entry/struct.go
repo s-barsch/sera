@@ -26,6 +26,7 @@ func ReadStructure(path string, parent *Struct) (*Struct, error) {
 		return nil, err
 	}
 
+	// TODO: Graph needs a specific way
 	inf, err := info.ReadInfo(path)
 	if err != nil {
 		return nil, err
@@ -36,12 +37,19 @@ func ReadStructure(path string, parent *Struct) (*Struct, error) {
 		return nil, helper.DateErr(path, err)
 	}
 
+	entries, err := readEntries(path, parent)
+	if err != nil {
+		return nil, err
+	}
+
 	stru := &Struct{
 		Parent: parent,
 		File:   file,
 
 		Date: date,
 		Info: inf,
+
+		Entries: entries,
 	}
 
 	return stru, nil
