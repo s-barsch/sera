@@ -21,5 +21,10 @@ type Struct struct {
 type Structs []*Struct
 
 func ReadStructure(path string, parent *Struct) (*Struct, error) {
+	file, err := file.NewFile(path)
+	if err != nil {
+		return nil, err
+	}
+
 	return nil, fmt.Errorf("not implemented")
 }

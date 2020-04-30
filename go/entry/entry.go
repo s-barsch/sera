@@ -9,3 +9,5 @@ func (e *Entry) O() interface{} {
 	return e.Object
 }
 
+func NewEntry(path string, parent *Struct) (*Entry, error) {
+}
