@@ -5,7 +5,7 @@
 
 package entry
 
-func NewEl(path string, hold *Hold) (interface{}, error) {
+func NewEntry(path string, hold *Hold) (interface{}, error) {
 	switch FileType(path) {
 {{- range $, $name := .Media}}
 		case "{{$name}}":
@@ -14,6 +14,6 @@ func NewEl(path string, hold *Hold) (interface{}, error) {
 		case "dir":
 			return NewSet(path, hold)
 	}
-	return NewFile(path, hold)
+	return nil, fmt.Errorf("invalid entry: %v", path)
 }
 {{end}}

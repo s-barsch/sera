@@ -1,31 +1,56 @@
-package file 
+package file
 
 import (
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"stferal/go/entry/helper"
-	"stferal/go/entry/info"
 	"time"
 )
 
 type File struct {
-	Id   string
-	Path string
-
+	Id      string
+	Path    string
 	ModTime time.Time
-	Hold    *Hold
+}
+
+func NewFile(path string) (*File, error) {
+	mod, err := getModTime(path)
+	if err != nil {
+		return nil, err
+	}
+
+	id, err := getFileId(path)
+	if err != nil {
+		return nil, err
+	}
+
+	return &File{
+		Id:      id,
+		Path:    path,
+		ModTime: mod,
+	}, nil
+}
+
+func getFileId(path string) (string, error) {
+	id := helper.Shorten(filepath.Base(path))
+
+	_, err := time.Parse(helper.Timestamp, id)
+	if err != nil {
+		return "", err
+	}
+
+	return id, nil
+}
+
+func Shorten(n string) string {
+	if len(n) > 13 {
+		return n[:13]
+	}
+	return n
 }
 
 func getModTime(path string) (time.Time, error) {
-	switch helper.FileType(path) {
-	case "image", "video":
-		return getModTimeMedia(path)
-	case "dir":
-		return getModTimeDir(path, true)
-	default:
-		return getModTimeFile(path)
-	}
+	return getModTimeFile(path)
 }
 
 func getModTimeFile(path string) (time.Time, error) {
@@ -39,6 +64,7 @@ func getModTimeFile(path string) (time.Time, error) {
 	return fi.ModTime(), nil
 }
 
+/*
 func getModTimeMedia(path string) (time.Time, error) {
 	t, err := getModTimeFile(path)
 	if err != nil {
@@ -94,33 +120,6 @@ func getModTimeDir(path string, recur bool) (time.Time, error) {
 	return t, nil
 }
 
-func NewFile(path string, mother *Hold) (*File, error) {
-	t, err := getModTime(path)
-	if err != nil {
-		return nil, err
-	}
-
-	id := makeId(filepath.Base(path))
-	return &File{
-		Id:   id,
-		Path: path,
-
-		ModTime: t,
-		Hold:    mother,
-	}, nil
-}
-
-func makeId(p string) string {
-	return Shorten(filepath.Base(p))
-}
-
-func Shorten(n string) string {
-	if len(n) > 13 {
-		return n[:13]
-	}
-	return n
-}
-
 func loadFileInfo(path string) (info.Info, error) {
 	path += ".info"
 	_, err := os.Stat(path)
@@ -133,3 +132,4 @@ func loadFileInfo(path string) (info.Info, error) {
 func getFilenameDate(path string) (time.Time, error) {
 	return time.Parse(helper.Timestamp, Shorten(filepath.Base(path)))
 }
+*/

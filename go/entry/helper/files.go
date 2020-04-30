@@ -6,6 +6,13 @@ import (
 	"strings"
 )
 
+func Shorten(n string) string {
+	if len(n) > 13 {
+		return n[:13]
+	}
+	return n
+}
+
 func StripExt(base string) string {
 	i := strings.LastIndex(base, ".")
 	if i <= 0 {

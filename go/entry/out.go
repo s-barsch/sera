@@ -52,6 +52,7 @@ func EntryFile(e interface{}) *File {
 	return nil
 }
 
+/*
 func EntrySection(e interface{}) string {
 	file := EntryFile(e)
 	if file != nil {
@@ -59,6 +60,7 @@ func EntrySection(e interface{}) string {
 	}
 	return "no section: invalid entry type"
 }
+*/
 
 func Type(e interface{}) string {
 	switch e.(type) {
@@ -90,7 +92,7 @@ func Date(e interface{}) time.Time {
 
 func ModTime(e interface{}) time.Time {
 	switch e.(type) {
-	{{- template "cases" (action .NoFile ".ModTime")}}
+	{{- template "cases" (action .NoFile ".File.ModTime")}}
 	case {{typeDef "file"}}:
 		return e.({{typeDef "file"}}).ModTime
 	}

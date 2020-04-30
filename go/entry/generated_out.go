@@ -93,6 +93,7 @@ func EntryFile(e interface{}) *File {
 	return nil
 }
 
+/*
 func EntrySection(e interface{}) string {
 	file := EntryFile(e)
 	if file != nil {
@@ -100,6 +101,7 @@ func EntrySection(e interface{}) string {
 	}
 	return "no section: invalid entry type"
 }
+*/
 
 func Type(e interface{}) string {
 	switch e.(type) {
@@ -170,19 +172,19 @@ func Date(e interface{}) time.Time {
 func ModTime(e interface{}) time.Time {
 	switch e.(type) {
 	case *audio.Audio:
-		return e.(*audio.Audio).ModTime
+		return e.(*audio.Audio).File.ModTime
 	case *html.Html:
-		return e.(*html.Html).ModTime
+		return e.(*html.Html).File.ModTime
 	case *image.Image:
-		return e.(*image.Image).ModTime
+		return e.(*image.Image).File.ModTime
 	case *text.Text:
-		return e.(*text.Text).ModTime
+		return e.(*text.Text).File.ModTime
 	case *video.Video:
-		return e.(*video.Video).ModTime
+		return e.(*video.Video).File.ModTime
 	case *set.Set:
-		return e.(*set.Set).ModTime
+		return e.(*set.Set).File.ModTime
 	case *hold.Hold:
-		return e.(*hold.Hold).ModTime
+		return e.(*hold.Hold).File.ModTime
 	case *file.File:
 		return e.(*file.File).ModTime
 	}
