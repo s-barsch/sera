@@ -2,13 +2,10 @@ package file
 
 import (
 	"os"
-	"path/filepath"
-	"stferal/go/entry/helper"
 	"time"
 )
 
 type File struct {
-	Id      string
 	Path    string
 	ModTime time.Time
 }
@@ -19,34 +16,10 @@ func NewFile(path string) (*File, error) {
 		return nil, err
 	}
 
-	id, err := getFileId(path)
-	if err != nil {
-		return nil, err
-	}
-
 	return &File{
-		Id:      id,
 		Path:    path,
 		ModTime: mod,
 	}, nil
-}
-
-func getFileId(path string) (string, error) {
-	id := helper.Shorten(filepath.Base(path))
-
-	_, err := helper.ParseDate(id)
-	if err != nil {
-		return "", err
-	}
-
-	return id, nil
-}
-
-func Shorten(n string) string {
-	if len(n) > 13 {
-		return n[:13]
-	}
-	return n
 }
 
 func getModTime(path string) (time.Time, error) {

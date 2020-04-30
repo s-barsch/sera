@@ -12,8 +12,8 @@ func ParseDate(id string) (time.Time, error) {
 	return time.Parse(Timestamp, id)
 }
 
-func InvalidDateErr(path string, err error) error {
-	return fmt.Errorf("File has invalid date: %v\nERR: %v", path, err)
+func DateErr(path string, err error) error {
+	return fmt.Errorf("date error. %v. path: %v\n", err, path)
 }
 
 func MonthLang(t time.Time, lang string) string {

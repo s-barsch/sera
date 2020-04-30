@@ -1,20 +1,20 @@
 package file
 
 import (
-	"path/filepath"
+	p "path/filepath"
 	"stferal/go/entry/helper"
 )
 
-func (f *File) Base() string {
-	return filepath.Base(f.Path)
+func (f *File) Name() string {
+	return p.Base(f.Path)
 }
 
-func (f *File) BaseNoExt() string {
-	return helper.StripExt(filepath.Base(f.Path))
+func (f *File) NameNoExt() string {
+	return helper.StripExt(f.Name())
 }
 
 func (f *File) Ext() string {
-	return filepath.Ext(f.Path)
+	return p.Ext(f.Path)
 }
 
 func (f *File) Type() string {
