@@ -12,7 +12,7 @@ import (
 )
 
 type Entry struct {
-	Parent *Struct
+	//Parent *Struct
 	Object interface{}
 }
 

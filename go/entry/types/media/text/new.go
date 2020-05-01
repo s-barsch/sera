@@ -5,6 +5,7 @@ import (
 	"stferal/go/entry/file"
 	"stferal/go/entry/info"
 	"stferal/go/entry/helper"
+	stru "stferal/go/entry/types/struct"
 	"time"
 )
 
@@ -23,6 +24,8 @@ func New(path string) (*Text, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	fmt.Println(stru.SomeFunc())
 
 	inf, parts, err := readTextFile(path)
 	if err != nil {
