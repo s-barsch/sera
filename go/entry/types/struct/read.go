@@ -13,7 +13,7 @@ func readEntries(path string, parent interface{}) ([]*entry.Entry, error) {
 		return nil, err
 	}
 
-	entries, err :=  helper.ReadEntries(files, parent, newObjFunc)
+	entries, err := helper.ReadEntries(files, parent, newObjFunc)
 	if err != nil {
 		return nil, err
 	}

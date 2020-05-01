@@ -3,9 +3,9 @@ package helper
 import (
 	"fmt"
 	"os"
-	"path/filepath"
-	"strings"
+	p "path/filepath"
 	"sort"
+	"strings"
 )
 
 func TypeErr(path string) error {
@@ -15,7 +15,6 @@ func TypeErr(path string) error {
 func ReverseStrings(slice []string) {
 	sort.Sort(sort.Reverse(sort.StringSlice(slice)))
 }
-
 
 func Shorten(n string) string {
 	if len(n) > 13 {
@@ -33,7 +32,7 @@ func StripExt(base string) string {
 }
 
 func FileType(path string) string {
-	switch filepath.Ext(path) {
+	switch p.Ext(path) {
 	case ".txt", ".ltxt", ".ptxt", ".itxt":
 		return "text"
 	case ".mp3", ".wav":
@@ -53,10 +52,8 @@ func FileType(path string) string {
 }
 
 func ParentDir(path string) string {
-	return filepath.Base(filepath.Dir(path))
+	return p.Base(p.Dir(path))
 }
-
-
 
 func IsDir(path string) bool {
 	fi, err := os.Stat(path)
@@ -69,58 +66,40 @@ func IsDir(path string) bool {
 	return false
 }
 
-func IsForbiddenDir(p string) bool {
-	switch filepath.Base(p) {
-	case ".bot", "bot", "prv", "note", "pre", "en", "cor", ".versions", "vtt":
-		return true
-	case "320", "480", "1024", "1280", "1920", "2560", "dims":
+func IsNameSys(name string) bool {
+	if startsWithDot(name) {
 		return true
 	}
+
+	switch name {
+	case ".sort", "bot", "cache", "info", "vtt":
+		return true
+	}
+
 	return false
 }
 
-func IsSysFile(path string) bool {
-	fn := filepath.Base(path)
-	if len(fn) > 0 && fn[0] == '.' {
-		return true
-	}
-	switch fn {
-	case ".sort", ".bot", "bot", "en", "cache", "dims", "info", ".versions", "vtt":
+func startsWithDot(name string) bool {
+	if len(name) > 0 && name[0] == '.' {
 		return true
 	}
 	return false
 }
 
 func IsDontIndex(path string) bool {
-	if IsSysFile(path) {
+	if IsNameSys(p.Base(path)) {
 		return true
 	}
-	switch filepath.Ext(path) {
+	switch p.Ext(path) {
 	case ".log", ".tmp", ".xmp", ".info", ".bot":
 		return true
 	case ".jpg":
-		if ParentDir(path) != "1600" { // && !strings.Contains(p, "/index/") {
+		// TODO: maybe rewrite that?
+		if ParentDir(path) != "1600" {
 			return true
 		}
-	case "":
-		panic("not implemented yets")
-		return true
-		//return isHold(p)
-		//return isStructureFolder(p)
+		// Let the packages determine if regular dirs should be index or not.
+		// case "":
 	}
 	return false
 }
-
-/*
-// Deprecated.
-func IsStructureFolder(p string) bool {
-	info, err := ReadInfo(p)
-	if err != nil {
-		return true
-	}
-	if info["read"] == "false" {
-		return true
-	}
-	return false
-}
-*/

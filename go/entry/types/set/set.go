@@ -4,18 +4,18 @@ import (
 	// "log"
 	"stferal/go/entry"
 	"stferal/go/entry/helper"
-	"stferal/go/entry/parts/info"
 	"stferal/go/entry/parts/file"
+	"stferal/go/entry/parts/info"
 	"time"
 )
 
 type Set struct {
-	File  *file.File
+	File *file.File
 
-	Date  time.Time
-	Info  info.Info
+	Date time.Time
+	Info info.Info
 
-	Entries entry.Entries	
+	Entries entry.Entries
 	//Cover *Image
 }
 
@@ -38,24 +38,24 @@ func NewSet(path string) (*Set, error) {
 	}
 
 	s := &Set{
-		File:   file,
+		File: file,
 
-		Date:  date,
-		Info:  info,
+		Date: date,
+		Info: info,
 	}
 
 	entries, err := readEntries(path, s)
 	if err != nil {
 		return nil, err
 	}
-	
+
 	s.Entries = entries
 
 	/*
-	cover, err := ReadCover(path, h)
-	if err != nil {
-		// log.Println(err)
-	}
+		cover, err := ReadCover(path, h)
+		if err != nil {
+			// log.Println(err)
+		}
 	*/
 
 	return s, nil

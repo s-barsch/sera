@@ -1,8 +1,8 @@
-package stru 
+package stru
 
 import (
-	"os"
 	"io/ioutil"
+	"os"
 	p "path/filepath"
 	"stferal/go/entry/helper"
 	"stferal/go/entry/parts/info"
@@ -37,9 +37,7 @@ func readStructDirs(dirs []string, parent *Struct) ([]*Struct, error) {
 	return structs, nil
 }
 
-
-
-func isSymLink(fi os.FileInfo) bool { 
+func isSymLink(fi os.FileInfo) bool {
 	return !(fi.Mode()&os.ModeSymlink != 0)
 }
 
@@ -54,35 +52,38 @@ func getStructDirs(path string) ([]string, error) {
 	for _, fi := range l {
 		filepath := p.Join(path, fi.Name())
 
-
-		if helper.IsSysFile(fi.Name()) {
+		if helper.IsDontIndex(fi.Name()) {
 			continue
 		}
 
-		if !IsHold(filepath) {
-			continue
-		}
+		// figure that out for graph etc
+		/*
+			if !IsHold(filepath) {
+				continue
+			}
+		*/
 
 		dirs = append(dirs, filepath)
 	}
 	return dirs, nil
 }
 
-		/*
-		if !isSymLink(fi) && !fi.IsDir() {
-			if !fi.IsDir() {
-				continue
-			}
-		}
-		*/
-
-	/*
-		// Holds that are completely empty are ommited.
-		if len(h.Holds) == 0 && len(h.Entries) == 0 {
+/*
+	if !isSymLink(fi) && !fi.IsDir() {
+		if !fi.IsDir() {
 			continue
 		}
-	*/
+	}
+*/
 
+/*
+	// Holds that are completely empty are ommited.
+	if len(h.Holds) == 0 && len(h.Entries) == 0 {
+		continue
+	}
+*/
+
+/*
 func IsHold(path string) bool {
 	info, err := info.ReadInfo(path)
 	if err != nil {
@@ -96,3 +97,4 @@ func IsHold(path string) bool {
 	}
 	return true
 }
+*/

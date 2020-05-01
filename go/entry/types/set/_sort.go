@@ -1,9 +1,9 @@
 package set
 
 import (
-	"sort"
-	"path/filepath"
 	"io/ioutil"
+	"path/filepath"
+	"sort"
 )
 
 type SetDesc []*Set

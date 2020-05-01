@@ -1,8 +1,8 @@
 package text
 
 import (
-	"testing"
 	"io/ioutil"
+	"testing"
 )
 
 var testDir = "./test/"

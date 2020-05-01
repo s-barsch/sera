@@ -1,9 +1,9 @@
 package helper
 
 import (
-	"stferal/go/entry"
 	"io/ioutil"
 	p "path/filepath"
+	"stferal/go/entry"
 )
 
 func ReadEntries(paths []string, parent interface{}, newObjFunc entry.NewObjFunc) (entry.Entries, error) {
@@ -39,11 +39,11 @@ func GetFiles(path string, withDirs bool) ([]string, error) {
 			continue
 		}
 
-		if !withDirs && fi.IsDir() {
+		if IsDontIndex(filepath) {
 			continue
 		}
 
-		if IsDontIndex(filepath) {
+		if !withDirs && fi.IsDir() {
 			continue
 		}
 
@@ -52,4 +52,3 @@ func GetFiles(path string, withDirs bool) ([]string, error) {
 
 	return list, nil
 }
-

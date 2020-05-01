@@ -1,4 +1,4 @@
-package text 
+package text
 
 import (
 	"fmt"
@@ -43,7 +43,7 @@ func NewText(path string) (*Text, error) {
 		Date: date,
 		Info: inf,
 
-		Text: parts,
+		Text:  parts,
 		Blank: parts,
 	}, nil
 }
@@ -63,5 +63,3 @@ func readTextFile(path string) (inf info.Info, parts map[string]string, err erro
 	delete(parts, "info")
 	return
 }
-
-

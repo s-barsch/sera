@@ -1,4 +1,4 @@
-package stru 
+package stru
 
 import (
 	"github.com/kr/pretty"

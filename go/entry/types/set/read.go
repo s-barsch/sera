@@ -1,4 +1,4 @@
-package set 
+package set
 
 import (
 	"stferal/go/entry"

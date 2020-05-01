@@ -2,9 +2,9 @@ package helper
 
 import (
 	"fmt"
+	p "path/filepath"
 	"time"
 	"unicode/utf8"
-	p "path/filepath"
 )
 
 const Timestamp = "060102_150405"
