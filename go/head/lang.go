@@ -2,7 +2,8 @@ package head
 
 import (
 	"fmt"
-	"stferal/go/entry"
+	//"stferal/go/entry"
+	//"stferal/go/entry/resolver"
 )
 
 func Lang(host string) string {
@@ -27,13 +28,16 @@ func (langs Langs) Hreflang(name string) *Link {
 
 func (h *Head) MakeLangs() Langs {
 	langs := []*Link{}
+	/*
 	for _, lang := range []string{"de", "en"} {
-		href := h.AbsoluteURL(entry.Permalink(h.El, lang), lang)
+		perma, err := resolver.Perma(h.Entry, lang)
+		panic(err)
+		href := h.AbsoluteURL(perma, lang)
 		if lang != "de" {
-			if entry, ok := h.El.(*entry.Text); ok && entry.Text[lang] == "" {
+			if entry, ok := h.Entry.(*entry.Text); ok && entry.Text[lang] == "" {
 				href = h.HostAddress(lang)
 			}
-			if hold, ok := h.El.(*entry.Hold); ok && hold.Info["translated"] == "false" {
+			if hold, ok := h.Entry.(*entry.Hold); ok && hold.Info["translated"] == "false" {
 				href = h.HostAddress(lang)
 			}
 		}
@@ -42,6 +46,7 @@ func (h *Head) MakeLangs() Langs {
 			Href: href,
 		})
 	}
+	*/
 	return langs
 }
 

@@ -1,7 +1,7 @@
 package paths
 
 import (
-	"stferal/go/entry"
+	"stferal/go/entry/helper"
 	"strings"
 )
 
@@ -44,7 +44,7 @@ func removeLast(chain []string) []string {
 func splitName(str string) (name, acronym string) {
 	i := strings.LastIndex(str, "-")
 	if i < 0 {
-		_, err := entry.DecodeAcronym(str)
+		_, err := helper.DecodeAcronym(str)
 		if err != nil {
 			return str, ""
 		}
@@ -53,7 +53,7 @@ func splitName(str string) (name, acronym string) {
 
 	acronym = str[i+1:]
 
-	_, err := entry.DecodeAcronym(acronym)
+	_, err := helper.DecodeAcronym(acronym)
 	if err != nil {
 		return str, ""
 	}
@@ -62,7 +62,7 @@ func splitName(str string) (name, acronym string) {
 }
 
 func decodeDirName(str string) (name, acronym string) {
-	_, err := entry.DecodeAcronym(str)
+	_, err := helper.DecodeAcronym(str)
 	if err == nil {
 		return "", str
 	}

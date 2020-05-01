@@ -1,11 +1,15 @@
 package head
 
 import (
+	/*
 	"stferal/go/entry"
 	"strings"
+	*/
 )
 
 func (h *Head) GetDesc() string {
+	return ""
+	/*
 	if h.Desc != "" {
 		return h.Desc
 	}
@@ -20,9 +24,12 @@ func (h *Head) GetDesc() string {
 		return d
 	}
 	return d
+	*/
 }
 
 func (h *Head) MakeElDesc() string {
+	return ""
+	/*
 	desc := ""
 	switch entry.Type(h.El) {
 	case "image":
@@ -31,4 +38,5 @@ func (h *Head) MakeElDesc() string {
 		desc = h.El.(*entry.Text).MetaDesc(h.Lang)
 	}
 	return strings.TrimSpace(desc)
+	*/
 }

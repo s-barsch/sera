@@ -3,6 +3,7 @@ package head
 import (
 	"fmt"
 	"net/http"
+	"stferal/go/entry"
 )
 
 type Head struct {
@@ -10,11 +11,16 @@ type Head struct {
 	Section string
 	Path    string
 	Host    string
+
+	Entry   *entry.Entry
+	Options map[string]bool
+
+	/*
 	Local   bool
 	Dark    bool
 	Large   bool
 	NoLog   bool
-	El      interface{}
+	*/
 
 	Nav   Nav
 	Lang  string
@@ -25,9 +31,10 @@ type Head struct {
 }
 
 func (h *Head) Make() error {
-	// can check for missing entries?
+	// TODO: uncomment this again
+	// TODO: can check for missing entries?
 	h.Lang = Lang(h.Host)
-	h.Desc = h.GetDesc()
+	//h.Desc = h.GetDesc()
 	h.Langs = h.MakeLangs()
 	h.Nav = h.MakeNav()
 
