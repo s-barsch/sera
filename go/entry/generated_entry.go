@@ -13,7 +13,7 @@ func (e *Entry) O() interface{} {
 
 type Entries []*Entry
 
-type NewObjFunc func(path string) (obj interface{}, err error)
+type NewObjFunc func(path string) (interface{}, error)
 
 func NewEntry(path string, parent interface{}, newObj NewObjFunc) (*Entry, error) {
 	obj, err := newObj(path)

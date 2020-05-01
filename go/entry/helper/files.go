@@ -1,11 +1,16 @@
 package helper
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
 	"sort"
 )
+
+func TypeErr(path string) error {
+	return fmt.Errorf("invalid entry type: %v", path)
+}
 
 func ReverseStrings(slice []string) {
 	sort.Sort(sort.Reverse(sort.StringSlice(slice)))

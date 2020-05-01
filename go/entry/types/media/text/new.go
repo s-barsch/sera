@@ -18,7 +18,7 @@ type Text struct {
 	Blank map[string]string
 }
 
-func New(path string) (*Text, error) {
+func NewText(path string) (*Text, error) {
 	file, err := file.New(path)
 	if err != nil {
 		return nil, err

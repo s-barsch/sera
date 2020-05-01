@@ -25,6 +25,20 @@ func readStructs(path string, parent *Struct) ([]*Struct, error) {
 	return structs, nil
 }
 
+func readStructDirs(dirs []string, parent *Struct) ([]*Struct, error) {
+	structs := []*Struct{}
+	for _, dirpath := range dirs {
+		stru, err := ReadStruct(dirpath, parent)
+		if err != nil {
+			return nil, err
+		}
+		structs = append(structs, stru)
+	}
+	return structs, nil
+}
+
+
+
 func isSymLink(fi os.FileInfo) bool { 
 	return !(fi.Mode()&os.ModeSymlink != 0)
 }
@@ -52,18 +66,6 @@ func getStructDirs(path string) ([]string, error) {
 		dirs = append(dirs, filepath)
 	}
 	return dirs, nil
-}
-
-func readStructDirs(dirs []string, parent *Struct) ([]*Struct, error) {
-	structs := []*Struct{}
-	for _, dirpath := range dirs {
-		stru, err := ReadStruct(dirpath, parent)
-		if err != nil {
-			return nil, err
-		}
-		structs = append(structs, stru)
-	}
-	return structs, nil
 }
 
 		/*

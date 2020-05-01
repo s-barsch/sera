@@ -1,20 +1,18 @@
 package set 
 
 import (
-	"io/ioutil"
-	p "path/filepath"
 	"stferal/go/entry"
 	"stferal/go/entry/helper"
 	"stferal/go/entry/types/media"
 )
 
-func ReadEntries(path string, parent interface{}) ([]*entry.Entry, error) {
-	files, err := getEntryFiles(path)
+func readEntries(path string, parent interface{}) ([]*entry.Entry, error) {
+	files, err := helper.GetFiles(path, false)
 	if err != nil {
 		return nil, err
 	}
 
-	entries, err := readEntryFiles(files, parent)
+	entries, err := helper.ReadEntries(files, parent, media.NewMedia)
 	if err != nil {
 		return nil, err
 	}
@@ -22,49 +20,6 @@ func ReadEntries(path string, parent interface{}) ([]*entry.Entry, error) {
 	// TODO: sorting
 
 	return entries, err
-}
-
-func readEntryFiles(files []string, parent interface{}) (entry.Entries, error) {
-	entries := entry.Entries{}
-	for _, filepath := range files {
-		entry, err := entry.NewEntry(path, parent, newEntryFunc)
-		if err != nil {
-			return nil, err
-		}
-		entries = append(entries, entry)
-	}
-	return entries, nil
-}
-
-func getEntryFiles(path string) ([]string, error) {
-	l, err := ioutil.ReadDir(path)
-	if err != nil {
-		return nil, err
-	}
-
-	list := []string{}
-
-	for _, fi := range l {
-		filepath := p.Join(path, fi.Name())
-
-		if fi.Name() == "cache" {
-			imageFolder := p.Join(filepath, "1600")
-			images, err := getEntryFiles(imageFolder)
-			if err != nil {
-				return nil, err
-			}
-			list = append(list, images...)
-			continue
-		}
-
-		if helper.IsDontIndex(filepath) {
-			continue
-		}
-
-		list = append(list, filepath)
-	}
-
-	return list, nil
 }
 
 /*

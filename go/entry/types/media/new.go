@@ -4,19 +4,14 @@ package media
 
 import (
 	"fmt"
-	"stferal/go/entry"
 	"stferal/go/entry/helper"
 	"stferal/go/entry/types/media/text"
 )
 
-func NewMedia(path string, parent interface{}) (*entry.Entry, error) {
-	return entry.NewEntry(path, parent, newMediaObj)
-}
-
-func newMediaObj(path string) (interface{}, error) {
+func NewMedia(path string) (interface{}, error) {
 	switch helper.FileType(path) {
 	case "text":
-		return text.New(path)
+		return text.NewText(path)
 	}
 	return nil, fmt.Errorf("invalid entry type: %v", path)
 }
