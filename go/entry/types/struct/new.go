@@ -1,11 +1,12 @@
 //go:generate go run generate/gen.go generate/types.go
 
-package entry
+package stru 
 
 import (
 	"stferal/go/entry/helper"
 	"stferal/go/entry/parts/file"
 	"stferal/go/entry/parts/info"
+	"stferal/go/entry/types/media"
 	"time"
 )
 
@@ -39,7 +40,7 @@ func ReadStruct(path string, parent *Struct) (*Struct, error) {
 		return nil, helper.DateErr(path, err)
 	}
 
-	entries, err := readEntries(path, parent)
+	entries, err := set.ReadEntries(path, parent)
 	if err != nil {
 		return nil, err
 	}

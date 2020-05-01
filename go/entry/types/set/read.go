@@ -1,12 +1,14 @@
-package entry
+package set 
 
 import (
 	"io/ioutil"
 	p "path/filepath"
+	"stferal/go/entry"
 	"stferal/go/entry/helper"
+	"stferal/go/entry/types/media"
 )
 
-func ReadEntries(path string, parent *Struct) ([]*Entry, error) {
+func ReadEntries(path string, parent interface{}) ([]*entry.Entry, error) {
 	files, err := getEntryFiles(path)
 	if err != nil {
 		return nil, err
@@ -22,10 +24,10 @@ func ReadEntries(path string, parent *Struct) ([]*Entry, error) {
 	return entries, err
 }
 
-func readEntryFiles(files []string, parent *Struct) ([]*Entry, error) {
-	entries := Entries{}
+func readEntryFiles(files []string, parent interface{}) (entry.Entries, error) {
+	entries := entry.Entries{}
 	for _, filepath := range files {
-		entry, err := NewEntry(filepath, parent)
+		entry, err := entry.NewEntry(path, parent, newEntryFunc)
 		if err != nil {
 			return nil, err
 		}

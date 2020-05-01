@@ -1,4 +1,4 @@
-package entry
+package stru 
 
 import (
 	"os"
