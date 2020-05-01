@@ -3,9 +3,9 @@
 package entry
 
 import (
-	"stferal/go/entry/file"
 	"stferal/go/entry/helper"
-	"stferal/go/entry/info"
+	"stferal/go/entry/parts/file"
+	"stferal/go/entry/parts/info"
 	"time"
 )
 

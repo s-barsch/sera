@@ -6,7 +6,7 @@ import (
 	"stferal/go/entry/helper"
 )
 
-func readEntries(path string, parent *Struct) ([]*Entry, error) {
+func ReadEntries(path string, parent *Struct) ([]*Entry, error) {
 	files, err := getEntryFiles(path)
 	if err != nil {
 		return nil, err

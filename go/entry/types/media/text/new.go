@@ -2,9 +2,9 @@ package text
 
 import (
 	"fmt"
-	"stferal/go/entry/file"
-	"stferal/go/entry/info"
 	"stferal/go/entry/helper"
+	"stferal/go/entry/parts/file"
+	"stferal/go/entry/parts/info"
 	stru "stferal/go/entry/types/struct"
 	"time"
 )
