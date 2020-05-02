@@ -27,14 +27,14 @@ func ReadStruct(path string, parent *Struct) (*Struct, error) {
 		Func: "ReadStruct",
 	}
 
-	file, err := file.New(path)
+	file, err := file.NewFile(path)
 	if err != nil {
 		fnErr.Err = err
 		return nil, fnErr
 	}
 
 	// TODO: Graph needs a specific way
-	inf, err := info.ReadInfoDir(path)
+	inf, err := info.ReadDirInfo(path)
 	if err != nil {
 		fnErr.Err = err
 		return nil, fnErr

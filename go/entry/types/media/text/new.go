@@ -23,7 +23,7 @@ func NewText(path string) (*Text, error) {
 		Func: "NewText",
 	}
 
-	file, err := file.New(path)
+	file, err := file.NewFile(path)
 	if err != nil {
 		fnErr.Err = err
 		return nil, fnErr

@@ -10,7 +10,7 @@ type File struct {
 	ModTime time.Time
 }
 
-func New(path string) (*File, error) {
+func NewFile(path string) (*File, error) {
 	mod, err := getModTime(path)
 	if err != nil {
 		return nil, err
@@ -93,14 +93,6 @@ func getModTimeDir(path string, recur bool) (time.Time, error) {
 	return t, nil
 }
 
-func loadFileInfo(path string) (info.Info, error) {
-	path += ".info"
-	_, err := os.Stat(path)
-	if err == nil {
-		return info.ParseInfoFile(path)
-	}
-	return map[string]string{}, nil
-}
 
 func getFilenameDate(path string) (time.Time, error) {
 	return time.Parse(helper.Timestamp, Shorten(filepath.Base(path)))

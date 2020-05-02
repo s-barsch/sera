@@ -27,13 +27,13 @@ func NewSet(path string) (*Set, error) {
 		Func: "NewSet",
 	}
 
-	file, err := file.New(path)
+	file, err := file.NewFile(path)
 	if err != nil {
 		fnErr.Err = err
 		return nil, fnErr
 	}
 
-	info, err := info.ReadInfoDir(path)
+	info, err := info.ReadDirInfo(path)
 	if err != nil {
 		fnErr.Err = err
 		return nil, fnErr

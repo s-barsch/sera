@@ -19,7 +19,7 @@ func splitTextFile(path string) (map[string]string, error) {
 	if err != nil {
 		return nil, &helper.Err{
 			Path: path,
-			Func: "spiltTextFile",
+			Func: "splitTextFile",
 			Err:  err,
 		}
 	}

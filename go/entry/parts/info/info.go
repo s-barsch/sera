@@ -9,15 +9,30 @@ import (
 
 	"gopkg.in/yaml.v2"
 
-	//"io/ioutil"
-	"path/filepath"
+	p "path/filepath"
 	"strings"
 )
 
 type Info map[string]string
 
-func ReadInfoDir(path string) (Info, error) {
-	return ParseInfoFile(infoPath(path))
+func ReadDirInfo(path string) (Info, error) {
+	return ParseInfoFile(p.Join(path, "info"))
+}
+
+func ReadFileInfo(path string) (Info, error) {
+	return ParseInfoFile(fileInfo(path))
+}
+
+func fileInfo(path string) string {
+	return path + ".info"
+}
+
+func HasFileInfo(path string) bool {
+	_, err := os.Stat(fileInfo(path))
+	if err == nil {
+		return true
+	}
+	return false
 }
 
 func ParseInfoFile(path string) (Info, error) {
@@ -145,10 +160,6 @@ func slug(f *File, info Info, lang string) string {
 	return slugify(info.Title(lang))
 }
 */
-
-func infoPath(path string) string {
-	return filepath.Join(path, "info")
-}
 
 func UnmarshalInfo(input []byte) (Info, error) {
 	i := map[string]string{}
