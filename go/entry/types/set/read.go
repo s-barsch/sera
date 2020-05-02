@@ -12,7 +12,7 @@ func readEntries(path string, parent interface{}) ([]*entry.Entry, error) {
 		return nil, err
 	}
 
-	entries, err := helper.ReadEntries(files, parent, media.NewMedia)
+	entries, err := helper.ReadEntries(files, parent, media.NewMediaObj)
 	if err != nil {
 		return nil, err
 	}

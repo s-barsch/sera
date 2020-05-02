@@ -1,6 +1,7 @@
 package stru
 
 import (
+	"fmt"
 	"stferal/go/entry"
 	"stferal/go/entry/helper"
 	"stferal/go/entry/types/media"
@@ -8,14 +9,21 @@ import (
 )
 
 func readEntries(path string, parent interface{}) ([]*entry.Entry, error) {
+	fnErr := &helper.Err{
+		Path: path,
+		Func: "readEntries",
+	}
+
 	files, err := helper.GetFiles(path, true)
 	if err != nil {
-		return nil, err
+		fnErr.Err = err
+		return nil, fnErr
 	}
 
 	entries, err := helper.ReadEntries(files, parent, newObjFunc)
 	if err != nil {
-		return nil, err
+		fnErr.Err = err
+		return nil, fnErr
 	}
 
 	// TODO: sorting
@@ -30,7 +38,11 @@ func newObjFunc(path string) (interface{}, error) {
 	case "dir":
 		return set.NewSet(path)
 	default:
-		return media.NewMedia(path)
+		return media.NewMediaObj(path)
 	}
-	return nil, helper.TypeErr(path)
+	return nil, &helper.Err{
+		Path: path,
+		Func: "newObjFunc",
+		Err:  fmt.Errorf("invalid entry type: %v", helper.FileType(path)),
+	}
 }

@@ -16,7 +16,7 @@ import (
 
 type Info map[string]string
 
-func ReadInfo(path string) (Info, error) {
+func ReadInfoDir(path string) (Info, error) {
 	return ParseInfoFile(infoPath(path))
 }
 

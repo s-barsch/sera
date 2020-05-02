@@ -5,8 +5,9 @@ import (
 	"testing"
 )
 
-func TestReadStructure(t *testing.T) {
-	s, err := ReadStruct("./test/index", nil)
+func TestReadStruct(t *testing.T) {
+	s, err := ReadStruct("/srv/rg-s/st/data/index", nil)
+	//s, err := ReadStruct("./test/index", nil)
 	if err != nil {
 		t.Error(err)
 	}

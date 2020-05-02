@@ -22,30 +22,40 @@ type Struct struct {
 type Structs []*Struct
 
 func ReadStruct(path string, parent *Struct) (*Struct, error) {
+	fnErr := &helper.Err{
+		Path: path,
+		Func: "ReadStruct",
+	}
+
 	file, err := file.New(path)
 	if err != nil {
-		return nil, err
+		fnErr.Err = err
+		return nil, fnErr
 	}
 
 	// TODO: Graph needs a specific way
-	inf, err := info.ReadInfo(path)
+	inf, err := info.ReadInfoDir(path)
 	if err != nil {
-		return nil, err
+		fnErr.Err = err
+		return nil, fnErr
 	}
 
 	date, err := helper.ParseDate(inf["date"])
 	if err != nil {
-		return nil, helper.DateErr(path, err)
+		fnErr.Err = err
+		return nil, fnErr
 	}
 
 	entries, err := readEntries(path, parent)
 	if err != nil {
-		return nil, err
+		fnErr.Err = err
+		return nil, fnErr
 	}
 
 	structs, err := readStructs(path, parent)
 	if err != nil {
-		return nil, err
+		fnErr.Err = err
+		return nil, fnErr
 	}
 
 	stru := &Struct{

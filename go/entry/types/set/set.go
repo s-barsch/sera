@@ -27,7 +27,7 @@ func NewSet(path string) (*Set, error) {
 		return nil, err
 	}
 
-	info, err := info.ReadInfo(path)
+	info, err := info.ReadInfoDir(path)
 	if err != nil {
 		return nil, err
 	}

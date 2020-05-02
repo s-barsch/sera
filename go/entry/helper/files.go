@@ -8,6 +8,35 @@ import (
 	"strings"
 )
 
+func spaces(fn string) string {
+	n := 18 - len(fn)
+	str := ""
+	for i := 0; i <= n; i++ {
+		str += " "
+	}
+	return str
+}
+
+func (e *Err) Error() string {
+	str := fmt.Sprintf("\nfn: %v%vpath: %v", e.Func, spaces(e.Func), e.Path)
+	if e.Err == nil {
+		return str
+	}
+	_, ok := e.Err.(*Err)
+	if ok {
+		str += fmt.Sprintf("%v", e.Err.Error())
+	} else {
+		str += fmt.Sprintf("\nERR: %v", e.Err.Error())
+	}
+	return str
+}
+
+type Err struct {
+	Func string
+	Path string
+	Err  error
+}
+
 func TypeErr(path string) error {
 	return fmt.Errorf("invalid entry type: %v", path)
 }

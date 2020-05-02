@@ -4,20 +4,28 @@ import (
 	"io/ioutil"
 	"os"
 	p "path/filepath"
-	"stferal/go/entry/helper"
-	"stferal/go/entry/parts/info"
-	"strings"
+	he "stferal/go/entry/helper"
+	//"stferal/go/entry/parts/info"
+	//"strings"
 )
 
 func readStructs(path string, parent *Struct) ([]*Struct, error) {
 	dirs, err := getStructDirs(path)
 	if err != nil {
-		return nil, err
+		return nil, &he.Err{
+			Path: path,
+			Func: "readStructs",
+			Err:  err,
+		}
 	}
 
 	structs, err := readStructDirs(dirs, parent)
 	if err != nil {
-		return nil, err
+		return nil, &he.Err{
+			Path: path,
+			Func: "readStructs",
+			Err:  err,
+		}
 	}
 
 	// TODO: sort structs
@@ -30,7 +38,11 @@ func readStructDirs(dirs []string, parent *Struct) ([]*Struct, error) {
 	for _, dirpath := range dirs {
 		stru, err := ReadStruct(dirpath, parent)
 		if err != nil {
-			return nil, err
+			return nil, &he.Err{
+				Path: dirpath,
+				Func: "readStructDirs",
+				Err:  err,
+			}
 		}
 		structs = append(structs, stru)
 	}
@@ -44,7 +56,11 @@ func isSymLink(fi os.FileInfo) bool {
 func getStructDirs(path string) ([]string, error) {
 	l, err := ioutil.ReadDir(path)
 	if err != nil {
-		return nil, err
+		return nil, &he.Err{
+			Path: path, 
+			Func: "getStructDirs",
+			Err:  err,
+		}
 	}
 
 	dirs := []string{}
@@ -52,7 +68,11 @@ func getStructDirs(path string) ([]string, error) {
 	for _, fi := range l {
 		filepath := p.Join(path, fi.Name())
 
-		if helper.IsDontIndex(fi.Name()) {
+		if he.IsDontIndex(fi.Name()) {
+			continue
+		}
+
+		if !fi.IsDir() {
 			continue
 		}
 
