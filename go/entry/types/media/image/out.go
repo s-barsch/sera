@@ -6,14 +6,29 @@ import (
 	"time"
 )
 
-func (i *Image) Id() string {
-	return i.date.Format(helper.Timestamp)
+func (e *Image) Id() string {
+	return e.date.Format(helper.Timestamp)
 }
 
-func (i *Image) Date() time.Time {
-	return i.date
+func (e *Image) Hash() string {
+	return helper.ToB16(e.date)
 }
 
-func (i *Image) Info() info.Info {
-	return i.info
+func (e *Image) HashShort() string {
+	return helper.ShortenHash(e.Hash())
+}
+
+func (e *Image) Title(lang string) string {
+	if title := e.info.Title(lang); title != "" {
+		return title
+	}
+	return e.HashShort()
+}
+
+func (e *Image) Date() time.Time {
+	return e.date
+}
+
+func (e *Image) Info() info.Info {
+	return e.info
 }

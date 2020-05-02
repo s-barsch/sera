@@ -6,15 +6,29 @@ import (
 	"time"
 )
 
-func (s *Set) Id() string {
-	return s.date.Format(helper.Timestamp)
+func (e *Set) Id() string {
+	return e.date.Format(helper.Timestamp)
 }
 
-func (s *Set) Date() time.Time {
-	return s.date
+func (e *Set) Hash() string {
+	return helper.ToB16(e.date)
 }
 
-func (s *Set) Info() info.Info {
-	return s.info
+func (e *Set) HashShort() string {
+	return helper.ShortenHash(e.Hash())
 }
 
+func (e *Set) Title(lang string) string {
+	if title := e.info.Title(lang); title != "" {
+		return title
+	}
+	return e.HashShort()
+}
+
+func (e *Set) Date() time.Time {
+	return e.date
+}
+
+func (e *Set) Info() info.Info {
+	return e.info
+}

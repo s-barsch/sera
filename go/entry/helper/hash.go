@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func shortenAcronym(a string) string {
+func ShortenHash(a string) string {
 	if len(a) > 3 {
 		return a[len(a)-3:]
 	}

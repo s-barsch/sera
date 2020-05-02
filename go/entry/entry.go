@@ -7,12 +7,12 @@ import (
 
 type Entry interface{
 	Id()    string
+
 	Info()  info.Info
 	Date()  time.Time
-	/*
-	Title() string
-	Path()  string
-	*/
+
+	Title(string) string
+	//Perma(string) string
 }
 
 type Entries []Entry
