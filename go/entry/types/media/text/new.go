@@ -8,16 +8,12 @@ import (
 	"time"
 )
 
-func (t *Text) Id() string {
-	return "sample"
-}
-
 type Text struct {
 	Parent entry.Entry
 	File   *file.File
 
-	Date time.Time
-	Info info.Info
+	date time.Time
+	info info.Info
 
 	Text  map[string]string
 	Blank map[string]string
@@ -54,8 +50,8 @@ func NewText(path string, parent entry.Entry) (*Text, error) {
 		Parent: parent,
 		File:   file,
 
-		Date: date,
-		Info: inf,
+		date: date,
+		info: inf,
 
 		Text:  parts,
 		Blank: parts,

@@ -12,8 +12,8 @@ type Struct struct {
 	Parent entry.Entry
 	File   *file.File
 
-	Date time.Time
-	Info info.Info
+	date time.Time
+	info info.Info
 
 	Entries entry.Entries
 	Structs Structs
@@ -46,28 +46,28 @@ func ReadStruct(path string, parent entry.Entry) (*Struct, error) {
 		return nil, fnErr
 	}
 
-	entries, err := readEntries(path, parent)
-	if err != nil {
-		fnErr.Err = err
-		return nil, fnErr
-	}
-
-	structs, err := readStructs(path, parent)
-	if err != nil {
-		fnErr.Err = err
-		return nil, fnErr
-	}
-
-	stru := &Struct{
+	s := &Struct{
 		Parent: parent,
 		File:   file,
 
-		Date: date,
-		Info: inf,
-
-		Entries: entries,
-		Structs: structs,
+		date: date,
+		info: inf,
 	}
 
-	return stru, nil
+	entries, err := readEntries(path, s)
+	if err != nil {
+		fnErr.Err = err
+		return nil, fnErr
+	}
+
+	structs, err := readStructs(path, s)
+	if err != nil {
+		fnErr.Err = err
+		return nil, fnErr
+	}
+
+	s.Entries = entries
+	s.Structs = structs
+
+	return s, nil
 }

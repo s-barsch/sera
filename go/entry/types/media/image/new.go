@@ -9,17 +9,14 @@ import (
 	"time"
 )
 
-func (i *Image) Id() string {
-	return "sample"
-}
-
 type Image struct {
 	Parent entry.Entry
 	File   *file.File
 
-	Date time.Time
+	date time.Time
+	info info.Info
+
 	// Dims *dims
-	Info info.Info
 }
 
 func NewImage(path string, parent entry.Entry) (*Image, error) {
@@ -64,8 +61,8 @@ func NewImage(path string, parent entry.Entry) (*Image, error) {
 	return &Image{
 		Parent: parent,
 		File:   file,
-		Date:   date,
+		date:   date,
+		info:   inf,
 		//Dims: dims,
-		Info: inf,
 	}, nil
 }

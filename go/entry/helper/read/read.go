@@ -1,9 +1,10 @@
-package helper
+package read
 
 import (
 	"io/ioutil"
 	p "path/filepath"
 	"stferal/go/entry"
+	"stferal/go/entry/helper"
 )
 
 type newEntryFunc func(string, entry.Entry) (entry.Entry, error)
@@ -41,7 +42,7 @@ func GetFiles(path string, withDirs bool) ([]string, error) {
 			continue
 		}
 
-		if IsDontIndex(filepath) {
+		if helper.IsDontIndex(filepath) {
 			continue
 		}
 

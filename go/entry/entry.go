@@ -1,10 +1,15 @@
 package entry
 
+import (
+	"time"
+	"stferal/go/entry/parts/info"
+)
+
 type Entry interface{
 	Id()    string
-	/*
-	Info()  map[string]string
+	Info()  info.Info
 	Date()  time.Time
+	/*
 	Title() string
 	Path()  string
 	*/

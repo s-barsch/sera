@@ -6,6 +6,14 @@ import (
 	"strconv"
 )
 
+func (i *Image) Date() time.Time {
+	return i.Date
+}
+
+func (i *Image) Info() Info {
+	return i.Info
+}
+
 func (i *Image) Acronym() string {
 	return ToB16(i.Date)
 }

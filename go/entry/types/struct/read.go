@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"stferal/go/entry"
 	"stferal/go/entry/helper"
+	"stferal/go/entry/helper/read"
 	"stferal/go/entry/types/media"
 	"stferal/go/entry/types/set"
 )
@@ -14,7 +15,7 @@ func readEntries(path string, parent entry.Entry) (entry.Entries, error) {
 		Func: "readEntries",
 	}
 
-	files, err := helper.GetFiles(path, true)
+	files, err := read.GetFiles(path, true)
 	if err != nil {
 		fnErr.Err = err
 		return nil, fnErr
@@ -29,7 +30,7 @@ func readEntries(path string, parent entry.Entry) (entry.Entries, error) {
 		reducedFiles = append(reducedFiles, f)
 	}
 
-	entries, err := helper.ReadEntries(reducedFiles, parent, newObjFunc)
+	entries, err := read.ReadEntries(reducedFiles, parent, newObjFunc)
 	if err != nil {
 		fnErr.Err = err
 		return nil, fnErr

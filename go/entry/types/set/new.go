@@ -9,16 +9,12 @@ import (
 	"time"
 )
 
-func (s *Set) Id() string {
-	return "sample"
-}
-
 type Set struct {
 	Parent entry.Entry
 	File   *file.File
 
-	Date time.Time
-	Info info.Info
+	date time.Time
+	info info.Info
 
 	Entries entry.Entries
 	//Cover *Image
@@ -54,8 +50,8 @@ func NewSet(path string, parent entry.Entry) (*Set, error) {
 		Parent: parent,
 		File:   file,
 
-		Date: date,
-		Info: info,
+		date: date,
+		info: info,
 	}
 
 	entries, err := readEntries(path, s)
