@@ -4,12 +4,13 @@ import (
 	"io/ioutil"
 	"os"
 	p "path/filepath"
+	"stferal/go/entry"
 	he "stferal/go/entry/helper"
 	//"stferal/go/entry/parts/info"
 	//"strings"
 )
 
-func readStructs(path string, parent *Struct) ([]*Struct, error) {
+func readStructs(path string, parent entry.Entry) ([]*Struct, error) {
 	dirs, err := getStructDirs(path)
 	if err != nil {
 		return nil, &he.Err{
@@ -33,7 +34,7 @@ func readStructs(path string, parent *Struct) ([]*Struct, error) {
 	return structs, nil
 }
 
-func readStructDirs(dirs []string, parent *Struct) ([]*Struct, error) {
+func readStructDirs(dirs []string, parent entry.Entry) ([]*Struct, error) {
 	structs := []*Struct{}
 	for _, dirpath := range dirs {
 		stru, err := ReadStruct(dirpath, parent)

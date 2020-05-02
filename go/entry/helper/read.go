@@ -6,9 +6,9 @@ import (
 	"stferal/go/entry"
 )
 
-type newEntryFunc func(string, interface{}) (entry.Entry, error)
+type newEntryFunc func(string, entry.Entry) (entry.Entry, error)
 
-func ReadEntries(paths []string, parent interface{}, newEntry newEntryFunc) (entry.Entries, error) {
+func ReadEntries(paths []string, parent entry.Entry, newEntry newEntryFunc) (entry.Entries, error) {
 	entries := entry.Entries{}
 	for _, path := range paths {
 		entry, err := newEntry(path, parent)

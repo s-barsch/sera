@@ -9,7 +9,7 @@ import (
 )
 
 type Struct struct {
-	Parent *Struct
+	Parent entry.Entry
 	File   *file.File
 
 	Date time.Time
@@ -21,7 +21,7 @@ type Struct struct {
 
 type Structs []*Struct
 
-func ReadStruct(path string, parent *Struct) (*Struct, error) {
+func ReadStruct(path string, parent entry.Entry) (*Struct, error) {
 	fnErr := &helper.Err{
 		Path: path,
 		Func: "ReadStruct",

@@ -8,7 +8,7 @@ import (
 	"stferal/go/entry/types/set"
 )
 
-func readEntries(path string, parent interface{}) (entry.Entries, error) {
+func readEntries(path string, parent entry.Entry) (entry.Entries, error) {
 	fnErr := &helper.Err{
 		Path: path,
 		Func: "readEntries",
@@ -40,14 +40,14 @@ func readEntries(path string, parent interface{}) (entry.Entries, error) {
 	return entries, err
 }
 
-func newObjFunc(path string, parent interface{}) (entry.Entry, error) {
+func newObjFunc(path string, parent entry.Entry) (entry.Entry, error) {
 	switch helper.FileType(path) {
 	case "file":
 		break
 	case "dir":
-		return set.NewSet(path)
+		return set.NewSet(path, parent)
 	default:
-		return media.NewMediaObj(path, parent)
+		return media.NewMediaEntry(path, parent)
 	}
 	return nil, &helper.Err{
 		Path: path,

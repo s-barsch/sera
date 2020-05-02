@@ -8,12 +8,12 @@ import (
 	"stferal/go/entry/types/media/image"
 )
 
-func NewMediaObj(path string, parent interface{}) (entry.Entry, error) {
+func NewMediaEntry(path string, parent entry.Entry) (entry.Entry, error) {
 	switch helper.FileType(path) {
 	case "text":
-		return text.NewText(path)
+		return text.NewText(path, parent)
 	case "image":
-		return image.NewImage(path)
+		return image.NewImage(path, parent)
 	}
 	return nil, &helper.Err{
 		Path: path,

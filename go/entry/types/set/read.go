@@ -6,7 +6,7 @@ import (
 	"stferal/go/entry/types/media"
 )
 
-func readEntries(path string, parent interface{}) (entry.Entries, error) {
+func readEntries(path string, parent entry.Entry) (entry.Entries, error) {
 	fnErr := &helper.Err{
 		Path: path,
 		Func: "readEntries",
@@ -27,7 +27,7 @@ func readEntries(path string, parent interface{}) (entry.Entries, error) {
 		reducedFiles = append(reducedFiles, f)
 	}
 
-	entries, err := helper.ReadEntries(reducedFiles, parent, media.NewMediaObj)
+	entries, err := helper.ReadEntries(reducedFiles, parent, media.NewMediaEntry)
 	if err != nil {
 		fnErr.Err = err
 		return nil, fnErr

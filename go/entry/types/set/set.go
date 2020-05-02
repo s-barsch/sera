@@ -14,7 +14,8 @@ func (s *Set) Id() string {
 }
 
 type Set struct {
-	File *file.File
+	Parent entry.Entry
+	File   *file.File
 
 	Date time.Time
 	Info info.Info
@@ -25,7 +26,7 @@ type Set struct {
 
 type Sets []*Set
 
-func NewSet(path string) (*Set, error) {
+func NewSet(path string, parent entry.Entry) (*Set, error) {
 	fnErr := &helper.Err{
 		Path: path,
 		Func: "NewSet",
@@ -50,7 +51,8 @@ func NewSet(path string) (*Set, error) {
 	}
 
 	s := &Set{
-		File: file,
+		Parent: parent,
+		File:   file,
 
 		Date: date,
 		Info: info,

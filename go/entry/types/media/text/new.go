@@ -1,6 +1,7 @@
 package text
 
 import (
+	"stferal/go/entry"
 	"stferal/go/entry/helper"
 	"stferal/go/entry/parts/file"
 	"stferal/go/entry/parts/info"
@@ -12,7 +13,8 @@ func (t *Text) Id() string {
 }
 
 type Text struct {
-	File *file.File
+	Parent entry.Entry
+	File   *file.File
 
 	Date time.Time
 	Info info.Info
@@ -21,7 +23,7 @@ type Text struct {
 	Blank map[string]string
 }
 
-func NewText(path string) (*Text, error) {
+func NewText(path string, parent entry.Entry) (*Text, error) {
 	fnErr := &helper.Err{
 		Path: path,
 		Func: "NewText",
@@ -49,7 +51,8 @@ func NewText(path string) (*Text, error) {
 	}
 
 	return &Text{
-		File: file,
+		Parent: parent,
+		File:   file,
 
 		Date: date,
 		Info: inf,

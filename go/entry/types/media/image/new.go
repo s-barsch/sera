@@ -1,6 +1,7 @@
 package image
 
 import (
+	"stferal/go/entry"
 	"stferal/go/entry/helper"
 	"stferal/go/entry/parts/info"
 	"stferal/go/entry/parts/file"
@@ -13,14 +14,15 @@ func (i *Image) Id() string {
 }
 
 type Image struct {
-	File *file.File
+	Parent entry.Entry
+	File   *file.File
 
 	Date time.Time
 	// Dims *dims
 	Info info.Info
 }
 
-func NewImage(path string) (*Image, error) {
+func NewImage(path string, parent entry.Entry) (*Image, error) {
 	fnErr := &helper.Err{
 		Path: path,
 		Func: "NewImage",
@@ -60,10 +62,11 @@ func NewImage(path string) (*Image, error) {
 	}
 
 	return &Image{
-		File: file,
-		Date: date,
+		Parent: parent,
+		File:   file,
+		Date:   date,
 		//Dims: dims,
-		Info: inf,
+		Info:   inf,
 	}, nil
 }
 
