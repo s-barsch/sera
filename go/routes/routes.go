@@ -4,28 +4,35 @@ import (
 	"github.com/gorilla/mux"
 	"net/http"
 	"stferal/go/handlers/about"
+	/*
 	"stferal/go/handlers/extra"
 	"stferal/go/handlers/front"
 	"stferal/go/handlers/graph"
 	"stferal/go/handlers/index"
 	"stferal/go/handlers/sitemaps"
+	*/
 	"stferal/go/server"
 )
 
 func Router(s *server.Server) *mux.Router {
 	r := mux.NewRouter().StrictSlash(true)
 
+	/*
 	if s.Flags.Reload {
 		r.Use(makeMiddleware(s, extra.ConstantReload))
 	}
+	*/
 
+	/*
 	r.HandleFunc("/", makeHandler(s, front.Main))
 
 	r.PathPrefix("/index").HandlerFunc(makeHandler(s, index.Route))
 	r.PathPrefix("/graph").HandlerFunc(makeHandler(s, graph.Route))
+	*/
 	r.PathPrefix("/ueber").HandlerFunc(makeHandler(s, about.Route))
 	r.PathPrefix("/about").HandlerFunc(makeHandler(s, about.Route))
 
+	/*
 	r.PathPrefix("/part/").HandlerFunc(makeHandler(s, graph.ElPart))
 	r.PathPrefix("/alt-text/").HandlerFunc(makeHandler(s, extra.Route))
 
@@ -63,6 +70,7 @@ func Router(s *server.Server) *mux.Router {
 			extra.StaticFiles(s, w, r)
 		})
 	}
+	*/
 
 	return r
 }

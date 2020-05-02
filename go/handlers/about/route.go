@@ -2,8 +2,8 @@ package about
 
 import (
 	"net/http"
-	"stferal/go/entry"
-	"stferal/go/head"
+	//"stferal/go/entry"
+	//"stferal/go/head"
 	"stferal/go/paths"
 	"stferal/go/server"
 )
@@ -18,21 +18,26 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	rel := path[len("/about"):] // same length as "ueber"
 
 	if rel == "" {
-		Hold(s, w, r, s.Trees["about"])
+		ServeStruct(s, w, r, s.Trees["about"])
 		return
 	}
 
+	http.NotFound(w, r)
+
+	/*
 	p := paths.Split(path)
 
-	hold, err := findHold(s, head.Lang(r.Host), p)
+	stru, err := findHold(s, head.Lang(r.Host), p)
 	if err != nil {
 		http.NotFound(w, r)
 		return
 	}
 
-	Hold(s, w, r, hold)
+	ServeStruct(s, w, r, hold)
+	*/
 }
 
+/*
 func findHold(s *server.Server, lang string, p *paths.Path) (*entry.Hold, error) {
 	hold, err := s.Trees["about"].Search(p.Name, lang)
 	if err == nil {
@@ -49,3 +54,4 @@ func findHold(s *server.Server, lang string, p *paths.Path) (*entry.Hold, error)
 
 	return nil, err
 }
+*/

@@ -3,7 +3,8 @@ package about
 import (
 	"log"
 	"net/http"
-	"stferal/go/entry"
+	//"stferal/go/entry"
+	"stferal/go/entry/types/struct"
 	"stferal/go/head"
 	"stferal/go/server"
 	/*
@@ -13,9 +14,9 @@ import (
 		"stferal/go/head"
 	*/)
 
-type aboutHold struct {
-	Head *head.Head
-	Hold *entry.Hold
+type aboutStruct struct {
+	Head   *head.Head
+	Struct *stru.Struct
 }
 
 var aboutName = map[string]string{
@@ -23,20 +24,23 @@ var aboutName = map[string]string{
 	"en": "about",
 }
 
-func Hold(s *server.Server, w http.ResponseWriter, r *http.Request, hold *entry.Hold) {
+func ServeStruct(s *server.Server, w http.ResponseWriter, r *http.Request, strct *stru.Struct) {
+	/*
 	if perma := hold.Permalink(head.Lang(r.Host)); r.URL.Path != perma {
 		http.Redirect(w, r, perma, 301)
 		return
 	}
+	*/
+	log.Println("permalink unavailable")
 
 	head := &head.Head{
-		Title:   hold.Info.Title(head.Lang(r.Host)),
+		Title:   "About title missing",
+		//Title:   hold.Info.Title(head.Lang(r.Host)),
 		Section: "about",
 		Path:    r.URL.Path,
 		Host:    r.Host,
-		El:      hold,
-		Dark:    head.DarkColors(r),
-		Large:   head.LargeType(r),
+		// Entry:   hold,
+		Options: head.GetOptions(r),
 	}
 	err := head.Make()
 	if err != nil {
@@ -44,9 +48,9 @@ func Hold(s *server.Server, w http.ResponseWriter, r *http.Request, hold *entry.
 		return
 	}
 
-	err = s.ExecuteTemplate(w, "about", &aboutHold{
-		Head: head,
-		Hold: hold,
+	err = s.ExecuteTemplate(w, "about", &aboutStruct{
+		Head:   head,
+		Struct: strct,
 	})
 	if err != nil {
 		log.Println(err)
