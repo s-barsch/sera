@@ -9,6 +9,10 @@ import (
 	"time"
 )
 
+func (s *Set) Id() string {
+	return "sample"
+}
+
 type Set struct {
 	File *file.File
 

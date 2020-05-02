@@ -6,10 +6,12 @@ import (
 	"stferal/go/entry"
 )
 
-func ReadEntries(paths []string, parent interface{}, newObjFunc entry.NewObjFunc) (entry.Entries, error) {
+type newEntryFunc func(string, interface{}) (entry.Entry, error)
+
+func ReadEntries(paths []string, parent interface{}, newEntry newEntryFunc) (entry.Entries, error) {
 	entries := entry.Entries{}
 	for _, path := range paths {
-		entry, err := entry.NewEntry(path, parent, newObjFunc)
+		entry, err := newEntry(path, parent)
 		if err != nil {
 			return nil, err
 		}

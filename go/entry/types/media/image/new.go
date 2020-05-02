@@ -8,6 +8,10 @@ import (
 	"time"
 )
 
+func (i *Image) Id() string {
+	return "sample"
+}
+
 type Image struct {
 	File *file.File
 

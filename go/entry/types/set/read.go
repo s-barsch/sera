@@ -6,7 +6,7 @@ import (
 	"stferal/go/entry/types/media"
 )
 
-func readEntries(path string, parent interface{}) ([]*entry.Entry, error) {
+func readEntries(path string, parent interface{}) (entry.Entries, error) {
 	fnErr := &helper.Err{
 		Path: path,
 		Func: "readEntries",

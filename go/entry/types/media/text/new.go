@@ -7,6 +7,10 @@ import (
 	"time"
 )
 
+func (t *Text) Id() string {
+	return "sample"
+}
+
 type Text struct {
 	File *file.File
 
