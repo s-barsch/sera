@@ -22,19 +22,27 @@ type Set struct {
 type Sets []*Set
 
 func NewSet(path string) (*Set, error) {
+	fnErr := &helper.Err{
+		Path: path,
+		Func: "NewSet",
+	}
+
 	file, err := file.New(path)
 	if err != nil {
-		return nil, err
+		fnErr.Err = err
+		return nil, fnErr
 	}
 
 	info, err := info.ReadInfoDir(path)
 	if err != nil {
-		return nil, err
+		fnErr.Err = err
+		return nil, fnErr
 	}
 
 	date, err := helper.ParseDate(info["date"])
 	if err != nil {
-		return nil, helper.DateErr(path, err)
+		fnErr.Err = err
+		return nil, fnErr
 	}
 
 	s := &Set{
@@ -46,10 +54,14 @@ func NewSet(path string) (*Set, error) {
 
 	entries, err := readEntries(path, s)
 	if err != nil {
-		return nil, err
+		fnErr.Err = err
+		return nil, fnErr
 	}
 
 	s.Entries = entries
+
+	return s, nil
+}
 
 	/*
 		cover, err := ReadCover(path, h)
@@ -58,5 +70,3 @@ func NewSet(path string) (*Set, error) {
 		}
 	*/
 
-	return s, nil
-}

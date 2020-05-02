@@ -7,19 +7,26 @@ import (
 )
 
 func readEntries(path string, parent interface{}) ([]*entry.Entry, error) {
+	fnErr := &helper.Err{
+		Path: path,
+		Func: "readEntries",
+	}
+
 	files, err := helper.GetFiles(path, false)
 	if err != nil {
-		return nil, err
+		fnErr.Err = err
+		return nil, fnErr
 	}
 
 	entries, err := helper.ReadEntries(files, parent, media.NewMediaObj)
 	if err != nil {
-		return nil, err
+		fnErr.Err = err
+		return nil, fnErr
 	}
 
 	// TODO: sorting
 
-	return entries, err
+	return entries, nil
 }
 
 /*
