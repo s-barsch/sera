@@ -2,7 +2,6 @@ package head
 
 import (
 	"fmt"
-	"net/http"
 	"stferal/go/entry"
 )
 
@@ -68,10 +67,3 @@ func (h *Head) DontIndex() bool {
 	return false
 }
 
-func LogMode(r *http.Request) bool {
-	c, err := r.Cookie("nolog")
-	if err != nil {
-		return false
-	}
-	return c.Value == "true"
-}

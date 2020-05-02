@@ -2,9 +2,10 @@ package server
 
 import (
 	//"fmt"
-	"stferal/go/entry"
+	// "stferal/go/entry"
 )
 
+/*
 func findElement(els entry.Els, acronym string) (interface{}, error) {
 	id, err := entry.DecodeAcronym(acronym)
 	if err != nil {
@@ -20,6 +21,10 @@ func findSet(sets entry.Sets, acronym string) (*entry.Set, error) {
 	}
 	return sets.Lookup(id)
 }
+*/
+
+
+// !!! Delete everything down from here
 
 /*
 func (s *Server) lookupAcronymMulti(page, acronym string) (interface{}, error) {

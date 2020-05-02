@@ -2,6 +2,7 @@ package server
 
 import (
 	"stferal/go/entry"
+	stru "stferal/go/entry/types/struct"
 	"time"
 )
 
@@ -47,17 +48,18 @@ func (s *Server) LoadData() error {
 		"extra",
 	}
 
-	trees := map[string]*entry.Hold{}
-	recents := map[string]entry.Els{}
+	trees := map[string]*stru.Struct{}
+	recents := map[string]entry.Entries{}
 
 	for _, section := range sections {
-		t, err := entry.ReadHold(s.Paths.Data+"/"+section, nil)
+		t, err := stru.ReadStruct(s.Paths.Data+"/"+section, nil)
 		if err != nil {
 			return err
 		}
 		trees[section+"-private"] = t
-		trees[section] = t.Public()
+		//trees[section] = t.Public()
 
+		/*
 		if section == "graph" {
 			recents[section+"-private"] = trees[section+"-private"].TraverseElsReverse()
 		} else {
@@ -65,6 +67,7 @@ func (s *Server) LoadData() error {
 		}
 
 		recents[section] = recents[section+"-private"].Public()
+		*/
 	}
 
 	s.Trees = trees

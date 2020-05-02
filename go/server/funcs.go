@@ -5,7 +5,8 @@ import (
 	"fmt"
 	"log"
 	"path/filepath"
-	"stferal/go/entry"
+	//"stferal/go/entry"
+	"stferal/go/entry/helper"
 	"strings"
 	"text/template"
 	"time"
@@ -16,6 +17,7 @@ type objArg struct {
 	Lang string
 }
 
+/*
 type elArg struct {
 	El   interface{}
 	Lazy bool
@@ -39,6 +41,7 @@ type subNavArg struct {
 	Current string
 	Lang    string
 }
+*/
 
 func (s *Server) TemplateFuncs() template.FuncMap {
 	return template.FuncMap{
@@ -49,7 +52,7 @@ func (s *Server) TemplateFuncs() template.FuncMap {
 			return "", fmt.Errorf("Template hyphen function currently not implemented.")
 		},
 		"normalize": func(str string) string {
-			return entry.Normalize(str)
+			return helper.Normalize(str)
 		},
 		"executeTemplate": func(name string, data interface{}) string {
 			buf := &bytes.Buffer{}
@@ -59,15 +62,18 @@ func (s *Server) TemplateFuncs() template.FuncMap {
 			}
 			return buf.String()
 		},
+		/*
 		"polyfillPath": func() string {
 			if s.Flags.Mobile {
 				return "http://192.168.1.56:3000/v2/polyfill.min.js?features=forEach,IntersectionObserver"
 			}
 			return "/js/polyfill.min.js"
 		},
+		*/
 		"add": func(a, b int) int {
 			return a + b
 		},
+		/*
 		"lastEl": func(els entry.Els) interface{} {
 			if len(els) <= 0 {
 				return nil
@@ -79,6 +85,7 @@ func (s *Server) TemplateFuncs() template.FuncMap {
 			href := fmt.Sprintf("/graph/%v", year)
 			return fmt.Sprintf(str, href), nil
 		},
+		*/
 		"var": func(name, lang string) string {
 			return s.Vars.Lang(name, lang)
 		},
@@ -88,15 +95,18 @@ func (s *Server) TemplateFuncs() template.FuncMap {
 		"isLocal": func() bool {
 			return s.Flags.Local
 		},
+		/*
 		"langName": func(lang string) string {
 			return entry.LangNames[lang]
 		},
+		*/
 		"filepathDir": filepath.Dir,
 		"title":       strings.Title,
 		"upper":       strings.ToUpper,
 		"tolower":     strings.ToLower,
 		"esc":         template.HTMLEscapeString,
 		"render":      s.RenderTemplate,
+		/*
 		"snavArg": func(hold *entry.Hold, current, lang string) *subNavArg {
 			return &subNavArg{
 				Hold:    hold,
@@ -104,8 +114,9 @@ func (s *Server) TemplateFuncs() template.FuncMap {
 				Lang:    lang,
 			}
 		},
+		*/
 		"monthLang": func(t time.Time, lang string) string {
-			return entry.MonthLang(t, lang)
+			return helper.MonthLang(t, lang)
 		},
 		"nodeName": func(acr string) string {
 			return "node_" + acr
@@ -119,6 +130,7 @@ func (s *Server) TemplateFuncs() template.FuncMap {
 		"iso8601": func(date time.Time) string {
 			return date.Format(time.RFC3339)
 		},
+		/*
 		"holdArg": func(h *entry.Hold, lazy bool, lang string) *holdArg {
 			return &holdArg{
 				Hold: h,
@@ -146,7 +158,8 @@ func (s *Server) TemplateFuncs() template.FuncMap {
 				Lang: lang,
 			}
 		},
-		"elType":    entry.Type,
+		*/
+		//"elType":    entry.Type,
 		"minifySvg": minifySVG,
 	}
 }

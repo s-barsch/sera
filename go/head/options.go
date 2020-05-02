@@ -27,6 +27,14 @@ func DarkColors(r *http.Request) bool {
 	return c.Value == "dark"
 }
 
+func LogMode(r *http.Request) bool {
+	c, err := r.Cookie("nolog")
+	if err != nil {
+		return false
+	}
+	return c.Value == "true"
+}
+
 func (h *Head) Dark() bool {
 	if h.Options == nil {
 		return false
