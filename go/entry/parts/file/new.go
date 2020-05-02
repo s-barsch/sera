@@ -3,6 +3,7 @@ package file
 import (
 	"os"
 	"time"
+	"stferal/go/entry/helper"
 )
 
 type File struct {
@@ -13,7 +14,11 @@ type File struct {
 func NewFile(path string) (*File, error) {
 	mod, err := getModTime(path)
 	if err != nil {
-		return nil, err
+		return nil, &helper.Err{
+			Path: path,
+			Func: "NewFile",
+			Err:  err,
+		}
 	}
 
 	return &File{
@@ -31,7 +36,11 @@ func getModTimeFile(path string) (time.Time, error) {
 
 	fi, err := os.Stat(path)
 	if err != nil {
-		return t, err
+		return t, &helper.Err{
+			Path: path,
+			Func: "getModTimeFile",
+			Err:  err,
+		}
 	}
 
 	return fi.ModTime(), nil

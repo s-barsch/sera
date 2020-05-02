@@ -1,7 +1,7 @@
 package info
 
 import (
-	"fmt"
+	//"fmt"
 	"io"
 	"os"
 	"stferal/go/entry/helper"
@@ -36,18 +36,25 @@ func HasFileInfo(path string) bool {
 }
 
 func ParseInfoFile(path string) (Info, error) {
-	//i := map[string]string{}
-	i := Info{}
+	fnErr := &helper.Err{
+		Path: path,
+		Func: "ParseInfoFile",
+	}
+
+	i := map[string]string{}
+
 	f, err := os.Open(path)
 	if err != nil {
-		return i, fmt.Errorf("ParseInfoFile: %v", err)
+		fnErr.Err = err
+		return i, err
 	}
 	defer f.Close()
 
 	d := yaml.NewDecoder(io.Reader(f))
 	err = d.Decode(&i)
 	if err != nil {
-		return i, fmt.Errorf("ParseInfoFile: %v, %v", err, path)
+		fnErr.Err = err
+		return i, err
 	}
 
 	for k, v := range i {
@@ -55,7 +62,8 @@ func ParseInfoFile(path string) (Info, error) {
 		i[strings.ToLower(k)] = v
 	}
 
-	err = i.hyphenateText()
+	// TODO: do this later
+	// err = i.hyphenateText()
 
 	return i, nil
 
