@@ -11,7 +11,7 @@ type Err struct {
 }
 
 func (e *Err) Error() string {
-	return e.ErrorSteps(-1)
+	return e.ErrorSteps(3)
 }
 
 // Use -1 to see all

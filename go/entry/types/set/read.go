@@ -18,7 +18,16 @@ func readEntries(path string, parent interface{}) ([]*entry.Entry, error) {
 		return nil, fnErr
 	}
 
-	entries, err := helper.ReadEntries(files, parent, media.NewMediaObj)
+	reducedFiles := []string{}
+	for _, f := range files {
+		switch helper.FileType(f) {
+		case "audio", "video", "html":
+			continue
+		}
+		reducedFiles = append(reducedFiles, f)
+	}
+
+	entries, err := helper.ReadEntries(reducedFiles, parent, media.NewMediaObj)
 	if err != nil {
 		fnErr.Err = err
 		return nil, fnErr
