@@ -1,6 +1,7 @@
 package text
 
 import (
+	"stferal/go/entry/helper"
 	"bufio"
 	"bytes"
 	"io"
@@ -16,7 +17,11 @@ var partNames = map[int]string{
 func splitTextFile(path string) (map[string]string, error) {
 	f, err := os.Open(path)
 	if err != nil {
-		return nil, err
+		return nil, &helper.Err{
+			Path: path,
+			Func: "spiltTextFile",
+			Err:  err,
+		}
 	}
 	defer f.Close()
 

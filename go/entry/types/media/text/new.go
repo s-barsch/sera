@@ -1,7 +1,6 @@
 package text
 
 import (
-	"fmt"
 	"stferal/go/entry/helper"
 	"stferal/go/entry/parts/file"
 	"stferal/go/entry/parts/info"
@@ -19,21 +18,29 @@ type Text struct {
 }
 
 func NewText(path string) (*Text, error) {
+	fnErr := &helper.Err{
+		Path: path,
+		Func: "NewText",
+	}
+
 	file, err := file.New(path)
 	if err != nil {
-		return nil, err
+		fnErr.Err = err
+		return nil, fnErr
 	}
 
 	inf, parts, err := readTextFile(path)
 	if err != nil {
-		return nil, err
+		fnErr.Err = err
+		return nil, fnErr
 	}
 
 	date, err := helper.ParseDate(inf["date"])
 	if err != nil {
 		date, err = helper.ParseDatePath(path)
 		if err != nil {
-			return nil, err
+			fnErr.Err = err
+			return nil, fnErr
 		}
 	}
 
@@ -48,18 +55,24 @@ func NewText(path string) (*Text, error) {
 	}, nil
 }
 
-func readTextFile(path string) (inf info.Info, parts map[string]string, err error) {
-	parts, err = splitTextFile(path)
-	if err != nil {
-		return
+func readTextFile(path string) (info.Info, map[string]string, error) {
+	fnErr := &helper.Err{
+		Path: path,
+		Func: "readTextFile",
 	}
 
-	inf, err = info.UnmarshalInfo([]byte(parts["info"]))
+	parts, err := splitTextFile(path)
 	if err != nil {
-		err = fmt.Errorf("%v (%v)", err, path)
-		return
+		fnErr.Err = err
+		return nil, nil, fnErr
+	}
+
+	inf, err := info.UnmarshalInfo([]byte(parts["info"]))
+	if err != nil {
+		fnErr.Err = err
+		return nil, nil, fnErr
 	}
 
 	delete(parts, "info")
-	return
+	return inf, parts, nil
 }
