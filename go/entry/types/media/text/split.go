@@ -1,11 +1,11 @@
 package text
 
 import (
-	"stferal/go/entry/helper"
 	"bufio"
 	"bytes"
 	"io"
 	"os"
+	"stferal/go/entry/helper"
 )
 
 var partNames = map[int]string{

@@ -3,8 +3,8 @@ package image
 import (
 	"stferal/go/entry"
 	"stferal/go/entry/helper"
-	"stferal/go/entry/parts/info"
 	"stferal/go/entry/parts/file"
+	"stferal/go/entry/parts/info"
 	"strings"
 	"time"
 )
@@ -37,11 +37,11 @@ func NewImage(path string, parent entry.Entry) (*Image, error) {
 	}
 
 	/*
-	dims, err := loadDims(path)
-	if err != nil {
-		fnErr.Err = err
-		return nil, fnErr
-	}
+		dims, err := loadDims(path)
+		if err != nil {
+			fnErr.Err = err
+			return nil, fnErr
+		}
 	*/
 
 	inf := info.Info{}
@@ -66,7 +66,6 @@ func NewImage(path string, parent entry.Entry) (*Image, error) {
 		File:   file,
 		Date:   date,
 		//Dims: dims,
-		Info:   inf,
+		Info: inf,
 	}, nil
 }
-

@@ -69,10 +69,9 @@ func NewSet(path string, parent entry.Entry) (*Set, error) {
 	return s, nil
 }
 
-	/*
-		cover, err := ReadCover(path, h)
-		if err != nil {
-			// log.Println(err)
-		}
-	*/
-
+/*
+	cover, err := ReadCover(path, h)
+	if err != nil {
+		// log.Println(err)
+	}
+*/

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"stferal/go/entry"
 	"stferal/go/entry/helper"
-	"stferal/go/entry/types/media/text"
 	"stferal/go/entry/types/media/image"
+	"stferal/go/entry/types/media/text"
 )
 
 func NewMediaEntry(path string, parent entry.Entry) (entry.Entry, error) {

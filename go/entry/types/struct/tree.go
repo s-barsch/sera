@@ -58,7 +58,7 @@ func getStructDirs(path string) ([]string, error) {
 	l, err := ioutil.ReadDir(path)
 	if err != nil {
 		return nil, &he.Err{
-			Path: path, 
+			Path: path,
 			Func: "getStructDirs",
 			Err:  err,
 		}
