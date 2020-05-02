@@ -1,7 +1,7 @@
 package head
 
 import (
-	"stferal/go/entry"
+	//"stferal/go/entry"
 	"time"
 )
 
@@ -21,6 +21,7 @@ type Schema struct {
 	// Location
 }
 
+/*
 func (h *Head) ElSchema() (*Schema, error) {
 	date, err := entry.DateSafe(h.El)
 	if err != nil {
@@ -64,3 +65,4 @@ func schemaType(e interface{}) string {
 	}
 	return "article"
 }
+*/

@@ -75,12 +75,14 @@ func El(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Path)
 		return
 	}
 
-	schema, err := head.ElSchema()
-	if err != nil {
-		s.Log.Println(err)
-		return
-	}
-	head.Schema = schema
+	/*
+		schema, err := head.ElSchema()
+		if err != nil {
+			s.Log.Println(err)
+			return
+		}
+		head.Schema = schema
+	*/
 
 	err = s.ExecuteTemplate(w, "graph-el", &graphEl{
 		Head:   head,
