@@ -3,7 +3,8 @@ package about
 import (
 	"log"
 	"net/http"
-	"stferal/go/entry"
+	//"stferal/go/entry"
+	"stferal/go/entry/types/struct"
 	"stferal/go/head"
 	"stferal/go/server"
 	/*

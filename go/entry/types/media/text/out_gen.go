@@ -12,6 +12,10 @@ import (
 	"time"
 )
 
+func (e *Text) Type() string {
+	return "text"
+}
+
 func (e *Text) Parent() entry.Entry {
 	return e.parent
 }

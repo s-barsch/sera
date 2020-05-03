@@ -95,11 +95,9 @@ func (s *Server) TemplateFuncs() template.FuncMap {
 		"isLocal": func() bool {
 			return s.Flags.Local
 		},
-		/*
 		"langName": func(lang string) string {
-			return entry.LangNames[lang]
+			return helper.LangNames[lang]
 		},
-		*/
 		"filepathDir": filepath.Dir,
 		"title":       strings.Title,
 		"upper":       strings.ToUpper,

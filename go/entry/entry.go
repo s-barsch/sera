@@ -7,6 +7,8 @@ import (
 )
 
 type Entry interface{
+	Type() string
+
 	Parent() Entry
 	File()   *file.File
 

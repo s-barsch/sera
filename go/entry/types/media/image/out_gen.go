@@ -12,6 +12,10 @@ import (
 	"time"
 )
 
+func (e *Image) Type() string {
+	return "image"
+}
+
 func (e *Image) Parent() entry.Entry {
 	return e.parent
 }

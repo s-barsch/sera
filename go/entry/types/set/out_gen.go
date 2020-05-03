@@ -12,6 +12,10 @@ import (
 	"time"
 )
 
+func (e *Set) Type() string {
+	return "set"
+}
+
 func (e *Set) Parent() entry.Entry {
 	return e.parent
 }

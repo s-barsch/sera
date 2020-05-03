@@ -10,6 +10,10 @@ import (
 	"time"
 )
 
+func (e *Struct) Type() string {
+	return "struct"
+}
+
 func (e *Struct) Parent() entry.Entry {
 	return e.parent
 }

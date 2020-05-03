@@ -16,6 +16,10 @@ import (
 	"time"
 )
 
+func {{receiver .}} Type() string {
+	return "{{.}}"
+}
+
 func {{receiver .}} Parent() entry.Entry {
 	return e.parent
 }

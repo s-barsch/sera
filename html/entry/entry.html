@@ -1,7 +1,7 @@
 
 
 {{define "el-standalone"}}
-{{$type := elType .El}}
+{{$type := .Type}}
 
 {{if eq .El.File.Page "index"}}
 <div class="margin">
@@ -25,7 +25,8 @@
 
 {{define "el" -}}
 
-{{$type := elType .El}}
+{{$type := .Type}}
+
 <div class="el">
     {{if eq $type "text"}}
         {{template "text" .}}
