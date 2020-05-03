@@ -2,9 +2,7 @@
 
 Source code of the website [stferal.com](https://en.stferal.com/).
 
----
-
-### CSS
+# CSS
 
 Compile the Less files like this:
 
