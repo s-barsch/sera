@@ -1,6 +1,6 @@
-<img src="https://raw.githubusercontent.com/stefba/stferal/master/static/svg/stferal-logo-compressed.svg" alt="Stef Feral Logo" height=200>
+[<img src="https://raw.githubusercontent.com/stefba/stferal/master/static/svg/stferal-logo-compressed.svg" alt="Stef Feral Logo" height=200>](https://en.stferal.com/)
 
-This is the source code of the website [stferal.com](https://en.stferal.com/).
+Source code of the website [stferal.com](https://en.stferal.com/).
 
 ---
 
