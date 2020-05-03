@@ -10,7 +10,9 @@ type Entry interface{
 	Parent() Entry
 	File()   *file.File
 
-	Id()     string
+	Id()        string
+	Hash()      string
+	HashShort() string
 
 	Info()  info.Info
 	Date()  time.Time
