@@ -1,6 +1,41 @@
-{{define "about"}}
+{{define "about-main"}}
 {{template "head" .Head}}
 {{template "top" .}}
-hai
+
+    {{$}}
+{{template "section-title" aboutTitle $.Head.Lang}}
+{{template "about-entries" (eL .Struct .Head.Lang)}}
+
+
 {{end}}
+
+
+{{define "about-page"}}
+{{template "head" .Head}}
+{{template "top" .}}
+
+    <h1 class="about-title">
+        {{.Hold.Info.Title .Head.Lang}}
+    </h1>
+
+
+
+    {{/*template "chamomile" .Head.Lang*/}}
+  
+    {{/*template "edit-link-hold" (holdArg .Hold false .Head.Lang)*/}}
+
+</main>
+
+{{template "bot" .Head}}
+{{end}}
+
+{{define "about-entries"}}
+    {{range .E.Entries}}
+    <article class="index-el">
+        {{template "entry" (eL . $.Lang)}}
+    </article>
+    {{end}}
+{{end}}
+
+
 

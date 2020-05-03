@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 	"path/filepath"
-	//"stferal/go/entry"
+	"stferal/go/entry"
 	"stferal/go/entry/helper"
 	"strings"
 	"text/template"
@@ -16,6 +16,20 @@ type objArg struct {
 	Obj  interface{}
 	Lang string
 }
+
+type entryLangObject struct {
+	Entry entry.Entry
+	Lang  string
+}
+
+func (e *entryLangObject) E() entry.Entry {
+	return e.Entry
+}
+
+func (e *entryLangObject) L() string {
+	return e.Lang
+}
+
 
 /*
 type elArg struct {
@@ -45,6 +59,13 @@ type subNavArg struct {
 
 func (s *Server) TemplateFuncs() template.FuncMap {
 	return template.FuncMap{
+		"aboutTitle": func(lang string) string {
+			switch lang {
+			case "de":
+				return "Über"
+			}
+			return "About"
+		},
 		"removeß": func(str string) string {
 			return strings.Replace(str, "ß", "ss", -1)
 		},
@@ -119,17 +140,16 @@ func (s *Server) TemplateFuncs() template.FuncMap {
 		"iso8601": func(date time.Time) string {
 			return date.Format(time.RFC3339)
 		},
+		"eL": func(e entry.Entry, lang string) *entryLangObject {
+			return &entryLangObject{
+				Entry: e,
+				Lang:  lang,
+			}
+		},
 		/*
 		"holdArg": func(h *entry.Hold, lazy bool, lang string) *holdArg {
 			return &holdArg{
 				Hold: h,
-				Lazy: lazy,
-				Lang: lang,
-			}
-		},
-		"elArg": func(e interface{}, lazy bool, lang string) *elArg {
-			return &elArg{
-				El:   e,
 				Lazy: lazy,
 				Lang: lang,
 			}

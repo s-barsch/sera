@@ -24,18 +24,16 @@ var aboutName = map[string]string{
 	"en": "about",
 }
 
-func ServeStruct(s *server.Server, w http.ResponseWriter, r *http.Request, strct *stru.Struct) {
+func ServeAbout(s *server.Server, w http.ResponseWriter, r *http.Request, struc *stru.Struct) {
 	/*
 	if perma := hold.Permalink(head.Lang(r.Host)); r.URL.Path != perma {
 		http.Redirect(w, r, perma, 301)
 		return
 	}
 	*/
-	log.Println("permalink unavailable")
 
 	head := &head.Head{
-		Title:   "About title missing",
-		//Title:   hold.Info.Title(head.Lang(r.Host)),
+		Title:   struc.Title(head.Lang(r.Host)),
 		Section: "about",
 		Path:    r.URL.Path,
 		Host:    r.Host,
@@ -48,9 +46,9 @@ func ServeStruct(s *server.Server, w http.ResponseWriter, r *http.Request, strct
 		return
 	}
 
-	err = s.ExecuteTemplate(w, "about", &aboutStruct{
+	err = s.ExecuteTemplate(w, "about-main", &aboutStruct{
 		Head:   head,
-		Struct: strct,
+		Struct: struc,
 	})
 	if err != nil {
 		log.Println(err)

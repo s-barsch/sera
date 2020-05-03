@@ -17,11 +17,9 @@ import (
 func Router(s *server.Server) *mux.Router {
 	r := mux.NewRouter().StrictSlash(true)
 
-	/*
 	if s.Flags.Reload {
 		r.Use(makeMiddleware(s, extra.ConstantReload))
 	}
-	*/
 
 	/*
 	r.HandleFunc("/", makeHandler(s, front.Main))

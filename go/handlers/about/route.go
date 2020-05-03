@@ -18,7 +18,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	rel := path[len("/about"):] // same length as "ueber"
 
 	if rel == "" {
-		ServeStruct(s, w, r, s.Trees["about"])
+		ServeAbout(s, w, r, s.Trees["about"])
 		return
 	}
 
