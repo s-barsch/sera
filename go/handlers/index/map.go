@@ -1,4 +1,5 @@
 package index
+/*
 
 import (
 	"bufio"
@@ -130,3 +131,4 @@ func minifySVG(input []byte) ([]byte, error) {
 	m.AddFunc("image/svg+xml", svg.Minify)
 	return m.Bytes("image/svg+xml", input)
 }
+*/

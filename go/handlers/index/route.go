@@ -2,13 +2,13 @@ package index
 
 import (
 	"net/http"
-	"path/filepath"
-	"stferal/go/entry"
-	"stferal/go/handlers/extra"
-	"stferal/go/head"
+	//"path/filepath"
+	//"stferal/go/entry"
+	//"stferal/go/handlers/extra"
+	//"stferal/go/head"
 	"stferal/go/paths"
 	"stferal/go/server"
-	"strings"
+	//"strings"
 )
 
 func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
@@ -25,6 +25,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	/*
 	if rel == "/serial/" {
 		Serial(s, w, r)
 		return
@@ -41,12 +42,15 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		extra.Files(s, w, r, p)
 		return
 	}
+	*/
 
 	tree := s.Trees["index"]
 
+	/*
 	if s.Flags.Local {
 		tree = s.Trees["index-private"]
 	}
+	*/
 
 	if p.Acronym == "" {
 		h, err := tree.Search(p.Name, head.Lang(r.Host))
@@ -72,11 +76,8 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		Hold(s, w, r, h)
 		return
 	}
-
-	/*
-
-		serveIndexHoldOrEl(w, r, rp)
 	*/
+
 }
 
 /*

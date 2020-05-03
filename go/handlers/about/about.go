@@ -19,11 +19,6 @@ type aboutTree struct {
 	Tree *tree.Tree
 }
 
-var aboutName = map[string]string{
-	"de": "über",
-	"en": "about",
-}
-
 func ServeAbout(s *server.Server, w http.ResponseWriter, r *http.Request, struc *tree.Tree) {
 	/*
 		if perma := hold.Permalink(head.Lang(r.Host)); r.URL.Path != perma {

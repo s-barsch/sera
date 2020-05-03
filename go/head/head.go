@@ -11,7 +11,7 @@ type Head struct {
 	Path    string
 	Host    string
 
-	Entry   *entry.Entry
+	Entry   entry.Entry
 	Options map[string]bool
 
 	/*

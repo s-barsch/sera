@@ -1,32 +1,32 @@
 package index
 
+/*
 import (
 	"log"
 	"net/http"
 	"stferal/go/entry"
 	"stferal/go/head"
 	"stferal/go/server"
+	"stferal/go/entry/types/tree"
 )
 
-type holdPage struct {
+type indexPage struct {
 	Head *head.Head
-	Hold *entry.Hold
+	Entry entry.Entry
 }
 
-func Hold(s *server.Server, w http.ResponseWriter, r *http.Request, hold *entry.Hold) {
-	if perma := hold.Permalink(head.Lang(r.Host)); r.URL.Path != perma {
+func IndexPage(s *server.Server, w http.ResponseWriter, r *http.Request, tr *tree.Tree) {
+	if perma := tr.Perma(head.Lang(r.Host)); r.URL.Path != perma {
 		http.Redirect(w, r, perma, 301)
 		return
 	}
 	head := &head.Head{
-		Title:   holdTitle(hold, head.Lang(r.Host)),
+		Title:   indexTitle(tr, head.Lang(r.Host)),
 		Section: "index",
 		Path:    r.URL.Path,
 		Host:    r.Host,
-		El:      hold,
-		Dark:    head.DarkColors(r),
-		Large:   head.LargeType(r),
-		NoLog:   head.LogMode(r),
+		Entry:   tr,
+		Options: head.GetOptions(r),
 	}
 	err := head.Make()
 	if err != nil {
@@ -34,22 +34,25 @@ func Hold(s *server.Server, w http.ResponseWriter, r *http.Request, hold *entry.
 		return
 	}
 
-	err = s.ExecuteTemplate(w, "index-hold", &holdPage{
+	err = s.ExecuteTemplate(w, "index-main", &indexPage{
 		Head: head,
-		Hold: hold,
+		Entry: tr,
 	})
 	if err != nil {
 		log.Println(err)
 	}
 }
 
-func holdTitle(hold *entry.Hold, lang string) string {
-	title := hold.Info.Title(lang)
+func indexTitle(tr *tree.Tree, lang string) string {
+	title := tr.Info().Title(lang)
 
-	c := hold.Chain(lang)
+	c := tr.Chain(lang)
 	if len(c) > 2 {
-		title += " - " + c[1].Title
+		// TODO:
+		//title += " - " + c[1].Title
+		title += " - " + c[1]
 	}
 
 	return title
 }
+*/

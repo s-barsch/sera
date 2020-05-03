@@ -1,5 +1,6 @@
 package index
 
+/*
 import (
 	"log"
 	"net/http"
@@ -58,3 +59,4 @@ func Serial(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 	}
 }
+*/
