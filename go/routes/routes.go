@@ -4,8 +4,8 @@ import (
 	"github.com/gorilla/mux"
 	"net/http"
 	"stferal/go/handlers/about"
-	/*
 	"stferal/go/handlers/extra"
+	/*
 	"stferal/go/handlers/front"
 	"stferal/go/handlers/graph"
 	"stferal/go/handlers/index"
@@ -51,11 +51,14 @@ func Router(s *server.Server) *mux.Router {
 
 	r.HandleFunc("/rl/", makeHandler(s, extra.Reload))
 
+	*/
+
 	r.PathPrefix("/static/").HandlerFunc(makeHandler(s, extra.StaticFiles))
 	r.PathPrefix("/js/").HandlerFunc(makeHandler(s, extra.JSFiles))
 	r.HandleFunc("/sw.js", makeHandler(s, extra.ServiceWorker))
 	r.HandleFunc("/robots.txt", makeHandler(s, extra.RobotsFiles))
 
+	/*
 	r.PathPrefix("/manifest.json").HandlerFunc(makeHandler(s, extra.Manifest))
 
 	fileRoutes := map[string]string{

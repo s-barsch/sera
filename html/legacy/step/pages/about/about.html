@@ -1,0 +1,60 @@
+{{define "about"}}
+{{template "head" .Head}}
+{{template "top" .}}
+
+{{template "subnav" (snavArg .Hold "" .Head.Lang)}}
+
+<main class="margin">
+
+    {{$isMain := eq (.Hold.Name "en") "about"}}
+
+        {{if $isMain}}
+    <div class="section-title-box {{if $isMain}}index-title{{end}}">
+        <h1 class="section-title">
+        {{if eq .Head.Lang "de"}}
+        Über
+        {{else}}
+        About
+        {{end}}
+        <h1>
+    </div>
+        {{else}}
+    <h1 class="about-title">
+        {{.Hold.Info.Title .Head.Lang}}
+    </h1>
+        {{end}}
+
+    {{$lang := .Head.Lang}}
+    {{if $isMain}}
+    <div class="cols">
+    <div class="col">
+    {{end}}
+    {{range .Hold.Els}}
+        {{template "about-el" (elArg . false $lang)}}
+    {{end}}
+    {{if $isMain}}</div>{{end}}{{if $isMain}}<div class="col">
+    {{template "chamomile" .Head.Lang}}
+    </div>
+    </div>
+    {{end}}
+
+    {{if eq 0 (len .Hold.Els)}}
+    <div class="index-el">
+      –
+    </div>
+    {{end}}
+
+    {{template "edit-link-hold" (holdArg .Hold false .Head.Lang)}}
+
+</main>
+
+{{template "bot" .Head}}
+{{end}}
+
+{{define "about-el"}}
+    <article class="index-el">
+        {{template "el" .}}
+    </article>
+{{end}}
+
+

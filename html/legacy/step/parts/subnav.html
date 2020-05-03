@@ -13,10 +13,10 @@
 {{define "subnavs"}}
     <div class="margin subnavs {{.Hold.Section}}-subnavs">
         <div class="subnav__steps">
-            {{template "subnav-recursive" (objArg .Hold .Lang)}}
+            {{template "subnav-recursive" (objArg .Struct .Lang)}}
         </div>
         <div class="subnav__last">
-            {{template "subnav-row" (snavArg .Hold .Current .Lang)}}
+            {{template "subnav-row" (snavArg .Struct .Current .Lang)}}
         </div>
     </div>
 {{end}}

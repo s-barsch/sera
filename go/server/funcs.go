@@ -62,14 +62,6 @@ func (s *Server) TemplateFuncs() template.FuncMap {
 			}
 			return buf.String()
 		},
-		/*
-		"polyfillPath": func() string {
-			if s.Flags.Mobile {
-				return "http://192.168.1.56:3000/v2/polyfill.min.js?features=forEach,IntersectionObserver"
-			}
-			return "/js/polyfill.min.js"
-		},
-		*/
 		"add": func(a, b int) int {
 			return a + b
 		},
@@ -105,11 +97,10 @@ func (s *Server) TemplateFuncs() template.FuncMap {
 		"esc":         template.HTMLEscapeString,
 		"render":      s.RenderTemplate,
 		/*
-		"snavArg": func(hold *entry.Hold, current, lang string) *subNavArg {
+		"snavArg": func(struc entry.Entry, current, lang string) *subNavArg {
 			return &subNavArg{
-				Hold:    hold,
+				Struct:  struc,
 				Current: current,
-				Lang:    lang,
 			}
 		},
 		*/
