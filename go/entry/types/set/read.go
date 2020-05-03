@@ -40,7 +40,7 @@ func readEntries(path string, parent entry.Entry) (entry.Entries, error) {
 }
 
 /*
-func readEntries(path string, parent *Struct) ([]*Entry, error) {
+func readEntries(path string, parent *Tree) ([]*Entry, error) {
 
 	els := []interface{}{}
 

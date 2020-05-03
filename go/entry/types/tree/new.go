@@ -1,4 +1,4 @@
-package stru
+package tree
 
 import (
 	"stferal/go/entry"
@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-type Struct struct {
+type Tree struct {
 	parent entry.Entry
 	file   *file.File
 
@@ -16,15 +16,15 @@ type Struct struct {
 	info info.Info
 
 	Entries entry.Entries
-	Structs Structs
+	Trees Trees
 }
 
-type Structs []*Struct
+type Trees []*Tree
 
-func ReadStruct(path string, parent entry.Entry) (*Struct, error) {
+func ReadTree(path string, parent entry.Entry) (*Tree, error) {
 	fnErr := &helper.Err{
 		Path: path,
-		Func: "ReadStruct",
+		Func: "ReadTree",
 	}
 
 	file, err := file.NewFile(path)
@@ -46,7 +46,7 @@ func ReadStruct(path string, parent entry.Entry) (*Struct, error) {
 		return nil, fnErr
 	}
 
-	s := &Struct{
+	s := &Tree{
 		parent: parent,
 		file:   file,
 
@@ -60,14 +60,14 @@ func ReadStruct(path string, parent entry.Entry) (*Struct, error) {
 		return nil, fnErr
 	}
 
-	structs, err := readStructs(path, s)
+	trees, err := readTrees(path, s)
 	if err != nil {
 		fnErr.Err = err
 		return nil, fnErr
 	}
 
 	s.Entries = entries
-	s.Structs = structs
+	s.Trees = trees
 
 	return s, nil
 }

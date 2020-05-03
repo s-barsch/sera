@@ -2,9 +2,8 @@
 {{template "head" .Head}}
 {{template "top" .}}
 
-    {{$}}
 {{template "section-title" aboutTitle $.Head.Lang}}
-{{template "about-entries" (eL .Struct .Head.Lang)}}
+{{template "about-entries" (eL .Tree .Head.Lang)}}
 
 
 {{end}}

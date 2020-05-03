@@ -120,7 +120,7 @@ func (s *Server) TemplateFuncs() template.FuncMap {
 		/*
 		"snavArg": func(struc entry.Entry, current, lang string) *subNavArg {
 			return &subNavArg{
-				Struct:  struc,
+				Tree:  struc,
 				Current: current,
 			}
 		},

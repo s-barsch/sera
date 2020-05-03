@@ -1,4 +1,4 @@
-package stru
+package tree
 
 import (
 	"fmt"
@@ -6,12 +6,12 @@ import (
 )
 
 // /index/welt/wuestenleben-36c35dcb
-func (s *Struct) Perma(lang string) string {
+func (s *Tree) Perma(lang string) string {
 	return fmt.Sprintf("%v-%v", s.Path(lang), s.Hash())
 }
 
 // /index/welt/wuestenleben
-func (s *Struct) Path(lang string) string {
+func (s *Tree) Path(lang string) string {
 	path := ""
 	for _, slug := range s.Chain(lang) {
 		path += "/" + slug
@@ -19,7 +19,7 @@ func (s *Struct) Path(lang string) string {
 	return path
 }
 
-func (s *Struct) Chain(lang string) []string {
+func (s *Tree) Chain(lang string) []string {
 	slug := s.Slug(lang)
 
 	parent := typeCheck(s.Parent())
@@ -30,8 +30,8 @@ func (s *Struct) Chain(lang string) []string {
 	return append(parent.Chain(lang), slug)
 }
 
-func typeCheck(parentEntry entry.Entry) *Struct {
-	parent, ok := parentEntry.(*Struct)
+func typeCheck(parentEntry entry.Entry) *Tree {
+	parent, ok := parentEntry.(*Tree)
 	if !ok {
 		return nil
 	}
@@ -39,7 +39,7 @@ func typeCheck(parentEntry entry.Entry) *Struct {
 	return parent
 }
 
-func (s *Struct) Depth() int {
+func (s *Tree) Depth() int {
 	parent := typeCheck(s.Parent())
 	if parent == nil {
 		return 0

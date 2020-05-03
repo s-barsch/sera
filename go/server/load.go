@@ -2,7 +2,7 @@ package server
 
 import (
 	"stferal/go/entry"
-	stru "stferal/go/entry/types/struct"
+	"stferal/go/entry/types/tree"
 	"time"
 )
 
@@ -48,11 +48,11 @@ func (s *Server) LoadData() error {
 		//"extra",
 	}
 
-	trees := map[string]*stru.Struct{}
+	trees := map[string]*tree.Tree{}
 	recents := map[string]entry.Entries{}
 
 	for _, section := range sections {
-		t, err := stru.ReadStruct(s.Paths.Data+"/"+section, nil)
+		t, err := tree.ReadTree(s.Paths.Data+"/"+section, nil)
 		if err != nil {
 			return err
 		}

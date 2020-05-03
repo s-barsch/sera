@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 	//"stferal/go/entry"
-	"stferal/go/entry/types/struct"
+	"stferal/go/entry/types/tree"
 	"stferal/go/head"
 	"stferal/go/server"
 	/*
@@ -14,9 +14,9 @@ import (
 		"stferal/go/head"
 	*/)
 
-type aboutStruct struct {
-	Head   *head.Head
-	Struct *stru.Struct
+type aboutTree struct {
+	Head *head.Head
+	Tree *tree.Tree
 }
 
 var aboutName = map[string]string{
@@ -24,12 +24,12 @@ var aboutName = map[string]string{
 	"en": "about",
 }
 
-func ServeAbout(s *server.Server, w http.ResponseWriter, r *http.Request, struc *stru.Struct) {
+func ServeAbout(s *server.Server, w http.ResponseWriter, r *http.Request, struc *tree.Tree) {
 	/*
-	if perma := hold.Permalink(head.Lang(r.Host)); r.URL.Path != perma {
-		http.Redirect(w, r, perma, 301)
-		return
-	}
+		if perma := hold.Permalink(head.Lang(r.Host)); r.URL.Path != perma {
+			http.Redirect(w, r, perma, 301)
+			return
+		}
 	*/
 
 	head := &head.Head{
@@ -46,9 +46,9 @@ func ServeAbout(s *server.Server, w http.ResponseWriter, r *http.Request, struc 
 		return
 	}
 
-	err = s.ExecuteTemplate(w, "about-main", &aboutStruct{
-		Head:   head,
-		Struct: struc,
+	err = s.ExecuteTemplate(w, "about-main", &aboutTree{
+		Head: head,
+		Tree: struc,
 	})
 	if err != nil {
 		log.Println(err)

@@ -86,16 +86,10 @@ func goFmt(types []string) error {
 
 func loadTemplate(path string) (*template.Template, error) {
 	t := template.New("").Funcs(template.FuncMap{
-		"pkgName": func(typ string) string {
-			if typ == "struct" {
-				return "stru"
-			}
-			return typ
-		},
-		"isStruct": isStruct,
 		"receiver": func(typ string) string {
 			return fmt.Sprintf("(e *%v)", strings.Title(typ),)
 		},
+		"isTree": isTree,
 		"title": strings.Title,
 		"typeDef": func(name string) string {
 			return fmt.Sprintf("*%v.%v", name, strings.Title(name))
@@ -111,19 +105,15 @@ func firstChar(typ string) string {
 	return typ
 }
 
-func isStruct(typ string) bool {
-	switch typ {
-	case "struct":
-		return true
-	}
-	return false
-}
-
 func isMedia(typ string) bool {
 	switch typ {
-	case "struct", "set":
+	case "tree", "set":
 		return false
 	}
 	return true
+}
+
+func isTree(typ string) bool {
+	return typ == "tree"
 }
 

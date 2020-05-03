@@ -6,7 +6,7 @@ import (
 	"log"
 	"os"
 	"stferal/go/entry"
-	"stferal/go/entry/types/struct"
+	"stferal/go/entry/types/tree"
 	"strings"
 	"text/template"
 )
@@ -16,7 +16,7 @@ type Server struct {
 	Flags *flags
 	Log   *log.Logger
 
-	Trees   map[string]*stru.Struct
+	Trees   map[string]*tree.Tree
 	Recents map[string]entry.Entries
 
 	Templates *template.Template

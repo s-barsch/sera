@@ -1,4 +1,4 @@
-package stru
+package tree
 
 import (
 	"fmt"

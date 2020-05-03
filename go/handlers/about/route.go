@@ -25,15 +25,15 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	http.NotFound(w, r)
 
 	/*
-	p := paths.Split(path)
+		p := paths.Split(path)
 
-	stru, err := findHold(s, head.Lang(r.Host), p)
-	if err != nil {
-		http.NotFound(w, r)
-		return
-	}
+		stru, err := findHold(s, head.Lang(r.Host), p)
+		if err != nil {
+			http.NotFound(w, r)
+			return
+		}
 
-	ServeStruct(s, w, r, hold)
+		ServeTree(s, w, r, hold)
 	*/
 }
 

@@ -1,4 +1,4 @@
-package stru
+package tree
 
 import (
 	"io/ioutil"
@@ -10,56 +10,56 @@ import (
 	//"strings"
 )
 
-func readStructs(path string, parent entry.Entry) ([]*Struct, error) {
-	dirs, err := getStructDirs(path)
+func readTrees(path string, parent entry.Entry) ([]*Tree, error) {
+	dirs, err := getTreeDirs(path)
 	if err != nil {
 		return nil, &he.Err{
 			Path: path,
-			Func: "readStructs",
+			Func: "readTrees",
 			Err:  err,
 		}
 	}
 
-	structs, err := readStructDirs(dirs, parent)
+	trees, err := readTreeDirs(dirs, parent)
 	if err != nil {
 		return nil, &he.Err{
 			Path: path,
-			Func: "readStructs",
+			Func: "readTrees",
 			Err:  err,
 		}
 	}
 
-	// TODO: sort structs
+	// TODO: sort trees
 
-	return structs, nil
+	return trees, nil
 }
 
-func readStructDirs(dirs []string, parent entry.Entry) ([]*Struct, error) {
-	structs := []*Struct{}
+func readTreeDirs(dirs []string, parent entry.Entry) ([]*Tree, error) {
+	trees := []*Tree{}
 	for _, dirpath := range dirs {
-		stru, err := ReadStruct(dirpath, parent)
+		stru, err := ReadTree(dirpath, parent)
 		if err != nil {
 			return nil, &he.Err{
 				Path: dirpath,
-				Func: "readStructDirs",
+				Func: "readTreeDirs",
 				Err:  err,
 			}
 		}
-		structs = append(structs, stru)
+		trees = append(trees, stru)
 	}
-	return structs, nil
+	return trees, nil
 }
 
 func isSymLink(fi os.FileInfo) bool {
 	return !(fi.Mode()&os.ModeSymlink != 0)
 }
 
-func getStructDirs(path string) ([]string, error) {
+func getTreeDirs(path string) ([]string, error) {
 	l, err := ioutil.ReadDir(path)
 	if err != nil {
 		return nil, &he.Err{
 			Path: path,
-			Func: "getStructDirs",
+			Func: "getTreeDirs",
 			Err:  err,
 		}
 	}
