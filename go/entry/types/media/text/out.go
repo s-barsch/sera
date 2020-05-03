@@ -1,10 +1,20 @@
 package text
 
 import (
+	"stferal/go/entry"
 	"stferal/go/entry/helper"
-	"time"
+	"stferal/go/entry/parts/file"
 	"stferal/go/entry/parts/info"
+	"time"
 )
+
+func (e *Text) Parent() entry.Entry {
+	return e.parent
+}
+
+func (e *Text) File() *file.File {
+	return e.file
+}
 
 func (e *Text) Id() string {
 	return e.date.Format(helper.Timestamp)

@@ -1,12 +1,21 @@
 package stru
 
 import (
+	"stferal/go/entry"
 	"stferal/go/entry/helper"
 	"stferal/go/entry/parts/info"
 	"time"
 )
 
 // base
+func (e *Struct) Parent() entry.Entry {
+	return e.parent
+}
+
+func (e *Struct) File() *file.File {
+	return e.file
+}
+
 func (e *Struct) Id() string {
 	return e.date.Format(helper.Timestamp)
 }
@@ -35,7 +44,6 @@ func (e *Struct) Info() info.Info {
 }
 
 
-/*
 // custom
 
 func (s *Struct) Path(lang string) string {
@@ -46,15 +54,41 @@ func (s *Struct) Path(lang string) string {
 	return path
 }
 
+type chain struct {
+	Slug, Title string
+}
+
 func (s *Struct) Chain(lang string) []*chain {
 	c := &chain{
 		Slug:  s.Name(lang),
-		Title: s.Info.Title(lang),
+		Title: s.Title(lang),
 	}
-	if s.Mother == nil {
+	parent := typeCheck(s.Parent)
+	if parent == nil {
 		return []*chain{c}
 	}
-	return append(s.Mother.Chain(lang), c)
+	return append(parent.Chain(lang), c)
 }
 
-*/
+func (s *Struct) Depth() int {
+	parent := typeCheck(s.Parent)
+	if parent == nil {
+		return 0
+	}
+	return 1 + parent.Depth()
+}
+
+func (s *Struct) Name(lang string) string {
+	if slug := s.Info().Slug(lang); slug != "" {
+		return slug
+	}
+	return s.Id()
+}
+
+func typeCheck(e entry.Entry) *Struct {
+	parent, ok := e.Parent.(*Struct)
+	if !ok {
+		nil
+	}
+	return parent
+}

@@ -9,8 +9,8 @@ import (
 )
 
 type Text struct {
-	Parent entry.Entry
-	File   *file.File
+	parent entry.Entry
+	file   *file.File
 
 	date time.Time
 	info info.Info
@@ -47,8 +47,8 @@ func NewText(path string, parent entry.Entry) (*Text, error) {
 	}
 
 	return &Text{
-		Parent: parent,
-		File:   file,
+		parent: parent,
+		file:   file,
 
 		date: date,
 		info: inf,

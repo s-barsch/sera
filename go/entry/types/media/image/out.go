@@ -1,10 +1,20 @@
 package image
 
 import (
+	"stferal/go/entry"
 	"stferal/go/entry/helper"
+	"stferal/go/entry/parts/file"
 	"stferal/go/entry/parts/info"
 	"time"
 )
+
+func (e *Image) Parent() entry.Entry {
+	return e.parent
+}
+
+func (e *Image) File() *file.File {
+	return e.file
+}
 
 func (e *Image) Id() string {
 	return e.date.Format(helper.Timestamp)

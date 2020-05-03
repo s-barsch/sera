@@ -10,8 +10,8 @@ import (
 )
 
 type Set struct {
-	Parent entry.Entry
-	File   *file.File
+	parent entry.Entry
+	file   *file.File
 
 	date time.Time
 	info info.Info
@@ -47,8 +47,8 @@ func NewSet(path string, parent entry.Entry) (*Set, error) {
 	}
 
 	s := &Set{
-		Parent: parent,
-		File:   file,
+		parent: parent,
+		file:   file,
 
 		date: date,
 		info: info,

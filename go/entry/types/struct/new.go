@@ -9,8 +9,8 @@ import (
 )
 
 type Struct struct {
-	Parent entry.Entry
-	File   *file.File
+	parent entry.Entry
+	file   *file.File
 
 	date time.Time
 	info info.Info

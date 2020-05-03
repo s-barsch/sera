@@ -2,11 +2,15 @@ package entry
 
 import (
 	"time"
+	"stferal/go/entry/parts/file"
 	"stferal/go/entry/parts/info"
 )
 
 type Entry interface{
-	Id()    string
+	Parent() Entry
+	File()   *file.File
+
+	Id()     string
 
 	Info()  info.Info
 	Date()  time.Time

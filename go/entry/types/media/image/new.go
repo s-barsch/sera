@@ -10,8 +10,8 @@ import (
 )
 
 type Image struct {
-	Parent entry.Entry
-	File   *file.File
+	parent entry.Entry
+	file   *file.File
 
 	date time.Time
 	info info.Info
@@ -59,8 +59,8 @@ func NewImage(path string, parent entry.Entry) (*Image, error) {
 	}
 
 	return &Image{
-		Parent: parent,
-		File:   file,
+		parent: parent,
+		file:   file,
 		date:   date,
 		info:   inf,
 		//Dims: dims,

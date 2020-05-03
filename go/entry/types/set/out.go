@@ -6,6 +6,14 @@ import (
 	"time"
 )
 
+func (e *Set) Parent() entry.Entry {
+	return e.parent
+}
+
+func (e *Set) File() *file.File {
+	return e.file
+}
+
 func (e *Set) Id() string {
 	return e.date.Format(helper.Timestamp)
 }
