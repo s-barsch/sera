@@ -1,6 +1,6 @@
-![Screenshot of stferal.com](https://stferal.com/static/screens/stferal-190911.png)
+<img src="https://raw.githubusercontent.com/stefba/stferal/master/static/svg/stferal-logo-compressed.svg" alt="Stef Feral Logo" height=200>
 
-This is the source code of the website stferal.com. I share it here to inform and inspire. Please do not host it online.
+This is the source code of the website [stferal.com](https://en.stferal.com/).
 
 ---
 
