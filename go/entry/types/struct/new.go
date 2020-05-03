@@ -47,8 +47,8 @@ func ReadStruct(path string, parent entry.Entry) (*Struct, error) {
 	}
 
 	s := &Struct{
-		Parent: parent,
-		File:   file,
+		parent: parent,
+		file:   file,
 
 		date: date,
 		info: inf,

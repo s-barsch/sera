@@ -3,11 +3,13 @@ package stru
 import (
 	"stferal/go/entry"
 	"stferal/go/entry/helper"
+	"stferal/go/entry/parts/file"
 	"stferal/go/entry/parts/info"
 	"time"
 )
 
 // base
+
 func (e *Struct) Parent() entry.Entry {
 	return e.parent
 }
@@ -63,19 +65,11 @@ func (s *Struct) Chain(lang string) []*chain {
 		Slug:  s.Name(lang),
 		Title: s.Title(lang),
 	}
-	parent := typeCheck(s.Parent)
+	parent := typeCheck(s.Parent())
 	if parent == nil {
 		return []*chain{c}
 	}
 	return append(parent.Chain(lang), c)
-}
-
-func (s *Struct) Depth() int {
-	parent := typeCheck(s.Parent)
-	if parent == nil {
-		return 0
-	}
-	return 1 + parent.Depth()
 }
 
 func (s *Struct) Name(lang string) string {
@@ -85,10 +79,20 @@ func (s *Struct) Name(lang string) string {
 	return s.Id()
 }
 
-func typeCheck(e entry.Entry) *Struct {
-	parent, ok := e.Parent.(*Struct)
+func typeCheck(parentEntry entry.Entry) *Struct {
+	parent, ok := parentEntry.(*Struct)
 	if !ok {
-		nil
+		return nil
 	}
 	return parent
 }
+
+func (s *Struct) Depth() int {
+	parent := typeCheck(s.Parent())
+	if parent == nil {
+		return 0
+	}
+	return 1 + parent.Depth()
+}
+
+

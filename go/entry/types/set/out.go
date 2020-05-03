@@ -1,7 +1,9 @@
 package set
 
 import (
+	"stferal/go/entry"
 	"stferal/go/entry/helper"
+	"stferal/go/entry/parts/file"
 	"stferal/go/entry/parts/info"
 	"time"
 )
