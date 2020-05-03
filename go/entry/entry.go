@@ -18,7 +18,7 @@ type Entry interface{
 	Date()  time.Time
 
 	Title(string) string
-	//Perma(string) string
+	Perma(string) string
 }
 
 type Entries []Entry

@@ -3,6 +3,8 @@
 package text
 
 import (
+	"fmt"
+
 	"stferal/go/entry"
 	"stferal/go/entry/helper"
 	"stferal/go/entry/parts/file"
@@ -50,4 +52,8 @@ func (e *Text) Slug(lang string) string {
 		return slug
 	}
 	return helper.Normalize(e.info.Title(lang))
+}
+
+func (e *Text) Perma(lang string) string {
+	return fmt.Sprintf("%v--not-implemented--%v", e.parent.Perma(lang), e.Slug(lang))
 }

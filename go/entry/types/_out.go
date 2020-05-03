@@ -6,6 +6,9 @@
 package {{pkgName .}}
 
 import (
+{{if not (isStruct .)}}
+	"fmt"
+{{end}}
 	"stferal/go/entry"
 	"stferal/go/entry/helper"
 	"stferal/go/entry/parts/file"
@@ -54,4 +57,10 @@ func {{receiver .}} Slug(lang string) string {
 	}
 	return helper.Normalize(e.info.Title(lang))
 }
+
+{{if not (isStruct .)}}
+func {{receiver .}} Perma(lang string) string {
+	return fmt.Sprintf("%v--not-implemented--%v", e.parent.Perma(lang), e.Slug(lang))
+}
+{{end}}
 {{end}}

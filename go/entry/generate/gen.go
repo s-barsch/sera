@@ -92,6 +92,7 @@ func loadTemplate(path string) (*template.Template, error) {
 			}
 			return typ
 		},
+		"isStruct": isStruct,
 		"receiver": func(typ string) string {
 			return fmt.Sprintf("(e *%v)", strings.Title(typ),)
 		},
@@ -109,3 +110,20 @@ func firstChar(typ string) string {
 	}
 	return typ
 }
+
+func isStruct(typ string) bool {
+	switch typ {
+	case "struct":
+		return true
+	}
+	return false
+}
+
+func isMedia(typ string) bool {
+	switch typ {
+	case "struct", "set":
+		return false
+	}
+	return true
+}
+

@@ -17,7 +17,7 @@ func NewMediaEntry(path string, parent entry.Entry) (entry.Entry, error) {
 	}
 	return nil, &helper.Err{
 		Path: path,
-		Func: "NewMediaObj",
+		Func: "NewMediaEntry",
 		Err:  fmt.Errorf("invalid entry type: %v", helper.FileType(path)),
 	}
 }

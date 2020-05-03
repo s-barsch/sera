@@ -5,14 +5,6 @@ import (
 	"sort"
 )
 
-func isMedia(typ string) bool {
-	switch typ {
-	case "struct", "set":
-		return false
-	}
-	return true
-}
-
 func readTypes() ([]string, error) {
 	types, err := readTypesDir(typeDir)
 	if err != nil {
