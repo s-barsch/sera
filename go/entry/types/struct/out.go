@@ -13,26 +13,21 @@ func (s *Struct) Perma(lang string) string {
 // /index/welt/wuestenleben
 func (s *Struct) Path(lang string) string {
 	path := ""
-	for _, c := range s.Chain(lang) {
-		path += "/" + c.Slug
+	for _, slug := range s.Chain(lang) {
+		path += "/" + slug
 	}
 	return path
 }
 
-type chain struct {
-	Slug, Title string
-}
+func (s *Struct) Chain(lang string) []string {
+	slug := s.Slug(lang)
 
-func (s *Struct) Chain(lang string) []*chain {
-	c := &chain{
-		Slug:  s.Slug(lang),
-		Title: s.Title(lang),
-	}
 	parent := typeCheck(s.Parent())
 	if parent == nil {
-		return []*chain{c}
+		return []string{slug}
 	}
-	return append(parent.Chain(lang), c)
+
+	return append(parent.Chain(lang), slug)
 }
 
 func typeCheck(parentEntry entry.Entry) *Struct {
@@ -40,6 +35,7 @@ func typeCheck(parentEntry entry.Entry) *Struct {
 	if !ok {
 		return nil
 	}
+
 	return parent
 }
 
