@@ -14,28 +14,30 @@ import (
 	"text/template"
 )
 
+var typeDir = "./types"
+
 func main() {
 	types, err := readTypes()
 	if err != nil {
 		log.Fatal(err)
 	}
-	files := []string{
-		"entry.go",
-		//"out.go",
-	}
-	err = generate(types, files)
+	err = printMethods(types)
 	if err != nil {
 		log.Fatal(err)
 	}
-	err = goFmt(files)
+	err = goFmt(types)
 	if err != nil {
 		log.Fatal(err)
 	}
 }
 
-func generate(types *Types, files []string) error {
-	for _, src := range files {
-		err := generateFile(types, src)
+func printMethods(types []string) error {
+	t, err := loadTemplate(typeDir + "/_out.go")
+	if err != nil {
+		return err
+	}
+	for _, typ := range types {
+		err := printOutFile(typ, t)
 		if err != nil {
 			return err
 		}
@@ -48,42 +50,62 @@ type action struct {
 	Prop string
 }
 
-func outName(src string) string {
-	return "generated_" + src
-}
-
-func generateFile(types *Types, src string) error {
-	t := template.New("").Funcs(template.FuncMap{
-		"action": func(list []string, prop string) *action {
-			return &action{
-				List: list,
-				Prop: prop,
-			}
-		},
-		"title": strings.Title,
-		"typeDef": func(name string) string {
-			return fmt.Sprintf("*%v.%v", name, strings.Title(name))
-		},
-	})
-	t, err := t.ParseFiles(src)
-	if err != nil {
-		return err
-	}
+func printOutFile(typ string, tmpl *template.Template) error {
 	buf := bytes.Buffer{}
-	err = t.ExecuteTemplate(&buf, "main", types)
+	err := tmpl.ExecuteTemplate(&buf, "out", typ)
 	if err != nil {
 		return err
 	}
-	return ioutil.WriteFile(outName(src), buf.Bytes(), 0644)
+	path := outFilePath(typ)
+	err = ioutil.WriteFile(path, buf.Bytes(), 0644)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("written %v\n", path)
+	return nil
 }
 
-func goFmt(files []string) error {
-	for _, src := range files {
-		cmd := exec.Command("go", "fmt", outName(src))
+func outFilePath(typ string) string {
+	outName := "out_gen.go"
+	if isMedia(typ) {
+		return fmt.Sprintf("%v/media/%v/%v", typeDir, typ, outName)
+	}
+	return fmt.Sprintf("%v/%v/%v", typeDir, typ, outName)
+}
+
+func goFmt(types []string) error {
+	for _, typ := range types {
+		cmd := exec.Command("go", "fmt", outFilePath(typ))
 		out, err := cmd.CombinedOutput()
 		if err != nil {
 			return fmt.Errorf("%s\n", out)
 		}
 	}
 	return nil
+}
+
+func loadTemplate(path string) (*template.Template, error) {
+	t := template.New("").Funcs(template.FuncMap{
+		"pkgName": func(typ string) string {
+			if typ == "struct" {
+				return "stru"
+			}
+			return typ
+		},
+		"receiver": func(typ string) string {
+			return fmt.Sprintf("(e *%v)", strings.Title(typ),)
+		},
+		"title": strings.Title,
+		"typeDef": func(name string) string {
+			return fmt.Sprintf("*%v.%v", name, strings.Title(name))
+		},
+	})
+	return t.ParseFiles(path)
+}
+
+func firstChar(typ string) string {
+	if len(typ) > 1 {
+		return string(typ[0])
+	}
+	return typ
 }

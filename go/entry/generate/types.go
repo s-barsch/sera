@@ -5,70 +5,53 @@ import (
 	"sort"
 )
 
-type Types struct {
-	media []string
-	dirs  []string
-	file  string
+func isMedia(typ string) bool {
+	switch typ {
+	case "struct", "set":
+		return false
+	}
+	return true
 }
 
-func (t *Types) All() []string {
-	return append(t.NoFile(), t.file)
-}
-
-func (t *Types) Media() []string {
-	return t.media
-}
-
-func (t *Types) NoFile() []string {
-	return append(t.media, t.dirs...)
-}
-
-func readTypes() (*Types, error) {
-	types, err := readTypesDir()
+func readTypes() ([]string, error) {
+	types, err := readTypesDir(typeDir)
 	if err != nil {
 		return nil, err
 	}
 
-	return split(types), nil
+	media, err := readTypesDir(typeDir + "/media")
+	if err != nil {
+		return nil, err
+	}
+
+	types = append(media, types...)
+
+	return types, nil
 }
 
-func readTypesDir() ([]string, error) {
+func readTypesDir(path string) ([]string, error) {
 	types := []string{}
-	l, err := ioutil.ReadDir("./types")
+	l, err := ioutil.ReadDir(path)
 	if err != nil {
 		return nil, err
 	}
 
 	for _, fi := range l {
+		if !fi.IsDir() || omitName(fi.Name()) {
+			continue
+		}
 		types = append(types, fi.Name())
 	}
+
+	sort.Strings(types)
 
 	return types, nil
 }
 
-func split(types []string) *Types {
-	dirs, media := []string{}, []string{}
-
-	for _, t := range types {
-		switch t {
-		case "hold", "set":
-			dirs = append(dirs, t)
-		case "file":
-			continue
-		default:
-			media = append(media, t)
-		}
+func omitName(name string) bool {
+	switch name {
+	case ".wait", "media":
+		return true
 	}
-
-	// asc media
-	sort.Strings(media)
-
-	// desc dirs
-	sort.Sort(sort.Reverse(sort.StringSlice(dirs)))
-
-	return &Types{
-		media: media,
-		dirs:  dirs,
-		file:  "file",
-	}
+	return false
 }
