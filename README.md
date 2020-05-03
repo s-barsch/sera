@@ -4,6 +4,6 @@ Source code of the website [stferal.com](https://en.stferal.com/).
 
 ## CSS
 
-Compile the Less files like this:
+Compile the [Less-CSS](http://lesscss.org/) files like this:
 
 `lessc --clean-css ./css/main.less ./css/dist/main.css`
