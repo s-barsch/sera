@@ -133,10 +133,7 @@ func (i Info) Alt(lang string) string {
 }
 
 func (i Info) Slug(lang string) string {
-	if slug := i.Field("slug", lang); slug != "" {
-		return slug
-	}
-	return helper.Normalize(i.Title(lang))
+	return i.Field("slug", lang)
 }
 
 func (i Info) Label(lang string) string {

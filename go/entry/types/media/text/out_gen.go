@@ -44,3 +44,10 @@ func (e *Text) Date() time.Time {
 func (e *Text) Info() info.Info {
 	return e.info
 }
+
+func (e *Text) Slug(lang string) string {
+	if slug := e.info.Slug(lang); slug != "" {
+		return slug
+	}
+	return helper.Normalize(e.info.Title(lang))
+}

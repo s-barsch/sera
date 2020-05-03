@@ -44,3 +44,10 @@ func (e *Image) Date() time.Time {
 func (e *Image) Info() info.Info {
 	return e.info
 }
+
+func (e *Image) Slug(lang string) string {
+	if slug := e.info.Slug(lang); slug != "" {
+		return slug
+	}
+	return helper.Normalize(e.info.Title(lang))
+}

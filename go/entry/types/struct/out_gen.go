@@ -44,3 +44,10 @@ func (e *Struct) Date() time.Time {
 func (e *Struct) Info() info.Info {
 	return e.info
 }
+
+func (e *Struct) Slug(lang string) string {
+	if slug := e.info.Slug(lang); slug != "" {
+		return slug
+	}
+	return helper.Normalize(e.info.Title(lang))
+}

@@ -1,9 +1,16 @@
 package stru
 
 import (
+	"fmt"
 	"stferal/go/entry"
 )
 
+// /index/welt/wuestenleben-36c35dcb
+func (s *Struct) Perma(lang string) string {
+	return fmt.Sprintf("%v-%v", s.Path(lang), s.Hash())
+}
+
+// /index/welt/wuestenleben
 func (s *Struct) Path(lang string) string {
 	path := ""
 	for _, c := range s.Chain(lang) {
@@ -18,7 +25,7 @@ type chain struct {
 
 func (s *Struct) Chain(lang string) []*chain {
 	c := &chain{
-		Slug:  s.Name(lang),
+		Slug:  s.Slug(lang),
 		Title: s.Title(lang),
 	}
 	parent := typeCheck(s.Parent())
@@ -26,13 +33,6 @@ func (s *Struct) Chain(lang string) []*chain {
 		return []*chain{c}
 	}
 	return append(parent.Chain(lang), c)
-}
-
-func (s *Struct) Name(lang string) string {
-	if slug := s.Info().Slug(lang); slug != "" {
-		return slug
-	}
-	return s.Id()
 }
 
 func typeCheck(parentEntry entry.Entry) *Struct {

@@ -47,4 +47,11 @@ func {{receiver .}} Date() time.Time {
 func {{receiver .}} Info() info.Info {
 	return e.info
 }
+
+func {{receiver .}} Slug(lang string) string {
+	if slug := e.info.Slug(lang); slug != "" {
+		return slug
+	}
+	return helper.Normalize(e.info.Title(lang))
+}
 {{end}}
