@@ -7,14 +7,15 @@ import (
 )
 
 type Entry interface{
-	Type() string
-
 	Parent() Entry
 	File()   *file.File
 
-	Id()        string
+	Id()   int64
+	Type() string
+
 	Hash()      string
 	HashShort() string
+	Timestamp() string
 
 	Info()  info.Info
 	Date()  time.Time

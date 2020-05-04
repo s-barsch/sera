@@ -24,7 +24,11 @@ func (e *Image) File() *file.File {
 	return e.file
 }
 
-func (e *Image) Id() string {
+func (e *Image) Id() int64 {
+	return e.date.Unix()
+}
+
+func (e *Image) Timestamp() string {
 	return e.date.Format(helper.Timestamp)
 }
 

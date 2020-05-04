@@ -1,8 +1,7 @@
-
 package tree
 
+/*
 import (
-	"fmt"
 	"stferal/go/entry"
 )
 
@@ -56,7 +55,7 @@ func (hold *Hold) TraverseTrees() Trees {
 	return trees
 }
 
-
+*/
 
 
 /*

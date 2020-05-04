@@ -22,7 +22,11 @@ func (e *Tree) File() *file.File {
 	return e.file
 }
 
-func (e *Tree) Id() string {
+func (e *Tree) Id() int64 {
+	return e.date.Unix()
+}
+
+func (e *Tree) Timestamp() string {
 	return e.date.Format(helper.Timestamp)
 }
 

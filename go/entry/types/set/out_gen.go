@@ -24,7 +24,11 @@ func (e *Set) File() *file.File {
 	return e.file
 }
 
-func (e *Set) Id() string {
+func (e *Set) Id() int64 {
+	return e.date.Unix()
+}
+
+func (e *Set) Timestamp() string {
 	return e.date.Format(helper.Timestamp)
 }
 

@@ -28,7 +28,11 @@ func {{receiver .}} File() *file.File {
 	return e.file
 }
 
-func {{receiver .}} Id() string {
+func {{receiver .}} Id() int64 {
+	return e.date.Unix()
+}
+
+func {{receiver .}} Timestamp() string {
 	return e.date.Format(helper.Timestamp)
 }
 
