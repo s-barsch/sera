@@ -52,7 +52,7 @@ func Year(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Pat
 		Dark:    head.DarkColors(r),
 		Large:   head.LargeType(r),
 	}
-	err = head.Make()
+	err = head.Process()
 	if err != nil {
 		s.Log.Println(err)
 		return

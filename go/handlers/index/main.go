@@ -33,7 +33,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		Entry:   s.Trees["index"],
 		Options: head.GetOptions(r),
 	}
-	err = head.Make()
+	err = head.Process()
 	if err != nil {
 		s.Log.Println(err)
 		return

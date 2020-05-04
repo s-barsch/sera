@@ -50,7 +50,7 @@ func Extra(s *server.Server, w http.ResponseWriter, r *http.Request, h *entry.Ho
 		Large:   head.LargeType(r),
 		NoLog:   head.LogMode(r),
 	}
-	err := head.Make()
+	err := head.Process()
 	if err != nil {
 		s.Log.Println(err)
 		return

@@ -28,7 +28,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		Large:   head.LargeType(r),
 		NoLog:   head.LogMode(r),
 	}
-	err := head.Make()
+	err := head.Process()
 	if err != nil {
 		return
 	}

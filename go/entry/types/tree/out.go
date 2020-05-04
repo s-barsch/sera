@@ -5,29 +5,32 @@ import (
 	"stferal/go/entry"
 )
 
+/*
+func (t *Tree) Section() {
+}
+*/
+
 // /index/welt/wuestenleben-36c35dcb
-func (s *Tree) Perma(lang string) string {
-	return fmt.Sprintf("%v-%v", s.Path(lang), s.Hash())
+func (t *Tree) Perma(lang string) string {
+	return fmt.Sprintf("%v-%v", t.Path(lang), t.Hash())
 }
 
 // /index/welt/wuestenleben
-func (s *Tree) Path(lang string) string {
+func (t *Tree) Path(lang string) string {
 	path := ""
-	for _, slug := range s.Chain(lang) {
-		path += "/" + slug
+	for _, tree := range t.Chain() {
+		path += "/" + tree.Slug(lang)
 	}
 	return path
 }
 
-func (s *Tree) Chain(lang string) []string {
-	slug := s.Slug(lang)
-
-	parent := typeCheck(s.Parent())
+func (t *Tree) Chain() Trees {
+	parent := typeCheck(t.Parent())
 	if parent == nil {
-		return []string{slug}
+		return Trees{t}
 	}
 
-	return append(parent.Chain(lang), slug)
+	return append(parent.Chain(), t)
 }
 
 func typeCheck(parentEntry entry.Entry) *Tree {
@@ -39,8 +42,8 @@ func typeCheck(parentEntry entry.Entry) *Tree {
 	return parent
 }
 
-func (s *Tree) Depth() int {
-	parent := typeCheck(s.Parent())
+func (t *Tree) Depth() int {
+	parent := typeCheck(t.Parent())
 	if parent == nil {
 		return 0
 	}

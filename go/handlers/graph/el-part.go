@@ -68,7 +68,7 @@ func ElPart(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		Host:    r.Host,
 		El:      s.Trees["graph"],
 	}
-	err = head.Make()
+	err = head.Process()
 	if err != nil {
 		s.Log.Println(err)
 		return

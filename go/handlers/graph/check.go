@@ -22,7 +22,7 @@ func Check(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		El:      s.Trees["graph"],
 		Dark:    head.DarkColors(r),
 	}
-	err := head.Make()
+	err := head.Process()
 	if err != nil {
 		s.Log.Println(err)
 		return

@@ -32,10 +32,10 @@ func ServeAbout(s *server.Server, w http.ResponseWriter, r *http.Request, struc 
 		Section: "about",
 		Path:    r.URL.Path,
 		Host:    r.Host,
-		// Entry:   hold,
+		Entry:   struc,
 		Options: head.GetOptions(r),
 	}
-	err := head.Make()
+	err := head.Process()
 	if err != nil {
 		s.Log.Println(err)
 		return

@@ -28,7 +28,7 @@ func IndexPage(s *server.Server, w http.ResponseWriter, r *http.Request, tr *tre
 		Entry:   tr,
 		Options: head.GetOptions(r),
 	}
-	err := head.Make()
+	err := head.Process()
 	if err != nil {
 		s.Log.Println(err)
 		return

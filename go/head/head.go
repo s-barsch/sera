@@ -15,10 +15,10 @@ type Head struct {
 	Options map[string]bool
 
 	/*
-	Local   bool
-	Dark    bool
-	Large   bool
-	NoLog   bool
+		Local   bool
+		Dark    bool
+		Large   bool
+		NoLog   bool
 	*/
 
 	Nav   Nav
@@ -29,7 +29,7 @@ type Head struct {
 	Schema *Schema
 }
 
-func (h *Head) Make() error {
+func (h *Head) Process() error {
 	// TODO: uncomment this again
 	// TODO: can check for missing entries?
 	h.Lang = Lang(h.Host)
@@ -66,4 +66,3 @@ func (h *Head) DontIndex() bool {
 	}
 	return false
 }
-
