@@ -1,10 +1,8 @@
 package index
 
-/*
 import (
 	"log"
 	"net/http"
-	"stferal/go/entry"
 	"stferal/go/head"
 	"stferal/go/server"
 	"stferal/go/entry/types/tree"
@@ -12,7 +10,7 @@ import (
 
 type indexPage struct {
 	Head *head.Head
-	Entry entry.Entry
+	Tree *tree.Tree
 }
 
 func IndexPage(s *server.Server, w http.ResponseWriter, r *http.Request, tr *tree.Tree) {
@@ -21,7 +19,7 @@ func IndexPage(s *server.Server, w http.ResponseWriter, r *http.Request, tr *tre
 		return
 	}
 	head := &head.Head{
-		Title:   indexTitle(tr, head.Lang(r.Host)),
+		Title:   "todo", //indexTitle(tr, head.Lang(r.Host)),
 		Section: "index",
 		Path:    r.URL.Path,
 		Host:    r.Host,
@@ -34,15 +32,16 @@ func IndexPage(s *server.Server, w http.ResponseWriter, r *http.Request, tr *tre
 		return
 	}
 
-	err = s.ExecuteTemplate(w, "index-main", &indexPage{
+	err = s.ExecuteTemplate(w, "index-page", &indexPage{
 		Head: head,
-		Entry: tr,
+		Tree: tr,
 	})
 	if err != nil {
 		log.Println(err)
 	}
 }
 
+/*
 func indexTitle(tr *tree.Tree, lang string) string {
 	title := tr.Info().Title(lang)
 

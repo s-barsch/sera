@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 	"stferal/go/entry"
 	"stferal/go/entry/helper"
+	"stferal/go/entry/types/tree"
 	"strings"
 	"text/template"
 	"time"
@@ -50,12 +51,21 @@ type holdArg struct {
 	Lang string
 }
 
+*/
 type subNavArg struct {
-	Hold    *entry.Hold
-	Current string
+	Tree    *tree.Tree
+	Active  int64
 	Lang    string
 }
-*/
+
+func (s *subNavArg) T() *tree.Tree {
+	return s.Tree
+}
+
+func (s *subNavArg) L() string {
+	return s.Lang
+}
+
 
 func (s *Server) TemplateFuncs() template.FuncMap {
 	return template.FuncMap{
@@ -85,6 +95,13 @@ func (s *Server) TemplateFuncs() template.FuncMap {
 		},
 		"add": func(a, b int) int {
 			return a + b
+		},
+		"rel": func(path string) string {
+			x := len(s.Paths.Data)
+			if len(path) > x {
+				return path[x:]
+			}
+			return path
 		},
 		/*
 		"lastEl": func(els entry.Els) interface{} {
@@ -117,14 +134,6 @@ func (s *Server) TemplateFuncs() template.FuncMap {
 		"tolower":     strings.ToLower,
 		"esc":         template.HTMLEscapeString,
 		"render":      s.RenderTemplate,
-		/*
-		"snavArg": func(struc entry.Entry, current, lang string) *subNavArg {
-			return &subNavArg{
-				Tree:  struc,
-				Current: current,
-			}
-		},
-		*/
 		"monthLang": func(t time.Time, lang string) string {
 			return helper.MonthLang(t, lang)
 		},
@@ -144,6 +153,13 @@ func (s *Server) TemplateFuncs() template.FuncMap {
 			return &entryLangObject{
 				Entry: e,
 				Lang:  lang,
+			}
+		},
+		"snavArg": func(tree *tree.Tree, active int64, lang string) *subNavArg {
+			return &subNavArg{
+				Tree:   tree,
+				Active: active,
+				Lang:   lang,
 			}
 		},
 		/*

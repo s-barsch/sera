@@ -2,6 +2,8 @@
 {{template "head" .Head}}
 {{template "top" .}}
 
+{{template "subnav" (snavArg .Tree 0 .Head.Lang)}}
+
     <div class="section-title-box">
         <h1 class="section-title">
             {{.Tree.Title .Head.Lang}}
@@ -14,6 +16,76 @@
     {{template "index-entries" (eL .Tree .Head.Lang)}}
 
 
+
+    {{template "bot" .Head}}
+{{end}}
+
+
+{{define "index-page"}}
+{{template "head" .Head}}
+{{template "top" .}}
+
+{{/* TODO: isArticle */}}
+
+{{template "subnav" (snavArg .Tree 0 .Head.Lang)}}
+
+<h1 class="hold-title l{{.Tree.Level}}">
+        {{if eq .Tree.Level 1}}
+        <span class="fleuron">❧</span>
+        {{end}}
+        {{.Tree.Title .Head.Lang}}
+            {{/*.Hold.Info.Field "title-hyph" .Head.Lang*/}}
+        </h1>
+
+        {{template "index-entries" (eL .Tree .Head.Lang)}}
+
+{{template "bot" .Head}}
+{{end}}
+
+
+
+{{define "index-entries"}}
+    {{range .E.Entries}}
+        {{block "index-entry" (eL . $.Lang)}}
+            <article class="index-entry">
+                <div class="index-date-top">
+                {{template "index-date" .}}
+                </div>
+                <div id="{{normalize (.E.Title .Lang)}}">
+                {{template "entry" .}}
+                </div>
+                <div class="index-date-bot">
+                    {{template "index-date" .}}
+                </div>
+              {{template "edit-link" .}}
+            </article>
+        {{end}}
+    {{end}}
+    {{if eq 0 (len .E.Entries)}}
+        <article class="index-entry">
+          –
+        </article>
+    {{end}}
+{{end}}
+
+{{define "index-date-link"}}
+    {{$year := .E.Date.Format "06"}}
+    <a class="index-datel" href="{{.E.Perma .Lang}}">
+        {{.E.Date.Format "2. 1."}}
+        {{- with ne $year "20"}}
+         {{$year}}
+        {{end}}
+    </a>
+{{end}}
+
+{{define "index-date"}}
+    <div class="index-date">
+      {{template "index-date-link" .}}
+    </div>
+{{end}}
+
+
+{{define "index-main-wait"}}
         <section class="index-map">
             <h2 id="map" class="subh subtitle">
               <a href="#map">{{var "map" .Head.Lang}}</a>
@@ -41,63 +113,4 @@
             </div>
         </section>
 
-
-    {{template "bot" .Head}}
-{{end}}
-
-{{define "index-entries"}}
-    {{range .E.Entries}}
-        {{block "index-entry" (eL . $.Lang)}}
-            <article class="index-el">
-                <div class="index-date-top">
-                {{template "index-date" .}}
-                </div>
-                <div id="{{normalize (.E.Title .Lang)}}">
-                {{template "entry" .}}
-                </div>
-                <div class="index-date-bot">
-                    {{template "index-date" .}}
-                </div>
-              {{template "edit-link" .}}
-            </article>
         {{end}}
-    {{end}}
-{{end}}
-
-{{define "index-page"}}
-
-
-{{/*
-<h1 class="{{if $isArticle}}article{{else}}hold{{end}}-title l{{.Hold.Depth}}">
-    */}}
-        {{if eq .Hold.Depth 1}}
-        <span class="fleuron">❧</span>
-        {{end}}
-            {{.Hold.Info.Field "title-hyph" .Head.Lang}}
-        </h1>
-
-    {{if eq 0 (len .Tree.Entries)}}
-    <div class="index-el">
-      –
-    </div>
-    {{end}}
-
-{{end}}
-
-{{define "index-date-link"}}
-    {{$year := .E.Date.Format "06"}}
-    <a class="index-datel" href="{{.E.Perma .Lang}}">
-        {{.E.Date.Format "2. 1."}}
-        {{- with ne $year "20"}}
-         {{$year}}
-        {{end}}
-    </a>
-{{end}}
-
-{{define "index-date"}}
-    <div class="index-date">
-      {{template "index-date-link" .}}
-    </div>
-{{end}}
-
-

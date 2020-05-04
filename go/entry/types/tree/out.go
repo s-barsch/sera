@@ -5,7 +5,8 @@ import (
 	"stferal/go/entry"
 )
 
-// For this to work, title fields have to be set for all sections.
+// For this to work, title fields have to be set for all sections. Otherwise,
+// the root node will return a short hash.
 func (t *Tree) Section() string {
 	return t.Chain()[0].Slug("en")
 }
@@ -42,12 +43,12 @@ func typeCheck(parentEntry entry.Entry) *Tree {
 	return parent
 }
 
-func (t *Tree) Depth() int {
+func (t *Tree) Level() int {
 	parent := typeCheck(t.Parent())
 	if parent == nil {
 		return 0
 	}
-	return 1 + parent.Depth()
+	return 1 + parent.Level()
 }
 
 

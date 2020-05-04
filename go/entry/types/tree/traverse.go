@@ -4,6 +4,7 @@ package tree
 import (
 	"stferal/go/entry"
 )
+*/
 
 func (ts Trees) Reverse() Trees {
 	n := Trees{}
@@ -13,6 +14,7 @@ func (ts Trees) Reverse() Trees {
 	return n
 }
 
+/*
 func (hold *Hold) TraverseEls() entry.Entryies {
 	trees := hold.TraverseTrees()
 

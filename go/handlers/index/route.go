@@ -2,13 +2,12 @@ package index
 
 import (
 	"net/http"
-	//"path/filepath"
+	p "path/filepath"
 	//"stferal/go/entry"
 	//"stferal/go/handlers/extra"
 	//"stferal/go/head"
 	"stferal/go/paths"
 	"stferal/go/server"
-	//"strings"
 )
 
 func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
@@ -35,16 +34,18 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		MapSVG(s, w, r)
 		return
 	}
+	*/
 
-	p := paths.Split(path)
+	pa := paths.Split(path)
 
+	/*
 	if p.Subdir != "" {
 		extra.Files(s, w, r, p)
 		return
 	}
+	*/
 
 	tree := s.Trees["index"]
-	*/
 
 	/*
 	if s.Flags.Local {
@@ -52,8 +53,10 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	}
 	*/
 
-	/*
-	if p.Acronym == "" {
+	if pa.Hash == "" {
+		http.NotFound(w, r)
+		return
+		/*
 		h, err := tree.Search(p.Name, head.Lang(r.Host))
 		if err != nil {
 			s.Log.Println(err)
@@ -62,23 +65,16 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		}
 		Hold(s, w, r, h)
 		return
+		*/
 	}
 
-	e, err := tree.LookupAcronym(p.Acronym)
+	t, err := tree.LookupHash(pa.Hash)
 	if err != nil {
-		println("hare")
-		path := strings.TrimRight(r.URL.Path, "/")
-		http.Redirect(w, r, filepath.Dir(path)+"/", 301)
+		http.Redirect(w, r, p.Dir(r.URL.Path), 301)
 		return
 	}
 
-	h, ok := e.(*entry.Hold)
-	if ok {
-		Hold(s, w, r, h)
-		return
-	}
-	*/
-
+	IndexPage(s, w, r, t)
 }
 
 /*

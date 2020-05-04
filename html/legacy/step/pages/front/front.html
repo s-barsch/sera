@@ -213,21 +213,6 @@
     {{end}}
 {{end}}
 
-{{define "edit-link-hold"}}
-    {{if isLocal}}
-    {{$x := .Hold.File.Rel}}
-    <a class="editl" href="http://org/public{{$x}}" target="_blank">※</a>
-    {{end}}
-{{end}}
-
-{{define "edit-link"}}
-    {{if isLocal}}
-    {{$x := filepathDir .El.File.Rel}}
-    <a class="editl" href="http://org/public{{$x}}#{{.El.File.Base}}" target="_blank">※</a>
-    {{end}}
-{{end}}
-
-
 {{define "date"}}
     <div class="date margin">
         <a href="{{.Permalink}}">

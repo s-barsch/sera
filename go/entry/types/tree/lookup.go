@@ -5,7 +5,7 @@ import (
 	"stferal/go/entry/helper"
 )
 
-func (t *Tree) LookupHash(hash string) (interface{}, error) {
+func (t *Tree) LookupHash(hash string) (*Tree, error) {
 	id, err := helper.FromB16(hash)
 	if err != nil {
 		return nil, fmt.Errorf("LookupHash: %v", err)
@@ -13,19 +13,21 @@ func (t *Tree) LookupHash(hash string) (interface{}, error) {
 	return t.Lookup(id)
 }
 
-func (t *Tree) Lookup(id int64) (interface{}, error) {
+func (t *Tree) Lookup(id int64) (*Tree, error) {
 	return t.lookup([]*Tree{}, id)
 }
 
-func (t *Tree) lookup(stack []*Tree, id int64) (interface{}, error) {
+func (t *Tree) lookup(stack []*Tree, id int64) (*Tree, error) {
 	if t.Id() == id {
 		return t, nil
 	}
+	/*
 	for _, e := range t.Entries {
 		if e.Id() == id {
 			return e, nil
 		}
 	}
+	*/
 	for i, h := range t.Trees {
 		if i == 0 {
 			return h.lookup(append(stack, t.Trees[1:]...), id)
