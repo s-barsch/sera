@@ -4,7 +4,7 @@ Source code of the website [stferal.com](https://en.stferal.com/).
 
 ---
 
-This application uses a flat-file database and makes heavy use of a directory tree structure.
+This application is the website and archvie system of artist Stef Feral. It uses a flat-file database and makes heavy use of a directory tree structure.
 
 ## CSS
 
