@@ -59,7 +59,11 @@ func (e *Image) Slug(lang string) string {
 	if slug := e.info.Slug(lang); slug != "" {
 		return slug
 	}
-	return helper.Normalize(e.info.Title(lang))
+	return helper.Normalize(e.Title(lang))
+}
+
+func (e *Image) Section() string {
+	return e.Parent().Section()
 }
 
 func (e *Image) Perma(lang string) string {

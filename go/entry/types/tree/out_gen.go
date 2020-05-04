@@ -57,5 +57,5 @@ func (e *Tree) Slug(lang string) string {
 	if slug := e.info.Slug(lang); slug != "" {
 		return slug
 	}
-	return helper.Normalize(e.info.Title(lang))
+	return helper.Normalize(e.Title(lang))
 }

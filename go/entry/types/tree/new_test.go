@@ -7,19 +7,21 @@ import (
 )
 
 func TestReadTree(t *testing.T) {
-	s, err := ReadTree("/srv/rg-s/st/data/index/", nil)
+	tree, err := ReadTree("/srv/rg-s/st/data/index/", nil)
 	//s, err := ReadTree("./test/index", nil)
 	if err != nil {
 		t.Error(err)
 	}
-	t.Logf("%# v", pretty.Formatter(s))
-	printTree(s)
+	t.Logf("%# v", pretty.Formatter(tree))
+	printTree(tree)
 }
 
-func printTree(str *Tree) {
-	for _, s := range str.Trees {
-		fmt.Println(s.Title("de"))
-		fmt.Println(s.Perma("de"))
-		printTree(s)
+func printTree(tree *Tree) {
+	for _, t := range tree.Trees {
+		fmt.Println(t.Section())
+		fmt.Println(t.Title("de"))
+		fmt.Println(t.Perma("de"))
+		// recursive fucntion call
+		printTree(t)
 	}
 }

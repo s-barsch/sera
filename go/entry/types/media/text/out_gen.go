@@ -59,7 +59,11 @@ func (e *Text) Slug(lang string) string {
 	if slug := e.info.Slug(lang); slug != "" {
 		return slug
 	}
-	return helper.Normalize(e.info.Title(lang))
+	return helper.Normalize(e.Title(lang))
+}
+
+func (e *Text) Section() string {
+	return e.Parent().Section()
 }
 
 func (e *Text) Perma(lang string) string {

@@ -10,8 +10,9 @@ type Entry interface{
 	Parent() Entry
 	File()   *file.File
 
-	Id()   int64
-	Type() string
+	Id()      int64
+	Type()    string
+	Section() string
 
 	Hash()      string
 	Timestamp() string
