@@ -9,7 +9,7 @@ import (
 	"stferal/go/entry/types/set"
 )
 
-func readEntries(path string, parent entry.Entry) (entry.Entries, error) {
+func readEntries(path string, parent *Tree) (entry.Entries, error) {
 	fnErr := &helper.Err{
 		Path: path,
 		Func: "readEntries",
@@ -30,7 +30,7 @@ func readEntries(path string, parent entry.Entry) (entry.Entries, error) {
 		reducedFiles = append(reducedFiles, f)
 	}
 
-	entries, err := read.ReadEntries(reducedFiles, parent, newObjFunc)
+	entries, err := readEntriesLoop(reducedFiles, parent)
 	if err != nil {
 		fnErr.Err = err
 		return nil, fnErr
@@ -41,7 +41,27 @@ func readEntries(path string, parent entry.Entry) (entry.Entries, error) {
 	return entries, err
 }
 
-func newObjFunc(path string, parent entry.Entry) (entry.Entry, error) {
+func readEntriesLoop(files []string, parent *Tree) (entry.Entries, error) {
+	entries := entry.Entries{}
+	for _, path := range files {
+		if graphTree(path, parent) {
+			continue
+		}
+		e, err := newEntry(path, parent)
+		if err != nil {
+			println(parent.Level())
+			return nil, err
+		}
+		entries = append(entries, e)
+	}
+	return entries, nil
+}
+
+func graphTree(path string, parent *Tree) bool {
+	return parent.Level() < 3 && isGraph(path, parent) && helper.FileType(path) == "dir"
+}
+
+func newEntry(path string, parent *Tree) (entry.Entry, error) {
 	switch helper.FileType(path) {
 	case "file":
 		break

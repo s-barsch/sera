@@ -4,13 +4,13 @@ import (
 	"io/ioutil"
 	"os"
 	p "path/filepath"
-	"stferal/go/entry"
+	//"stferal/go/entry"
 	he "stferal/go/entry/helper"
 	//"stferal/go/entry/parts/info"
 	//"strings"
 )
 
-func readTrees(path string, parent entry.Entry) (Trees, error) {
+func readTrees(path string, parent *Tree) (Trees, error) {
 	dirs, err := getTreeDirs(path)
 	if err != nil {
 		return nil, &he.Err{
@@ -34,10 +34,10 @@ func readTrees(path string, parent entry.Entry) (Trees, error) {
 	return trees, nil
 }
 
-func readTreeDirs(dirs []string, parent entry.Entry) (Trees, error) {
+func readTreeDirs(dirs []string, parent *Tree) (Trees, error) {
 	trees := []*Tree{}
 	for _, dirpath := range dirs {
-		stru, err := ReadTree(dirpath, parent)
+		t, err := ReadTree(dirpath, parent)
 		if err != nil {
 			return nil, &he.Err{
 				Path: dirpath,
@@ -45,7 +45,7 @@ func readTreeDirs(dirs []string, parent entry.Entry) (Trees, error) {
 				Err:  err,
 			}
 		}
-		trees = append(trees, stru)
+		trees = append(trees, t)
 	}
 	return trees, nil
 }

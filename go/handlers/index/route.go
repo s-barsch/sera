@@ -68,7 +68,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		*/
 	}
 
-	t, err := tree.LookupHash(pa.Hash)
+	t, err := tree.LookupTreeHash(pa.Hash)
 	if err != nil {
 		http.Redirect(w, r, p.Dir(r.URL.Path), 301)
 		return

@@ -2,22 +2,45 @@ package tree
 
 import (
 	"fmt"
+	"stferal/go/entry"
 	"stferal/go/entry/helper"
 )
 
-func (t *Tree) LookupHash(hash string) (*Tree, error) {
+func (t *Tree) LookupTreeHash(hash string) (*Tree, error) {
 	id, err := helper.FromB16(hash)
 	if err != nil {
-		return nil, fmt.Errorf("LookupHash: %v", err)
+		return nil, fmt.Errorf("LookupTreeHash: Couldn’t parse hash %v.", err)
 	}
-	return t.Lookup(id)
+	return t.LookupTree(id)
 }
 
-func (t *Tree) Lookup(id int64) (*Tree, error) {
+func (t *Tree) LookupTree(id int64) (*Tree, error) {
+	e, err := t.LookupEntry(id)
+	if err != nil {
+		return nil, err
+	}
+	tree, ok := e.(*Tree)
+	if !ok {
+		return nil, fmt.Errorf("Entry with id %v (%v) found, but isn’t a tree.", id, helper.ToTimestamp(id))
+	}
+	return tree, nil
+}
+
+func (t *Tree) LookupEntryHash(hash string) (entry.Entry, error) {
+	id, err := helper.FromB16(hash)
+	if err != nil {
+		return nil, fmt.Errorf("LookupEntryHash: Couldn’t parse hash %v.", err)
+	}
+	return t.LookupEntry(id)
+}
+
+// Starting recursive function
+func (t *Tree) LookupEntry(id int64) (entry.Entry, error) {
 	return t.lookup([]*Tree{}, id)
 }
 
-func (t *Tree) lookup(stack []*Tree, id int64) (*Tree, error) {
+// Recursive function
+func (t *Tree) lookup(stack []*Tree, id int64) (entry.Entry, error) {
 	if t.Id() == id {
 		return t, nil
 	}
@@ -38,7 +61,7 @@ func (t *Tree) lookup(stack []*Tree, id int64) (*Tree, error) {
 			return h.lookup(stack[1:], id)
 		}
 	}
-	return nil, fmt.Errorf("Couldn’t find id %v in Tree.", id)
+	return nil, fmt.Errorf("lookupEntry: Id %v (%v) not found.", id, helper.ToTimestamp(id))
 }
 
 /*

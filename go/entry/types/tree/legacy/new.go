@@ -184,10 +184,11 @@ func readGraphHoldInfo(path string, file *file.File, mother *Hold) (info.Info, e
 	i["read"] = "false"
 	i["date"] = date.Format(helper.Timestamp)
 
+	// year
 	if mother != nil && mother.Depth() == 0 {
 		file.Id = date.Format("2006")
-		i["title"] = file.Id
-		i["title-en"] = file.Id
+		i["title"] = file.Id //2006
+		i["title-en"] = file.Id //2006
 		i["label"] = date.Format("06")
 		i["label-en"] = date.Format("06")
 	}

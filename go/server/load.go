@@ -43,9 +43,9 @@ func (s *Server) Load() error {
 func (s *Server) LoadData() error {
 	sections := []string{
 		"index",
-		//"graph",
+		"graph",
 		"about",
-		//"extra",
+		"extra",
 	}
 
 	trees := map[string]*tree.Tree{}

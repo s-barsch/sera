@@ -5,6 +5,13 @@ import (
 	"stferal/go/entry"
 )
 
+func (t *Tree) Label(lang string) string {
+	if label := t.info.Field("label", lang); label != "" {
+		return label
+	}
+	return t.Title(lang)
+}
+
 // For this to work, title fields have to be set for all sections. Otherwise,
 // the root node will return a short hash.
 func (t *Tree) Section() string {

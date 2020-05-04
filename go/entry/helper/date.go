@@ -9,6 +9,14 @@ import (
 
 const Timestamp = "060102_150405"
 
+func ParseId(id int64) time.Time {
+	return time.Unix(id, 0)
+}
+
+func ToTimestamp(id int64) string {
+	return ParseId(id).Format(Timestamp)
+}
+
 func ParseDatePath(path string) (time.Time, error) {
 	id := Shorten(StripExt(p.Base(path)))
 
