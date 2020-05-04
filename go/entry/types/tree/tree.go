@@ -10,7 +10,7 @@ import (
 	//"strings"
 )
 
-func readTrees(path string, parent entry.Entry) ([]*Tree, error) {
+func readTrees(path string, parent entry.Entry) (Trees, error) {
 	dirs, err := getTreeDirs(path)
 	if err != nil {
 		return nil, &he.Err{
@@ -34,7 +34,7 @@ func readTrees(path string, parent entry.Entry) ([]*Tree, error) {
 	return trees, nil
 }
 
-func readTreeDirs(dirs []string, parent entry.Entry) ([]*Tree, error) {
+func readTreeDirs(dirs []string, parent entry.Entry) (Trees, error) {
 	trees := []*Tree{}
 	for _, dirpath := range dirs {
 		stru, err := ReadTree(dirpath, parent)
