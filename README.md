@@ -13,3 +13,9 @@ Build JavaScript bundle:
 Compile [Less](http://lesscss.org/) files:
 
 `lessc --clean-css ./css/main.less ./css/dist/main.css`
+
+## Go
+
+Run application:
+
+`go build; ./stferal -a`
