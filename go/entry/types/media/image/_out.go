@@ -6,30 +6,6 @@ import (
 	"strconv"
 )
 
-func (i *Image) Date() time.Time {
-	return i.Date
-}
-
-func (i *Image) Info() Info {
-	return i.Info
-}
-
-func (i *Image) Acronym() string {
-	return ToB16(i.Date)
-}
-
-func (i *Image) AcronymShort() string {
-	return shortenAcronym(i.Acronym())
-}
-
-func (i *Image) Title(lang string) string {
-	t := i.Info.Title(lang)
-	if t != "" {
-		return t
-	}
-	return i.AcronymShort()
-}
-
 func (i *Image) Permalink(lang string) string {
 	if i.File.Section() == "index" {
 		return fmt.Sprintf("%v#%v", i.File.Hold.Permalink(lang), Normalize(i.Title(lang)))

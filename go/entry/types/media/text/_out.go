@@ -5,22 +5,6 @@ import (
 	"fmt"
 )
 
-func (t *Text) Acronym() string {
-	return ToB16(t.Date)
-}
-
-func (t *Text) AcronymShort() string {
-	return shortenAcronym(t.Acronym())
-}
-
-func (t *Text) Title(lang string) string {
-	title := t.Info.Title(lang)
-	if title != "" {
-		return title
-	}
-	return t.AcronymShort()
-}
-
 func (t *Text) TextLang(lang string) string {
 	return t.Text[lang]
 }

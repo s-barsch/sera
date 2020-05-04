@@ -14,7 +14,6 @@ type Entry interface{
 	Type() string
 
 	Hash()      string
-	HashShort() string
 	Timestamp() string
 
 	Info()  info.Info

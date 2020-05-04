@@ -42,9 +42,9 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		extra.Files(s, w, r, p)
 		return
 	}
-	*/
 
 	tree := s.Trees["index"]
+	*/
 
 	/*
 	if s.Flags.Local {
@@ -52,6 +52,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	}
 	*/
 
+	/*
 	if p.Acronym == "" {
 		h, err := tree.Search(p.Name, head.Lang(r.Host))
 		if err != nil {

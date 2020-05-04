@@ -1,7 +1,6 @@
 package paths
 
 import (
-	"stferal/go/entry/helper"
 	"strings"
 )
 
@@ -9,7 +8,7 @@ type Path struct {
 	Page    string
 	Holds   []string
 	Name    string
-	Acronym string
+	Hash    string
 	Subdir  string
 	Subpath string
 }
@@ -21,7 +20,7 @@ type Path struct {
             Page:       "graph",
             Holds:      {"2020", "03"},
             Name:       "09",
-            Acronym:    "36e55605",
+            hash:    "36e55605",
             Subdir:     "cache",
             Subpath: "200310_012140-1280.jpg",
         }
@@ -41,32 +40,12 @@ func removeLast(chain []string) []string {
 	return chain[:len(chain)-1]
 }
 
-func splitName(str string) (name, acronym string) {
+func splitName(str string) (name, hash string) {
 	i := strings.LastIndex(str, "-")
 	if i < 0 {
-		_, err := helper.DecodeAcronym(str)
-		if err != nil {
-			return str, ""
-		}
 		return "", str
 	}
-
-	acronym = str[i+1:]
-
-	_, err := helper.DecodeAcronym(acronym)
-	if err != nil {
-		return str, ""
-	}
-
-	return str[:i], acronym
-}
-
-func decodeDirName(str string) (name, acronym string) {
-	_, err := helper.DecodeAcronym(str)
-	if err == nil {
-		return "", str
-	}
-	return str, ""
+	return str[:i], str[i+1:]
 }
 
 func Split(path string) *Path {
@@ -87,7 +66,7 @@ func Split(path string) *Path {
 		}
 	}
 
-	name, acronym := splitName(last(chain))
+	name, hash := splitName(last(chain))
 
 	holds := removeLast(chain)
 
@@ -95,7 +74,7 @@ func Split(path string) *Path {
 		Page:    page,
 		Holds:   holds,
 		Name:    name,
-		Acronym: acronym,
+		Hash:    hash,
 		Subdir:  subdir,
 		Subpath: subpath,
 	}
