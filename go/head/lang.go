@@ -2,8 +2,8 @@ package head
 
 import (
 	"fmt"
-	//"stferal/go/entry"
-	//"stferal/go/entry/resolver"
+	"stferal/go/entry"
+	"stferal/go/entry/types/media/text"
 )
 
 func Lang(host string) string {
@@ -28,26 +28,33 @@ func (langs Langs) Hreflang(name string) *Link {
 
 func (h *Head) MakeLangs() Langs {
 	langs := []*Link{}
-	/*
 	for _, lang := range []string{"de", "en"} {
-		perma, err := resolver.Perma(h.Entry, lang)
-		panic(err)
-		href := h.AbsoluteURL(perma, lang)
-		if lang != "de" {
-			if entry, ok := h.Entry.(*entry.Text); ok && entry.Text[lang] == "" {
-				href = h.HostAddress(lang)
-			}
-			if hold, ok := h.Entry.(*entry.Hold); ok && hold.Info["translated"] == "false" {
-				href = h.HostAddress(lang)
-			}
-		}
-		langs = append(langs, &Link{
-			Name: lang,
-			Href: href,
-		})
+		langs = append(langs, getLink(h, h.Entry, lang))
 	}
-	*/
 	return langs
+}
+
+func getLink(h *Head, e entry.Entry, lang string) *Link {
+	href := h.AbsoluteURL(e.Perma(lang), lang)
+
+	if lang != "de" && !isTranslated(e, lang) {
+		href = h.HostAddress(lang)
+	}
+
+	return &Link{
+		Name: lang,
+		Href: href,
+	}
+}
+
+func isTranslated(e entry.Entry, lang string) bool {
+	if e.Info()["translated"] == "false" {
+		return false
+	}
+	if txt, ok := e.(*text.Text); ok && txt.Text[lang] == "" {
+		return false
+	}
+	return true
 }
 
 func (h *Head) AbsoluteURL(path, lang string) string {
