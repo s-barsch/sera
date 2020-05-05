@@ -52,17 +52,17 @@ type holdArg struct {
 }
 
 */
-type subNavArg struct {
+type subnavObject struct {
 	Tree    *tree.Tree
 	Active  int64
 	Lang    string
 }
 
-func (s *subNavArg) T() *tree.Tree {
+func (s *subnavObject) T() *tree.Tree {
 	return s.Tree
 }
 
-func (s *subNavArg) L() string {
+func (s *subnavObject) L() string {
 	return s.Lang
 }
 
@@ -155,36 +155,13 @@ func (s *Server) TemplateFuncs() template.FuncMap {
 				Lang:  lang,
 			}
 		},
-		"snavArg": func(tree *tree.Tree, active int64, lang string) *subNavArg {
-			return &subNavArg{
+		"snav": func(tree *tree.Tree, active int64, lang string) *subnavObject {
+			return &subnavObject{
 				Tree:   tree,
 				Active: active,
 				Lang:   lang,
 			}
 		},
-		/*
-		"holdArg": func(h *entry.Hold, lazy bool, lang string) *holdArg {
-			return &holdArg{
-				Hold: h,
-				Lazy: lazy,
-				Lang: lang,
-			}
-		},
-		"elsArg": func(els entry.Els, lazy bool, lang string) *elsArg {
-			return &elsArg{
-				Els:  els,
-				Lazy: lazy,
-				Lang: lang,
-			}
-		},
-		"objArg": func(obj interface{}, lang string) *objArg {
-			return &objArg{
-				Obj:  obj,
-				Lang: lang,
-			}
-		},
-		*/
-		//"elType":    entry.Type,
 		"minifySvg": minifySVG,
 	}
 }

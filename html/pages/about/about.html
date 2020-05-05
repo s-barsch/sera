@@ -2,6 +2,8 @@
 {{template "head" .Head}}
 {{template "top" .}}
 
+{{template "subnav" (snav .Tree 0 .Head.Lang)}}
+
 {{template "section-title" aboutTitle $.Head.Lang}}
 {{template "about-entries" (eL .Tree .Head.Lang)}}
 

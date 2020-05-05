@@ -71,7 +71,7 @@ func skipEntry(fi *read.FileInfo, parent *Tree) bool {
 			if isGraphTree(fi.Path, parent) {
 				return true
 			}
-		case "index":
+		case "index", "about", "extra":
 			return true
 		}
 	}

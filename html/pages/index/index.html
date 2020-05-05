@@ -2,7 +2,7 @@
 {{template "head" .Head}}
 {{template "top" .}}
 
-{{template "subnav" (snavArg .Tree 0 .Head.Lang)}}
+{{template "subnav" (snav .Tree 0 .Head.Lang)}}
 
     <div class="section-title-box">
         <h1 class="section-title">
@@ -27,7 +27,7 @@
 
 {{/* TODO: isArticle */}}
 
-{{template "subnav" (snavArg .Tree 0 .Head.Lang)}}
+{{template "subnav" (snav .Tree 0 .Head.Lang)}}
 
 <h1 class="hold-title l{{.Tree.Level}}">
         {{if eq .Tree.Level 1}}

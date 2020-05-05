@@ -16,7 +16,7 @@
             {{template "subnav-recursive" (eL .Tree .Lang)}}
         </div>
         <div class="subnav__last">
-            {{template "subnav-row" (snavArg .Tree .Active .Lang)}}
+            {{template "subnav-row" (snav .Tree .Active .Lang)}}
         </div>
     </div>
 {{end}}
@@ -27,7 +27,7 @@
         {{if .Parent}}
             {{template "subnav-recursive" (eL . $.L)}}
         {{end}}
-        {{template "subnav-row" (snavArg . $active $.L)}}
+        {{template "subnav-row" (snav . $active $.L)}}
     {{end}}
 {{end}}
 
