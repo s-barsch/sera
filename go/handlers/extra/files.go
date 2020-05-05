@@ -11,9 +11,9 @@ import (
 	"stferal/go/server"
 )
 
-func Files(s *server.Server, w http.ResponseWriter, r *http.Request, path *paths.Path) {
+func Files(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Path) {
 	// TODO: Panic possible.
-	e, err := s.Trees[path.Page].LookupEntryHash(path.hash)
+	eh, err := s.Trees[p.Page].LookupAcronym(p.Acronym)
 	if err != nil {
 		s.Debug(err)
 		http.NotFound(w, r)
@@ -34,24 +34,22 @@ func Files(s *server.Server, w http.ResponseWriter, r *http.Request, path *paths
 		}
 	*/
 
-	serveCacheFile(w, r, e, p.Subpath)
+	serveCacheFile(w, r, eh, p.Subpath)
 }
 
-func serveCacheFile(w http.ResponseWriter, r *http.Request, e entry.Entry, subpath string) {
-	filename, size := paths.SplitSubpath(subpath)
+func serveCacheFile(w http.ResponseWriter, r *http.Request, eh interface{}, subpath string) {
+	name, size := paths.SplitSubpath(subpath)
 
 	var abs string
 	var err error
 
-	switch e.Type() {
-		/*
+	switch eh.(type) {
 	case *entry.Image:
 		abs, err = eh.(*entry.Image).ImageAbs(size), nil
-		*/
-	case "set":
-		abs, err = findSetFile(eh.(*entry.Set), filename, size)
+	case *entry.Set:
+		abs, err = findSetFile(eh.(*entry.Set), name, size)
 	case *entry.Hold:
-		abs, err = findHoldFile(eh.(*entry.Hold), filename, size)
+		abs, err = findHoldFile(eh.(*entry.Hold), name, size)
 	default:
 		err = fmt.Errorf("Cannot search cache file in #%v#. %v", entry.Type(eh), eh)
 	}
