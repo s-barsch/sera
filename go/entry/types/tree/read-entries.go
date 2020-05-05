@@ -44,7 +44,7 @@ func readEntries(path string, parent *Tree) (entry.Entries, error) {
 func readEntriesLoop(files []string, parent *Tree) (entry.Entries, error) {
 	entries := entry.Entries{}
 	for _, path := range files {
-		if graphTree(path, parent) {
+		if isGraphTree(path, parent) {
 			continue
 		}
 		e, err := newEntry(path, parent)
@@ -57,8 +57,8 @@ func readEntriesLoop(files []string, parent *Tree) (entry.Entries, error) {
 	return entries, nil
 }
 
-func graphTree(path string, parent *Tree) bool {
-	return parent.Level() < 3 && isGraph(path, parent) && helper.FileType(path) == "dir"
+func isGraphTree(path string, parent *Tree) bool {
+	return parent.Level() < 2 && isGraph(path, parent) && helper.FileType(path) == "dir"
 }
 
 func newEntry(path string, parent *Tree) (entry.Entry, error) {

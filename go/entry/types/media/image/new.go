@@ -1,12 +1,14 @@
 package image
 
 import (
+	"fmt"
 	"stferal/go/entry"
 	"stferal/go/entry/helper"
 	"stferal/go/entry/parts/file"
 	"stferal/go/entry/parts/info"
 	"strings"
 	"time"
+	p "path/filepath"
 )
 
 type Image struct {
@@ -52,7 +54,7 @@ func NewImage(path string, parent entry.Entry) (*Image, error) {
 		inf = i
 	}
 
-	date, err := helper.ParseDatePath(path)
+	date, err := getImageDate(path, parent)
 	if err != nil {
 		fnErr.Err = err
 		return nil, fnErr
@@ -65,4 +67,14 @@ func NewImage(path string, parent entry.Entry) (*Image, error) {
 		info:   inf,
 		//Dims: dims,
 	}, nil
+}
+
+func getImageDate(path string, parent entry.Entry) (time.Time, error) {
+	if p.Base(path) == "cover.jpg" {
+		if parent == nil {
+			return time.Time{}, fmt.Errorf("getImageDate: parent shall not be nil.")
+		}
+		return parent.Date().Add(time.Second), nil
+	}
+	return helper.ParseDatePath(path)
 }

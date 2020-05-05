@@ -11,7 +11,7 @@ import (
 )
 
 func readTrees(path string, parent *Tree) (Trees, error) {
-	dirs, err := getTreeDirs(path)
+	dirs, err := getTreeDirs(path, parent)
 	if err != nil {
 		return nil, &he.Err{
 			Path: path,
@@ -54,7 +54,7 @@ func isSymLink(fi os.FileInfo) bool {
 	return !(fi.Mode()&os.ModeSymlink != 0)
 }
 
-func getTreeDirs(path string) ([]string, error) {
+func getTreeDirs(path string, parent *Tree) ([]string, error) {
 	l, err := ioutil.ReadDir(path)
 	if err != nil {
 		return nil, &he.Err{
@@ -77,12 +77,9 @@ func getTreeDirs(path string) ([]string, error) {
 			continue
 		}
 
-		// figure that out for graph etc
-		/*
-			if !IsHold(filepath) {
-				continue
-			}
-		*/
+		if !isGraphTree(filepath, parent) {
+			continue
+		}
 
 		dirs = append(dirs, filepath)
 	}
