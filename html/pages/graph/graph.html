@@ -1,10 +1,15 @@
-{{define "graph-main"}}
-
+{{define "graph-year"}}
 {{template "head" .Head}}
-
 {{template "top" .}}
+{{template "subnav" (snav .Tree 0 .Head.Lang)}}
+{{.}}
+{{template "bot" .Head}}
+{{end}}
 
-    {{template "subnav" (snav .Tree 0 .Head.Lang)}}
+{{define "graph-main"}}
+{{template "head" .Head}}
+{{template "top" .}}
+{{template "subnav" (snav .Tree 0 .Head.Lang)}}
 
 
     {{$isMain := lt .Hold.Level 1}}

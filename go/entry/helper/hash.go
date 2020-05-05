@@ -23,7 +23,7 @@ func ToB36(t time.Time) string {
 	return strconv.FormatInt(t.Unix()-birth, 36)
 }
 
-func FromB16(s string) (int64, error) {
+func ParseHash(s string) (int64, error) {
 	i, err := strconv.ParseInt(s, 16, 64)
 	if err != nil {
 		return 0, fmt.Errorf("ParseB16: %v", err)

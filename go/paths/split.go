@@ -1,13 +1,14 @@
 package paths
 
 import (
+	"stferal/go/entry/helper"
 	"strings"
 )
 
 type Path struct {
 	Page    string
-	Holds   []string
-	Name    string
+	Parents []string
+	Slug    string
 	Hash    string
 	Subdir  string
 	Subpath string
@@ -40,12 +41,24 @@ func removeLast(chain []string) []string {
 	return chain[:len(chain)-1]
 }
 
-func splitName(str string) (name, hash string) {
+func splitName(str string) (slug, hash string) {
 	i := strings.LastIndex(str, "-")
 	if i < 0 {
-		return "", str
+		return discernName(str)
 	}
 	return str[:i], str[i+1:]
+}
+
+func discernName(str string) (slug, hash string) {
+	// for year pages /graph/2006
+	if len(str) < 5 {
+		return str, ""
+	}
+	_, err := helper.ParseHash(str)
+	if err == nil {
+		return "", str
+	}
+	return str, ""
 }
 
 func Split(path string) *Path {
@@ -66,14 +79,14 @@ func Split(path string) *Path {
 		}
 	}
 
-	name, hash := splitName(last(chain))
+	slug, hash := splitName(last(chain))
 
-	holds := removeLast(chain)
+	parents := removeLast(chain)
 
 	return &Path{
 		Page:    page,
-		Holds:   holds,
-		Name:    name,
+		Parents: parents,
+		Slug:    slug,
 		Hash:    hash,
 		Subdir:  subdir,
 		Subpath: subpath,

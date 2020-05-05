@@ -41,7 +41,7 @@ func graphPerma(t *Tree, lang string) string {
 	case l < 3:
 		return t.Path(lang)
 	}
-	return fmt.Sprintf("/permalink-error-%v", t.Slug(lang))
+	return fmt.Sprintf("/graph-permalink-error-%v", t.Slug(lang))
 }
 
 func monthAnchor(path string) string {

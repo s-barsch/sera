@@ -33,30 +33,31 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 			Check(s, w, r)
 			return
 		}
+		*/
 
 		p := paths.Split(path)
 
+		/*
 		if p.Subdir != "" {
 			extra.Files(s, w, r, p)
 			return
 		}
+		*/
 
-		if isTimePage(p.Acronym) {
-			Year(s, w, r, p)
+		if isYearPage(p.Hash) {
+			YearPage(s, w, r, p)
 			return
 		}
 
+		/*
 		El(s, w, r, p)
 	*/
 }
 
-func isTimePage(acr string) bool {
-	if len(acr) > 4 {
+func isYearPage(str string) bool {
+	if len(str) > 4 {
 		return false
 	}
-	_, err := strconv.Atoi(acr)
-	if err != nil {
-		return false
-	}
-	return true
+	_, err := strconv.Atoi(str)
+	return err == nil
 }
