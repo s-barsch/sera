@@ -9,7 +9,7 @@ import (
 func Manifest(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	head := &head.Head{
 		Desc: s.Vars.Lang("site", head.Lang(r.Host)),
-		Dark: head.DarkColors(r),
+		Options: head.GetOptions(r),
 	}
 	err := s.ExecuteTemplate(w, "manifest", head)
 	if err != nil {

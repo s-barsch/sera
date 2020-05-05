@@ -56,9 +56,9 @@ func Router(s *server.Server) *mux.Router {
 	r.HandleFunc("/sw.js", makeHandler(s, extra.ServiceWorker))
 	r.HandleFunc("/robots.txt", makeHandler(s, extra.RobotsFiles))
 
-	/*
 	r.PathPrefix("/manifest.json").HandlerFunc(makeHandler(s, extra.Manifest))
 
+	/*
 	fileRoutes := map[string]string{
 		"/googledbd0f1dfe416dbee.html": "/static/seo/googledbd0f1dfe416dbee.html",
 		"/BingSiteAuth.xml":            "/static/seo/BingSiteAuth.xml",
