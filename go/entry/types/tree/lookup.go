@@ -64,31 +64,31 @@ func (t *Tree) lookup(stack []*Tree, id int64) (entry.Entry, error) {
 	return nil, fmt.Errorf("lookupEntry: Id %v (%v) not found.", id, helper.ToTimestamp(id))
 }
 
-/*
-func (t *Tree) Search(name, lang string) (*Tree, error) {
-	return t.search([]*Tree{}, name, lang)
+// search 
+
+func (t *Tree) SearchTree(slug, lang string) (*Tree, error) {
+	return t.search([]*Tree{}, slug, lang)
 }
 
-func (t *Tree) search(stack []*Tree, name, lang string) (*Tree, error) {
-	if t.Name(lang) == name {
-		return hold, nil
+func (t *Tree) search(stack []*Tree, slug, lang string) (*Tree, error) {
+	if t.Slug(lang) == slug {
+		return t, nil
 	}
 	//	for _, e := range t.Els {
-	//		if Id(e) == id {
+	//		if e.Id() == id {
 	//			return e, nil
 	//		}
 	//	}
 	for i, h := range t.Trees {
 		if i == 0 {
-			return h.search(append(stack, t.Trees[1:]...), name, lang)
+			return h.search(append(stack, t.Trees[1:]...), slug, lang)
 		}
 	}
 	for i, h := range stack {
 		if i == 0 {
-			return h.search(stack[1:], name, lang)
+			return h.search(stack[1:], slug, lang)
 		}
 	}
-	return nil, fmt.Errorf("Couldn’t find name %v in Tree.", name)
+	return nil, fmt.Errorf("Couldn’t find slug %v in Tree.", slug)
 }
 
-*/
