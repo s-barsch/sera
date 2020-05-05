@@ -6,7 +6,6 @@ import (
 	"stferal/go/entry/parts/file"
 	"stferal/go/entry/parts/info"
 	"time"
-	p "path/filepath"
 )
 
 type Tree struct {
@@ -72,15 +71,8 @@ func ReadTree(path string, parent *Tree) (*Tree, error) {
 	return s, nil
 }
 
-func isGraph(path string, parent *Tree) bool {
-	if parent == nil {
-		return p.Base(path) == "graph"
-	}
-	return parent.Section() == "graph"
-}
-
 func readTreeInfo(path string, parent *Tree) (info.Info, error) {
-	if !isGraph(path, parent) {
+	if section(path, parent) != "graph" {
 		return info.ReadDirInfo(path)
 	}
 	return readGraphInfo(path, parent)

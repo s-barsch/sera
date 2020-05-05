@@ -3,31 +3,26 @@ package read
 import (
 	"io/ioutil"
 	p "path/filepath"
-	"stferal/go/entry"
 	"stferal/go/entry/helper"
+	"os"
 )
 
-type newEntryFunc func(string, entry.Entry) (entry.Entry, error)
-
-func ReadEntries(paths []string, parent entry.Entry, newEntry newEntryFunc) (entry.Entries, error) {
-	entries := entry.Entries{}
-	for _, path := range paths {
-		entry, err := newEntry(path, parent)
-		if err != nil {
-			return nil, err
-		}
-		entries = append(entries, entry)
-	}
-	return entries, nil
+type FileInfo struct {
+	Path     string
+	FileInfo os.FileInfo
 }
 
-func GetFiles(path string, withDirs bool) ([]string, error) {
+func (fi *FileInfo) IsDir() bool {
+	return fi.FileInfo.IsDir()
+}
+
+func GetFiles(path string, withDirs bool) ([]*FileInfo, error) {
 	l, err := ioutil.ReadDir(path)
 	if err != nil {
 		return nil, err
 	}
 
-	list := []string{}
+	list := []*FileInfo{}
 
 	for _, fi := range l {
 		filepath := p.Join(path, fi.Name())
@@ -50,7 +45,10 @@ func GetFiles(path string, withDirs bool) ([]string, error) {
 			continue
 		}
 
-		list = append(list, filepath)
+		list = append(list, &FileInfo{
+			Path:     filepath,
+			FileInfo: fi,
+		})
 	}
 
 	return list, nil

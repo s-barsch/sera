@@ -8,6 +8,18 @@ import (
 	p "path/filepath"
 )
 
+// this function is necessary because parent can be nil.
+func section(path string, parent *Tree) string {
+	if parent == nil {
+		return p.Base(path)
+	}
+	return parent.Section()
+}
+
+func isGraphTree(path string, parent *Tree) bool {
+	return parent.Level() < 2 && helper.FileType(path) == "dir"
+}
+
 func readGraphInfo(path string, parent *Tree) (info.Info, error) {
 	date, err := parseGraphDate(path, parent)
 	if err != nil {

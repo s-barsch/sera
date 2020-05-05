@@ -19,16 +19,7 @@ func readEntries(path string, parent entry.Entry) (entry.Entries, error) {
 		return nil, fnErr
 	}
 
-	reducedFiles := []string{}
-	for _, f := range files {
-		switch helper.FileType(f) {
-		case "audio", "video", "html":
-			continue
-		}
-		reducedFiles = append(reducedFiles, f)
-	}
-
-	entries, err := read.ReadEntries(reducedFiles, parent, media.NewMediaEntry)
+	entries, err := readEntryFiles(files, parent)
 	if err != nil {
 		fnErr.Err = err
 		return nil, fnErr
@@ -39,6 +30,21 @@ func readEntries(path string, parent entry.Entry) (entry.Entries, error) {
 	return entries, nil
 }
 
+func readEntryFiles(files []*read.FileInfo, parent entry.Entry) (entry.Entries, error) {
+	entries := entry.Entries{}
+	for _, fi := range files {
+		switch helper.FileType(fi.Path) {
+		case "audio", "video", "html":
+			continue
+		}
+		entry, err := media.NewMediaEntry(fi.Path, parent)
+		if err != nil {
+			return nil, err
+		}
+		entries = append(entries, entry)
+	}
+	return entries, nil
+}
 /*
 func readEntries(path string, parent *Tree) ([]*Entry, error) {
 

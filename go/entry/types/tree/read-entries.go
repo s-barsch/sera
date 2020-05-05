@@ -21,16 +21,7 @@ func readEntries(path string, parent *Tree) (entry.Entries, error) {
 		return nil, fnErr
 	}
 
-	reducedFiles := []string{}
-	for _, f := range files {
-		switch helper.FileType(f) {
-		case "audio", "video", "html":
-			continue
-		}
-		reducedFiles = append(reducedFiles, f)
-	}
-
-	entries, err := readEntriesLoop(reducedFiles, parent)
+	entries, err := readEntryFiles(files, parent)
 	if err != nil {
 		fnErr.Err = err
 		return nil, fnErr
@@ -41,13 +32,13 @@ func readEntries(path string, parent *Tree) (entry.Entries, error) {
 	return entries, err
 }
 
-func readEntriesLoop(files []string, parent *Tree) (entry.Entries, error) {
+func readEntryFiles(files []*read.FileInfo, parent *Tree) (entry.Entries, error) {
 	entries := entry.Entries{}
-	for _, path := range files {
-		if isGraphTree(path, parent) {
+	for _, fi := range files {
+		if skipEntry(fi, parent) {
 			continue
 		}
-		e, err := newEntry(path, parent)
+		e, err := newEntry(fi.Path, parent)
 		if err != nil {
 			println(parent.Level())
 			return nil, err
@@ -55,10 +46,6 @@ func readEntriesLoop(files []string, parent *Tree) (entry.Entries, error) {
 		entries = append(entries, e)
 	}
 	return entries, nil
-}
-
-func isGraphTree(path string, parent *Tree) bool {
-	return parent.Level() < 2 && isGraph(path, parent) && helper.FileType(path) == "dir"
 }
 
 func newEntry(path string, parent *Tree) (entry.Entry, error) {
@@ -75,4 +62,22 @@ func newEntry(path string, parent *Tree) (entry.Entry, error) {
 		Func: "newObjFunc",
 		Err:  fmt.Errorf("invalid entry type: %v", helper.FileType(path)),
 	}
+}
+
+func skipEntry(fi *read.FileInfo, parent *Tree) bool {
+	if fi.IsDir() {
+		switch section(fi.Path, parent) {
+		case "graph":
+			if isGraphTree(fi.Path, parent) {
+				return true
+			}
+		case "index":
+			return true
+		}
+	}
+	switch helper.FileType(fi.Path) {
+	case "audio", "video", "html":
+		return true
+	}
+	return false
 }
