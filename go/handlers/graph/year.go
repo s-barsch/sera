@@ -65,13 +65,14 @@ func YearPage(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths
 		Entry:   tree,
 		Options: head.GetOptions(r),
 	}
+
 	err = head.Process()
 	if err != nil {
 		s.Log.Println(err)
 		return
 	}
 
-	err = s.ExecuteTemplate(w, "graph-year", &graphMain{
+	err = s.ExecuteTemplate(w, "graph-year", &yearPage{
 		Head:   head,
 		Tree:    tree,
 		Entries: serializeMonths(tree),
@@ -110,10 +111,12 @@ func firstEl(slugs []string) string {
 }
 
 func getTime(number, parent string) (time.Time, error) {
+	// year
 	if len(number) > 2 {
 		return time.Parse("2006", number)
 	}
 
+	// month
 	t, err := time.Parse("200601", parent+number)
 	if err != nil {
 		return t, err
@@ -121,6 +124,7 @@ func getTime(number, parent string) (time.Time, error) {
 	if t.Month() == 1 {
 		t = t.Add(time.Second)
 	}
+
 	return t, nil
 }
 

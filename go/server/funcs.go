@@ -66,6 +66,19 @@ func (s *subnavObject) L() string {
 	return s.Lang
 }
 
+func (s *subnavObject) NavTrees() tree.Trees {
+	t := s.Tree
+	if t.Section() == "graph" {
+		if t.Level() == 0 {
+			return t.Trees.Reverse()
+		}
+		// if only one month
+		if len(t.Trees) < 2 {
+			return nil
+		}
+	}
+	return t.Trees
+}
 
 func (s *Server) TemplateFuncs() template.FuncMap {
 	return template.FuncMap{

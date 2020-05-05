@@ -44,7 +44,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		}
 		*/
 
-		if isYearPage(p.Hash) {
+		if isYearPage(p.Slug) {
 			YearPage(s, w, r, p)
 			return
 		}
