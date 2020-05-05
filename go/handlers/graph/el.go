@@ -1,5 +1,6 @@
 package graph
 
+/*
 import (
 	"fmt"
 	"log"
@@ -75,14 +76,12 @@ func El(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Path)
 		return
 	}
 
-	/*
 		schema, err := head.ElSchema()
 		if err != nil {
 			s.Log.Println(err)
 			return
 		}
 		head.Schema = schema
-	*/
 
 	err = s.ExecuteTemplate(w, "graph-el", &graphEl{
 		Head:   head,
@@ -136,3 +135,4 @@ func getPrevNext(els entry.Els, acronym string) (prev, next interface{}, Err err
 	}
 	return
 }
+*/

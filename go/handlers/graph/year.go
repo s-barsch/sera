@@ -1,5 +1,6 @@
 package graph
 
+/*
 import (
 	"fmt"
 	"log"
@@ -132,3 +133,4 @@ func yearTitle(h *entry.Hold, lang string) string {
 	}
 	return title
 }
+*/

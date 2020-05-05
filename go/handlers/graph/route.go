@@ -28,6 +28,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	/*
 	if rel == "/check" {
 		Check(s, w, r)
 		return
@@ -46,6 +47,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	}
 
 	El(s, w, r, p)
+	*/
 }
 
 func isTimePage(acr string) bool {

@@ -1,5 +1,6 @@
 package graph
 
+/*
 import (
 	"bytes"
 	"encoding/json"
@@ -111,3 +112,4 @@ func ElPart(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+*/

@@ -1,5 +1,6 @@
 package graph
 
+/*
 import (
 	"log"
 	"net/http"
@@ -37,3 +38,4 @@ func Check(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	}
 	return
 }
+*/

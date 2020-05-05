@@ -23,10 +23,8 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		Section: "graph",
 		Path:    r.URL.Path,
 		Host:    r.Host,
-		El:      s.Trees["graph"],
-		Dark:    head.DarkColors(r),
-		Large:   head.LargeType(r),
-		NoLog:   head.LogMode(r),
+		Entry:   s.Trees["graph"],
+		Options: head.GetOptions(r),
 	}
 	err := head.Process()
 	if err != nil {
@@ -34,6 +32,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	/*
 	prev, _, err := yearSiblings(lastHold(s.Trees["graph"]))
 	if err != nil {
 		s.Log.Println(err)
@@ -44,6 +43,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	if s.Flags.Local {
 		els = s.Recents["graph-private"]
 	}
+	*/
 
 	err = s.ExecuteTemplate(w, "graph-main", &graphMain{
 		Head: head,

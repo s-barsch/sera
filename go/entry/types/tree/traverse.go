@@ -1,10 +1,8 @@
 package tree
 
-/*
 import (
 	"stferal/go/entry"
 )
-*/
 
 func (ts Trees) Reverse() Trees {
 	n := Trees{}
@@ -14,20 +12,30 @@ func (ts Trees) Reverse() Trees {
 	return n
 }
 
-/*
-func (hold *Hold) TraverseEls() entry.Entryies {
-	trees := hold.TraverseTrees()
 
-	els := list.Els{}
-
-	for _, h := range trees {
-		els = append(els, h.Els...)
-		//sort.Sort(Desc(h.Els))
+func (tree *Tree) TraverseTrees() Trees {
+	trees := Trees{tree}
+	for _, t := range tree.Trees.Reverse() {
+		ts := t.TraverseTrees()
+		trees = append(trees, ts...)
 	}
-
-	return els
+	return trees
 }
 
+func (tree *Tree) TraverseEntries() entry.Entries {
+	trees := tree.TraverseTrees()
+
+	entries := entry.Entries{}
+
+	for _, t := range trees {
+		entries = append(entries, t.Entries...)
+		//sort.Sort(Desc(h.entries))
+	}
+
+	return entries
+}
+
+/*
 func (hold *Hold) TraverseElsReverse() list.Els {
 	trees := hold.TraverseTrees()
 
@@ -39,7 +47,9 @@ func (hold *Hold) TraverseElsReverse() list.Els {
 
 	return els
 }
+*/
 
+/*
 func newEls(els list.Els) list.Els {
 	nels := list.Els{}
 	for _, e := range els {
@@ -47,16 +57,6 @@ func newEls(els list.Els) list.Els {
 	}
 	return nels
 }
-
-func (hold *Hold) TraverseTrees() Trees {
-	trees := Trees{hold}
-	for _, h := range hold.Trees.Reverse() {
-		hs := h.TraverseTrees()
-		trees = append(trees, hs...)
-	}
-	return trees
-}
-
 */
 
 
