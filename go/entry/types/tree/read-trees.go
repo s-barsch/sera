@@ -77,7 +77,7 @@ func getTreeDirs(path string, parent *Tree) ([]string, error) {
 			continue
 		}
 
-		if section(filepath, parent) == "graph" && !isGraphTree(filepath, parent) {
+		if parent.Section() == "graph" && !isGraphTree(filepath, parent) {
 			continue
 		}
 

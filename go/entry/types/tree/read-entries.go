@@ -66,7 +66,7 @@ func newEntry(path string, parent *Tree) (entry.Entry, error) {
 
 func skipEntry(fi *read.FileInfo, parent *Tree) bool {
 	if fi.IsDir() {
-		switch section(fi.Path, parent) {
+		switch parent.Section() {
 		case "graph":
 			if isGraphTree(fi.Path, parent) {
 				return true

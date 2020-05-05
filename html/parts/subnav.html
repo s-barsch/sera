@@ -35,9 +35,9 @@
 
 {{define "subnav-row"}}
     <div class="subnav">
-        {{range $i, $t := .Tree.Trees -}}
+        {{range $i, $t := .Tree.Trees.Reverse -}}
         {{$isActive := eq $.Active $t.Id}}
-        <a {{if $isActive}}class="active" {{end}}href="{{$t.Perma $.L}}">{{$t.Title $.L}}</a>
+        <a {{if $isActive}}class="active" {{end}}href="{{$t.Perma $.L}}">{{$t.Label $.L}}</a>
         {{- end -}}
     </div>
 {{end}}

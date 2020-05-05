@@ -1,20 +1,12 @@
 package tree
 
 import (
+	"fmt"
+	p "path/filepath"
 	"stferal/go/entry/helper"
 	"stferal/go/entry/parts/info"
 	"time"
-	"fmt"
-	p "path/filepath"
 )
-
-// this function is necessary because parent can be nil.
-func section(path string, parent *Tree) string {
-	if parent == nil {
-		return p.Base(path)
-	}
-	return parent.Section()
-}
 
 func isGraphTree(path string, parent *Tree) bool {
 	return parent.Level() < 2 && helper.FileType(path) == "dir"
@@ -53,7 +45,7 @@ func readGraphInfo(path string, parent *Tree) (info.Info, error) {
 
 func setBothLang(i info.Info, key, value string) {
 	i[key] = value
-	i[key + "-en"] = value
+	i[key+"-en"] = value
 }
 
 func parseGraphDate(path string, parent *Tree) (time.Time, error) {

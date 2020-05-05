@@ -2,7 +2,7 @@ package graph
 
 import (
 	"net/http"
-	"stferal/go/handlers/extra"
+	//"stferal/go/handlers/extra"
 	"stferal/go/paths"
 	"stferal/go/server"
 	"strconv"
@@ -21,7 +21,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	rel := r.URL.Path[len("/graph"):]
+	rel := path[len("/graph"):]
 
 	if rel == "" {
 		Main(s, w, r)
@@ -29,24 +29,24 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	}
 
 	/*
-	if rel == "/check" {
-		Check(s, w, r)
-		return
-	}
+		if rel == "/check" {
+			Check(s, w, r)
+			return
+		}
 
-	p := paths.Split(path)
+		p := paths.Split(path)
 
-	if p.Subdir != "" {
-		extra.Files(s, w, r, p)
-		return
-	}
+		if p.Subdir != "" {
+			extra.Files(s, w, r, p)
+			return
+		}
 
-	if isTimePage(p.Acronym) {
-		Year(s, w, r, p)
-		return
-	}
+		if isTimePage(p.Acronym) {
+			Year(s, w, r, p)
+			return
+		}
 
-	El(s, w, r, p)
+		El(s, w, r, p)
 	*/
 }
 

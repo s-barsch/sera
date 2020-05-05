@@ -18,12 +18,52 @@ func (t *Tree) Section() string {
 	return t.Chain()[0].Slug("en")
 }
 
-// /index/welt/wuestenleben-36c35dcb
 func (t *Tree) Perma(lang string) string {
+	switch t.Section() {
+	case "graph":
+		return graphPerma(t, lang)
+	case "index":
+		return indexPerma(t, lang)
+	}
+	return fmt.Sprintf("/%v", t.Slug(lang))
+}
+
+func extraPerma(t *Tree, lang string) string {
+	return fmt.Sprintf("/%v", t.Slug(lang))
+}
+
+func graphPerma(t *Tree, lang string) string {
+	switch l := t.Level(); {
+	case l == 0:
+		return "/graph"
+	case l == 2:
+		return monthAnchor(t.Path(lang))
+	case l < 3:
+		return t.Path(lang)
+	}
+	return fmt.Sprintf("/permalink-error-%v", t.Slug(lang))
+}
+
+func monthAnchor(path string) string {
+	if len(path) > 3 {
+		month := len(path) - 3
+		return path[:month] + "#" + path[month+1:]
+	}
+	return path
+}
+
+func indexPerma(t *Tree, lang string) string {
+	switch l := t.Level(); {
+	case l == 0:
+		return "/index"
+	case l < 2:
+		// prints /index/welt
+		return t.Path(lang)
+	}
+	// prints /index/welt/wuestenleben-36c35dcb
 	return fmt.Sprintf("%v-%v", t.Path(lang), t.Hash())
 }
 
-// /index/welt/wuestenleben
 func (t *Tree) Path(lang string) string {
 	path := ""
 	for _, tree := range t.Chain() {
@@ -57,5 +97,3 @@ func (t *Tree) Level() int {
 	}
 	return 1 + parent.Level()
 }
-
-

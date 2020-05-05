@@ -4,10 +4,10 @@
 
 {{template "top" .}}
 
-    {{template "subnav" (snavArg .Hold "" .Head.Lang)}}
+    {{template "subnav" (snav .Tree 0 .Head.Lang)}}
 
 
-    {{$isMain := lt .Hold.Depth 1}}
+    {{$isMain := lt .Hold.Level 1}}
 
 
     <div class="section-title-box {{if not $isMain}}year-title{{else}}graph-title{{end}} margin">
@@ -29,10 +29,11 @@
 
     <section class="graph-grid margin">
 
-        {{$depth := .Hold.Depth}}
+        {{$depth := .Hold.Level}}
 
         {{if eq $depth 0}}
             <!-- MAIN -->
+        {{/*
             {{$lang := .Head.Lang}}
             {{$months := (.Els.Offset 0 10).Months}} <!-- 25 -->
             {{range $i, $els := $months}}
@@ -49,8 +50,9 @@
             </div>
 
             {{/* template "graph-main-more" .*/}}
-
-        {{else if lt .Hold.Depth 2}}
+        */}}
+        {{else if lt .Hold.Level 2}}
+        {{/*
             <!-- YEAR -->
             {{$lang := .Head.Lang}}
             {{$months := .Els.Months}}
@@ -71,14 +73,12 @@
             {{end}}
 
             {{template "prev-next-year" .}}
-        {{end}}
-
-        {{if eq .Head.Path "/graph/"}}
+        */}}
         {{end}}
 
     </section>
 
-    {{template "subnav-fixed" (snavArg .Hold "" .Head.Lang)}}
+    {{template "subnav-fixed" (snav .Tree 0 .Head.Lang)}}
 
     <div id="top-link" class="hide">
             <!--
@@ -101,6 +101,8 @@
 
 {{end}}
 
+
+{{/*
 {{define "prev-next-year"}}
     {{$lang := .Head.Lang}}
     <div class="prev-next-year graph-tip">
@@ -261,7 +263,7 @@
       {{$src = $realSrc}}
     {{end}}
 
-    <img class="thumbi{{if .Lazy}} lazy{{end}}" src="{{$src}}" alt="{{$alt}}"  {{/*sizes="{{$sizes}}"*/}}
+    <img class="thumbi{{if .Lazy}} lazy{{end}}" src="{{$src}}" alt="{{$alt}}"  /*}}{{/*sizes="{{$sizes}}"*/}}{{/*
          {{if .Lazy}}
              data-src="{{$realSrc}}"
              data-srcset="{{- template "graph-thumb-srcset" (elArg .El .Lazy .Lang)}}"
@@ -344,3 +346,4 @@
 {{end}}
 
 
+*/}}

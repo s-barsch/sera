@@ -1,20 +1,21 @@
 package graph
 
 import (
-	"fmt"
+	//"fmt"
 	"log"
 	"net/http"
 	"stferal/go/entry"
+	"stferal/go/entry/types/tree"
 	"stferal/go/head"
 	"stferal/go/server"
 )
 
 type graphMain struct {
-	Head *head.Head
-	Hold *entry.Hold
-	Els  entry.Els
-	Prev *entry.Hold
-	Next *entry.Hold
+	Head    *head.Head
+	Tree    *tree.Tree
+	Entries entry.Entries
+	//Prev *entry.Hold
+	//Next *entry.Hold
 }
 
 func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
@@ -33,29 +34,32 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	}
 
 	/*
-	prev, _, err := yearSiblings(lastHold(s.Trees["graph"]))
-	if err != nil {
-		s.Log.Println(err)
-		return
-	}
+		prev, _, err := yearSiblings(lastHold(s.Trees["graph"]))
+		if err != nil {
+			s.Log.Println(err)
+			return
+		}
+	*/
 
-	els := s.Recents["graph"]
-	if s.Flags.Local {
-		els = s.Recents["graph-private"]
-	}
+	entries := s.Recents["graph"]
+	/*
+		if s.Flags.Local {
+			els = s.Recents["graph-private"]
+		}
 	*/
 
 	err = s.ExecuteTemplate(w, "graph-main", &graphMain{
-		Head: head,
-		Hold: s.Trees["graph"],
-		Els:  els.NoEmpty(head.Lang).Offset(0, 100),
-		Prev: prev,
+		Head:    head,
+		Tree:    s.Trees["graph"],
+		Entries: entries, //els.NoEmpty(head.Lang).Offset(0, 100),
+		//Prev: prev,
 	})
 	if err != nil {
 		log.Println(err)
 	}
 }
 
+/*
 func lastHold(hold *entry.Hold) *entry.Hold {
 	if len(hold.Holds) < 1 {
 		return nil
@@ -86,3 +90,4 @@ func yearSiblings(h *entry.Hold) (prev, next *entry.Hold, err error) {
 	}
 	return
 }
+*/

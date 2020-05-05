@@ -12,7 +12,6 @@ func (ts Trees) Reverse() Trees {
 	return n
 }
 
-
 func (tree *Tree) TraverseTrees() Trees {
 	trees := Trees{tree}
 	for _, t := range tree.Trees.Reverse() {
@@ -59,7 +58,6 @@ func newEls(els list.Els) list.Els {
 }
 */
 
-
 /*
 func (hold *Hold) traverseEls(stack []*Hold) list.Els {
 	els := list.Els{}
@@ -79,4 +77,3 @@ func (hold *Hold) traverseEls(stack []*Hold) list.Els {
 	return els
 }
 */
-

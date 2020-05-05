@@ -1,6 +1,7 @@
 package tree
 
 import (
+	p "path/filepath"
 	"stferal/go/entry"
 	"stferal/go/entry/helper"
 	"stferal/go/entry/parts/file"
@@ -16,7 +17,7 @@ type Tree struct {
 	info info.Info
 
 	Entries entry.Entries
-	Trees Trees
+	Trees   Trees
 }
 
 type Trees []*Tree
@@ -72,10 +73,17 @@ func ReadTree(path string, parent *Tree) (*Tree, error) {
 }
 
 func readTreeInfo(path string, parent *Tree) (info.Info, error) {
-	if section(path, parent) != "graph" {
+	if !isGraph(path, parent) {
 		return info.ReadDirInfo(path)
 	}
 	return readGraphInfo(path, parent)
 }
 
-
+// Function only needed here, not in readTrees or readEntries.
+// Because in these, #parent# will always be defined.
+func isGraph(path string, parent *Tree) bool {
+	if parent == nil {
+		return p.Base(path) == "graph"
+	}
+	return parent.Section() == "graph"
+}
