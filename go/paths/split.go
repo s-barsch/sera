@@ -25,13 +25,6 @@ func (p *Path) Section() string {
 	return ""
 }
 
-func (p *Path) Year() string {
-	if p.Section() != "graph" || len(p.Chain) < 2 {
-		return ""
-	}
-	return p.Chain[1]
-}
-
 func (p *Path) IsFile() bool {
 	if p.SubDir != "" { // || strings.Contains(p.Raw, ".") {
 		return true

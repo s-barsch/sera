@@ -1,7 +1,6 @@
 package graph
 
 import (
-	//"fmt"
 	"log"
 	"net/http"
 	"stferal/go/entry"
@@ -87,7 +86,7 @@ func YearPage(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths
 }
 
 func findYearTree(graph *tree.Tree, p *paths.Path) (*tree.Tree, error) {
-	id, err := getId(p)
+	id, err := getId(p.Slug)
 	if err != nil {
 		return nil, err
 	}
@@ -95,8 +94,8 @@ func findYearTree(graph *tree.Tree, p *paths.Path) (*tree.Tree, error) {
 	return graph.LookupTree(id)
 }
 
-func getId(path *paths.Path) (int64, error) {
-	t, err := time.Parse("2006", path.Year())
+func getId(year string) (int64, error) {
+	t, err := time.Parse("2006", year)
 	if err != nil {
 		return 0, err
 	}
