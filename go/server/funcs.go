@@ -5,33 +5,12 @@ import (
 	"fmt"
 	"log"
 	"path/filepath"
-	"stferal/go/entry"
+	"stferal/go/server/tmpl"
 	"stferal/go/entry/helper"
-	"stferal/go/entry/types/tree"
 	"strings"
 	"text/template"
 	"time"
 )
-
-type objArg struct {
-	Obj  interface{}
-	Lang string
-}
-
-type entryLangObject struct {
-	Entry entry.Entry
-	Lazy  bool
-	Lang  string
-}
-
-func (e *entryLangObject) E() entry.Entry {
-	return e.Entry
-}
-
-func (e *entryLangObject) L() string {
-	return e.Lang
-}
-
 
 /*
 type elArg struct {
@@ -53,48 +32,6 @@ type holdArg struct {
 }
 
 */
-type subnavObject struct {
-	Tree    *tree.Tree
-	Active  int64
-	Lang    string
-}
-
-func (s *subnavObject) T() *tree.Tree {
-	return s.Tree
-}
-
-func (s *subnavObject) L() string {
-	return s.Lang
-}
-
-func (s *subnavObject) NavTrees() tree.Trees {
-	t := s.Tree
-	if t.Section() == "graph" {
-		if t.Level() == 0 {
-			return t.Trees.Reverse()
-		}
-		// if only one month
-		if len(t.Trees) < 2 {
-			return nil
-		}
-	}
-	return t.Trees
-}
-
-func (s *subnavObject) IsYear() bool {
-	return s.Tree.Level() == 0 && s.Tree.Section() == "graph"
-}
-
-var years = map[string]string{
-	"de": "Jahre",
-	"en": "Years",
-}
-
-func (s *subnavObject) YearLabel(lang string) string {
-	return years[lang]
-}
-	
-
 func (s *Server) TemplateFuncs() template.FuncMap {
 	return template.FuncMap{
 		"aboutTitle": func(lang string) string {
@@ -177,26 +114,9 @@ func (s *Server) TemplateFuncs() template.FuncMap {
 		"iso8601": func(date time.Time) string {
 			return date.Format(time.RFC3339)
 		},
-		"eL": func(e entry.Entry, lang string) *entryLangObject {
-			return &entryLangObject{
-				Entry: e,
-				Lang:  lang,
-			}
-		},
-		"eLy": func(e entry.Entry, lazy bool, lang string) *entryLangObject {
-			return &entryLangObject{
-				Entry: e,
-				Lazy: lazy,
-				Lang:  lang,
-			}
-		},
-		"snav": func(tree *tree.Tree, active int64, lang string) *subnavObject {
-			return &subnavObject{
-				Tree:   tree,
-				Active: active,
-				Lang:   lang,
-			}
-		},
+		"eL": tmpl.NewEntryLang,
+		"eLy": tmpl.NewEntryLangLazy,
+		"snav": tmpl.NewSubnav,
 		"minifySvg": minifySVG,
 	}
 }

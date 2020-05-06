@@ -1,0 +1,54 @@
+{{define "entry-graph"}}
+
+    {{$type := .Entry.Type}}
+
+    {{if eq $type "image"}}
+        {{template "entry-graph-image" .}}
+    {{else if eq $type "set"}}
+        {{template "entry-graph-set" .}}
+    {{else if eq $type "text"}}
+        {{template "entry-graph-text" .}}
+    {{else if eq $type "video"}}
+        {{template "video" .}}
+    {{else if eq $type "audio"}}
+        {{template "audio" .}}
+    {{else if eq $type "html"}}
+        {{template "entry-graph-html" .}}
+    {{else}}
+        Didn’t catch. Type: {{$type}}
+        {{.}}
+    {{end}}
+
+  {{end}}
+{{end}}
+
+{{define "entry-graph-image"}}
+    <span class="thumb">
+        <a class="thumbl" href="{{.Permalink $lang}}">
+            {{template "graph-image-thumbnail" (elArg . $lazy $lang)}}
+        </a>
+    </span>
+{{end}}
+
+{{define "entry-graph-text"}}
+    <article class="graph-text">
+        <!-- to omit missing translations -->
+        {{$text := .TextLang $lang}}
+        {{if $text}}
+        {{template "edit-link" (elArg . false $lang)}}
+        <div>
+            {{$text}}
+        </div>
+        {{template "graph-date" (elArg . false $lang)}}
+        {{end}}
+    </article>
+{{end}}
+
+
+{{define "entry-graph-html"}}
+    <article class="graph-text">
+        <div>
+            {{template "el" (elArg . false $lang)}}
+        </div>
+    </article>
+{{end}}
