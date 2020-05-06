@@ -1,6 +1,6 @@
-package main
-
 //go:generate go/entry/types/generate
+
+package main
 
 import (
 	"net/http"
