@@ -1,5 +1,7 @@
 package main
 
+//go:generate go/entry/types/generate
+
 import (
 	"net/http"
 	"stferal/go/server"

@@ -1,0 +1,4 @@
+#!/bin/bash
+EXEC_PATH="`dirname \"$0\"`"
+cd "$EXEC_PATH/.."
+go run generate/*go
