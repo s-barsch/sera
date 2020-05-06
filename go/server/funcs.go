@@ -80,6 +80,20 @@ func (s *subnavObject) NavTrees() tree.Trees {
 	return t.Trees
 }
 
+func (s *subnavObject) IsYear() bool {
+	return s.Tree.Level() == 0 && s.Tree.Section() == "graph"
+}
+
+var years = map[string]string{
+	"de": "Jahre",
+	"en": "Years",
+}
+
+func (s *subnavObject) YearLabel(lang string) string {
+	return years[lang]
+}
+	
+
 func (s *Server) TemplateFuncs() template.FuncMap {
 	return template.FuncMap{
 		"aboutTitle": func(lang string) string {
