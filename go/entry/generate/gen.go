@@ -89,6 +89,7 @@ func loadTemplate(path string) (*template.Template, error) {
 		"receiver": func(typ string) string {
 			return fmt.Sprintf("(e *%v)", strings.Title(typ),)
 		},
+		"isMedia": isMedia,
 		"isTree": isTree,
 		"title": strings.Title,
 		"typeDef": func(name string) string {

@@ -2,13 +2,13 @@ package image
 
 import (
 	"fmt"
+	p "path/filepath"
 	"stferal/go/entry"
 	"stferal/go/entry/helper"
 	"stferal/go/entry/parts/file"
 	"stferal/go/entry/parts/info"
 	"strings"
 	"time"
-	p "path/filepath"
 )
 
 type Image struct {

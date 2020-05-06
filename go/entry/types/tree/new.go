@@ -16,7 +16,7 @@ type Tree struct {
 	date time.Time
 	info info.Info
 
-	Entries entry.Entries
+	entries entry.Entries
 	Trees   Trees
 }
 
@@ -66,7 +66,7 @@ func ReadTree(path string, parent *Tree) (*Tree, error) {
 		return nil, fnErr
 	}
 
-	s.Entries = entries
+	s.entries = entries
 	s.Trees = trees
 
 	return s, nil

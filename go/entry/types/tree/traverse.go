@@ -27,7 +27,7 @@ func (tree *Tree) TraverseEntries() entry.Entries {
 	entries := entry.Entries{}
 
 	for _, t := range trees {
-		entries = append(entries, t.Entries...)
+		entries = append(entries, t.Entries()...)
 		//sort.Sort(Desc(h.entries))
 	}
 

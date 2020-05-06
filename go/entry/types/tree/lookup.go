@@ -44,13 +44,11 @@ func (t *Tree) lookup(stack []*Tree, id int64) (entry.Entry, error) {
 	if t.Id() == id {
 		return t, nil
 	}
-	/*
-		for _, e := range t.Entries {
-			if e.Id() == id {
-				return e, nil
-			}
+	for _, e := range t.Entries() {
+		if e.Id() == id {
+			return e, nil
 		}
-	*/
+	}
 	for i, h := range t.Trees {
 		if i == 0 {
 			return h.lookup(append(stack, t.Trees[1:]...), id)

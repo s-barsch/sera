@@ -145,7 +145,7 @@ func yearTitle(h *entry.Hold, lang string) string {
 func serializeMonths(tree *tree.Tree) entry.Entries {
 	es := entry.Entries{}
 	for _, month := range tree.Trees {
-		for _, e := range month.Entries {
+		for _, e := range month.Entries() {
 			es = append(es, e)
 		}
 	}

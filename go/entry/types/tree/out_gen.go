@@ -59,3 +59,7 @@ func (e *Tree) Slug(lang string) string {
 	}
 	return helper.Normalize(e.Title(lang))
 }
+
+func (e *Tree) Entries() entry.Entries {
+	return e.entries
+}

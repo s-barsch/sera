@@ -33,3 +33,7 @@ func (es Entries) Reverse() Entries {
 	}
 	return n
 }
+
+type Collection interface{
+	Entries() Entries
+}

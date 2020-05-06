@@ -16,7 +16,7 @@ type Set struct {
 	date time.Time
 	info info.Info
 
-	Entries entry.Entries
+	entries entry.Entries
 	//Cover *Image
 }
 
@@ -60,7 +60,7 @@ func NewSet(path string, parent entry.Entry) (*Set, error) {
 		return nil, fnErr
 	}
 
-	s.Entries = entries
+	s.entries = entries
 
 	return s, nil
 }

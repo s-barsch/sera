@@ -2,7 +2,7 @@ package graph
 
 import (
 	"net/http"
-	//"stferal/go/handlers/extra"
+	"stferal/go/handlers/extra"
 	"stferal/go/paths"
 	"stferal/go/server"
 	"strconv"
@@ -37,12 +37,10 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 
 		p := paths.Split(path)
 
-		/*
 		if p.Subdir != "" {
 			extra.Files(s, w, r, p)
 			return
 		}
-		*/
 
 		if isYearPage(p.Slug) {
 			YearPage(s, w, r, p)

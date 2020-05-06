@@ -62,6 +62,8 @@ func (e *Image) Slug(lang string) string {
 	return helper.Normalize(e.Title(lang))
 }
 
+// This recursive function call will be caught by a Tree type. For now, all
+// further up parent entries are exclusively of type Tree.
 func (e *Image) Section() string {
 	return e.Parent().Section()
 }

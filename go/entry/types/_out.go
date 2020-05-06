@@ -66,6 +66,12 @@ func {{receiver .}} Slug(lang string) string {
 	return helper.Normalize(e.Title(lang))
 }
 
+{{if not (isMedia .)}}
+func {{receiver .}} Entries() entry.Entries {
+	return e.entries
+}
+{{end}}
+
 {{if not (isTree .)}}
 // This recursive function call will be caught by a Tree type. For now, all 
 // further up parent entries are exclusively of type Tree.

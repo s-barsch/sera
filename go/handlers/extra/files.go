@@ -2,7 +2,7 @@ package extra
 
 import (
 	"fmt"
-	"log"
+	//"log"
 	"net/http"
 
 	//"path/filepath"
@@ -11,45 +11,51 @@ import (
 	"stferal/go/server"
 )
 
-func Files(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Path) {
-	// TODO: Panic possible.
-	eh, err := s.Trees[p.Page].LookupAcronym(p.Acronym)
+// Another way to do it could be to go through Recents.
+func Files(s *server.Server, w http.ResponseWriter, r *http.Request, path *paths.Path) {
+	e, err := s.Trees[path.Page].LookupEntryHash(path.Hash)
 	if err != nil {
 		s.Debug(err)
 		http.NotFound(w, r)
 		return
 	}
 
-	// What would be an example for this?
-	/*
-		if p.Type == "files" {
-			f, err := entry.ElFileSafe(eh)
-			if err != nil {
-				s.Debug(err)
-				http.NotFound(w, r)
-				return
-			}
-			serveStatic(w, r, filepath.Join(f.Hold.File.Path, p.Descriptor))
-			return
-		}
-	*/
-
-	serveCacheFile(w, r, eh, p.Subpath)
+	serveCacheFile(w, r, e, path.Subpath)
 }
 
-func serveCacheFile(w http.ResponseWriter, r *http.Request, eh interface{}, subpath string) {
-	name, size := paths.SplitSubpath(subpath)
+func isCollection(e entry.Entry) (entry.Collection, bool) {
+	col, ok := e.(entry.Collection)
+	return col, ok
+}
 
+func serveCacheFile(w http.ResponseWriter, r *http.Request, e entry.Entry, subpath string) {
+
+	col, ok := isCollection(e)
+
+	if !ok {
+		serveStandalone(w, r, e, subpath)
+	}
+
+	serveCollectionFile(w, r, e, subpath)
+}
+
+func serveStandalone(w http.ResponseWriter, r *http.Request, e entry.Entry, subpath string) {
+	e.Location(subpath)¶
+	if e.Type() == "image" {
+		return e.
+	}
+	//filename, size := paths.SplitSubpath(subpath)
+	/*
 	var abs string
 	var err error
 
-	switch eh.(type) {
+	switch e.Type() {
 	case *entry.Image:
 		abs, err = eh.(*entry.Image).ImageAbs(size), nil
-	case *entry.Set:
-		abs, err = findSetFile(eh.(*entry.Set), name, size)
+	case "set":
+		abs, err = findSetFile(eh.(*entry.Set), filename, size)
 	case *entry.Hold:
-		abs, err = findHoldFile(eh.(*entry.Hold), name, size)
+		abs, err = findHoldFile(eh.(*entry.Hold), filename, size)
 	default:
 		err = fmt.Errorf("Cannot search cache file in #%v#. %v", entry.Type(eh), eh)
 	}
@@ -63,6 +69,7 @@ func serveCacheFile(w http.ResponseWriter, r *http.Request, eh interface{}, subp
 	serveStatic(w, r, abs)
 }
 
+func serveStandalone(w http.ResponseWriter, r *http.Request, e entry.Entry, subpath string) {
 func findHoldFile(h *entry.Hold, name, size string) (string, error) {
 	//if name == "cover.jpg" && set.Cover != nil {
 	//	return set.Cover.ImageAbs(size), nil
@@ -104,3 +111,19 @@ func findSetFile(set *entry.Set, name, size string) (string, error) {
 
 	return "", fmt.Errorf("Could not find cache file (%v) in Set (%v)", name, set)
 }
+
+*/
+	// serve file with subpath directly.
+	/*
+		if p.Type == "files" {
+			f, err := entry.ElFileSafe(eh)
+			if err != nil {
+				s.Debug(err)
+				http.NotFound(w, r)
+				return
+			}
+			serveStatic(w, r, filepath.Join(f.Hold.File.Path, p.Descriptor))
+			return
+		}
+	*/
+
