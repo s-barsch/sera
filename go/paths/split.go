@@ -6,6 +6,7 @@ import (
 )
 
 type Path struct {
+	Raw     string
 	Chain   []string
 	Slug    string
 	Hash    string
@@ -29,6 +30,13 @@ func (p *Path) Year() string {
 		return ""
 	}
 	return p.Chain[1]
+}
+
+func (p *Path) IsFile() bool {
+	if p.SubDir != "" { // || strings.Contains(p.Raw, ".") {
+		return true
+	}
+	return false
 }
 
 /*
@@ -98,6 +106,7 @@ func Split(path string) *Path {
 	chain = removeLast(chain)
 
 	return &Path{
+		Raw:     path,
 		Chain:   chain,
 		Slug:    slug,
 		Hash:    hash,

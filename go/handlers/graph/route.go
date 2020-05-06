@@ -15,13 +15,13 @@ func graphPart(w http.ResponseWriter, r *http.Request) {
 */
 
 func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
-	path, err := paths.Sanitize(r.URL.Path)
+	p, err := paths.Sanitize(r.URL.Path)
 	if err != nil {
 		http.NotFound(w, r)
 		return
 	}
 
-	rel := path[len("/graph"):]
+	rel := p[len("/graph"):]
 
 	if rel == "" {
 		Main(s, w, r)
@@ -35,15 +35,15 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		}
 		*/
 
-		p := paths.Split(path)
+		path := paths.Split(p)
 
-		if p.Subdir != "" {
-			extra.Files(s, w, r, p)
+		if path.IsFile() {
+			extra.ServeFile(s, w, r, path)
 			return
 		}
 
-		if isYearPage(p.Slug) {
-			YearPage(s, w, r, p)
+		if isYearPage(path.Slug) {
+			YearPage(s, w, r, path)
 			return
 		}
 

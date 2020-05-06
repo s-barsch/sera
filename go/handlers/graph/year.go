@@ -96,7 +96,7 @@ func findYearTree(graph *tree.Tree, p *paths.Path) (*tree.Tree, error) {
 }
 
 func getId(path *paths.Path) (int64, error) {
-	t, err := getTime(path.Slug, firstEl(path.Parents))
+	t, err := time.Parse("2006", path.Year())
 	if err != nil {
 		return 0, err
 	}
@@ -110,23 +110,6 @@ func firstEl(slugs []string) string {
 	return slugs[0]
 }
 
-func getTime(number, parent string) (time.Time, error) {
-	// year
-	if len(number) > 2 {
-		return time.Parse("2006", number)
-	}
-
-	// month
-	t, err := time.Parse("200601", parent+number)
-	if err != nil {
-		return t, err
-	}
-	if t.Month() == 1 {
-		t = t.Add(time.Second)
-	}
-
-	return t, nil
-}
 
 
 /*
