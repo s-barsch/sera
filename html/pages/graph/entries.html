@@ -1,26 +1,47 @@
 {{define "graph-entry"}}
+    {{if .E.IsBlob}}
+        {{template "graph-blob" .}}
+    {{else}}
+        {{template "graph-tob" .}}
+    {{end}}
+{{end}}
 
+// blob
+
+{{define "graph-blob"}}
     {{$type := .E.Type}}
 
     {{if eq $type "image"}}
-        {{template "graph-entry-image" .}}
-    {{else if eq $type "set"}}
-        {{template "graph-entry-set" .}}
-    {{else if eq $type "text"}}
-        {{template "graph-entry-text" .}}
+        {{template "graph-image" .}}
     {{else if eq $type "video"}}
         {{template "video" .}}
     {{else if eq $type "audio"}}
         {{template "audio" .}}
-    {{else if eq $type "html"}}
-        {{template "graph-entry-html" .}}
     {{else}}
-        Didn’t catch. Type: {{$type}}. {{.}}
+        Didn’t catch type: {{.}} (graph-blob)
     {{end}}
-
 {{end}}
 
-{{define "graph-entry-image"}}
+// tob (text object)
+
+{{define "graph-tob"}}
+    {{$type := .E.Type}}
+
+    <article class="graph-tob">
+    {{if eq $type "set"}}
+        {{template "graph-set" .}}
+    {{else if eq $type "text"}}
+        {{template "graph-text" .}}
+    {{else if eq $type "html"}}
+        {{template "html" .}}
+    {{else}}
+        Didn’t catch type: {{.}} (graph-tob)
+    {{end}}
+    </article>
+{{end}}
+
+
+{{define "graph-image"}}
     <span class="thumb">
         <a class="thumbl" href="{{.E.Perma .L}}">
             (-- IMAGE --)
@@ -28,43 +49,31 @@
     </span>
 {{end}}
 
-{{define "graph-entry-text"}}
-    <article class="graph-text">
-        <!-- to omit missing translations -->
-        {{$text := .E.Text .L}}
-        {{if $text}}
-            {{template "edit-link" .}}
-            <div>
-                {{$text}}
-            </div>
-            {{template "graph-date" .}}
-        {{end}}
-    </article>
-{{end}}
-
-
-{{define "graph-entry-html"}}
-    <article class="graph-text">
+{{define "graph-text"}}
+    <!-- to omit missing translations -->
+    {{$text := .E.Text .L}}
+    {{if $text}}
+        {{template "edit-link" .}}
         <div>
-            {{template "entry" .}}
+            {{$text}}
         </div>
-    </article>
+        {{template "graph-date" .}}
+    {{end}}
 {{end}}
 
-{{define "graph-entry-set"}}
+{{define "graph-set"}}
 
 <article class="graph-set">
 <div>
     {{range $i, $e := .E.Entries}}
-        {{template "graph-entry-set-entry" (eLy . $.L $.Y)}}
+        {{template "graph-set-child" (eLy . $.L $.Y)}}
     {{end}}
 </div>
-(date)
 {{template "graph-date" .}}
 </article>
 {{end}}
 
-{{define "graph-entry-set-entry"}}
+{{define "graph-set-child"}}
     {{$type := .E.Type}}
     {{if eq "image" $type}}
     <section class="images">
