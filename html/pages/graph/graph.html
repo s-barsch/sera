@@ -2,6 +2,12 @@
 {{template "head" .Head}}
 {{template "top" .}}
 {{template "subnav" (snav .Tree 0 .Head.Lang)}}
+
+<div class="section-title__box section-title--year">
+    <h1 class="section-title">
+        {{.Tree.Date.Format "2006"}}
+    </h1>
+</div>
 {{.}}
 {{template "bot" .Head}}
 {{end}}
@@ -15,7 +21,7 @@
     {{$isMain := lt .Hold.Level 1}}
 
 
-    <div class="section-title-box {{if not $isMain}}year-title{{else}}graph-title{{end}} margin">
+    <div class="section-title__box section-title--graph">
         {{if $isMain}}
         <h1 class="section-title">
             {{.Head.Title}}

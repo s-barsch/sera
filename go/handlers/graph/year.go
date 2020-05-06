@@ -41,12 +41,6 @@ func YearPage(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths
 		return
 	}
 
-	// month
-	if tree.Level() >= 2 {
-		http.NotFound(w, r)
-		return
-	}
-
 	/*
 	prev, next, err := yearSiblings(h)
 	if err != nil {
