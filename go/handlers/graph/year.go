@@ -36,7 +36,9 @@ func YearPage(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths
 		return
 	}
 
-	if perma := tree.Perma(head.Lang(r.Host)); r.URL.Path != perma {
+	lang := head.Lang(r.Host)
+
+	if perma := tree.Perma(lang); r.URL.Path != perma {
 		http.Redirect(w, r, perma, 301)
 		return
 	}
@@ -51,7 +53,7 @@ func YearPage(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths
 	*/
 
 	head := &head.Head{
-		Title:   "not yet",//yearTitle(t, head.Lang(r.Host)),
+		Title:   yearTitle(tree, lang),
 		Section: "graph",
 		Path:    r.URL.Path,
 		Host:    r.Host,
@@ -103,20 +105,16 @@ func firstEl(slugs []string) string {
 	return slugs[0]
 }
 
-
-
-/*
-func yearTitle(h *entry.Hold, lang string) string {
-	title := h.Info.Title(lang)
-	if h.Depth() == 1 {
+func yearTitle(t *tree.Tree, lang string) string {
+	title := t.Title(lang)
+	if t.Level() == 1 {
 		title += " - Graph"
 	}
-	if h.Depth() == 2 {
-		title += " " + h.Date.Format("2006")
+	if t.Level() == 2 {
+		title += " " + t.Date().Format("2006")
 	}
 	return title
 }
-*/
 
 func serializeMonths(tree *tree.Tree) entry.Entries {
 	es := entry.Entries{}
