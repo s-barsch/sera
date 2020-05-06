@@ -1,26 +1,26 @@
-{{define "entry-graph"}}
+{{define "graph-entry"}}
 
     {{$type := .E.Type}}
 
     {{if eq $type "image"}}
-        {{template "entry-graph-image" .}}
+        {{template "graph-entry-image" .}}
     {{else if eq $type "set"}}
-        {{template "entry-graph-set" .}}
+        {{template "graph-entry-set" .}}
     {{else if eq $type "text"}}
-        {{template "entry-graph-text" .}}
+        {{template "graph-entry-text" .}}
     {{else if eq $type "video"}}
         {{template "video" .}}
     {{else if eq $type "audio"}}
         {{template "audio" .}}
     {{else if eq $type "html"}}
-        {{template "entry-graph-html" .}}
+        {{template "graph-entry-html" .}}
     {{else}}
         Didn’t catch. Type: {{$type}}. {{.}}
     {{end}}
 
 {{end}}
 
-{{define "entry-graph-image"}}
+{{define "graph-entry-image"}}
     <span class="thumb">
         <a class="thumbl" href="{{.E.Perma .L}}">
             (-- IMAGE --)
@@ -28,7 +28,7 @@
     </span>
 {{end}}
 
-{{define "entry-graph-text"}}
+{{define "graph-entry-text"}}
     <article class="graph-text">
         <!-- to omit missing translations -->
         {{$text := .E.Text .L}}
@@ -43,7 +43,7 @@
 {{end}}
 
 
-{{define "entry-graph-html"}}
+{{define "graph-entry-html"}}
     <article class="graph-text">
         <div>
             {{template "entry" .}}
@@ -51,12 +51,12 @@
     </article>
 {{end}}
 
-{{define "entry-graph-set"}}
+{{define "graph-entry-set"}}
 
 <article class="graph-set">
 <div>
     {{range $i, $e := .E.Entries}}
-        {{template "entry-graph-set-entry" (eLy . $.L $.Y)}}
+        {{template "graph-entry-set-entry" (eLy . $.L $.Y)}}
     {{end}}
 </div>
 (date)
@@ -64,7 +64,7 @@
 </article>
 {{end}}
 
-{{define "entry-graph-set-entry"}}
+{{define "graph-entry-set-entry"}}
     {{$type := .E.Type}}
     {{if eq "image" $type}}
     <section class="images">
@@ -118,6 +118,9 @@
 
 
 {{end}}
+
+{{define "graph-thumb-srcset" -}}
+{{.El.SrcSet 320 .Lang}}, {{.El.SrcSet 480 .Lang}}, {{.El.SrcSet 960 .Lang}}, {{.El.SrcSet 1280 .Lang}}{{- end}}
 
 
 */}}

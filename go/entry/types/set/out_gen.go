@@ -70,6 +70,10 @@ func (e *Set) Entries() entry.Entries {
 	return e.entries
 }
 
+func (e *Set) Path(lang string) string {
+	return fmt.Sprintf("%v/%v", e.parent.Path(lang), e.Slug(lang))
+}
+
 // This recursive function call will be caught by a Tree type. For now, all
 // further up parent entries are exclusively of type Tree.
 func (e *Set) Section() string {
@@ -77,5 +81,5 @@ func (e *Set) Section() string {
 }
 
 func (e *Set) Perma(lang string) string {
-	return fmt.Sprintf("%v--not-implemented--%v", e.parent.Perma(lang), e.Slug(lang))
+	return fmt.Sprintf("%v/%v-%v", e.parent.Path(lang), e.Slug(lang), e.Hash())
 }

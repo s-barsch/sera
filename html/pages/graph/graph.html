@@ -28,7 +28,7 @@
     {{range $i, $group := .E.Entries.Groups}}
         <section class="{{if $group.First.IsBlob}}blob{{else}}text{{end}}-group">
             {{range $group}}
-                {{template "entry-graph" (eLy . $.L false)}}
+                {{template "graph-entry" (eLy . $.L false)}}
             {{end}}
         </section>
     {{end}}
@@ -225,9 +225,6 @@
 
 
 
-
-{{define "graph-thumb-srcset" -}}
-{{.El.SrcSet 320 .Lang}}, {{.El.SrcSet 480 .Lang}}, {{.El.SrcSet 960 .Lang}}, {{.El.SrcSet 1280 .Lang}}{{- end}}
 
 {{define "set-graph-el"}}
 {{$lang := .Lang}}

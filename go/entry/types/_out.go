@@ -77,6 +77,10 @@ func {{receiver .}} Entries() entry.Entries {
 {{end}}
 
 {{if not (isTree .)}}
+func {{receiver .}} Path(lang string) string {
+	return fmt.Sprintf("%v/%v", e.parent.Path(lang), e.Slug(lang))
+}
+
 // This recursive function call will be caught by a Tree type. For now, all 
 // further up parent entries are exclusively of type Tree.
 func {{receiver .}} Section() string {
@@ -84,7 +88,7 @@ func {{receiver .}} Section() string {
 }
 
 func {{receiver .}} Perma(lang string) string {
-	return fmt.Sprintf("%v--not-implemented--%v", e.parent.Perma(lang), e.Slug(lang))
+	return fmt.Sprintf("%v/%v-%v", e.parent.Path(lang), e.Slug(lang), e.Hash())
 }
 {{end}}
 {{end}}

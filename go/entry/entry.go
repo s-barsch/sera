@@ -21,6 +21,7 @@ type Entry interface{
 	Date()  time.Time
 
 	Title(string) string
+	Path(string)  string
 	Perma(string) string
 
 	IsBlob() bool
