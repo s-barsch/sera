@@ -37,3 +37,7 @@ func (es Entries) Reverse() Entries {
 type Collection interface{
 	Entries() Entries
 }
+
+type Blob interface{
+	Location(string) string
+}

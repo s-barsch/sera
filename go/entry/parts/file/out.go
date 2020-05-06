@@ -5,6 +5,10 @@ import (
 	"stferal/go/entry/helper"
 )
 
+func (f *File) Dir() string {
+	return p.Dir(f.Path)
+}
+
 func (f *File) Name() string {
 	return p.Base(f.Path)
 }

@@ -1,11 +1,16 @@
-package entry
+package image 
 
 import (
-	"fmt"
-	"path/filepath"
-	"strconv"
+	//"fmt"
+	p "path/filepath"
+	//"strconv"
 )
 
+func (i *Image) Location(size string) string {
+	return p.Join(i.file.Dir(), "cache", size, i.file.Name())
+}
+
+/*
 func (i *Image) Permalink(lang string) string {
 	if i.File.Section() == "index" {
 		return fmt.Sprintf("%v#%v", i.File.Hold.Permalink(lang), Normalize(i.Title(lang)))
@@ -15,7 +20,28 @@ func (i *Image) Permalink(lang string) string {
 	}
 	return fmt.Sprintf("%v/%v-%v", i.File.Hold.Path(lang), i.Info.Slug(lang), i.Acronym())
 }
+*/
 
+/*
+func (i *Image) SrcSet(size int, lang string) string {
+	return fmt.Sprintf("%v %vw", i.ImagePath(size, lang), i.Width(size))
+}
+
+func (i *Image) ImagePath(size int, lang string) string {
+	if i.File.Hold.Info["read"] != "false" {
+		return fmt.Sprintf("%v/cache/%v", i.File.Hold.Permalink(lang), i.ImageName(size))
+	}
+	return fmt.Sprintf("%v/cache/%v", i.Permalink(lang), i.ImageName(size))
+}
+
+func (i *Image) ImageName(size int) string {
+	return fmt.Sprintf("%v-%v%v", i.File.BaseNoExt(), size, i.File.Ext())
+}
+*/
+
+// dim related
+
+/*
 func (i *Image) Ratio() float64 {
 	w := i.Dims.width
 	h := i.Dims.height
@@ -72,22 +98,5 @@ func (i *Image) Width(size int) string {
 	}
 	return strconv.Itoa(int(i.Ratio() * float64(size)))
 }
+*/
 
-func (i *Image) ImageAbs(size string) string {
-	return filepath.Join(cacheFolder(i.File.Path), size, filepath.Base(i.File.Path))
-}
-
-func (i *Image) SrcSet(size int, lang string) string {
-	return fmt.Sprintf("%v %vw", i.ImagePath(size, lang), i.Width(size))
-}
-
-func (i *Image) ImagePath(size int, lang string) string {
-	if i.File.Hold.Info["read"] != "false" {
-		return fmt.Sprintf("%v/cache/%v", i.File.Hold.Permalink(lang), i.ImageName(size))
-	}
-	return fmt.Sprintf("%v/cache/%v", i.Permalink(lang), i.ImageName(size))
-}
-
-func (i *Image) ImageName(size int) string {
-	return fmt.Sprintf("%v-%v%v", i.File.BaseNoExt(), size, i.File.Ext())
-}

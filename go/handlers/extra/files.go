@@ -2,7 +2,7 @@ package extra
 
 import (
 	"fmt"
-	//"log"
+	"log"
 	"net/http"
 
 	//"path/filepath"
@@ -12,40 +12,54 @@ import (
 )
 
 // Another way to do it could be to go through Recents.
-func Files(s *server.Server, w http.ResponseWriter, r *http.Request, path *paths.Path) {
-	e, err := s.Trees[path.Page].LookupEntryHash(path.Hash)
+func ServeFile(s *server.Server, w http.ResponseWriter, r *http.Request, path *paths.Path) {
+	err := serveFile(s, w, r, path)
 	if err != nil {
-		s.Debug(err)
+		log.Println(err)
 		http.NotFound(w, r)
-		return
+	}
+}
+
+func serveFile(s *server.Server, w http.ResponseWriter, r *http.Request, path *paths.Path) error {
+	e, err := s.Trees[path.Section()].LookupEntryHash(path.Hash)
+	if err != nil {
+		return err
 	}
 
-	serveCacheFile(w, r, e, path.Subpath)
-}
-
-func isCollection(e entry.Entry) (entry.Collection, bool) {
 	col, ok := e.(entry.Collection)
-	return col, ok
-}
-
-func serveCacheFile(w http.ResponseWriter, r *http.Request, e entry.Entry, subpath string) {
-
-	col, ok := isCollection(e)
 
 	if !ok {
-		serveStandalone(w, r, e, subpath)
+		return serveSingleBlob(w, r, e, path)
 	}
 
-	serveCollectionFile(w, r, e, subpath)
+	return serveCollectionBlob(w, r, col, path)
 }
 
+func serveSingleBlob(w http.ResponseWriter, r *http.Request, e entry.Entry, path *paths.Path) error {
+	blob, ok := e.(entry.Blob)
+	if !ok {
+		return fmt.Errorf("File to serve (%v) is no blob.", e.File().Name())
+	}
+	serveStatic(w, r, blob.Location(path.SubFile.Size))
+	return nil
+}
+
+func serveCollectionBlob(w http.ResponseWriter, r *http.Request, col entry.Collection, path *paths.Path) error {
+	for _, e := range col.Entries() {
+		if e.File().Name() == path.SubFile.Name {
+			return serveSingleBlob(w, r, e, path)
+		}
+	}
+	return fmt.Errorf("serveCollectionBlob: File %v not found.", path.SubFile.Name)
+}
+
+/*
 func serveStandalone(w http.ResponseWriter, r *http.Request, e entry.Entry, subpath string) {
 	e.Location(subpath)¶
 	if e.Type() == "image" {
 		return e.
 	}
 	//filename, size := paths.SplitSubpath(subpath)
-	/*
 	var abs string
 	var err error
 

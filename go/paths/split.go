@@ -6,12 +6,29 @@ import (
 )
 
 type Path struct {
-	Page    string
-	Parents []string
+	Chain   []string
 	Slug    string
 	Hash    string
-	Subdir  string
-	Subpath string
+	SubDir  string
+	SubFile *SubFile 
+}
+
+type SubFile struct {
+	Name, Size string
+}
+
+func (p *Path) Section() string {
+	if len(p.Chain) > 0 {
+		return p.Chain[0]
+	}
+	return ""
+}
+
+func (p *Path) Year() string {
+	if p.Section() != "graph" || len(p.Chain) < 2 {
+		return ""
+	}
+	return p.Chain[1]
 }
 
 /*
@@ -64,9 +81,6 @@ func discernName(str string) (slug, hash string) {
 func Split(path string) *Path {
 	chain := strings.Split(strings.Trim(path, "/"), "/")
 
-	page := chain[0]
-	chain = chain[1:]
-
 	subdir := ""
 	subpath := ""
 
@@ -81,15 +95,14 @@ func Split(path string) *Path {
 
 	slug, hash := splitName(last(chain))
 
-	parents := removeLast(chain)
+	chain = removeLast(chain)
 
 	return &Path{
-		Page:    page,
-		Parents: parents,
+		Chain:   chain,
 		Slug:    slug,
 		Hash:    hash,
-		Subdir:  subdir,
-		Subpath: subpath,
+		SubDir:  subdir,
+		SubFile: SplitSubpath(subpath),
 	}
 }
 
@@ -97,17 +110,26 @@ func Split(path string) *Path {
 //			  |             |
 //			  filename	    size
 
-func SplitSubpath(subp string) (filename, size string) {
+// 160403_124512-1600.jpg -> (160403_124512.jpg) (1600)
+func SplitSubpath(subp string) *SubFile {
 	i := strings.LastIndex(subp, "-")
 	if i < 0 {
-		return subp, ""
+		return &SubFile{
+			Name: subp,
+		}
 	}
-	// expect a file extension
 	j := strings.LastIndex(subp, ".")
 	if j < 0 {
-		return subp[:i], subp[i+1:]
+		// No file extension.
+		// 160403_124512-1600 -> (160403_124512) (1600)
+		return &SubFile{
+			Name: subp[:i],
+			Size: subp[i+1:],
+		}
 	}
-	filename = subp[:i] + subp[j:]
-	size = subp[i+1 : j]
-	return
+	// Remove size and put filename back together. 
+	return &SubFile{
+		Name: subp[:i] + subp[j:],
+		Size: subp[i+1 : j],
+	}
 }
