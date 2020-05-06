@@ -5,10 +5,6 @@ import (
 	"fmt"
 )
 
-func (t *Text) TextLang(lang string) string {
-	return t.Text[lang]
-}
-
 func (t *Text) Permalink(lang string) string {
 	switch t.File.Section() {
 	case "about":

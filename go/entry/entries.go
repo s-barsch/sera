@@ -30,7 +30,7 @@ func (es Entries) Groups() []Entries {
 		}
 		g = append(g, e)
 	}
-	return  append(groups, g)
+	return append(groups, g)
 }
 
 func isNewGroup(a, b Entry) bool {

@@ -8,21 +8,45 @@
         {{.Tree.Date.Format "2006"}}
     </h1>
 </div>
-{{template "media-groups" (eLy .Tree false $.Head.Lang)}}
+
+{{range .Tree.Trees}}
+    {{$monthNum := .Date.Format "01"}}
+    <section id="{{$monthNum}}" class="month">
+        <h2 class="month-title">
+            <a href="#{{$monthNum}}">{{monthLang .Date $.Head.Lang}}</a>
+        </h2>
+        {{template "media-groups" (eL . $.Head.Lang)}}
+    </section>
+{{end}}
+
 {{template "bot" .Head}}
 {{end}}
 
 
 {{define "media-groups"}}
     <div class="media-groups">
-    {{range $i, $group := .$E.Entries.Groups}}
+    {{range $i, $group := .E.Entries.Groups}}
         <section class="{{if $group.First.IsBlob}}blob{{else}}text{{end}}-group">
             {{range $group}}
-                {{template "entry-graph" (eLy . $.L false}}
+                {{template "entry-graph" (eLy . $.L false)}}
             {{end}}
         </section>
     {{end}}
     </div>
+{{end}}
+
+
+{{define "private-mark-graph"}}
+    {{if eq (index .Info "private") "true"}}<div class="private-graph"></div>{{end}}
+{{end}}
+
+{{define "graph-date"}}
+<header class="graph-date">
+            {{template "private-mark-graph" .E}}
+    <a class="" href="{{.E.Perma .L}}">
+        {{.E.Date.Format "2<span class=\"ddot\">.</span> 1<span class=\"ddot\">.</span>"}}
+    </a>
+</header>
 {{end}}
 
 {{/*
@@ -201,100 +225,9 @@
 
 
 
-{{define "private-mark-graph"}}
-    {{if eq (index .Info "private") "true"}}<div class="private-graph"></div>{{end}}
-{{end}}
-
-{{define "graph-date"}}
-{{if ne "true" (index .El.Info "nodate")}}
-<header class="graph-date">
-            {{template "private-mark-graph" .El}}
-    <a class="" href="{{.El.Permalink .Lang}}">
-        {{.El.Date.Format "2<span class=\"ddot\">.</span> 1<span class=\"ddot\">.</span>"}}
-    </a>
-</header>
-{{end}}
-{{end}}
-
-
-{{define "graph-image-thumbnail"}}
-
-  {{$lang := .Lang}}
-  {{$lazy := .Lazy}}
-
-
-    {{$alt := .El.Title $lang}}
-    {{$src := ""}}
-    {{$realSrc := .El.ImagePath 320 $lang}}
-    {{$sizes := "(max-width: 450px) 177px, (max-width: 1024px) 222px, 320px"}}
-
-    {{if .Lazy}}
-      {{$src = .El.PlaceholderPath}}
-    {{else}}
-      {{$src = $realSrc}}
-    {{end}}
-
-    <img class="thumbi{{if .Lazy}} lazy{{end}}" src="{{$src}}" alt="{{$alt}}"  /*}}{{/*sizes="{{$sizes}}"*/}}{{/*
-         {{if .Lazy}}
-             data-src="{{$realSrc}}"
-             data-srcset="{{- template "graph-thumb-srcset" (elArg .El .Lazy .Lang)}}"
-         {{else}}
-             srcset="{{template "graph-thumb-srcset" (elArg .El .Lazy .Lang)}}"
-         {{end}}
-    >
-
-
-{{end}}
 
 {{define "graph-thumb-srcset" -}}
 {{.El.SrcSet 320 .Lang}}, {{.El.SrcSet 480 .Lang}}, {{.El.SrcSet 960 .Lang}}, {{.El.SrcSet 1280 .Lang}}{{- end}}
-
-{{define "graph-main-set"}}
-
-{{if .El.Cover}}
-    <a class="thumbl" href="{{.El.Permalink .Lang}}">
-    {{template "graph-image-thumbnail" (elArg .El.Cover .Lazy .Lang)}}
-    </a>
-{{else}}
-<!--
-    <li><a href="{{.El.Permalink .Lang}}">{{.El.Info.Title .Lang}}</a></li>
--->
-{{template "set-graph" .}}
-{{end}}
-
-{{end}}
-
-{{define "set-graph"}}
-{{$lang := .Lang}}
-<article class="graph-set">
-<div>
-    {{range $i, $e := .El.Els}}
-        {{if eq "image" (elType $e)}}
-        <section class="images">
-            <span class="thumb">
-                <a class="thumbl" href="{{$e.File.Hold.Permalink $lang}}">
-                    {{template "graph-image-thumbnail" (elArg $e false $lang)}}
-                </a>
-            </span>
-        </section>
-        {{else if eq "video" (elType $e)}}
-            <div class="video-main">
-                {{template "el" (elArg $e false $lang)}}
-                {{template "private-mark-graph" $e}}
-            </div>
-        {{else}}
-            <div class="text-entry">
-                <div>
-                    {{template "el" (elArg $e false $lang)}}
-                    {{template "private-mark-graph" $e}}
-                </div>
-            </div>
-        {{end}}
-    {{end}}
-</div>
-{{template "graph-date" (elArg .El false $lang)}}
-</article>
-{{end}}
 
 {{define "set-graph-el"}}
 {{$lang := .Lang}}

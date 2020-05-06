@@ -51,7 +51,7 @@ func isTranslated(e entry.Entry, lang string) bool {
 	if e.Info()["translated"] == "false" {
 		return false
 	}
-	if txt, ok := e.(*text.Text); ok && txt.Text[lang] == "" {
+	if txt, ok := e.(*text.Text); ok && txt.Text(lang) == "" {
 		return false
 	}
 	return true

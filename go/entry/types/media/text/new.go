@@ -15,8 +15,8 @@ type Text struct {
 	date time.Time
 	info info.Info
 
-	Text  map[string]string
-	Blank map[string]string
+	text  map[string]string
+	blank map[string]string
 }
 
 func NewText(path string, parent entry.Entry) (*Text, error) {
@@ -53,8 +53,8 @@ func NewText(path string, parent entry.Entry) (*Text, error) {
 		date: date,
 		info: inf,
 
-		Text:  parts,
-		Blank: parts,
+		text:  parts,
+		blank: parts,
 	}, nil
 }
 

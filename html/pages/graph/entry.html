@@ -1,6 +1,6 @@
 {{define "entry-graph"}}
 
-    {{$type := .Entry.Type}}
+    {{$type := .E.Type}}
 
     {{if eq $type "image"}}
         {{template "entry-graph-image" .}}
@@ -15,17 +15,15 @@
     {{else if eq $type "html"}}
         {{template "entry-graph-html" .}}
     {{else}}
-        Didn’t catch. Type: {{$type}}
-        {{.}}
+        Didn’t catch. Type: {{$type}}. {{.}}
     {{end}}
 
-  {{end}}
 {{end}}
 
 {{define "entry-graph-image"}}
     <span class="thumb">
-        <a class="thumbl" href="{{.Permalink $lang}}">
-            {{template "graph-image-thumbnail" (elArg . $lazy $lang)}}
+        <a class="thumbl" href="{{.E.Perma .L}}">
+            (-- IMAGE --)
         </a>
     </span>
 {{end}}
@@ -33,13 +31,13 @@
 {{define "entry-graph-text"}}
     <article class="graph-text">
         <!-- to omit missing translations -->
-        {{$text := .TextLang $lang}}
+        {{$text := .E.Text .L}}
         {{if $text}}
-        {{template "edit-link" (elArg . false $lang)}}
-        <div>
-            {{$text}}
-        </div>
-        {{template "graph-date" (elArg . false $lang)}}
+            {{template "edit-link" .}}
+            <div>
+                {{$text}}
+            </div>
+            {{template "graph-date" .}}
         {{end}}
     </article>
 {{end}}
@@ -48,7 +46,86 @@
 {{define "entry-graph-html"}}
     <article class="graph-text">
         <div>
-            {{template "el" (elArg . false $lang)}}
+            {{template "entry" .}}
         </div>
     </article>
 {{end}}
+
+{{define "entry-graph-set"}}
+
+<article class="graph-set">
+<div>
+    {{range $i, $e := .E.Entries}}
+        {{template "entry-graph-set-entry" (eLy . $.L $.Y)}}
+    {{end}}
+</div>
+(date)
+{{template "graph-date" .}}
+</article>
+{{end}}
+
+{{define "entry-graph-set-entry"}}
+    {{$type := .E.Type}}
+    {{if eq "image" $type}}
+    <section class="images">
+        <span class="thumb">
+            (-- IMAGE --)
+            {{/*
+            {{template "graph-image-thumbnail" .}}
+            */}}
+        </span>
+    </section>
+    {{else if eq "video" $type}}
+    <div class="video-main">
+        {{template "entry" .}}
+    </div>
+    {{else}}
+    <div class="text-entry">
+        <div>
+            {{template "entry" .}}
+        </div>
+    </div>
+    {{end}}
+    {{template "private-mark-graph" .E}}
+{{end}}
+
+{{/*
+{{define "graph-image-thumbnail"}}
+
+  {{$lang := .Lang}}
+  {{$lazy := .Lazy}}
+
+
+    {{$alt := .El.Title $lang}}
+    {{$src := ""}}
+    {{$realSrc := .El.ImagePath 320 $lang}}
+    {{$sizes := "(max-width: 450px) 177px, (max-width: 1024px) 222px, 320px"}}
+
+    {{if .Lazy}}
+      {{$src = .El.PlaceholderPath}}
+    {{else}}
+      {{$src = $realSrc}}
+    {{end}}
+
+    <img class="thumbi{{if .Lazy}} lazy{{end}}" src="{{$src}}" alt="{{$alt}}"  /*}}{{/*sizes="{{$sizes}}"*/}}{{/*
+         {{if .Lazy}}
+             data-src="{{$realSrc}}"
+             data-srcset="{{- template "graph-thumb-srcset" (elArg .El .Lazy .Lang)}}"
+         {{else}}
+             srcset="{{template "graph-thumb-srcset" (elArg .El .Lazy .Lang)}}"
+         {{end}}
+    >
+
+
+{{end}}
+
+
+*/}}
+{{/*
+{{if .El.Cover}}
+    <a class="thumbl" href="{{.El.Perma.Lang}}">
+    {{template "graph-image-thumbnail" (elArg .El.Cover .Lazy .Lang)}}
+    </a>
+{{else}}
+
+*/}}

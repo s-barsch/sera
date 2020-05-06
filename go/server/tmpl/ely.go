@@ -34,4 +34,7 @@ func (e *EntryLangLazy) L() string {
 	return e.Lang
 }
 
+func (e *EntryLangLazy) Y() bool {
+	return e.Lazy
+}
 

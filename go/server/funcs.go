@@ -99,9 +99,7 @@ func (s *Server) TemplateFuncs() template.FuncMap {
 		"tolower":     strings.ToLower,
 		"esc":         template.HTMLEscapeString,
 		"render":      s.RenderTemplate,
-		"monthLang": func(t time.Time, lang string) string {
-			return helper.MonthLang(t, lang)
-		},
+		"monthLang": helper.MonthLang,
 		"nodeName": func(acr string) string {
 			return "node_" + acr
 		},
