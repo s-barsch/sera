@@ -62,6 +62,10 @@ func (e *Set) Slug(lang string) string {
 	return helper.Normalize(e.Title(lang))
 }
 
+func (e *Set) IsBlob() bool {
+	return entry.IsBlob(e)
+}
+
 func (e *Set) Entries() entry.Entries {
 	return e.entries
 }

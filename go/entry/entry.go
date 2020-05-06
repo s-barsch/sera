@@ -22,16 +22,8 @@ type Entry interface{
 
 	Title(string) string
 	Perma(string) string
-}
 
-type Entries []Entry
-
-func (es Entries) Reverse() Entries {
-	n := Entries{}
-	for i := len(es) - 1; i >= 0; i-- {
-		n = append(n, es[i])
-	}
-	return n
+	IsBlob() bool
 }
 
 type Collection interface{
@@ -41,3 +33,9 @@ type Collection interface{
 type Blob interface{
 	Location(string) string
 }
+
+func IsBlob(e Entry) bool {
+	_, ok := e.(Blob)
+	return ok
+}
+

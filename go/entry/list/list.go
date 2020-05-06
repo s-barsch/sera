@@ -315,46 +315,6 @@ func isNewDay(current, before interface{}) bool {
 	return false
 }
 
-func (els Els) MediaGroups() []Els {
-	packs := []Els{}
-
-	cp := Els{}
-
-	for i, e := range els {
-		if i > 0 && isNewGroup(els[i-1], e) {
-			packs = append(packs, cp)
-			cp = Els{e}
-			continue
-		}
-		cp = append(cp, e)
-	}
-	packs = append(packs, cp)
-
-	return packs
-}
-
-func isNewGroup(a, b interface{}) bool {
-	before := Type(a)
-	now := Type(b)
-	if before == now {
-		return false
-	}
-	if amongImages(before) != amongImages(now) {
-		return true
-	}
-	return false
-}
-
-func amongImages(typ string) bool {
-	if typ == "text" {
-		return false
-	}
-	if typ == "set" {
-		return false
-	}
-	return true
-}
-
 func (els Els) NoEmpty(lang string) Els {
 	l := Els{}
 	for _, e := range els {

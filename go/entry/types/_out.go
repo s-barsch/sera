@@ -66,6 +66,10 @@ func {{receiver .}} Slug(lang string) string {
 	return helper.Normalize(e.Title(lang))
 }
 
+func {{receiver .}} IsBlob() bool {
+	return entry.IsBlob(e)
+}
+
 {{if not (isMedia .)}}
 func {{receiver .}} Entries() entry.Entries {
 	return e.entries

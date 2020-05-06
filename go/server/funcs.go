@@ -20,6 +20,7 @@ type objArg struct {
 
 type entryLangObject struct {
 	Entry entry.Entry
+	Lazy  bool
 	Lang  string
 }
 
@@ -179,6 +180,13 @@ func (s *Server) TemplateFuncs() template.FuncMap {
 		"eL": func(e entry.Entry, lang string) *entryLangObject {
 			return &entryLangObject{
 				Entry: e,
+				Lang:  lang,
+			}
+		},
+		"eLy": func(e entry.Entry, lazy bool, lang string) *entryLangObject {
+			return &entryLangObject{
+				Entry: e,
+				Lazy: lazy,
 				Lang:  lang,
 			}
 		},

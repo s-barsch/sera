@@ -8,10 +8,24 @@
         {{.Tree.Date.Format "2006"}}
     </h1>
 </div>
-{{.}}
+{{template "media-groups" (eLy .Tree false $.Head.Lang)}}
 {{template "bot" .Head}}
 {{end}}
 
+
+{{define "media-groups"}}
+    <div class="media-groups">
+    {{range $i, $group := .$E.Entries.Groups}}
+        <section class="{{if $group.First.IsBlob}}blob{{else}}text{{end}}-group">
+            {{range $group}}
+                {{template "entry-graph" (eLy . $.L false}}
+            {{end}}
+        </section>
+    {{end}}
+    </div>
+{{end}}
+
+{{/*
 {{define "graph-main"}}
 {{template "head" .Head}}
 {{template "top" .}}
@@ -44,7 +58,6 @@
 
         {{if eq $depth 0}}
             <!-- MAIN -->
-        {{/*
             {{$lang := .Head.Lang}}
             {{$months := (.Els.Offset 0 10).Months}} <!-- 25 -->
             {{range $i, $els := $months}}
@@ -60,10 +73,8 @@
                 {{var "graph-main-more" .Head.Lang}}
             </div>
 
-            {{/* template "graph-main-more" .*/}}
-        */}}
+            {{ template "graph-main-more" .}}
         {{else if lt .Hold.Level 2}}
-        {{/*
             <!-- YEAR -->
             {{$lang := .Head.Lang}}
             {{$months := .Els.Months}}
@@ -84,7 +95,6 @@
             {{end}}
 
             {{template "prev-next-year" .}}
-        */}}
         {{end}}
 
     </section>
@@ -189,57 +199,7 @@
     </section>
 {{end}}
 
-{{define "graph-main-el"}}
-  {{$lang := .Lang}}
-  {{$lazy := .Lazy}}
-  {{$type := elType .El}}
 
-  {{with .El}}
-
-    {{if eq $type "image"}}
-
-      <span class="thumb">
-        <a class="thumbl" href="{{.Permalink $lang}}">
-          {{template "graph-image-thumbnail" (elArg . $lazy $lang)}}
-        </a>
-      </span>
-
-    {{else if eq $type "set"}}
-
-    {{template "graph-main-set" (elArg . $lazy $lang)}}
-
-    {{else if eq $type "text"}}
-
-        <article class="graph-text">
-            <!-- to omit missing translations -->
-            {{$text := .TextLang $lang}}
-            {{if $text}}
-            {{template "edit-link" (elArg . false $lang)}}
-            <div>
-                {{$text}}
-            </div>
-            {{template "graph-date" (elArg . false $lang)}}
-            {{end}}
-        </article>
-
-    {{else if eq $type "video"}}
-        {{template "video" (elArg . false $lang)}}
-    {{else if eq $type "audio"}}
-        {{template "audio" (elArg . false $lang)}}
-    {{else if eq $type "html"}}
-        <article class="graph-text">
-            <div>
-                {{template "el" (elArg . false $lang)}}
-            </div>
-        </article>
-    {{else}}
-    a
-        Didn’t catch. Type: {{$type}}
-        {{.}}
-    {{end}}
-
-  {{end}}
-{{end}}
 
 {{define "private-mark-graph"}}
     {{if eq (index .Info "private") "true"}}<div class="private-graph"></div>{{end}}
