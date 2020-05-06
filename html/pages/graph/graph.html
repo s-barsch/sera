@@ -49,32 +49,25 @@
 </header>
 {{end}}
 
-{{/*
 {{define "graph-main"}}
 {{template "head" .Head}}
 {{template "top" .}}
 {{template "subnav" (snav .Tree 0 .Head.Lang)}}
 
 
-    {{$isMain := lt .Hold.Level 1}}
-
-
     <div class="section-title__box section-title--graph">
-        {{if $isMain}}
         <h1 class="section-title">
             {{.Head.Title}}
         </h1>
         <h4 class="section-lead">
             {{var "graph-subtitle" .Head.Lang}}
         </h4>
-
-        {{else}}
-        <h1 class="section-title">
-            {{.Hold.Date.Format "2006"}}
-        </h1>
-        {{end}}
     </div>
 
+{{template "bot" .}}
+{{end}}
+
+{{/*
 
     <section class="graph-grid margin">
 
