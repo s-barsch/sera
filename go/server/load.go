@@ -7,18 +7,8 @@ import (
 	"time"
 )
 
-/*
-import (
-	"fmt"
-	"gopkg.in/yaml.v2"
-	"io/ioutil"
-	"log"
-	"os"
-)
-*/
-
 func (s *Server) Load() error {
-	timeStart := time.Now()
+	tStart := time.Now()
 
 	err := s.LoadTemplates()
 	if err != nil {
@@ -31,11 +21,11 @@ func (s *Server) Load() error {
 		return err
 	}
 
-	timeEnd := time.Now()
-	timeDif := timeEnd.Sub(timeStart)
+	tEnd := time.Now()
+	tDif := tEnd.Sub(tStart)
 
 	if s.Flags.Debug {
-		s.Log.Printf("Load: %v.\n", timeDif)
+		s.Log.Printf("Load: %v.\n", tDif)
 	}
 
 	return nil

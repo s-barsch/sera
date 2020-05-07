@@ -14,7 +14,7 @@ import (
 	"text/template"
 )
 
-var typeDir = "./types"
+var typeDir = "types"
 
 func main() {
 	types, err := readTypes()
@@ -61,7 +61,7 @@ func printOutFile(typ string, tmpl *template.Template) error {
 	if err != nil {
 		return err
 	}
-	fmt.Printf("written %v\n", path)
+	fmt.Printf("written: %v\n", path)
 	return nil
 }
 
