@@ -1,7 +1,7 @@
 package image 
 
 import (
-	//"fmt"
+	"fmt"
 	p "path/filepath"
 	//"strconv"
 )
@@ -10,6 +10,21 @@ func (i *Image) Location(size string) string {
 	return p.Join(i.file.Dir(), "cache", size, i.file.Name())
 }
 
+
+func (i *Image) ImagePath(size int, lang string) string {
+	if i.parent.Type() == "set" {
+		return fmt.Sprintf("%v/cache/%v", i.parent.Perma(lang), i.ImageName(size))
+	}
+	return fmt.Sprintf("%v/cache/%v", i.Perma(lang), i.ImageName(size))
+}
+
+func (i *Image) ImageName(size int) string {
+	return fmt.Sprintf("%v-%v%v", i.file.NameNoExt(), size, i.file.Ext())
+}
+
+func (i *Image) SrcSet(size int, lang string) string {
+	return fmt.Sprintf("%v %vw", i.ImagePath(size, lang), size)//i.Width(size))
+}
 /*
 func (i *Image) Permalink(lang string) string {
 	if i.File.Section() == "index" {
@@ -23,10 +38,6 @@ func (i *Image) Permalink(lang string) string {
 */
 
 /*
-func (i *Image) SrcSet(size int, lang string) string {
-	return fmt.Sprintf("%v %vw", i.ImagePath(size, lang), i.Width(size))
-}
-
 func (i *Image) ImagePath(size int, lang string) string {
 	if i.File.Hold.Info["read"] != "false" {
 		return fmt.Sprintf("%v/cache/%v", i.File.Hold.Permalink(lang), i.ImageName(size))
@@ -34,9 +45,7 @@ func (i *Image) ImagePath(size int, lang string) string {
 	return fmt.Sprintf("%v/cache/%v", i.Permalink(lang), i.ImageName(size))
 }
 
-func (i *Image) ImageName(size int) string {
-	return fmt.Sprintf("%v-%v%v", i.File.BaseNoExt(), size, i.File.Ext())
-}
+
 */
 
 // dim related

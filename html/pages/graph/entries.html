@@ -44,7 +44,7 @@
 {{define "graph-image"}}
     <span class="thumb">
         <a class="thumbl" href="{{.E.Perma .L}}">
-            (-- IMAGE --)
+            {{template "graph-image-thumbnail" .}}
         </a>
     </span>
 {{end}}
@@ -78,10 +78,7 @@
     {{if eq "image" $type}}
     <section class="images">
         <span class="thumb">
-            (-- IMAGE --)
-            {{/*
             {{template "graph-image-thumbnail" .}}
-            */}}
         </span>
     </section>
     {{else if eq "video" $type}}
@@ -98,40 +95,39 @@
     {{template "private-mark-graph" .E}}
 {{end}}
 
-{{/*
 {{define "graph-image-thumbnail"}}
 
-  {{$lang := .Lang}}
-  {{$lazy := .Lazy}}
 
+    {{/* Title is used, because we **link** to entries. */}}
+    {{$alt := .E.Title .L}}
 
-    {{$alt := .El.Title $lang}}
     {{$src := ""}}
-    {{$realSrc := .El.ImagePath 320 $lang}}
-    {{$sizes := "(max-width: 450px) 177px, (max-width: 1024px) 222px, 320px"}}
+    {{$realSrc := .E.ImagePath 320 .L}}
+    {{$src = $realSrc}}
 
-    {{if .Lazy}}
-      {{$src = .El.PlaceholderPath}}
-    {{else}}
-      {{$src = $realSrc}}
-    {{end}}
 
-    <img class="thumbi{{if .Lazy}} lazy{{end}}" src="{{$src}}" alt="{{$alt}}"  /*}}{{/*sizes="{{$sizes}}"*/}}{{/*
-         {{if .Lazy}}
-             data-src="{{$realSrc}}"
-             data-srcset="{{- template "graph-thumb-srcset" (elArg .El .Lazy .Lang)}}"
-         {{else}}
-             srcset="{{template "graph-thumb-srcset" (elArg .El .Lazy .Lang)}}"
-         {{end}}
-    >
+    <img class="thumbi"
+         src="{{$src}}"
+         alt="{{$alt}}"
+         srcset="{{template "graph-thumb-srcset" .}}"
+         >
 
 
 {{end}}
 
 {{define "graph-thumb-srcset" -}}
-{{.El.SrcSet 320 .Lang}}, {{.El.SrcSet 480 .Lang}}, {{.El.SrcSet 960 .Lang}}, {{.El.SrcSet 1280 .Lang}}{{- end}}
+    {{.E.SrcSet 320 .L}}, {{.E.SrcSet 480 .L}}, {{.E.SrcSet 960 .L}}, {{.E.SrcSet 1280 .L}}
+{{- end}}
+{{/*
 
 
+    {{/*
+    {{if .Lazy}}
+      {{$src = .El.PlaceholderPath}}
+    {{else}}
+      {{$src = $realSrc}}
+    {{end}}
+    */}}
 */}}
 {{/*
 {{if .El.Cover}}
@@ -139,5 +135,16 @@
     {{template "graph-image-thumbnail" (elArg .El.Cover .Lazy .Lang)}}
     </a>
 {{else}}
+
+    <img class="thumbi{{if .Lazy}} lazy{{end}}"
+         src="{{$src}}"
+         alt="{{$alt}}"
+         {{if .Lazy}}
+         data-src="{{$realSrc}}"
+         data-srcset="{{- template "graph-thumb-srcset" .}}"
+         {{else}}
+         srcset="{{template "graph-thumb-srcset" .}}"
+         {{end}}
+         >
 
 */}}
