@@ -21,7 +21,7 @@ func printTree(tree *Tree) {
 		fmt.Println(t.Section())
 		fmt.Println(t.Title("de"))
 		fmt.Println(t.Perma("de"))
-		// recursive fucntion call
+		// recursive function call
 		printTree(t)
 	}
 }

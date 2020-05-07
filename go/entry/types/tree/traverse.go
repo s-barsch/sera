@@ -2,6 +2,7 @@ package tree
 
 import (
 	"stferal/go/entry"
+	"stferal/go/entry/types/set"
 )
 
 
@@ -48,32 +49,37 @@ func (tree *Tree) TraverseEntriesReverse() entry.Entries {
 	return es
 }
 
-/*
-func newEls(els list.Els) list.Els {
-	nels := list.Els{}
-	for _, e := range els {
-		nels = append(nels, e)
-	}
-	return nels
-}
-*/
+// public functions
 
-/*
-func (hold *Hold) traverseEls(stack []*Hold) list.Els {
-	els := list.Els{}
-	for _, e := range hold.Els {
-		els = append(els, e)
-	}
-	for i, h := range hold.Trees.Reverse() {
-		if i == 0 {
-			return append(els, h.traverseEls(append(stack, hold.Trees[1:]...))...)
+func (t *Tree) MakePublic() *Tree {
+	trees := Trees{}
+	for _, tree := range t.Trees {
+		if tree.Info()["private"] == "true" {
+			continue
 		}
+		trees = append(trees, tree.MakePublic())
 	}
-	for i, h := range stack {
-		if i == 0 {
-			return append(els, h.traverseEls(stack[1:])...)
-		}
-	}
-	return els
+
+	t.entries = makePublic(t.entries)
+	t.Trees = trees
+
+	return t
 }
-*/
+
+func makePublic(es entry.Entries) entry.Entries {
+	l := entry.Entries{}
+	for _, e := range es {
+		if e.Info()["private"] == "true" {
+			continue
+		}
+		s, ok := e.(*set.Set)
+		if ok {
+			s.SetEntries(makePublic(s.Entries()))
+			e = s
+		}
+		l = append(l, e)
+	}
+	return l
+}
+
+
