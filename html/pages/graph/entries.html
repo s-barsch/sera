@@ -43,22 +43,24 @@
 
 {{define "graph-image"}}
     <span class="thumb">
-        <a class="thumbl" href="{{.E.Perma .L}}">
+        <a href="{{.E.Perma .L}}">
             {{template "graph-image-thumbnail" .}}
         </a>
     </span>
 {{end}}
 
 {{define "graph-text"}}
-    <!-- to omit missing translations -->
-    {{$text := .E.Text .L}}
-    {{if $text}}
-        {{template "edit-link" .}}
-        <div>
-            {{$text}}
-        </div>
-        {{template "graph-date" .}}
-    {{end}}
+  <!-- to omit missing translations -->
+  {{$text := .E.Text .L}}
+  {{if $text}}
+  <div class="graph-text">
+      {{template "edit-link" .}}
+      <div>
+          {{$text}}
+      </div>
+      {{template "graph-date" .}}
+  </div>
+  {{end}}
 {{end}}
 
 {{define "graph-set"}}
@@ -76,28 +78,24 @@
 {{define "graph-set-child"}}
     {{$type := .E.Type}}
     {{if eq "image" $type}}
-    <section class="images">
-        <span class="thumb">
-            {{template "graph-image-thumbnail" .}}
-        </span>
-    </section>
+      <section class="blob-group">
+        {{template "graph-image-thumbnail" .}}
+      </section>
     {{else if eq "video" $type}}
-    <div class="video-main">
+      <div class="video-main">
         {{template "entry" .}}
-    </div>
+      </div>
     {{else}}
-    <div class="text-entry">
+      <div class="graph-text">
         <div>
-            {{template "entry" .}}
+          {{template "entry" .}}
         </div>
-    </div>
+      </div>
     {{end}}
     {{template "private-mark-graph" .E}}
 {{end}}
 
 {{define "graph-image-thumbnail"}}
-
-
     {{/* Title is used, because we **link** to entries. */}}
     {{$alt := .E.Title .L}}
 
@@ -106,13 +104,10 @@
     {{$src = $realSrc}}
 
 
-    <img class="thumbi"
-         src="{{$src}}"
+    <img src="{{$src}}"
          alt="{{$alt}}"
          srcset="{{template "graph-thumb-srcset" .}}"
          >
-
-
 {{end}}
 
 {{define "graph-thumb-srcset" -}}
@@ -131,12 +126,12 @@
 */}}
 {{/*
 {{if .El.Cover}}
-    <a class="thumbl" href="{{.El.Perma.Lang}}">
+    <a href="{{.El.Perma.Lang}}">
     {{template "graph-image-thumbnail" (elArg .El.Cover .Lazy .Lang)}}
     </a>
 {{else}}
 
-    <img class="thumbi{{if .Lazy}} lazy{{end}}"
+    <img cthumbilass="{{if .Lazy}} lazy{{end}}"
          src="{{$src}}"
          alt="{{$alt}}"
          {{if .Lazy}}

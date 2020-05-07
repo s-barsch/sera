@@ -39,14 +39,14 @@ video {
     max-height:30rem;
 }
 
-.blob-group .thumbi {
+.blob-group img {
     max-width:20rem;
     max-height:20rem;
 }
 
 .media-mixin(@break) when (@break = @break-single) {
     .video-main video,
-    .blob-group .thumbi {
+    .blob-group img {
         max-width:100%;
         max-height:100%;
     }
@@ -76,7 +76,7 @@ video {
 
 .media-mixin(@break) when (@break = @break-desk) {
     .video-main video,
-    .blob-group .thumbi {
+    .blob-group img {
         max-width:35rem;
         max-height:35rem;
     }
