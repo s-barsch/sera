@@ -4,7 +4,12 @@
 
 {{template "subnav" (snav .Tree 0 .Head.Lang)}}
 
-{{template "section-title" aboutTitle $.Head.Lang}}
+    <div class="section-title__box section-title--index">
+        <h1 class="section-title">
+            {{aboutTitle $.Head.Lang}}
+        <h1>
+    </div>
+
 {{template "about-entries" (eL .Tree .Head.Lang)}}
 
 
