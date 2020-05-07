@@ -56,24 +56,15 @@ func (s *Server) LoadData() error {
 		if err != nil {
 			return err
 		}
-		//trees[section+"-private"] = t
-		//trees[section] = t.Public()
-		trees[section] = t
 
-		if section == "graph" {
-			recents[section] = trees[section].TraverseEntriesReverse()
-		} else {
-			recents[section] = trees[section].TraverseEntries()
-		}
-		/*
-		if section == "graph" {
-			recents[section+"-private"] = trees[section+"-private"].TraverseElsReverse()
-		} else {
-			recents[section+"-private"] = trees[section+"-private"].TraverseEls().Desc().Exclude()
-		}
+		sPrivate := section+"-private"
+		sPublic := section
 
-		recents[section] = recents[section+"-private"].Public()
-		*/
+		trees[sPrivate] = t
+		trees[sPublic] = t.MakePublic()
+
+		recents[sPrivate] = serialize(trees[sPrivate])
+		recents[sPublic] = serialize(trees[sPublic])
 	}
 
 	s.Trees = trees
@@ -81,3 +72,11 @@ func (s *Server) LoadData() error {
 
 	return nil
 }
+
+func serialize(t *tree.Tree) entry.Entries {
+	if t.Section() == "graph" {
+		return t.TraverseEntriesReverse()
+	}
+	return t.TraverseEntries().Exclude().Desc()
+}
+

@@ -4,6 +4,7 @@ import (
 	"stferal/go/entry"
 )
 
+
 func (ts Trees) Reverse() Trees {
 	n := Trees{}
 	for i := len(ts) - 1; i >= 0; i-- {

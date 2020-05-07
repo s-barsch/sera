@@ -4,29 +4,39 @@ import (
 	"sort"
 )
 
+func (es Entries) Asc() Entries {
+	es.SortAsc()
+	return es
+}
+
+func (es Entries) Desc() Entries {
+	es.SortDesc()
+	return es
+}
+
 func (es Entries) SortAsc() {
-	sort.Sort(Asc(es))
+	sort.Sort(asc(es))
 }
 
 func (es Entries) SortDesc() {
-	sort.Sort(Desc(es))
+	sort.Sort(desc(es))
 }
 
-type Asc Entries
+type asc Entries
 
-func (a Asc) Len() int { return len(a) }
-func (a Asc) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
+func (a asc) Len() int { return len(a) }
+func (a asc) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
 
-func (a Asc) Less(i, j int) bool {
+func (a asc) Less(i, j int) bool {
 	return a[i].Id() < a[j].Id()
 }
 
-type Desc Entries
+type desc Entries
 
-func (a Desc) Len() int { return len(a) }
-func (a Desc) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
+func (a desc) Len() int { return len(a) }
+func (a desc) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
 
-func (a Desc) Less(i, j int) bool {
+func (a desc) Less(i, j int) bool {
 	return a[i].Id() > a[j].Id()
 }
 

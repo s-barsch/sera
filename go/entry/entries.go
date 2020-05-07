@@ -17,4 +17,15 @@ func (es Entries) First() Entry {
 	return nil
 }
 
+func (es Entries) Exclude() Entries {
+	l := Entries{}
+	for _, e := range es {
+		if e.Info()["hidden"] == "true" || e.Info()["exclude"] == "true" {
+			continue
+		}
+		l = append(l, e)
+	}
+	return l
+}
+
 
