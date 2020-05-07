@@ -34,19 +34,18 @@ func (tree *Tree) TraverseEntries() entry.Entries {
 	return entries
 }
 
-/*
-func (hold *Hold) TraverseElsReverse() list.Els {
-	trees := hold.TraverseTrees()
+// Trees are traversed in regular order, but entries are reversed.
+func (tree *Tree) TraverseEntriesReverse() entry.Entries {
+	trees := tree.TraverseTrees()
 
-	els := list.Els{}
+	es := entry.Entries{}
 
-	for _, h := range trees {
-		els = append(els, h.Els.Reverse()...)
+	for _, t := range trees {
+		es = append(es, t.Entries().Reverse()...)
 	}
 
-	return els
+	return es
 }
-*/
 
 /*
 func newEls(els list.Els) list.Els {

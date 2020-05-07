@@ -60,7 +60,11 @@ func (s *Server) LoadData() error {
 		//trees[section] = t.Public()
 		trees[section] = t
 
-		recents[section] = trees[section].TraverseEntries()
+		if section == "graph" {
+			recents[section] = trees[section].TraverseEntriesReverse()
+		} else {
+			recents[section] = trees[section].TraverseEntries()
+		}
 		/*
 		if section == "graph" {
 			recents[section+"-private"] = trees[section+"-private"].TraverseElsReverse()
