@@ -17,6 +17,17 @@ func (es Entries) First() Entry {
 	return nil
 }
 
+func (es Entries) Offset(start, end int) Entries {
+	l := len(es)
+	if l < start {
+		return Entries{}
+	}
+	if end > l || end <= 0 {
+		return es[start:]
+	}
+	return es[start:end]
+}
+
 func (es Entries) Exclude() Entries {
 	l := Entries{}
 	for _, e := range es {
