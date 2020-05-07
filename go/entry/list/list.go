@@ -57,17 +57,6 @@ func (els Els) Year(year int) Els {
 	return nl
 }
 
-func (els Els) Offset(start, end int) Els {
-	l := len(els)
-	if l < start {
-		return Els{}
-	}
-	if end > l || end <= 0 {
-		return els[start:]
-	}
-	return els[start:end]
-}
-
 /*
 func (els Els) LazyLoad() Els {
 	imgs := 0
@@ -197,32 +186,7 @@ func (els Els) Desc() Els {
 	return els
 }
 
-func (els Els) Months() []Els {
-	months := []Els{}
-	cm := Els{}
-	for i, e := range els {
-		if i > 0 && isNewMonth(e, els[i-1]) {
-			months = append(months, cm)
-			cm = Els{e}
-			continue
-		}
-		cm = append(cm, e)
-	}
-	months = append(months, cm)
-	return months
-}
 
-func isNewMonth(current, before interface{}) bool {
-	cd, err := DateSafe(current)
-	if err != nil {
-		return true
-	}
-	bd, err := DateSafe(before)
-	if err != nil {
-		return true
-	}
-	return cd.Month() != bd.Month()
-}
 
 func (els Els) Days() []Els {
 	days := []Els{}

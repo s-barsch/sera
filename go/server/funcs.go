@@ -114,6 +114,8 @@ func (s *Server) TemplateFuncs() template.FuncMap {
 		},
 		"eL": tmpl.NewEntryLang,
 		"eLy": tmpl.NewEntryLangLazy,
+		"esL": tmpl.NewEntriesLang,
+		"esLy": tmpl.NewEntriesLangLazy,
 		"snav": tmpl.NewSubnav,
 		"minifySvg": minifySVG,
 	}

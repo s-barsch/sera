@@ -51,7 +51,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	err = s.ExecuteTemplate(w, "graph-main", &graphMain{
 		Head:    head,
 		Tree:    s.Trees["graph"],
-		Entries: entries, //els.NoEmpty(head.Lang).Offset(0, 100),
+		Entries: entries.Offset(0, 100), //els.NoEmpty(head.Lang).Offset(0, 100),
 		//Prev: prev,
 	})
 	if err != nil {

@@ -1,3 +1,17 @@
+
+{{define "media-groups"}}
+    <div class="media-groups">
+    {{range $i, $group := .Es.Groups}}
+        <section class="{{if $group.First.IsBlob}}blob{{else}}text{{end}}-group">
+            {{range $group}}
+                {{template "graph-entry" (eLy . $.L false)}}
+            {{end}}
+        </section>
+    {{end}}
+    </div>
+{{end}}
+
+
 {{define "graph-entry"}}
     {{if .E.IsBlob}}
         {{template "graph-blob" .}}

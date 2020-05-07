@@ -38,3 +38,37 @@ func (e *EntryLangLazy) Y() bool {
 	return e.Lazy
 }
 
+type EntriesLangLazy struct {
+	Entries entry.Entries
+	Lang    string
+	Lazy    bool
+}
+
+func NewEntriesLang(es entry.Entries, lang string) *EntriesLangLazy {
+	return &EntriesLangLazy{
+		Entries: es,
+		Lang:    lang,
+		Lazy:    false,
+	}
+}
+
+func NewEntriesLangLazy(es entry.Entries, lang string, lazy bool) *EntriesLangLazy {
+	return &EntriesLangLazy{
+		Entries: es,
+		Lazy:    lazy,
+		Lang:    lang,
+	}
+}
+
+func (e *EntriesLangLazy) Es() entry.Entries {
+	return e.Entries
+}
+
+func (e *EntriesLangLazy) L() string {
+	return e.Lang
+}
+
+func (e *EntriesLangLazy) Y() bool {
+	return e.Lazy
+}
+

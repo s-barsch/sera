@@ -15,7 +15,7 @@
         <h2 class="month-title">
             <a href="#{{$monthNum}}">{{monthLang .Date $.Head.Lang}}</a>
         </h2>
-        {{template "media-groups" (eL . $.Head.Lang)}}
+        {{template "media-groups" (esL .Entries $.Head.Lang)}}
     </section>
 {{end}}
 
@@ -23,31 +23,6 @@
 {{end}}
 
 
-{{define "media-groups"}}
-    <div class="media-groups">
-    {{range $i, $group := .E.Entries.Groups}}
-        <section class="{{if $group.First.IsBlob}}blob{{else}}text{{end}}-group">
-            {{range $group}}
-                {{template "graph-entry" (eLy . $.L false)}}
-            {{end}}
-        </section>
-    {{end}}
-    </div>
-{{end}}
-
-
-{{define "private-mark-graph"}}
-    {{if eq (index .Info "private") "true"}}<div class="private-graph"></div>{{end}}
-{{end}}
-
-{{define "graph-date"}}
-<header class="graph-date">
-            {{template "private-mark-graph" .E}}
-    <a class="" href="{{.E.Perma .L}}">
-        {{.E.Date.Format "2<span class=\"ddot\">.</span> 1<span class=\"ddot\">.</span>"}}
-    </a>
-</header>
-{{end}}
 
 {{define "graph-main"}}
 {{template "head" .Head}}
@@ -64,7 +39,21 @@
         </h4>
     </div>
 
-{{template "bot" .}}
+    {{$months := (.Entries.Offset 0 10).Months}} <!-- 25 -->
+    {{range $i, $entries := $months}}
+      {{if $i}}
+        <h2 class="month-title">
+          {{monthLang $entries.First.Date $.Head.Lang}}
+        </h2>
+      {{end}}
+      {{template "media-groups" (esLy $entries $.Head.Lang false)}}
+    {{end}}
+
+    <div class="graph-tip">
+      {{var "graph-main-more" .Head.Lang}}
+    </div>
+
+{{template "bot" .Head}}
 {{end}}
 
 {{/*
@@ -86,9 +75,7 @@
                 {{template "media-groups" (elsArg $els false $lang)}}
             {{end}}
 
-            <div class="graph-tip">
-                {{var "graph-main-more" .Head.Lang}}
-            </div>
+  
 
             {{ template "graph-main-more" .}}
         {{else if lt .Hold.Level 2}}
@@ -141,81 +128,6 @@
 
 
 {{/*
-{{define "prev-next-year"}}
-    {{$lang := .Head.Lang}}
-    <div class="prev-next-year graph-tip">
-        {{with .Next}}
-            &larr; <a href="{{.Permalink $lang}}">{{.Title $lang}}</a>
-        {{else}}
-            &nbsp;
-        {{end}}
-        {{with .Prev}}
-            <span class="right">
-            <a href="{{.Permalink $lang}}">{{.Title $lang}}</a>
-            &rarr; 
-            </span>
-        {{end}}
-    </div>
-{{end}}
-
-{{define "graph-full-tip"}}
-<div class="more-tip">
- (var "graph-full" .Lang)
-</div>
-{{end}}
-
-{{define "graph-els"}}
-{{$lang := .Lang}}
-{{with .El}}
-  {{range .Days}}
-    {{range .}}
-      {{template "graph-main-el" (elArg . $lang)}}
-    {{end}}
-  {{end}}
-{{end}}
-{{end}}
-
-{{define "media-groups"}}
-    {{$lang := .Lang}}
-    {{$lazy := .Lazy}}
-    <div class="media-groups">
-    {{range $i, $group := .Els.MediaGroups}}
-      {{$firstType := (elType (index $group 0))}}
-      {{if eq $firstType "image"}}
-      <section class="images">
-      {{else if eq $firstType "set"}}
-      <section class="text">
-      {{else if eq $firstType "text"}}
-      <section class="texts">
-      {{else if eq $firstType "html"}}
-      <section class="texts">
-      {{else}}
-      <section class="texts">
-      {{end}}
-
-        {{range $group}}
-            {{template "graph-main-el" (elArg . $lazy $lang)}}
-        {{end}}
-        <!--
-        <div class="phantom"></div>
-        -->
-
-      </section>
-    {{end}}
-    </div>
-{{end}}
-
-{{define "graph-month"}}
-    <section id="{{.Hold.Date.Format "01"}}" class="month">
-
-        <h2 class="subh month-title">
-            <a href="{{.Hold.Permalink .Lang}}">{{.Hold.Info.Title .Lang}}</a>
-        </h2>
-
-        {{template "media-groups" (elsArg .Hold.Els .Lazy .Lang)}}
-    </section>
-{{end}}
-
 
 
 
