@@ -2,13 +2,12 @@ package server
 
 import (
 	"flag"
-	"io/ioutil"
 	"log"
 	"os"
 	"stferal/go/entry"
 	"stferal/go/entry/types/tree"
-	"strings"
 	"text/template"
+	"stferal/go/server/tmpl"
 )
 
 type Server struct {
@@ -20,7 +19,7 @@ type Server struct {
 	Recents map[string]entry.Entries
 
 	Templates *template.Template
-	Vars      vars
+	Vars      tmpl.Vars
 }
 
 type paths struct {
@@ -55,11 +54,6 @@ func New() *Server {
 
 	s := &Server{}
 
-	p, err := readConfFile()
-	if err == nil {
-		*path = p
-	}
-
 	s.Paths = &paths{
 		Root: *path,
 		Data: *path + "/data",
@@ -87,51 +81,3 @@ func (s *Server) Debug(err error) {
 		s.Log.Println(err)
 	}
 }
-
-func readConfFile() (string, error) {
-	b, err := ioutil.ReadFile("/etc/stferal.conf")
-	return strings.TrimSpace(string(b)), err
-}
-
-/*
-import (
-	"fmt"
-	"log"
-	"net/http"
-	"st/el"
-	"strings"
-	"text/template"
-	"time"
-)
-
-type paths struct {
-	root string
-	data string
-	app  string
-}
-
-type server struct {
-	paths paths
-
-	indexGraph map[string]string
-	logo       string
-
-	bundleModTime time.Time
-
-	flags *flags
-
-	indexRecent entry.Els
-	graphRecent entry.Els
-
-	indexTree *entry.Hold
-	graphTree *entry.Hold
-	aboutTree *entry.Hold
-	extraTree *entry.Hold
-
-	vars map[string]string
-
-	tmpls *template.Template
-}
-
-var srv server
-*/

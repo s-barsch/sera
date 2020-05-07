@@ -12,27 +12,7 @@ import (
 	"time"
 )
 
-/*
-type elArg struct {
-	El   interface{}
-	Lazy bool
-	Lang string
-}
-
-type elsArg struct {
-	Els  entry.Els
-	Lazy bool
-	Lang string
-}
-
-type holdArg struct {
-	Hold *entry.Hold
-	Lazy bool
-	Lang string
-}
-
-*/
-func (s *Server) TemplateFuncs() template.FuncMap {
+func (s *Server) Funcs() template.FuncMap {
 	return template.FuncMap{
 		"aboutTitle": func(lang string) string {
 			switch lang {

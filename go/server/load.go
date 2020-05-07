@@ -3,6 +3,7 @@ package server
 import (
 	"stferal/go/entry"
 	"stferal/go/entry/types/tree"
+	"stferal/go/server/tmpl"
 	"time"
 )
 
@@ -19,13 +20,13 @@ import (
 func (s *Server) Load() error {
 	timeStart := time.Now()
 
-	err := s.loadRender()
+	err := s.LoadTemplates()
 	if err != nil {
 		return err
 
 	}
 
-	err = s.LoadData()
+	err = s.LoadTrees()
 	if err != nil {
 		return err
 	}
@@ -40,7 +41,28 @@ func (s *Server) Load() error {
 	return nil
 }
 
-func (s *Server) LoadData() error {
+// templates
+
+func (s *Server) LoadTemplates() error {
+	vars, err := tmpl.LoadVars(s.Paths.Root)
+	if err != nil {
+		return err
+	}
+
+	ts, err := tmpl.LoadTemplates(s.Paths.Root, s.Funcs())
+	if err != nil {
+		return err
+	}
+
+	s.Templates = ts
+	s.Vars = vars
+
+	return nil
+}
+
+// trees
+
+func (s *Server) LoadTrees() error {
 	sections := []string{
 		"index",
 		"graph",
@@ -79,4 +101,5 @@ func serialize(t *tree.Tree) entry.Entries {
 	}
 	return t.TraverseEntries().Exclude().Desc()
 }
+
 
