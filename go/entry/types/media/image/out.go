@@ -10,7 +10,6 @@ func (i *Image) Location(size string) string {
 	return p.Join(i.file.Dir(), "cache", size, i.file.Name())
 }
 
-
 func (i *Image) ImagePath(size int, lang string) string {
 	if i.parent.Type() == "set" {
 		return fmt.Sprintf("%v/cache/%v", i.parent.Perma(lang), i.ImageName(size))
