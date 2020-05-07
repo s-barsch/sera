@@ -4,6 +4,7 @@ import (
 	"stferal/go/entry"
 	"stferal/go/entry/helper"
 	"stferal/go/entry/helper/read"
+	"stferal/go/entry/helper/sort"
 	"stferal/go/entry/types/media"
 )
 
@@ -25,9 +26,7 @@ func readEntries(path string, parent entry.Entry) (entry.Entries, error) {
 		return nil, fnErr
 	}
 
-	// TODO: sorting
-
-	return entries, nil
+	return sort.SortEntries(path, entries)
 }
 
 func readEntryFiles(files []*read.FileInfo, parent entry.Entry) (entry.Entries, error) {
@@ -43,6 +42,7 @@ func readEntryFiles(files []*read.FileInfo, parent entry.Entry) (entry.Entries, 
 		}
 		entries = append(entries, entry)
 	}
+
 	return entries, nil
 }
 /*

@@ -78,33 +78,7 @@ func (els Els) LazyLoad() Els {
 }
 */
 
-type Asc Els
 
-func (a Asc) Len() int {
-	return len(a)
-}
-
-func (a Asc) Swap(i, j int) {
-	a[i], a[j] = a[j], a[i]
-}
-
-func (a Asc) Less(i, j int) bool {
-	return Date(a[i]).Unix() < Date(a[j]).Unix()
-}
-
-type Desc Els
-
-func (a Desc) Len() int {
-	return len(a)
-}
-
-func (a Desc) Swap(i, j int) {
-	a[i], a[j] = a[j], a[i]
-}
-
-func (a Desc) Less(i, j int) bool {
-	return Date(a[i]).Unix() > Date(a[j]).Unix()
-}
 
 /*
 type Desc Els
