@@ -4,20 +4,20 @@ import (
 	"net/http"
 	p "path/filepath"
 	//"stferal/go/entry"
-	//"stferal/go/handlers/extra"
+	"stferal/go/handlers/extra"
 	"stferal/go/head"
 	"stferal/go/paths"
 	"stferal/go/server"
 )
 
 func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
-	path, err := paths.Sanitize(r.URL.Path)
+	reqPath, err := paths.Sanitize(r.URL.Path)
 	if err != nil {
 		http.NotFound(w, r)
 		return
 	}
 
-	rel := path[len("/index"):]
+	rel := reqPath[len("/index"):]
 
 	if rel == "" {
 		Main(s, w, r)
@@ -36,27 +36,18 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	}
 	*/
 
-	pa := paths.Split(path)
+	lang := head.Lang(r.Host)
+	path := paths.Split(reqPath)
 
-	/*
-	if p.Subdir != "" {
-		extra.Files(s, w, r, p)
+	if path.IsFile() {
+		extra.ServeFile(s, w, r, path)
 		return
 	}
-	*/
 
-	lang := head.Lang(r.Host)
+	index := s.Trees["index"].Local(s.Flags.Local)[lang]
 
-	index := s.Trees["index"].Public[lang]
-
-	/*
-	if s.Flags.Local {
-		tree = s.Trees["index-private"]
-	}
-	*/
-
-	if pa.Hash == "" {
-		t, err := index.SearchTree(pa.Slug, head.Lang(r.Host))
+	if path.Hash == "" {
+		t, err := index.SearchTree(path.Slug, lang)
 		if err != nil {
 			s.Log.Println(err)
 			http.NotFound(w, r)
@@ -66,7 +57,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	t, err := index.LookupTreeHash(pa.Hash)
+	t, err := index.LookupTreeHash(path.Hash)
 	if err != nil {
 		http.Redirect(w, r, p.Dir(r.URL.Path), 301)
 		return

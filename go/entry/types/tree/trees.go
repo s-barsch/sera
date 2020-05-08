@@ -31,7 +31,6 @@ func readTrees(path string, parent *Tree) (Trees, error) {
 		}
 	}
 
-	// TODO: sort trees
 	entries, err := sort.SortEntries(path, toEntries(trees))
 	if err != nil {
 		return nil, err

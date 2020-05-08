@@ -25,7 +25,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 
 	lang := head.Lang(r.Host)
 
-	t := s.Trees["index"].Public[lang]
+	t := s.Trees["index"].Local(s.Flags.Local)[lang]
 
 	head := &head.Head{
 		Title:   "Index",
@@ -41,18 +41,12 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// recents := s.Recents["index"]
-
-	/*
-	if s.Flags.Local {
-		recents = s.Recents["index-private"]
-	}
-	*/
+	recents := s.Recents["index"].Local(s.Flags.Local)[lang]
 
 	err = s.ExecuteTemplate(w, "index-main", &indexMain{
 		Head:    head,
 		Tree:    t,
-		//Recents: recents.Offset(0, 100).NoEmpty(lang),
+		Recents: recents.Offset(0, 100),
 	})
 	if err != nil {
 		log.Println(err)
