@@ -87,11 +87,11 @@ func goFmt(types []string) error {
 func loadTemplate(path string) (*template.Template, error) {
 	t := template.New("").Funcs(template.FuncMap{
 		"receiver": func(typ string) string {
-			return fmt.Sprintf("(e *%v)", strings.Title(typ),)
+			return fmt.Sprintf("(e *%v)", strings.Title(typ))
 		},
 		"isMedia": isMedia,
-		"isTree": isTree,
-		"title": strings.Title,
+		"isTree":  isTree,
+		"title":   strings.Title,
 		"typeDef": func(name string) string {
 			return fmt.Sprintf("*%v.%v", name, strings.Title(name))
 		},
@@ -117,4 +117,3 @@ func isMedia(typ string) bool {
 func isTree(typ string) bool {
 	return typ == "tree"
 }
-

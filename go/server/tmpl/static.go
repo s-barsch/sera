@@ -1,12 +1,12 @@
 package tmpl
 
 import (
-	"os"
-	"time"
 	"fmt"
-	"io/ioutil"
 	"github.com/tdewolff/minify"
 	"github.com/tdewolff/minify/css"
+	"io/ioutil"
+	"os"
+	"time"
 )
 
 func JsModtime(root string) (string, error) {
@@ -25,7 +25,6 @@ func makeTimestamp(t time.Time) string {
 	}
 	return s
 }
-
 
 func ReadLogo(root string) (string, error) {
 	return readFile(root + "/static/svg/stferal-logo-compressed.svg")
@@ -63,5 +62,3 @@ func minifyCSS(str string) (string, error) {
 	m.Add("text/css", &css.Minifier{})
 	return m.String("text/css", str)
 }
-
-

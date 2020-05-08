@@ -4,8 +4,8 @@ import (
 	"flag"
 	"log"
 	"os"
-	"text/template"
 	"stferal/go/server/tmpl"
+	"text/template"
 )
 
 type Server struct {

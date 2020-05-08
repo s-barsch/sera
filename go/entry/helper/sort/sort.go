@@ -1,9 +1,9 @@
 package sort
 
 import (
-	"stferal/go/entry"
 	"io/ioutil"
 	p "path/filepath"
+	"stferal/go/entry"
 	"strings"
 	//"sort"
 	"os"
@@ -47,7 +47,6 @@ func ApplySortFile(path string, entries entry.Entries) (entry.Entries, error) {
 	return entries, nil
 }
 
-
 func splitToLines(file string) []string {
 	return strings.Split(strings.TrimSpace(file), "\n")
 }
@@ -59,5 +58,3 @@ func invert(ss []string) []string {
 	}
 	return ns
 }
-
-

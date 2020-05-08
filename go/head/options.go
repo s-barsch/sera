@@ -5,7 +5,7 @@ import (
 )
 
 func GetOptions(r *http.Request) map[string]bool {
-	return map[string]bool {
+	return map[string]bool{
 		"large": LargeType(r),
 		"dark":  DarkColors(r),
 	}
@@ -98,5 +98,3 @@ func (h *Head) SwitchColorsLink(lang string) string {
 		return "/opt/colors/dark"
 	}
 }
-
-

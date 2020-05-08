@@ -1,4 +1,4 @@
-package tmpl 
+package tmpl
 
 import (
 	"stferal/go/entry"
@@ -71,4 +71,3 @@ func (e *EntriesLangLazy) L() string {
 func (e *EntriesLangLazy) Y() bool {
 	return e.Lazy
 }
-

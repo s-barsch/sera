@@ -4,10 +4,10 @@ import (
 	"log"
 	"net/http"
 	"stferal/go/entry"
+	"stferal/go/entry/types/tree"
 	"stferal/go/head"
 	"stferal/go/paths"
 	"stferal/go/server"
-	"stferal/go/entry/types/tree"
 	"time"
 )
 
@@ -19,12 +19,10 @@ type yearPage struct {
 	//Next *entry.Hold
 }
 
-
 func YearPage(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Path) {
 	lang := head.Lang(r.Host)
 
 	graph := s.Trees["graph"].Local(s.Flags.Local)[lang]
-
 
 	id, err := getId(p.Slug)
 	if err != nil {
@@ -40,19 +38,18 @@ func YearPage(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths
 		return
 	}
 
-
 	if perma := tree.Perma(lang); r.URL.Path != perma {
 		http.Redirect(w, r, perma, 301)
 		return
 	}
 
 	/*
-	prev, next, err := yearSiblings(h)
-	if err != nil {
-		http.NotFound(w, r)
-		s.Log.Println(err)
-		return
-	}
+		prev, next, err := yearSiblings(h)
+		if err != nil {
+			http.NotFound(w, r)
+			s.Log.Println(err)
+			return
+		}
 	*/
 
 	head := &head.Head{
@@ -71,12 +68,12 @@ func YearPage(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths
 	}
 
 	err = s.ExecuteTemplate(w, "graph-year", &yearPage{
-		Head:   head,
+		Head:    head,
 		Tree:    tree,
 		Entries: serializeMonths(tree),
 		/*
-		Prev: prev,
-		Next: next,
+			Prev: prev,
+			Next: next,
 		*/
 	})
 	if err != nil {
@@ -119,5 +116,3 @@ func serializeMonths(tree *tree.Tree) entry.Entries {
 	}
 	return es
 }
-
-

@@ -42,7 +42,7 @@ func ServeAbout(s *server.Server, w http.ResponseWriter, r *http.Request, t *tre
 
 	err = s.ExecuteTemplate(w, "about-main", &aboutTree{
 		Head: head,
-		Tree: t, 
+		Tree: t,
 	})
 	if err != nil {
 		log.Println(err)

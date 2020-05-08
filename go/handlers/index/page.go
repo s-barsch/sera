@@ -3,9 +3,9 @@ package index
 import (
 	"log"
 	"net/http"
+	"stferal/go/entry/types/tree"
 	"stferal/go/head"
 	"stferal/go/server"
-	"stferal/go/entry/types/tree"
 )
 
 type indexPage struct {

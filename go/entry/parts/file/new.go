@@ -2,8 +2,8 @@ package file
 
 import (
 	"os"
-	"time"
 	"stferal/go/entry/helper"
+	"time"
 )
 
 type File struct {

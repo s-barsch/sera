@@ -3,7 +3,6 @@ package server
 import (
 	"stferal/go/entry"
 	"stferal/go/entry/types/tree"
-	"fmt"
 )
 
 type SectionTree struct {
@@ -27,7 +26,6 @@ func (s *SectionEntries) Local(local bool) map[string]entry.Entries {
 	}
 	return s.Public
 }
-
 
 // trees
 
@@ -57,9 +55,6 @@ func (s *Server) LoadTrees() error {
 			Private: serializeLangs(trees[section].Private),
 			Public:  serializeLangs(trees[section].Public),
 		}
-
-		fmt.Printf("%v: lang de %v\n", section, len(recents[section].Public["de"]))
-		fmt.Printf("%v: lang en %v\n", section, len(recents[section].Public["en"]))
 	}
 
 	s.Trees = trees
@@ -88,4 +83,3 @@ func serialize(t *tree.Tree) entry.Entries {
 	}
 	return t.TraverseEntries().Exclude().Desc()
 }
-

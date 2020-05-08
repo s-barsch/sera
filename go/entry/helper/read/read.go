@@ -2,9 +2,9 @@ package read
 
 import (
 	"io/ioutil"
+	"os"
 	p "path/filepath"
 	"stferal/go/entry/helper"
-	"os"
 )
 
 type FileInfo struct {

@@ -1,8 +1,8 @@
 package tree
 
 import (
-	"io/ioutil"
 	"fmt"
+	"io/ioutil"
 	"os"
 	p "path/filepath"
 	"stferal/go/entry"

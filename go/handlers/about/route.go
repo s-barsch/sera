@@ -33,4 +33,3 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 
 	ServeAbout(s, w, r, t)
 }
-

@@ -5,9 +5,9 @@ import (
 )
 
 type Subnav struct {
-	Tree    *tree.Tree
-	Active  int64
-	Lang    string
+	Tree   *tree.Tree
+	Active int64
+	Lang   string
 }
 
 func NewSubnav(tree *tree.Tree, active int64, lang string) *Subnav {
@@ -52,6 +52,3 @@ var years = map[string]string{
 func (s *Subnav) YearLabel(lang string) string {
 	return years[lang]
 }
-	
-
-

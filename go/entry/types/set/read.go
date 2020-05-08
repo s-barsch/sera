@@ -45,6 +45,7 @@ func readEntryFiles(files []*read.FileInfo, parent entry.Entry) (entry.Entries, 
 
 	return entries, nil
 }
+
 /*
 func readEntries(path string, parent *Tree) ([]*Entry, error) {
 

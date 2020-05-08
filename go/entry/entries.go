@@ -38,4 +38,3 @@ func (es Entries) Exclude() Entries {
 	}
 	return l
 }
-

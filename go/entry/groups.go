@@ -37,4 +37,3 @@ func (es Entries) Months() []Entries {
 func isNewMonth(a, b Entry) bool {
 	return a.Date().Month() != b.Date().Month()
 }
-

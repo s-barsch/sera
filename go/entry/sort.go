@@ -24,7 +24,7 @@ func (es Entries) SortDesc() {
 
 type asc Entries
 
-func (a asc) Len() int { return len(a) }
+func (a asc) Len() int      { return len(a) }
 func (a asc) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
 
 func (a asc) Less(i, j int) bool {
@@ -33,11 +33,9 @@ func (a asc) Less(i, j int) bool {
 
 type desc Entries
 
-func (a desc) Len() int { return len(a) }
+func (a desc) Len() int      { return len(a) }
 func (a desc) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
 
 func (a desc) Less(i, j int) bool {
 	return a[i].Id() > a[j].Id()
 }
-
-

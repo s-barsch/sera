@@ -25,15 +25,15 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	}
 
 	/*
-	if rel == "/serial/" {
-		Serial(s, w, r)
-		return
-	}
+		if rel == "/serial/" {
+			Serial(s, w, r)
+			return
+		}
 
-	if rel == "/map.svg" {
-		MapSVG(s, w, r)
-		return
-	}
+		if rel == "/map.svg" {
+			MapSVG(s, w, r)
+			return
+		}
 	*/
 
 	lang := head.Lang(r.Host)

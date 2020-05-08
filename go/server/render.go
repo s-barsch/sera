@@ -4,9 +4,9 @@ import (
 	"bytes"
 	"github.com/tdewolff/minify"
 	"github.com/tdewolff/minify/html"
-	"io"
 	"github.com/tdewolff/minify/json"
 	"github.com/tdewolff/minify/svg"
+	"io"
 )
 
 func (s *Server) ExecuteTemplate(w io.Writer, tmpl string, d interface{}) error {

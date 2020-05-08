@@ -33,21 +33,21 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 			Check(s, w, r)
 			return
 		}
-		*/
+	*/
 
-		path := paths.Split(p)
+	path := paths.Split(p)
 
-		if path.IsFile() {
-			extra.ServeFile(s, w, r, path)
-			return
-		}
+	if path.IsFile() {
+		extra.ServeFile(s, w, r, path)
+		return
+	}
 
-		if isYearPage(path.Slug) {
-			YearPage(s, w, r, path)
-			return
-		}
+	if isYearPage(path.Slug) {
+		YearPage(s, w, r, path)
+		return
+	}
 
-		/*
+	/*
 		El(s, w, r, p)
 	*/
 }

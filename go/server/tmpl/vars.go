@@ -2,9 +2,9 @@ package tmpl
 
 import (
 	"fmt"
-	"strings"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
+	"strings"
 )
 
 type Vars map[string]string
@@ -73,5 +73,3 @@ func ReadVarFiles(root string) (map[string]string, error) {
 	}
 	return vars, nil
 }
-
-

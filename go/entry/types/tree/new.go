@@ -100,5 +100,3 @@ func isGraph(path string, parent *Tree) bool {
 	}
 	return parent.Section() == "graph"
 }
-
-

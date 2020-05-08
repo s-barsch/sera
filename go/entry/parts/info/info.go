@@ -126,7 +126,6 @@ func (i Info) Location() string {
 }
 */
 
-
 /*
 func slug(f *File, info Info, lang string) string {
 	if lang == "de" {
@@ -153,7 +152,6 @@ func UnmarshalInfo(input []byte) (Info, error) {
 
 	return i, nil
 }
-
 
 /*
 var hyphDirections = map[string]string{
@@ -200,5 +198,3 @@ func (i Info) State() string {
 	return state
 }
 */
-
-

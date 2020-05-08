@@ -65,4 +65,3 @@ func spaces(fn string) string {
 	}
 	return str
 }
-

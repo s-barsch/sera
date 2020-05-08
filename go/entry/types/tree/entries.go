@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"stferal/go/entry"
 	"stferal/go/entry/helper"
-	"stferal/go/entry/helper/sort"
 	"stferal/go/entry/helper/read"
+	"stferal/go/entry/helper/sort"
 	"stferal/go/entry/types/media"
 	"stferal/go/entry/types/set"
 )

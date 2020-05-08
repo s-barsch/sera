@@ -13,5 +13,3 @@ func LoadTemplates(root string, funcs template.FuncMap) (*template.Template, err
 	}
 	return t.ParseGlob(root + "/html/*/*/*.html")
 }
-
-

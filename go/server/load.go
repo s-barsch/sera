@@ -47,4 +47,3 @@ func (s *Server) LoadTemplates() error {
 
 	return nil
 }
-

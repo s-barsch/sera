@@ -11,7 +11,7 @@ type Path struct {
 	Slug    string
 	Hash    string
 	SubDir  string
-	SubFile *SubFile 
+	SubFile *SubFile
 }
 
 type SubFile struct {
@@ -129,7 +129,7 @@ func SplitSubpath(subp string) *SubFile {
 			Size: subp[i+1:],
 		}
 	}
-	// Remove size and put filename back together. 
+	// Remove size and put filename back together.
 	return &SubFile{
 		Name: subp[:i] + subp[j:],
 		Size: subp[i+1 : j],

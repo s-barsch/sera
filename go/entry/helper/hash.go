@@ -30,8 +30,7 @@ func ParseHash(s string) (int64, error) {
 	}
 	return i + birth, nil
 	/*
-	t := time.Unix(i+birth, 0).UTC()
-	return t.Format(Timestamp), nil
+		t := time.Unix(i+birth, 0).UTC()
+		return t.Format(Timestamp), nil
 	*/
 }
-

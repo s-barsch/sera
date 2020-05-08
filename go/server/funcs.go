@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"log"
 	"path/filepath"
-	"stferal/go/server/tmpl"
 	"stferal/go/entry/helper"
+	"stferal/go/server/tmpl"
 	"strings"
 	"text/template"
 	"time"
@@ -49,17 +49,17 @@ func (s *Server) Funcs() template.FuncMap {
 			return path
 		},
 		/*
-		"lastEl": func(els entry.Els) interface{} {
-			if len(els) <= 0 {
-				return nil
-			}
-			return els[len(els)-1]
-		},
-		"makeGraphMoreLink": func(year, lang string) (string, error) {
-			str := s.Vars.Lang("graph-main-more", lang)
-			href := fmt.Sprintf("/graph/%v", year)
-			return fmt.Sprintf(str, href), nil
-		},
+			"lastEl": func(els entry.Els) interface{} {
+				if len(els) <= 0 {
+					return nil
+				}
+				return els[len(els)-1]
+			},
+			"makeGraphMoreLink": func(year, lang string) (string, error) {
+				str := s.Vars.Lang("graph-main-more", lang)
+				href := fmt.Sprintf("/graph/%v", year)
+				return fmt.Sprintf(str, href), nil
+			},
 		*/
 		"var": func(name, lang string) string {
 			return s.Vars.Lang(name, lang)
@@ -79,7 +79,7 @@ func (s *Server) Funcs() template.FuncMap {
 		"tolower":     strings.ToLower,
 		"esc":         template.HTMLEscapeString,
 		"render":      s.RenderTemplate,
-		"monthLang": helper.MonthLang,
+		"monthLang":   helper.MonthLang,
 		"nodeName": func(acr string) string {
 			return "node_" + acr
 		},
@@ -92,11 +92,11 @@ func (s *Server) Funcs() template.FuncMap {
 		"iso8601": func(date time.Time) string {
 			return date.Format(time.RFC3339)
 		},
-		"eL": tmpl.NewEntryLang,
-		"eLy": tmpl.NewEntryLangLazy,
-		"esL": tmpl.NewEntriesLang,
-		"esLy": tmpl.NewEntriesLangLazy,
-		"snav": tmpl.NewSubnav,
+		"eL":        tmpl.NewEntryLang,
+		"eLy":       tmpl.NewEntryLangLazy,
+		"esL":       tmpl.NewEntriesLang,
+		"esLy":      tmpl.NewEntriesLangLazy,
+		"snav":      tmpl.NewSubnav,
 		"minifySvg": minifySVG,
 	}
 }

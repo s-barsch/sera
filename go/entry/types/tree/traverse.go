@@ -6,7 +6,6 @@ import (
 	"stferal/go/entry/types/set"
 )
 
-
 func (ts Trees) Reverse() Trees {
 	n := Trees{}
 	for i := len(ts) - 1; i >= 0; i-- {
@@ -84,7 +83,6 @@ func makePublic(es entry.Entries) entry.Entries {
 	}
 	return l
 }
-
 
 // langs
 

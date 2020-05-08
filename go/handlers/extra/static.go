@@ -20,7 +20,7 @@ func serveStatic(w http.ResponseWriter, r *http.Request, p string) {
 }
 
 func ServiceWorker(s *server.Server, w http.ResponseWriter, r *http.Request) {
-	serveStatic(w, r, s.Paths.Data+"/static/js" + r.URL.Path)
+	serveStatic(w, r, s.Paths.Data+"/static/js"+r.URL.Path)
 }
 
 func JSFiles(s *server.Server, w http.ResponseWriter, r *http.Request) {
