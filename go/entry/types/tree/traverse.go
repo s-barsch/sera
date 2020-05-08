@@ -58,25 +58,28 @@ func (t *Tree) Public() *Tree {
 		if tree.Info()["private"] == "true" {
 			continue
 		}
-		trees = append(trees, tree.Public())
+		ntree := tree.Public()
+		ntree.parent = nt
+		trees = append(trees, ntree)
 	}
 
-	nt.entries = setParentEs(makePublic(nt.entries), nt)
-	nt.Trees = setParentTs(trees, nt)
+	nt.entries = makePublic(nt.entries, nt)
+	nt.Trees = trees
 
 	return nt
 }
 
-func makePublic(es entry.Entries) entry.Entries {
+func makePublic(es entry.Entries, newParent entry.Entry) entry.Entries {
 	l := entry.Entries{}
 	for _, e := range es {
 		if e.Info()["private"] == "true" {
 			continue
 		}
+		e.SetParent(newParent)
 		s, ok := e.(*set.Set)
 		if ok {
 			ns := s.Copy()
-			ns.SetEntries(setParentEs(makePublic(ns.Entries()), ns))
+			ns.SetEntries(makePublic(ns.Entries(), ns))
 			e = ns
 		}
 		l = append(l, e)
@@ -93,46 +96,33 @@ func (t *Tree) Lang(lang string) *Tree {
 		if isNotTranslated(tree, lang) {
 			continue
 		}
-		trees = append(trees, tree.Lang(lang))
+		ntree := tree.Lang(lang)
+		ntree.parent = nt
+		trees = append(trees, ntree)
 	}
 
-	nt.entries = setParentEs(langOnly(nt.entries, lang), nt)
-	nt.Trees = setParentTs(trees, nt)
+	nt.entries = langOnly(nt.entries, lang, nt)
+	nt.Trees = trees 
 
 	return nt
 }
 
-func setParentEs(entries entry.Entries, parent entry.Entry) entry.Entries {
-	for _, e := range entries {
-		e.SetParent(parent)
-	}
-	return entries
-}
-
-func setParentTs(trees Trees, parent *Tree) Trees {
-	for _, t := range trees {
-		t.parent = parent
-	}
-	return trees
-}
-
-func langOnly(es entry.Entries, lang string) entry.Entries {
+func langOnly(es entry.Entries, lang string, newParent entry.Entry) entry.Entries {
 	l := entry.Entries{}
 	for _, e := range es {
 		if isEmptyText(e, lang) {
 			continue
 		}
+		e.SetParent(newParent)
 		s, ok := e.(*set.Set)
 		if ok {
 			if isNotTranslated(s, lang) {
 				continue
 			}
 			ns := s.Copy()
-			entries := langOnly(ns.Entries(), lang)
-			ns.SetEntries(setParentEs(entries, ns))
+			ns.SetEntries(langOnly(ns.Entries(), lang, ns))
 			e = ns
 		}
-
 		l = append(l, e)
 	}
 	return l
