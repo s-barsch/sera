@@ -21,7 +21,8 @@ type yearPage struct {
 
 
 func YearPage(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Path) {
-	graph := s.Trees["graph"]
+	lang := head.Lang(r.Host)
+	graph := s.Trees["graph"].Public[lang]
 
 	/*
 	if s.Flags.Local {
@@ -36,7 +37,6 @@ func YearPage(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths
 		return
 	}
 
-	lang := head.Lang(r.Host)
 
 	if perma := tree.Perma(lang); r.URL.Path != perma {
 		http.Redirect(w, r, perma, 301)

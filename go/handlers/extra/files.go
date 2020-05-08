@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	//"path/filepath"
+	"stferal/go/head"
 	"stferal/go/entry"
 	"stferal/go/paths"
 	"stferal/go/server"
@@ -20,7 +21,8 @@ func ServeFile(s *server.Server, w http.ResponseWriter, r *http.Request, path *p
 }
 
 func serveFile(s *server.Server, w http.ResponseWriter, r *http.Request, path *paths.Path) error {
-	e, err := s.Trees[path.Section()].LookupEntryHash(path.Hash)
+	tree := s.Trees[path.Section()].Public[head.Lang(r.Host)]
+	e, err := tree.LookupEntryHash(path.Hash)
 	if err != nil {
 		return err
 	}

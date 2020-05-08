@@ -19,12 +19,14 @@ type graphMain struct {
 }
 
 func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
+	lang := head.Lang(r.Host)
+	t := s.Trees["graph"].Public[lang]
 	head := &head.Head{
 		Title:   "Graph",
 		Section: "graph",
 		Path:    r.URL.Path,
 		Host:    r.Host,
-		Entry:   s.Trees["graph"],
+		Entry:   t,
 		Options: head.GetOptions(r),
 	}
 	err := head.Process()
@@ -41,7 +43,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		}
 	*/
 
-	entries := s.Recents["graph"]
+	entries := s.Recents["graph"].Public[lang]
 	/*
 		if s.Flags.Local {
 			els = s.Recents["graph-private"]
@@ -50,7 +52,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 
 	err = s.ExecuteTemplate(w, "graph-main", &graphMain{
 		Head:    head,
-		Tree:    s.Trees["graph"],
+		Tree:    t,
 		Entries: entries.Offset(0, 100), //els.NoEmpty(head.Lang).Offset(0, 100),
 		//Prev: prev,
 	})

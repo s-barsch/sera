@@ -45,7 +45,9 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	}
 	*/
 
-	index := s.Trees["index"]
+	lang := head.Lang(r.Host)
+
+	index := s.Trees["index"].Public[lang]
 
 	/*
 	if s.Flags.Local {
