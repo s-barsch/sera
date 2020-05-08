@@ -22,7 +22,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		Section: "home",
 		Path:    "/",
 		Host:    r.Host,
-		//El:      nil,
+		Entry:   nil,
 		//Desc:    s.Vars.Lang("site", head.Lang(r.Host)),
 		Options: head.GetOptions(r),
 	}
@@ -31,18 +31,13 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	index := s.Recents["index"]
-	graph := s.Recents["graph"]
-
-	if s.Flags.Local {
-		index = s.Recents["index-private"]
-		graph = s.Recents["graph-private"]
-	}
+	index := s.Recents["index"].Local(s.Flags.Local)[lang]
+	graph := s.Recents["graph"].Local(s.Flags.Local)[lang]
 
 	err = s.ExecuteTemplate(w, "front", &frontMain{
 		Head:  head,
-		Index: index.Offset(0, 100).NoEmpty(lang),
-		Graph: graph.Offset(0, 100).NoEmpty(lang),
+		Index: index.Offset(0, 100),
+		Graph: graph.Offset(0, 100),
 	})
 	if err != nil {
 		log.Println(err)

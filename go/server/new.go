@@ -4,8 +4,6 @@ import (
 	"flag"
 	"log"
 	"os"
-	"stferal/go/entry"
-	"stferal/go/entry/types/tree"
 	"text/template"
 	"stferal/go/server/tmpl"
 )
@@ -21,15 +19,6 @@ type Server struct {
 	Templates *template.Template
 	Vars      tmpl.Vars
 }
-
-type SectionTree struct {
-	Public, Private map[string]*tree.Tree
-}
-
-type SectionEntries struct {
-	Public, Private map[string]entry.Entries
-}
-
 
 type paths struct {
 	Root string
