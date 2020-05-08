@@ -22,15 +22,18 @@ type yearPage struct {
 
 func YearPage(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Path) {
 	lang := head.Lang(r.Host)
-	graph := s.Trees["graph"].Public[lang]
 
-	/*
-	if s.Flags.Local {
-		tree = s.Trees["graph-private"]
+	graph := s.Trees["graph"].Local(s.Flags.Local)[lang]
+
+
+	id, err := getId(p.Slug)
+	if err != nil {
+		http.NotFound(w, r)
+		s.Log.Println(err)
+		return
 	}
-	*/
 
-	tree, err := findYearTree(graph, p)
+	tree, err := graph.LookupTree(id)
 	if err != nil {
 		http.NotFound(w, r)
 		s.Log.Println(err)
@@ -79,15 +82,6 @@ func YearPage(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths
 	if err != nil {
 		log.Println(err)
 	}
-}
-
-func findYearTree(graph *tree.Tree, p *paths.Path) (*tree.Tree, error) {
-	id, err := getId(p.Slug)
-	if err != nil {
-		return nil, err
-	}
-
-	return graph.LookupTree(id)
 }
 
 func getId(year string) (int64, error) {

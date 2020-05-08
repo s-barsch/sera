@@ -2,7 +2,7 @@
 {{define "media-groups"}}
     <div class="media-groups">
     {{range $i, $group := .Es.Groups}}
-        <section class="{{if $group.First.IsBlob}}blob{{else}}text{{end}}-group">
+        <section class="{{if $group.First.IsBlob}}blob{{else}}tob{{end}}-group">
             {{range $group}}
                 {{template "graph-entry" (eLy . $.L false)}}
             {{end}}
