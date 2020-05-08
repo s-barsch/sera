@@ -1,6 +1,5 @@
 package index
 
-/*
 import (
 	"log"
 	"net/http"
@@ -11,22 +10,21 @@ import (
 
 type indexSerial struct {
 	Head *head.Head
-	Els  entry.Els
+	Entries  entry.Entries
 }
 
 func Serial(s *server.Server, w http.ResponseWriter, r *http.Request) {
+	lang := head.Lang(r.Host)
 	h := &head.Head{
 		Title:   "Serial - Index",
 		Section: "index",
 		Path:    r.URL.Path,
 		Host:    r.Host,
-		El:      nil,
-		Desc:    s.Vars.Lang("serial", head.Lang(r.Host)),
-		Dark:    head.DarkColors(r),
-		Large:   head.LargeType(r),
-		NoLog:   head.LogMode(r),
+		Entry:   nil,
+		//Desc:    s.Vars.Lang("serial", head.Lang(r.Host)),
+		Options: head.GetOptions(r),
 	}
-	err := h.Make()
+	err := h.Process()
 	if err != nil {
 		s.Log.Println(err)
 		return
@@ -37,26 +35,21 @@ func Serial(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	h.Langs = []*head.Link{
 		&head.Link{
 			Name: "de",
-			Href: h.AbsoluteURL("/index/serial/", "de"),
+			Href: h.AbsoluteURL("/index/serial", "de"),
 		},
 		&head.Link{
 			Name: "en",
-			Href: h.AbsoluteURL("/index/serial/", "en"),
+			Href: h.AbsoluteURL("/index/serial", "en"),
 		},
 	}
 
-	recents := s.Recents["index"].NoEmpty(h.Lang)
-
-	if s.Flags.Local {
-		recents = s.Recents["index-private"].NoEmpty(h.Lang)
-	}
+	recents := s.Recents["index"].Local(s.Flags.Local)[lang]
 
 	err = s.ExecuteTemplate(w, "index-serial", &indexSerial{
-		Head: h,
-		Els:  recents,
+		Head:    h,
+		Entries: recents,
 	})
 	if err != nil {
 		log.Println(err)
 	}
 }
-*/

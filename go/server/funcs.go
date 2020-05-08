@@ -80,8 +80,8 @@ func (s *Server) Funcs() template.FuncMap {
 		"esc":         template.HTMLEscapeString,
 		"render":      s.RenderTemplate,
 		"monthLang":   helper.MonthLang,
-		"nodeName": func(acr string) string {
-			return "node_" + acr
+		"nodeName": func(id int64) string {
+			return "node_" + helper.ToTimestamp(id)
 		},
 		"min1": func(x int) int {
 			return x - 1

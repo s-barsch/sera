@@ -1,0 +1,33 @@
+{{define "map"}} 
+digraph "" {
+nodesep=4;
+ratio=expand;
+#ratio=fill;
+#somebs=aodxias;
+#size="8,12";
+overlap=false;
+splines=true;
+graph [overlap=false tooltip="" edgetooltip=""];
+node [fontname="eb garamond, times, serif" fontsize=14 overlap=false];
+edge [arrowhead=none len=10 minlen=10 sep=1 tooltip=""];
+{{nodeName .Tree.Id}} [label="Index" tooltip="" shape=plaintext fontname="nimbus sans l" fontsize=16]
+{{template "print-holds" (snav .Tree .Tree.Id .Lang)}}
+}
+{{end}}
+
+{{define "print-holds" -}}
+{{- range .Tree.Trees}}
+      {{- $id := nodeName .Id -}}
+      {{$label := .Title $.L}}
+      {{$id}} [label="{{$label}}" tooltip="" href="{{.Perma $.L}}" shape=plaintext]
+      {{nodeName $.Active}} -> {{$id}} {{/*if .IsSymlink}}[]{{end*/}};
+      {{/* if not .IsSymlink */}}
+      {{- template "print-holds" (snav . .Id $.L) -}}
+      {{/* end */}}
+{{end}}
+{{- end}}
+
+
+{{define "graph-test"}}
+{{if eq 2 .Level}}shape=box {{end}}{{if lt .Level 3}}fontname="x{{.Level}}"{{end}}
+{{end}}

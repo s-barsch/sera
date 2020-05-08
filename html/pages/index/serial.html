@@ -1,39 +1,37 @@
 {{define "index-serial" -}}
 {{template "head" .Head}}
-<body>
 {{template "top" .}}
 
-<div class="main-title-box margin">
-    <h1 class="mainh hold-title">
+<div class="section-title__box section-title--index">
+    <h1 class="section-title">
         Serial
     </h1>
 </div>
-<main id="front" class="margin">
-{{$page := .}}
-{{$lang := .Head.Lang}}
-{{range .Els}}
-{{template "index-entry-serial" (elArg . false $lang)}}
+
+{{range .Entries}}
+{{template "index-entry-serial" (eL . $.Head.Lang)}}
 {{end}}
-</main>
+
+
 {{template "bot" .Head}}
 {{end}}
 
 {{define "index-entry-serial"}}
   <article class="text-entry index-el-front">
-    {{if eq (elType .El) "image"}}
+    {{if eq .E.Type "image"}}
         <span class="thumb index-thumb">
-            <a class="thumbl" href="{{.El.Permalink .Lang}}">
+            <a class="thumbl" href="{{.E.Perma .Lang}}">
             {{template "graph-image-thumbnail" .}}
             </a>
         </span>
     {{else}}
-        {{template "el" .}}
+        {{template "entry" .}}
     {{end}}
 <header class="front-meta">
-    {{template "private-mark" .El}}
+    {{template "private-mark" .E}}
     {{template "index-date-link" .}}
-    {{with (.El.File.Hold.Link .Lang)}}
-    <a class="topicl" href="{{.Slug}}">{{removeß .Title}}</a> 
+    {{with .E.Parent}}
+    <a class="topicl" href="{{.Perma $.L}}">{{removeß (.Title $.L)}}</a> 
     {{end}}
 </header>
     {{template "edit-link" .}}

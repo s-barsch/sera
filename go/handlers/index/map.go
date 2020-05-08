@@ -1,7 +1,5 @@
 package index
 
-/*
-
 import (
 	"bufio"
 	"bytes"
@@ -13,7 +11,7 @@ import (
 	"log"
 	"net/http"
 	"os/exec"
-	"stferal/go/entry"
+	"stferal/go/entry/types/tree"
 	"stferal/go/head"
 	"stferal/go/server"
 )
@@ -28,10 +26,10 @@ func MapDot(s *server.Server, w http.ResponseWriter, r *http.Request) {
 func printMapDot(s *server.Server, w io.Writer, lang string) error {
 	return s.Templates.ExecuteTemplate(w, "map", struct {
 		Lang string
-		Tree *entry.Hold
+		Tree *tree.Tree
 	}{
 		Lang: lang,
-		Tree: s.Trees["index"],
+		Tree: s.Trees["index"].Local(s.Flags.Local)[lang],
 	})
 }
 
@@ -132,4 +130,3 @@ func minifySVG(input []byte) ([]byte, error) {
 	m.AddFunc("image/svg+xml", svg.Minify)
 	return m.Bytes("image/svg+xml", input)
 }
-*/
