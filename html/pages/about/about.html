@@ -10,7 +10,7 @@
         <h1>
     </div>
 
-{{template "about-entries" (eL .Tree .Head.Lang)}}
+{{template "about-entries" (esL .Tree.Entries .Head.Lang)}}
 
 
 {{template "bot" .Head}}
@@ -36,9 +36,9 @@
 {{end}}
 
 {{define "about-entries"}}
-    {{range .E.Entries}}
+    {{range .Es}}
     <article class="index-el">
-        {{template "entry" (eL . $.Lang)}}
+        {{template "entry" (eL . $.L)}}
     </article>
     {{end}}
 {{end}}

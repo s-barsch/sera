@@ -33,12 +33,14 @@ func Router(s *server.Server) *mux.Router {
 
 	r.HandleFunc("/sitemaps.xml", makeHandler(s, sitemaps.Route))
 	r.PathPrefix("/sitemaps").HandlerFunc(makeHandler(s, sitemaps.Route))
+	*/
 
 	r.PathPrefix("/legal").HandlerFunc(makeHandler(s, extra.Route))
 	r.PathPrefix("/impressum").HandlerFunc(makeHandler(s, extra.Route))
 	r.PathPrefix("/datenschutz").HandlerFunc(makeHandler(s, extra.Route))
 	r.PathPrefix("/privacy").HandlerFunc(makeHandler(s, extra.Route))
 
+	/*
 	r.HandleFunc("/opt/colors/dark", makeHandler(s, extra.DarkColors))
 	r.HandleFunc("/opt/colors/light", makeHandler(s, extra.LightColors))
 	r.HandleFunc("/opt/type/large", makeHandler(s, extra.LargeType))

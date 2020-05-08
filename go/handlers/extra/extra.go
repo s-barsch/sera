@@ -3,7 +3,7 @@ package extra
 import (
 	"log"
 	"net/http"
-	"stferal/go/entry"
+	"stferal/go/entry/types/tree"
 	"stferal/go/head"
 	"stferal/go/paths"
 	"stferal/go/server"
@@ -12,7 +12,7 @@ import (
 
 type extraHold struct {
 	Head *head.Head
-	Hold *entry.Hold
+	Tree *tree.Tree
 }
 
 func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
@@ -24,31 +24,34 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 
 	items := strings.Split(strings.Trim(path, "/"), "/")
 
-	h, err := s.Trees["extra"].Search(items[len(items)-1], head.Lang(r.Host))
+	lang := head.Lang(r.Host)
+	extra := s.Trees["extra"].Public[lang]
+
+	t, err := extra.SearchTree(items[len(items)-1], head.Lang(r.Host))
 	if err != nil {
 		s.Debug(err)
 		http.NotFound(w, r)
 		return
 	}
 
-	Extra(s, w, r, h)
+	Extra(s, w, r, t)
 }
 
-func Extra(s *server.Server, w http.ResponseWriter, r *http.Request, h *entry.Hold) {
-	if perma := h.Permalink(head.Lang(r.Host)); r.URL.Path != perma {
+func Extra(s *server.Server, w http.ResponseWriter, r *http.Request, t *tree.Tree) {
+	if perma := t.Perma(head.Lang(r.Host)); r.URL.Path != perma {
 		http.Redirect(w, r, perma, 301)
 		return
 	}
 
+	lang := head.Lang(r.Host)
+
 	head := &head.Head{
-		Title:   h.Info.Title(head.Lang(r.Host)),
+		Title:   t.Title(lang),
 		Section: "extra",
 		Path:    r.URL.Path,
 		Host:    r.Host,
-		El:      h,
-		Dark:    head.DarkColors(r),
-		Large:   head.LargeType(r),
-		NoLog:   head.LogMode(r),
+		Entry:   t,
+		Options: head.GetOptions(r),
 	}
 	err := head.Process()
 	if err != nil {
@@ -58,7 +61,7 @@ func Extra(s *server.Server, w http.ResponseWriter, r *http.Request, h *entry.Ho
 
 	err = s.ExecuteTemplate(w, "extra-page", &extraHold{
 		Head: head,
-		Hold: h,
+		Tree: t,
 	})
 	if err != nil {
 		log.Println(err)

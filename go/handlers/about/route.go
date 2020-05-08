@@ -9,7 +9,7 @@ import (
 )
 
 func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
-	path, err := paths.Sanitize(r.URL.Path)
+	p, err := paths.Sanitize(r.URL.Path)
 	if err != nil {
 		http.NotFound(w, r)
 		return
@@ -17,25 +17,23 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 
 	lang := head.Lang(r.Host)
 
-	rel := path[len("/about"):] // same length as "ueber"
+	rel := p[len("/about"):] // same length as "ueber"
 
 	if rel == "" {
 		ServeAbout(s, w, r, s.Trees["about"].Public[lang])
 		return
 	}
+/*
 
-	http.NotFound(w, r)
+	path := paths.Split(path)
 
-	/*
-		p := paths.Split(path)
+	stru, err := findHold(s, head.Lang(r.Host), p)
+	if err != nil {
+		http.NotFound(w, r)
+		return
+	}
 
-		stru, err := findHold(s, head.Lang(r.Host), p)
-		if err != nil {
-			http.NotFound(w, r)
-			return
-		}
-
-		ServeTree(s, w, r, hold)
+	ServeAbout(s, w, r, t)
 	*/
 }
 

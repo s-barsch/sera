@@ -1,0 +1,16 @@
+{{define "extra-page"}}
+{{template "head" .Head}}
+{{template "top" .}}
+
+
+<h1 class="mainh hold-title">
+  {{.Tree.Title .Head.Lang}}
+</h1>
+
+{{template "about-entries" (esL .Tree.Entries .Head.Lang)}}
+
+
+{{template "bot" .Head}}
+{{end}}
+
+
