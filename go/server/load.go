@@ -81,7 +81,7 @@ func (s *Server) LoadTrees() error {
 		}
 
 		fmt.Printf("%v: lang de %v\n", section, len(recents[section].Public["de"]))
-		fmt.Printf("%v: lang en %v\n", section, len(recents[section].Private["de"]))
+		fmt.Printf("%v: lang en %v\n", section, len(recents[section].Public["en"]))
 	}
 
 	s.Trees = trees

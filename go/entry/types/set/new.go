@@ -20,6 +20,18 @@ type Set struct {
 	//Cover *Image
 }
 
+func (s *Set) Copy() *Set {
+	return &Set{
+		parent: s.parent,
+		file:   s.file,
+
+		date: s.date,
+		info: s.info,
+
+		entries: s.entries,
+	}
+}
+
 type Sets []*Set
 
 func NewSet(path string, parent entry.Entry) (*Set, error) {

@@ -20,6 +20,19 @@ type Tree struct {
 	Trees   Trees
 }
 
+func (t *Tree) Copy() *Tree {
+	return &Tree{
+		parent: t.parent,
+		file:   t.file,
+
+		date: t.date,
+		info: t.info,
+
+		entries: t.entries,
+		Trees:   t.Trees,
+	}
+}
+
 type Trees []*Tree
 
 func ReadTree(path string, parent *Tree) (*Tree, error) {
@@ -87,3 +100,5 @@ func isGraph(path string, parent *Tree) bool {
 	}
 	return parent.Section() == "graph"
 }
+
+

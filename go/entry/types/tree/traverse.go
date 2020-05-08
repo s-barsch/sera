@@ -53,18 +53,19 @@ func (tree *Tree) TraverseEntriesReverse() entry.Entries {
 // public functions
 
 func (t *Tree) Public() *Tree {
+	nt := t.Copy()
 	trees := Trees{}
-	for _, tree := range t.Trees {
+	for _, tree := range nt.Trees {
 		if tree.Info()["private"] == "true" {
 			continue
 		}
 		trees = append(trees, tree.Public())
 	}
 
-	t.entries = makePublic(t.entries)
-	t.Trees = trees
+	nt.entries = makePublic(nt.entries)
+	nt.Trees = trees
 
-	return t
+	return nt
 }
 
 func makePublic(es entry.Entries) entry.Entries {
@@ -75,8 +76,9 @@ func makePublic(es entry.Entries) entry.Entries {
 		}
 		s, ok := e.(*set.Set)
 		if ok {
-			s.SetEntries(makePublic(s.Entries()))
-			e = s
+			ns := s.Copy()
+			ns.SetEntries(makePublic(ns.Entries()))
+			e = ns
 		}
 		l = append(l, e)
 	}
@@ -87,18 +89,19 @@ func makePublic(es entry.Entries) entry.Entries {
 // langs
 
 func (t *Tree) Lang(lang string) *Tree {
+	nt := t.Copy()
 	trees := Trees{}
-	for _, tree := range t.Trees {
+	for _, tree := range nt.Trees {
 		if isNotTranslated(tree, lang) {
 			continue
 		}
 		trees = append(trees, tree.Lang(lang))
 	}
 
-	t.entries = langOnly(t.entries, lang)
-	t.Trees = trees
+	nt.entries = langOnly(nt.entries, lang)
+	nt.Trees = trees
 
-	return t
+	return nt
 }
 
 func langOnly(es entry.Entries, lang string) entry.Entries {
@@ -112,8 +115,9 @@ func langOnly(es entry.Entries, lang string) entry.Entries {
 			if isNotTranslated(s, lang) {
 				continue
 			}
-			s.SetEntries(langOnly(s.Entries(), lang))
-			e = s
+			ns := s.Copy()
+			ns.SetEntries(langOnly(ns.Entries(), lang))
+			e = ns
 		}
 
 		l = append(l, e)
