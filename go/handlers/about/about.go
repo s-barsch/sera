@@ -19,20 +19,19 @@ type aboutTree struct {
 	Tree *tree.Tree
 }
 
-func ServeAbout(s *server.Server, w http.ResponseWriter, r *http.Request, struc *tree.Tree) {
-	/*
-		if perma := hold.Permalink(head.Lang(r.Host)); r.URL.Path != perma {
-			http.Redirect(w, r, perma, 301)
-			return
-		}
-	*/
+func ServeAbout(s *server.Server, w http.ResponseWriter, r *http.Request, t *tree.Tree) {
+	lang := head.Lang(r.Host)
+	if perma := t.Perma(lang); r.URL.Path != perma {
+		http.Redirect(w, r, perma, 301)
+		return
+	}
 
 	head := &head.Head{
-		Title:   struc.Title(head.Lang(r.Host)),
+		Title:   t.Title(lang),
 		Section: "about",
 		Path:    r.URL.Path,
 		Host:    r.Host,
-		Entry:   struc,
+		Entry:   t,
 		Options: head.GetOptions(r),
 	}
 	err := head.Process()
@@ -43,7 +42,7 @@ func ServeAbout(s *server.Server, w http.ResponseWriter, r *http.Request, struc 
 
 	err = s.ExecuteTemplate(w, "about-main", &aboutTree{
 		Head: head,
-		Tree: struc,
+		Tree: t, 
 	})
 	if err != nil {
 		log.Println(err)

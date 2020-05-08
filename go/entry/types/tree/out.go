@@ -24,8 +24,21 @@ func (t *Tree) Perma(lang string) string {
 		return graphPerma(t, lang)
 	case "index":
 		return indexPerma(t, lang)
+	case "about":
+		return aboutPerma(t, lang)
 	}
 	return fmt.Sprintf("/%v", t.Slug(lang))
+}
+
+func aboutPerma(t *Tree, lang string) string {
+	if t.Level() < 2 {
+		return t.Path(lang)
+	}
+	return defaultPerma(t, lang)
+}
+
+func defaultPerma(t *Tree, lang string) string {
+	return fmt.Sprintf("%v/%v-%v", t.parent.Path(lang), t.Slug(lang), t.Hash())
 }
 
 func extraPerma(t *Tree, lang string) string {

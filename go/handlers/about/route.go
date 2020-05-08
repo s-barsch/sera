@@ -23,35 +23,16 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		ServeAbout(s, w, r, s.Trees["about"].Public[lang])
 		return
 	}
-/*
 
-	path := paths.Split(path)
+	path := paths.Split(p)
+	about := s.Trees["about"].Public[lang]
 
-	stru, err := findHold(s, head.Lang(r.Host), p)
+	t, err := about.SearchTree(path.Slug, lang)
 	if err != nil {
 		http.NotFound(w, r)
 		return
 	}
 
 	ServeAbout(s, w, r, t)
-	*/
 }
 
-/*
-func findHold(s *server.Server, lang string, p *paths.Path) (*entry.Hold, error) {
-	hold, err := s.Trees["about"].Search(p.Name, lang)
-	if err == nil {
-		return hold, nil
-	}
-
-	if p.Acronym != "" {
-		hold, err := s.Trees["about"].LookupAcronym(p.Acronym)
-		if err == nil {
-			return hold.(*entry.Hold), nil
-		}
-		return nil, err
-	}
-
-	return nil, err
-}
-*/

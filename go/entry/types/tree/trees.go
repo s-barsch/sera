@@ -2,10 +2,12 @@ package tree
 
 import (
 	"io/ioutil"
+	"fmt"
 	"os"
 	p "path/filepath"
-	//"stferal/go/entry"
+	"stferal/go/entry"
 	he "stferal/go/entry/helper"
+	"stferal/go/entry/helper/sort"
 	//"stferal/go/entry/parts/info"
 	//"strings"
 )
@@ -30,7 +32,31 @@ func readTrees(path string, parent *Tree) (Trees, error) {
 	}
 
 	// TODO: sort trees
+	entries, err := sort.SortEntries(path, toEntries(trees))
+	if err != nil {
+		return nil, err
+	}
 
+	return toTrees(entries)
+}
+
+func toEntries(trees Trees) entry.Entries {
+	es := entry.Entries{}
+	for _, t := range trees {
+		es = append(es, t)
+	}
+	return es
+}
+
+func toTrees(es entry.Entries) (Trees, error) {
+	trees := Trees{}
+	for _, e := range es {
+		t, ok := e.(*Tree)
+		if !ok {
+			return nil, fmt.Errorf("toTrees: could not convert to *Tree")
+		}
+		trees = append(trees, t)
+	}
 	return trees, nil
 }
 
