@@ -15,12 +15,21 @@ type Server struct {
 	Flags *flags
 	Log   *log.Logger
 
-	Trees   map[string]*tree.Tree
-	Recents map[string]entry.Entries
+	Trees   map[string]*SectionTree
+	Recents map[string]*SectionEntries
 
 	Templates *template.Template
 	Vars      tmpl.Vars
 }
+
+type SectionTree struct {
+	Public, Private map[string]*tree.Tree
+}
+
+type SectionEntries struct {
+	Public, Private map[string]entry.Entries
+}
+
 
 type paths struct {
 	Root string

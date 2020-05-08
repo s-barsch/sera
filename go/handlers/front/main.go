@@ -10,8 +10,8 @@ import (
 
 type frontMain struct {
 	Head  *head.Head
-	Index entry.Els
-	Graph entry.Els
+	Index entry.Entries
+	Graph entry.Entries
 }
 
 func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
@@ -22,11 +22,9 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		Section: "home",
 		Path:    "/",
 		Host:    r.Host,
-		El:      nil,
-		Desc:    s.Vars.Lang("site", head.Lang(r.Host)),
-		Dark:    head.DarkColors(r),
-		Large:   head.LargeType(r),
-		NoLog:   head.LogMode(r),
+		//El:      nil,
+		//Desc:    s.Vars.Lang("site", head.Lang(r.Host)),
+		Options: head.GetOptions(r),
 	}
 	err := head.Process()
 	if err != nil {

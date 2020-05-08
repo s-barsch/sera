@@ -60,8 +60,8 @@ func (s *Server) LoadTrees() error {
 		"extra",
 	}
 
-	trees := map[string]*tree.Tree{}
-	recents := map[string]entry.Entries{}
+	trees := map[string]*SectionTree{}
+	recents := map[string]*SectionEntries{}
 
 	for _, section := range sections {
 		t, err := tree.ReadTree(s.Paths.Data+"/"+section, nil)
@@ -69,20 +69,35 @@ func (s *Server) LoadTrees() error {
 			return err
 		}
 
-		sPrivate := section+"-private"
-		sPublic := section
+		trees[section] = &SectionTree{
+			Private: makeLangs(t),
+			Public:  makeLangs(t.Public()),
+		}
 
-		trees[sPrivate] = t
-		trees[sPublic] = t.MakePublic()
-
-		recents[sPrivate] = serialize(trees[sPrivate])
-		recents[sPublic] = serialize(trees[sPublic])
+		recents[section] = &SectionEntries{
+			Private: serializeLangs(trees[section].Private),
+			Public:  serializeLangs(trees[section].Public),
+		}
 	}
 
 	s.Trees = trees
 	s.Recents = recents
 
 	return nil
+}
+
+func makeLangs(t *tree.Tree) map[string]*tree.Tree {
+	return map[string]*tree.Tree{
+		"de": t.Lang("de"),
+		"en": t.Lang("en"),
+	}
+}
+
+func serializeLangs(langMap map[string]*tree.Tree) map[string]entry.Entries {
+	return map[string]entry.Entries{
+		"de": serialize(langMap["de"]),
+		"en": serialize(langMap["en"]),
+	}
 }
 
 func serialize(t *tree.Tree) entry.Entries {
@@ -93,3 +108,22 @@ func serialize(t *tree.Tree) entry.Entries {
 }
 
 
+/*
+func (els Els) NoEmpty(lang string) Els {
+	l := Els{}
+	for _, e := range els {
+		if Type(e) == "text" {
+			if e.(*Text).Text[lang] == "" {
+				continue
+			}
+		}
+		if Type(e) == "set" && lang != "de" {
+			if e.(*Set).Info["translated"] == "false" {
+				continue
+			}
+		}
+		l = append(l, e)
+	}
+	return l
+}
+*/

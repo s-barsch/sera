@@ -78,8 +78,6 @@ func (els Els) LazyLoad() Els {
 }
 */
 
-
-
 /*
 type Desc Els
 
@@ -159,8 +157,6 @@ func (els Els) Desc() Els {
 	sort.Sort(Desc(els))
 	return els
 }
-
-
 
 func (els Els) Days() []Els {
 	days := []Els{}
@@ -253,20 +249,4 @@ func isNewDay(current, before interface{}) bool {
 	return false
 }
 
-func (els Els) NoEmpty(lang string) Els {
-	l := Els{}
-	for _, e := range els {
-		if Type(e) == "text" {
-			if e.(*Text).Text[lang] == "" {
-				continue
-			}
-		}
-		if Type(e) == "set" && lang != "de" {
-			if e.(*Set).Info["translated"] == "false" {
-				continue
-			}
-		}
-		l = append(l, e)
-	}
-	return l
-}
+

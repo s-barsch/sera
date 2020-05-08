@@ -2,6 +2,7 @@ package tree
 
 import (
 	"stferal/go/entry"
+	"stferal/go/entry/types/media/text"
 	"stferal/go/entry/types/set"
 )
 
@@ -51,13 +52,13 @@ func (tree *Tree) TraverseEntriesReverse() entry.Entries {
 
 // public functions
 
-func (t *Tree) MakePublic() *Tree {
+func (t *Tree) Public() *Tree {
 	trees := Trees{}
 	for _, tree := range t.Trees {
 		if tree.Info()["private"] == "true" {
 			continue
 		}
-		trees = append(trees, tree.MakePublic())
+		trees = append(trees, tree.Public())
 	}
 
 	t.entries = makePublic(t.entries)
@@ -76,6 +77,41 @@ func makePublic(es entry.Entries) entry.Entries {
 		if ok {
 			s.SetEntries(makePublic(s.Entries()))
 			e = s
+		}
+		l = append(l, e)
+	}
+	return l
+}
+
+
+// langs
+
+func (t *Tree) Lang(lang string) *Tree {
+	trees := Trees{}
+	for _, tree := range t.Trees {
+		if lang == "de" && tree.Info()["translated"] == "false" {
+			continue
+		}
+		trees = append(trees, tree.Public())
+	}
+
+	t.entries = langOnly(t.entries, lang)
+	t.Trees = trees
+
+	return t
+}
+
+func langOnly(es entry.Entries, lang string) entry.Entries {
+	l := entry.Entries{}
+	for _, e := range es {
+		if e.Info()["private"] == "true" {
+			continue
+		}
+		tx, ok := e.(*text.Text)
+		if ok {
+			if tx.Text(lang) == "" {
+				continue
+			}
 		}
 		l = append(l, e)
 	}
