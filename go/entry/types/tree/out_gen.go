@@ -64,6 +64,10 @@ func (e *Tree) IsBlob() bool {
 	return entry.IsBlob(e)
 }
 
+func (e *Tree) SetParent(parent entry.Entry) {
+	e.parent = parent
+}
+
 func (e *Tree) Entries() entry.Entries {
 	return e.entries
 }

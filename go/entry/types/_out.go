@@ -70,6 +70,10 @@ func {{receiver .}} IsBlob() bool {
 	return entry.IsBlob(e)
 }
 
+func {{receiver .}} SetParent(parent entry.Entry) {
+	e.parent = parent
+}
+
 {{if not (isMedia .)}}
 func {{receiver .}} Entries() entry.Entries {
 	return e.entries

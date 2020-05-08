@@ -61,8 +61,8 @@ func (t *Tree) Public() *Tree {
 		trees = append(trees, tree.Public())
 	}
 
-	nt.entries = makePublic(nt.entries)
-	nt.Trees = trees
+	nt.entries = setParentEs(makePublic(nt.entries), nt)
+	nt.Trees = setParentTs(trees, nt)
 
 	return nt
 }
@@ -76,7 +76,7 @@ func makePublic(es entry.Entries) entry.Entries {
 		s, ok := e.(*set.Set)
 		if ok {
 			ns := s.Copy()
-			ns.SetEntries(makePublic(ns.Entries()))
+			ns.SetEntries(setParentEs(makePublic(ns.Entries()), ns))
 			e = ns
 		}
 		l = append(l, e)
@@ -96,10 +96,24 @@ func (t *Tree) Lang(lang string) *Tree {
 		trees = append(trees, tree.Lang(lang))
 	}
 
-	nt.entries = langOnly(nt.entries, lang)
-	nt.Trees = trees
+	nt.entries = setParentEs(langOnly(nt.entries, lang), nt)
+	nt.Trees = setParentTs(trees, nt)
 
 	return nt
+}
+
+func setParentEs(entries entry.Entries, parent entry.Entry) entry.Entries {
+	for _, e := range entries {
+		e.SetParent(parent)
+	}
+	return entries
+}
+
+func setParentTs(trees Trees, parent *Tree) Trees {
+	for _, t := range trees {
+		t.parent = parent
+	}
+	return trees
 }
 
 func langOnly(es entry.Entries, lang string) entry.Entries {
@@ -114,7 +128,8 @@ func langOnly(es entry.Entries, lang string) entry.Entries {
 				continue
 			}
 			ns := s.Copy()
-			ns.SetEntries(langOnly(ns.Entries(), lang))
+			entries := langOnly(ns.Entries(), lang)
+			ns.SetEntries(setParentEs(entries, ns))
 			e = ns
 		}
 

@@ -25,6 +25,7 @@ type Entry interface {
 	Perma(string) string
 
 	IsBlob() bool
+	SetParent(Entry)
 }
 
 type Collection interface {

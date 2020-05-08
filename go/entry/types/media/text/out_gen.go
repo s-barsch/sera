@@ -66,6 +66,10 @@ func (e *Text) IsBlob() bool {
 	return entry.IsBlob(e)
 }
 
+func (e *Text) SetParent(parent entry.Entry) {
+	e.parent = parent
+}
+
 func (e *Text) Path(lang string) string {
 	return fmt.Sprintf("%v/%v", e.parent.Path(lang), e.Slug(lang))
 }

@@ -29,7 +29,7 @@ func printMapDot(s *server.Server, w io.Writer, lang string) error {
 		Tree *tree.Tree
 	}{
 		Lang: lang,
-		Tree: s.Trees["index"].Local(s.Flags.Local)[lang],
+		Tree: s.Trees["index"].Public[lang],
 	})
 }
 

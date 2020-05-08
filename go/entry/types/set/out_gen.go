@@ -66,6 +66,10 @@ func (e *Set) IsBlob() bool {
 	return entry.IsBlob(e)
 }
 
+func (e *Set) SetParent(parent entry.Entry) {
+	e.parent = parent
+}
+
 func (e *Set) Entries() entry.Entries {
 	return e.entries
 }

@@ -66,6 +66,10 @@ func (e *Image) IsBlob() bool {
 	return entry.IsBlob(e)
 }
 
+func (e *Image) SetParent(parent entry.Entry) {
+	e.parent = parent
+}
+
 func (e *Image) Path(lang string) string {
 	return fmt.Sprintf("%v/%v", e.parent.Path(lang), e.Slug(lang))
 }
