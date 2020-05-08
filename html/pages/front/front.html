@@ -3,42 +3,41 @@
 
 {{template "top" .}}
 
-<main class="margin">
 
   <h4 class="front-lead">{{var "front-lead" .Head.Lang}}</h4>
 
   <div></div>
 
   <div class="cols">
-  {{template "index-col" .}}
-
-  {{template "graph-col" .}}
+    {{template "index-col" .}}
+    {{template "graph-col" .}}
 
   </div>
 
 
 
-</main>
 
 {{template "bot" .Head}}
 {{end}}
 
+  
 {{define "index-col" -}}
   <section class="col">
       <div class="front-sep"></div>
       <h3 class="front-section"><a href="/index/">Index</a></h3>
-      {{$lang := .Head.Lang}}
       {{range .Index.Offset 0 4}}
-      {{template "index-el-front" (elArg . false $lang)}}
+      {{template "index-el-front" (eL . $.Head.Lang)}}
       {{end}}
       {{range .Index.Offset 4 15}}
       <div class="desktop">
-          {{template "index-el-front" (elArg . false $lang)}}
+          {{template "index-el-front" (eL . $.Head.Lang)}}
       </div>
       {{end}}
+    {{/*
       <div class="more-tip">
           {{var "index-more" $lang}}
       </div>
+  */}}
   </section>
 {{- end}}
 
@@ -46,7 +45,7 @@
   <section class="col graph-col">
       <div class="front-sep"></div>
       <h3 class="front-section"><a href="/graph/">Graph</a></h3>
-      {{template "media-groups-front" (elsArg (.Graph.Offset 0 5) false .Head.Lang)}}
+      {{template "media-groups-front" (esL (.Graph.Offset 0 5) .Head.Lang)}}
       <div class="more-tip">
       {{var "graph-more" .Head.Lang}}
       </div>
@@ -65,27 +64,13 @@
 </div>
 {{end}}
 
-{{define "index-el-front"}}
-  <article class="text-entry index-el-front">
-    {{if eq (elType .El) "image"}}
-        <span class="thumb index-thumb">
-            <a class="thumbl" href="{{.El.Permalink .Lang}}">
-            {{template "graph-image-thumbnail" .}}
-            </a>
-        </span>
-    {{else}}
-        {{template "el" .}}
-    {{end}}
-    {{template "front-index-title" .}}
-  </article>
-{{end}}
 
 {{define "media-groups-front"}}
-    {{$lang := .Lang}}
     {{$total := 0}}
     <div class="media-groups">
-    {{range $i, $group := .Els.MediaGroups}}
-        {{$type := (elType (index $group 0))}}
+    {{range $i, $group := .Es.Groups}}
+      {{$type := $group.First.Type}}
+
       {{if eq $type "image"}}
       <section class="images">
       {{else if eq $type "text"}}
@@ -102,7 +87,7 @@
             {{if $forDesktop}}
             <div class="desktop">
             {{end}}
-            {{template "front-main-el" (elArg $e false $lang)}}
+            {{template "front-main-el" (eL $e $.L)}}
             {{if $forDesktop}}
             </div>
             {{end}}
@@ -116,51 +101,47 @@
 
 {{define "front-main-el"}}
 
-  {{$type := elType .El}}
+  {{$type := .E.Type}}
 
 
     {{if eq $type "image"}}
 
       <span class="thumb">
         <a class="thumbl" href="{{.El.Permalink .Lang}}">
-          {{template "front-image-thumbnail" (elArg .El .Lazy .Lang)}}
+          {{template "front-image-thumbnail" .}}
         </a>
       </span>
 
     {{else if eq $type "set"}}
 
       <span class="thumb">
-        {{template "graph-main-set" (elArg .El .Lazy .Lang)}}
+        {{template "graph-set" .}}
       </span>
 
     {{else if eq $type "text"}}
 
-        <!-- to omit missing translations -->
-        {{$text := .El.TextLang .Lang}}
-        {{if $text}}
             <article class="text-entry graph-text">
                     <div>
-                        {{$text}}
+                      {{.E.Text .L}}
                     </div>
-                    {{template "front-date" (elArg .El false .Lang)}}
+                    {{template "front-date" .}}
             </article>
-        {{end}}
     {{else if eq $type "audio"}}
         <article>
             {{template "el" .}}
-            {{template "edit-link" (elArg .El false .Lang)}}
-            {{template "front-date" (elArg .El false .Lang)}}
+            {{template "edit-link" .}}
+            {{template "front-date" .}}
         <article>
     {{else if eq $type "video"}}
         <article>
             {{template "el" .}}
-            {{template "edit-link" (elArg .El false .Lang)}}
-            {{template "front-date" (elArg .El false .Lang)}}
+            {{template "edit-link" .}}
+            {{template "front-date" .}}
         <article>
     {{else if eq $type "html"}}
             <article class="text-entry graph-text">
                     <div>
-                        {{template "el" .}}
+                        {{template "entry" .}}
                     </div>
             </article>
     
@@ -175,7 +156,6 @@
     <img class="thumbi" src="{{.El.ImagePath 320 .Lang}}"
                         alt="{{.El.Title .Lang}}" 
                         srcset="{{template "front-thumb-srcset" .}}">
-    {{/* sizes="17rem" */}}
 {{end}}
 
 {{define "front-thumb-srcset" -}}
@@ -184,26 +164,12 @@
 
 {{define "front-date"}}
 <header class="front-meta">
-    {{template "private-mark" .El}}
-    <a class="" href="{{.El.Permalink .Lang}}">
-        {{.El.Date.Format "2<span class=\"ddot\">.</span> 1<span class=\"ddot\">.</span>"}}
+    {{template "private-mark" .E}}
+    <a class="" href="{{.E.Perma .L}}">
+        {{.E.Date.Format "2<span class=\"ddot\">.</span> 1<span class=\"ddot\">.</span>"}}
     </a>
 </header>
-{{template "edit-link" (elArg .El false .Lang)}}
-{{end}}
-
-{{define "private-mark"}}
-    {{if eq (index .Info "private") "true"}}<span class="private">⦻</span>{{end}}
-{{end}}
-
-{{define "front-index-title"}}
-<header class="front-meta">
-    {{template "private-mark" .El}}
-    {{with (.El.File.Hold.Link .Lang)}}
-    <a class="topicl" href="{{.Slug}}">{{removeß .Title}}</a> 
-    {{end}}
-</header>
-    {{template "edit-link" .}}
+{{template "edit-link" .}}
 {{end}}
 
 {{define "index-title-front"}}
@@ -223,13 +189,12 @@
 
 
 {{define "set-els"}}
-{{$lang := .Lang}}
-{{range $i, $e := .El.Els}}
-{{$type := elType $e}}
+{{range $i, $e := .E.Entries}}
+{{$type := $e.Type}}
     {{if eq $type "image"}}
     <div class="img-limiter margin">
     {{end}}
-    {{template "el" (elArg $e $lang)}}
+    {{template "el" (eL $e $.L)}}
     {{if eq $type "image"}}
     </div>
     {{end}}
@@ -237,28 +202,3 @@
 {{end}}
 
 
-{{define "changelog"}}
-{{$lang := .Lang}}
-{{with .El}}
-    <section>
-        <h3 id="changelog"><a href="/changelog">Changelog</a></h3>
-        <ul class="changelog">
-            {{range .}}
-            <li>
-                <span class="modtime mono small">
-                {{.ModTime.Format "02.01.06"}}
-                </span>
-                <span class="changelog-title">
-                <a href="{{index .TitleHref $lang}}">
-                {{index .Title $lang}}
-                </a>
-                </span>
-                <a class="topic-front blackl" href="{{index .HoldHref $lang}}">
-                    {{index .HoldName $lang}}
-                </a>
-            </li>
-            {{end}}
-        </ul>
-    </section>
-{{end}}
-{{end}}

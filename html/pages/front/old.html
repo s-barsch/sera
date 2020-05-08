@@ -1,0 +1,27 @@
+{{define "changelog"}}
+{{$lang := .Lang}}
+{{with .El}}
+    <section>
+        <h3 id="changelog"><a href="/changelog">Changelog</a></h3>
+        <ul class="changelog">
+            {{range .}}
+            <li>
+                <span class="modtime mono small">
+                {{.ModTime.Format "02.01.06"}}
+                </span>
+                <span class="changelog-title">
+                <a href="{{index .TitleHref $lang}}">
+                {{index .Title $lang}}
+                </a>
+                </span>
+                <a class="topic-front blackl" href="{{index .HoldHref $lang}}">
+                    {{index .HoldName $lang}}
+                </a>
+            </li>
+            {{end}}
+        </ul>
+    </section>
+{{end}}
+{{end}}
+
+

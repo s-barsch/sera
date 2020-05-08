@@ -7,8 +7,8 @@ import (
 	"stferal/go/handlers/about"
 	"stferal/go/handlers/extra"
 	"stferal/go/handlers/graph"
-	/*
 	"stferal/go/handlers/front"
+	/*
 	"stferal/go/handlers/sitemaps"
 	*/
 	"stferal/go/server"
@@ -21,10 +21,7 @@ func Router(s *server.Server) *mux.Router {
 		r.Use(makeMiddleware(s, extra.ConstantReload))
 	}
 
-	/*
 	r.HandleFunc("/", makeHandler(s, front.Main))
-
-	*/
 	r.PathPrefix("/index").HandlerFunc(makeHandler(s, index.Route))
 	r.PathPrefix("/graph").HandlerFunc(makeHandler(s, graph.Route))
 	r.PathPrefix("/ueber").HandlerFunc(makeHandler(s, about.Route))

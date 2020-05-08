@@ -35,10 +35,13 @@ func (h *Head) MakeLangs() Langs {
 }
 
 func getLink(h *Head, e entry.Entry, lang string) *Link {
-	href := h.AbsoluteURL(e.Perma(lang), lang)
+	href := ""
 
-	if lang != "de" && !isTranslated(e, lang) {
+	// TODO: still necessary?
+	if e == nil { //|| (lang != "de" && !isTranslated(e, lang)) {
 		href = h.HostAddress(lang)
+	} else {
+		href = h.AbsoluteURL(e.Perma(lang), lang)
 	}
 
 	return &Link{
