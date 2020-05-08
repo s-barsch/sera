@@ -5,6 +5,7 @@ import (
 	"stferal/go/entry/types/tree"
 	"stferal/go/server/tmpl"
 	"time"
+	"fmt"
 )
 
 func (s *Server) Load() error {
@@ -78,6 +79,9 @@ func (s *Server) LoadTrees() error {
 			Private: serializeLangs(trees[section].Private),
 			Public:  serializeLangs(trees[section].Public),
 		}
+
+		fmt.Printf("%v: lang de %v\n", section, len(recents[section].Public["de"]))
+		fmt.Printf("%v: lang en %v\n", section, len(recents[section].Private["de"]))
 	}
 
 	s.Trees = trees
@@ -88,7 +92,7 @@ func (s *Server) LoadTrees() error {
 
 func makeLangs(t *tree.Tree) map[string]*tree.Tree {
 	return map[string]*tree.Tree{
-		"de": t.Lang("de"),
+		"de": t,
 		"en": t.Lang("en"),
 	}
 }

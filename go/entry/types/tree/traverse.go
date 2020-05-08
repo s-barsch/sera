@@ -89,10 +89,10 @@ func makePublic(es entry.Entries) entry.Entries {
 func (t *Tree) Lang(lang string) *Tree {
 	trees := Trees{}
 	for _, tree := range t.Trees {
-		if lang == "de" && tree.Info()["translated"] == "false" {
+		if isNotTranslated(tree, lang) {
 			continue
 		}
-		trees = append(trees, tree.Public())
+		trees = append(trees, tree.Lang(lang))
 	}
 
 	t.entries = langOnly(t.entries, lang)
@@ -104,18 +104,40 @@ func (t *Tree) Lang(lang string) *Tree {
 func langOnly(es entry.Entries, lang string) entry.Entries {
 	l := entry.Entries{}
 	for _, e := range es {
-		if e.Info()["private"] == "true" {
+		if isEmptyText(e, lang) {
 			continue
 		}
-		tx, ok := e.(*text.Text)
+		s, ok := e.(*set.Set)
 		if ok {
-			if tx.Text(lang) == "" {
+			if isNotTranslated(s, lang) {
 				continue
 			}
+			s.SetEntries(langOnly(s.Entries(), lang))
+			e = s
 		}
+
 		l = append(l, e)
 	}
 	return l
 }
 
+func isNotTranslated(e entry.Entry, lang string) bool {
+	_, ok := e.(entry.Collection)
+	if !ok {
+		return false
+	}
+	if e.Info().Title(lang) == "" {
+		return true
+	}
+	return lang != "de" && e.Info()["translated"] == "false"
+}
 
+func isEmptyText(e entry.Entry, lang string) bool {
+	tx, ok := e.(*text.Text)
+	if ok {
+		if tx.Text(lang) == "" {
+			return true
+		}
+	}
+	return false
+}
