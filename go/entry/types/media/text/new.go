@@ -3,6 +3,7 @@ package text
 import (
 	"stferal/go/entry"
 	"stferal/go/entry/helper"
+	"stferal/go/entry/helper/markup"
 	"stferal/go/entry/parts/file"
 	"stferal/go/entry/parts/info"
 	"time"
@@ -17,6 +18,8 @@ type Text struct {
 
 	text  map[string]string
 	blank map[string]string
+
+	Notes map[string][]string
 }
 
 func NewText(path string, parent entry.Entry) (*Text, error) {
@@ -31,7 +34,7 @@ func NewText(path string, parent entry.Entry) (*Text, error) {
 		return nil, fnErr
 	}
 
-	inf, parts, err := readTextFile(path)
+	inf, langs, err := readTextFile(path)
 	if err != nil {
 		fnErr.Err = err
 		return nil, fnErr
@@ -46,6 +49,8 @@ func NewText(path string, parent entry.Entry) (*Text, error) {
 		}
 	}
 
+	rendered, notes := renderLangs(langs)
+
 	return &Text{
 		parent: parent,
 		file:   file,
@@ -53,9 +58,21 @@ func NewText(path string, parent entry.Entry) (*Text, error) {
 		date: date,
 		info: inf,
 
-		text:  parts,
-		blank: parts,
+		text:  rendered,
+		blank: langs,
+
+		Notes: notes,
 	}, nil
+}
+
+func renderLangs(langs map[string]string) (map[string]string, map[string][]string) {
+	notes := map[string][]string{}
+	for _, l := range []string{"de", "en"} {
+		text, ns := markup.Render(langs[l])
+		langs[l] = text
+		notes[l] = ns
+	}
+	return langs, notes
 }
 
 func readTextFile(path string) (info.Info, map[string]string, error) {
