@@ -1,36 +1,32 @@
-{{define "center-html"}}<p class="center">{{printf "%s" .}}</p>{{end}}
 
-{{define "em-html"}}<em>{{printf "%s" .}}</em>{{end}}
+{{define "em"}}<em>{{printf "%s" .}}</em>{{end}}
 
-{{define "italic-html"}}<em class="italic">{{printf "%s" .}}</em>{{end}}
+{{define "italic"}}<em class="italic">{{printf "%s" .}}</em>{{end}}
 
-{{define "under-html"}}<mark class="under">{{printf "%s" .}}</mark>{{end}}
+{{define "under"}}<mark class="under">{{printf "%s" .}}</mark>{{end}}
 
-{{define "strike-html"}}<span class="strike">{{printf "%s" .}}</span>{{end}}
+{{define "strike"}}<span class="strike">{{printf "%s" .}}</span>{{end}}
 
-{{define "sperr-html"}}<em class="sperr">{{printf "%s" .}}</em>{{end}}
+{{define "sperr"}}<em class="sperr">{{printf "%s" .}}</em>{{end}}
 
-{{define "sc-html"}}<mark class="sc">{{printf "%s" .}}</mark>{{end}}
+{{define "sc"}}<mark class="sc">{{printf "%s" .}}</mark>{{end}}
 
-{{define "note-html"}}<span class="note">[{{printf "%s" .}}]</span>{{end}}
+{{define "note"}}<span class="note">[{{printf "%s" .}}]</span>{{end}}
 
-{{define "mono-html"}}<span class="mono">{{printf "%s" .}}</span>{{end}}
+{{define "mono"}}<span class="mono">{{printf "%s" .}}</span>{{end}}
 
 
-{{define "sep-html"}}</div><div><p class="sep">{{printf "%s" .}}</p></div><div>{{end}}
+{{define "sep"}}</div><div><p class="sep">{{printf "%s" .}}</p></div><div>{{end}}
 
-{{define "poem-html"}}<span class="poem">{{printf "%s" .}}</span>{{end}}
+{{define "poem"}}<span class="poem">{{printf "%s" .}}</span>{{end}}
 
-{{define "p-indent-html"}}<p class="indent">{{printf "%s" .}}</p>{{end}}
-
-{{define "p-lines-html"}}<p class="lines">{{printf "%s" .}}</p>
 {{end}}
 
-{{define "note-ref-html"}}<sup class="note-ref"><a class="notel" href="#">{{.}}</a></sup>{{end}}
+{{define "note-ref"}}<sup class="note-ref"><a class="notel" href="#">{{.}}</a></sup>{{end}}
 
 {{define "text-lines"}}
 {{range .Lines}}
-{{template "p-lines-html" .}}
+{{template "p-lines" .}}
 {{end}}
 {{with .Notes}}
 <div class="footnotes">
@@ -44,7 +40,7 @@
 
 {{define "text-indent"}}
 {{range .Lines}}
-{{template "p-indent-html" .}}
+{{template "p-indent" .}}
 {{end}}
 {{with .Notes}}
 <div class="footnotes">
