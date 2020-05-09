@@ -112,13 +112,13 @@ func (r *Renderer) renderNote(b *bytes.Buffer, s string) int {
 	return 0
 }
 
-func closingPos(str string, closing string) int {
+func closingPos(s string, closing string) int {
 	char, _ := utf8.DecodeRuneInString(closing)
 	closingRunes := utf8.RuneCountInString(closing)
 
 	skip := false
 
-	for i, r := range str {
+	for i, r := range s {
 		if skip {
 			skip = false
 			continue
@@ -133,10 +133,10 @@ func closingPos(str string, closing string) int {
 			if closingRunes == 1 {
 				return i + 1
 			}
-			if len(str[i:]) < len(closing) {
+			if len(s[i:]) < len(closing) {
 				return -1
 			}
-			if str[i:i+len(closing)] == closing {
+			if s[i:i+len(closing)] == closing {
 				return i + len(closing)
 			}
 		}
