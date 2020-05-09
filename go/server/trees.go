@@ -30,13 +30,6 @@ func (s *SectionEntries) Local(local bool) map[string]entry.Entries {
 // trees
 
 func (s *Server) LoadTrees() error {
-	sections := []string{
-		"index",
-		"graph",
-		"about",
-		"extra",
-	}
-
 	trees := map[string]*SectionTree{}
 	recents := map[string]*SectionEntries{}
 

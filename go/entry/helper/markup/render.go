@@ -101,7 +101,7 @@ func (r *Renderer) renderTag(b *bytes.Buffer, str, c string) int {
 	return 0
 }
 
-var noteTmpl = `<sup class="note-ref"><a href="#">{{.}}</a></sup>`
+var noteTmpl = `<sup class="reference"><a href="#">{{.}}</a></sup>`
 
 func (r *Renderer) renderNote(b *bytes.Buffer, s string) int {
 	if x := closingPos(s, "}"); x != -1 {

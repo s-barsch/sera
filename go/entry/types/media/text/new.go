@@ -16,7 +16,7 @@ type Text struct {
 	date time.Time
 	info info.Info
 
-	text  map[string]string
+	TextLangs map[string]string
 	blank map[string]string
 
 	Notes map[string][]string
@@ -58,7 +58,7 @@ func NewText(path string, parent entry.Entry) (*Text, error) {
 		date: date,
 		info: inf,
 
-		text:  rendered,
+		TextLangs: rendered,
 		blank: langs,
 
 		Notes: notes,

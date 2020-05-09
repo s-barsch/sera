@@ -2,8 +2,17 @@ package server
 
 import (
 	"stferal/go/server/tmpl"
+	"stferal/go/server/process"
 	"time"
 )
+
+var sections = []string{
+	"index",
+	"graph",
+	"about",
+	"extra",
+}
+
 
 func (s *Server) Load() error {
 	tStart := time.Now()
@@ -19,6 +28,11 @@ func (s *Server) Load() error {
 		return err
 	}
 
+	err = s.processAllTexts()
+	if err != nil {
+		return err
+	}
+
 	tEnd := time.Now()
 	tDif := tEnd.Sub(tStart)
 
@@ -27,6 +41,10 @@ func (s *Server) Load() error {
 	}
 
 	return nil
+}
+
+func (s *Server) processAllTexts() error {
+	return process.RenderTexts(s.Paths.Root, s.Trees["graph"].Private["de"].TraverseEntries())
 }
 
 // templates

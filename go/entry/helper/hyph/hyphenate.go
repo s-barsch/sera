@@ -1,8 +1,6 @@
 package hyph
 
 import (
-	"io"
-	"os"
 	//"github.com/akavel/go-hyphen"
 	//"bufio"
 	//"strings"
@@ -11,14 +9,7 @@ import (
 	"unicode/utf8"
 )
 
-func HyphenateText(str, lang string) (string, error) {
-	err := checkEngine()
-	if err != nil {
-		return "", err
-	}
-
-	p := langs[lang]
-
+func (p *Patterns) HyphenateText(str string) string {
 	word := bytes.Buffer{}
 	text := bytes.Buffer{}
 
@@ -65,7 +56,7 @@ func HyphenateText(str, lang string) (string, error) {
 		text.WriteRune(r)
 	}
 	text.WriteString(p.HyphenateWord(word.String()))
-	return text.String(), nil
+	return text.String()
 }
 
 func (p *Patterns) HyphenateWord(word string) string {
@@ -85,37 +76,5 @@ func (p *Patterns) HyphenateWord(word string) string {
 	return nw.String()
 }
 
-var langs = map[string]*Patterns{}
 
-// TODO: create an object for this.
-func checkEngine() error {
-	var path = "/home/stef/go/src/stferal/go/entry/hyph"
 
-	if langs["en"] == nil {
-		f, err := os.Open(path + "/hyph-uk.dic")
-		if err != nil {
-			return err
-		}
-		defer f.Close()
-		p, err := ParsePatterns(io.Reader(f))
-		if err != nil {
-			return err
-		}
-		langs["en"] = p
-	}
-
-	if langs["de"] == nil {
-		f, err := os.Open(path + "/hyph-de.dic")
-		if err != nil {
-			return err
-		}
-		defer f.Close()
-		p, err := ParsePatterns(io.Reader(f))
-		if err != nil {
-			return err
-		}
-		langs["de"] = p
-	}
-
-	return nil
-}
