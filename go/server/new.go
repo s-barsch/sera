@@ -6,6 +6,7 @@ import (
 	"os"
 	"stferal/go/server/tmpl"
 	"text/template"
+	p "path/filepath"
 )
 
 type Server struct {
@@ -54,7 +55,9 @@ func New() *Server {
 
 	s.Paths = &paths{
 		Root: *path,
-		Data: *path + "/data",
+		// `Clean` is necessary to harmonize this path with later paths
+		// that are processed by path/filepath functions (removed dots etc).
+		Data: p.Clean(*path + "/data"),
 	}
 
 	s.Flags = &flags{
