@@ -59,7 +59,7 @@ func (e *Set) Slug(lang string) string {
 	if slug := e.info.Slug(lang); slug != "" {
 		return slug
 	}
-	return helper.Normalize(e.Title(lang))
+	return helper.Normalize(e.info.Title(lang))
 }
 
 func (e *Set) IsBlob() bool {
@@ -85,5 +85,9 @@ func (e *Set) Section() string {
 }
 
 func (e *Set) Perma(lang string) string {
-	return fmt.Sprintf("%v/%v-%v", e.parent.Path(lang), e.Slug(lang), e.Hash())
+	slug := e.Slug(lang)
+	if slug != "" {
+		return fmt.Sprintf("%v/%v-%v", e.parent.Path(lang), slug, e.Hash())
+	}
+	return fmt.Sprintf("%v/%v", e.parent.Path(lang), e.Hash())
 }

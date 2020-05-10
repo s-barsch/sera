@@ -63,7 +63,7 @@ func {{receiver .}} Slug(lang string) string {
 	if slug := e.info.Slug(lang); slug != "" {
 		return slug
 	}
-	return helper.Normalize(e.Title(lang))
+	return helper.Normalize(e.info.Title(lang))
 }
 
 func {{receiver .}} IsBlob() bool {
@@ -92,7 +92,11 @@ func {{receiver .}} Section() string {
 }
 
 func {{receiver .}} Perma(lang string) string {
-	return fmt.Sprintf("%v/%v-%v", e.parent.Path(lang), e.Slug(lang), e.Hash())
+	slug := e.Slug(lang)
+	if slug != "" {
+		return fmt.Sprintf("%v/%v-%v", e.parent.Path(lang), slug, e.Hash())
+	}
+	return fmt.Sprintf("%v/%v", e.parent.Path(lang), e.Hash())
 }
 {{end}}
 {{end}}

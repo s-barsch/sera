@@ -38,11 +38,11 @@ func aboutPerma(t *Tree, lang string) string {
 }
 
 func defaultPerma(t *Tree, lang string) string {
-	return fmt.Sprintf("%v/%v-%v", t.parent.Path(lang), t.Slug(lang), t.Hash())
+	return fmt.Sprintf("%v/%v-%v", t.parent.Path(lang), t.Title(lang), t.Hash())
 }
 
 func extraPerma(t *Tree, lang string) string {
-	return fmt.Sprintf("/%v", t.Slug(lang))
+	return fmt.Sprintf("/%v", t.Title(lang))
 }
 
 func graphPerma(t *Tree, lang string) string {
@@ -54,7 +54,7 @@ func graphPerma(t *Tree, lang string) string {
 	case l < 3:
 		return t.Path(lang)
 	}
-	return fmt.Sprintf("/graph-permalink-error-%v", t.Slug(lang))
+	return fmt.Sprintf("/graph-permalink-error-%v", t.Title(lang))
 }
 
 func monthAnchor(path string) string {
