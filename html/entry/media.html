@@ -34,10 +34,8 @@
 
 {{define "image-alt"}}
 
-{{$lang := .Lang}}
-
-{{with .El.Info }}
-{{with .Alt $lang}}
+{{with .E.Info }}
+{{with .Alt $.L}}
 <div class="alt-text">
     <a href="/alt-text/" target="_blank"rel="nofollow" class="altl alt-sign">
         †

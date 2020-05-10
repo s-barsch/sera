@@ -24,7 +24,7 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, p *pa
 	graph := s.Trees["graph"].Local(s.Flags.Local)[lang]
 	e, err := graph.LookupEntryHash(p.Hash)
 	if err != nil {
-		http.Redirect(w, r, "/graph/", 301)
+		http.Redirect(w, r, "/graph", 301)
 		return
 	}
 

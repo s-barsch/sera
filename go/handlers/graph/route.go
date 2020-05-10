@@ -51,7 +51,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 }
 
 func isYearPage(str string) bool {
-	if len(str) > 4 {
+	if len(str) != 4 {
 		return false
 	}
 	_, err := strconv.Atoi(str)
