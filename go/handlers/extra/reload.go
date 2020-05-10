@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"stferal/go/server"
 	//"stferal/go/handlers/index"
-	"strings"
+	p "path/filepath"
 )
 
 func AddSlash(w http.ResponseWriter, r *http.Request) {
@@ -14,7 +14,10 @@ func AddSlash(w http.ResponseWriter, r *http.Request) {
 
 func ConstantReload(s *server.Server, next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if !strings.Contains(r.URL.Path, ".jpg") {
+		switch p.Ext(r.URL.Path) {
+		case ".mp4", ".jpg":
+			break;
+		default:
 			log.Println(r.URL.Path)
 			err := s.Load()
 			if err != nil {

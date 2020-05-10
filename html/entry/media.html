@@ -79,6 +79,19 @@
 {{end}}
 {{end}}
 
+{{define "video"}}
+<figure>
+
+<video src="{{.E.VideoPath .Lang}}" preload="metadata" loop controls>
+    {{range .E.Subtitles}}
+    <track label="{{langName .}}" srclang="{{.}}" kind="subtitles"
+    src="{{.E.SubtitlePath .}}"{{if and (ne $.L "de") (eq $.L .)}} default{{end}}>
+    {{end}}
+</video>
+</figure>
+{{end}}
+
+
 
 {{/*
 {{define "audio"}}
@@ -105,20 +118,6 @@
 {{end}}
 </div>
 {{end}}
-
-{{define "video"}}
-<figure>
-{{$vid := .El}}
-{{$lang := .Lang}}
-<video src="{{.El.File.Location .Lang}}" preload="metadata" loop controls>
-    {{range .El.Subtitles}}
-    <track label="{{langName .}}" srclang="{{.}}" kind="subtitles"
-    src="{{$vid.SubtitlePath .}}"{{if and (ne $lang "de") (eq $lang .)}} default{{end}}>
-    {{end}}
-</video>
-</figure>
-{{end}}
-
 
 {{define "audio-vtt"}}
 {{$lang := "de"}}

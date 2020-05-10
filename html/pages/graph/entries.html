@@ -66,7 +66,7 @@
 
 {{define "graph-set"}}
     {{range $i, $e := .E.Entries}}
-        {{template "graph-set-child" (eLy . $.L $.Y)}}
+        {{template "graph-set-child" (eLy $e $.L $.Y)}}
     {{end}}
 {{end}}
 
