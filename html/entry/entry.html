@@ -27,7 +27,10 @@
 <!-- text -->
     
 {{define "text"}}
+{{$style := index .E.Info "style"}}
+<div class="{{with ne $style ""}}.{{else}}indent{{end}}">
     {{.E.Text .L}}
+</div>
 {{end}}
 
 {{define "html"}}

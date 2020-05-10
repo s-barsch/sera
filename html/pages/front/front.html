@@ -22,7 +22,7 @@
 
   
 {{define "index-col" -}}
-  <section class="col">
+<div>
       <h3 class="front-title"><a href="/index/">Index</a></h3>
       {{range .Index.Offset 0 4}}
       {{template "front-index-entry" (eL . $.Head.Lang)}}
@@ -35,17 +35,17 @@
       <div class="more-tip">
           {{var "index-more" .Head.Lang}}
       </div>
-  </section>
+</div>
 {{- end}}
 
 {{define "graph-col" -}}
-  <section class="col graph-col">
+<div>
       <h3 class="front-title"><a href="/graph/">Graph</a></h3>
       {{template "media-groups" (esL (.Graph.Offset 0 5) .Head.Lang)}}
       <div class="more-tip">
       {{var "graph-more" .Head.Lang}}
       </div>
-  </section>
+</div>
 {{- end}}
 
 {{define "more-tip"}}

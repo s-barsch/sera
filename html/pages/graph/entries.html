@@ -41,16 +41,16 @@
 {{define "graph-tob"}}
     {{$type := .E.Type}}
 
-    <article class="graph-tob">
+    <article class="tob tob--graph">
+    {{template "edit-link" .}}
     {{if eq $type "set"}}
         {{template "graph-set" .}}
     {{else if eq $type "text"}}
-        {{template "graph-text" .}}
-    {{else if eq $type "html"}}
-        {{template "html" .}}
+        {{template "text" .}}
     {{else}}
         Didn’t catch type: {{.}} (graph-tob)
     {{end}}
+    {{template "graph-date" .}}
     </article>
 {{end}}
 
@@ -64,29 +64,15 @@
 {{end}}
 
 {{define "graph-text"}}
-  <!-- to omit missing translations -->
-  {{$text := .E.Text .L}}
-  {{if $text}}
   <div class="graph-text">
-      {{template "edit-link" .}}
-      <div>
-          {{$text}}
-      </div>
-      {{template "graph-date" .}}
+      {{template "text" .}}
   </div>
-  {{end}}
 {{end}}
 
 {{define "graph-set"}}
-
-<article class="graph-set">
-<div>
     {{range $i, $e := .E.Entries}}
         {{template "graph-set-child" (eLy . $.L $.Y)}}
     {{end}}
-</div>
-{{template "graph-date" .}}
-</article>
 {{end}}
 
 {{define "graph-set-child"}}
