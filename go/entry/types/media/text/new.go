@@ -6,6 +6,7 @@ import (
 	"stferal/go/entry/helper/markup"
 	"stferal/go/entry/parts/file"
 	"stferal/go/entry/parts/info"
+	bf "gopkg.in/russross/blackfriday.v2"
 	"time"
 )
 
@@ -69,6 +70,7 @@ func renderLangs(langs map[string]string) (map[string]string, map[string][]strin
 	notes := map[string][]string{}
 	for _, l := range []string{"de", "en"} {
 		text, ns := markup.Render(langs[l])
+		text = string(bf.Run([]byte(text),bf.WithExtensions(bf.HardLineBreak)))
 		langs[l] = text
 		notes[l] = ns
 	}

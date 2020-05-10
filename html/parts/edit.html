@@ -7,7 +7,6 @@
 
 {{define "edit-link"}}
     {{if isLocal}}
-    {{/*$x := filepathDir .El.File.Rel*/}}
     {{$path := rel .E.File.Path}}
     <a class="editl" href="http://org/public{{$path}}#{{.E.File.Name}}" target="_blank">※</a>
     {{end}}

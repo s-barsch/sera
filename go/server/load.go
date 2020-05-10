@@ -44,7 +44,13 @@ func (s *Server) Load() error {
 }
 
 func (s *Server) processAllTexts() error {
-	return process.RenderTexts(s.Paths.Root, s.Trees["graph"].Private["de"].TraverseEntries())
+	for _, section := range sections {
+		err := process.RenderTexts(s.Paths.Root, s.Recents[section].Private["de"])
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // templates
