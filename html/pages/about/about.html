@@ -44,9 +44,13 @@
 
 {{define "about-entries"}}
     {{range .Es}}
-    <article class="entry tob entry--index">
+      {{if eq .Type "html"}}
         {{template "entry" (eL . $.L)}}
-    </article>
+      {{else}}
+        <article class="entry tob entry--index">
+            {{template "entry" (eL . $.L)}}
+        </article>
+      {{end}}
     {{end}}
 {{end}}
 

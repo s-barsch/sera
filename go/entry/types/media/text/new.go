@@ -35,7 +35,7 @@ func NewText(path string, parent entry.Entry) (*Text, error) {
 		return nil, fnErr
 	}
 
-	inf, langs, err := readTextFile(path)
+	inf, langs, err := ReadTextFile(path)
 	if err != nil {
 		fnErr.Err = err
 		return nil, fnErr
@@ -77,7 +77,7 @@ func renderLangs(langs map[string]string) (map[string]string, map[string][]strin
 	return langs, notes
 }
 
-func readTextFile(path string) (info.Info, map[string]string, error) {
+func ReadTextFile(path string) (info.Info, map[string]string, error) {
 	fnErr := &helper.Err{
 		Path: path,
 		Func: "readTextFile",

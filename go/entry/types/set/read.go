@@ -33,7 +33,7 @@ func readEntryFiles(files []*read.FileInfo, parent entry.Entry) (entry.Entries, 
 	entries := entry.Entries{}
 	for _, fi := range files {
 		switch helper.FileType(fi.Path) {
-		case "audio", "html":
+		case "audio":
 			continue
 		}
 		entry, err := media.NewMediaEntry(fi.Path, parent)
