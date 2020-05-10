@@ -16,7 +16,9 @@
     {{if .E.IsBlob}}
         {{template "graph-blob" .}}
     {{else}}
+      <article class="tob tob--graph">
         {{template "graph-tob" .}}
+      </article>
     {{end}}
 {{end}}
 
@@ -24,15 +26,10 @@
 
 {{define "graph-blob"}}
     {{$type := .E.Type}}
-
-    {{if eq $type "image"}}
+    {{if eq .E.Type "image"}}
         {{template "graph-image" .}}
-    {{else if eq $type "video"}}
-        {{template "video" .}}
-    {{else if eq $type "audio"}}
-        {{template "audio" .}}
     {{else}}
-        Didn’t catch type: {{.}} (graph-blob)
+        {{template "entry" .}}
     {{end}}
 {{end}}
 
@@ -41,7 +38,6 @@
 {{define "graph-tob"}}
     {{$type := .E.Type}}
 
-    <article class="tob tob--graph">
     {{template "edit-link" .}}
     {{if eq $type "set"}}
         {{template "graph-set" .}}
@@ -51,7 +47,6 @@
         Didn’t catch type: {{.}} (graph-tob)
     {{end}}
     {{template "graph-date" .}}
-    </article>
 {{end}}
 
 

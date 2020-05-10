@@ -71,26 +71,35 @@
 
 {{define "index-entries"}}
     {{range .E.Entries}}
-        {{block "index-entry" (eL . $.Lang)}}
-            <article class="index-entry">
-                <div class="index-date-top">
-                {{template "index-date" .}}
-                </div>
-                <div id="{{normalize (.E.Title .Lang)}}">
-                {{template "entry" .}}
-                </div>
-                <div class="index-date-bot">
-                    {{template "index-date" .}}
-                </div>
-              {{template "edit-link" .}}
-            </article>
-        {{end}}
+      <article id="{{normalize (.Title $.Lang)}}" class="entry--index">
+          {{template "index-entry" (eL . $.Lang)}}
+      </article>
     {{end}}
     {{if eq 0 (len .E.Entries)}}
-        <article class="index-entry">
+        <article class="entry--index">
           –
         </article>
     {{end}}
+{{end}}
+
+{{define "index-entry"}}
+  <div class="index-date-top">
+    {{template "index-date" .}}
+  </div>
+
+  {{if .E.IsBlob}}
+    {{template "entry" .}}
+  {{else}}
+    <article class="tob tob--index">
+        {{template "entry" .}}
+    </article>
+  {{end}}
+
+  <div class="index-date-bot">
+    {{template "index-date" .}}
+  </div>
+  {{template "edit-link" .}}
+
 {{end}}
 
 {{define "index-date-link"}}

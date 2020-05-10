@@ -41,7 +41,7 @@
 {{define "graph-col" -}}
 <div>
       <h3 class="front-title"><a href="/graph/">Graph</a></h3>
-      {{template "media-groups" (esL (.Graph.Offset 0 5) .Head.Lang)}}
+      {{template "media-groups-front" (esL (.Graph.Offset 0 5) .Head.Lang)}}
       <div class="more-tip">
       {{var "graph-more" .Head.Lang}}
       </div>
@@ -63,138 +63,33 @@
 
 {{define "media-groups-front"}}
     {{$total := 0}}
+
     <div class="media-groups">
     {{range $i, $group := .Es.Groups}}
-      {{$type := $group.First.Type}}
-
-      {{if eq $type "image"}}
-      <section class="images">
-      {{else if eq $type "text"}}
-      <section class="texts">
-      {{else if eq $type "html"}}
-      <section class="texts">
-      {{else}}
-      <section class="texts">
-      {{end}}
-
+      <section class="{{if $group.First.IsBlob}}blob{{else}}tob{{end}}-group">
         {{range $j, $e := $group}}
-            {{$total = add $total 1}}
-            {{$forDesktop := (gt $total 6)}}
-            {{if $forDesktop}}
-            <div class="desktop">
-            {{end}}
-            {{template "front-main-el" (eL $e $.L)}}
-            {{if $forDesktop}}
-            </div>
-            {{end}}
-        {{end}}
 
+            {{$total = add $total 1}}
+            <div {{if (gt $total 6)}}class="desktop"{{end}}>
+            {{template "graph-front-entry" (eL $e $.L)}}
+            </div>
+
+        {{end}}
       </section>
     {{end}}
     </div>
 
 {{end}}
 
-{{define "front-main-el"}}
 
-  {{$type := .E.Type}}
-
-
-    {{if eq $type "image"}}
-
-      <span class="thumb">
-        <a class="thumbl" href="{{.El.Permalink .Lang}}">
-          {{template "front-image-thumbnail" .}}
-        </a>
-      </span>
-
-    {{else if eq $type "set"}}
-
-      <span class="thumb">
-        {{template "graph-set" .}}
-      </span>
-
-    {{else if eq $type "text"}}
-
-            <article class="text-entry graph-text">
-                    <div>
-                      {{.E.Text .L}}
-                    </div>
-                    {{template "front-date" .}}
-            </article>
-    {{else if eq $type "audio"}}
-        <article>
-            {{template "el" .}}
-            {{template "edit-link" .}}
-            {{template "front-date" .}}
-        <article>
-    {{else if eq $type "video"}}
-        <article>
-            {{template "el" .}}
-            {{template "edit-link" .}}
-            {{template "front-date" .}}
-        <article>
-    {{else if eq $type "html"}}
-            <article class="text-entry graph-text">
-                    <div>
-                        {{template "entry" .}}
-                    </div>
-            </article>
-    
+{{define "graph-front-entry"}}
+    {{if .E.IsBlob}}
+        {{template "graph-blob" .}}
     {{else}}
-        didnt catch: "{{$type}}"
-        {{.}}
+      <article class="tob tob--front">
+        {{template "graph-tob" .}}
+      </article>
     {{end}}
-
-{{end}}
-
-{{define "front-image-thumbnail"}}
-    <img class="thumbi" src="{{.El.ImagePath 320 .Lang}}"
-                        alt="{{.El.Title .Lang}}" 
-                        srcset="{{template "front-thumb-srcset" .}}">
-{{end}}
-
-{{define "front-thumb-srcset" -}}
-{{.El.SrcSet 320 .Lang}}, {{.El.SrcSet 480 .Lang}}, {{.El.SrcSet 640 .Lang}}
-{{- end}}
-
-{{define "front-date"}}
-<header class="front-meta">
-    {{template "private-mark" .E}}
-    <a class="" href="{{.E.Perma .L}}">
-        {{.E.Date.Format "2<span class=\"ddot\">.</span> 1<span class=\"ddot\">.</span>"}}
-    </a>
-</header>
-{{template "edit-link" .}}
-{{end}}
-
-{{define "index-title-front"}}
-    {{$title := .El.Info.Title .Lang}}
-    {{if $title}}
-    <a class="title-below black" href="{{.El.Permalink .Lang}}">{{$title}}</a>
-    {{end}}
-{{end}}
-
-{{define "date"}}
-    <div class="date margin">
-        <a href="{{.Permalink}}">
-    {{.Date.Format "2. Jan 15:04"}}
-        </a>
-    </div>
-{{end}}
-
-
-{{define "set-els"}}
-{{range $i, $e := .E.Entries}}
-{{$type := $e.Type}}
-    {{if eq $type "image"}}
-    <div class="img-limiter margin">
-    {{end}}
-    {{template "el" (eL $e $.L)}}
-    {{if eq $type "image"}}
-    </div>
-    {{end}}
-{{end}}
 {{end}}
 
 
