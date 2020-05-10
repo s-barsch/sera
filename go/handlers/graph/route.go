@@ -47,9 +47,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	/*
-		El(s, w, r, p)
-	*/
+	ServeSingle(s, w, r, path)
 }
 
 func isYearPage(str string) bool {

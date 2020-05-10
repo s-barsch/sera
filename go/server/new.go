@@ -56,7 +56,7 @@ func New() *Server {
 	s.Paths = &paths{
 		Root: *path,
 		// `Clean` is necessary to harmonize this path with later paths
-		// that are processed by path/filepath functions (removed dots etc).
+		// that are processed by path/filepath functions.
 		Data: p.Clean(*path + "/data"),
 	}
 

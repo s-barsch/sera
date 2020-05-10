@@ -21,8 +21,8 @@ func NewEntryLang(e entry.Entry, lang string) *EntryLangLazy {
 func NewEntryLangLazy(e entry.Entry, lang string, lazy bool) *EntryLangLazy {
 	return &EntryLangLazy{
 		Entry: e,
-		Lazy:  lazy,
 		Lang:  lang,
+		Lazy:  lazy,
 	}
 }
 
