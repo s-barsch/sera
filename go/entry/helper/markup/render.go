@@ -44,6 +44,14 @@ func (r *Renderer) renderSnippet(s string) string {
 		case '\\':
 			skip = true
 			continue
+		case ':':
+			// If a slash follows a colon, comments are disabled for
+			// that sequence to prevent commenting https://domain.
+			if isNextChar(s, '/') {
+				skip = true
+				buf.WriteRune(c)
+				continue
+			}
 		case '/':
 			if isNextChar(s, '/') {
 				return buf.String()
