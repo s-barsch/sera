@@ -1,10 +1,6 @@
 package server
 
 import (
-	"bytes"
-	"fmt"
-	"log"
-	"path/filepath"
 	"stferal/go/entry/helper"
 	"stferal/go/server/tmpl"
 	"strings"
@@ -24,20 +20,7 @@ func (s *Server) Funcs() template.FuncMap {
 		"removeß": func(str string) string {
 			return strings.Replace(str, "ß", "ss", -1)
 		},
-		"hyphen": func(str, lang string) (string, error) {
-			return "", fmt.Errorf("Template hyphen function currently not implemented.")
-		},
-		"normalize": func(str string) string {
-			return helper.Normalize(str)
-		},
-		"executeTemplate": func(name string, data interface{}) string {
-			buf := &bytes.Buffer{}
-			if err := s.Templates.ExecuteTemplate(buf, name, data); err != nil {
-				log.Println(err)
-				return "template err"
-			}
-			return buf.String()
-		},
+		"normalize": helper.Normalize,
 		"add": func(a, b int) int {
 			return a + b
 		},
@@ -48,19 +31,6 @@ func (s *Server) Funcs() template.FuncMap {
 			}
 			return path
 		},
-		/*
-			"lastEl": func(els entry.Els) interface{} {
-				if len(els) <= 0 {
-					return nil
-				}
-				return els[len(els)-1]
-			},
-			"makeGraphMoreLink": func(year, lang string) (string, error) {
-				str := s.Vars.Lang("graph-main-more", lang)
-				href := fmt.Sprintf("/graph/%v", year)
-				return fmt.Sprintf(str, href), nil
-			},
-		*/
 		"var": func(name, lang string) string {
 			return s.Vars.Lang(name, lang)
 		},
@@ -73,12 +43,6 @@ func (s *Server) Funcs() template.FuncMap {
 		"langName": func(lang string) string {
 			return helper.LangNames[lang]
 		},
-		"filepathDir": filepath.Dir,
-		"title":       strings.Title,
-		"upper":       strings.ToUpper,
-		"tolower":     strings.ToLower,
-		"esc":         template.HTMLEscapeString,
-		"render":      s.RenderTemplate,
 		"monthLang":   helper.MonthLang,
 		"nodeName": func(id int64) string {
 			return "node_" + helper.ToTimestamp(id)

@@ -133,7 +133,7 @@ func isNotTranslated(e entry.Entry, lang string) bool {
 	if !ok {
 		return false
 	}
-	if e.Info().Title(lang) == "" {
+	if e.Type() == "tree" && e.Info().Title(lang) == "" {
 		return true
 	}
 	return lang != "de" && e.Info()["translated"] == "false"
