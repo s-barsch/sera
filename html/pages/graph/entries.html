@@ -4,7 +4,9 @@
     {{range $i, $group := .Es.Groups}}
         <section class="{{if $group.First.IsBlob}}blob{{else}}tob{{end}}-group">
             {{range $group}}
+              <article class="entry entry--graph">
                 {{template "graph-entry" (eLy . $.L false)}}
+              </article>
             {{end}}
         </section>
     {{end}}
@@ -65,8 +67,8 @@
 {{end}}
 
 {{define "graph-set"}}
-    {{range $i, $e := .E.Entries}}
-        {{template "graph-set-child" (eLy $e $.L $.Y)}}
+    {{range .E.Entries}}
+        {{template "graph-set-child" (eLy . $.L $.Y)}}
     {{end}}
 {{end}}
 

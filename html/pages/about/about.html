@@ -10,7 +10,12 @@
         <h1>
     </div>
 
-{{template "about-entries" (esL .Tree.Entries .Head.Lang)}}
+    <div class="cols">
+      <div>
+      {{template "about-entries" (esL .Tree.Entries .Head.Lang)}}
+      </div>
+      {{template "chamomile" .Head}}
+    </div>
 
 
 {{template "bot" .Head}}
@@ -30,7 +35,6 @@
     {{template "about-entries" (esL .Tree.Entries .Head.Lang)}}
 
 
-    {{/*template "chamomile" .Head.Lang*/}}
   
     {{/*template "edit-link-hold" (holdArg .Hold false .Head.Lang)*/}}
 
@@ -40,7 +44,7 @@
 
 {{define "about-entries"}}
     {{range .Es}}
-    <article class="index-el">
+    <article class="entry tob entry--index">
         {{template "entry" (eL . $.L)}}
     </article>
     {{end}}
