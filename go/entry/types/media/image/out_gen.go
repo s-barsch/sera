@@ -70,6 +70,10 @@ func (e *Image) SetParent(parent entry.Entry) {
 	e.parent = parent
 }
 
+func (e *Image) SetInfo(inf info.Info) {
+	e.info = inf
+}
+
 func (e *Image) Path(lang string) string {
 	return fmt.Sprintf("%v/%v", e.parent.Path(lang), e.Slug(lang))
 }

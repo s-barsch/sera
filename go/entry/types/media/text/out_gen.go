@@ -70,6 +70,10 @@ func (e *Text) SetParent(parent entry.Entry) {
 	e.parent = parent
 }
 
+func (e *Text) SetInfo(inf info.Info) {
+	e.info = inf
+}
+
 func (e *Text) Path(lang string) string {
 	return fmt.Sprintf("%v/%v", e.parent.Path(lang), e.Slug(lang))
 }

@@ -70,6 +70,10 @@ func (e *Set) SetParent(parent entry.Entry) {
 	e.parent = parent
 }
 
+func (e *Set) SetInfo(inf info.Info) {
+	e.info = inf
+}
+
 func (e *Set) Entries() entry.Entries {
 	return e.entries
 }

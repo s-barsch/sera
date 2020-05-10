@@ -54,13 +54,13 @@
 
 {{template "subnav" (snav .Tree 0 .Head.Lang)}}
 
-<h1 class="hold-title l{{.Tree.Level}}">
+    {{$isArticle := eq (index .Tree.Info "article") "true"}}
+    <h1 class="{{if $isArticle}}article{{else}}hold{{end}}-title l{{.Tree.Level}}">
         {{if eq .Tree.Level 1}}
         <span class="fleuron">❧</span>
         {{end}}
-        {{.Tree.Title .Head.Lang}}
-            {{/*.Hold.Info.Field "title-hyph" .Head.Lang*/}}
-        </h1>
+      {{.Tree.Info.HyphTitle .Head.Lang}}
+    </h1>
 
         {{template "index-entries" (eL .Tree .Head.Lang)}}
 

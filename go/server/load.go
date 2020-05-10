@@ -44,11 +44,16 @@ func (s *Server) Load() error {
 }
 
 func (s *Server) processAllTexts() error {
+	h, err := process.LoadHyphPatterns(s.Paths.Root)
+	if err != nil {
+		return err
+	}
+	lang := "de"
 	for _, section := range sections {
-		err := process.RenderTexts(s.Paths.Root, s.Recents[section].Private["de"])
-		if err != nil {
-			return err
+		for _, e := range s.Trees[section].Private[lang].TraverseTrees() {
+			h.HyphenateTitle(e)
 		}
+		h.HyphenateEntries(s.Recents[section].Private[lang])
 	}
 	return nil
 }

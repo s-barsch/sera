@@ -17,10 +17,10 @@ func (s *Server) Funcs() template.FuncMap {
 			}
 			return "About"
 		},
+		"normalize": helper.Normalize,
 		"removeß": func(str string) string {
 			return strings.Replace(str, "ß", "ss", -1)
 		},
-		"normalize": helper.Normalize,
 		"add": func(a, b int) int {
 			return a + b
 		},
@@ -46,9 +46,6 @@ func (s *Server) Funcs() template.FuncMap {
 		"monthLang":   helper.MonthLang,
 		"nodeName": func(id int64) string {
 			return "node_" + helper.ToTimestamp(id)
-		},
-		"min1": func(x int) int {
-			return x - 1
 		},
 		"plus1": func(x int) int {
 			return x + 1

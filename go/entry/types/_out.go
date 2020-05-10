@@ -74,6 +74,10 @@ func {{receiver .}} SetParent(parent entry.Entry) {
 	e.parent = parent
 }
 
+func {{receiver .}} SetInfo(inf info.Info) {
+	e.info = inf
+}
+
 {{if not (isMedia .)}}
 func {{receiver .}} Entries() entry.Entries {
 	return e.entries

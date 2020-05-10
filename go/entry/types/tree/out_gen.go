@@ -68,6 +68,10 @@ func (e *Tree) SetParent(parent entry.Entry) {
 	e.parent = parent
 }
 
+func (e *Tree) SetInfo(inf info.Info) {
+	e.info = inf
+}
+
 func (e *Tree) Entries() entry.Entries {
 	return e.entries
 }

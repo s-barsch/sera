@@ -26,6 +26,7 @@ type Entry interface {
 
 	IsBlob() bool
 	SetParent(Entry)
+	SetInfo(info.Info)
 }
 
 type Collection interface {

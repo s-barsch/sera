@@ -81,6 +81,10 @@ func (i Info) Title(lang string) string {
 	return i.Field("title", lang)
 }
 
+func (i Info) HyphTitle(lang string) string {
+	return i.Field("title-hyph", lang)
+}
+
 /*
 func (i Info) TitleUpper(lang string) string {
 	title := i.Field("title-hyph", lang)
