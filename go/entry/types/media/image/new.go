@@ -18,7 +18,7 @@ type Image struct {
 	date time.Time
 	info info.Info
 
-	// Dims *dims
+	Dims *dims
 }
 
 func NewImage(path string, parent entry.Entry) (*Image, error) {
@@ -35,13 +35,11 @@ func NewImage(path string, parent entry.Entry) (*Image, error) {
 		return nil, fnErr
 	}
 
-	/*
-		dims, err := loadDims(path)
-		if err != nil {
-			fnErr.Err = err
-			return nil, fnErr
-		}
-	*/
+	dims, err := loadDims(path)
+	if err != nil {
+		fnErr.Err = err
+		return nil, fnErr
+	}
 
 	inf := info.Info{}
 
@@ -65,7 +63,7 @@ func NewImage(path string, parent entry.Entry) (*Image, error) {
 		file:   file,
 		date:   date,
 		info:   inf,
-		//Dims: dims,
+		Dims: dims,
 	}, nil
 }
 

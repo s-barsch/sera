@@ -52,7 +52,7 @@
             {{template "entry" $eL}}
         </div>
         {{else if eq .Entry.Type "set"}}
-            {{template "set-graph-el" $eL}}
+            {{template "graph-set-child" $eL}}
         {{else}}
         {{template "entry" $eL}}
         {{end}}

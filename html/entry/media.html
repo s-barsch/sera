@@ -1,40 +1,3 @@
-{{define "audio"}}
-{{$audio := .El}}
-{{$lang := .Lang}}
-<div>
-<audio src="{{.El.Path .Lang}}" controls>
-    {{range .El.Subtitles}}
-    <track label="{{langName .}}" srclang="{{.}}" kind="captions"
-    src="{{$audio.CaptionPath .}}"{{if and (ne $lang "de") (eq $lang .)}} default{{end}}>
-    {{end}}
-</audio>
-<p class="lines captions">
-</p>
-{{if (eq $lang "de")}}
-{{with .El.Info.Field "transcript" $lang}}
-<div class="el">
-    <br>
-<p class="lines">
-<span class="sc">Transkript:</span> {{.}}
-</p>
-</div>
-{{end}}
-{{end}}
-</div>
-{{end}}
-
-{{define "video"}}
-<figure>
-{{$vid := .El}}
-{{$lang := .Lang}}
-<video src="{{.El.File.Location .Lang}}" preload="metadata" loop controls>
-    {{range .El.Subtitles}}
-    <track label="{{langName .}}" srclang="{{.}}" kind="subtitles"
-    src="{{$vid.SubtitlePath .}}"{{if and (ne $lang "de") (eq $lang .)}} default{{end}}>
-    {{end}}
-</video>
-</figure>
-{{end}}
 
 {{define "media-query-portrait"}}(orientation: landscape) 50vw, 100vw{{end}}
 {{define "media-query-landscape-old"}}((orientation: landscape) and (max-height: {{.Height 1280}}px)) {{.Width 1280}}px, 100vw{{end}}
@@ -44,29 +7,27 @@
   {{$lang := .Lang}}
 
   <figure>
-  {{with .El}}
 
-    {{$alt := .Info.Alt $lang}}
+    {{$alt := .E.Info.Alt .L}}
 
     <img
       alt="{{$alt}}"
-      src="{{.ImagePath 1280 $lang}}"
-      srcset="{{.SrcSet 1280 $lang}}, {{.SrcSet 1600 $lang}}, {{.SrcSet 1920 $lang}}, {{.SrcSet 2560 $lang}}, {{.SrcSet 3200 $lang}}">
+      src="{{.E.ImagePath 1280 .L}}"
+      srcset="{{.E.SrcSet 1280 .L}}, {{.E.SrcSet 1600 .L}}, {{.E.SrcSet 1920 .L}}, {{.E.SrcSet 2560 .L}}, {{.E.SrcSet 3200 .L}}">
 
-    {{if eq .File.Hold.Section "graph"}}
+    {{if eq .E.Section "graph"}}
         <figcaption class="margin caption">
-            {{with .Info.Caption $lang}}
+            {{with .E.Info.Caption .L}}
             <div class="caption-text">
             {{.}}
             </div>
             {{end}}
             <!--
-            {{template "image-alt" (elArg . false $lang)}}
+            {{template "image-alt" .}}
             -->
         </figcaption>
     {{end}}
 
-  {{end}}
   </figure>
 
 {{end}}
@@ -120,8 +81,46 @@
 {{end}}
 {{end}}
 
-{{define "tmp-description"}}
+
+{{/*
+{{define "audio"}}
+{{$audio := .El}}
+{{$lang := .Lang}}
+<div>
+<audio src="{{.El.Path .Lang}}" controls>
+    {{range .El.Subtitles}}
+    <track label="{{langName .}}" srclang="{{.}}" kind="captions"
+    src="{{$audio.CaptionPath .}}"{{if and (ne $lang "de") (eq $lang .)}} default{{end}}>
+    {{end}}
+</audio>
+<p class="lines captions">
+</p>
+{{if (eq $lang "de")}}
+{{with .El.Info.Field "transcript" $lang}}
+<div class="el">
+    <br>
+<p class="lines">
+<span class="sc">Transkript:</span> {{.}}
+</p>
+</div>
 {{end}}
+{{end}}
+</div>
+{{end}}
+
+{{define "video"}}
+<figure>
+{{$vid := .El}}
+{{$lang := .Lang}}
+<video src="{{.El.File.Location .Lang}}" preload="metadata" loop controls>
+    {{range .El.Subtitles}}
+    <track label="{{langName .}}" srclang="{{.}}" kind="subtitles"
+    src="{{$vid.SubtitlePath .}}"{{if and (ne $lang "de") (eq $lang .)}} default{{end}}>
+    {{end}}
+</video>
+</figure>
+{{end}}
+
 
 {{define "audio-vtt"}}
 {{$lang := "de"}}
@@ -134,3 +133,4 @@ video:<video controls style="background:black">
 </video>
 <br>
 {{end}}
+*/}}

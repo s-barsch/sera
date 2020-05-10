@@ -3,7 +3,7 @@ package image
 import (
 	"fmt"
 	p "path/filepath"
-	//"strconv"
+	"strconv"
 )
 
 func (i *Image) Location(size string) string {
@@ -22,7 +22,7 @@ func (i *Image) ImageName(size int) string {
 }
 
 func (i *Image) SrcSet(size int, lang string) string {
-	return fmt.Sprintf("%v %vw", i.ImagePath(size, lang), size) //i.Width(size))
+	return fmt.Sprintf("%v %vw", i.ImagePath(size, lang), i.Width(size))
 }
 
 /*
@@ -50,7 +50,6 @@ func (i *Image) ImagePath(size int, lang string) string {
 
 // dim related
 
-/*
 func (i *Image) Ratio() float64 {
 	w := i.Dims.width
 	h := i.Dims.height
@@ -107,4 +106,3 @@ func (i *Image) Width(size int) string {
 	}
 	return strconv.Itoa(int(i.Ratio() * float64(size)))
 }
-*/

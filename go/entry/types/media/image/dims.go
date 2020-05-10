@@ -1,7 +1,11 @@
+package image
+
 import (
 	"fmt"
 	"io/ioutil"
 	"strconv"
+	"strings"
+	p "path/filepath"
 )
 
 type dims struct {
@@ -10,11 +14,11 @@ type dims struct {
 
 
 func dimsFile(path string) string {
-	return filepath.Join(cacheFolder(path), "dims", filepath.Base(path)+".txt")
+	return p.Join(cacheFolder(path), "dims", p.Base(path)+".txt")
 }
 
 func cacheFolder(path string) string {
-	return filepath.Join(filepath.Dir(path), "cache")
+	return p.Join(p.Dir(path), "cache")
 }
 
 func loadDims(path string) (*dims, error) {
