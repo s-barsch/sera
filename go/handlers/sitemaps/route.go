@@ -11,10 +11,10 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		Index(s, w, r)
 	case "/sitemaps/core.xml":
 		Core(s, w, r)
-	case "/sitemaps/holds.xml":
-		Holds(s, w, r)
-	case "/sitemaps/graph-els.xml":
-		GraphEls(s, w, r)
+	case "/sitemaps/trees.xml":
+		Trees(s, w, r)
+	case "/sitemaps/graph-entries.xml":
+		GraphEntries(s, w, r)
 	default:
 		http.NotFound(w, r)
 	}

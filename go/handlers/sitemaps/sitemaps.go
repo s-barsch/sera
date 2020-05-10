@@ -7,10 +7,11 @@ import (
 	"stferal/go/entry"
 	"stferal/go/head"
 	"stferal/go/server"
+	"stferal/go/entry/types/tree"
 	"time"
 )
 
-type Entry struct {
+type SitemapEntry struct {
 	Loc      string
 	Lastmod  string
 	Priority string
@@ -43,7 +44,7 @@ func Core(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func Holds(s *server.Server, w http.ResponseWriter, r *http.Request) {
+func Trees(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	entries := categoryEntries(s, head.Lang(r.Host))
 
 	entries = append(entries, holdEntries(s, head.Lang(r.Host))...)
@@ -72,7 +73,7 @@ func IndexEls(w http.ResponseWriter, r *http.Request) {
 }
 */
 
-func GraphEls(s *server.Server, w http.ResponseWriter, r *http.Request) {
+func GraphEntries(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	entries, err := elEntries(s, "graph", head.Lang(r.Host))
 	if err != nil {
 		http.Error(w, "internal error", 500)
@@ -87,18 +88,12 @@ func GraphEls(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func coreEntries(s *server.Server, lang string) ([]*Entry, error) {
-	entries := []*Entry{}
+func coreEntries(s *server.Server, lang string) ([]*SitemapEntry, error) {
+	entries := []*SitemapEntry{}
 
-	tIndex, err := entry.DateSafe(s.Recents["index"][0])
-	if err != nil {
-		return nil, err
-	}
+	tIndex := s.Recents["index"].Public[lang][0].Date()
 
-	tGraph, err := entry.DateSafe(s.Recents["graph"][0])
-	if err != nil {
-		return nil, err
-	}
+	tGraph := s.Recents["graph"].Public[lang][0].Date()
 
 	for _, v := range head.NewNav(lang) {
 		priority := "0.9"
@@ -117,10 +112,10 @@ func coreEntries(s *server.Server, lang string) ([]*Entry, error) {
 		case "graph":
 			lastmod = tGraph
 		case "über", "about":
-			lastmod = s.Trees["about"].File.ModTime
+			lastmod = s.Trees["about"].Public[lang].File().ModTime
 		}
 
-		entries = append(entries, &Entry{
+		entries = append(entries, &SitemapEntry{
 			Loc:      absoluteURL(v.Href, lang),
 			Priority: priority,
 			Lastmod:  lastmod.Format(time.RFC3339),
@@ -129,20 +124,20 @@ func coreEntries(s *server.Server, lang string) ([]*Entry, error) {
 	return entries, nil
 }
 
-func categoryEntries(s *server.Server, lang string) []*Entry {
-	entries := []*Entry{}
-	trees := []*entry.Hold{
-		s.Trees["graph"],
-		s.Trees["index"],
+func categoryEntries(s *server.Server, lang string) []*SitemapEntry {
+	entries := []*SitemapEntry{}
+	trees := tree.Trees{
+		s.Trees["graph"].Public[lang],
+		s.Trees["index"].Public[lang],
 	}
-	for _, t := range trees {
-		for _, h := range t.Holds {
-			if h.Depth() != 1 {
+	for _, tree := range trees {
+		for _, t := range tree.Trees {
+			if t.Level() != 1 {
 				continue
 			}
-			entries = append(entries, &Entry{
-				Loc:      absoluteURL(h.Permalink(lang), lang),
-				Lastmod:  h.File.ModTime.Format(time.RFC3339),
+			entries = append(entries, &SitemapEntry{
+				Loc:      absoluteURL(t.Perma(lang), lang),
+				Lastmod:  t.File().ModTime.Format(time.RFC3339),
 				Priority: "0.7",
 			})
 		}
@@ -150,34 +145,31 @@ func categoryEntries(s *server.Server, lang string) []*Entry {
 	return entries
 }
 
-func holdEntries(s *server.Server, lang string) []*Entry {
+func holdEntries(s *server.Server, lang string) []*SitemapEntry {
 	return append(indexHolds(s, lang), aboutHolds(s, lang)...)
 }
 
-func aboutHolds(s *server.Server, lang string) []*Entry {
-	entries := []*Entry{}
-	holds := s.Trees["about"].TraverseHolds()
-	for _, h := range holds {
-		entries = append(entries, &Entry{
-			Loc:      absoluteURL(h.Permalink(lang), lang),
-			Lastmod:  h.File.ModTime.Format(time.RFC3339),
+func aboutHolds(s *server.Server, lang string) []*SitemapEntry {
+	entries := []*SitemapEntry{}
+	trees := s.Trees["about"].Public[lang].TraverseTrees()
+	for _, t := range trees {
+		entries = append(entries, &SitemapEntry{
+			Loc:      absoluteURL(t.Perma(lang), lang),
+			Lastmod:  t.File().ModTime.Format(time.RFC3339),
 			Priority: "0.6",
 		})
 	}
 	return entries
 }
 
-func indexHolds(s *server.Server, lang string) []*Entry {
-	entries := []*Entry{}
-	for _, category := range s.Trees["index"].Holds {
-		holds := category.TraverseHolds()
-		for _, h := range holds {
-			if h.Info["translated"] == "false" {
-				continue
-			}
-			entries = append(entries, &Entry{
-				Loc:      absoluteURL(h.Permalink(lang), lang),
-				Lastmod:  h.File.ModTime.Format(time.RFC3339),
+func indexHolds(s *server.Server, lang string) []*SitemapEntry {
+	entries := []*SitemapEntry{}
+	for _, category := range s.Trees["index"].Public[lang].Trees {
+		trees := category.TraverseTrees()
+		for _, t := range trees {
+			entries = append(entries, &SitemapEntry{
+				Loc:      absoluteURL(t.Perma(lang), lang),
+				Lastmod:  t.File().ModTime.Format(time.RFC3339),
 				Priority: "0.6",
 			})
 		}
@@ -185,38 +177,24 @@ func indexHolds(s *server.Server, lang string) []*Entry {
 	return entries
 }
 
-func elEntries(s *server.Server, page, lang string) ([]*Entry, error) {
-	entries := []*Entry{}
+func elEntries(s *server.Server, page, lang string) ([]*SitemapEntry, error) {
+	entries := []*SitemapEntry{}
 
-	els := entry.Els{}
+	es := entry.Entries{}
 	prio := ""
 
 	if page == "graph" {
-		els = s.Recents["graph"].Public()
+		es = s.Recents["graph"].Public[lang]
 		prio = "0.5"
 	} else {
-		els = s.Recents["index"]
+		es = s.Recents["index"].Public[lang]
 		prio = "0.4"
 	}
 
-	for _, e := range els {
-		file, err := entry.ElFileSafe(e)
-		if err != nil {
-			log.Println("sitemaps: els TODO")
-			log.Println(err)
-			continue
-			return nil, err
-		}
-		path, err := entry.PermalinkSafe(e, lang)
-		if err != nil {
-			log.Println("sitemaps: els TODO")
-			log.Println(err)
-			continue
-			return nil, err
-		}
-		entries = append(entries, &Entry{
-			Loc:      absoluteURL(path, lang),
-			Lastmod:  file.ModTime.Format(time.RFC3339),
+	for _, e := range es {
+		entries = append(entries, &SitemapEntry{
+			Loc:      absoluteURL(e.Perma(lang), lang),
+			Lastmod:  e.File().ModTime.Format(time.RFC3339),
 			Priority: prio,
 		})
 	}
