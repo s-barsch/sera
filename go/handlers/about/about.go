@@ -40,11 +40,18 @@ func ServeAbout(s *server.Server, w http.ResponseWriter, r *http.Request, t *tre
 		return
 	}
 
-	err = s.ExecuteTemplate(w, "about-main", &aboutTree{
+	err = s.ExecuteTemplate(w, aboutTemplate(t.Level()), &aboutTree{
 		Head: head,
 		Tree: t,
 	})
 	if err != nil {
 		log.Println(err)
 	}
+}
+
+func aboutTemplate(level int) string {
+	if level == 0 {
+		return "about-main"
+	}
+	return  "about-page"
 }

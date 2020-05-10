@@ -21,10 +21,13 @@
 {{template "head" .Head}}
 {{template "top" .}}
 
+{{template "subnav" (snav .Tree 0 .Head.Lang)}}
+
     <h1 class="about-title">
-        {{.Hold.Info.Title .Head.Lang}}
+        {{.Tree.Title .Head.Lang}}
     </h1>
 
+    {{template "about-entries" (esL .Tree.Entries .Head.Lang)}}
 
 
     {{/*template "chamomile" .Head.Lang*/}}
