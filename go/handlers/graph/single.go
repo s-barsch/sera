@@ -34,14 +34,7 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, p *pa
 		return
 	}
 
-	/*
-	prev, next, err := getPrevNext(s.Recents["graph"], p.Acronym)
-	if err != nil {
-		http.NotFound(w, r)
-		s.Log.Println(err)
-		return
-	}
-	*/
+	prev, next := getPrevNext(s.Recents["graph"].Local(s.Flags.Local)[lang], e)
 
 	head := &head.Head{
 		Title:   graphEntryTitle(e, head.Lang(r.Host)),
@@ -70,11 +63,8 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, p *pa
 	err = s.ExecuteTemplate(w, "graph-single", &graphSingle{
 		Head:   head,
 		Entry:  e,
-		/*
-		Parent: parent,
 		Prev:   prev,
 		Next:   next,
-		*/
 	})
 	if err != nil {
 		log.Println(err)
@@ -89,26 +79,20 @@ func graphEntryTitle(e entry.Entry, lang string) string {
 	return fmt.Sprintf("%v - %v", e.Title(lang), graphEntryDate(e.Date(), lang))
 }
 
-/*
-func getPrevNext(els entry.Els, acronym string) (prev, next interface{}, Err error) {
-	id, err := entry.DecodeAcronym(acronym)
-	if err != nil {
-		Err = err
-		return
-	}
-	i, err := els.LookupPosition(id)
-	if err != nil {
-		Err = err
-		return
+func getPrevNext(es entry.Entries, single entry.Entry) (prev, next entry.Entry) {
+	id := single.Id()
+	for i, e := range es {
+		if e.Id() == id {
+			if i > 0 {
+				next = es[i-1]
+			}
+
+			if i+1 < len(es) {
+				prev = es[i+1]
+			}
+			return
+		}
 	}
 
-	if i > 0 {
-		prev = els[i-1]
-	}
-
-	if i+1 < len(els) {
-		next = els[i+1]
-	}
 	return
 }
-*/

@@ -38,7 +38,6 @@ func Router(s *server.Server) *mux.Router {
 	r.PathPrefix("/datenschutz").HandlerFunc(makeHandler(s, extra.Route))
 	r.PathPrefix("/privacy").HandlerFunc(makeHandler(s, extra.Route))
 
-	/*
 	r.HandleFunc("/opt/colors/dark", makeHandler(s, extra.DarkColors))
 	r.HandleFunc("/opt/colors/light", makeHandler(s, extra.LightColors))
 	r.HandleFunc("/opt/type/large", makeHandler(s, extra.LargeType))
@@ -46,7 +45,6 @@ func Router(s *server.Server) *mux.Router {
 
 	r.HandleFunc("/rl/", makeHandler(s, extra.Reload))
 
-	*/
 
 	r.PathPrefix("/static/").HandlerFunc(makeHandler(s, extra.StaticFiles))
 	r.PathPrefix("/js/").HandlerFunc(makeHandler(s, extra.JSFiles))
@@ -55,7 +53,6 @@ func Router(s *server.Server) *mux.Router {
 
 	r.PathPrefix("/manifest.json").HandlerFunc(makeHandler(s, extra.Manifest))
 
-	/*
 	fileRoutes := map[string]string{
 		"/googledbd0f1dfe416dbee.html": "/static/seo/googledbd0f1dfe416dbee.html",
 		"/BingSiteAuth.xml":            "/static/seo/BingSiteAuth.xml",
@@ -68,7 +65,6 @@ func Router(s *server.Server) *mux.Router {
 			extra.StaticFiles(s, w, r)
 		})
 	}
-	*/
 
 	return r
 }

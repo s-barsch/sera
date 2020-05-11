@@ -23,8 +23,8 @@
         type   : "graph-el",
         nav : {
             parent : "{{.Entry.Parent.Perma .Head.Lang}}",
-            next   : "{{if .Next}}{{.Next.Permalink .Head.Lang}}{{end}}",
-            prev   : "{{if .Prev}}{{.Prev.Permalink .Head.Lang}}{{end}}"
+            next   : "{{if .Next}}{{.Next.Perma .Head.Lang}}{{end}}",
+            prev   : "{{if .Prev}}{{.Prev.Perma .Head.Lang}}{{end}}"
         }
     };
     </script>
@@ -58,9 +58,7 @@
         {{end}}
     </div>
 
-{{/*
   {{template "prev-next" .}}
-  */}}
 
 
   {{if isLocal}}
@@ -72,29 +70,28 @@
 {{end}}
 
 
-{{/*
   {{define "prev-next"}}
-    {{$lang := .Head.Lang}}
-    <nav id="prev-next" class="prev-next-nav margin">
+    <nav id="prev-next" class="prev-next-nav">
         <div>
             {{with .Prev}}
-            &larr; <a href="{{.Permalink $lang}}">{{.Title $lang}}</a>
+            &larr; <a href="{{.Perma $.Head.Lang}}">{{.Title $.Head.Lang}}</a>
             {{else}}
             &nbsp;
             {{end}}
 
             {{with .Next}}
             <span class="right">
-                <a href="{{.Permalink $lang}}">{{.Title $lang}}</a>
+                <a href="{{.Perma $.Head.Lang}}">{{.Title $.Head.Lang}}</a>
                 &rarr;
             </span>
             {{end}}
         </div>
         <div class="prev-next-tip">
-        {{var "navigate" $lang}}
+        {{var "navigate" $.Head.Lang}}
         </div>
     </nav>
   {{end}}
+{{/*
 
 {{define "el-date"}}
   <span class="el-date-day">
