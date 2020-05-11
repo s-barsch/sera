@@ -13,25 +13,24 @@
 {{end}}
 
 
-
-
-{{/*
 {{define "prev-next-year"}}
-    {{$lang := .Head.Lang}}
     <div class="prev-next-year graph-tip">
         {{with .Next}}
-            &larr; <a href="{{.Permalink $lang}}">{{.Title $lang}}</a>
+            &larr; <a href="{{.Perma $.Head.Lang}}">{{.Title $.Head.Lang}}</a>
         {{else}}
             &nbsp;
         {{end}}
         {{with .Prev}}
             <span class="right">
-            <a href="{{.Permalink $lang}}">{{.Title $lang}}</a>
+            <a href="{{.Perma $.Head.Lang}}">{{.Title $.Head.Lang}}</a>
             &rarr; 
             </span>
         {{end}}
     </div>
 {{end}}
+
+{{/*
+
 
 {{define "graph-full-tip"}}
 <div class="more-tip">

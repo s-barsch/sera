@@ -14,10 +14,7 @@ func AddSlash(w http.ResponseWriter, r *http.Request) {
 
 func ConstantReload(s *server.Server, next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		switch p.Ext(r.URL.Path) {
-		case ".mp4", ".jpg":
-			break;
-		default:
+		if p.Ext(r.URL.Path) == "" {
 			log.Println(r.URL.Path)
 			err := s.Load()
 			if err != nil {

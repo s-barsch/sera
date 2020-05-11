@@ -15,8 +15,8 @@ type yearPage struct {
 	Head    *head.Head
 	Tree    *tree.Tree
 	Entries entry.Entries
-	//Prev *entry.Hold
-	//Next *entry.Hold
+	Prev *tree.Tree
+	Next *tree.Tree
 }
 
 func YearPage(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Path) {
@@ -31,33 +31,26 @@ func YearPage(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths
 		return
 	}
 
-	tree, err := graph.LookupTree(id)
+	t, err := graph.LookupTree(id)
 	if err != nil {
 		http.NotFound(w, r)
 		s.Log.Println(err)
 		return
 	}
 
-	if perma := tree.Perma(lang); r.URL.Path != perma {
+	if perma := t.Perma(lang); r.URL.Path != perma {
 		http.Redirect(w, r, perma, 301)
 		return
 	}
 
-	/*
-		prev, next, err := yearSiblings(h)
-		if err != nil {
-			http.NotFound(w, r)
-			s.Log.Println(err)
-			return
-		}
-	*/
+	prev, next := yearSiblings(t)
 
 	head := &head.Head{
-		Title:   yearTitle(tree, lang),
+		Title:   yearTitle(t, lang),
 		Section: "graph",
 		Path:    r.URL.Path,
 		Host:    r.Host,
-		Entry:   tree,
+		Entry:   t,
 		Options: head.GetOptions(r),
 	}
 
@@ -69,12 +62,10 @@ func YearPage(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths
 
 	err = s.ExecuteTemplate(w, "graph-year", &yearPage{
 		Head:    head,
-		Tree:    tree,
-		Entries: serializeMonths(tree),
-		/*
-			Prev: prev,
-			Next: next,
-		*/
+		Tree:    t,
+		Entries: serializeMonths(t),
+		Prev: prev,
+		Next: next,
 	})
 	if err != nil {
 		log.Println(err)

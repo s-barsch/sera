@@ -14,7 +14,7 @@ type graphMain struct {
 	Head    *head.Head
 	Tree    *tree.Tree
 	Entries entry.Entries
-	//Prev *entry.Hold
+	Prev    *tree.Tree
 	//Next *entry.Hold
 }
 
@@ -35,13 +35,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	/*
-		prev, _, err := yearSiblings(lastHold(s.Trees["graph"]))
-		if err != nil {
-			s.Log.Println(err)
-			return
-		}
-	*/
+	prev, _ := yearSiblings(lastTree(t))
 
 	entries := s.Recents["graph"].Local(s.Flags.Local)[lang]
 
@@ -49,42 +43,43 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		Head:    head,
 		Tree:    t,
 		Entries: entries.Offset(0, 100),
-		//Prev: prev,
+		Prev: prev,
 	})
 	if err != nil {
 		log.Println(err)
 	}
 }
 
-/*
-func lastHold(hold *entry.Hold) *entry.Hold {
-	if len(hold.Holds) < 1 {
+func lastTree(tree *tree.Tree) *tree.Tree {
+	if len(tree.Trees) < 1 {
 		return nil
 	}
-	return hold.Holds.Reverse()[0]
+	return tree.Trees.Reverse()[0]
 }
 
-func yearSiblings(h *entry.Hold) (prev, next *entry.Hold, err error) {
-	if h == nil {
-		err = fmt.Errorf("yearSiblings: Hold is nil.")
+func yearSiblings(t *tree.Tree) (prev, next *tree.Tree) {
+	if t == nil {
 		return
 	}
-	if h.Mother == nil {
-		err = fmt.Errorf("yearSiblings: Mother is nil.")
+	if t.Parent() == nil {
 		return
 	}
 
-	for i, child := range h.Mother.Holds {
-		if h.File.Id == child.File.Id {
+	parentTree, ok := t.Parent().(*tree.Tree)
+	if !ok {
+		return
+	}
+
+	for i, child := range parentTree.Trees {
+		if child.Id() == t.Id() {
 			if i > 0 {
-				prev = h.Mother.Holds[i-1]
+				prev = parentTree.Trees[i-1]
 			}
 
-			if i+1 < len(h.Mother.Holds) {
-				next = h.Mother.Holds[i+1]
+			if i+1 < len(parentTree.Trees) {
+				next = parentTree.Trees[i+1]
 			}
 		}
 	}
 	return
 }
-*/
