@@ -54,7 +54,11 @@ func (r *Renderer) renderSnippet(s string) string {
 			}
 		case '/':
 			if isNextChar(s, '/') {
-				return buf.String()
+				pos := closingPos(s[1:], "\n")
+				if pos > 0 {
+					s = s[pos:]
+					continue
+				}
 			}
 			if isNextChar(s, '*') {
 				pos := closingPos(s[1:], "*/")
