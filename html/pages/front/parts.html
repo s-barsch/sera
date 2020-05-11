@@ -25,6 +25,8 @@
     {{else}}
         {{template "entry" .}}
     {{end}}
+    {{template "private-mark-graph" .E.Parent}}
+    {{template "private-mark-graph" .E}}
     {{template "front-index-title" .}}
   </article>
 {{end}}
