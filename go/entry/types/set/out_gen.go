@@ -93,5 +93,9 @@ func (e *Set) Perma(lang string) string {
 	if slug != "" {
 		return fmt.Sprintf("%v/%v-%v", e.parent.Path(lang), slug, e.Hash())
 	}
+	if e.Section() == "index" {
+		return fmt.Sprintf("%v#%v", e.parent.Perma(lang), e.HashShort())
+	}
+
 	return fmt.Sprintf("%v/%v", e.parent.Path(lang), e.Hash())
 }
