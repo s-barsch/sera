@@ -1,3 +1,8 @@
+
+.set .entry:last-child {
+    margin-bottom:0;
+}
+
 @font-face {
     font-family: "EB Garamond 12 SC";
     font-style: normal;
@@ -9,7 +14,6 @@
 
 .section-title--graph {
     margin-bottom:3.25rem;
-    //margin-bottom:4.5rem;
 }
 
 .section-title--year .section-title {
@@ -42,13 +46,6 @@
     padding:5.5rem 0 0;
     margin:.5rem 0 2.5rem;
 }
-
-/*
-.graph-date {
-    //letter-spacing:.025rem;
-    font-size:.9375rem;
-}
-*/
 
 .ddot {
     color:var(--color-fg);
@@ -107,10 +104,6 @@
 
 .texts,
 .blob-group {
-/*
-    margin:3rem 0 2rem;
-    margin:1rem 0 1rem;
-*/
     margin:4rem 0;
 }
 
@@ -126,17 +119,9 @@
     display:none;
 }
 
-/*
-.blob-group img {
-    max-width:calc(50vw - 1.25rem);
-    //max-height:calc(50vw - 1.25rem);
-}
-*/
-
 .media-mixin(@break) when (@break = @break-single) {
     .section-title--graph {
         margin-bottom:4rem;
-        //margin-bottom:5.25rem;
     }
 }
 

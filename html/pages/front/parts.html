@@ -1,7 +1,7 @@
 {{define "front-index-title"}}
 <header class="front-meta">
-    {{template "private-mark" .E}}
-    {{with (.E.Parent)}}
+    {{template "private-mark-graph" .E}}
+    {{with (.E)}}
     <a class="topicl" href="{{.Perma $.L}}">{{removeß (.Title $.L)}}</a> 
     {{end}}
 </header>
@@ -15,18 +15,31 @@
 
 
 {{define "front-index-entry"}}
-  <article class="entry entry--front">
-    {{if eq .E.Type "image"}}
+  <article class="tree--front">
+    {{$type := .E.Type}}
+    {{if eq $type "image"}}
         <span class="thumb index-thumb">
             <a class="thumbl" href="{{.E.Perma .L}}">
             {{template "graph-image-thumbnail" .}}
             </a>
         </span>
+    {{else if eq $type "tree"}}
+      {{template "front-index-tree" .}}
     {{else}}
         {{template "entry" .}}
     {{end}}
-    {{template "private-mark-graph" .E.Parent}}
     {{template "private-mark-graph" .E}}
     {{template "front-index-title" .}}
   </article>
+{{end}}
+
+
+{{define "front-index-tree"}}
+<div class="set">
+  {{range $i, $e := .E.Entries}}
+    <div class="text">
+      {{template "entry" (eL $e $.L)}}
+    </div>
+  {{end}}
+</div>
 {{end}}

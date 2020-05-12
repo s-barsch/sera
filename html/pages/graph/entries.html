@@ -61,15 +61,15 @@
 {{end}}
 
 {{define "graph-text"}}
-  <div class="graph-text">
       {{template "text" .}}
-  </div>
 {{end}}
 
 {{define "graph-set"}}
+<div class="set">
     {{range .E.Entries}}
         {{template "graph-set-child" (eLy . $.L $.Y)}}
     {{end}}
+</div>
 {{end}}
 
 {{define "graph-set-child"}}
@@ -83,10 +83,8 @@
         {{template "entry" .}}
       </div>
     {{else}}
-      <div class="graph-text">
-        <div>
+      <div class="text">
           {{template "entry" .}}
-        </div>
       </div>
     {{end}}
     {{template "private-mark-graph" .E}}

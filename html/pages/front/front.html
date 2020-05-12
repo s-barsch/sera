@@ -29,11 +29,13 @@
       {{range .Index.Offset 0 4}}
       {{template "front-index-entry" (eL . $.Head.Lang)}}
       {{end}}
-      {{range .Index.Offset 4 15}}
-      <div class="desktop">
-          {{template "front-index-entry" (eL . $.Head.Lang)}}
-      </div>
-      {{end}}
+      {{/*
+        {{range .Index.Offset 4 15}}
+        <div class="desktop">
+            {{template "front-index-entry" (eL . $.Head.Lang)}}
+        </div>
+        {{end}}
+      */}}
       <div class="more-tip">
           {{var "index-more" .Head.Lang}}
       </div>
