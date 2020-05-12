@@ -6,5 +6,5 @@ graph-more-de: Mehr Einträge bei → <a href="/graph">Graph</a>.
 graph-more-en: More entries at → <a href="/graph">Graph</a>.
 navigate-de: Wischgesten und Pfeiltasten benutzbar 
 navigate-en: Swipe gestures and arrow keys supported
-serial-link-de: 'Mehr bei → <a class="morel" href="/index/serial/">Serialisierte Einträge</a>.'
-serial-link-en: 'More at → <a class="morel" href="/index/serial/">Serialized Entries</a>.'
+serial-link-de: 'Mehr Einträge bei → <a class="morel" href="/index/serial">Serial</a>.'
+serial-link-en: 'More entries at → <a class="morel" href="/index/serial">Serial</a>.'
