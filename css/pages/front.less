@@ -9,6 +9,11 @@
     max-width:29rem;
 }
 
+.col--index {
+    display:none;
+    text-decoration:line-through;
+}
+
 [data-type="large"] .col__content {
     max-width:31rem;
 }
@@ -108,6 +113,10 @@
 }
 
 .media-mixin(@break) when (@break = @break-single) {
+    .col--index {
+        display:block;
+    }
+
     .cols {
         display:grid;
         column-gap:4rem;

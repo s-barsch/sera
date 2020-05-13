@@ -11,7 +11,7 @@
 -->
 
   <div class="cols">
-    <div class="col__content">
+    <div class="col__content col--index">
     {{template "index-col" .}}
     </div>
     <div class="col__content">
@@ -30,7 +30,7 @@
 {{define "index-col" -}}
 <div>
       <h3 class="front-title"><a href="/index/">Index</a></h3>
-      {{range .Index.Offset 0 4}}
+      {{range .Index.Offset 0 5}}
       {{template "front-index-entry" (eL . $.Head.Lang)}}
       {{end}}
       {{/*
