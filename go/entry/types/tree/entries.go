@@ -74,9 +74,5 @@ func skipEntry(fi *read.FileInfo, parent *Tree) bool {
 			return true
 		}
 	}
-	switch helper.FileType(fi.Path) {
-	case "audio":
-		return true
-	}
 	return false
 }

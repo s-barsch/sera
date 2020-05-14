@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"stferal/go/entry"
 	"stferal/go/entry/helper"
+	"stferal/go/entry/types/media/audio"
 	"stferal/go/entry/types/media/html"
 	"stferal/go/entry/types/media/image"
 	"stferal/go/entry/types/media/text"
@@ -16,6 +17,8 @@ func NewMediaEntry(path string, parent entry.Entry) (entry.Entry, error) {
 		return text.NewText(path, parent)
 	case "image":
 		return image.NewImage(path, parent)
+	case "audio":
+		return audio.NewAudio(path, parent)
 	case "video":
 		return video.NewVideo(path, parent)
 	case "html":

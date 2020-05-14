@@ -8,7 +8,7 @@ func (v *Video) Location(arg string) string {
 	return v.file.Path
 }
 
-func (v *Video) VideoPath(lang string) string {
+func (v *Video) FilePath(lang string) string {
 	if v.parent.Type() == "set" {
 		return fmt.Sprintf("%v/cache/%v", v.parent.Perma(lang), v.file.Name())
 	}

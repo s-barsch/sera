@@ -82,7 +82,7 @@
 {{define "video"}}
 <figure>
 
-<video src="{{.E.VideoPath .Lang}}" preload="metadata" loop controls>
+<video src="{{.E.FilePath .Lang}}" preload="metadata" loop controls>
     {{range .E.Subtitles}}
     <track label="{{langName .}}" srclang="{{.}}" kind="subtitles"
     src="{{.E.SubtitlePath .}}"{{if and (ne $.L "de") (eq $.L .)}} default{{end}}>
@@ -93,30 +93,29 @@
 
 
 
-{{/*
 {{define "audio"}}
-{{$audio := .El}}
-{{$lang := .Lang}}
 <div>
-<audio src="{{.El.Path .Lang}}" controls>
-    {{range .El.Subtitles}}
+<audio src="{{.E.FilePath .Lang}}" controls>
+    {{range .E.Subtitles}}
     <track label="{{langName .}}" srclang="{{.}}" kind="captions"
-    src="{{$audio.CaptionPath .}}"{{if and (ne $lang "de") (eq $lang .)}} default{{end}}>
+    src="{{.E.CaptionPath .}}"{{if and (ne $.L "de") (eq $.L .)}} default{{end}}>
     {{end}}
 </audio>
-<p class="lines captions">
-</p>
-{{if (eq $lang "de")}}
-{{with .El.Info.Field "transcript" $lang}}
-<div class="el">
-    <br>
-<p class="lines">
-<span class="sc">Transkript:</span> {{.}}
-</p>
-</div>
-{{end}}
-{{end}}
-</div>
+    {{/*
+        <p class="lines captions">
+        </p>
+        {{if (eq $lang "de")}}
+        {{with .El.Info.Field "transcript" $lang}}
+        <div class="el">
+            <br>
+        <p class="lines">
+        <span class="sc">Transkript:</span> {{.}}
+        </p>
+        </div>
+        {{end}}
+        {{end}}
+        </div>
+    */}}
 {{end}}
 
 {{define "audio-vtt"}}
@@ -130,4 +129,3 @@ video:<video controls style="background:black">
 </video>
 <br>
 {{end}}
-*/}}
