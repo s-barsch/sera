@@ -1,12 +1,12 @@
 package text
 
 import (
+	bf "gopkg.in/russross/blackfriday.v2"
 	"stferal/go/entry"
 	"stferal/go/entry/helper"
 	"stferal/go/entry/helper/markup"
 	"stferal/go/entry/parts/file"
 	"stferal/go/entry/parts/info"
-	bf "gopkg.in/russross/blackfriday.v2"
 	"time"
 )
 
@@ -18,7 +18,7 @@ type Text struct {
 	info info.Info
 
 	TextLangs map[string]string
-	blank map[string]string
+	blank     map[string]string
 
 	Notes map[string][]string
 }
@@ -60,7 +60,7 @@ func NewText(path string, parent entry.Entry) (*Text, error) {
 		info: inf,
 
 		TextLangs: rendered,
-		blank: langs,
+		blank:     langs,
 
 		Notes: notes,
 	}, nil
@@ -72,8 +72,7 @@ func renderLangs(langs map[string]string) (map[string]string, map[string][]strin
 		text, ns := markup.Render(langs[l])
 		text = string(bf.Run(
 			[]byte(text),
-			bf.WithExtensions(bf.HardLineBreak),
-			bf.WithExtensions(bf.DefinitionLists),
+			bf.WithExtensions(bf.HardLineBreak|bf.DefinitionLists),
 		))
 		langs[l] = text
 		notes[l] = ns
