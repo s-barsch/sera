@@ -34,7 +34,7 @@ type flags struct {
 	Mobile bool
 }
 
-func New() *Server {
+func NewServer() *Server {
 	host := flag.String("host", "", "override host variable for testing")
 	path := flag.String("path", ".", "set the root path of this app")
 	all := flag.Bool("a", false, "sets all flags except mobile")

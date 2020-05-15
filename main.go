@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	s := server.New()
+	s := server.NewServer()
 
 	err := s.Load()
 	if err != nil {
