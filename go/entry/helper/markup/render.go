@@ -74,10 +74,12 @@ func (r *Renderer) renderSnippet(s string) string {
 				continue
 			}
 		case '#', '~', '%', '+':
-			pos := r.renderTag(&buf, s, string(c))
-			if pos != 0 {
-				s = s[pos:]
-				continue
+			if !isNextChar(s, '#') {
+				pos := r.renderTag(&buf, s, string(c))
+				if pos != 0 {
+					s = s[pos:]
+					continue
+				}
 			}
 		}
 
@@ -151,6 +153,10 @@ func closingPos(s string, closing string) int {
 			if s[i:i+len(closing)] == closing {
 				return i + len(closing)
 			}
+		}
+
+		if r == '\n' {
+			return -1
 		}
 	}
 	return -1
