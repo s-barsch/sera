@@ -65,13 +65,12 @@ func (p *Patterns) HyphenateWord(word string) string {
 		return word
 	}
 	nw := bytes.Buffer{}
-	j := 0
-	for _, r := range word {
+	l := utf8.RuneCountInString(word)
+	for i, r := range word {
 		nw.WriteRune(r)
-		if points[j]%2 != 0 && len(word) > j+1 {
+		if points[i]%2 != 0 && l > i+1 {
 			nw.WriteString("&shy;")
 		}
-		j++
 	}
 	return nw.String()
 }
