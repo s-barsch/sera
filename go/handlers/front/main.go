@@ -6,7 +6,6 @@ import (
 	"stferal/go/entry"
 	"stferal/go/head"
 	"stferal/go/server"
-	"stferal/go/entry/types/tree"
 )
 
 type frontMain struct {
@@ -33,12 +32,12 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	}
 	
 
-	index := getRecentTrees(s.Trees["index"].Local(s.Flags.Local)[lang])
+	index := s.Recents["index"].Local(s.Flags.Local)[lang]
 	graph := s.Recents["graph"].Local(s.Flags.Local)[lang]
 
 	err = s.ExecuteTemplate(w, "front", &frontMain{
 		Head:  head,
-		Index: index,//.Offset(0, 100),
+		Index: index.Offset(0, 100),
 		Graph: graph.Offset(0, 100),
 	})
 	if err != nil {
@@ -46,10 +45,3 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func getRecentTrees(t *tree.Tree) entry.Entries {
-	es := entry.Entries{}
-	for _, tree := range t.TraverseTrees() {
-		es = append(es, tree)
-	}
-	return es.Desc()
-}
