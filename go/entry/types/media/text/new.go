@@ -72,7 +72,7 @@ func renderLangs(langs map[string]string) (map[string]string, map[string][]strin
 		text, ns := markup.Render(langs[l])
 		text = string(bf.Run(
 			[]byte(text),
-			bf.WithExtensions(bf.HardLineBreak|bf.DefinitionLists),
+			bf.WithExtensions(bf.HardLineBreak|bf.Footnotes|bf.DefinitionLists),
 		))
 		langs[l] = text
 		notes[l] = ns

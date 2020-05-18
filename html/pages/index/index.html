@@ -57,12 +57,25 @@
 {{template "subnav" (snav .Tree 0 .Head.Lang)}}
 
     {{$isArticle := eq (index .Tree.Info "article") "true"}}
-    <h1 class="{{if $isArticle}}article{{else}}hold{{end}}-title l{{.Tree.Level}}">
-        {{if eq .Tree.Level 1}}
-        <span class="fleuron">❧</span>
-        {{end}}
-      {{.Tree.Info.HyphTitle .Head.Lang}}
+
+    {{$pageTitle := .Tree.Info.HyphTitle .Head.Lang}}
+    {{$subTitle := ""}}
+
+    {{with .Tree.TopicPage}}
+      {{$subTitle = $pageTitle}}
+      {{$pageTitle = .Info.HyphTitle $.Head.Lang}}
+    {{end}}
+
+
+    <h1 class="{{if $isArticle}}article{{else}}index{{end}}-title l{{.Tree.Level}}">
+      <span>
+      {{$pageTitle}}
+      </span>
+      {{with $subTitle}}
+      › {{.}}
+      {{end}}
     </h1>
+
 
         {{template "index-entries" (eL .Tree .Head.Lang)}}
 

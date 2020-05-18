@@ -74,7 +74,7 @@ func (r *Renderer) renderSnippet(s string) string {
 				continue
 			}
 		case '#', '~', '%', '+':
-			if !isNextChar(s, '#') {
+			if !isNextChar(s, byte(c)) {
 				pos := r.renderTag(&buf, s, string(c))
 				if pos != 0 {
 					s = s[pos:]

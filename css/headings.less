@@ -15,11 +15,19 @@ h6 a {
 /* For about page. Not good. */
 
 h3 {
+    /*
     font-family:var(--fontfamily-garamond-sc);
     font-size:1.375rem;
     text-transform:lowercase;
     letter-spacing:.08rem;
     margin:3.25rem 0 0;
+    */
+    margin-top:2rem;
+    margin-bottom:1rem;
+    font-family:"Inter", sans-serif;
+    font-weight:650;
+    font-size:1.375rem;
+    letter-spacing:0;
 }
 
 .section-title--graph {
@@ -49,9 +57,11 @@ h3 {
     display:inline-block;
 }
 
+/*
 [data-colors="dark"] .section-title {
     font-weight:430;
 }
+*/
 
 
 .set-title {
@@ -86,7 +96,6 @@ h3 {
     }
     .section-title {
         font-size:2.875rem;
-        letter-spacing:.05rem;
     }
     [data-type="large"] .section-title {
         font-size:3.5rem;
@@ -114,7 +123,7 @@ h3 {
 
 .section-explanation {
     font-size:.875rem;
-    color:var(--color-red-first);
+    color:var(--color-fg);
     line-height:3rem;
     display:none;
 }

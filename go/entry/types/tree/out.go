@@ -110,3 +110,27 @@ func (t *Tree) Level() int {
 	}
 	return 1 + parent.Level()
 }
+
+/*
+func (t *Tree) IsSubPage() bool {
+	parent := typeCheck(t.Parent())
+	if parent == nil {
+		return false
+	}
+	if t.parent.Info()["istopic"] == "true" {
+		return true
+	}
+	return parent.IsSubPage()
+}
+*/
+
+func (t *Tree) TopicPage() *Tree {
+	parent := typeCheck(t.Parent())
+	if parent == nil {
+		return nil
+	}
+	if t.parent.Info()["istopic"] == "true" {
+		return parent
+	}
+	return parent.TopicPage()
+}

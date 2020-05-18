@@ -17,6 +17,18 @@ ul {
     //list-style:none;
 }
 
+dl {
+    margin:.5rem 0;
+}
+
+dd {
+    margin-left: 1rem;
+}
+
+dd {
+    margin-bottom:1rem;
+}
+
 /*
 li:before {
     width:1rem;
@@ -45,6 +57,8 @@ li:before {
     text-indent:1.5rem;
 }
 
+.indent h3 + p,
+.indent blockquote + p,
 .indent p:first-child {
     text-indent:0;
 }
@@ -130,20 +144,31 @@ p code {
 // footnotes
 
 .footnotes {
+    margin:0 0 1rem;
+}
+
+
+ol {
+    list-style: none;
+    padding-left:1.25rem;
+    counter-reset: my-counter;
+}
+ol li {
+    font-size: var(--fontsize-quote);
+    counter-increment: my-counter;
+    text-align:justify;
+}
+ol li::before {
+    content: counter(my-counter) ".";
+    width:1.25rem;
+    margin-left:-1.25rem;
+    display:inline-block;
+}
+
+.footnotes hr {
     display:none;
 }
 
-.footnotes.show {
-    display:block;
-}
-
-.footnotes,
-.el li {
-    max-width:30rem;
-}
-.footnotes {
-    margin:0 0 1rem;
-}
 
 .note {
     font-size:1rem;
