@@ -28,7 +28,6 @@
         </div>
     </section>
 
-    {{/*
     <section id="serial">
         <h2 class="subh subtitle">
           <a href="/index/serial/">Serial</a>
@@ -38,6 +37,7 @@
           {{template "front-index-entry" (eL . $.Head.Lang)}}
         {{end}}
 
+    {{/*
         <div class="more-tip">
             {{var "serial-link" .Head.Lang}}
         </div>
@@ -67,6 +67,7 @@
     {{end}}
 
 
+    {{template "private-mark-graph" .Tree}}
     <h1 class="{{if $isArticle}}article{{else}}index{{end}}-title l{{.Tree.Level}}">
       {{$pageTitle}}
       {{with $subTitle}}
@@ -112,6 +113,7 @@
   <div class="index-date-bot">
     {{template "index-date" .}}
   </div>
+  {{template "private-mark-graph" .E}}
   {{template "edit-link" .}}
 
 {{end}}

@@ -74,5 +74,13 @@ func serialize(t *tree.Tree) entry.Entries {
 	if t.Section() == "graph" {
 		return t.TraverseEntriesReverse()
 	}
+	if t.Section() == "index" {
+		ts := t.TraverseTrees()
+		es := entry.Entries{}
+		for _, e := range ts {
+			es = append(es, e)
+		}
+		return es.Exclude().Desc()
+	}
 	return t.TraverseEntries().Exclude().Desc()
 }
