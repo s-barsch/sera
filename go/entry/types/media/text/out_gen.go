@@ -40,19 +40,19 @@ func (e *Text) HashShort() string {
 	return helper.ShortenHash(e.Hash())
 }
 
-func (e *Text) Title(lang string) string {
-	if title := e.info.Title(lang); title != "" {
-		return title
-	}
-	return e.HashShort()
-}
-
 func (e *Text) Date() time.Time {
 	return e.date
 }
 
 func (e *Text) Info() info.Info {
 	return e.info
+}
+
+func (e *Text) Title(lang string) string {
+	if title := e.info.Title(lang); title != "" {
+		return title
+	}
+	return e.HashShort()
 }
 
 func (e *Text) Slug(lang string) string {

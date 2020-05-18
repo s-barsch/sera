@@ -40,19 +40,19 @@ func (e *Video) HashShort() string {
 	return helper.ShortenHash(e.Hash())
 }
 
-func (e *Video) Title(lang string) string {
-	if title := e.info.Title(lang); title != "" {
-		return title
-	}
-	return e.HashShort()
-}
-
 func (e *Video) Date() time.Time {
 	return e.date
 }
 
 func (e *Video) Info() info.Info {
 	return e.info
+}
+
+func (e *Video) Title(lang string) string {
+	if title := e.info.Title(lang); title != "" {
+		return title
+	}
+	return e.HashShort()
 }
 
 func (e *Video) Slug(lang string) string {

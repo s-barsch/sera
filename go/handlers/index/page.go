@@ -1,6 +1,7 @@
 package index
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"stferal/go/entry/types/tree"
@@ -46,11 +47,18 @@ func IndexPage(s *server.Server, w http.ResponseWriter, r *http.Request, t *tree
 }
 
 func indexTitle(t *tree.Tree, lang string) string {
-	title := t.Info().Title(lang)
+	title := t.Title(lang)
+
+	topicTitle := ""
+
+	if topic := t.TopicPage(); topic != nil {
+		topicTitle = fmt.Sprintf(" - %v ", topic.Title(lang))
+	}
 
 	c := t.Chain()
 	if len(c) > 2 {
-		title += " - " + c[1].Title(lang)
+		mainCategory := c[1].Title(lang)
+		title += topicTitle + " - " + mainCategory
 	}
 
 	return title

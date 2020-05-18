@@ -68,11 +68,10 @@
 
 
     <h1 class="{{if $isArticle}}article{{else}}index{{end}}-title l{{.Tree.Level}}">
-      <span>
       {{$pageTitle}}
-      </span>
       {{with $subTitle}}
-      › {{.}}
+      <span class="index-title__sep">–</span>
+      {{.}}
       {{end}}
     </h1>
 

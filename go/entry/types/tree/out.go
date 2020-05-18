@@ -5,6 +5,14 @@ import (
 	"stferal/go/entry"
 )
 
+func (t *Tree) CombinedTitle(lang string) string {
+	topicPage := ""
+	if topic := t.TopicPage();topic != nil {
+		topicPage = topic.Info().Title(lang) + " – "
+	}
+	return topicPage + t.Title(lang)
+}
+
 func (t *Tree) Label(lang string) string {
 	if label := t.info.Field("label", lang); label != "" {
 		return label
@@ -134,3 +142,4 @@ func (t *Tree) TopicPage() *Tree {
 	}
 	return parent.TopicPage()
 }
+

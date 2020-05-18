@@ -44,19 +44,19 @@ func {{receiver .}} HashShort() string {
 	return helper.ShortenHash(e.Hash())
 }
 
-func {{receiver .}} Title(lang string) string {
-	if title := e.info.Title(lang); title != "" {
-		return title
-	}
-	return e.HashShort()
-}
-
 func {{receiver .}} Date() time.Time {
 	return e.date
 }
 
 func {{receiver .}} Info() info.Info {
 	return e.info
+}
+
+func {{receiver .}} Title(lang string) string {
+	if title := e.info.Title(lang); title != "" {
+		return title
+	}
+	return e.HashShort()
 }
 
 func {{receiver .}} Slug(lang string) string {

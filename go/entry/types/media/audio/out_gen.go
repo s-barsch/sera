@@ -40,19 +40,19 @@ func (e *Audio) HashShort() string {
 	return helper.ShortenHash(e.Hash())
 }
 
-func (e *Audio) Title(lang string) string {
-	if title := e.info.Title(lang); title != "" {
-		return title
-	}
-	return e.HashShort()
-}
-
 func (e *Audio) Date() time.Time {
 	return e.date
 }
 
 func (e *Audio) Info() info.Info {
 	return e.info
+}
+
+func (e *Audio) Title(lang string) string {
+	if title := e.info.Title(lang); title != "" {
+		return title
+	}
+	return e.HashShort()
 }
 
 func (e *Audio) Slug(lang string) string {

@@ -2,7 +2,7 @@
 <header class="front-meta">
     {{template "private-mark-graph" .E}}
     {{with (.E)}}
-    <a class="topicl" href="{{.Perma $.L}}">{{removeß (.Title $.L)}}</a> 
+    <a href="{{.Perma $.L}}">{{.CombinedTitle $.L}}</a> 
     {{end}}
 </header>
     {{template "edit-link" .}}
