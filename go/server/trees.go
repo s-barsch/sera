@@ -77,8 +77,11 @@ func serialize(t *tree.Tree) entry.Entries {
 	if t.Section() == "index" {
 		ts := t.TraverseTrees()
 		es := entry.Entries{}
-		for _, e := range ts {
-			es = append(es, e)
+		for _, te := range ts {
+			if len(te.Entries()) == 0 {
+				continue
+			}
+			es = append(es, te)
 		}
 		return es.Exclude().Desc()
 	}
