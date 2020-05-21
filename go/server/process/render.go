@@ -5,6 +5,7 @@ import (
 	"stferal/go/entry"
 	"stferal/go/entry/types/media/text"
 	"stferal/go/entry/types/set"
+	"stferal/go/entry/types/tree"
 	"stferal/go/entry/helper/hyph"
 )
 
@@ -43,6 +44,11 @@ func (h HyphPatterns) HyphenateEntries(entries entry.Entries) {
 		s, ok := e.(*set.Set)
 		if ok {
 			h.HyphenateEntries(s.Entries())
+			continue
+		}
+		t, ok := e.(*tree.Tree)
+		if ok {
+			h.HyphenateEntries(t.Entries())
 			continue
 		}
 		tx, ok := e.(*text.Text)
