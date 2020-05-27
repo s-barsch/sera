@@ -30,10 +30,9 @@ type Head struct {
 }
 
 func (h *Head) Process() error {
-	// TODO: uncomment this again
-	// TODO: can check for missing entries?
+	// TODO: check for nil entry?
 	h.Lang = Lang(h.Host)
-	//h.Desc = h.GetDesc()
+	h.Desc = h.GetDesc()
 	h.Langs = h.MakeLangs()
 	h.Nav = h.MakeNav()
 
@@ -61,7 +60,7 @@ func (h *Head) PageURL() string {
 
 func (h *Head) DontIndex() bool {
 	switch h.Path {
-	case "/impressum/", "/legal/", "/privacy/", "/datenschutz/":
+	case "/impressum", "/legal", "/privacy", "/datenschutz":
 		return true
 	}
 	return false

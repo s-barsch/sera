@@ -8,23 +8,21 @@ import (
 )
 
 func (h *Head) GetDesc() string {
-	return ""
-	/*
 		if h.Desc != "" {
 			return h.Desc
 		}
 
-		d := entry.InfoSafe(h.El).Field("description", h.Lang)
-		if d != "" {
-			return d
+		if h.Entry != nil {
+			return h.Entry.Info().Field("description", h.Lang)
 		}
-
+		return ""
+		/*
 		d = h.MakeElDesc()
 		if d != "" {
 			return d
 		}
 		return d
-	*/
+		*/
 }
 
 func (h *Head) MakeElDesc() string {

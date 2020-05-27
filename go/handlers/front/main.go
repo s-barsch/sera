@@ -23,7 +23,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		Path:    "/",
 		Host:    r.Host,
 		Entry:   nil,
-		//Desc:    s.Vars.Lang("site", head.Lang(r.Host)),
+		Desc:    s.Vars.Lang("site", lang),
 		Options: head.GetOptions(r),
 	}
 	err := head.Process()

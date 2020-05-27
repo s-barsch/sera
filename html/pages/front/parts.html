@@ -16,6 +16,11 @@
 
 {{define "front-index-entry"}}
   <article class="tob">
+    {{if eq (.E.Info.Field "istopic" "de") "true"}}
+    <h1 class="index-title">
+      <a href="{{.E.Perma $.L}}">{{.E.Title $.L}}</a>
+    </h1>
+    {{end}}
     {{$type := .E.Type}}
     {{if eq $type "image"}}
         <span class="thumb index-thumb">
