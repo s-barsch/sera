@@ -33,6 +33,11 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		MapSVG(s, w, r)
 		return
 	}
+	
+	if rel == "/map.dot" {
+		MapDot(s, w, r)
+		return
+	}
 
 	lang := head.Lang(r.Host)
 	path := paths.Split(reqPath)
