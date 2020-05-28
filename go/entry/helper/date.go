@@ -20,7 +20,7 @@ func ToTimestamp(id int64) string {
 func ParseDatePath(path string) (time.Time, error) {
 	id := Shorten(StripExt(p.Base(path)))
 
-	date, err := ParseDate(id)
+	date, err := ParseTimestamp(id)
 	if err != nil {
 		return time.Time{}, DateErr(path, err)
 	}
@@ -28,7 +28,7 @@ func ParseDatePath(path string) (time.Time, error) {
 	return date, nil
 }
 
-func ParseDate(ts string) (time.Time, error) {
+func ParseTimestamp(ts string) (time.Time, error) {
 	return time.Parse(Timestamp, ts)
 }
 

@@ -53,7 +53,7 @@ func ReadTree(path string, parent *Tree) (*Tree, error) {
 		return nil, fnErr
 	}
 
-	date, err := helper.ParseDate(inf["date"])
+	date, err := helper.ParseTimestamp(inf["date"])
 	if err != nil {
 		fnErr.Err = err
 		return nil, fnErr

@@ -53,7 +53,7 @@ func ReadHold(path string, mother *Hold) (*Hold, error) {
 		i = info
 	}
 
-	date, err := helper.ParseDate(i["date"])
+	date, err := helper.ParseTimestamp(i["date"])
 	if err != nil {
 		return nil, helper.InvalidDateErr(path, err)
 	}

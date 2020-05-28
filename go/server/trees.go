@@ -1,7 +1,9 @@
 package server
 
 import (
+	"sort"
 	"stferal/go/entry"
+	"stferal/go/entry/helper"
 	"stferal/go/entry/types/tree"
 )
 
@@ -83,7 +85,29 @@ func serialize(t *tree.Tree) entry.Entries {
 			}
 			es = append(es, te)
 		}
-		return es.Exclude().Desc()
+		es = es.Exclude()
+		sort.Sort(byRevision(es))
+		return es
 	}
 	return t.TraverseEntries().Exclude().Desc()
+}
+
+type byRevision entry.Entries
+
+func (a byRevision) Len() int      { return len(a) }
+func (a byRevision) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
+
+func (a byRevision) Less(i, j int) bool {
+	return newestDate(a[i]) > newestDate(a[j])
+}
+
+func newestDate(e entry.Entry) int64 {
+	if rev := e.Info()["revision"]; rev != "" {
+		t, err := helper.ParseTimestamp(rev)
+		if err != nil {
+			return e.Id()
+		}
+		return t.Unix()
+	}
+	return e.Id()
 }

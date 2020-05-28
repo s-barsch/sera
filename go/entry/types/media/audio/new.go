@@ -1,14 +1,14 @@
 package audio
 
 import (
-	"os"
 	"fmt"
+	"os"
+	p "path/filepath"
 	"stferal/go/entry"
 	"stferal/go/entry/helper"
 	"stferal/go/entry/parts/file"
 	"stferal/go/entry/parts/info"
 	"time"
-	p "path/filepath"
 )
 
 type Audio struct {
@@ -43,7 +43,7 @@ func NewAudio(path string, parent entry.Entry) (*Audio, error) {
 		inf = i
 	}
 
-	date, err := helper.ParseDate(inf["date"])
+	date, err := helper.ParseTimestamp(inf["date"])
 	if err != nil {
 		date, err = helper.ParseDatePath(path)
 		if err != nil {
@@ -55,10 +55,10 @@ func NewAudio(path string, parent entry.Entry) (*Audio, error) {
 	subs := getSubtitles(path)
 
 	return &Audio{
-		parent: parent,
-		file:   file,
-		date:   date,
-		info:   inf,
+		parent:    parent,
+		file:      file,
+		date:      date,
+		info:      inf,
 		Subtitles: subs,
 	}, nil
 }
@@ -75,4 +75,3 @@ func getSubtitles(path string) []string {
 	}
 	return langs
 }
-

@@ -41,7 +41,7 @@ func NewText(path string, parent entry.Entry) (*Text, error) {
 		return nil, fnErr
 	}
 
-	date, err := helper.ParseDate(inf["date"])
+	date, err := helper.ParseTimestamp(inf["date"])
 	if err != nil {
 		date, err = helper.ParseDatePath(path)
 		if err != nil {

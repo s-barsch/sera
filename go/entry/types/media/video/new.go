@@ -43,7 +43,7 @@ func NewVideo(path string, parent entry.Entry) (*Video, error) {
 		inf = i
 	}
 
-	date, err := helper.ParseDate(inf["date"])
+	date, err := helper.ParseTimestamp(inf["date"])
 	if err != nil {
 		date, err = helper.ParseDatePath(path)
 		if err != nil {

@@ -52,7 +52,7 @@ func NewSet(path string, parent entry.Entry) (*Set, error) {
 		return nil, fnErr
 	}
 
-	date, err := helper.ParseDate(info["date"])
+	date, err := helper.ParseTimestamp(info["date"])
 	if err != nil {
 		fnErr.Err = err
 		return nil, fnErr
