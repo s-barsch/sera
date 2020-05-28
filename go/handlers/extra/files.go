@@ -5,11 +5,12 @@ import (
 	"log"
 	"net/http"
 
-	//"path/filepath"
 	"stferal/go/entry"
+	"stferal/go/entry/types/media/video"
 	"stferal/go/head"
 	"stferal/go/paths"
 	"stferal/go/server"
+	p "path/filepath"
 )
 
 func ServeFile(s *server.Server, w http.ResponseWriter, r *http.Request, path *paths.Path) {
@@ -42,6 +43,13 @@ func serveSingleBlob(w http.ResponseWriter, r *http.Request, e entry.Entry, path
 	blob, ok := e.(entry.Blob)
 	if !ok {
 		return fmt.Errorf("File to serve (%v) is no blob.", e.File().Name())
+	}
+	video, ok := e.(*video.Video)
+	if ok {
+		if p.Ext(path.SubFile.Name) == ".vtt" {
+			serveStatic(w, r, video.SubtitleLocation(path.SubFile.Size))
+			return nil
+		}
 	}
 	serveStatic(w, r, blob.Location(path.SubFile.Size))
 	return nil

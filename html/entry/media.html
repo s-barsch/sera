@@ -85,7 +85,7 @@
 <video src="{{.E.FilePath .Lang}}" preload="metadata" loop controls>
     {{range .E.Subtitles}}
     <track label="{{langName .}}" srclang="{{.}}" kind="subtitles"
-    src="{{.E.SubtitlePath .}}"{{if and (ne $.L "de") (eq $.L .)}} default{{end}}>
+    src="{{$.E.SubtitlePath $.L}}"{{if and (ne $.L "de") (eq $.L .)}} default{{end}}>
     {{end}}
 </video>
 </figure>

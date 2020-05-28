@@ -9,20 +9,29 @@ func (v *Video) Location(arg string) string {
 }
 
 func (v *Video) FilePath(lang string) string {
+	parent := v.Perma(lang)
 	if v.parent.Type() == "set" {
-		return fmt.Sprintf("%v/cache/%v", v.parent.Perma(lang), v.file.Name())
+		parent = v.parent.Perma(lang)
 	}
-	return fmt.Sprintf("%v/cache/%v", v.Perma(lang), v.file.Name())
+	return fmt.Sprintf("%v/files/%v", parent, v.file.Name())
 }
 
 
 func (v *Video) SubtitlePath(lang string) string {
+	parent := v.Perma(lang)
+	if v.parent.Type() == "set" {
+		parent = v.parent.Perma(lang)
+	}
 	return fmt.Sprintf(
 		"%v/files/vtt/%v-%v.vtt",
-		v.parent.Perma(lang),
+		parent,
 		v.file.NameNoExt(),
 		lang,
 	)
+}
+
+func (v *Video) SubtitleLocation(lang string) string {
+	return fmt.Sprintf("%v/vtt/%v-%v.vtt", v.file.Dir(), v.file.NameNoExt(), lang)
 }
 
 
