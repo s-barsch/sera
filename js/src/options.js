@@ -1,6 +1,7 @@
 
 const initOptionToggles = () => {
-  const options = ["colors", "type"]
+  //const options = ["colors", "type"];
+  const options = ["colors"];
   for (const opt of options) {
     document.getElementById(opt + "-switch-link").addEventListener("click", (evt) => {
       evt.preventDefault();
