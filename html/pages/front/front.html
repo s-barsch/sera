@@ -29,7 +29,6 @@
   
 {{define "index-col" -}}
 <div>
-      <h3 class="front-title"><a href="/index/">Index</a></h3>
       {{range .Index.Offset 0 5}}
       {{template "front-index-entry" (eL . $.Head.Lang)}}
       {{end}}
@@ -48,7 +47,6 @@
 
 {{define "graph-col" -}}
 <div>
-      <h3 class="front-title"><a href="/graph/">Graph</a></h3>
       {{template "media-groups-front" (esL (.Graph.Offset 0 5) .Head.Lang)}}
       <div class="more-tip">
       {{var "graph-more" .Head.Lang}}

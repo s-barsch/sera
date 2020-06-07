@@ -94,8 +94,7 @@
 
 
 {{define "audio"}}
-<div>
-<audio src="{{.E.FilePath .Lang}}" controls>
+<audio class="audio" src="{{.E.FilePath .Lang}}" controls>
     {{range .E.Subtitles}}
     <track label="{{langName .}}" srclang="{{.}}" kind="captions"
     src="{{.E.CaptionPath .}}"{{if and (ne $.L "de") (eq $.L .)}} default{{end}}>
@@ -114,7 +113,6 @@
         </div>
         {{end}}
         {{end}}
-        </div>
     */}}
 {{end}}
 
