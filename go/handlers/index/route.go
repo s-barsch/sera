@@ -30,7 +30,12 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	}
 
 	if rel == "/map.svg" {
-		MapSVG(s, w, r)
+		MapIndex(s, w, r)
+		return
+	}
+
+	if rel == "/map-all.svg" {
+		MapAll(s, w, r)
 		return
 	}
 	

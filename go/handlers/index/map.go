@@ -1,13 +1,13 @@
 package index
 
 import (
-	"bufio"
+	//"bufio"
 	"bytes"
 	"fmt"
-	"github.com/tdewolff/minify"
-	"github.com/tdewolff/minify/svg"
+	//"github.com/tdewolff/minify"
+	//"github.com/tdewolff/minify/svg"
 	"io"
-	"io/ioutil"
+	//"io/ioutil"
 	"log"
 	"net/http"
 	"os/exec"
@@ -17,24 +17,33 @@ import (
 )
 
 func MapDot(s *server.Server, w http.ResponseWriter, r *http.Request) {
-	err := printMapDot(s, w, head.Lang(r.Host))
+	err := printMapDot(s, w, head.Lang(r.Host), false)
 	if err != nil {
 		log.Println(err)
 	}
 }
 
-func printMapDot(s *server.Server, w io.Writer, lang string) error {
+func printMapDot(s *server.Server, w io.Writer, lang string, all bool) error {
 	return s.Templates.ExecuteTemplate(w, "map", struct {
 		Lang string
 		Tree *tree.Tree
+		All  bool
 	}{
 		Lang: lang,
 		Tree: s.Trees["index"].Public[lang],
+		All:  all,
 	})
 }
 
-func MapSVG(s *server.Server, w http.ResponseWriter, r *http.Request) {
-	b, err := renderMap(s, head.Lang(r.Host), "svg")
+func MapAll(s *server.Server, w http.ResponseWriter, r *http.Request) {
+	buf := bytes.Buffer{}
+	err := printMapDot(s, &buf, head.Lang(r.Host), true)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
+
+	b, err := renderMap(buf.String(), "svg")
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		return
@@ -44,13 +53,25 @@ func MapSVG(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "%s", b)
 }
 
-func renderMap(s *server.Server, lang string, filetype string) ([]byte, error) {
+func MapIndex(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	buf := bytes.Buffer{}
-	err := printMapDot(s, &buf, lang)
+	err := printMapDot(s, &buf, head.Lang(r.Host), false)
 	if err != nil {
-		return nil, err
+		http.Error(w, err.Error(), 500)
+		return
 	}
 
+	b, err := renderMap(buf.String(), "svg")
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
+
+	w.Header().Set("Content-Type", "image/svg+xml")
+	fmt.Fprintf(w, "%s", b)
+}
+
+func renderMap(markup, filetype string) ([]byte, error) {
 	cmd := exec.Command("neato", fmt.Sprintf("-T%v", filetype))
 	stdin, err := cmd.StdinPipe()
 	if err != nil {
@@ -59,7 +80,7 @@ func renderMap(s *server.Server, lang string, filetype string) ([]byte, error) {
 
 	go func() {
 		defer stdin.Close()
-		io.WriteString(stdin, buf.String())
+		io.WriteString(stdin, markup)
 	}()
 
 	out, err := cmd.CombinedOutput()
@@ -69,6 +90,10 @@ func renderMap(s *server.Server, lang string, filetype string) ([]byte, error) {
 	return out, nil
 }
 
+
+// still needed?
+
+/*
 func SaveMaps(s *server.Server) error {
 	for _, lang := range []string{"en", "de"} {
 		err := saveMap(s, lang)
@@ -130,3 +155,4 @@ func minifySVG(input []byte) ([]byte, error) {
 	m.AddFunc("image/svg+xml", svg.Minify)
 	return m.Bytes("image/svg+xml", input)
 }
+*/

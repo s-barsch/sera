@@ -172,7 +172,6 @@ ol {
     counter-reset: my-counter;
 }
 ol li {
-    font-size: var(--fontsize-quote);
     counter-increment: my-counter;
     text-align:justify;
 }
@@ -181,6 +180,10 @@ ol li::before {
     width:1.25rem;
     margin-left:-1.25rem;
     display:inline-block;
+}
+
+.footnotes ol {
+    font-size: var(--fontsize-quote);
 }
 
 .footnotes hr {
@@ -192,10 +195,12 @@ ol li::before {
     font-size:1rem;
 }
 
+.footnote-ref,
 .reference {
     vertical-align:unset;
     padding-left:.5px;
     font-family:var(--fontfamily-garamond-sups);
+    font-size:var(--fontsize-base);
 }
 
 .notel {
