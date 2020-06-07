@@ -20,6 +20,7 @@
 {{end}}
 
 {{template "prev-next-year" .}}
+{{template "graph-arr" .Tree}}
 
 {{template "bot" .Head}}
 {{end}}
@@ -41,7 +42,7 @@
         </h4>
     </div>
 
-    {{$months := (.Entries.Offset 0 10).Months}} <!-- 25 -->
+    {{$months := (.Entries.Offset 0 25).Months}} <!-- 25 -->
     {{range $i, $entries := $months}}
       {{if $i}}
         <h2 class="month-title">
@@ -51,11 +52,33 @@
       {{template "media-groups" (esLy $entries $.Head.Lang false)}}
     {{end}}
 
+
     <div class="graph-tip">
       {{var "graph-main-more" .Head.Lang}}
     </div>
 
+    {{template "graph-arr" .Tree}}
+
+
 {{template "bot" .Head}}
+{{end}}
+
+{{define "graph-arr"}}
+    <div id="top-link" class="hide">
+            <!--
+            <img src="/static/img/uarr.svg" alt="↑"
+            -->
+        <a class="topl-corner uarr" href="#top">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14.76 17.96" height="67.88" width="55.786"><path d="M7.38 0L0 10.087v.001h3.834v7.872h7.092v-7.872h3.833z" fill="#002f74"/></svg>
+        </a>
+    </div>
+    <script>
+    {{if eq .Level 0}}
+      let pageVars = { type: "graph-main" }
+    {{else}}
+      let pageVars = { type: "graph-year" }
+    {{end}}
+    </script>
 {{end}}
 
 {{/*
