@@ -2,19 +2,27 @@ package tmpl
 
 import (
 	"fmt"
-	"gopkg.in/yaml.v2"
+	"gopkg.in/yaml.v3"
 	"io/ioutil"
 	"strings"
 )
 
-type Vars map[string]string
-
-func (v Vars) Lang(key, lang string) string {
-	return v[fmt.Sprintf("%v-%v", strings.ToLower(key), lang)]
+type Vars struct {
+	FrontSettings *FrontSettings
+	Strings map[string]string
 }
 
-func LoadVars(root string) (Vars, error) {
-	v, err := ReadVarFiles(root)
+type FrontSettings struct {
+	Graph int `yaml:"graph-num"`
+	Index int `yaml:"index-num"`
+}
+
+func (v Vars) Lang(key, lang string) string {
+	return v.Strings[fmt.Sprintf("%v-%v", strings.ToLower(key), lang)]
+}
+
+func LoadVars(root string) (*Vars, error) {
+	s, err := ReadVarFiles(root)
 	if err != nil {
 		return nil, err
 	}
@@ -39,13 +47,36 @@ func LoadVars(root string) (Vars, error) {
 		return nil, err
 	}
 
-	v["jsmodtime"] = modtime
-	v["indexmap-de"] = maps["de"]
-	v["indexmap-en"] = maps["en"]
-	v["logo"] = logo
-	v["css"] = css
+	s["jsmodtime"] = modtime
+	s["indexmap-de"] = maps["de"]
+	s["indexmap-en"] = maps["en"]
+	s["logo"] = logo
+	s["css"] = css
 
-	return v, nil
+	fr, err := ReadFrontSettings(root)
+	if err != nil {
+		return nil, err
+	}
+
+	return &Vars{
+		Strings: s,
+		FrontSettings: fr,
+	}, nil
+}
+
+func ReadFrontSettings(root string) (*FrontSettings, error) {
+	path := fmt.Sprintf(root + "/data/front/front.txt")
+	b, err := ioutil.ReadFile(path)
+	if err != nil {
+		return nil, err
+	}
+
+	fr := &FrontSettings{}
+	err = yaml.Unmarshal(b, &fr)
+	if err != nil {
+		return nil, err
+	}
+	return fr, nil
 }
 
 func ReadVarFiles(root string) (map[string]string, error) {
@@ -59,7 +90,7 @@ func ReadVarFiles(root string) (map[string]string, error) {
 		}
 
 		m := map[string]string{}
-		err = yaml.Unmarshal([]byte(b), &m)
+		err = yaml.Unmarshal(b, &m)
 		if err != nil {
 			return nil, err
 		}

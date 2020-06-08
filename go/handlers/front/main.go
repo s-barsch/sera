@@ -37,8 +37,8 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 
 	err = s.ExecuteTemplate(w, "front", &frontMain{
 		Head:  head,
-		Index: index.Offset(0, 100),
-		Graph: graph.Offset(0, 100),
+		Index: index.Offset(0, s.Vars.FrontSettings.Index),
+		Graph: graph.Offset(0, s.Vars.FrontSettings.Graph),
 	})
 	if err != nil {
 		log.Println(err)

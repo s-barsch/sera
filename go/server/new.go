@@ -18,7 +18,7 @@ type Server struct {
 	Recents map[string]*SectionEntries
 
 	Templates *template.Template
-	Vars      tmpl.Vars
+	Vars      *tmpl.Vars
 }
 
 type paths struct {

@@ -35,7 +35,7 @@ func (s *Server) Funcs() template.FuncMap {
 			return s.Vars.Lang(name, lang)
 		},
 		"varRaw": func(name string) string {
-			return s.Vars[name]
+			return s.Vars.Strings[name]
 		},
 		"isLocal": func() bool {
 			return s.Flags.Local
