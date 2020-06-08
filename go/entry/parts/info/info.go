@@ -108,6 +108,13 @@ func (i Info) Slug(lang string) string {
 	return i.Field("slug", lang)
 }
 
+func (i Info) TextStyle() string {
+	if s := i["style"]; s != "" {
+		return s
+	}
+	return "indent"
+}
+
 /*
 func (i Info) Label(lang string) string {
 	if label := i.Field("label", lang); label != "" {

@@ -3,6 +3,7 @@ package process
 import (
 	"fmt"
 	"stferal/go/entry"
+	"stferal/go/entry/parts/info"
 	"stferal/go/entry/types/media/text"
 	"stferal/go/entry/types/set"
 	"stferal/go/entry/types/tree"
@@ -40,7 +41,7 @@ func RenderTexts(root string, entries entry.Entries) error {
 
 func (h HyphPatterns) HyphenateEntries(entries entry.Entries) {
 	for _, e := range entries {
-		h.HyphenateTitle(e)
+		h.HyphenateFields(e)
 		s, ok := e.(*set.Set)
 		if ok {
 			h.HyphenateEntries(s.Entries())
@@ -59,22 +60,33 @@ func (h HyphPatterns) HyphenateEntries(entries entry.Entries) {
 	}
 }
 
+/*
 func (h HyphPatterns) HyphenateTitles(es entry.Entries) {
 	for _, e := range es {
 		h.HyphenateTitle(e)
 	}
 }
-
-func (h HyphPatterns) HyphenateTitle(e entry.Entry) {
+*/
+func (h HyphPatterns) HyphenateFields(e entry.Entry) {
 	inf := e.Info()
-	key := "title-hyph"
-	for _, l := range langs {
-		if l == "en" {
-			key += "-en"
-		}
-		inf[key] = h[l].HyphenateText(inf.Title(l))
+	for _, key := range []string{"title-hyph", "transcript"} {
+		inf = h.HyphenateField(inf, key)
 	}
 	e.SetInfo(inf)
+}
+
+func (h HyphPatterns) HyphenateField(inf info.Info, key string) info.Info {
+	setKey := key
+	if key == "title" {
+		setKey = "title-hyph"
+	}
+	for _, l := range langs {
+		if l == "en" {
+			setKey += "-en"
+		}
+		inf[setKey] = h[l].HyphenateText(inf.Field(key, l))
+	}
+	return inf
 }
 
 func (h HyphPatterns) HyphenateTextEntry(tx *text.Text) {

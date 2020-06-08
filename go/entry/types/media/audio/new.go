@@ -19,6 +19,12 @@ type Audio struct {
 	info info.Info
 
 	Subtitles []string
+
+	//Transcript
+}
+
+func (a *Audio) Transcript(lang string) string {
+	return a.Info().Field("transcript", lang)
 }
 
 func NewAudio(path string, parent entry.Entry) (*Audio, error) {
@@ -42,6 +48,8 @@ func NewAudio(path string, parent entry.Entry) (*Audio, error) {
 		}
 		inf = i
 	}
+
+	inf = markupTranscript(inf)
 
 	date, err := helper.ParseTimestamp(inf["date"])
 	if err != nil {
@@ -74,4 +82,15 @@ func getSubtitles(path string) []string {
 		}
 	}
 	return langs
+}
+
+func markupTranscript(inf info.Info) info.Info {
+	for _, lang := range []string {"de", "en"} {
+		key := "transcript"
+		if lang != "de" {
+			key += "-" + lang
+		}
+		inf[key] = helper.RenderMarkdown(inf[key])
+	}
+	return inf
 }

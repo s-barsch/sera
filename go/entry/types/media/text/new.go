@@ -1,7 +1,6 @@
 package text
 
 import (
-	bf "gopkg.in/russross/blackfriday.v2"
 	"stferal/go/entry"
 	"stferal/go/entry/helper"
 	"stferal/go/entry/helper/markup"
@@ -66,14 +65,12 @@ func NewText(path string, parent entry.Entry) (*Text, error) {
 	}, nil
 }
 
+
 func renderLangs(langs map[string]string) (map[string]string, map[string][]string) {
 	notes := map[string][]string{}
 	for _, l := range []string{"de", "en"} {
 		text, ns := markup.Render(langs[l])
-		text = string(bf.Run(
-			[]byte(text),
-			bf.WithExtensions(bf.HardLineBreak|bf.Footnotes|bf.DefinitionLists),
-		))
+		text = helper.RenderMarkdown(text)
 		langs[l] = text
 		notes[l] = ns
 	}

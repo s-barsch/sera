@@ -1,6 +1,7 @@
 package helper
 
 import (
+	bf "gopkg.in/russross/blackfriday.v2"
 	"github.com/kennygrant/sanitize"
 	"regexp"
 	"strings"
@@ -17,4 +18,10 @@ func Normalize(name string) string {
 
 	name = validSlug.ReplaceAllString(name, "")
 	return name
+}
+
+var bfExtensions = bf.WithExtensions(bf.HardLineBreak|bf.Footnotes|bf.DefinitionLists)
+
+func RenderMarkdown(text string) string {
+	return string(bf.Run([]byte(text), bfExtensions))
 }

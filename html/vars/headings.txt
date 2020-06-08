@@ -6,3 +6,5 @@ front-lead-de: Dies ist das Verzeichnis von Stef Feral, einem deutsch&shy;sprach
 front-lead-en: This is the directory of Stef Feral, a German-speaking artist and philosopher.
 back-de: Gehe zurück
 back-en: Go back
+transcript-de: Transkript
+transcript-en: Transcript

@@ -51,7 +51,7 @@ func (s *Server) processAllTexts() error {
 	lang := "de"
 	for _, section := range sections {
 		for _, e := range s.Trees[section].Private[lang].TraverseTrees() {
-			h.HyphenateTitle(e)
+			h.HyphenateFields(e)
 		}
 		h.HyphenateEntries(s.Recents[section].Private[lang])
 	}
