@@ -69,7 +69,7 @@ func (h HyphPatterns) HyphenateTitles(es entry.Entries) {
 */
 func (h HyphPatterns) HyphenateFields(e entry.Entry) {
 	inf := e.Info()
-	for _, key := range []string{"title-hyph", "transcript"} {
+	for _, key := range []string{"title", "transcript"} {
 		inf = h.HyphenateField(inf, key)
 	}
 	e.SetInfo(inf)

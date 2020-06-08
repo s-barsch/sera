@@ -17,10 +17,11 @@
 
 .index-title.index-title--front {
     font-size:2.3rem;
+    margin: 1.25rem 0;
 }
 
 .col--index {
-    margin-top:-1.5rem;
+    margin-top:-1.25rem;
 }
 
 .front-lead {
@@ -113,6 +114,7 @@
 
 .media-mixin(@break) when (@break = @break-single) {
     .cols {
+        margin-top:1.875rem;
         display:grid;
         column-gap:4rem;
         grid-template-columns:1fr 1fr;
