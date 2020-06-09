@@ -100,10 +100,15 @@
     {{$src = $realSrc}}
 
 
-    <img src="{{$src}}"
+    <a href="{{.E.Perma .L}}"><img src="{{$src}}"
          alt="{{$alt}}"
          srcset="{{template "graph-thumb-srcset" .}}"
-         >
+         ></a>
+    {{with .E.Info.Caption .L}}
+    <div class="caption">
+    {{.}}
+    </div>
+    {{end}}
 {{end}}
 
 {{define "graph-thumb-srcset" -}}
