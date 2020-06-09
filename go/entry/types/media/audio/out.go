@@ -20,7 +20,8 @@ func (a *Audio) CaptionPath(lang string) string {
 }
 
 func (a *Audio) FilePath(lang string) string {
-	if a.parent.Type() == "set" {
+	switch a.parent.Type() {
+	case "set", "tree":
 		return fmt.Sprintf("%v/cache/%v", a.parent.Perma(lang), a.file.Name())
 	}
 	return fmt.Sprintf("%v/cache/%v", a.Perma(lang), a.file.Name())
