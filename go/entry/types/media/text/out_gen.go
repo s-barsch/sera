@@ -85,6 +85,9 @@ func (e *Text) Section() string {
 }
 
 func (e *Text) Perma(lang string) string {
+	if e.parent.Type() == "set" {
+		return e.parent.Perma(lang)
+	}
 	if e.Section() == "index" {
 		return fmt.Sprintf("%v#%v", e.parent.Perma(lang), helper.Normalize(e.Title(lang)))
 	}

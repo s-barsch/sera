@@ -1,6 +1,7 @@
 package server
 
 import (
+	"fmt"
 	"sort"
 	"stferal/go/entry"
 	"stferal/go/entry/helper"
@@ -105,6 +106,7 @@ func newestDate(e entry.Entry) int64 {
 	if rev := e.Info()["revision"]; rev != "" {
 		t, err := helper.ParseTimestamp(rev)
 		if err != nil {
+			fmt.Println(err)
 			return e.Id()
 		}
 		return t.Unix()
