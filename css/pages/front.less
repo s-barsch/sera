@@ -13,6 +13,12 @@
     max-width:31rem;
 }
 
+.col__spacer {
+    border-bottom:3px #000 solid;
+    margin:3.5rem 0 3rem;
+}
+
+
 // title
 
 .index-title.index-title--front {
@@ -54,6 +60,7 @@
 }
 
 @media (max-width: @break-single) {
+
     .front-lead {
         margin-top:1rem;
     }
@@ -113,6 +120,10 @@
 }
 
 .media-mixin(@break) when (@break = @break-single) {
+    .col__spacer {
+        display:none;
+    }
+
     .cols {
         margin-top:1.875rem;
         display:grid;
