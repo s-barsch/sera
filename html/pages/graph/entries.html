@@ -67,6 +67,9 @@
 
 {{define "graph-set"}}
 <div class="set">
+    {{if eq 0 (len .E.Entries)}}
+    <em>This entry is not yet translated.</em>
+    {{end}}
     {{range .E.Entries}}
         {{template "graph-set-child" (eLy . $.L $.Y)}}
     {{end}}
