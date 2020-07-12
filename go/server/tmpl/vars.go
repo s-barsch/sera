@@ -12,9 +12,24 @@ type Vars struct {
 	Strings map[string]string
 }
 
+type Article struct {
+	TitleDe   string `yaml:"title"`
+	TitleEn string `yaml:"title-en"`
+	Hash string `yaml:"hash"`
+}
+
+func (a *Article) Title(lang string) string {
+	if lang == "de" {
+		return a.TitleDe
+	}
+	return a.TitleEn
+}
+
 type FrontSettings struct {
-	Graph int `yaml:"graph-num"`
-	Index int `yaml:"index-num"`
+	Graph    int `yaml:"graph-num"`
+	Index    int `yaml:"index-num"`
+	Featured string `yaml:"featured"`
+	Articles []*Article
 }
 
 func (v Vars) Lang(key, lang string) string {

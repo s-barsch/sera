@@ -6,6 +6,35 @@
 
 <!--
   <h4 class="front-lead">{{var "front-lead" .Head.Lang}}</h4>
+<h2 class="front-head">Wichtige Artikel</h2>
+-->
+<!--
+<div class="quicklinks">
+  {{range frontArticles}}
+  <a href="/index/{{.Hash}}">{{.Title $.Head.Lang}}</a>
+  {{end}}
+</div>
+{{with .Featured}}
+{{template "graph-front-entry" (eL . $.Head.Lang)}}
+{{end}}
+-->
+<!--
+<div class="cols">
+
+<div class="quicklinks">
+  {{range frontArticles}}
+  <a href="/index/{{.Hash}}">{{.Title $.Head.Lang}}</a>
+  <br>
+  {{end}}
+</div>
+<div class="featured">
+</div>
+</div>
+<hr class="front-divider">
+-->
+
+<!--
+  <h4 class="front-lead">{{var "front-lead" .Head.Lang}}</h4>
 
   <div></div>
 -->

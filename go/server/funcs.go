@@ -31,6 +31,9 @@ func (s *Server) Funcs() template.FuncMap {
 			}
 			return path
 		},
+		"frontArticles": func() []*tmpl.Article {
+			return s.Vars.FrontSettings.Articles
+		},
 		"var": func(name, lang string) string {
 			return s.Vars.Lang(name, lang)
 		},

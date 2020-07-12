@@ -12,6 +12,7 @@ type frontMain struct {
 	Head  *head.Head
 	Index entry.Entries
 	Graph entry.Entries
+	Featured entry.Entry
 }
 
 func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
@@ -31,14 +32,19 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	
-
 	index := s.Recents["index"].Local(s.Flags.Local)[lang]
 	graph := s.Recents["graph"].Local(s.Flags.Local)[lang]
+
+	e, err := s.Trees["graph"].Local(s.Flags.Local)[lang].LookupEntryHash(s.Vars.FrontSettings.Featured)
+	if err != nil {
+		s.Log.Println(err)
+	}
 
 	err = s.ExecuteTemplate(w, "front", &frontMain{
 		Head:  head,
 		Index: index.Offset(0, s.Vars.FrontSettings.Index),
 		Graph: graph.Offset(0, s.Vars.FrontSettings.Graph),
+		Featured: e,
 	})
 	if err != nil {
 		log.Println(err)
