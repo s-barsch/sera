@@ -1,8 +1,8 @@
 package server
 
 import (
-	"stferal/go/server/tmpl"
 	"stferal/go/server/process"
+	"stferal/go/server/tmpl"
 	"time"
 )
 
@@ -11,8 +11,8 @@ var sections = []string{
 	"graph",
 	"about",
 	"extra",
+	"video",
 }
-
 
 func (s *Server) Load() error {
 	tStart := time.Now()

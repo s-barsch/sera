@@ -46,7 +46,7 @@ func (s *Server) Funcs() template.FuncMap {
 		"langName": func(lang string) string {
 			return helper.LangNames[lang]
 		},
-		"monthLang":   helper.MonthLang,
+		"monthLang": helper.MonthLang,
 		"nodeName": func(id int64) string {
 			return "node_" + helper.ToTimestamp(id)
 		},

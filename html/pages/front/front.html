@@ -43,7 +43,7 @@
     <div class="col__content col--index">
     {{template "index-col" .}}
     </div>
-    
+
     <div class="col__spacer">
     </div>
 
@@ -72,6 +72,14 @@
 {{- end}}
 
 {{define "graph-col" -}}
+    <div class="col__content col--video">
+      {{range .Video}}
+      <span class="front-video">
+      {{template "entry" (eL . $.Head.Lang)}}
+      </span>
+      {{end}}
+    </div>
+    
 <div>
       {{template "media-groups-front" (esL .Graph .Head.Lang)}}
       <div class="more-tip">
