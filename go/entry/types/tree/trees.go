@@ -102,13 +102,20 @@ func getTreeDirs(path string, parent *Tree) ([]string, error) {
 			continue
 		}
 
-		if parent.Section() == "graph" && !isGraphTree(filepath, parent) {
-			continue
+		switch parent.Section() {
+		case "graph", "video":
+			if !isDateTree(filepath, parent) {
+				continue
+			}
 		}
 
 		dirs = append(dirs, filepath)
 	}
 	return dirs, nil
+}
+
+func isDateTree(path string, parent *Tree) bool {
+	return parent.Level() < 2 && he.FileType(path) == "dir"
 }
 
 /*

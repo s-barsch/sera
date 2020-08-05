@@ -96,7 +96,15 @@ func readTreeInfo(path string, parent *Tree) (info.Info, error) {
 // Because in these, #parent# will always be defined.
 func isGraph(path string, parent *Tree) bool {
 	if parent == nil {
-		return p.Base(path) == "graph"
+		return isGraphSection(p.Base(path))
 	}
-	return parent.Section() == "graph"
+	return isGraphSection(parent.Section())
+}
+
+func isGraphSection(section string) bool {
+	switch section {
+	case "graph", "video":
+		return true
+	}
+	return false
 }

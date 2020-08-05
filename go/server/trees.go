@@ -86,14 +86,8 @@ func serializeLangs(langMap map[string]*tree.Tree) map[string]entry.Entries {
 
 func serialize(t *tree.Tree) entry.Entries {
 	switch t.Section() {
-	case "graph":
+	case "graph", "video":
 		return t.TraverseEntriesReverse()
-	case "video":
-		es := entry.Entries{}
-		for _, e := range t.Entries().Reverse() {
-			es = append(es, e)
-		}
-		return es
 	case "index":
 		es := entry.Entries{}
 		for _, tree := range t.TraverseTrees() {

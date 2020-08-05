@@ -8,10 +8,6 @@ import (
 	"time"
 )
 
-func isGraphTree(path string, parent *Tree) bool {
-	return parent.Level() < 2 && helper.FileType(path) == "dir"
-}
-
 func readGraphInfo(path string, parent *Tree) (info.Info, error) {
 	date, err := parseGraphDate(path, parent)
 	if err != nil {
