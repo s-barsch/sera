@@ -18,7 +18,7 @@ type Set struct {
 	info info.Info
 
 	entries entry.Entries
-	cover *image.Image
+	Cover   *image.Image
 }
 
 func (s *Set) Copy() *Set {
@@ -30,6 +30,7 @@ func (s *Set) Copy() *Set {
 		info: s.info,
 
 		entries: s.entries,
+		Cover: s.Cover,
 	}
 }
 
@@ -73,7 +74,7 @@ func NewSet(path string, parent entry.Entry) (*Set, error) {
 		return nil, fnErr
 	}
 
-	s.cover, s.entries = extractCover(entries)
+	s.Cover, s.entries = extractCover(entries)
 	// s.entries = entries
 
 	return s, nil
