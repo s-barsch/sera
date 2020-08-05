@@ -6,6 +6,7 @@ import (
 	"stferal/go/entry/helper"
 	"stferal/go/entry/parts/file"
 	"stferal/go/entry/parts/info"
+	"stferal/go/entry/types/media/image"
 	"time"
 )
 
@@ -17,7 +18,7 @@ type Set struct {
 	info info.Info
 
 	entries entry.Entries
-	//Cover *Image
+	cover *image.Image
 }
 
 func (s *Set) Copy() *Set {
@@ -72,9 +73,22 @@ func NewSet(path string, parent entry.Entry) (*Set, error) {
 		return nil, fnErr
 	}
 
-	s.entries = entries
+	s.cover, s.entries = extractCover(entries)
+	// s.entries = entries
 
 	return s, nil
+}
+
+func extractCover(es entry.Entries) (*image.Image, entry.Entries) {
+	for i, e := range es {
+		if e.File().Name() == "cover.jpg" {
+			img, ok := e.(*image.Image)
+			if ok {
+				return img, append(es[:i], es[i+1:]...)
+			}
+		}
+	}
+	return nil, es
 }
 
 /*
