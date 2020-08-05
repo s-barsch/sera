@@ -75,8 +75,11 @@
     <div class="col__content col--video">
       {{range .Video}}
       <span class="front-video">
-        {{.Type}}
-      {{template "entry" (eL . $.Head.Lang)}}
+        {{if .Cover}}
+        {{template "image" (eL .Cover $.Head.Lang)}}
+        {{else}}
+        Has no cover:<br>{{.}}
+        {{end}}
       </span>
       {{end}}
     </div>

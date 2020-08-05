@@ -90,7 +90,7 @@ func serialize(t *tree.Tree) entry.Entries {
 		return t.TraverseEntriesReverse()
 	case "video":
 		es := entry.Entries{}
-		for _, e := range t.Entries() {
+		for _, e := range t.Entries().Reverse() {
 			es = append(es, e)
 		}
 		return es
