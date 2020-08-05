@@ -76,9 +76,9 @@
       {{range .Video}}
       <span class="front-video">
         {{if .Cover}}
-        {{template "image" (eL .Cover $.Head.Lang)}}
+          {{template "graph-image-thumbnail" (eL .Cover $.Head.Lang)}}
         {{else}}
-        Has no cover:<br>{{.}}
+          Has no cover:<br>{{.}}
         {{end}}
       </span>
       {{end}}

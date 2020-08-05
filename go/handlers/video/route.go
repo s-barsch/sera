@@ -21,4 +21,5 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	ServeSingle(s, w, r, path)
 }
