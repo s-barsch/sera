@@ -16,6 +16,11 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 
 	rel := p[len("/video"):]
 
+	if rel == "/" {
+		http.Redirect(w, r, "/video", 301)
+		return
+	}
+
 	if rel == "" {
 		Main(s, w, r)
 		return

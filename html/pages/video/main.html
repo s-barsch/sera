@@ -20,7 +20,11 @@
         </h2>
       {{end}}
       {{range $entries}}
-      {{.}}
+        {{if .Cover}}
+          {{template "graph-image" (eL .Cover $.Head.Lang)}}
+        {{else}}
+          Has no cover:<br>{{.}}
+        {{end}}
       {{end}}
     {{end}}
 

@@ -71,19 +71,23 @@
 </div>
 {{- end}}
 
-{{define "graph-col" -}}
+{{define "video-col" -}}
     <div class="col__content col--video">
       {{range .Video}}
       <span class="front-video">
         {{if .Cover}}
-          {{template "graph-image-thumbnail" (eL .Cover $.Head.Lang)}}
+          {{template "graph-image" (eL .Cover $.Head.Lang)}}
         {{else}}
           Has no cover:<br>{{.}}
         {{end}}
       </span>
       {{end}}
     </div>
+{{- end}}
+
+{{define "graph-col" -}}
     
+{{template "video-col" .}}
 <div>
       {{template "media-groups-front" (esL .Graph .Head.Lang)}}
       <div class="more-tip">
