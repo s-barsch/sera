@@ -92,13 +92,18 @@ func (e *Set) Perma(lang string) string {
 	if e.parent.Type() == "set" {
 		return e.parent.Perma(lang)
 	}
-	if e.Section() == "index" {
-		return fmt.Sprintf("%v#%v", e.parent.Perma(lang), helper.Normalize(e.Title(lang)))
-	}
-	slug := e.Slug(lang)
-	if slug != "" {
-		return fmt.Sprintf("%v/%v-%v", e.parent.Path(lang), slug, e.Hash())
+
+	name := e.Hash()
+	if slug := e.Slug(lang); slug != "" {
+		name = fmt.Sprintf("%v-%v", slug, e.Hash())
 	}
 
-	return fmt.Sprintf("%v/%v", e.parent.Path(lang), e.Hash())
+	switch e.Section() {
+	case "index":
+		return fmt.Sprintf("%v#%v", e.parent.Perma(lang), helper.Normalize(e.Title(lang)))
+	case "video":
+		return fmt.Sprintf("/video/%v/%v", e.parent.Date().Format("06-01"), name)
+	}
+
+	return fmt.Sprintf("%v/%v", e.parent.Path(lang), name)
 }
