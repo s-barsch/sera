@@ -57,9 +57,9 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, p *pa
 }
 
 func graphEntryDate(d time.Time, lang string) string {
-	return fmt.Sprintf(d.Format("2 %v 2006"), helper.MonthLang(d, lang))
+	return fmt.Sprintf(d.Format("02 %v"), helper.Abbr(helper.MonthLang(d, lang)))
 }
 
 func graphEntryTitle(e entry.Entry, lang string) string {
-	return fmt.Sprintf("%v - %v", e.Title(lang), graphEntryDate(e.Date(), lang))
+	return fmt.Sprintf("%v - Video", graphEntryDate(e.Date(), lang))
 }
