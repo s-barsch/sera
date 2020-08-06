@@ -47,7 +47,7 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, p *pa
 		return
 	}
 
-	err = s.ExecuteTemplate(w, "graph-single", &graphSingle{
+	err = s.ExecuteTemplate(w, "video-single", &graphSingle{
 		Head:   head,
 		Entry:  e,
 	})

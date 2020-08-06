@@ -14,6 +14,13 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	rel := p[len("/video"):]
+
+	if rel == "" {
+		Main(s, w, r)
+		return
+	}
+
 	path := paths.Split(p)
 
 	if path.IsFile() {

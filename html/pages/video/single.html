@@ -1,0 +1,41 @@
+{{define "video-single"}}
+
+{{template "head" .Head}}
+{{template "top" .}}
+
+    <div id="part">
+    {{template "video-single-part" .}}
+    </div>
+
+    {{template "bot" .Head}}
+
+{{end}}}
+
+{{define "video-single-part"}}
+
+    {{$eL := eL .Entry .Head.Lang}}
+
+    <div id="body">
+        {{if eq .Entry.Type "text"}}
+        <div class="el-text">
+            {{template "entry" $eL}}
+        </div>
+        {{else if eq .Entry.Type "set"}}
+            {{template "graph-set-child" $eL}}
+        {{else}}
+          {{template "entry" $eL}}
+        {{end}}
+    </div>
+
+  {{template "prev-next" .}}
+
+
+  {{if isLocal}}
+  <div class="margin">
+  {{template "edit-link" $eL}}
+  </div>
+  {{end}}
+
+{{end}}
+
+

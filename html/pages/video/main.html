@@ -1,0 +1,31 @@
+{{define "video-main"}}
+{{template "head" .Head}}
+{{template "top" .}}
+
+
+    <div class="section-title__box section-title--index">
+        <h1 class="section-title">
+            {{.Head.Title}}
+        </h1>
+        <h4 class="section-lead">
+            {{var "video-subtitle" .Head.Lang}}
+        </h4>
+    </div>
+
+    {{$months := (.Entries.Offset 0 25).Months}} <!-- 25 -->
+    {{range $i, $entries := $months}}
+      {{if $i}}
+        <h2 class="month-title">
+          {{monthLang $entries.First.Date $.Head.Lang}}
+        </h2>
+      {{end}}
+      {{range $entries}}
+      {{.}}
+      {{end}}
+    {{end}}
+
+
+
+
+{{template "bot" .Head}}
+{{end}}

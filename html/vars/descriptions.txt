@@ -3,8 +3,10 @@ site-en: Stef Feral is a German-speaking artist and philosopher.
 serial-de: Eine Liste der serialisierten Einträge des Index.
 serial-en: A list of the serialized entries of Index.
 index-subtitle-en: Topical&nbsp;structure
-graph-subtitle-en: Temporal&nbsp;structure
 index-subtitle-de: Thematische&nbsp;Struktur
+graph-subtitle-en: Temporal&nbsp;structure
 graph-subtitle-de: Zeitliche&nbsp;Struktur
+video-subtitle-en: Daily&nbsp;updates
+video-subtitle-de: Tages&shy;be&shy;rich&shy;te
 map-info-de: Diese Karte wird automatisch generiert.
 map-info-en: This map is automatically generated.
