@@ -13,18 +13,11 @@
 
 {{define "video-single-part"}}
 
+    {{template "subnav" (snav .Entry.Parent 0 .Head.Lang)}}
     {{$eL := eL .Entry .Head.Lang}}
 
     <div id="body">
-        {{if eq .Entry.Type "text"}}
-        <div class="el-text">
-            {{template "entry" $eL}}
-        </div>
-        {{else if eq .Entry.Type "set"}}
-            {{template "graph-set-child" $eL}}
-        {{else}}
           {{template "entry" $eL}}
-        {{end}}
     </div>
 
   {{if isLocal}}

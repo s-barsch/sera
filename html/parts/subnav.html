@@ -35,13 +35,23 @@
 
 {{define "subnav-row"}}
     <div class="subnav">
-        {{if .IsYear}}
-        <span class="year-label">{{.YearLabel $.L}}:</span>
+        {{if gt (len .NavTrees) 1}}
+          {{if .IsYear}}
+          <span class="year-label">{{.YearLabel $.L}}:</span>
+          {{end}}
+          {{range $i, $t := .NavTrees -}}
+          {{$isActive := eq $.Active $t.Id}}
+          <a {{if $isActive}}class="active" {{end}}href="{{$t.Perma $.L}}">{{$t.Label $.L}}</a>
+          {{- end -}}
         {{end}}
-        {{range $i, $t := .NavTrees -}}
-        {{$isActive := eq $.Active $t.Id}}
-        <a {{if $isActive}}class="active" {{end}}href="{{$t.Perma $.L}}">{{$t.Label $.L}}</a>
-        {{- end -}}
+        {{if .HasDays}}
+          {{range $i, $e := .Tree.Entries.Reverse}}
+            {{if not $i}}
+            <span class="year-label">Days:</span>
+            {{end}}
+            <a href="{{$e.Perma $.L}}">{{$e.Date.Format "02"}}</a>
+          {{end}}
+        {{end}}
     </div>
 {{end}}
 

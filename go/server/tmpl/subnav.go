@@ -44,6 +44,14 @@ func (s *Subnav) IsYear() bool {
 	return s.Tree.Level() == 0 && s.Tree.Section() == "graph"
 }
 
+func (s *Subnav) HasDays() bool {
+	switch s.Tree.Section() {
+	case "graph", "video":
+		return true
+	}
+	return false
+}
+
 var years = map[string]string{
 	"de": "Jahre",
 	"en": "Years",
