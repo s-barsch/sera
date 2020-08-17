@@ -39,6 +39,7 @@
   <div></div>
 -->
 
+{{template "video-col" .}}
   <div class="cols">
     <div class="col__content col--index">
     {{template "index-col" .}}
@@ -72,13 +73,13 @@
 {{- end}}
 
 {{define "video-col" -}}
-    <div class="col__content col--video">
-      {{range .Video}}
-      <span class="front-video">
-        {{if .Cover}}
-          {{template "graph-image" (eL .Cover $.Head.Lang)}}
+    <div class="front-videos col--video">
+      {{range $i, $v := .Video}}
+      <span class="front-video{{if gt $i 3}} desktop{{end}}">
+        {{if $v.Cover}}
+          {{template "graph-image" (eL $v.Cover $.Head.Lang)}}
         {{else}}
-          Has no cover:<br>{{.}}
+          Has no cover:<br>{{$v}}
         {{end}}
       </span>
       {{end}}
@@ -87,7 +88,6 @@
 
 {{define "graph-col" -}}
     
-{{template "video-col" .}}
 <div>
       {{template "media-groups-front" (esL .Graph .Head.Lang)}}
       <div class="more-tip">
