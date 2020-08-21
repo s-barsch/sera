@@ -17,6 +17,7 @@
     {{$eL := eL .Entry .Head.Lang}}
 
     <div id="body">
+      <h1 class="index-title">{{.Entry.Title .Head.Lang}}</h1>
           {{template "entry" $eL}}
     </div>
 
