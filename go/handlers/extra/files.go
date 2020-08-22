@@ -66,6 +66,20 @@ func serveCollectionBlob(w http.ResponseWriter, r *http.Request, col entry.Colle
 	if ok && path.SubFile.Name == "cover.jpg" && set.Cover != nil {
 			return serveSingleBlob(w, r, set.Cover, path)
 	}
+	e, ok := col.(entry.Entry)
+	if p.Ext(path.SubFile.Name) == ".vtt" {
+		file := p.Join(e.File().Path, path.SubFile.Name)
+		serveStatic(w, r, vttPath(file, path.SubFile.Size))
+		return nil
+	}
 
 	return fmt.Errorf("serveCollectionBlob: File %v not found.", path.SubFile.Name)
+}
+
+func vttPath(path, lang string) string {
+	l := len(path)
+	if l < 5 {
+		return path
+	}
+	return fmt.Sprintf("%v-%v.vtt", path[:l-4], lang)
 }
