@@ -13,7 +13,7 @@
 
 {{define "video-single-part"}}
 
-    {{template "subnav" (snav .Entry.Parent 0 .Head.Lang)}}
+    {{template "subnav" (snav .Entry.Parent .Entry.Id .Head.Lang)}}
     {{$eL := eL .Entry .Head.Lang}}
 
     <div id="body">

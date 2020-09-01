@@ -49,7 +49,8 @@
             {{if not $i}}
             <span class="year-label">Days:</span>
             {{end}}
-            <a href="{{$e.Perma $.L}}">{{$e.Date.Format "02"}}</a>
+            {{$isActive := eq $.Active $e.Id}}
+            <a {{if $isActive}}class="active" {{end}}href="{{$e.Perma $.L}}">{{$e.Date.Format "02"}}</a>
           {{end}}
         {{end}}
     </div>
