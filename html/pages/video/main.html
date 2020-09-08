@@ -19,6 +19,7 @@
           {{monthLang $entries.First.Date $.Head.Lang}}
         </h2>
       {{end}}
+      <div class="video-grid">
       {{range $entries}}
         {{if .Cover}}
           {{template "graph-image" (eL .Cover $.Head.Lang)}}
@@ -26,6 +27,7 @@
           Has no cover:<br>{{.}}
         {{end}}
       {{end}}
+      </div>
     {{end}}
 
 

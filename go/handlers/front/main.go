@@ -47,7 +47,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		Head:     head,
 		Index:    index.Offset(0, s.Vars.FrontSettings.Index),
 		Graph:    graph.Offset(0, s.Vars.FrontSettings.Graph),
-		Video:    video,
+		Video:    video.Offset(0, 10),
 		Featured: e,
 	})
 	if err != nil {
