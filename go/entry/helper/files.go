@@ -55,10 +55,7 @@ func IsDir(path string) bool {
 	if err != nil {
 		return false
 	}
-	if fi.IsDir() {
-		return true
-	}
-	return false
+	return fi.IsDir()
 }
 
 func IsNameSys(name string) bool {
@@ -88,13 +85,6 @@ func IsDontIndex(path string) bool {
 	switch p.Ext(path) {
 	case ".log", ".tmp", ".xmp", ".info", ".bot":
 		return true
-	case ".jpg":
-		// TODO: maybe rewrite that?
-		if ParentDir(path) != "1600" {
-			return true
-		}
-		// Let the packages determine if regular dirs should be index or not.
-		// case "":
 	}
 	return false
 }

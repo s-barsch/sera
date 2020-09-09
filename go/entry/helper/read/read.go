@@ -27,16 +27,6 @@ func GetFiles(path string, withDirs bool) ([]*FileInfo, error) {
 	for _, fi := range l {
 		filepath := p.Join(path, fi.Name())
 
-		if fi.Name() == "cache" {
-			imageFolder := p.Join(filepath, "1600")
-			images, err := GetFiles(imageFolder, false)
-			if err != nil {
-				return nil, err
-			}
-			list = append(list, images...)
-			continue
-		}
-
 		if helper.IsDontIndex(filepath) {
 			continue
 		}
