@@ -40,6 +40,7 @@
 {{define "graph-tob"}}
     {{$type := .E.Type}}
 
+    {{template "private-mark-graph" .E}}
     {{template "graph-date" .}}
     {{template "edit-link" .}}
     {{if eq $type "set"}}
@@ -49,7 +50,6 @@
     {{else}}
         Didn’t catch type: {{.}} (graph-tob)
     {{end}}
-    {{template "private-mark-graph" .E}}
 {{end}}
 
 
