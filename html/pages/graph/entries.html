@@ -75,6 +75,7 @@
 {{end}}
 
 {{define "graph-set-child"}}
+    {{template "private-mark-graph" .E}}
     {{$type := .E.Type}}
     {{if eq "image" $type}}
       <section class="blob-group">
@@ -93,7 +94,6 @@
           {{template "entry" .}}
       </div>
     {{end}}
-    {{template "private-mark-graph" .E}}
 {{end}}
 
 {{define "graph-image-thumbnail"}}
