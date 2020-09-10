@@ -13,4 +13,7 @@ Disallow: /
 User-agent: DomainCrawler
 Disallow: /
 
+User-agent: Yandex
+Disallow: /
+
 Sitemap: https://stferal.com/sitemaps.xml
