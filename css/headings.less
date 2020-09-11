@@ -98,7 +98,22 @@ h3 {
     padding-top:1.25rem;
 }
 
+.draft {
+    font-weight:normal;
+    font-size:1.5rem;
+}
+
+.draft mark {
+    padding:0 .5rem;
+    background:rgb(255, 255, 162);
+    color: black;
+}
+
 .media-mixin(@break) when (@break = @break-single) {
+    .draft {
+        font-size:2rem;
+    }
+
     .section-title__box {
         margin-top:1.5rem;
         margin-bottom:2rem;
@@ -163,13 +178,3 @@ h3 {
     margin-left:1.75rem;
 }
 
-.draft {
-    font-weight:normal;
-    font-size:2rem;
-}
-
-.draft mark {
-    padding:0 .5rem;
-    background:rgb(255, 255, 162);
-    color: black;
-}
