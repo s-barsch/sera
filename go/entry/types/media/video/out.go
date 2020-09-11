@@ -30,6 +30,15 @@ func (v *Video) SubtitlePath(lang string) string {
 	)
 }
 
+func (v *Video) HasSubtitles(lang string) bool {
+	for _, subLang := range v.Subtitles {
+		if lang == subLang {
+			return true
+		}
+	}
+	return false
+}
+
 func (v *Video) SubtitleLocation(lang string) string {
 	return fmt.Sprintf("%v/vtt/%v-%v.vtt", v.file.Dir(), v.file.NameNoExt(), lang)
 }

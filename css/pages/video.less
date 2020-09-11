@@ -10,8 +10,35 @@
     margin-bottom:.5rem;
 }
 
+.untranslated .thumb {
+    opacity:.6;
+}
+
+.no-subtitles {
+    position:absolute;
+    z-index:1;
+}
+
+.front-video .no-subtitles {
+    height:1.5rem;
+    margin:.25rem .5rem;
+}
+
+.video-grid .no-subtitles {
+    margin:.25rem .5rem;
+    height:2rem;
+}
+
+.front-video.untranslated {
+    display:none;
+}
+
 .media-mixin(@break) when (@break = @break-single) {
     .video-grid img {
         max-height:20rem;
     }
+    .front-video.untranslated {
+        display:inline;
+    }
 }
+

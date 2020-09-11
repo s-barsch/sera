@@ -2,6 +2,9 @@ package server
 
 import (
 	"stferal/go/entry/helper"
+	"stferal/go/entry"
+	"stferal/go/entry/types/media/video"
+	"stferal/go/entry/types/set"
 	"stferal/go/server/tmpl"
 	"strings"
 	"text/template"
@@ -56,6 +59,19 @@ func (s *Server) Funcs() template.FuncMap {
 		"iso8601": func(date time.Time) string {
 			return date.Format(time.RFC3339)
 		},
+		"isTranslated": func(e entry.Entry, lang string) bool {
+			if lang == "de" {
+				return true
+			}
+			if x := e.Info()["translated"]; x != "" {
+				return x == "true"
+			}
+			s, ok := e.(*set.Set)
+			if !ok {
+				return false
+			}
+			return hasSubtitles(s, lang)
+		},
 		"eL":        tmpl.NewEntryLang,
 		"eLy":       tmpl.NewEntryLangLazy,
 		"esL":       tmpl.NewEntriesLang,
@@ -63,4 +79,14 @@ func (s *Server) Funcs() template.FuncMap {
 		"snav":      tmpl.NewSubnav,
 		"minifySvg": minifySVG,
 	}
+}
+
+func hasSubtitles(s *set.Set, lang string) bool {
+	for _, child := range s.Entries() {
+		v, ok := child.(*video.Video)
+		if ok {
+			return v.HasSubtitles(lang)
+		}
+	}
+	return false
 }

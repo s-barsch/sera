@@ -74,14 +74,23 @@
 
 {{define "video-col" -}}
     <div class="front-videos col--video">
-      {{range $i, $v := .Video}}
-      <span class="front-video{{if gt $i 3}} desktop{{end}}">
-        {{if $v.Cover}}
-          {{template "graph-image" (eL $v.Cover $.Head.Lang)}}
+      {{$c := 0}}
+      {{range $i, $set := .Video}}
+      {{$untranslated := not (isTranslated $set $.Head.Lang)}}
+      <span class="front-video{{if gt $c 3}} desktop{{end}}
+      {{if $untranslated}} untranslated{{end}}">
+        {{if $set.Cover}}
+          {{if $untranslated}}
+          <img class="no-subtitles" src="/static/svg/no-subtitles.svg">
+          {{end}}
+          {{template "graph-image" (eL $set.Cover $.Head.Lang)}}
         {{else}}
-          Has no cover:<br>{{$v}}
+          Has no cover:<br>{{$set}}
         {{end}}
       </span>
+      {{if isTranslated $set $.Head.Lang}}
+      {{$c = add $c 1}}
+      {{end}}
       {{end}}
     </div>
 {{- end}}
