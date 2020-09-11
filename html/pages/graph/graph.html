@@ -7,6 +7,9 @@
     <h1 class="section-title">
         {{.Tree.Date.Format "2006"}}
     </h1>
+    {{if eq (index .Tree.Info "alpha") "true"}}
+      {{template "unedited-hint" (var "alpha-year" $.Head.Lang)}}
+    {{end}}
 </div>
 
 {{range .Tree.Trees}}
@@ -15,6 +18,9 @@
         <h2 class="month-title">
             <a href="#{{$monthNum}}">{{monthLang .Date $.Head.Lang}}</a>
         </h2>
+        {{if eq (index .Info "alpha") "true"}}
+          {{template "unedited-hint" (var "alpha-month" $.Head.Lang)}}
+        {{end}}
         {{template "media-groups" (esL .Entries $.Head.Lang)}}
     </section>
 {{end}}
@@ -27,6 +33,10 @@
 {{template "bot" .Head}}
 {{end}}
 
+
+{{define "unedited-hint"}}
+<h2 class="draft"><mark>{{.}}</mark></h2>
+{{end}}
 
 
 {{define "graph-main"}}

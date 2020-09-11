@@ -8,3 +8,7 @@ back-de: Gehe zurück
 back-en: Go back
 transcript-de: Transkript
 transcript-en: Transcript
+alpha-year-de: Dieses Jahr ist unredigiert.
+alpha-year-en: This year is unedited.
+alpha-month-de: Dieser Monat ist unredigiert.
+alpha-month-en: This month is unedited.
