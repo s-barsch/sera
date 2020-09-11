@@ -24,14 +24,18 @@
     line-height:1.2;
 }
 
+.section-title--year img {
+    height:3rem;
+}
+
 [data-type="large"] .section-title--year .section-title {
     font-size:4rem;
     letter-spacing:.5rem;
 }
 
 .section-title__box.section-title--year {
-    margin-top:1.625rem;
-    margin-bottom:-3.5rem;
+    margin-top:2rem;
+    margin-bottom:-4.5rem;
 }
 
 .year-label {
@@ -121,6 +125,16 @@
 }
 
 .media-mixin(@break) when (@break = @break-single) {
+    .section-title__box.section-title--year {
+        margin-top:1.625rem;
+        margin-bottom:-3.5rem;
+    }
+
+    .section-title--year img {
+        margin-top:1rem;
+        height:3.75rem;
+    }
+
     .section-title--graph {
         margin-bottom:4rem;
     }

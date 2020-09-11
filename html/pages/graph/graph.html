@@ -5,7 +5,7 @@
 
 <div class="section-title__box section-title--year">
     <h1 class="section-title">
-        {{.Tree.Date.Format "2006"}}
+      {{template "year-number" (.Tree.Date.Format "2006")}}
     </h1>
     {{if eq (index .Tree.Info "alpha") "true"}}
       {{template "unedited-hint" (var "alpha-year" $.Head.Lang)}}
@@ -33,6 +33,10 @@
 {{template "bot" .Head}}
 {{end}}
 
+
+{{define "year-number"}}
+<img src="/static/svg/years/{{.}}.svg" alt="{{.}}">
+{{end}}
 
 {{define "unedited-hint"}}
 <h2 class="draft"><mark>{{.}}</mark></h2>
