@@ -33,7 +33,40 @@
     display:none;
 }
 
+.video-title-bar {
+    margin:.25rem 0 .75rem;
+    line-height:1.2;
+    /*
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    */
+}
+
+.video-title {
+    font-family: var(--fontfamily-garamond12);
+    font-size:1.5625rem;
+}
+
+.video-date {
+    font-size:1.3125rem;
+    font-weight:550;
+    font-family: var(--fontfamily-sans);
+    margin-right:.5rem;
+}
+
 .media-mixin(@break) when (@break = @break-single) {
+    .video-title-bar {
+        margin:0 0 .25rem;
+    }
+    .video-title {
+        font-size:2.25rem;
+    }
+    .video-date {
+        //font-size:1.5rem;
+        font-size:1.875rem;
+        margin-right:.75rem;
+    }
     .video-grid img {
         max-height:20rem;
     }

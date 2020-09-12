@@ -34,6 +34,7 @@ func (s *Server) Funcs() template.FuncMap {
 			}
 			return path
 		},
+		"abbr": helper.Abbr,
 		"frontArticles": func() []*tmpl.Article {
 			return s.Vars.FrontSettings.Articles
 		},
