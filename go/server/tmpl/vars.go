@@ -4,18 +4,20 @@ import (
 	"fmt"
 	"gopkg.in/yaml.v3"
 	"io/ioutil"
+	"strconv"
 	"strings"
 )
 
 type Vars struct {
 	FrontSettings *FrontSettings
-	Strings map[string]string
+	Strings       map[string]string
+	Inlines       map[string]string
 }
 
 type Article struct {
-	TitleDe   string `yaml:"title"`
+	TitleDe string `yaml:"title"`
 	TitleEn string `yaml:"title-en"`
-	Hash string `yaml:"hash"`
+	Hash    string `yaml:"hash"`
 }
 
 func (a *Article) Title(lang string) string {
@@ -26,8 +28,8 @@ func (a *Article) Title(lang string) string {
 }
 
 type FrontSettings struct {
-	Graph    int `yaml:"graph-num"`
-	Index    int `yaml:"index-num"`
+	Graph    int    `yaml:"graph-num"`
+	Index    int    `yaml:"index-num"`
 	Featured string `yaml:"featured"`
 	Articles []*Article
 }
@@ -47,34 +49,21 @@ func LoadVars(root string) (*Vars, error) {
 		return nil, err
 	}
 
-	maps, err := ReadIndexmap(root)
-	if err != nil {
-		return nil, err
-	}
-
-	logo, err := ReadLogo(root)
-	if err != nil {
-		return nil, err
-	}
-
-	css, err := ReadCSS(root)
-	if err != nil {
-		return nil, err
-	}
-
 	s["jsmodtime"] = modtime
-	s["indexmap-de"] = maps["de"]
-	s["indexmap-en"] = maps["en"]
-	s["logo"] = logo
-	s["css"] = css
 
 	fr, err := ReadFrontSettings(root)
 	if err != nil {
 		return nil, err
 	}
 
+	inlines, err := ReadInlineStatics(root)
+	if err != nil {
+		return nil, err
+	}
+
 	return &Vars{
-		Strings: s,
+		Strings:       s,
+		Inlines:       inlines,
 		FrontSettings: fr,
 	}, nil
 }
@@ -118,4 +107,34 @@ func ReadVarFiles(root string) (map[string]string, error) {
 		}
 	}
 	return vars, nil
+}
+
+func ReadInlineStatics(root string) (map[string]string, error) {
+	inlines := map[string]string{}
+
+	sources := map[string]string{
+		"css":         "/css/dist/main.css",
+		"indexmap-de": "/static/svg/indexmap-de.svg",
+		"indexmap-en": "/static/svg/indexmap-en.svg",
+		"logo":        "/static/svg/stferal-logo-compressed.svg",
+		"email":       "/static/svg/email.svg",
+	}
+	for name, path := range sources {
+		content, err := ioutil.ReadFile(root + path)
+		if err != nil {
+			return nil, err
+		}
+		inlines[name] = string(content)
+	}
+
+	for i := 2007; i <= 2021; i++ {
+		year := strconv.Itoa(i)
+		path := fmt.Sprintf(root+"/static/svg/years/%v.svg", year)
+		content, err := ioutil.ReadFile(path)
+		if err != nil {
+			return nil, err
+		}
+		inlines[year] = string(content)
+	}
+	return inlines, nil
 }

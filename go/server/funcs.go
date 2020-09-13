@@ -44,6 +44,12 @@ func (s *Server) Funcs() template.FuncMap {
 		"varRaw": func(name string) string {
 			return s.Vars.Strings[name]
 		},
+		"inlineFile": func(name string) string {
+			return s.Vars.Inlines[name]
+		},
+		"inlineFileLang": func(name, lang string) string {
+			return s.Vars.Inlines[name + "-" + lang]
+		},
 		"isLocal": func() bool {
 			return s.Flags.Local
 		},
