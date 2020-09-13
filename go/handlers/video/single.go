@@ -33,7 +33,7 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, p *pa
 	}
 
 	head := &head.Head{
-		Title:   graphEntryTitle(e, head.Lang(r.Host)),
+		Title:   getTitle(e, head.Lang(r.Host)),
 		Section: "video",
 		Path:    r.URL.Path,
 		Host:    r.Host,
@@ -56,10 +56,10 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, p *pa
 	}
 }
 
-func graphEntryDate(d time.Time, lang string) string {
+func getDate(d time.Time, lang string) string {
 	return fmt.Sprintf(d.Format("02 %v"), helper.Abbr(helper.MonthLang(d, lang)))
 }
 
-func graphEntryTitle(e entry.Entry, lang string) string {
-	return fmt.Sprintf("%v - Video", graphEntryDate(e.Date(), lang))
+func getTitle(e entry.Entry, lang string) string {
+	return fmt.Sprintf("%v - %v - Video", getDate(e.Date(), lang), e.Title(lang))
 }
