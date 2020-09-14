@@ -25,6 +25,7 @@ type Entry interface {
 	Perma(string) string
 
 	IsBlob() bool
+	MediaType() string
 	SetParent(Entry)
 	SetInfo(info.Info)
 }

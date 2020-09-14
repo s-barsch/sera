@@ -64,6 +64,16 @@ func (e *Tree) IsBlob() bool {
 	return entry.IsBlob(e)
 }
 
+func (e *Tree) MediaType() string {
+	if e.Type() == "audio" {
+		return "tob"
+	}
+	if entry.IsBlob(e) {
+		return "blob"
+	}
+	return "tob"
+}
+
 func (e *Tree) SetParent(parent entry.Entry) {
 	e.parent = parent
 }

@@ -2,7 +2,7 @@
 {{define "media-groups"}}
     <div class="media-groups">
     {{range $i, $group := .Es.Groups}}
-        <section class="{{if $group.First.IsBlob}}blob{{else}}tob{{end}}-group">
+          <section class="{{$group.First.MediaType}}-group">
             {{range $group}}
               <article class="entry entry--graph">
                 {{template "graph-entry" (eLy . $.L false)}}
@@ -12,31 +12,12 @@
     {{end}}
     </div>
 {{end}}
-
-{{define "media-groups-set"}}
-    <div class="media-groups">
-    {{range $i, $group := .Es.Groups}}
-        <section class="{{if $group.First.IsBlob}}blob{{else}}tob{{end}}-group">
-            {{range $group}}
-              <article class="entry entry--graph">
-                {{template "graph-entry" (eLy . $.L false)}}
-              </article>
-            {{end}}
-        </section>
-    {{end}}
-    </div>
-{{end}}
-
-
-
 
 {{define "graph-entry"}}
     {{if .E.IsBlob}}
         {{template "graph-blob" .}}
-    {{else}}
-      <article class="tob tob--graph">
-        {{template "graph-tob" .}}
-      </article>
+      {{else}}
+          {{template "graph-tob" .}}
     {{end}}
 {{end}}
 
@@ -62,7 +43,9 @@
     {{if eq $type "set"}}
         {{template "graph-set" .}}
     {{else if eq $type "text"}}
+        <article class="tob tob--graph">
         {{template "text" .}}
+        </article>
     {{else}}
         Didn’t catch type: {{.}} (graph-tob)
     {{end}}
@@ -80,12 +63,12 @@
 {{end}}
 
 {{define "graph-set"}}
-<div class="set">
+<div class="set set--graph">
     {{if eq 0 (len .E.Entries)}}
     <em>This entry is not yet translated.</em>
     {{end}}
     {{range $i, $group := .E.Entries.Groups}}
-      <section class="{{if $group.First.IsBlob}}blob{{else}}tob{{end}}-group">
+      <section class="{{$group.First.MediaType}}-group">
         {{range $group}}
           {{template "graph-set-child" (eLy . $.L $.Y)}}
         {{end}}
@@ -98,7 +81,7 @@
     {{template "private-mark-graph" .E}}
     {{$type := .E.Type}}
     {{if eq "image" $type}}
-        {{template "graph-image-thumbnail" .}}
+        {{template "graph-set-image" .}}
     {{else if eq "video" $type}}
       <div class="video-main">
         {{template "entry" .}}
@@ -114,9 +97,7 @@
     {{/* Title is used, because we **link** to entries. */}}
     {{$alt := .E.Title .L}}
 
-    {{$src := ""}}
-    {{$realSrc := .E.ImagePath 320 .L}}
-    {{$src = $realSrc}}
+    {{$src := .E.ImagePath 320 .L}}
 
 
     <a href="{{.E.Perma .L}}"><img src="{{$src}}"
@@ -128,6 +109,12 @@
     {{.}}
     </div>
     {{end}}
+{{end}}
+
+{{define "graph-set-image"}}
+{{$alt := .E.Title .L}}
+{{$src := .E.ImagePath 320 .L}}
+<img src="{{$src}}" alt="{{$alt}}" srcset="{{template "graph-thumb-srcset" .}}">
 {{end}}
 
 {{define "graph-thumb-srcset" -}}

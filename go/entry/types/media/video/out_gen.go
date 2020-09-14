@@ -66,6 +66,16 @@ func (e *Video) IsBlob() bool {
 	return entry.IsBlob(e)
 }
 
+func (e *Video) MediaType() string {
+	if e.Type() == "audio" {
+		return "tob"
+	}
+	if entry.IsBlob(e) {
+		return "blob"
+	}
+	return "tob"
+}
+
 func (e *Video) SetParent(parent entry.Entry) {
 	e.parent = parent
 }

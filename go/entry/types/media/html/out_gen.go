@@ -66,6 +66,16 @@ func (e *Html) IsBlob() bool {
 	return entry.IsBlob(e)
 }
 
+func (e *Html) MediaType() string {
+	if e.Type() == "audio" {
+		return "tob"
+	}
+	if entry.IsBlob(e) {
+		return "blob"
+	}
+	return "tob"
+}
+
 func (e *Html) SetParent(parent entry.Entry) {
 	e.parent = parent
 }

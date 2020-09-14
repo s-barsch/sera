@@ -70,6 +70,16 @@ func {{receiver .}} IsBlob() bool {
 	return entry.IsBlob(e)
 }
 
+func {{receiver .}} MediaType() string {
+	if e.Type() == "audio" {
+		return "tob"
+	}
+	if entry.IsBlob(e) {
+		return  "blob"
+	}
+	return "tob"
+}
+
 func {{receiver .}} SetParent(parent entry.Entry) {
 	e.parent = parent
 }
