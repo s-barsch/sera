@@ -30,6 +30,11 @@ var aboutNames = map[string]string{
 	"en": "about",
 }
 
+var daysName = map[string]string{
+	"de": "tage",
+	"en": "days",
+}
+
 func (h *Head) LocalSection(name string) string {
 	if h.Lang == "de" && h.Section == "about" {
 		return "über"
@@ -53,7 +58,7 @@ func NewNav(lang string) Nav {
 			Href: "/graph",
 		},
 		&Link{
-			Name: "video",
+			Name: daysName[lang],
 			Href: "/video",
 		},
 		&Link{

@@ -13,6 +13,22 @@
     </div>
 {{end}}
 
+{{define "media-groups-set"}}
+    <div class="media-groups">
+    {{range $i, $group := .Es.Groups}}
+        <section class="{{if $group.First.IsBlob}}blob{{else}}tob{{end}}-group">
+            {{range $group}}
+              <article class="entry entry--graph">
+                {{template "graph-entry" (eLy . $.L false)}}
+              </article>
+            {{end}}
+        </section>
+    {{end}}
+    </div>
+{{end}}
+
+
+
 
 {{define "graph-entry"}}
     {{if .E.IsBlob}}
@@ -68,8 +84,12 @@
     {{if eq 0 (len .E.Entries)}}
     <em>This entry is not yet translated.</em>
     {{end}}
-    {{range .E.Entries}}
-        {{template "graph-set-child" (eLy . $.L $.Y)}}
+    {{range $i, $group := .E.Entries.Groups}}
+      <section class="{{if $group.First.IsBlob}}blob{{else}}tob{{end}}-group">
+        {{range $group}}
+          {{template "graph-set-child" (eLy . $.L $.Y)}}
+        {{end}}
+      </section>
     {{end}}
 </div>
 {{end}}
@@ -78,19 +98,13 @@
     {{template "private-mark-graph" .E}}
     {{$type := .E.Type}}
     {{if eq "image" $type}}
-      <section class="blob-group">
         {{template "graph-image-thumbnail" .}}
-      </section>
     {{else if eq "video" $type}}
-      <div class="blob-group video-main">
+      <div class="video-main">
         {{template "entry" .}}
       </div>
-    {{else if eq "set" $type}}
-      <section class="tob">
-        {{template "graph-set" .}}
-      </section>
     {{else}}
-      <div class="text">
+      <div class="tob text">
           {{template "entry" .}}
       </div>
     {{end}}
