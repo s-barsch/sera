@@ -30,6 +30,13 @@ func (v *Video) SubtitlePath(lang string) string {
 	)
 }
 
+func (v *Video) SubtitlesOn(subLang, pageLang string) bool {
+	if subLang != "de" {
+		return true
+	}
+	return subLang == "de" && pageLang == "de" && v.Info()["subtitles-on"] == "true"
+}
+
 func (v *Video) HasSubtitles(lang string) bool {
 	for _, subLang := range v.Subtitles {
 		if lang == subLang {
