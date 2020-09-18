@@ -1,8 +1,8 @@
 {{define "manifest" -}}
 {{$bgColor := "#ffffff"}}{{if .Dark}}{{$bgColor = "#111111"}}{{end -}}
 {
-  "name": "Stef Feral",
-  "short_name": "Stef Feral",
+  "name": "{{.Title}}",
+  "short_name": "{{.Title}}",
   "display": "standalone",
   "start_url": "/",
   "background_color": "{{$bgColor}}",

@@ -58,7 +58,7 @@ func NewNav(lang string) Nav {
 			Href: "/graph",
 		},
 		&Link{
-			Name: daysName[lang],
+			Name: "video",
 			Href: "/video",
 		},
 		&Link{

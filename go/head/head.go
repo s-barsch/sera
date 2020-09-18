@@ -39,16 +39,19 @@ func (h *Head) Process() error {
 	return nil
 }
 
+func SiteName(lang string) string {
+	if lang == "en" {
+		return "Saint Feral"
+	}
+	return "Sacer Feral"
+}
+
 func (h *Head) PageTitle() string {
+	name := SiteName(h.Lang)
 	if h.Title == "" {
-		return "Stef Feral"
+		return name
 	}
-	switch h.Lang {
-	case "en":
-		return fmt.Sprintf("%v - Stef Feral - English", h.Title)
-	default:
-		return fmt.Sprintf("%v - Stef Feral", h.Title)
-	}
+	return fmt.Sprintf("%v - %v", h.Title, name)
 }
 
 func (h *Head) PageURL() string {

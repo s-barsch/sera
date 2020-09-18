@@ -2,8 +2,8 @@ latest-de: Neueste Einträge
 latest-en: Latest Entries
 map-name-de: Karte
 map-name-en: Map
-front-lead-de: Dies ist das Verzeichnis von Stef Feral, einem deutsch&shy;sprach&shy;igen Künst&shy;ler und Philosoph.
-front-lead-en: This is the directory of Stef Feral, a German-speaking artist and philosopher.
+front-lead-de: Dies ist das Verzeichnis von Sacer Feral, einem deutsch&shy;sprach&shy;igen Künst&shy;ler und Philosoph.
+front-lead-en: This is the directory of Saint Feral, a German-speaking artist and philosopher.
 back-de: Gehe zurück
 back-en: Go back
 transcript-de: Transkript
