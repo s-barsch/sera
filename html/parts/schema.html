@@ -8,14 +8,14 @@
 <meta property="og:description" content="{{.}}" />
 {{end}}
 <meta property="og:image" content="{{.Host}}static/img/sitecard.jpg" />
-<meta property="og:site_name" content="Saint Feral" />
+<meta property="og:site_name" content="Sacer Feral" />
 <script type="application/ld+json">
 {{- if eq .Type "image"}}
 {
   "@context": "http://schema.org",
   "@type": "ImageObject",
   "name": "{{.Title}}",
-  "author": "Saint Feral",
+  "author": "Sacer Feral",
   {{- with .Description}}
   "description": "{{.}}",
   {{end -}}
@@ -28,7 +28,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "Saint Feral",
+    "name": "Sacer Feral",
     "url": "{{.Host}}",
     "logo": {
       "@type": "ImageObject",
@@ -45,7 +45,7 @@
   "@context": "http://schema.org",
   "@type": "{{.Type}}",
   "headline": "{{.Title}}",
-  "author": "Saint Feral",
+  "author": "Sacer Feral",
   {{- with .Description}}
   "description": "{{.}}",
   {{end -}}
@@ -58,7 +58,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "Saint Feral",
+    "name": "Sacer Feral",
     "url": "{{.Host}}",
     "logo": {
       "@type": "ImageObject",
