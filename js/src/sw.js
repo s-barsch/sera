@@ -13,16 +13,16 @@ self.addEventListener("install", function(event) {
   );
 });
 
-const path = url => {
+const stripPath = url => {
   return url.replace(/^.*\/\/[^\/]+/, "")
 }
 
 // Network falling back to the cache
 self.addEventListener('fetch', function(event) {
-  const req = path(event.request.url);
+  const path = stripPath(event.request.url);
   event.respondWith(
     fetch(event.request).then(response => {
-      if (req == "/" || req == "manifest.json") {
+      if (path == "/" || path == "manifest.json") {
         let responseToCache = response.clone();
         caches.open(CACHE_NAME)
           .then(cache => {
