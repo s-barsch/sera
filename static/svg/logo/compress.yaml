@@ -1,0 +1,11 @@
+plugins:
+    - removeTitle: false
+    - removeAttrs:
+        attrs:
+            - font-weight
+            - font-size
+            - font-family
+            - line-height
+            - word-spacing
+            - letter-spacing
+            - style
