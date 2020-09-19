@@ -2,7 +2,7 @@
 {{$bgColor := "#ffffff"}}{{if .Dark}}{{$bgColor = "#111111"}}{{end -}}
 {
   "name": "{{.Title}}",
-  "short_name": "{{.Title}}",
+  "short_name": "{{if eq .Lang "de"}}Sac{{else}}St{{end}}. Feral",
   "display": "standalone",
   "start_url": "/",
   "background_color": "{{$bgColor}}",
