@@ -40,9 +40,6 @@ func (h *Head) Process() error {
 }
 
 func SiteName(lang string) string {
-	if lang == "en" {
-		return "Saint Feral"
-	}
 	return "Sacer Feral"
 }
 
