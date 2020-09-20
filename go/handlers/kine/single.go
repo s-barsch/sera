@@ -1,4 +1,4 @@
-package video
+package kine
 
 import (
 	"fmt"
@@ -19,10 +19,10 @@ type graphSingle struct {
 
 func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Path) {
 	lang := head.Lang(r.Host)
-	graph := s.Trees["video"].Local(s.Flags.Local)[lang]
+	graph := s.Trees["kine"].Local(s.Flags.Local)[lang]
 	e, err := graph.LookupEntryHash(p.Hash)
 	if err != nil {
-		http.Redirect(w, r, "/video", 301)
+		http.Redirect(w, r, "/kine", 301)
 		return
 	}
 
@@ -34,7 +34,7 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, p *pa
 
 	head := &head.Head{
 		Title:   getTitle(e, head.Lang(r.Host)),
-		Section: "video",
+		Section: "kine",
 		Path:    r.URL.Path,
 		Host:    r.Host,
 		Entry:   e,
@@ -47,7 +47,7 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, p *pa
 		return
 	}
 
-	err = s.ExecuteTemplate(w, "video-single", &graphSingle{
+	err = s.ExecuteTemplate(w, "kine-single", &graphSingle{
 		Head:   head,
 		Entry:  e,
 	})
@@ -61,5 +61,5 @@ func getDate(d time.Time, lang string) string {
 }
 
 func getTitle(e entry.Entry, lang string) string {
-	return fmt.Sprintf("%v - %v - Video", getDate(e.Date(), lang), e.Title(lang))
+	return fmt.Sprintf("%v - %v - %v", getDate(e.Date(), lang), e.Title(lang), helper.KineName[lang])
 }

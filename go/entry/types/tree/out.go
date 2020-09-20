@@ -23,7 +23,11 @@ func (t *Tree) Label(lang string) string {
 // For this to work, title fields have to be set for all sections. Otherwise,
 // the root node will return a short hash.
 func (t *Tree) Section() string {
-	return t.Chain()[0].Slug("en")
+	section := t.Chain()[0].Slug("en")
+	if section == "cine" {
+		return "kine"
+	}
+	return section
 }
 
 func (t *Tree) Perma(lang string) string {

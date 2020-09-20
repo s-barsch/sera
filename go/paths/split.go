@@ -20,7 +20,11 @@ type SubFile struct {
 
 func (p *Path) Section() string {
 	if len(p.Chain) > 0 {
-		return p.Chain[0]
+		section := p.Chain[0]
+		if section == "cine" {
+			return "kine"
+		}
+		return section
 	}
 	return ""
 }

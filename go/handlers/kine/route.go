@@ -1,4 +1,4 @@
-package video
+package kine 
 
 import (
 	"stferal/go/paths"
@@ -14,10 +14,10 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	rel := p[len("/video"):]
+	rel := p[len("/kine"):]
 
 	if rel == "/" {
-		http.Redirect(w, r, "/video", 301)
+		http.Redirect(w, r, "/kine", 301)
 		return
 	}
 

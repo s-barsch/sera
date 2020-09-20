@@ -39,7 +39,7 @@
   <div></div>
 -->
 
-{{template "video-col" .}}
+{{template "kine-col" .}}
   <div class="cols">
     <div class="col__content col--index">
     {{template "index-col" .}}
@@ -72,10 +72,10 @@
 </div>
 {{- end}}
 
-{{define "video-col" -}}
+{{define "kine-col" -}}
     <div class="front-videos col--video">
       {{$c := 0}}
-      {{range $i, $set := .Video}}
+      {{range $i, $set := .Kine}}
       {{$untranslated := not (isTranslated $set $.Head.Lang)}}
       <span class="front-video{{if gt $c 3}} desktop{{end}}
       {{if $untranslated}} untranslated{{end}}">

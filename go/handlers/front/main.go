@@ -12,7 +12,7 @@ type frontMain struct {
 	Head     *head.Head
 	Index    entry.Entries
 	Graph    entry.Entries
-	Video    entry.Entries
+	Kine     entry.Entries
 	Featured entry.Entry
 }
 
@@ -36,7 +36,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	index := s.Recents["index"].Local(s.Flags.Local)[lang]
 	graph := s.Recents["graph"].Local(s.Flags.Local)[lang]
 
-	video := s.Recents["video"].Local(s.Flags.Local)[lang]
+	kine := s.Recents["kine"].Local(s.Flags.Local)[lang]
 
 	e, err := s.Trees["graph"].Local(s.Flags.Local)[lang].LookupEntryHash(s.Vars.FrontSettings.Featured)
 	if err != nil {
@@ -47,7 +47,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		Head:     head,
 		Index:    index.Offset(0, s.Vars.FrontSettings.Index),
 		Graph:    graph.Offset(0, s.Vars.FrontSettings.Graph),
-		Video:    video.Offset(0, 10),
+		Kine:     kine.Offset(0, 10),
 		Featured: e,
 	})
 	if err != nil {

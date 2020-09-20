@@ -1,17 +1,17 @@
-{{define "video-single"}}
+{{define "kine-single"}}
 
 {{template "head" .Head}}
 {{template "top" .}}
 
     <div id="part">
-    {{template "video-single-part" .}}
+    {{template "kine-single-part" .}}
     </div>
 
     {{template "bot" .Head}}
 
 {{end}}}
 
-{{define "video-single-part"}}
+{{define "kine-single-part"}}
 
     {{template "subnav" (snav .Entry.Parent .Entry.Id .Head.Lang)}}
     {{$eL := eL .Entry .Head.Lang}}

@@ -51,14 +51,14 @@ func (s *Server) LoadTrees() error {
 			Private: serializeLangs(trees[section].Private),
 			Public:  serializeLangs(trees[section].Public),
 		}
-		if section == "video" {
+		if section == "kine" {
 			for _, e := range trees[section].Public["de"].Entries() {
 				fmt.Println(e.Title("de"))
 			}
 			/*
-			for _, e := range recents[section].Public["de"] {
-				fmt.Println(e.Title("de"))
-			}
+				for _, e := range recents[section].Public["de"] {
+					fmt.Println(e.Title("de"))
+				}
 			*/
 		}
 
@@ -86,7 +86,7 @@ func serializeLangs(langMap map[string]*tree.Tree) map[string]entry.Entries {
 
 func serialize(t *tree.Tree) entry.Entries {
 	switch t.Section() {
-	case "graph", "video":
+	case "graph", "kine":
 		return t.TraverseEntriesReverse()
 	case "index":
 		es := entry.Entries{}

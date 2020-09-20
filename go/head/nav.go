@@ -2,6 +2,8 @@ package head
 
 import (
 	"fmt"
+	"stferal/go/entry/helper"
+
 	"github.com/kennygrant/sanitize"
 )
 
@@ -14,7 +16,8 @@ type Link struct {
 
 func (h *Head) MakeNav() Nav {
 	nav := NewNav(h.Lang)
-	section := h.LocalSection(h.Section)
+
+	section := sectionLang(h.Section, h.Lang)
 
 	for _, l := range nav {
 		if section == l.Name {
@@ -25,25 +28,19 @@ func (h *Head) MakeNav() Nav {
 	return nav
 }
 
-var aboutNames = map[string]string{
-	"de": "über",
-	"en": "about",
-}
-
-var daysName = map[string]string{
-	"de": "tage",
-	"en": "days",
-}
-
-func (h *Head) LocalSection(name string) string {
-	if h.Lang == "de" && h.Section == "about" {
-		return "über"
+func sectionLang(section, lang string) string {
+	switch section {
+	case "about":
+		return helper.AboutName[lang]
+	case "kine":
+		return helper.KineName[lang]
 	}
-	return name
+	return section
 }
 
 func NewNav(lang string) Nav {
-	about := aboutNames[lang]
+	about := helper.AboutName[lang]
+	kine := helper.KineName[lang]
 	return []*Link{
 		&Link{
 			Name: "home",
@@ -58,8 +55,8 @@ func NewNav(lang string) Nav {
 			Href: "/graph",
 		},
 		&Link{
-			Name: daysName[lang],
-			Href: "/video",
+			Name: kine,
+			Href: fmt.Sprintf("/%v", kine),
 		},
 		&Link{
 			Name: about,

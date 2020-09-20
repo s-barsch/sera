@@ -46,7 +46,7 @@ func (s *Subnav) IsYear() bool {
 
 func (s *Subnav) HasDays() bool {
 	switch s.Tree.Section() {
-	case "graph", "video":
+	case "graph", "kine":
 		return true
 	}
 	return false

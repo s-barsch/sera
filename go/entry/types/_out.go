@@ -118,9 +118,10 @@ func {{receiver .}} Perma(lang string) string {
 	switch e.Section() {
 	case "index":
 			return fmt.Sprintf("%v#%v", e.parent.Perma(lang), helper.Normalize(e.Title(lang)))
-	case "video":
+	case "kine":
 			return fmt.Sprintf(
-				"/video/%v/%v",
+				"/%v/%v/%v",
+				helper.KineName[lang],
 				e.Date().Format("06-01"),
 				fmt.Sprintf("%v-%v", e.Date().Format("02"), name),
 			)

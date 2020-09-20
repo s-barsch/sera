@@ -11,7 +11,7 @@ var sections = []string{
 	"graph",
 	"about",
 	"extra",
-	"video",
+	"kine",
 }
 
 func (s *Server) Load() error {

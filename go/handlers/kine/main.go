@@ -1,16 +1,18 @@
-package video
+package kine 
 
 import (
 	//"fmt"
 	"log"
 	"net/http"
 	"stferal/go/entry"
+	"stferal/go/entry/helper"
 	"stferal/go/entry/types/tree"
 	"stferal/go/head"
 	"stferal/go/server"
+	"strings"
 )
 
-type videoMain struct {
+type kineMain struct {
 	Head    *head.Head
 	Tree    *tree.Tree
 	Entries entry.Entries
@@ -18,10 +20,10 @@ type videoMain struct {
 
 func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	lang := head.Lang(r.Host)
-	t := s.Trees["video"].Local(s.Flags.Local)[lang]
+	t := s.Trees["kine"].Local(s.Flags.Local)[lang]
 	head := &head.Head{
-		Title:   "Video",
-		Section: "video",
+		Title:   strings.Title(helper.KineName[lang]),
+		Section: "kine",
 		Path:    r.URL.Path,
 		Host:    r.Host,
 		Entry:   t,
@@ -33,9 +35,9 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	entries := s.Recents["video"].Local(s.Flags.Local)[lang]
+	entries := s.Recents["kine"].Local(s.Flags.Local)[lang]
 
-	err = s.ExecuteTemplate(w, "video-main", &videoMain{
+	err = s.ExecuteTemplate(w, "kine-main", &kineMain{
 		Head:    head,
 		Tree:    t,
 		Entries: entries.Offset(0, 100),
