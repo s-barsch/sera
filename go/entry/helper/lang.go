@@ -6,8 +6,8 @@ var LangNames = map[string]string{
 }
 
 var AboutName = map[string]string{
-	"de": "about",
-	"en": "über",
+	"de": "über",
+	"en": "about",
 }
 
 var KineName = map[string]string{
