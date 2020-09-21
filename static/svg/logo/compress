@@ -1,2 +1,1 @@
-svgo stferal.svg -o stferal-c.svg --config=compress.yaml
 svgo sacferal.svg -o sacferal-c.svg --config=compress.yaml

@@ -9,3 +9,4 @@ plugins:
             - word-spacing
             - letter-spacing
             - style
+            - fill
