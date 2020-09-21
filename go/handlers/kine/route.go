@@ -1,9 +1,9 @@
 package kine 
 
 import (
-	"stferal/go/paths"
-	"stferal/go/server"
-	"stferal/go/handlers/extra"
+	"sacer/go/paths"
+	"sacer/go/server"
+	"sacer/go/handlers/extra"
 	"net/http"
 )
 

@@ -1,7 +1,7 @@
 package set
 
 import (
-	"stferal/go/entry"
+	"sacer/go/entry"
 )
 
 func (s *Set) SetEntries(es entry.Entries) {

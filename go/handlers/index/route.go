@@ -3,11 +3,11 @@ package index
 import (
 	"net/http"
 	p "path/filepath"
-	//"stferal/go/entry"
-	"stferal/go/handlers/extra"
-	"stferal/go/head"
-	"stferal/go/paths"
-	"stferal/go/server"
+	//"sacer/go/entry"
+	"sacer/go/handlers/extra"
+	"sacer/go/head"
+	"sacer/go/paths"
+	"sacer/go/server"
 )
 
 func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {

@@ -1,7 +1,7 @@
 package tmpl
 
 import (
-	"stferal/go/entry/types/tree"
+	"sacer/go/entry/types/tree"
 )
 
 type Subnav struct {

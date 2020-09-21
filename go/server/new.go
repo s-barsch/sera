@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 	p "path/filepath"
-	"stferal/go/server/tmpl"
+	"sacer/go/server/tmpl"
 	"text/template"
 )
 

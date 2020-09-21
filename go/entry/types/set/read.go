@@ -1,11 +1,11 @@
 package set
 
 import (
-	"stferal/go/entry"
-	"stferal/go/entry/helper"
-	"stferal/go/entry/helper/read"
-	"stferal/go/entry/helper/sort"
-	"stferal/go/entry/types/media"
+	"sacer/go/entry"
+	"sacer/go/entry/helper"
+	"sacer/go/entry/helper/read"
+	"sacer/go/entry/helper/sort"
+	"sacer/go/entry/types/media"
 )
 
 func readEntries(path string, parent entry.Entry) (entry.Entries, error) {

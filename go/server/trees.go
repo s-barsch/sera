@@ -3,9 +3,9 @@ package server
 import (
 	"fmt"
 	"sort"
-	"stferal/go/entry"
-	"stferal/go/entry/helper"
-	"stferal/go/entry/types/tree"
+	"sacer/go/entry"
+	"sacer/go/entry/helper"
+	"sacer/go/entry/types/tree"
 )
 
 type SectionTree struct {

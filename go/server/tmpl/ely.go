@@ -1,7 +1,7 @@
 package tmpl
 
 import (
-	"stferal/go/entry"
+	"sacer/go/entry"
 )
 
 type EntryLangLazy struct {

@@ -16,4 +16,4 @@ Disallow: /
 User-agent: Yandex
 Disallow: /
 
-Sitemap: https://en.stferal.com/sitemaps.xml
+Sitemap: https://en.sacer.site/sitemaps.xml

@@ -1,11 +1,11 @@
 package server
 
 import (
-	"stferal/go/entry/helper"
-	"stferal/go/entry"
-	"stferal/go/entry/types/media/video"
-	"stferal/go/entry/types/set"
-	"stferal/go/server/tmpl"
+	"sacer/go/entry/helper"
+	"sacer/go/entry"
+	"sacer/go/entry/types/media/video"
+	"sacer/go/entry/types/set"
+	"sacer/go/server/tmpl"
 	"strings"
 	"text/template"
 	"time"

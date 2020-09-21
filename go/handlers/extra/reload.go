@@ -3,8 +3,8 @@ package extra
 import (
 	"log"
 	"net/http"
-	"stferal/go/server"
-	//"stferal/go/handlers/index"
+	"sacer/go/server"
+	//"sacer/go/handlers/index"
 	p "path/filepath"
 )
 

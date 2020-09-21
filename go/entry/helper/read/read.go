@@ -4,7 +4,7 @@ import (
 	"io/ioutil"
 	"os"
 	p "path/filepath"
-	"stferal/go/entry/helper"
+	"sacer/go/entry/helper"
 )
 
 type FileInfo struct {

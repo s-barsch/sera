@@ -2,13 +2,13 @@ package head
 
 import (
 	"fmt"
-	"stferal/go/entry"
-	"stferal/go/entry/types/media/text"
+	"sacer/go/entry"
+	"sacer/go/entry/types/media/text"
 )
 
 func Lang(host string) string {
 	switch host {
-	case "en.st", "en.stferal.com":
+	case "en.sacer", "en.sacer.site":
 		return "en"
 	default:
 		return "de"
@@ -73,18 +73,18 @@ func (h *Head) HostAddress(lang string) string {
 
 func isLocal(host string) bool {
 	switch host {
-	case "st", "en.st":
+	case "sacer", "en.sacer":
 		return true
 	}
 	return false
 }
 
 var hosts = map[string]string{
-	"de": "stferal.com",
-	"en": "en.stferal.com",
+	"de": "sacer.site",
+	"en": "en.sacer.site",
 }
 
 var hostsLocal = map[string]string{
-	"de": "st",
-	"en": "en.st",
+	"de": "sacer",
+	"en": "en.sacer",
 }

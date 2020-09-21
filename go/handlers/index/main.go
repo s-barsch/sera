@@ -3,11 +3,11 @@ package index
 import (
 	"log"
 	"net/http"
-	"stferal/go/entry"
-	"stferal/go/entry/types/tree"
-	"stferal/go/head"
-	"stferal/go/paths"
-	"stferal/go/server"
+	"sacer/go/entry"
+	"sacer/go/entry/types/tree"
+	"sacer/go/head"
+	"sacer/go/paths"
+	"sacer/go/server"
 )
 
 type indexMain struct {

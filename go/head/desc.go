@@ -2,7 +2,7 @@ package head
 
 import (
 /*
-	"stferal/go/entry"
+	"sacer/go/entry"
 	"strings"
 */
 )

@@ -4,8 +4,8 @@ package main
 
 import (
 	"net/http"
-	"stferal/go/routes"
-	"stferal/go/server"
+	"sacer/go/routes"
+	"sacer/go/server"
 )
 
 func main() {

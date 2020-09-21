@@ -2,7 +2,7 @@ package head
 
 import (
 	"fmt"
-	"stferal/go/entry/helper"
+	"sacer/go/entry/helper"
 
 	"github.com/kennygrant/sanitize"
 )

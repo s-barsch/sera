@@ -5,10 +5,10 @@ import (
 	"io/ioutil"
 	"os"
 	p "path/filepath"
-	"stferal/go/entry"
-	he "stferal/go/entry/helper"
-	"stferal/go/entry/helper/sort"
-	//"stferal/go/entry/parts/info"
+	"sacer/go/entry"
+	he "sacer/go/entry/helper"
+	"sacer/go/entry/helper/sort"
+	//"sacer/go/entry/parts/info"
 	//"strings"
 )
 

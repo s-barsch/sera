@@ -3,8 +3,8 @@ package tree
 import (
 	"fmt"
 	p "path/filepath"
-	"stferal/go/entry/helper"
-	"stferal/go/entry/parts/info"
+	"sacer/go/entry/helper"
+	"sacer/go/entry/parts/info"
 	"time"
 )
 

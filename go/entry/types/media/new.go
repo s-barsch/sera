@@ -2,13 +2,13 @@ package media
 
 import (
 	"fmt"
-	"stferal/go/entry"
-	"stferal/go/entry/helper"
-	"stferal/go/entry/types/media/audio"
-	"stferal/go/entry/types/media/html"
-	"stferal/go/entry/types/media/image"
-	"stferal/go/entry/types/media/text"
-	"stferal/go/entry/types/media/video"
+	"sacer/go/entry"
+	"sacer/go/entry/helper"
+	"sacer/go/entry/types/media/audio"
+	"sacer/go/entry/types/media/html"
+	"sacer/go/entry/types/media/image"
+	"sacer/go/entry/types/media/text"
+	"sacer/go/entry/types/media/video"
 )
 
 func NewMediaEntry(path string, parent entry.Entry) (entry.Entry, error) {

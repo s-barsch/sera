@@ -5,7 +5,7 @@ import (
 	"bytes"
 	"io"
 	"os"
-	"stferal/go/entry/helper"
+	"sacer/go/entry/helper"
 )
 
 var partNames = map[int]string{

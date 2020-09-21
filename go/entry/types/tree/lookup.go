@@ -2,8 +2,8 @@ package tree
 
 import (
 	"fmt"
-	"stferal/go/entry"
-	"stferal/go/entry/helper"
+	"sacer/go/entry"
+	"sacer/go/entry/helper"
 )
 
 func (t *Tree) LookupTreeHash(hash string) (*Tree, error) {

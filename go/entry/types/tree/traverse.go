@@ -1,9 +1,9 @@
 package tree
 
 import (
-	"stferal/go/entry"
-	"stferal/go/entry/types/media/text"
-	"stferal/go/entry/types/set"
+	"sacer/go/entry"
+	"sacer/go/entry/types/media/text"
+	"sacer/go/entry/types/set"
 )
 
 func (ts Trees) Reverse() Trees {

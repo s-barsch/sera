@@ -2,7 +2,7 @@ package head
 
 import (
 	"fmt"
-	"stferal/go/entry"
+	"sacer/go/entry"
 )
 
 type Head struct {

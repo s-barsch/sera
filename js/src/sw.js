@@ -1,4 +1,4 @@
-var CACHE_NAME = "stferal";
+var CACHE_NAME = "sacer";
 var urlsToCache = [
   "/",
   "/manifest.json"

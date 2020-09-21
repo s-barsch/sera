@@ -1,8 +1,8 @@
 package server
 
 import (
-	"stferal/go/server/process"
-	"stferal/go/server/tmpl"
+	"sacer/go/server/process"
+	"sacer/go/server/tmpl"
 	"time"
 )
 

@@ -11,9 +11,9 @@ import (
 	"log"
 	"net/http"
 	"os/exec"
-	"stferal/go/entry/types/tree"
-	"stferal/go/head"
-	"stferal/go/server"
+	"sacer/go/entry/types/tree"
+	"sacer/go/head"
+	"sacer/go/server"
 )
 
 func MapDot(s *server.Server, w http.ResponseWriter, r *http.Request) {

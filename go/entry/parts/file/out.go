@@ -2,7 +2,7 @@ package file
 
 import (
 	p "path/filepath"
-	"stferal/go/entry/helper"
+	"sacer/go/entry/helper"
 )
 
 func (f *File) Dir() string {

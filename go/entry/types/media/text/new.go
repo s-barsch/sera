@@ -1,11 +1,11 @@
 package text
 
 import (
-	"stferal/go/entry"
-	"stferal/go/entry/helper"
-	"stferal/go/entry/helper/markup"
-	"stferal/go/entry/parts/file"
-	"stferal/go/entry/parts/info"
+	"sacer/go/entry"
+	"sacer/go/entry/helper"
+	"sacer/go/entry/helper/markup"
+	"sacer/go/entry/parts/file"
+	"sacer/go/entry/parts/info"
 	"time"
 )
 

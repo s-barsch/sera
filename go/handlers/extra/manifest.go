@@ -2,8 +2,8 @@ package extra
 
 import (
 	"net/http"
-	"stferal/go/head"
-	"stferal/go/server"
+	"sacer/go/head"
+	"sacer/go/server"
 )
 
 func Manifest(s *server.Server, w http.ResponseWriter, r *http.Request) {

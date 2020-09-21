@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"net/http"
 	"path/filepath"
-	"stferal/go/head"
-	"stferal/go/paths"
-	"stferal/go/server"
+	"sacer/go/head"
+	"sacer/go/paths"
+	"sacer/go/server"
 	"strings"
 	"time"
 )

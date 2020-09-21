@@ -2,7 +2,7 @@ package extra
 
 import (
 	"net/http"
-	"stferal/go/server"
+	"sacer/go/server"
 )
 
 const expire = 60 * 60 * 24 * 365 // 1 year

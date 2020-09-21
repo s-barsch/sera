@@ -1,8 +1,8 @@
 package entry
 
 import (
-	"stferal/go/entry/parts/file"
-	"stferal/go/entry/parts/info"
+	"sacer/go/entry/parts/file"
+	"sacer/go/entry/parts/info"
 	"time"
 )
 

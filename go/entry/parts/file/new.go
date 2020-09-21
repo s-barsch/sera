@@ -2,7 +2,7 @@ package file
 
 import (
 	"os"
-	"stferal/go/entry/helper"
+	"sacer/go/entry/helper"
 	"time"
 )
 

@@ -2,12 +2,12 @@ package tree
 
 import (
 	"fmt"
-	"stferal/go/entry"
-	"stferal/go/entry/helper"
-	"stferal/go/entry/helper/read"
-	"stferal/go/entry/helper/sort"
-	"stferal/go/entry/types/media"
-	"stferal/go/entry/types/set"
+	"sacer/go/entry"
+	"sacer/go/entry/helper"
+	"sacer/go/entry/helper/read"
+	"sacer/go/entry/helper/sort"
+	"sacer/go/entry/types/media"
+	"sacer/go/entry/types/set"
 )
 
 func readEntries(path string, parent *Tree) (entry.Entries, error) {

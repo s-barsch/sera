@@ -4,8 +4,8 @@ import (
 	//"fmt"
 	"io"
 	"os"
-	"stferal/go/entry/helper"
-	//"stferal/go/entry/helper/hyph"
+	"sacer/go/entry/helper"
+	//"sacer/go/entry/helper/hyph"
 
 	"gopkg.in/yaml.v2"
 

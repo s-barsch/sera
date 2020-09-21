@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"stferal/go/entry"
-	"stferal/go/head"
-	"stferal/go/server"
-	"stferal/go/entry/types/tree"
+	"sacer/go/entry"
+	"sacer/go/head"
+	"sacer/go/server"
+	"sacer/go/entry/types/tree"
 	"time"
 )
 
@@ -18,9 +18,9 @@ type SitemapEntry struct {
 }
 
 func Index(s *server.Server, w http.ResponseWriter, r *http.Request) {
-	domain := "https://stferal.com"
+	domain := "https://sacer.site"
 	if head.Lang(r.Host) == "en" {
-		domain = "https://en.stferal.com"
+		domain = "https://en.sacer.site"
 	}
 	err := s.Templates.ExecuteTemplate(w, "sitemap-index", struct{ Domain string }{domain})
 	if err != nil {
@@ -203,7 +203,7 @@ func elEntries(s *server.Server, page, lang string) ([]*SitemapEntry, error) {
 
 func absoluteURL(path, lang string) string {
 	if lang == "en" {
-		return fmt.Sprintf("https://en.stferal.com%v", path)
+		return fmt.Sprintf("https://en.sacer.site%v", path)
 	}
-	return fmt.Sprintf("https://stferal.com%v", path)
+	return fmt.Sprintf("https://sacer.site%v", path)
 }

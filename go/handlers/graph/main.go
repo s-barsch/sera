@@ -4,10 +4,10 @@ import (
 	//"fmt"
 	"log"
 	"net/http"
-	"stferal/go/entry"
-	"stferal/go/entry/types/tree"
-	"stferal/go/head"
-	"stferal/go/server"
+	"sacer/go/entry"
+	"sacer/go/entry/types/tree"
+	"sacer/go/head"
+	"sacer/go/server"
 )
 
 type graphMain struct {

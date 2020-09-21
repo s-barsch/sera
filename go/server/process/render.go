@@ -2,12 +2,12 @@ package process
 
 import (
 	"fmt"
-	"stferal/go/entry"
-	"stferal/go/entry/parts/info"
-	"stferal/go/entry/types/media/text"
-	"stferal/go/entry/types/set"
-	"stferal/go/entry/types/tree"
-	"stferal/go/entry/helper/hyph"
+	"sacer/go/entry"
+	"sacer/go/entry/parts/info"
+	"sacer/go/entry/types/media/text"
+	"sacer/go/entry/types/set"
+	"sacer/go/entry/types/tree"
+	"sacer/go/entry/helper/hyph"
 )
 
 type HyphPatterns map[string]*hyph.Patterns

@@ -2,9 +2,9 @@ package graph
 
 import (
 	"net/http"
-	"stferal/go/handlers/extra"
-	"stferal/go/paths"
-	"stferal/go/server"
+	"sacer/go/handlers/extra"
+	"sacer/go/paths"
+	"sacer/go/server"
 	"strconv"
 )
 

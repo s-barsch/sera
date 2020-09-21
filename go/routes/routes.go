@@ -3,14 +3,14 @@ package routes
 import (
 	"github.com/gorilla/mux"
 	"net/http"
-	"stferal/go/handlers/index"
-	"stferal/go/handlers/about"
-	"stferal/go/handlers/extra"
-	"stferal/go/handlers/graph"
-	"stferal/go/handlers/front"
-	"stferal/go/handlers/kine"
-	"stferal/go/handlers/sitemaps"
-	"stferal/go/server"
+	"sacer/go/handlers/index"
+	"sacer/go/handlers/about"
+	"sacer/go/handlers/extra"
+	"sacer/go/handlers/graph"
+	"sacer/go/handlers/front"
+	"sacer/go/handlers/kine"
+	"sacer/go/handlers/sitemaps"
+	"sacer/go/server"
 )
 
 func Router(s *server.Server) *mux.Router {

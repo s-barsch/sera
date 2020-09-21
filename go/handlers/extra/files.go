@@ -5,12 +5,12 @@ import (
 	"log"
 	"net/http"
 
-	"stferal/go/entry"
-	"stferal/go/entry/types/media/video"
-	"stferal/go/entry/types/set"
-	"stferal/go/head"
-	"stferal/go/paths"
-	"stferal/go/server"
+	"sacer/go/entry"
+	"sacer/go/entry/types/media/video"
+	"sacer/go/entry/types/set"
+	"sacer/go/head"
+	"sacer/go/paths"
+	"sacer/go/server"
 	p "path/filepath"
 )
 

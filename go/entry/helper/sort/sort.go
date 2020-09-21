@@ -3,7 +3,7 @@ package sort
 import (
 	"io/ioutil"
 	p "path/filepath"
-	"stferal/go/entry"
+	"sacer/go/entry"
 	"strings"
 	//"sort"
 	"os"

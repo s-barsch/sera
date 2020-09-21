@@ -5,10 +5,10 @@ package text
 import (
 	"fmt"
 
-	"stferal/go/entry"
-	"stferal/go/entry/helper"
-	"stferal/go/entry/parts/file"
-	"stferal/go/entry/parts/info"
+	"sacer/go/entry"
+	"sacer/go/entry/helper"
+	"sacer/go/entry/parts/file"
+	"sacer/go/entry/parts/info"
 	"time"
 )
 

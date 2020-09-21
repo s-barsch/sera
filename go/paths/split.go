@@ -1,7 +1,7 @@
 package paths
 
 import (
-	"stferal/go/entry/helper"
+	"sacer/go/entry/helper"
 	"strings"
 )
 
