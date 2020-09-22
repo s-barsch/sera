@@ -10,6 +10,7 @@ import (
 	"sacer/go/server"
 	"time"
 	"sacer/go/entry/helper"
+	"strings"
 )
 
 type graphSingle struct {
@@ -61,5 +62,5 @@ func getDate(d time.Time, lang string) string {
 }
 
 func getTitle(e entry.Entry, lang string) string {
-	return fmt.Sprintf("%v - %v - %v", getDate(e.Date(), lang), e.Title(lang), helper.KineName[lang])
+	return fmt.Sprintf("%v - %v - %v", getDate(e.Date(), lang), e.Title(lang), strings.Title(helper.KineName[lang]))
 }
