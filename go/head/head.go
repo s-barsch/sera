@@ -29,6 +29,10 @@ type Head struct {
 	Schema *Schema
 }
 
+func (h *Head) O() *Options {
+	return h.Options
+}
+
 func (h *Head) Process() error {
 	// TODO: check for nil entry?
 	h.Lang = Lang(h.Host)
