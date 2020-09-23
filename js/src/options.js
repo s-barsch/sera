@@ -1,40 +1,26 @@
 
 const initOptionToggles = () => {
-  const options = ["colors", "type"];
-  //const options = ["colors"];
-  for (const opt of options) {
-    document.getElementById(opt + "-switch-link").addEventListener("click", (evt) => {
+  const l = document.getElementsByClassName("option");
+  for (const a of l) {
+    a.addEventListener("click", evt => {
       evt.preventDefault();
-      toggleOption(opt);
-    });
+      const o = getOption(evt.target.pathname);
+      setOption(o.name, o.value);
+    })
   }
 }
 
-const opposite = (option, value) => {
-  console.log(option);
-  console.log(value);
-  switch (option) {
-    case "type":
-      if (value == "large") {
-        return "small"
-      }
-      return "large"
-    case "colors":
-      if (value == undefined || value == "light") {
-        return "dark"
-      }
-      return "light"
-  }
-  return ""
+// split path like this "/opt/colors/dark" to "colors", "dark"
+const getOption = href => {
+  const code = href.substr(5)
+  const x = code.indexOf('/')
+  return {
+    name: code.substr(0, x),
+    value: code.substr(x + 1)
+  };
 }
 
-const switchOption = option => {
-  const value = document.body.dataset[option];
-  return opposite(option, value);
-}
-
-const toggleOption = option => {
-  const value = switchOption(option);
+const setOption = (option, value) => {
   fetch("/opt/" + option + "/" + value);
   document.body.dataset[option] = value;
 }

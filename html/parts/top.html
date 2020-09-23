@@ -28,11 +28,9 @@
   {{end}}
   </nav>
   <nav id="options">
-      <a id="colors-switch-link"
-          href="{{.Options.Colors.NextLink}}"
-          >◧</a>
-      {{range .Options.Size.List}}
-        <a href={{.Href}} {{if .IsActive}}class=active {{end}}>{{.Title}}</a>
+      <a class="option" href="{{.O.Colors.NextLink}}" >◧</a>
+      {{range .O.Size.List}}
+      <a class="option{{if .IsActive}} active{{end}}" href={{.Href}}>{{.Title}}</a>
       {{end}}
       <!--
       <a id="size-switch-link"

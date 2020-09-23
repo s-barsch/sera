@@ -103,7 +103,7 @@ func valueHref(option, value string) string {
 
 func (o *Option) setActive(r *http.Request) {
 	c, _ := r.Cookie(o.Name)
-	if o.isValid(c.Value) {
+	if c != nil && o.isValid(c.Value) {
 		o.Active = c.Value
 		return
 	}
