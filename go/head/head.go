@@ -12,7 +12,7 @@ type Head struct {
 	Host    string
 
 	Entry   entry.Entry
-	Options map[string]bool
+	Options *Options
 
 	/*
 		Local   bool

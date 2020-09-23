@@ -1,7 +1,6 @@
 {{define "top"}}
-<body
-      {{if .Head.Large}}data-type="large"{{end}}
-      {{if .Head.Dark}}data-colors="dark"{{end}}
+<body data-type="{{.Head.Size}}"
+      data-colors="{{.Head.Colors}}"
       >
 <main class="margin">
 <header id="top">
@@ -33,11 +32,17 @@
           href="{{.SwitchColorsLink .Lang}}"
           title="{{.SwitchColorsTitle .Lang}}"
           >◧</a>
-      A A A
-      <a id="type-switch-link"
-          href="{{.SwitchTypeLink .Lang}}"
-          title="{{.SwitchTypeTitle .Lang}}"
+      <a href="/opt/size/small">S</a>
+      <a href="/opt/size/medium">M</a>
+      <a href="/opt/size/large">L</a>
+      <!--
+      <a id="size-switch-link"
+         {{/*
+          href="{{.SwitchSizeLink .Lang}}"
+          title="{{.SwitchSizeTitle .Lang}}"
+          */}}
           >T<span class="small-t">T</span></a>
+      -->
   </nav>
 </nav>
 {{end}}

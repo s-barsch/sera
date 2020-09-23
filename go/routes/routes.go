@@ -41,10 +41,14 @@ func Router(s *server.Server) *mux.Router {
 	r.PathPrefix("/datenschutz").HandlerFunc(makeHandler(s, extra.Route))
 	r.PathPrefix("/privacy").HandlerFunc(makeHandler(s, extra.Route))
 
+	r.HandleFunc("/opt/{option}/{value}", makeHandler(s, extra.SetOption))
+
+	/*
 	r.HandleFunc("/opt/colors/dark", makeHandler(s, extra.DarkColors))
 	r.HandleFunc("/opt/colors/light", makeHandler(s, extra.LightColors))
 	r.HandleFunc("/opt/type/large", makeHandler(s, extra.LargeType))
 	r.HandleFunc("/opt/type/small", makeHandler(s, extra.SmallType))
+	*/
 
 	r.HandleFunc("/rl/", makeHandler(s, extra.Reload))
 

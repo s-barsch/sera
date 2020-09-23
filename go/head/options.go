@@ -4,51 +4,56 @@ import (
 	"net/http"
 )
 
-func GetOptions(r *http.Request) map[string]bool {
-	return map[string]bool{
-		"large": LargeType(r),
-		"dark":  DarkColors(r),
+type Options struct {
+	Colors string 
+	Size   string
+}
+
+func GetOptions(r *http.Request) *Options {
+	return &Options {
+		Colors: GetColors(r),
+		Size:   GetSize(r),
 	}
 }
 
-func LargeType(r *http.Request) bool {
-	c, err := r.Cookie("type")
+func GetSize(r *http.Request) string {
+	c, err := r.Cookie("size")
 	if err != nil {
-		return true
+		return "medium"
 	}
-	return c.Value == "large"
+	switch c.Value {
+	case "small", "medium", "large":
+		return c.Value
+	}
+	return "medium"
 }
 
-func DarkColors(r *http.Request) bool {
+func GetColors(r *http.Request) string {
 	c, err := r.Cookie("colors")
 	if err != nil {
-		return false
 	}
-	return c.Value == "dark"
+	switch c.Value {
+	case "dark", "light":
+		return c.Value
+	}
+	return "light"
 }
 
-func LogMode(r *http.Request) bool {
-	c, err := r.Cookie("nolog")
-	if err != nil {
-		return false
-	}
-	return c.Value == "true"
-}
-
-func (h *Head) Dark() bool {
+func (h *Head) Colors() string {
 	if h.Options == nil {
-		return false
+		return "light"
 	}
-	return h.Options["dark"]
+	return h.Options.Colors
 }
 
-func (h *Head) Large() bool {
+func (h *Head) Size() string {
 	if h.Options == nil {
-		return false
+		return "medium"
 	}
-	return h.Options["large"]
+	return h.Options.Size
 }
 
+/*
 func (h *Head) SwitchTypeTitle(lang string) string {
 	switch lang {
 	case "en":
@@ -65,17 +70,18 @@ func (h *Head) SwitchTypeTitle(lang string) string {
 		}
 	}
 }
+*/
 
 func (h *Head) SwitchColorsTitle(lang string) string {
 	switch lang {
 	case "en":
-		if h.Dark() {
+		if h.Colors() == "dark" {
 			return "Switch to light colors"
 		} else {
 			return "Switch to dark colors"
 		}
 	default:
-		if h.Dark() {
+		if h.Colors() == "dark" {
 			return "Wechsle zu hellen Farben"
 		} else {
 			return "Wechsle zu dunklen Farben"
@@ -84,15 +90,17 @@ func (h *Head) SwitchColorsTitle(lang string) string {
 }
 
 func (h *Head) SwitchTypeLink(lang string) string {
-	if h.Large() {
-		return "/opt/type/small"
-	} else {
-		return "/opt/type/large"
+	switch h.Size() {
+	case "medium":
+		return "/opt/size/large"
+	case "large":
+		return "/opt/size/small"
 	}
+	return "/opt/size/medium"
 }
 
 func (h *Head) SwitchColorsLink(lang string) string {
-	if h.Dark() {
+	if h.Colors() == "light" {
 		return "/opt/colors/light"
 	} else {
 		return "/opt/colors/dark"
