@@ -1,14 +1,14 @@
 {{define "edit-link-hold"}}
     {{if isLocal}}
     {{$x := .Hold.File.Rel}}
-    <a class="editl" href="http://org/public{{$x}}" target="_blank">※</a>
+    <a class="edit" href="http://org/public{{$x}}" target="_blank">※</a>
     {{end}}
 {{end}}
 
 {{define "edit-link"}}
     {{if isLocal}}
     {{$path := rel .E.File.Path}}
-    <a class="editl" href="http://org/public{{$path}}#{{.E.File.Name}}" target="_blank">※</a>
+    <a class="edit" href="http://org/public{{$path}}#{{.E.File.Name}}" target="_blank">※</a>
     {{end}}
 {{end}}
 
