@@ -37,6 +37,16 @@ func LargeType(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, toRef(r.Referer()), 307)
 }
 
+func MediumType(s *server.Server, w http.ResponseWriter, r *http.Request) {
+	http.SetCookie(w, &http.Cookie{
+		Name:   "type",
+		Value:  "small",
+		Path:   "/",
+		MaxAge: expire,
+	})
+	http.Redirect(w, r, toRef(r.Referer()), 307)
+}
+
 func SmallType(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	http.SetCookie(w, &http.Cookie{
 		Name:   "type",
