@@ -119,9 +119,15 @@ video {
 .media-mixin(@break) when (@break = @break-desk) {
     .video-main video,
     .mob-group img {
-        max-width:35rem;
-        max-height:35rem;
+        max-width:45rem;
+        max-height:45rem;
     }
+
+    /*
+    .mob-group {
+        margin-left:-7%;
+    }
+    */
 
     img.expand {
         max-height:150vh;

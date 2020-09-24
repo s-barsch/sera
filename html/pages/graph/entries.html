@@ -5,9 +5,13 @@
         {{$single := eq (len $group) 1}}
         <section class="{{$group.First.ObjectType}}-group{{if $single}} single{{end}}">
           {{range $group}}
-          <article class="entry entry--graph">
-            {{template "graph-entry" (eLy . $.L false)}}
-          </article>
+            {{if eq .Parent.Type "set"}}
+              {{template "graph-set-entry" (eLy . $.L false)}}
+            {{else}}
+              <article class="entry entry--graph">
+              {{template "graph-entry" (eLy . $.L false)}}
+              </article>
+            {{end}}
           {{end}}
         </section>
     {{end}}
@@ -27,7 +31,7 @@
 {{define "graph-mob"}}
     {{$type := .E.Type}}
     {{if eq .E.Type "image"}}
-        {{template "graph-image" .}}
+        {{template "image" .}}
     {{else}}
         {{template "entry" .}}
     {{end}}
@@ -47,7 +51,10 @@
         <article class="tob tob--graph">
         {{template "text" .}}
         </article>
+    {{else if eq $type "audio"}}
+        {{template "entry" .}}
     {{else}}
+        {{.E.Type}}<br>
         Didn’t catch type: {{.}} (graph-tob)
     {{end}}
 {{end}}
@@ -82,7 +89,7 @@
     {{end}}
 -->
 
-{{define "graph-set-child"}}
+{{define "graph-set-entry"}}
     {{template "private-mark-graph" .E}}
     {{$type := .E.Type}}
     {{if eq "image" $type}}
