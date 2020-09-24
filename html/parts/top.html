@@ -30,7 +30,7 @@
   <nav id="options">
       <a class="option" href="{{.O.Colors.NextLink}}" >◧</a>
       {{range .O.Size.List}}
-      <a class="option{{if .IsActive}} active{{end}}" href={{.Href}}>{{.Title}}</a>
+      <a class="{{if .IsActive}} active{{end}}" href={{.Href}}>{{.Title}}</a>
       {{end}}
       <!--
       <a id="size-switch-link"

@@ -82,14 +82,14 @@ func (o *Option) NextValue() string {
 	c := 0
 	for i, v := range o.Values {
 		if v == o.Active {
-			c = i
+			c = i + 1
 			break
 		}
 	}
-	if c >= len(o.Values) + 1 {
+	if c >= len(o.Values) {
 		return o.Values[0]
 	}
-	return o.Values[c+1]
+	return o.Values[c]
 }
 
 func (o *Option) NextLink() string {

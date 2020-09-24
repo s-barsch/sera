@@ -10,7 +10,7 @@ const initOptionToggles = () => {
   }
 }
 
-// split path like this "/opt/colors/dark" to "colors", "dark"
+// split path "/opt/colors/dark" to "colors", "dark"
 const getOption = href => {
   const code = href.substr(5)
   const x = code.indexOf('/')
