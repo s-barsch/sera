@@ -8,7 +8,7 @@ import (
 	"sacer/go/entry"
 	he "sacer/go/entry/helper"
 	"sacer/go/entry/helper/sort"
-	//"sacer/go/entry/parts/info"
+	//"sacer/go/entry/info"
 	//"strings"
 )
 

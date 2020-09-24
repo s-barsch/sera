@@ -1,8 +1,8 @@
 package entry
 
 import (
-	"sacer/go/entry/parts/file"
-	"sacer/go/entry/parts/info"
+	"sacer/go/entry/file"
+	"sacer/go/entry/info"
 	"time"
 )
 

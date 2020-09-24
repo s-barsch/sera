@@ -4,8 +4,8 @@ import (
 	"sacer/go/entry"
 	"sacer/go/entry/helper"
 	"sacer/go/entry/helper/markup"
-	"sacer/go/entry/parts/file"
-	"sacer/go/entry/parts/info"
+	"sacer/go/entry/file"
+	"sacer/go/entry/info"
 	"time"
 )
 

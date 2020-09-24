@@ -6,8 +6,8 @@ import (
 	"path/filepath"
 	"sacer/go/entry"
 	"sacer/go/entry/helper"
-	"sacer/go/entry/parts/info"
-	"sacer/go/entry/parts/file"
+	"sacer/go/entry/info"
+	"sacer/go/entry/file"
 	"time"
 )
 

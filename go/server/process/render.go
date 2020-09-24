@@ -3,7 +3,7 @@ package process
 import (
 	"fmt"
 	"sacer/go/entry"
-	"sacer/go/entry/parts/info"
+	"sacer/go/entry/info"
 	"sacer/go/entry/types/text"
 	"sacer/go/entry/types/set"
 	"sacer/go/entry/types/tree"

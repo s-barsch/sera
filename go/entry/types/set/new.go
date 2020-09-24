@@ -4,8 +4,8 @@ import (
 	// "log"
 	"sacer/go/entry"
 	"sacer/go/entry/helper"
-	"sacer/go/entry/parts/file"
-	"sacer/go/entry/parts/info"
+	"sacer/go/entry/file"
+	"sacer/go/entry/info"
 	"sacer/go/entry/types/image"
 	"time"
 )

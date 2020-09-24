@@ -4,7 +4,7 @@ import (
 	"fmt"
 	p "path/filepath"
 	"sacer/go/entry/helper"
-	"sacer/go/entry/parts/info"
+	"sacer/go/entry/info"
 	"time"
 )
 
