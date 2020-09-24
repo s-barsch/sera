@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"sacer/go/entry"
-	"sacer/go/entry/types/media/video"
+	"sacer/go/entry/types/video"
 	"sacer/go/entry/types/set"
 	"sacer/go/head"
 	"sacer/go/paths"

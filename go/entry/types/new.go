@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"sacer/go/entry"
 	"sacer/go/entry/helper"
-	"sacer/go/entry/types/media/audio"
-	"sacer/go/entry/types/media/html"
-	"sacer/go/entry/types/media/image"
-	"sacer/go/entry/types/media/text"
-	"sacer/go/entry/types/media/video"
+	"sacer/go/entry/types/audio"
+	"sacer/go/entry/types/html"
+	"sacer/go/entry/types/image"
+	"sacer/go/entry/types/text"
+	"sacer/go/entry/types/video"
 )
 
 func NewMediaEntry(path string, parent entry.Entry) (entry.Entry, error) {

@@ -11,12 +11,14 @@ func readTypes() ([]string, error) {
 		return nil, err
 	}
 
+	/*
 	media, err := readTypesDir(typeDir + "/media")
 	if err != nil {
 		return nil, err
 	}
 
 	types = append(media, types...)
+	*/
 
 	return types, nil
 }

@@ -3,7 +3,7 @@ package head
 import (
 	"fmt"
 	"sacer/go/entry"
-	"sacer/go/entry/types/media/text"
+	"sacer/go/entry/types/text"
 )
 
 func Lang(host string) string {

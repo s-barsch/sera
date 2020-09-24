@@ -2,7 +2,7 @@ package tree
 
 import (
 	"sacer/go/entry"
-	"sacer/go/entry/types/media/text"
+	"sacer/go/entry/types/text"
 	"sacer/go/entry/types/set"
 )
 

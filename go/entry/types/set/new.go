@@ -6,7 +6,7 @@ import (
 	"sacer/go/entry/helper"
 	"sacer/go/entry/parts/file"
 	"sacer/go/entry/parts/info"
-	"sacer/go/entry/types/media/image"
+	"sacer/go/entry/types/image"
 	"time"
 )
 

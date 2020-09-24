@@ -67,9 +67,11 @@ func printOutFile(typ string, tmpl *template.Template) error {
 
 func outFilePath(typ string) string {
 	outName := "out_gen.go"
+	/*
 	if isMedia(typ) {
 		return fmt.Sprintf("%v/media/%v/%v", typeDir, typ, outName)
 	}
+	*/
 	return fmt.Sprintf("%v/%v/%v", typeDir, typ, outName)
 }
 

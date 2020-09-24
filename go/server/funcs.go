@@ -3,7 +3,7 @@ package server
 import (
 	"sacer/go/entry/helper"
 	"sacer/go/entry"
-	"sacer/go/entry/types/media/video"
+	"sacer/go/entry/types/video"
 	"sacer/go/entry/types/set"
 	"sacer/go/server/tmpl"
 	"strings"
