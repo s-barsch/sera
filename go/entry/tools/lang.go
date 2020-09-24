@@ -1,4 +1,4 @@
-package helper
+package tools
 
 var LangNames = map[string]string{
 	"de": "Deutsch",

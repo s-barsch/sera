@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 	"sacer/go/entry"
-	"sacer/go/entry/helper"
+	"sacer/go/entry/tools"
 	"sacer/go/entry/types/tree"
 	"sacer/go/head"
 	"sacer/go/server"
@@ -22,7 +22,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	lang := head.Lang(r.Host)
 	t := s.Trees["kine"].Local(s.Flags.Local)[lang]
 	head := &head.Head{
-		Title:   strings.Title(helper.KineName[lang]),
+		Title:   strings.Title(tools.KineName[lang]),
 		Section: "kine",
 		Path:    r.URL.Path,
 		Host:    r.Host,

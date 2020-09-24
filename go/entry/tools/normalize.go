@@ -1,4 +1,4 @@
-package helper
+package tools
 
 import (
 	bf "gopkg.in/russross/blackfriday.v2"

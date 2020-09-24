@@ -5,7 +5,7 @@ import (
 	"os"
 	p "path/filepath"
 	"sacer/go/entry"
-	"sacer/go/entry/helper"
+	"sacer/go/entry/tools"
 	"sacer/go/entry/file"
 	"sacer/go/entry/info"
 	"time"
@@ -28,7 +28,7 @@ func (a *Audio) Transcript(lang string) string {
 }
 
 func NewAudio(path string, parent entry.Entry) (*Audio, error) {
-	fnErr := &helper.Err{
+	fnErr := &tools.Err{
 		Path: path,
 		Func: "NewAudio",
 	}
@@ -51,9 +51,9 @@ func NewAudio(path string, parent entry.Entry) (*Audio, error) {
 
 	inf = markupTranscript(inf)
 
-	date, err := helper.ParseTimestamp(inf["date"])
+	date, err := tools.ParseTimestamp(inf["date"])
 	if err != nil {
-		date, err = helper.ParseDatePath(path)
+		date, err = tools.ParseDatePath(path)
 		if err != nil {
 			fnErr.Err = err
 			return nil, fnErr
@@ -73,7 +73,7 @@ func NewAudio(path string, parent entry.Entry) (*Audio, error) {
 
 func getSubtitles(path string) []string {
 	dir := p.Dir(path)
-	name := helper.StripExt(p.Base(path))
+	name := tools.StripExt(p.Base(path))
 	langs := []string{}
 	for _, lang := range []string{"de", "en"} {
 		_, err := os.Stat(p.Join(dir, "vtt", fmt.Sprintf("%v-%v.vtt", name, lang)))
@@ -90,7 +90,7 @@ func markupTranscript(inf info.Info) info.Info {
 		if lang != "de" {
 			key += "-" + lang
 		}
-		inf[key] = helper.RenderMarkdown(inf[key])
+		inf[key] = tools.RenderMarkdown(inf[key])
 	}
 	return inf
 }

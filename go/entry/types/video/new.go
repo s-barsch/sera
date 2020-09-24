@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 	"sacer/go/entry"
-	"sacer/go/entry/helper"
+	"sacer/go/entry/tools"
 	"sacer/go/entry/info"
 	"sacer/go/entry/file"
 	"time"
@@ -22,7 +22,7 @@ type Video struct {
 }
 
 func NewVideo(path string, parent entry.Entry) (*Video, error) {
-	fnErr := &helper.Err{
+	fnErr := &tools.Err{
 		Path: path,
 		Func: "NewVideo",
 	}
@@ -43,9 +43,9 @@ func NewVideo(path string, parent entry.Entry) (*Video, error) {
 		inf = i
 	}
 
-	date, err := helper.ParseTimestamp(inf["date"])
+	date, err := tools.ParseTimestamp(inf["date"])
 	if err != nil {
-		date, err = helper.ParseDatePath(path)
+		date, err = tools.ParseDatePath(path)
 		if err != nil {
 			fnErr.Err = err
 			return nil, fnErr
@@ -65,7 +65,7 @@ func NewVideo(path string, parent entry.Entry) (*Video, error) {
 
 func getSubtitles(path string) []string {
 	dir := filepath.Dir(path)
-	name := helper.StripExt(filepath.Base(path))
+	name := tools.StripExt(filepath.Base(path))
 	langs := []string{}
 	for _, lang := range []string{"de", "en"} {
 		_, err := os.Stat(filepath.Join(dir, "vtt", fmt.Sprintf("%v-%v.vtt", name, lang)))

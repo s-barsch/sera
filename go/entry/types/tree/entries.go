@@ -3,15 +3,15 @@ package tree
 import (
 	"fmt"
 	"sacer/go/entry"
-	"sacer/go/entry/helper"
-	"sacer/go/entry/helper/read"
-	"sacer/go/entry/helper/sort"
+	"sacer/go/entry/tools"
+	"sacer/go/entry/tools/read"
+	"sacer/go/entry/tools/sort"
 	"sacer/go/entry/types"
 	"sacer/go/entry/types/set"
 )
 
 func readEntries(path string, parent *Tree) (entry.Entries, error) {
-	fnErr := &helper.Err{
+	fnErr := &tools.Err{
 		Path: path,
 		Func: "readEntries",
 	}
@@ -48,7 +48,7 @@ func readEntryFiles(files []*read.FileInfo, parent *Tree) (entry.Entries, error)
 }
 
 func newEntry(path string, parent *Tree) (entry.Entry, error) {
-	switch helper.FileType(path) {
+	switch tools.FileType(path) {
 	case "file":
 		break
 	case "dir":
@@ -56,10 +56,10 @@ func newEntry(path string, parent *Tree) (entry.Entry, error) {
 	default:
 		return media.NewMediaEntry(path, parent)
 	}
-	return nil, &helper.Err{
+	return nil, &tools.Err{
 		Path: path,
 		Func: "newObjFunc",
-		Err:  fmt.Errorf("invalid entry type: %v", helper.FileType(path)),
+		Err:  fmt.Errorf("invalid entry type: %v", tools.FileType(path)),
 	}
 }
 

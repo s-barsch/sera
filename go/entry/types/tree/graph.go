@@ -3,7 +3,7 @@ package tree
 import (
 	"fmt"
 	p "path/filepath"
-	"sacer/go/entry/helper"
+	"sacer/go/entry/tools"
 	"sacer/go/entry/info"
 	"time"
 )
@@ -17,7 +17,7 @@ func readGraphInfo(path string, parent *Tree) (info.Info, error) {
 	// if not present, we use the empty object.
 	i, _ := info.ReadDirInfo(path)
 
-	i["date"] = date.Format(helper.Timestamp)
+	i["date"] = date.Format(tools.Timestamp)
 
 	if parent == nil {
 		return i, nil
@@ -28,12 +28,12 @@ func readGraphInfo(path string, parent *Tree) (info.Info, error) {
 		setBothLang(i, "title", date.Format("2006"))
 		setBothLang(i, "label", date.Format("06"))
 	case 1:
-		monthDe := helper.GermanMonths[date.Month()] // Januar
+		monthDe := tools.GermanMonths[date.Month()] // Januar
 		monthEn := date.Format("January")
 		i["title"] = monthDe
 		i["title-en"] = monthEn
-		i["label"] = helper.Abbr(monthDe)
-		i["label-en"] = helper.Abbr(monthEn)
+		i["label"] = tools.Abbr(monthDe)
+		i["label-en"] = tools.Abbr(monthEn)
 		setBothLang(i, "slug", date.Format("01"))
 	}
 	return i, nil

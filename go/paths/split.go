@@ -1,7 +1,7 @@
 package paths
 
 import (
-	"sacer/go/entry/helper"
+	"sacer/go/entry/tools"
 	"strings"
 )
 
@@ -76,7 +76,7 @@ func discernName(str string) (slug, hash string) {
 	if len(str) < 5 {
 		return str, ""
 	}
-	_, err := helper.ParseHash(str)
+	_, err := tools.ParseHash(str)
 	if err == nil {
 		return "", str
 	}

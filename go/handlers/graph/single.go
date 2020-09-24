@@ -9,7 +9,7 @@ import (
 	"sacer/go/paths"
 	"sacer/go/server"
 	"time"
-	"sacer/go/entry/helper"
+	"sacer/go/entry/tools"
 )
 
 type graphSingle struct {
@@ -72,7 +72,7 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, p *pa
 }
 
 func graphEntryDate(d time.Time, lang string) string {
-	return fmt.Sprintf(d.Format("2 %v 2006"), helper.MonthLang(d, lang))
+	return fmt.Sprintf(d.Format("2 %v 2006"), tools.MonthLang(d, lang))
 }
 
 func graphEntryTitle(e entry.Entry, lang string) string {

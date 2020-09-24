@@ -3,7 +3,7 @@ package media
 import (
 	"fmt"
 	"sacer/go/entry"
-	"sacer/go/entry/helper"
+	"sacer/go/entry/tools"
 	"sacer/go/entry/types/audio"
 	"sacer/go/entry/types/html"
 	"sacer/go/entry/types/image"
@@ -12,7 +12,7 @@ import (
 )
 
 func NewMediaEntry(path string, parent entry.Entry) (entry.Entry, error) {
-	switch helper.FileType(path) {
+	switch tools.FileType(path) {
 	case "text":
 		return text.NewText(path, parent)
 	case "image":
@@ -24,9 +24,9 @@ func NewMediaEntry(path string, parent entry.Entry) (entry.Entry, error) {
 	case "html":
 		return html.NewHtml(path, parent)
 	}
-	return nil, &helper.Err{
+	return nil, &tools.Err{
 		Path: path,
 		Func: "NewMediaEntry",
-		Err:  fmt.Errorf("invalid entry type: %v", helper.FileType(path)),
+		Err:  fmt.Errorf("invalid entry type: %v", tools.FileType(path)),
 	}
 }

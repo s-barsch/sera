@@ -7,7 +7,7 @@ import (
 	"sacer/go/entry/types/text"
 	"sacer/go/entry/types/set"
 	"sacer/go/entry/types/tree"
-	"sacer/go/entry/helper/hyph"
+	"sacer/go/entry/tools/hyph"
 )
 
 type HyphPatterns map[string]*hyph.Patterns
@@ -15,7 +15,7 @@ type HyphPatterns map[string]*hyph.Patterns
 func LoadHyphPatterns(root string) (HyphPatterns, error) {
 	hs := map[string]*hyph.Patterns{}
 	for _, l := range langs {
-		p, err := hyph.LoadPattern(fmt.Sprintf("%v/go/entry/helper/hyph/hyph-%v.dic", root, l))
+		p, err := hyph.LoadPattern(fmt.Sprintf("%v/go/entry/tools/hyph/hyph-%v.dic", root, l))
 		if err != nil {
 			return nil, err
 		}

@@ -4,8 +4,8 @@ import (
 	//"fmt"
 	"io"
 	"os"
-	"sacer/go/entry/helper"
-	//"sacer/go/entry/helper/hyph"
+	"sacer/go/entry/tools"
+	//"sacer/go/entry/tools/hyph"
 
 	"gopkg.in/yaml.v2"
 
@@ -36,7 +36,7 @@ func HasFileInfo(path string) bool {
 }
 
 func ParseInfoFile(path string) (Info, error) {
-	fnErr := &helper.Err{
+	fnErr := &tools.Err{
 		Path: path,
 		Func: "ParseInfoFile",
 	}
@@ -70,7 +70,7 @@ func ParseInfoFile(path string) (Info, error) {
 }
 
 func norm(str string) string {
-	return helper.Normalize(str)
+	return tools.Normalize(str)
 }
 
 func trim(str string) string {
@@ -140,7 +140,7 @@ func (i Info) Location() string {
 /*
 func slug(f *File, info Info, lang string) string {
 	if lang == "de" {
-		return helper.StripExt(f.Base())
+		return tools.StripExt(f.Base())
 	}
 	if slug := info.Field("slug", lang); slug != "" {
 		return slug

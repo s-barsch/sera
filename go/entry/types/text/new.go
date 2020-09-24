@@ -2,8 +2,8 @@ package text
 
 import (
 	"sacer/go/entry"
-	"sacer/go/entry/helper"
-	"sacer/go/entry/helper/markup"
+	"sacer/go/entry/tools"
+	"sacer/go/entry/tools/markup"
 	"sacer/go/entry/file"
 	"sacer/go/entry/info"
 	"time"
@@ -23,7 +23,7 @@ type Text struct {
 }
 
 func NewText(path string, parent entry.Entry) (*Text, error) {
-	fnErr := &helper.Err{
+	fnErr := &tools.Err{
 		Path: path,
 		Func: "NewText",
 	}
@@ -40,9 +40,9 @@ func NewText(path string, parent entry.Entry) (*Text, error) {
 		return nil, fnErr
 	}
 
-	date, err := helper.ParseTimestamp(inf["date"])
+	date, err := tools.ParseTimestamp(inf["date"])
 	if err != nil {
-		date, err = helper.ParseDatePath(path)
+		date, err = tools.ParseDatePath(path)
 		if err != nil {
 			fnErr.Err = err
 			return nil, fnErr
@@ -70,7 +70,7 @@ func renderLangs(langs map[string]string) (map[string]string, map[string][]strin
 	notes := map[string][]string{}
 	for _, l := range []string{"de", "en"} {
 		text, ns := markup.Render(langs[l])
-		text = helper.RenderMarkdown(text)
+		text = tools.RenderMarkdown(text)
 		langs[l] = text
 		notes[l] = ns
 	}
@@ -78,7 +78,7 @@ func renderLangs(langs map[string]string) (map[string]string, map[string][]strin
 }
 
 func ReadTextFile(path string) (info.Info, map[string]string, error) {
-	fnErr := &helper.Err{
+	fnErr := &tools.Err{
 		Path: path,
 		Func: "readTextFile",
 	}

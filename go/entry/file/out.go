@@ -2,7 +2,7 @@ package file
 
 import (
 	p "path/filepath"
-	"sacer/go/entry/helper"
+	"sacer/go/entry/tools"
 )
 
 func (f *File) Dir() string {
@@ -14,7 +14,7 @@ func (f *File) Name() string {
 }
 
 func (f *File) NameNoExt() string {
-	return helper.StripExt(f.Name())
+	return tools.StripExt(f.Name())
 }
 
 func (f *File) Ext() string {
@@ -22,7 +22,7 @@ func (f *File) Ext() string {
 }
 
 func (f *File) Type() string {
-	return helper.FileType(f.Path)
+	return tools.FileType(f.Path)
 }
 
 /*

@@ -6,8 +6,8 @@ import (
 	"os"
 	p "path/filepath"
 	"sacer/go/entry"
-	he "sacer/go/entry/helper"
-	"sacer/go/entry/helper/sort"
+	he "sacer/go/entry/tools"
+	"sacer/go/entry/tools/sort"
 	//"sacer/go/entry/info"
 	//"strings"
 )

@@ -6,7 +6,7 @@ import (
 	"fmt"
 
 	"sacer/go/entry"
-	"sacer/go/entry/helper"
+	"sacer/go/entry/tools"
 	"sacer/go/entry/file"
 	"sacer/go/entry/info"
 	"time"
@@ -29,15 +29,15 @@ func (e *Text) Id() int64 {
 }
 
 func (e *Text) Timestamp() string {
-	return e.date.Format(helper.Timestamp)
+	return e.date.Format(tools.Timestamp)
 }
 
 func (e *Text) Hash() string {
-	return helper.ToB16(e.date)
+	return tools.ToB16(e.date)
 }
 
 func (e *Text) HashShort() string {
-	return helper.ShortenHash(e.Hash())
+	return tools.ShortenHash(e.Hash())
 }
 
 func (e *Text) Date() time.Time {
@@ -59,7 +59,7 @@ func (e *Text) Slug(lang string) string {
 	if slug := e.info.Slug(lang); slug != "" {
 		return slug
 	}
-	return helper.Normalize(e.info.Title(lang))
+	return tools.Normalize(e.info.Title(lang))
 }
 
 func (e *Text) MediaObject() bool {
@@ -103,11 +103,11 @@ func (e *Text) Perma(lang string) string {
 
 	switch e.Section() {
 	case "index":
-		return fmt.Sprintf("%v#%v", e.parent.Perma(lang), helper.Normalize(e.Title(lang)))
+		return fmt.Sprintf("%v#%v", e.parent.Perma(lang), tools.Normalize(e.Title(lang)))
 	case "kine":
 		return fmt.Sprintf(
 			"/%v/%v/%v",
-			helper.KineName[lang],
+			tools.KineName[lang],
 			e.Date().Format("06-01"),
 			fmt.Sprintf("%v-%v", e.Date().Format("02"), name),
 		)

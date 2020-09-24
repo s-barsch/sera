@@ -3,7 +3,7 @@ package set
 import (
 	// "log"
 	"sacer/go/entry"
-	"sacer/go/entry/helper"
+	"sacer/go/entry/tools"
 	"sacer/go/entry/file"
 	"sacer/go/entry/info"
 	"sacer/go/entry/types/image"
@@ -37,7 +37,7 @@ func (s *Set) Copy() *Set {
 type Sets []*Set
 
 func NewSet(path string, parent entry.Entry) (*Set, error) {
-	fnErr := &helper.Err{
+	fnErr := &tools.Err{
 		Path: path,
 		Func: "NewSet",
 	}
@@ -54,7 +54,7 @@ func NewSet(path string, parent entry.Entry) (*Set, error) {
 		return nil, fnErr
 	}
 
-	date, err := helper.ParseTimestamp(info["date"])
+	date, err := tools.ParseTimestamp(info["date"])
 	if err != nil {
 		fnErr.Err = err
 		return nil, fnErr

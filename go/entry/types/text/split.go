@@ -5,7 +5,7 @@ import (
 	"bytes"
 	"io"
 	"os"
-	"sacer/go/entry/helper"
+	"sacer/go/entry/tools"
 )
 
 var partNames = map[int]string{
@@ -17,7 +17,7 @@ var partNames = map[int]string{
 func splitTextFile(path string) (map[string]string, error) {
 	f, err := os.Open(path)
 	if err != nil {
-		return nil, &helper.Err{
+		return nil, &tools.Err{
 			Path: path,
 			Func: "splitTextFile",
 			Err:  err,

@@ -3,11 +3,11 @@ package tree
 import (
 	"fmt"
 	"sacer/go/entry"
-	"sacer/go/entry/helper"
+	"sacer/go/entry/tools"
 )
 
 func (t *Tree) LookupTreeHash(hash string) (*Tree, error) {
-	id, err := helper.ParseHash(hash)
+	id, err := tools.ParseHash(hash)
 	if err != nil {
 		return nil, fmt.Errorf("LookupTreeHash: Couldn’t parse hash %v.", err)
 	}
@@ -21,13 +21,13 @@ func (t *Tree) LookupTree(id int64) (*Tree, error) {
 	}
 	tree, ok := e.(*Tree)
 	if !ok {
-		return nil, fmt.Errorf("Entry with id %v (%v) found, but isn’t a tree.", id, helper.ToTimestamp(id))
+		return nil, fmt.Errorf("Entry with id %v (%v) found, but isn’t a tree.", id, tools.ToTimestamp(id))
 	}
 	return tree, nil
 }
 
 func (t *Tree) LookupEntryHash(hash string) (entry.Entry, error) {
-	id, err := helper.ParseHash(hash)
+	id, err := tools.ParseHash(hash)
 	if err != nil {
 		return nil, fmt.Errorf("LookupEntryHash: Couldn’t parse hash %v.", err)
 	}
@@ -59,7 +59,7 @@ func (t *Tree) lookup(stack []*Tree, id int64) (entry.Entry, error) {
 			return h.lookup(stack[1:], id)
 		}
 	}
-	return nil, fmt.Errorf("lookupEntry: Id %v (%v) not found.", id, helper.ToTimestamp(id))
+	return nil, fmt.Errorf("lookupEntry: Id %v (%v) not found.", id, tools.ToTimestamp(id))
 }
 
 // search

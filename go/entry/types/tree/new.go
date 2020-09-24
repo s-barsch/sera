@@ -3,7 +3,7 @@ package tree
 import (
 	p "path/filepath"
 	"sacer/go/entry"
-	"sacer/go/entry/helper"
+	"sacer/go/entry/tools"
 	"sacer/go/entry/file"
 	"sacer/go/entry/info"
 	"time"
@@ -36,7 +36,7 @@ func (t *Tree) Copy() *Tree {
 type Trees []*Tree
 
 func ReadTree(path string, parent *Tree) (*Tree, error) {
-	fnErr := &helper.Err{
+	fnErr := &tools.Err{
 		Path: path,
 		Func: "ReadTree",
 	}
@@ -53,7 +53,7 @@ func ReadTree(path string, parent *Tree) (*Tree, error) {
 		return nil, fnErr
 	}
 
-	date, err := helper.ParseTimestamp(inf["date"])
+	date, err := tools.ParseTimestamp(inf["date"])
 	if err != nil {
 		fnErr.Err = err
 		return nil, fnErr

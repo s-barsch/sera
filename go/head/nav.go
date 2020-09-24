@@ -2,7 +2,7 @@ package head
 
 import (
 	"fmt"
-	"sacer/go/entry/helper"
+	"sacer/go/entry/tools"
 
 	"github.com/kennygrant/sanitize"
 )
@@ -31,16 +31,16 @@ func (h *Head) MakeNav() Nav {
 func sectionLang(section, lang string) string {
 	switch section {
 	case "about":
-		return helper.AboutName[lang]
+		return tools.AboutName[lang]
 	case "kine":
-		return helper.KineName[lang]
+		return tools.KineName[lang]
 	}
 	return section
 }
 
 func NewNav(lang string) Nav {
-	about := helper.AboutName[lang]
-	kine := helper.KineName[lang]
+	about := tools.AboutName[lang]
+	kine := tools.KineName[lang]
 	return []*Link{
 		&Link{
 			Name: "home",

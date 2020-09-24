@@ -1,7 +1,7 @@
 package server
 
 import (
-	"sacer/go/entry/helper"
+	"sacer/go/entry/tools"
 	"sacer/go/entry"
 	"sacer/go/entry/types/video"
 	"sacer/go/entry/types/set"
@@ -20,7 +20,7 @@ func (s *Server) Funcs() template.FuncMap {
 			}
 			return "About"
 		},
-		"normalize": helper.Normalize,
+		"normalize": tools.Normalize,
 		"removeß": func(str string) string {
 			return strings.Replace(str, "ß", "ss", -1)
 		},
@@ -34,7 +34,7 @@ func (s *Server) Funcs() template.FuncMap {
 			}
 			return path
 		},
-		"abbr": helper.Abbr,
+		"abbr": tools.Abbr,
 		"frontArticles": func() []*tmpl.Article {
 			return s.Vars.FrontSettings.Articles
 		},
@@ -54,11 +54,11 @@ func (s *Server) Funcs() template.FuncMap {
 			return s.Flags.Local
 		},
 		"langName": func(lang string) string {
-			return helper.LangNames[lang]
+			return tools.LangNames[lang]
 		},
-		"monthLang": helper.MonthLang,
+		"monthLang": tools.MonthLang,
 		"nodeName": func(id int64) string {
-			return "node_" + helper.ToTimestamp(id)
+			return "node_" + tools.ToTimestamp(id)
 		},
 		"plus1": func(x int) int {
 			return x + 1

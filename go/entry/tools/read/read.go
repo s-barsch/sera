@@ -4,7 +4,7 @@ import (
 	"io/ioutil"
 	"os"
 	p "path/filepath"
-	"sacer/go/entry/helper"
+	"sacer/go/entry/tools"
 )
 
 type FileInfo struct {
@@ -27,7 +27,7 @@ func GetFiles(path string, withDirs bool) ([]*FileInfo, error) {
 	for _, fi := range l {
 		filepath := p.Join(path, fi.Name())
 
-		if helper.IsDontIndex(filepath) {
+		if tools.IsDontIndex(filepath) {
 			continue
 		}
 

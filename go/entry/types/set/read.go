@@ -2,14 +2,14 @@ package set
 
 import (
 	"sacer/go/entry"
-	"sacer/go/entry/helper"
-	"sacer/go/entry/helper/read"
-	"sacer/go/entry/helper/sort"
+	"sacer/go/entry/tools"
+	"sacer/go/entry/tools/read"
+	"sacer/go/entry/tools/sort"
 	"sacer/go/entry/types"
 )
 
 func readEntries(path string, parent entry.Entry) (entry.Entries, error) {
-	fnErr := &helper.Err{
+	fnErr := &tools.Err{
 		Path: path,
 		Func: "readEntries",
 	}

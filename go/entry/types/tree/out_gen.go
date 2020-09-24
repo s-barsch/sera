@@ -4,7 +4,7 @@ package tree
 
 import (
 	"sacer/go/entry"
-	"sacer/go/entry/helper"
+	"sacer/go/entry/tools"
 	"sacer/go/entry/file"
 	"sacer/go/entry/info"
 	"time"
@@ -27,15 +27,15 @@ func (e *Tree) Id() int64 {
 }
 
 func (e *Tree) Timestamp() string {
-	return e.date.Format(helper.Timestamp)
+	return e.date.Format(tools.Timestamp)
 }
 
 func (e *Tree) Hash() string {
-	return helper.ToB16(e.date)
+	return tools.ToB16(e.date)
 }
 
 func (e *Tree) HashShort() string {
-	return helper.ShortenHash(e.Hash())
+	return tools.ShortenHash(e.Hash())
 }
 
 func (e *Tree) Date() time.Time {
@@ -57,7 +57,7 @@ func (e *Tree) Slug(lang string) string {
 	if slug := e.info.Slug(lang); slug != "" {
 		return slug
 	}
-	return helper.Normalize(e.info.Title(lang))
+	return tools.Normalize(e.info.Title(lang))
 }
 
 func (e *Tree) MediaObject() bool {

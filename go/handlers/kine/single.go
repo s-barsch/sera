@@ -9,7 +9,7 @@ import (
 	"sacer/go/paths"
 	"sacer/go/server"
 	"time"
-	"sacer/go/entry/helper"
+	"sacer/go/entry/tools"
 	"strings"
 )
 
@@ -58,9 +58,9 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, p *pa
 }
 
 func getDate(d time.Time, lang string) string {
-	return fmt.Sprintf(d.Format("02 %v"), helper.Abbr(helper.MonthLang(d, lang)))
+	return fmt.Sprintf(d.Format("02 %v"), tools.Abbr(tools.MonthLang(d, lang)))
 }
 
 func getTitle(e entry.Entry, lang string) string {
-	return fmt.Sprintf("%v - %v - %v", getDate(e.Date(), lang), e.Title(lang), strings.Title(helper.KineName[lang]))
+	return fmt.Sprintf("%v - %v - %v", getDate(e.Date(), lang), e.Title(lang), strings.Title(tools.KineName[lang]))
 }

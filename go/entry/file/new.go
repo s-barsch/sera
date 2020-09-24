@@ -2,7 +2,7 @@ package file
 
 import (
 	"os"
-	"sacer/go/entry/helper"
+	"sacer/go/entry/tools"
 	"time"
 )
 
@@ -14,7 +14,7 @@ type File struct {
 func NewFile(path string) (*File, error) {
 	mod, err := getModTime(path)
 	if err != nil {
-		return nil, &helper.Err{
+		return nil, &tools.Err{
 			Path: path,
 			Func: "NewFile",
 			Err:  err,
@@ -36,7 +36,7 @@ func getModTimeFile(path string) (time.Time, error) {
 
 	fi, err := os.Stat(path)
 	if err != nil {
-		return t, &helper.Err{
+		return t, &tools.Err{
 			Path: path,
 			Func: "getModTimeFile",
 			Err:  err,
@@ -104,6 +104,6 @@ func getModTimeDir(path string, recur bool) (time.Time, error) {
 
 
 func getFilenameDate(path string) (time.Time, error) {
-	return time.Parse(helper.Timestamp, Shorten(filepath.Base(path)))
+	return time.Parse(tools.Timestamp, Shorten(filepath.Base(path)))
 }
 */

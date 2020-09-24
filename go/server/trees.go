@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"sort"
 	"sacer/go/entry"
-	"sacer/go/entry/helper"
+	"sacer/go/entry/tools"
 	"sacer/go/entry/types/tree"
 )
 
@@ -114,7 +114,7 @@ func (a byRevision) Less(i, j int) bool {
 
 func newestDate(e entry.Entry) int64 {
 	if rev := e.Info()["revision"]; rev != "" {
-		t, err := helper.ParseTimestamp(rev)
+		t, err := tools.ParseTimestamp(rev)
 		if err != nil {
 			fmt.Println(err)
 			return e.Id()

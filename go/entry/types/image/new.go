@@ -4,7 +4,7 @@ import (
 	"fmt"
 	p "path/filepath"
 	"sacer/go/entry"
-	"sacer/go/entry/helper"
+	"sacer/go/entry/tools"
 	"sacer/go/entry/file"
 	"sacer/go/entry/info"
 	"strings"
@@ -22,7 +22,7 @@ type Image struct {
 }
 
 func NewImage(path string, parent entry.Entry) (*Image, error) {
-	fnErr := &helper.Err{
+	fnErr := &tools.Err{
 		Path: path,
 		Func: "NewImage",
 	}
@@ -74,5 +74,5 @@ func getImageDate(path string, parent entry.Entry) (time.Time, error) {
 		}
 		return parent.Date().Add(time.Second), nil
 	}
-	return helper.ParseDatePath(path)
+	return tools.ParseDatePath(path)
 }

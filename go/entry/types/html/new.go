@@ -2,7 +2,7 @@ package html
 
 import (
 	"sacer/go/entry"
-	"sacer/go/entry/helper"
+	"sacer/go/entry/tools"
 	"sacer/go/entry/file"
 	"sacer/go/entry/info"
 	"sacer/go/entry/types/text"
@@ -20,7 +20,7 @@ type Html struct {
 }
 
 func NewHtml(path string, parent entry.Entry) (*Html, error) {
-	fnErr := &helper.Err{
+	fnErr := &tools.Err{
 		Path: path,
 		Func: "NewHtml",
 	}
@@ -37,9 +37,9 @@ func NewHtml(path string, parent entry.Entry) (*Html, error) {
 		return nil, fnErr
 	}
 
-	date, err := helper.ParseTimestamp(inf["date"])
+	date, err := tools.ParseTimestamp(inf["date"])
 	if err != nil {
-		date, err = helper.ParseDatePath(path)
+		date, err = tools.ParseDatePath(path)
 		if err != nil {
 			fnErr.Err = err
 			return nil, fnErr
