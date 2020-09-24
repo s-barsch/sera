@@ -2,12 +2,13 @@
 {{define "object-groups"}}
     <div class="object-groups">
     {{range $i, $group := .Es.Groups}}
-          <section class="{{$group.First.ObjectType}}-group">
-            {{range $group}}
-              <article class="entry entry--graph">
-                {{template "graph-entry" (eLy . $.L false)}}
-              </article>
-            {{end}}
+        {{$single := eq (len $group) 1}}
+        <section class="{{$group.First.ObjectType}}-group{{if $single}} single{{end}}">
+          {{range $group}}
+          <article class="entry entry--graph">
+            {{template "graph-entry" (eLy . $.L false)}}
+          </article>
+          {{end}}
         </section>
     {{end}}
     </div>
@@ -67,6 +68,11 @@
     {{if eq 0 (len .E.Entries)}}
     <em>This entry is not yet translated.</em>
     {{end}}
+    {{template "object-groups" (esL .E.Entries .L)}}
+</div>
+{{end}}
+
+<!--
     {{range $i, $group := .E.Entries.Groups}}
       <section class="{{$group.First.ObjectType}}-group">
         {{range $group}}
@@ -74,8 +80,7 @@
         {{end}}
       </section>
     {{end}}
-</div>
-{{end}}
+-->
 
 {{define "graph-set-child"}}
     {{template "private-mark-graph" .E}}
