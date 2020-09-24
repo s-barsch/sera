@@ -1,8 +1,8 @@
 
-{{define "media-groups"}}
-    <div class="media-groups">
+{{define "object-groups"}}
+    <div class="object-groups">
     {{range $i, $group := .Es.Groups}}
-          <section class="{{$group.First.MediaType}}-group">
+          <section class="{{$group.First.ObjectType}}-group">
             {{range $group}}
               <article class="entry entry--graph">
                 {{template "graph-entry" (eLy . $.L false)}}
@@ -14,8 +14,8 @@
 {{end}}
 
 {{define "graph-entry"}}
-    {{if .E.IsBlob}}
-        {{template "graph-blob" .}}
+    {{if .E.MediaObject}}
+        {{template "graph-mob" .}}
       {{else}}
           {{template "graph-tob" .}}
     {{end}}
@@ -23,7 +23,7 @@
 
 // blob
 
-{{define "graph-blob"}}
+{{define "graph-mob"}}
     {{$type := .E.Type}}
     {{if eq .E.Type "image"}}
         {{template "graph-image" .}}
@@ -68,7 +68,7 @@
     <em>This entry is not yet translated.</em>
     {{end}}
     {{range $i, $group := .E.Entries.Groups}}
-      <section class="{{$group.First.MediaType}}-group">
+      <section class="{{$group.First.ObjectType}}-group">
         {{range $group}}
           {{template "graph-set-child" (eLy . $.L $.Y)}}
         {{end}}

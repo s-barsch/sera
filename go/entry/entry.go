@@ -24,8 +24,9 @@ type Entry interface {
 	Path(string) string
 	Perma(string) string
 
-	IsBlob() bool
-	MediaType() string
+	MediaObject() bool 
+	ObjectType() string
+
 	SetParent(Entry)
 	SetInfo(info.Info)
 }

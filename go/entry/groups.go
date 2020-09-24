@@ -17,7 +17,7 @@ func (es Entries) Groups() []Entries {
 }
 
 func isNewGroup(a, b Entry) bool {
-	return a.IsBlob() != b.IsBlob()
+	return a.MediaObject() != b.MediaObject()
 }
 
 func (es Entries) Months() []Entries {

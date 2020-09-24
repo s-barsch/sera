@@ -62,16 +62,13 @@ func (e *Video) Slug(lang string) string {
 	return helper.Normalize(e.info.Title(lang))
 }
 
-func (e *Video) IsBlob() bool {
-	return entry.IsBlob(e)
+func (e *Video) MediaObject() bool {
+	return e.Type() != "audio" && entry.IsBlob(e)
 }
 
-func (e *Video) MediaType() string {
-	if e.Type() == "audio" {
-		return "tob"
-	}
-	if entry.IsBlob(e) {
-		return "blob"
+func (e *Video) ObjectType() string {
+	if e.MediaObject() {
+		return "mob"
 	}
 	return "tob"
 }

@@ -66,16 +66,13 @@ func {{receiver .}} Slug(lang string) string {
 	return helper.Normalize(e.info.Title(lang))
 }
 
-func {{receiver .}} IsBlob() bool {
-	return entry.IsBlob(e)
+func {{receiver .}} MediaObject() bool {
+	return e.Type() != "audio" && entry.IsBlob(e)
 }
 
-func {{receiver .}} MediaType() string {
-	if e.Type() == "audio" {
-		return "tob"
-	}
-	if entry.IsBlob(e) {
-		return  "blob"
+func {{receiver .}} ObjectType() string {
+	if e.MediaObject() {
+		return "mob"
 	}
 	return "tob"
 }
