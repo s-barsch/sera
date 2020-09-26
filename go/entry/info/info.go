@@ -46,7 +46,7 @@ func ParseInfoFile(path string) (Info, error) {
 	f, err := os.Open(path)
 	if err != nil {
 		fnErr.Err = err
-		return i, err
+		return i, fnErr
 	}
 	defer f.Close()
 
@@ -54,7 +54,7 @@ func ParseInfoFile(path string) (Info, error) {
 	err = d.Decode(&i)
 	if err != nil {
 		fnErr.Err = err
-		return i, err
+		return i, fnErr
 	}
 
 	for k, v := range i {
