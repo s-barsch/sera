@@ -15,6 +15,7 @@
       src="{{.E.ImagePath 1280 .L}}"
       srcset="{{.E.SrcSet 1280 .L}}, {{.E.SrcSet 1600 .L}}, {{.E.SrcSet 1920 .L}}, {{.E.SrcSet 2560 .L}}, {{.E.SrcSet 3200 .L}}">
 
+    {{.E.Info.Size}}
     {{if eq .E.Section "graph"}}
     {{with .E.Info.Caption .L}}
         <figcaption class="caption">

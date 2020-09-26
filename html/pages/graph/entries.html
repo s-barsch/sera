@@ -8,8 +8,8 @@
             {{if eq .Parent.Type "set"}}
               {{template "graph-set-entry" (eLy . $.L false)}}
             {{else}}
-              <article class="entry entry--graph">
-              {{template "graph-entry" (eLy . $.L false)}}
+              <article class="object object--graph">
+              {{template "graph-object" (eLy . $.L false)}}
               </article>
             {{end}}
           {{end}}
@@ -18,7 +18,7 @@
     </div>
 {{end}}
 
-{{define "graph-entry"}}
+{{define "graph-object"}}
     {{if .E.MediaObject}}
         {{template "graph-mob" .}}
       {{else}}
