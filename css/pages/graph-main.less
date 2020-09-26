@@ -68,10 +68,17 @@
 }
 
 .mob-group.single {
-    display:block;
-    text-align:center;
+    display:grid;
+    grid-template-columns:100%;
 }
 
+.pos-left {
+    justify-self:left;
+}
+
+.pos-right {
+    justify-self:right;
+}
 #graph-main-more {
     display:none;
 }
