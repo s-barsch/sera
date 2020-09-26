@@ -12,6 +12,7 @@
     {{end}}
 </div>
 
+<div id="graph">
 {{range .Tree.Trees}}
     {{$monthNum := .Date.Format "01"}}
     <section id="{{$monthNum}}" class="month">
@@ -24,6 +25,7 @@
         {{template "object-groups" (esL .Entries $.Head.Lang)}}
     </section>
 {{end}}
+</div>
 
 {{template "subnav-fixed" (snav .Tree 0 .Head.Lang)}}
 
@@ -62,7 +64,9 @@
         </h4>
     </div>
 
-    {{$months := (.Entries.Offset 0 25).Months}} <!-- 25 -->
+    {{/*
+
+    {{$months := (.Entries.Offset 0 25).Months}}
     {{range $i, $entries := $months}}
       {{if $i}}
         <h2 class="month-title">
@@ -79,6 +83,7 @@
 
     {{template "graph-arr" .Tree}}
 
+    */}}
 
 {{template "bot" .Head}}
 {{end}}
