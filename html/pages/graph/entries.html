@@ -93,7 +93,7 @@
     {{template "private-mark-graph" .E}}
     {{$type := .E.Type}}
     {{if eq "image" $type}}
-        {{template "graph-set-image" .}}
+        {{template "image" .}}
     {{else if eq "video" $type}}
       <div class="video-main">
         {{template "entry" .}}

@@ -152,7 +152,12 @@
     }
 }
 
-.media-mixin(@break) when (@break = @break-wide) {
+.media-mixin(@break) when (@break = @break-single) {
+    .graph-date,
+    .tob {
+        margin-left:17%;
+        margin-right:auto;
+    }
 }
 
 .graph-text .tob,
@@ -166,12 +171,6 @@
 
 .graph-set .tob {
     margin-bottom:2rem;
-}
-
-.graph-date,
-.tob {
-    margin-left:17%;
-    margin-right:auto;
 }
 
 .entry--graph {
