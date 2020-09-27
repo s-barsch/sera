@@ -1,13 +1,14 @@
 
 {{define "private-mark-graph"}}
-    {{if eq (index .Info "private") "true"}}<div class="private-graph"></div>{{end}}
+    {{if .Info.Private}}<div class="private-graph"></div>{{end}}
 {{end}}
 
 {{define "graph-date"}}
 <header class="graph-date">
-    <a class="" href="{{.E.Perma .L}}">
+    <a class="{{if .E.Info.Private}} date-private{{end}}" href="{{.E.Perma .L}}">
         {{.E.Date.Format "2<span class=\"ddot\">.</span> 1<span class=\"ddot\">.</span>"}}
     </a>
+    {{if .E.Info.Private}}<span class="private-inline"></span>{{end}}
 </header>
 {{end}}
 

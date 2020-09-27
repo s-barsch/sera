@@ -85,6 +85,10 @@ func (i Info) HyphTitle(lang string) string {
 	return i.Field("title-hyph", lang)
 }
 
+func (i Info) Private() bool {
+	return i["private"] == "true"
+}
+
 /*
 func (i Info) TitleUpper(lang string) string {
 	title := i.Field("title-hyph", lang)

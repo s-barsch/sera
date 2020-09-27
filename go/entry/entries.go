@@ -47,7 +47,7 @@ func (es Entries) Limit(n int) Entries {
 
 		nu = append(nu, es[i])
 
-		if es[i].Info()["private"] != "true" {
+		if es[i].Info().Private() {
 			c++
 		}
 	}
