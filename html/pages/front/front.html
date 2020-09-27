@@ -66,9 +66,11 @@
       {{range .Index}}
       {{template "front-index-entry" (eL . $.Head.Lang)}}
       {{end}}
+      <!--
       <div class="more-tip">
           {{var "index-more" .Head.Lang}}
       </div>
+      -->
 </div>
 {{- end}}
 
@@ -96,20 +98,16 @@
 {{- end}}
 
 {{define "graph-col" -}}
-    
+  
 <div>
       {{template "media-groups-front" (esL .Graph .Head.Lang)}}
+      <!--
       <div class="more-tip">
       {{var "graph-more" .Head.Lang}}
       </div>
+      -->
 </div>
 {{- end}}
-
-{{define "more-tip"}}
-<div class="more-tip">
-  {{.}}
-</div>
-{{end}}
 
 {{define "tip"}}
 <div class="tip">

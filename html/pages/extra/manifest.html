@@ -1,5 +1,5 @@
 {{define "manifest" -}}
-{{$bgColor := "#ffffff"}}{{if .Dark}}{{$bgColor = "#111111"}}{{end -}}
+{{$bgColor := "#ffffff"}}{{if eq .O.Colors.Active "dark"}}{{$bgColor = "#111111"}}{{end -}}
 {
   "name": "Sacer Feral",
   "short_name": "Sacer",
