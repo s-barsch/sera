@@ -17,6 +17,13 @@ func (es Entries) First() Entry {
 	return nil
 }
 
+func (es Entries) ObjectType() string {
+	if len(es) == 0 {
+		return "tob"
+	}
+	return es.First().ObjectType()
+}
+
 func (es Entries) Offset(start, end int) Entries {
 	l := len(es)
 	if l < start {

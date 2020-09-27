@@ -3,7 +3,7 @@
     <div class="object-groups">
     {{range $i, $group := .Es.Groups}}
         {{$single := eq (len $group) 1}}
-        <section class="{{$group.First.ObjectType}}-group{{if $single}} single{{end}}">
+        <section class="{{$group.ObjectType}}-group{{if $single}} single{{end}}">
           {{range $group}}
             {{if eq .Parent.Type "set"}}
               {{template "graph-set-entry" (eLy . $.L false)}}
