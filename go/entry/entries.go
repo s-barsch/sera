@@ -35,6 +35,25 @@ func (es Entries) Offset(start, end int) Entries {
 	return es[start:end]
 }
 
+func (es Entries) Limit(n int) Entries {
+	l := len(es)
+	if l <= n {
+		return es
+	}
+	c := 0
+	nu := Entries{}
+	for i := 0; c < n; i++ {
+		if i + 1 >= l { return nu }
+
+		nu = append(nu, es[i])
+
+		if es[i].Info()["private"] != "true" {
+			c++
+		}
+	}
+	return nu
+}
+
 func (es Entries) Exclude() Entries {
 	l := Entries{}
 	for _, e := range es {

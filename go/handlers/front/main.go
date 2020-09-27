@@ -35,8 +35,18 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 
 	index := s.Recents["index"].Local(s.Flags.Local)[lang]
 	graph := s.Recents["graph"].Local(s.Flags.Local)[lang]
-
 	kine := s.Recents["kine"].Local(s.Flags.Local)[lang]
+
+	err = s.ExecuteTemplate(w, "front", &frontMain{
+		Head:     head,
+		Index:    index.Limit(s.Vars.FrontSettings.Index),
+		Graph:    graph.Limit(s.Vars.FrontSettings.Graph),
+		Kine:     kine.Limit(10),
+	})
+	if err != nil {
+		log.Println(err)
+	}
+}
 
 	/*
 	e, err := s.Trees["graph"].Local(s.Flags.Local)[lang].LookupEntryHash(s.Vars.FrontSettings.Featured)
@@ -44,15 +54,4 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		s.Log.Println(err)
 	}
 	*/
-
-	err = s.ExecuteTemplate(w, "front", &frontMain{
-		Head:     head,
-		Index:    index.Offset(0, s.Vars.FrontSettings.Index),
-		Graph:    graph.Offset(0, s.Vars.FrontSettings.Graph),
-		Kine:     kine.Offset(0, 10),
 		//Featured: e,
-	})
-	if err != nil {
-		log.Println(err)
-	}
-}
