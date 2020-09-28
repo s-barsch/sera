@@ -29,53 +29,36 @@ var langs = []string{
 	"en",
 }
 
-func RenderTexts(root string, entries entry.Entries) error {
-	h, err := LoadHyphPatterns(root)
-	if err != nil {
-		return err
-	}
-	h.HyphenateEntries(entries)
-	return nil
-}
-
-
-func (h HyphPatterns) HyphenateEntries(entries entry.Entries) {
+func (patterns HyphPatterns) HyphEntries(entries entry.Entries) {
 	for _, e := range entries {
-		h.HyphenateFields(e)
+		patterns.HyphInfo(e)
 		s, ok := e.(*set.Set)
 		if ok {
-			h.HyphenateEntries(s.Entries())
+			patterns.HyphEntries(s.Entries())
 			continue
 		}
 		t, ok := e.(*tree.Tree)
 		if ok {
-			h.HyphenateEntries(t.Entries())
+			patterns.HyphEntries(t.Entries())
 			continue
 		}
 		tx, ok := e.(*text.Text)
-		if !ok {
-			continue
+		if ok {
+			patterns.HyphTextEntry(tx)
 		}
-		h.HyphenateTextEntry(tx)
 	}
 }
 
-/*
-func (h HyphPatterns) HyphenateTitles(es entry.Entries) {
-	for _, e := range es {
-		h.HyphenateTitle(e)
-	}
-}
-*/
-func (h HyphPatterns) HyphenateFields(e entry.Entry) {
+
+func (patterns HyphPatterns) HyphInfo(e entry.Entry) {
 	inf := e.Info()
 	for _, key := range []string{"title", "transcript"} {
-		inf = h.HyphenateField(inf, key)
+		inf = patterns.HyphInfoField(inf, key)
 	}
 	e.SetInfo(inf)
 }
 
-func (h HyphPatterns) HyphenateField(inf info.Info, key string) info.Info {
+func (patterns HyphPatterns) HyphInfoField(inf info.Info, key string) info.Info {
 	setKey := key
 	if key == "title" {
 		setKey = "title-hyph"
@@ -84,14 +67,14 @@ func (h HyphPatterns) HyphenateField(inf info.Info, key string) info.Info {
 		if l == "en" {
 			setKey += "-en"
 		}
-		inf[setKey] = h[l].HyphenateText(inf.Field(key, l))
+		inf[setKey] = patterns[l].HyphenateText(inf.Field(key, l))
 	}
 	return inf
 }
 
-func (h HyphPatterns) HyphenateTextEntry(tx *text.Text) {
+func (patterns HyphPatterns) HyphTextEntry(tx *text.Text) {
 	for _, l := range langs {
-		tx.TextLangs[l] = h[l].HyphenateText(tx.TextLangs[l])
+		tx.TextLangs[l] = patterns[l].HyphenateText(tx.TextLangs[l])
 	}
 }
 

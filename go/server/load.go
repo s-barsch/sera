@@ -28,10 +28,12 @@ func (s *Server) Load() error {
 		return err
 	}
 
+	/*
 	err = s.processAllTexts()
 	if err != nil {
 		return err
 	}
+	*/
 
 	tEnd := time.Now()
 	tDif := tEnd.Sub(tStart)
@@ -44,16 +46,17 @@ func (s *Server) Load() error {
 }
 
 func (s *Server) processAllTexts() error {
-	h, err := process.LoadHyphPatterns(s.Paths.Root)
+	patterns, err := process.LoadHyphPatterns(s.Paths.Root)
 	if err != nil {
 		return err
 	}
+	// TODO: only German?
 	lang := "de"
 	for _, section := range sections {
 		for _, e := range s.Trees[section].Private[lang].TraverseTrees() {
-			h.HyphenateFields(e)
+			patterns.HyphInfo(e)
 		}
-		h.HyphenateEntries(s.Recents[section].Private[lang])
+		patterns.HyphEntries(s.Recents[section].Private[lang])
 	}
 	return nil
 }
