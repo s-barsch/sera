@@ -28,12 +28,10 @@ func (s *Server) Load() error {
 		return err
 	}
 
-	/*
 	err = s.processAllTexts()
 	if err != nil {
 		return err
 	}
-	*/
 
 	tEnd := time.Now()
 	tDif := tEnd.Sub(tStart)
@@ -53,10 +51,10 @@ func (s *Server) processAllTexts() error {
 	// TODO: only German?
 	lang := "de"
 	for _, section := range sections {
-		for _, e := range s.Trees[section].Private[lang].TraverseTrees() {
+		for _, e := range s.Trees[section].Public[lang].TraverseTrees() {
 			patterns.HyphInfo(e)
 		}
-		patterns.HyphEntries(s.Recents[section].Private[lang])
+		patterns.HyphEntries(s.Recents[section].Public[lang])
 	}
 	return nil
 }
