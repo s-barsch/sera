@@ -71,11 +71,24 @@
 
 {{define "graph-set"}}
 <div class="set set--graph">
+    {{/* template "graph-kine" .*/}}
     {{if eq 0 (len .E.Entries)}}
     <em>This entry is not yet translated.</em>
     {{end}}
     {{template "object-groups" (esL .E.Entries .L)}}
 </div>
+{{end}}
+
+{{define "graph-kine"}}
+    {{with .E.Kine}}
+      {{range .}}
+        {{with .Cover}}
+        <span class="graph-kine">
+        {{template "image" (eL . $.L)}}
+        </span>
+        {{end}}
+      {{end}}
+    {{end}}
 {{end}}
 
 <!--
