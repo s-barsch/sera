@@ -48,13 +48,14 @@ func (s *Server) processAllTexts() error {
 	if err != nil {
 		return err
 	}
-	// TODO: only German?
+	// Hyphenation will be done for both languages. We just iterate through
+	// the German tree here, but will process all fiels within the entries.
 	lang := "de"
 	for _, section := range sections {
-		for _, e := range s.Trees[section].Public[lang].TraverseTrees() {
+		for _, e := range s.Trees[section].Private[lang].TraverseTrees() {
 			patterns.HyphInfo(e)
 		}
-		patterns.HyphEntries(s.Recents[section].Public[lang])
+		patterns.HyphEntries(s.Recents[section].Private[lang])
 	}
 	return nil
 }
