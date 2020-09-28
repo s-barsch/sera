@@ -92,6 +92,10 @@ func (o *Option) NextValue() string {
 	return o.Values[c]
 }
 
+func (o *Option) CurrentLink() string {
+	return valueHref(o.Name, o.Active)
+}
+
 func (o *Option) NextLink() string {
 	return valueHref(o.Name, o.NextValue())
 }

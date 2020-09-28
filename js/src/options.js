@@ -4,8 +4,12 @@ const initOptionToggles = () => {
   for (const a of l) {
     a.addEventListener("click", evt => {
       evt.preventDefault();
-      const o = getOption(evt.target.pathname);
+      const path = evt.target.pathname;
+      const o = getOption(path);
       setOption(o.name, o.value);
+      // TODO: This function needs to be fixed.
+      evt.target.href = evt.target.dataset["next"];
+      evt.target.dataset["next"] = path;
     })
   }
 }
