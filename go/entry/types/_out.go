@@ -113,15 +113,17 @@ func {{receiver .}} Perma(lang string) string {
 	}
 
 	switch e.Section() {
-	case "index":
-			return fmt.Sprintf("%v#%v", e.parent.Perma(lang), tools.Normalize(e.Title(lang)))
 	case "kine":
-			return fmt.Sprintf(
-				"/%v/%v/%v",
-				tools.KineName[lang],
-				e.Date().Format("06-01"),
-				fmt.Sprintf("%v-%v", e.Date().Format("02"), name),
-			)
+		return fmt.Sprintf(
+			"/%v/%v/%v",
+			tools.KineName[lang],
+			e.Date().Format("06-01"),
+			fmt.Sprintf("%v-%v", e.Date().Format("02"), name),
+		)
+	case "index":
+		if e.Type() != "image" {
+			return fmt.Sprintf("%v#%v", e.parent.Perma(lang), tools.Normalize(e.Title(lang)))
+		}
 	}
 
 	return fmt.Sprintf("%v/%v", e.parent.Path(lang), name)

@@ -6,9 +6,9 @@ import (
 	"fmt"
 
 	"sacer/go/entry"
-	"sacer/go/entry/tools"
 	"sacer/go/entry/file"
 	"sacer/go/entry/info"
+	"sacer/go/entry/tools"
 	"time"
 )
 
@@ -102,8 +102,6 @@ func (e *Text) Perma(lang string) string {
 	}
 
 	switch e.Section() {
-	case "index":
-		return fmt.Sprintf("%v#%v", e.parent.Perma(lang), tools.Normalize(e.Title(lang)))
 	case "kine":
 		return fmt.Sprintf(
 			"/%v/%v/%v",
@@ -111,6 +109,10 @@ func (e *Text) Perma(lang string) string {
 			e.Date().Format("06-01"),
 			fmt.Sprintf("%v-%v", e.Date().Format("02"), name),
 		)
+	case "index":
+		if e.Type() != "image" {
+			return fmt.Sprintf("%v#%v", e.parent.Perma(lang), tools.Normalize(e.Title(lang)))
+		}
 	}
 
 	return fmt.Sprintf("%v/%v", e.parent.Path(lang), name)
