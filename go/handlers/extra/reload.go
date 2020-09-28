@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"sacer/go/server"
+
 	//"sacer/go/handlers/index"
 	p "path/filepath"
 )
@@ -16,10 +17,7 @@ func ConstantReload(s *server.Server, next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if p.Ext(r.URL.Path) == "" {
 			log.Println(r.URL.Path)
-			err := s.Load()
-			if err != nil {
-				log.Println(err)
-			}
+			s.Reload()
 		}
 		next.ServeHTTP(w, r)
 	})

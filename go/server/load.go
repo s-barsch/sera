@@ -6,6 +6,7 @@ import (
 	"sacer/go/server/process"
 	"sacer/go/server/tmpl"
 	"time"
+	"log"
 )
 
 var sections = []string{
@@ -14,6 +15,32 @@ var sections = []string{
 	"about",
 	"extra",
 	"kine",
+}
+
+func (s *Server) Reload() {
+	select {
+	case s.Queue <- 1:
+		log.Println("Added load to queue.")
+	default:
+		log.Println("Load queue full.")
+		return
+	}
+	if len(s.Queue) <= 1 {
+		go s.runLoad()
+	}
+}
+
+func (s *Server) runLoad() {
+	err := s.Load()
+	if err != nil {
+		log.Println(err)
+	}
+
+	<-s.Queue
+
+	if len(s.Queue) > 0 {
+		go s.runLoad()
+	}
 }
 
 func (s *Server) Load() error {

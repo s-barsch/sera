@@ -19,6 +19,8 @@ type Server struct {
 
 	Templates *template.Template
 	Vars      *tmpl.Vars
+
+	Queue chan int
 }
 
 type paths struct {
@@ -69,6 +71,8 @@ func NewServer() *Server {
 	}
 
 	s.Log = newLogger(s.Flags.Debug)
+
+	s.Queue = make(chan int, 2)
 
 	return s
 }
