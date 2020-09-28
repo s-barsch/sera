@@ -19,6 +19,8 @@ type Set struct {
 
 	entries entry.Entries
 	Cover   *image.Image
+
+	Kine    entry.Entries
 }
 
 func (s *Set) Copy() *Set {
