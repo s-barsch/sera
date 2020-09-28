@@ -5,7 +5,7 @@
 
 {{define "graph-date"}}
 <header class="graph-date">
-    <a class="{{if .E.Info.Private}} date-private{{end}}" href="{{.E.Perma .L}}">
+    <a href="{{.E.Perma .L}}">
         {{.E.Date.Format "2<span class=\"ddot\">.</span> 1<span class=\"ddot\">.</span>"}}
     </a>
     {{if .E.Info.Private}}<span class="private-inline"></span>{{end}}
