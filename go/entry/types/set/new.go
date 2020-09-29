@@ -21,6 +21,7 @@ type Set struct {
 	Cover   *image.Image
 
 	Kine    entry.Entries
+	Notes   map[string][]string
 }
 
 func (s *Set) Copy() *Set {

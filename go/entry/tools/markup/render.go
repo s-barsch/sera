@@ -115,11 +115,13 @@ func (r *Renderer) renderTag(b *bytes.Buffer, str, c string) int {
 	return 0
 }
 
-var noteTmpl = `<sup class="reference"><a href="#">%v</a></sup>`
+//var noteTmpl = `<sup class="reference"><a href="#">%v</a></sup>`
+var noteTmpl = "‡"
 
 func (r *Renderer) renderNote(buf *bytes.Buffer, s string) int {
 	if x := closingPos(s, "}"); x != -1 {
-		buf.WriteString(fmt.Sprintf(noteTmpl, len(r.Notes)+1))
+		//buf.WriteString(fmt.Sprintf(noteTmpl, len(r.Notes)+1))
+		buf.WriteString(noteTmpl)
 		r.Notes = append(r.Notes, r.renderSnippet(s[:x-1]))
 		return x
 	}

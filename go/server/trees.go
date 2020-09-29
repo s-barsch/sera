@@ -51,17 +51,6 @@ func (s *Server) LoadTrees() error {
 			Private: serializeLangs(trees[section].Private),
 			Public:  serializeLangs(trees[section].Public),
 		}
-		if section == "kine" {
-			for _, e := range trees[section].Public["de"].Entries() {
-				fmt.Println(e.Title("de"))
-			}
-			/*
-				for _, e := range recents[section].Public["de"] {
-					fmt.Println(e.Title("de"))
-				}
-			*/
-		}
-
 	}
 
 	s.Trees = trees
