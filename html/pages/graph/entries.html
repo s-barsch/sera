@@ -71,23 +71,52 @@
 
 {{define "graph-set"}}
 <div class="set set--graph">
-    {{/* template "graph-kine" .*/}}
+  {{template "graph-kine-desk" .}}
     {{if eq 0 (len .E.Entries)}}
     <em>This entry is not yet translated.</em>
     {{end}}
     {{template "object-groups" (esL .E.Entries .L)}}
+  {{template "graph-kine-mobile" .}}
 </div>
 {{end}}
 
-{{define "graph-kine"}}
+{{define "graph-kine-mobile"}}
     {{with .E.Kine}}
+    <div class="mobile">
       {{range .}}
-        {{with .Cover}}
+      <div class="graph-kine-mobile">
+        {{template "graph-kine-title" (eL . $.L)}}
+      </div>
+      {{end}}
+    </div>
+    {{end}}
+{{end}}
+
+{{define "graph-kine-title"}}
+<span class="graph-kine-title">
+  <!--
+  <img class="icon" src="/static/svg/mov.svg">
+  -->
+  KINE: 
+  <a href="{{.E.Perma .L}}">
+    {{.E.Title .L}}
+  </a>
+</span>
+{{end}}
+
+
+{{define "graph-kine-desk"}}
+    {{with .E.Kine}}
+  <div class="desktop">
+      {{range .}}
+        {{if .Cover}}
         <span class="graph-kine">
-        {{template "image" (eL . $.L)}}
+        {{template "image" (eL .Cover $.L)}}
+        {{template "graph-kine-title" (eL . $.L)}}
         </span>
         {{end}}
       {{end}}
+  </div>
     {{end}}
 {{end}}
 

@@ -141,7 +141,44 @@
     display:none;
 }
 
+.graph-kine {
+    display:inline-block;
+    margin-left:1.5rem;
+    float:right;
+}
+
+.graph-kine img {
+    max-height:12rem;
+}
+
+.graph-kine-mobile {
+    margin:.75rem auto 0;
+}
+
+.graph-kine-title {
+    font-family:var(--fontfamily-sans);
+    font-style:italic;
+    font-size:16px;
+    font-weight:450;
+}
+
+.graph-kine-title .icon {
+    height:20px;
+    vertical-align:middle;
+}
+
+.graph-kine-title a {
+    color:var(--color-fg);
+    vertical-align:middle;
+}
+
+.desktop .graph-kine-title .icon {
+    display:none;
+}
+
 .media-mixin(@break) when (@break = @break-single) {
+
+
     .section-title__box.section-title--year {
         margin-top:1.625rem;
         margin-bottom:-3.5rem;
@@ -157,13 +194,17 @@
     .section-title--graph {
         margin-bottom:4rem;
     }
-}
-
-.media-mixin(@break) when (@break = @break-single) {
     #graph .graph-date,
     #graph .tob {
         margin-left:17%;
         margin-right:auto;
+    }
+}
+
+.media-mixin(@break) when (@break = @break-desk) {
+    .graph-kine-mobile {
+        width:var(--text-width);
+        margin-left:17%;
     }
 }
 
@@ -193,12 +234,3 @@
     color:var(--color-fg);
 }
 
-.graph-kine {
-    display:inline-block;
-    margin-left:1rem;
-    float:right;
-}
-
-.graph-kine img {
-    max-height:12rem;
-}
