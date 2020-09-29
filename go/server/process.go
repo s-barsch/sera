@@ -39,11 +39,11 @@ func processFootnotesSet(s *set.Set) {
 	c := 1
 	notes := map[string][]string{}
 	for _, e := range s.Entries() {
-		txt, ok := e.(*text.Text) 
+		txt, ok := e.(*text.Text)
 		if ok {
 			n := replaceFootnoteMarks(txt, c)
-			notes["de"] = append(notes["de"], n["de"]...)	
-			notes["en"] = append(notes["en"], n["en"]...)	
+			notes["de"] = append(notes["de"], n["de"]...)
+			notes["en"] = append(notes["en"], n["en"]...)
 			c += len(n["de"])
 		}
 	}
@@ -85,4 +85,3 @@ func findMatchingKines(kines entry.Entries, s *set.Set) entry.Entries {
 }
 
 // templates
-

@@ -1,10 +1,10 @@
 package server
 
 import (
-	"sacer/go/entry/tools"
 	"sacer/go/entry"
-	"sacer/go/entry/types/video"
+	"sacer/go/entry/tools"
 	"sacer/go/entry/types/set"
+	"sacer/go/entry/types/video"
 	"sacer/go/server/tmpl"
 	"strings"
 	"text/template"
@@ -48,7 +48,7 @@ func (s *Server) Funcs() template.FuncMap {
 			return s.Vars.Inlines[name]
 		},
 		"inlineFileLang": func(name, lang string) string {
-			return s.Vars.Inlines[name + "-" + lang]
+			return s.Vars.Inlines[name+"-"+lang]
 		},
 		"isLocal": func() bool {
 			return s.Flags.Local

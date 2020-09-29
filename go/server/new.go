@@ -2,6 +2,7 @@ package server
 
 import (
 	"flag"
+	"github.com/rjeczalik/notify"
 	"log"
 	"os"
 	p "path/filepath"
@@ -20,7 +21,9 @@ type Server struct {
 	Templates *template.Template
 	Vars      *tmpl.Vars
 
-	Queue chan int
+	Queue   chan int
+	Watcher chan notify.EventInfo
+	Quit    chan os.Signal
 }
 
 type paths struct {
@@ -53,7 +56,10 @@ func NewServer() *Server {
 		*reload = true
 	}
 
-	s := &Server{}
+	s := &Server{
+		Log:   newLogger(*debug),
+		Queue: make(chan int, 1),
+	}
 
 	s.Paths = &paths{
 		Root: *path,
@@ -70,9 +76,7 @@ func NewServer() *Server {
 		Mobile: *mobile,
 	}
 
-	s.Log = newLogger(s.Flags.Debug)
-
-	s.Queue = make(chan int, 2)
+	s.SetupWatcher()
 
 	return s
 }

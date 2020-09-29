@@ -2,10 +2,10 @@ package server
 
 import (
 	"fmt"
-	"sort"
 	"sacer/go/entry"
 	"sacer/go/entry/tools"
 	"sacer/go/entry/types/tree"
+	"sort"
 )
 
 type SectionTree struct {
