@@ -159,9 +159,18 @@ p code {
 // footnotes
 
 .footnotes {
-    margin:0 0 1rem;
+    margin:1rem 0;
 }
 
+.footnotes {
+    font-size:var(--fontsize-quote);
+}
+
+.note-num,
+ol li::before {
+    display:inline-block;
+    width:1.25rem;
+}
 
 ol {
     list-style: none;
@@ -174,21 +183,11 @@ ol li {
 }
 ol li::before {
     content: counter(my-counter) ".";
-    width:1.25rem;
     margin-left:-1.25rem;
-    display:inline-block;
-}
-
-.footnotes ol {
-    font-size: var(--fontsize-quote);
 }
 
 .footnotes hr {
     display:none;
-}
-
-.note {
-    font-size:1rem;
 }
 
 .inline-note {
@@ -199,21 +198,10 @@ ol li::before {
     vertical-align:unset;
     padding-left:.5px;
     font-family:var(--fontfamily-garamond-sups);
-    font-size:var(--fontsize-base);
+    line-height:1;
 }
-
-/*
-.notel {
-    color:var(--color-red-second);
-}
-*/
 
 .note-number {
-    font-size:.875rem;
-    vertical-align:middle;
-    margin-right:.25rem;
-    display:inline-block;
-    margin-top:-.25rem;
 }
 
 .quote {
@@ -231,13 +219,13 @@ blockquote {
     text-align:justify;
 }
 
-.column {
-    max-width: var(--text-width);
-    margin-left:17%;
-    margin-right:auto;
-}
-
 .media-mixin(@break) when (@break = @break-single) {
+    .column {
+        max-width: var(--text-width);
+        margin-left:17%;
+        margin-right:auto;
+    }
+
     .def {
         padding-left:2.5rem;
     }
