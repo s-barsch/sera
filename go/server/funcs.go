@@ -54,7 +54,7 @@ func (s *Server) Funcs() template.FuncMap {
 			return s.Flags.Local
 		},
 		"langName": func(lang string) string {
-			return tools.LangNames[lang]
+			return tools.Langs[lang]
 		},
 		"monthLang": tools.MonthLang,
 		"nodeName": func(id int64) string {

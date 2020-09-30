@@ -1,6 +1,6 @@
 package tools
 
-var LangNames = map[string]string{
+var Langs = map[string]string{
 	"de": "Deutsch",
 	"en": "English",
 }

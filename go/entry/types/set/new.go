@@ -21,7 +21,7 @@ type Set struct {
 	Cover   *image.Image
 
 	Kine    entry.Entries
-	Notes   map[string][]string
+	Notes   *Footnotes
 }
 
 func (s *Set) Copy() *Set {
@@ -78,7 +78,8 @@ func NewSet(path string, parent entry.Entry) (*Set, error) {
 	}
 
 	s.Cover, s.entries = extractCover(entries)
-	// s.entries = entries
+
+	s.RenderFootnotes()
 
 	return s, nil
 }

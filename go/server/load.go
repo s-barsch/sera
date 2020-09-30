@@ -59,8 +59,7 @@ func (s *Server) Load() error {
 		return err
 	}
 
-	//s.processFootnotes()
-	//s.makeLinks()
+	s.makeLinks()
 
 	tEnd := time.Now()
 	tDif := tEnd.Sub(tStart)

@@ -49,7 +49,7 @@ func NewText(path string, parent entry.Entry) (*Text, error) {
 		}
 	}
 
-	rendered, notes := renderLangs(langs)
+	rendered, notes := markupLangs(langs)
 
 	return &Text{
 		parent: parent,
@@ -66,13 +66,13 @@ func NewText(path string, parent entry.Entry) (*Text, error) {
 }
 
 
-func renderLangs(langs map[string]string) (map[string]string, map[string][]string) {
+func markupLangs(langs map[string]string) (map[string]string, map[string][]string) {
 	notes := map[string][]string{}
-	for _, l := range []string{"de", "en"} {
-		text, ns := markup.Render(langs[l])
+	for lang, _ := range tools.Langs {
+		text, ns := markup.Render(langs[lang])
 		text = tools.RenderMarkdown(text)
-		langs[l] = text
-		notes[l] = ns
+		langs[lang] = text
+		notes[lang] = ns
 	}
 	return langs, notes
 }
