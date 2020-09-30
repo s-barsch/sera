@@ -2,7 +2,6 @@ package server
 
 import (
 	"fmt"
-	"log"
 	"sacer/go/server/tmpl"
 	"time"
 )
@@ -15,31 +14,15 @@ var sections = []string{
 	"kine",
 }
 
-func (s *Server) Reload() {
+func (s *Server) LoadSafe() error {
 	select {
 	case s.Queue <- 1:
-		log.Println("Load started.")
+		err := s.Load()
+		<-s.Queue
+		return err
 	default:
-		log.Println("Queue full.")
-		return
+		return fmt.Errorf("Load is blocked.")
 	}
-	go s.runLoad()
-}
-
-func (s *Server) runLoad() {
-	err := s.Load()
-	if err != nil {
-		log.Println(err)
-	}
-
-	<-s.Queue
-}
-
-func (s *Server) LoadSafe() error {
-	if len(s.Queue) > 0 {
-		return fmt.Errorf("Load already in progress.")
-	}
-	return s.Load()
 }
 
 func (s *Server) Load() error {

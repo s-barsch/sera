@@ -44,12 +44,19 @@ func (s *Server) SetupWatcher() error {
 	return nil
 }
 
+func runLoad(s *Server) {
+	err := s.LoadSafe()
+	if err != nil {
+		log.Println(err)
+	}
+}
+
 func (s *Server) Watch() {
 	for {
 		select {
 		case ei := <-s.Watcher:
 			log.Printf("%v: %v", formatEvent(ei.Event().String()), formatPath(ei.Path()))
-			s.Reload()
+			go runLoad(s)
 		case <-s.Quit:
 			notify.Stop(s.Watcher)
 
