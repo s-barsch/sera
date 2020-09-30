@@ -5,9 +5,9 @@ import (
 	"log"
 	"net/http"
 	"sacer/go/entry"
+	"sacer/go/entry/types/tree"
 	"sacer/go/head"
 	"sacer/go/server"
-	"sacer/go/entry/types/tree"
 	"time"
 )
 
@@ -91,9 +91,9 @@ func GraphEntries(s *server.Server, w http.ResponseWriter, r *http.Request) {
 func coreEntries(s *server.Server, lang string) ([]*SitemapEntry, error) {
 	entries := []*SitemapEntry{}
 
-	tIndex := s.Recents["index"].Public[lang][0].Date()
+	tIndex := s.Recents["index"][lang][0].Date()
 
-	tGraph := s.Recents["graph"].Public[lang][0].Date()
+	tGraph := s.Recents["graph"][lang][0].Date()
 
 	for _, v := range head.NewNav(lang) {
 		priority := "0.9"
@@ -112,7 +112,7 @@ func coreEntries(s *server.Server, lang string) ([]*SitemapEntry, error) {
 		case "graph":
 			lastmod = tGraph
 		case "über", "about":
-			lastmod = s.Trees["about"].Public[lang].File().ModTime
+			lastmod = s.Trees["about"][lang].File().ModTime
 		}
 
 		entries = append(entries, &SitemapEntry{
@@ -127,8 +127,8 @@ func coreEntries(s *server.Server, lang string) ([]*SitemapEntry, error) {
 func categoryEntries(s *server.Server, lang string) []*SitemapEntry {
 	entries := []*SitemapEntry{}
 	trees := tree.Trees{
-		s.Trees["graph"].Public[lang],
-		s.Trees["index"].Public[lang],
+		s.Trees["graph"][lang],
+		s.Trees["index"][lang],
 	}
 	for _, tree := range trees {
 		for _, t := range tree.Trees {
@@ -151,7 +151,7 @@ func holdEntries(s *server.Server, lang string) []*SitemapEntry {
 
 func aboutHolds(s *server.Server, lang string) []*SitemapEntry {
 	entries := []*SitemapEntry{}
-	trees := s.Trees["about"].Public[lang].TraverseTrees()
+	trees := s.Trees["about"][lang].TraverseTrees()
 	for _, t := range trees {
 		entries = append(entries, &SitemapEntry{
 			Loc:      absoluteURL(t.Perma(lang), lang),
@@ -164,7 +164,7 @@ func aboutHolds(s *server.Server, lang string) []*SitemapEntry {
 
 func indexHolds(s *server.Server, lang string) []*SitemapEntry {
 	entries := []*SitemapEntry{}
-	for _, category := range s.Trees["index"].Public[lang].Trees {
+	for _, category := range s.Trees["index"][lang].Trees {
 		trees := category.TraverseTrees()
 		for _, t := range trees {
 			entries = append(entries, &SitemapEntry{
@@ -184,10 +184,10 @@ func elEntries(s *server.Server, page, lang string) ([]*SitemapEntry, error) {
 	prio := ""
 
 	if page == "graph" {
-		es = s.Recents["graph"].Public[lang]
+		es = s.Recents["graph"][lang]
 		prio = "0.5"
 	} else {
-		es = s.Recents["index"].Public[lang]
+		es = s.Recents["index"][lang]
 		prio = "0.4"
 	}
 

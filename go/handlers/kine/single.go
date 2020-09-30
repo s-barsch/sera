@@ -20,7 +20,7 @@ type graphSingle struct {
 
 func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Path) {
 	lang := head.Lang(r.Host)
-	graph := s.Trees["kine"].Local(s.Flags.Local)[lang]
+	graph := s.Trees["kine"][lang]
 	e, err := graph.LookupEntryHash(p.Hash)
 	if err != nil {
 		http.Redirect(w, r, "/kine", 301)

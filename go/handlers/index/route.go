@@ -52,7 +52,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	index := s.Trees["index"].Local(s.Flags.Local)[lang]
+	index := s.Trees["index"][lang]
 
 	if path.Hash == "" {
 		t, err := index.SearchTree(path.Slug, lang)

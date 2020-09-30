@@ -4,6 +4,7 @@ import (
 	//"bufio"
 	"bytes"
 	"fmt"
+
 	//"github.com/tdewolff/minify"
 	//"github.com/tdewolff/minify/svg"
 	"io"
@@ -24,13 +25,14 @@ func MapDot(s *server.Server, w http.ResponseWriter, r *http.Request) {
 }
 
 func printMapDot(s *server.Server, w io.Writer, lang string, all bool) error {
+	t := s.Trees["index"][lang].Public()
 	return s.Templates.ExecuteTemplate(w, "map", struct {
 		Lang string
 		Tree *tree.Tree
 		All  bool
 	}{
 		Lang: lang,
-		Tree: s.Trees["index"].Public[lang],
+		Tree: t,
 		All:  all,
 	})
 }
@@ -89,7 +91,6 @@ func renderMap(markup, filetype string) ([]byte, error) {
 	}
 	return out, nil
 }
-
 
 // still needed?
 

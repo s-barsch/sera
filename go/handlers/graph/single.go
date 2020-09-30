@@ -21,7 +21,7 @@ type graphSingle struct {
 
 func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Path) {
 	lang := head.Lang(r.Host)
-	graph := s.Trees["graph"].Local(s.Flags.Local)[lang]
+	graph := s.Trees["graph"][lang]
 	e, err := graph.LookupEntryHash(p.Hash)
 	if err != nil {
 		http.Redirect(w, r, "/graph", 301)
@@ -34,7 +34,7 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, p *pa
 		return
 	}
 
-	prev, next := getPrevNext(s.Recents["graph"].Local(s.Flags.Local)[lang], e)
+	prev, next := getPrevNext(s.Recents["graph"][lang], e)
 
 	head := &head.Head{
 		Title:   graphEntryTitle(e, head.Lang(r.Host)),

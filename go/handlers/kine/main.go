@@ -20,7 +20,7 @@ type kineMain struct {
 
 func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	lang := head.Lang(r.Host)
-	t := s.Trees["kine"].Local(s.Flags.Local)[lang]
+	t := s.Trees["kine"][lang]
 	head := &head.Head{
 		Title:   strings.Title(tools.KineName[lang]),
 		Section: "kine",
@@ -35,7 +35,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	entries := s.Recents["kine"].Local(s.Flags.Local)[lang]
+	entries := s.Recents["kine"][lang]
 
 	err = s.ExecuteTemplate(w, "kine-main", &kineMain{
 		Head:    head,

@@ -43,7 +43,7 @@ func Serial(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	recents := s.Recents["index"].Local(s.Flags.Local)[lang]
+	recents := s.Recents["index"][lang]
 
 	err = s.ExecuteTemplate(w, "index-serial", &indexSerial{
 		Head:    h,

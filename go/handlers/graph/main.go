@@ -20,7 +20,7 @@ type graphMain struct {
 
 func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	lang := head.Lang(r.Host)
-	t := s.Trees["graph"].Local(s.Flags.Local)[lang]
+	t := s.Trees["graph"][lang]
 	head := &head.Head{
 		Title:   "Graph",
 		Section: "graph",
@@ -37,7 +37,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 
 	prev, _ := yearSiblings(lastTree(t))
 
-	entries := s.Recents["graph"].Local(s.Flags.Local)[lang]
+	entries := s.Recents["graph"][lang]
 
 	err = s.ExecuteTemplate(w, "graph-main", &graphMain{
 		Head:    head,

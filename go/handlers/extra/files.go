@@ -25,7 +25,7 @@ func ServeFile(s *server.Server, w http.ResponseWriter, r *http.Request, path *p
 func serveFile(s *server.Server, w http.ResponseWriter, r *http.Request, path *paths.Path) error {
 	section := path.Section()
 	lang := head.Lang(r.Host)
-	tree := s.Trees[section].Local(s.Flags.Local)[lang]
+	tree := s.Trees[section][lang]
 	e, err := tree.LookupEntryHash(path.Hash)
 	if err != nil {
 		return err

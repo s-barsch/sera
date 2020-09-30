@@ -33,9 +33,9 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	index := s.Recents["index"].Local(s.Flags.Local)[lang]
-	graph := s.Recents["graph"].Local(s.Flags.Local)[lang]
-	kine := s.Recents["kine"].Local(s.Flags.Local)[lang]
+	index := s.Recents["index"][lang]
+	graph := s.Recents["graph"][lang]
+	kine := s.Recents["kine"][lang]
 
 	err = s.ExecuteTemplate(w, "front", &frontMain{
 		Head:     head,
@@ -49,7 +49,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 }
 
 	/*
-	e, err := s.Trees["graph"].Local(s.Flags.Local)[lang].LookupEntryHash(s.Vars.FrontSettings.Featured)
+	e, err := s.Trees["graph"][lang].LookupEntryHash(s.Vars.FrontSettings.Featured)
 	if err != nil {
 		s.Log.Println(err)
 	}

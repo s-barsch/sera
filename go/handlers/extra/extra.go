@@ -25,7 +25,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	items := strings.Split(strings.Trim(path, "/"), "/")
 
 	lang := head.Lang(r.Host)
-	extra := s.Trees["extra"].Local(s.Flags.Local)[lang]
+	extra := s.Trees["extra"][lang]
 
 	t, err := extra.SearchTree(items[len(items)-1], head.Lang(r.Host))
 	if err != nil {

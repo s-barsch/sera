@@ -17,7 +17,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 
 	rel := p[len("/about"):] // same length as "ueber"
 	lang := head.Lang(r.Host)
-	about := s.Trees["about"].Local(s.Flags.Local)[lang]
+	about := s.Trees["about"][lang]
 
 	if rel == "" {
 		ServeAbout(s, w, r, about)
