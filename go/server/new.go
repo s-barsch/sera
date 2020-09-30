@@ -81,9 +81,11 @@ func NewServer() *Server {
 func LoadServer() (*Server, error) {
 	s := NewServer()
 
-	err := s.SetupWatcher()
-	if err != nil {
-		return nil, err
+	if s.Flags.Debug {
+		err := s.SetupWatcher()
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	return s, s.Load()

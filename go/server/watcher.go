@@ -14,17 +14,25 @@ func (s *Server) SetupWatcher() error {
 
 	signal.Notify(s.Quit, os.Interrupt)
 
-	err := notify.Watch(
-		s.Paths.Data+"...",
-		s.Watcher,
-		notify.Remove,
-		notify.Rename,
-		notify.Create,
-		notify.Write,
-	)
+	paths := []string{
+		s.Paths.Data,
+		s.Paths.Root + "/html",
+		s.Paths.Root + "/css/dist",
+		s.Paths.Root + "/js/dist",
+	}
 
-	if err != nil {
-		return err
+	for _, path := range paths {
+		err := notify.Watch(
+			path+"...",
+			s.Watcher,
+			notify.Remove,
+			notify.Rename,
+			notify.Create,
+			notify.Write,
+		)
+		if err != nil {
+			return err
+		}
 	}
 
 	if s.Flags.Debug {

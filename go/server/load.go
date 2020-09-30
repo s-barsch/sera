@@ -35,11 +35,14 @@ func (s *Server) runLoad() {
 	<-s.Queue
 }
 
-func (s *Server) Load() error {
+func (s *Server) LoadSafe() error {
 	if len(s.Queue) > 0 {
 		return fmt.Errorf("Load already in progress.")
 	}
+	return s.Load()
+}
 
+func (s *Server) Load() error {
 	tStart := time.Now()
 
 	err := s.LoadTemplates()
