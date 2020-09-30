@@ -47,7 +47,7 @@
       {{if eq .Type "html"}}
         {{template "entry" (eL . $.L)}}
       {{else}}
-        <article class="entry tob entry--index">
+        <article class="tob entry--index lefter">
             {{template "entry" (eL . $.L)}}
         </article>
       {{end}}

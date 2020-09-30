@@ -16,7 +16,7 @@
     {{template "index-entries" (eL .Tree .Head.Lang)}}
 
     <section class="index-map">
-        <h2 id="map" class="subh subtitle">
+        <h2 id="map" class="subtitle">
           <a href="#map">{{var "map" .Head.Lang}}</a>
         </h2>
 
@@ -29,7 +29,7 @@
     </section>
 
     <section id="serial">
-        <h2 class="subh subtitle">
+        <h2 class="subtitle column">
           <a href="/index/serial/">Serial</a>
         </h2>
 
@@ -86,7 +86,7 @@
 
 {{define "index-entries"}}
     {{range .E.Entries}}
-      <article id="{{normalize (.Title $.Lang)}}" class="entry--index">
+      <article id="{{normalize (.Title $.Lang)}}" class="entry--index lefter">
           {{template "index-entry" (eL . $.Lang)}}
       </article>
     {{end}}
@@ -105,7 +105,7 @@
   {{if .E.MediaObject}}
     {{template "entry" .}}
   {{else}}
-    <article class="tob tob--index">
+    <article class="tob tob--index lefter">
         {{template "entry" .}}
     </article>
   {{end}}

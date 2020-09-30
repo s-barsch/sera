@@ -14,17 +14,3 @@
 {{end}}
 
 
-{{define "front-index-entry"}}
-  <article class="tob tob--front">
-    {{if eq .E.Type "image"}}
-        <span class="thumb index-thumb">
-            <a class="thumbl" href="{{.E.Perma .L}}">
-            {{template "graph-image-thumbnail" .}}
-            </a>
-        </span>
-    {{else}}
-        {{template "entry" .}}
-    {{end}}
-    {{template "front-index-title" .}}
-  </article>
-{{end}}
