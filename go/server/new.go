@@ -15,8 +15,8 @@ type Server struct {
 	Flags *flags
 	Log   *log.Logger
 
-	Trees   map[string]*SectionTree
-	Recents map[string]*SectionEntries
+	Trees   map[string]langTrees
+	Recents map[string]langEntries
 
 	Templates *template.Template
 	Vars      *tmpl.Vars

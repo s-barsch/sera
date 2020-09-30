@@ -8,33 +8,12 @@ import (
 	"sort"
 )
 
-type SectionTree struct {
-	Public, Private map[string]*tree.Tree
-}
+type langTrees   map[string]*tree.Tree
+type langEntries map[string]entry.Entries
 
-type SectionEntries struct {
-	Public, Private map[string]entry.Entries
-}
-
-func (s *SectionTree) Local(local bool) map[string]*tree.Tree {
-	if local {
-		return s.Private
-	}
-	return s.Public
-}
-
-func (s *SectionEntries) Local(local bool) map[string]entry.Entries {
-	if local {
-		return s.Private
-	}
-	return s.Public
-}
-
-// trees
-
-func (s *Server) LoadTrees() error {
-	trees := map[string]*SectionTree{}
-	recents := map[string]*SectionEntries{}
+func (s *Server) ReadTrees() error {
+	trees := map[string]langTrees{}
+	recents := map[string]langEntries{}
 
 	for _, section := range sections {
 		t, err := tree.ReadTree(s.Paths.Data+"/"+section, nil)
@@ -42,35 +21,25 @@ func (s *Server) LoadTrees() error {
 			return err
 		}
 
-		trees[section] = &SectionTree{
-			Private: filterLangs(t),
-			Public:  filterLangs(t.Public()),
+		if !s.Flags.Local {
+			t = t.Public()
 		}
 
-		recents[section] = &SectionEntries{
-			Private: serializeLangs(trees[section].Private),
-			Public:  serializeLangs(trees[section].Public),
+		trees[section] = map[string]*tree.Tree{
+			"de": t,
+			"en": t.Lang("en"),
+		}
+
+		recents[section] = map[string]entry.Entries{
+			"de": serialize(trees[section]["de"]),
+			"en": serialize(trees[section]["en"]),
 		}
 	}
-
+		
 	s.Trees = trees
 	s.Recents = recents
 
 	return nil
-}
-
-func filterLangs(t *tree.Tree) map[string]*tree.Tree {
-	return map[string]*tree.Tree{
-		"de": t,
-		"en": t.Lang("en"),
-	}
-}
-
-func serializeLangs(langMap map[string]*tree.Tree) map[string]entry.Entries {
-	return map[string]entry.Entries{
-		"de": serialize(langMap["de"]),
-		"en": serialize(langMap["en"]),
-	}
 }
 
 func serialize(t *tree.Tree) entry.Entries {

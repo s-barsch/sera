@@ -15,17 +15,17 @@ func (s *Server) processAllTexts() error {
 	// the German tree here, but will process all fiels within the entries.
 	lang := "de"
 	for _, section := range sections {
-		for _, e := range s.Trees[section].Private[lang].TraverseTrees() {
+		for _, e := range s.Trees[section][lang].TraverseTrees() {
 			patterns.HyphInfo(e)
 		}
-		patterns.HyphEntries(s.Recents[section].Private[lang])
+		patterns.HyphEntries(s.Recents[section][lang])
 	}
 	return nil
 }
 
 func (s *Server) makeLinks() {
-	kines := s.Recents["kine"].Local(s.Flags.Local)["de"]
-	graph := s.Trees["graph"].Local(s.Flags.Local)["de"]
+	kines := s.Recents["kine"]["de"]
+	graph := s.Trees["graph"]["de"]
 
 	for _, t := range graph.TraverseTrees() {
 		for _, e := range t.Entries() {

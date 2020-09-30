@@ -34,7 +34,7 @@ func (s *Server) Load() error {
 
 	}
 
-	err = s.LoadTrees()
+	err = s.ReadTrees()
 	if err != nil {
 		return err
 	}
