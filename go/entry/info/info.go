@@ -1,14 +1,12 @@
 package info
 
 import (
-	//"fmt"
+	"fmt"
 	"io"
 	"os"
 	"sacer/go/entry/tools"
-	//"sacer/go/entry/tools/hyph"
-
+	"sacer/go/entry/tools/hyph"
 	"gopkg.in/yaml.v2"
-
 	p "path/filepath"
 	"strings"
 )
@@ -62,12 +60,76 @@ func ParseInfoFile(path string) (Info, error) {
 		i[norm(k)] = trim(v)
 	}
 
-	// TODO: do this later
-	// err = i.hyphenateText()
-
 	return i, nil
 
 }
+
+
+func (i Info) Hyphenate() {
+	for key, value := range i {
+		switch name(key) {
+		case "caption", "transcript", "alt":
+			continue
+		case "title":
+			lang := keyLang(key)
+			keyName := fmt.Sprintf("%v-hyph", name(key)) + langSuffix(lang)
+			i[keyName] = hyph.Hyphenate(i[key], lang)
+		default:
+			i[key] = hyph.Hyphenate(value, keyLang(key))
+		}
+	}
+}
+
+func name(key string) string {
+	i := strings.Index(key, "-")
+	if i <= 0 {
+		return key
+	}
+	return key[:i]
+}
+
+func keyLang(key string) string {
+	i := strings.LastIndex(key, "-")
+	if i <= 0 || i + 1 >= len(key) {
+		return "de"
+	}
+	return key[i+1:]
+}
+
+func langSuffix(lang string) string {
+	switch lang {
+	case  "de":
+		return ""
+	default:
+		return "-" + lang
+	}
+}
+
+/*
+func (patterns HyphPatterns) HyphInfo(e entry.Entry) {
+	inf := e.Info()
+	for _, key := range []string{"title", "transcript"} {
+		inf = patterns.HyphInfoField(inf, key)
+	}
+	e.SetInfo(inf)
+}
+
+func (patterns HyphPatterns) HyphInfoField(inf info.Info, key string) info.Info {
+	setKey := key
+	if key == "title" {
+		setKey = "title-hyph"
+	}
+	for _, l := range langs {
+		if l == "en" {
+			setKey += "-en"
+		}
+		inf[setKey] = patterns[l].HyphenateText(inf.Field(key, l))
+	}
+	return inf
+}
+
+*/
+
 
 func norm(str string) string {
 	return tools.Normalize(str)
