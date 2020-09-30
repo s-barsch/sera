@@ -4,7 +4,6 @@ import (
 	"sacer/go/entry/tools"
 	"bytes"
 	"unicode/utf8"
-	"strconv"
 	"fmt"
 )
 
@@ -24,8 +23,8 @@ func (t *Text) RenderFootnotesLang(count int, lang string) {
 		s = s[size:]
 
 		if c == '‡' {
-			buf.WriteString(strconv.Itoa(count))
-			buf.WriteString(fmt.Sprintf("{%v}", t.Notes[lang][i]))
+			buf.WriteString(fmt.Sprintf("<span class=\"ref\">%d</span>", count))
+			buf.WriteString(fmt.Sprintf("<span class=\"inline-note\">%v</span>", t.Notes[lang][i]))
 			i++
 			count++
 			continue

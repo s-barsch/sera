@@ -77,7 +77,20 @@
     {{end}}
     {{template "object-groups" (esL .E.Entries .L)}}
   {{template "graph-kine-mobile" .}}
+  {{template "set-footnotes" .}}
 </div>
+{{end}}
+
+{{define "set-footnotes"}}
+    {{with .E.Notes}}
+    <div class="footnotes">
+      {{$notes := index . $.L}}
+      {{$multi := gt (len $notes) 1}}
+      {{range $i, $n := $notes}}
+      <div class="note">{{if $multi}}<span class="note-number">{{plus1 $i}}</span> {{end}}{{$n}}</div>
+      {{end}}
+    </div>
+    {{end}}
 {{end}}
 
 {{define "graph-kine-mobile"}}
