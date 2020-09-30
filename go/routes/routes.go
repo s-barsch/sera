@@ -16,10 +16,6 @@ import (
 func Router(s *server.Server) *mux.Router {
 	r := mux.NewRouter().StrictSlash(true)
 
-	if s.Flags.Reload {
-		r.Use(makeMiddleware(s, extra.ConstantReload))
-	}
-
 	r.HandleFunc("/", makeHandler(s, front.Main))
 	r.PathPrefix("/index").HandlerFunc(makeHandler(s, index.Route))
 	r.PathPrefix("/graph").HandlerFunc(makeHandler(s, graph.Route))
@@ -71,11 +67,5 @@ func Router(s *server.Server) *mux.Router {
 func makeHandler(s *server.Server, fn func(*server.Server, http.ResponseWriter, *http.Request)) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		fn(s, w, r)
-	}
-}
-
-func makeMiddleware(s *server.Server, fn func(*server.Server, http.Handler) http.Handler) func(http.Handler) http.Handler {
-	return func(next http.Handler) http.Handler {
-		return fn(s, next)
 	}
 }
