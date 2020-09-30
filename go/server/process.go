@@ -3,10 +3,11 @@ package server
 import (
 	"sacer/go/entry"
 	"sacer/go/entry/types/set"
-	"sacer/go/server/process"
+	//"sacer/go/server/process"
 )
 
 func (s *Server) processAllTexts() error {
+	/*
 	patterns, err := process.LoadHyphPatterns(s.Paths.Root)
 	if err != nil {
 		return err
@@ -20,6 +21,7 @@ func (s *Server) processAllTexts() error {
 		}
 		patterns.HyphEntries(s.Recents[section][lang])
 	}
+	*/
 	return nil
 }
 

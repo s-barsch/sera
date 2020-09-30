@@ -5,6 +5,14 @@ import (
 	"io"
 )
 
+var lp LangPatterns
+
+type LangPatterns map[string]*Patterns
+
+func SetLangPatterns(langp LangPatterns) {
+	lp = langp
+}
+
 func LoadPattern(path string) (*Patterns, error) {
 	f, err := os.Open(path)
 	if err != nil {

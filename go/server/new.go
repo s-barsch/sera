@@ -2,12 +2,15 @@ package server
 
 import (
 	"flag"
+	"fmt"
 	"github.com/rjeczalik/notify"
 	"log"
 	"os"
 	p "path/filepath"
 	"sacer/go/server/tmpl"
 	"text/template"
+	"sacer/go/entry/tools"
+	"sacer/go/entry/tools/hyph"
 )
 
 type Server struct {
@@ -88,6 +91,11 @@ func LoadServer() (*Server, error) {
 		}
 	}
 
+	err := LoadHyphPatterns(s.Paths.Root)
+	if err != nil {
+		return nil, err
+	}
+
 	return s, s.Load()
 }
 
@@ -99,4 +107,18 @@ func (s *Server) Debug(err error) {
 	if s.Flags.Debug {
 		s.Log.Println(err)
 	}
+}
+
+func LoadHyphPatterns(root string) error {
+	patterns := hyph.LangPatterns{}
+	for lang, _ := range tools.Langs {
+		path := fmt.Sprintf("%v/go/entry/tools/hyph/hyph-%v.dic", root, lang)
+		p, err := hyph.LoadPattern(path)
+		if err != nil {
+			return err
+		}
+		patterns[lang] = p
+	}
+	hyph.SetLangPatterns(patterns)
+	return nil
 }

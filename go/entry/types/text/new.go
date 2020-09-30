@@ -3,6 +3,7 @@ package text
 import (
 	"sacer/go/entry"
 	"sacer/go/entry/tools"
+	"sacer/go/entry/tools/hyph"
 	"sacer/go/entry/tools/markup"
 	"sacer/go/entry/file"
 	"sacer/go/entry/info"
@@ -16,11 +17,11 @@ type Text struct {
 	date time.Time
 	info info.Info
 
-	TextLangs map[string]string
-	blank     map[string]string
-
+	Langs map[string]string
 	Notes map[string][]string
 }
+
+type Langs map[string]string
 
 func NewText(path string, parent entry.Entry) (*Text, error) {
 	fnErr := &tools.Err{
@@ -49,7 +50,10 @@ func NewText(path string, parent entry.Entry) (*Text, error) {
 		}
 	}
 
-	rendered, notes := markupLangs(langs)
+	notes := langs.Markup()
+
+	langs.Markdown()
+	langs.Hyphenate()
 
 	return &Text{
 		parent: parent,
@@ -58,26 +62,47 @@ func NewText(path string, parent entry.Entry) (*Text, error) {
 		date: date,
 		info: inf,
 
-		TextLangs: rendered,
-		blank:     langs,
+		Langs: langs,
 
-		Notes: notes,
+		Notes: renderNotes(notes),
 	}, nil
 }
 
-
-func markupLangs(langs map[string]string) (map[string]string, map[string][]string) {
-	notes := map[string][]string{}
-	for lang, _ := range tools.Langs {
-		text, ns := markup.Render(langs[lang])
-		text = tools.RenderMarkdown(text)
-		langs[lang] = text
-		notes[lang] = ns
+func renderNotes(notes map[string][]string) map[string][]string {
+	for l, _ := range tools.Langs {
+		for i, _ := range notes[l] {
+			notes[l][i] = tools.Markdown(notes[l][i])
+			notes[l][i] = hyph.Hyphenate(notes[l][i], l)
+		}
 	}
-	return langs, notes
+	return notes
 }
 
-func ReadTextFile(path string) (info.Info, map[string]string, error) {
+func (langs Langs) Hyphenate() {
+	for l, _ := range tools.Langs {
+		langs[l] = hyph.Hyphenate(langs[l], l)
+	}
+}
+
+func (langs Langs) Markdown() {
+	for l, _ := range tools.Langs {
+		langs[l] = tools.Markdown(langs[l])
+	}
+}
+
+func (langs Langs) Markup() map[string][]string {
+	notes := map[string][]string{}
+
+	for l, _ := range tools.Langs {
+		text, ns := markup.Render(langs[l])
+		langs[l] = text
+		notes[l] = ns
+	}
+
+	return notes
+}
+
+func ReadTextFile(path string) (info.Info, Langs, error) {
 	fnErr := &tools.Err{
 		Path: path,
 		Func: "readTextFile",

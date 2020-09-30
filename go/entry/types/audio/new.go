@@ -90,7 +90,7 @@ func markupTranscript(inf info.Info) info.Info {
 		if lang != "de" {
 			key += "-" + lang
 		}
-		inf[key] = tools.RenderMarkdown(inf[key])
+		inf[key] = tools.Markdown(inf[key])
 	}
 	return inf
 }

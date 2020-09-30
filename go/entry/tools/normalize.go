@@ -22,6 +22,6 @@ func Normalize(name string) string {
 
 var bfExtensions = bf.WithExtensions(bf.HardLineBreak|bf.Footnotes|bf.DefinitionLists|bf.Strikethrough)
 
-func RenderMarkdown(text string) string {
-	return string(bf.Run([]byte(text), bfExtensions))
+func Markdown(text string) string {
+	return string(bf.Run([]byte(text), bf.WithNoExtensions(), bfExtensions))
 }

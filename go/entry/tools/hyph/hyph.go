@@ -9,6 +9,13 @@ import (
 	"unicode/utf8"
 )
 
+func Hyphenate(str, lang string) string {
+	if lp == nil {
+		panic("language patterns not set.")
+	}
+	return lp[lang].HyphenateText(str)
+}
+
 func (p *Patterns) HyphenateText(str string) string {
 	word := bytes.Buffer{}
 	text := bytes.Buffer{}

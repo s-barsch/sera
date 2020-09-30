@@ -17,7 +17,7 @@ func (t *Text) RenderFootnotesLang(count int, lang string) {
 	buf := bytes.Buffer{}
 
 	i := 0
-	s := t.TextLangs[lang]
+	s := t.Langs[lang]
 	for len(s) > 0 {
 		c, size := utf8.DecodeRuneInString(s)
 		s = s[size:]
@@ -32,5 +32,5 @@ func (t *Text) RenderFootnotesLang(count int, lang string) {
 		buf.WriteString(string(c))
 	}
 
-	t.TextLangs[lang] = buf.String()
+	t.Langs[lang] = buf.String()
 }
