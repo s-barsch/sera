@@ -45,18 +45,28 @@ func (s *Server) SetupWatcher() error {
 }
 
 func runLoad(s *Server) {
-	err := s.LoadSafe()
-	if err != nil {
-		log.Println(err)
+	select {
+	case s.Queue <- 1:
+		log.Println("Load started.")
+	default:
+		log.Println("Blocked.")
+		return
 	}
+	go func() {
+		err := s.Load()
+		if err != nil {
+			log.Println(err)
+		}
+		<-s.Queue
+	}()
 }
 
 func (s *Server) Watch() {
 	for {
 		select {
 		case ei := <-s.Watcher:
-			log.Printf("%v: %v", formatEvent(ei.Event().String()), formatPath(ei.Path()))
-			go runLoad(s)
+			log.Printf("%v: %v\n", formatEvent(ei.Event().String()), formatPath(ei.Path()))
+			runLoad(s)
 		case <-s.Quit:
 			notify.Stop(s.Watcher)
 
