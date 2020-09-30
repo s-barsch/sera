@@ -65,7 +65,7 @@ func (s *Server) Watch() {
 	for {
 		select {
 		case ei := <-s.Watcher:
-			log.Printf("%v: %v\n", formatEvent(ei.Event().String()), formatPath(ei.Path()))
+			printEvent(ei)
 			runLoad(s)
 		case <-s.Quit:
 			notify.Stop(s.Watcher)
@@ -78,6 +78,14 @@ func (s *Server) Watch() {
 			return
 		}
 	}
+}
+
+func printEvent(ei notify.EventInfo) {
+	log.Printf(
+		"%v: %v\n",
+		formatEvent(ei.Event().String()),
+		formatPath(ei.Path()),
+	)
 }
 
 func formatPath(path string) string {
