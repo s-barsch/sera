@@ -43,8 +43,8 @@ func (s *Server) LoadTrees() error {
 		}
 
 		trees[section] = &SectionTree{
-			Private: makeLangs(t),
-			Public:  makeLangs(t.Public()),
+			Private: filterLangs(t),
+			Public:  filterLangs(t.Public()),
 		}
 
 		recents[section] = &SectionEntries{
@@ -59,7 +59,7 @@ func (s *Server) LoadTrees() error {
 	return nil
 }
 
-func makeLangs(t *tree.Tree) map[string]*tree.Tree {
+func filterLangs(t *tree.Tree) map[string]*tree.Tree {
 	return map[string]*tree.Tree{
 		"de": t,
 		"en": t.Lang("en"),
