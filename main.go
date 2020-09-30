@@ -3,17 +3,17 @@
 package main
 
 import (
+	"log"
 	"net/http"
 	"sacer/go/routes"
 	"sacer/go/server"
 )
 
 func main() {
-	s := server.NewServer()
 
-	err := s.Load()
+	s, err := server.LoadServer()
 	if err != nil {
-		s.Log.Fatal(err)
+		log.Fatal(err)
 	}
 
 	http.Handle("/", routes.Router(s))

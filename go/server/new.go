@@ -53,7 +53,6 @@ func NewServer() *Server {
 	if *all {
 		*debug = true
 		*local = true
-		*reload = true
 	}
 
 	s := &Server{
@@ -76,9 +75,18 @@ func NewServer() *Server {
 		Mobile: *mobile,
 	}
 
-	s.SetupWatcher()
-
 	return s
+}
+
+func LoadServer() (*Server, error) {
+	s := NewServer()
+
+	err := s.SetupWatcher()
+	if err != nil {
+		return nil, err
+	}
+
+	return s, s.Load()
 }
 
 func newLogger(debug bool) *log.Logger {

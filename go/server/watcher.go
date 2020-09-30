@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func (s *Server) SetupWatcher() {
+func (s *Server) SetupWatcher() error {
 	s.Quit = make(chan os.Signal, 1)
 	s.Watcher = make(chan notify.EventInfo, 1)
 
@@ -24,12 +24,16 @@ func (s *Server) SetupWatcher() {
 	)
 
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
-	log.Println("Started watcher.")
+	if s.Flags.Debug {
+		log.Println("Started watcher.")
+	}
 
 	go s.Watch()
+
+	return nil
 }
 
 func (s *Server) Watch() {
@@ -40,7 +44,11 @@ func (s *Server) Watch() {
 			s.Reload()
 		case <-s.Quit:
 			notify.Stop(s.Watcher)
-			log.Println("Stopped watcher.")
+
+			if s.Flags.Debug {
+				log.Println("Stopped watcher.")
+			}
+
 			os.Exit(0)
 			return
 		}
