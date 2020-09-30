@@ -26,7 +26,7 @@
     {{end}}
 {{end}}
 
-// blob
+// media object
 
 {{define "graph-mob"}}
     {{$type := .E.Type}}
@@ -37,7 +37,7 @@
     {{end}}
 {{end}}
 
-// tob (text object)
+// text object
 
 {{define "graph-tob"}}
     {{$type := .E.Type}}
@@ -47,7 +47,7 @@
     {{if eq $type "set"}}
         {{template "graph-set" .}}
     {{else if eq $type "text"}}
-        <article class="tob tob--graph">
+        <article class="tob column">
         {{template "text" .}}
         </article>
     {{else if eq $type "audio"}}
@@ -83,11 +83,10 @@
 
 {{define "set-footnotes"}}
     {{with .E.Notes}}
-    <div class="footnotes">
+    <div class="footnotes column">
       {{$notes := index . $.L}}
-      {{$multi := gt (len $notes) 1}}
       {{range $i, $n := $notes}}
-      <div class="note">{{if $multi}}<span class="note-number">{{plus1 $i}}</span> {{end}}{{$n}}</div>
+      <div class="note"><span class="note-number">{{plus1 $i}}</span> {{$n}}</div>
       {{end}}
     </div>
     {{end}}
@@ -150,7 +149,7 @@
         {{template "entry" .}}
       </div>
     {{else}}
-      <div class="tob text">
+      <div class="tob text column">
           {{template "entry" .}}
       </div>
     {{end}}
@@ -201,7 +200,7 @@
     </a>
 {{else}}
 
-    <img cthumbilass="{{if .Lazy}} lazy{{end}}"
+    <img class="{{if .Lazy}} lazy{{end}}"
          src="{{$src}}"
          alt="{{$alt}}"
          {{if .Lazy}}

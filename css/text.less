@@ -53,12 +53,6 @@ li:before {
 
 // basic texts
 
-.month-title,
-.graph-date,
-.tob {
-    max-width:var(--text-width);
-}
-
 .lines p,
 .indent p {
     text-align:justify;
@@ -237,6 +231,11 @@ blockquote {
     text-align:justify;
 }
 
+.column {
+    max-width: var(--text-width);
+    margin-left:17%;
+    margin-right:auto;
+}
 
 .media-mixin(@break) when (@break = @break-single) {
     .def {

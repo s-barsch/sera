@@ -4,7 +4,7 @@
 {{template "subnav" (snav .Tree 0 .Head.Lang)}}
 
 <div class="section-title__box section-title--year">
-    <h1 class="section-title">
+    <h1 class="section-title column">
       {{template "year-number" (.Tree.Date.Format "2006")}}
     </h1>
     {{if eq (index .Tree.Info "alpha") "true"}}
@@ -16,7 +16,7 @@
 {{range .Tree.Trees}}
     {{$monthNum := .Date.Format "01"}}
     <section id="{{$monthNum}}" class="month">
-        <h2 class="month-title">
+        <h2 class="month-title column">
             <a href="#{{$monthNum}}">{{monthLang .Date $.Head.Lang}}</a>
         </h2>
         {{if eq (index .Info "alpha") "true"}}
