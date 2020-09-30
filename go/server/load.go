@@ -1,6 +1,7 @@
 package server
 
 import (
+	"fmt"
 	"log"
 	"sacer/go/server/tmpl"
 	"time"
@@ -22,9 +23,7 @@ func (s *Server) Reload() {
 		log.Println("Queue full.")
 		return
 	}
-	if len(s.Queue) <= 1 {
-		go s.runLoad()
-	}
+	go s.runLoad()
 }
 
 func (s *Server) runLoad() {
@@ -34,13 +33,13 @@ func (s *Server) runLoad() {
 	}
 
 	<-s.Queue
-
-	if len(s.Queue) > 0 {
-		go s.runLoad()
-	}
 }
 
 func (s *Server) Load() error {
+	if len(s.Queue) > 0 {
+		return fmt.Errorf("Load already in progress.")
+	}
+
 	tStart := time.Now()
 
 	err := s.LoadTemplates()
