@@ -24,9 +24,10 @@ func (s *Server) processAllTexts() error {
 }
 
 func (s *Server) makeLinks() {
-	kines := s.Recents["kine"].Private["de"]
+	kines := s.Recents["kine"].Local(s.Flags.Local)["de"]
+	graph := s.Trees["graph"].Local(s.Flags.Local)["de"]
 
-	for _, t := range s.Trees["graph"].Private["de"].TraverseTrees() {
+	for _, t := range graph.TraverseTrees() {
 		for _, e := range t.Entries() {
 			s, ok := e.(*set.Set)
 			if ok {

@@ -71,7 +71,7 @@
 
 {{define "graph-set"}}
 <div class="set set--graph">
-  {{template "graph-kine-desk" .}}
+  {{/*template "graph-kine-desk" .*/}}
     {{if eq 0 (len .E.Entries)}}
     <em>This entry is not yet translated.</em>
     {{end}}
@@ -95,7 +95,7 @@
 
 {{define "graph-kine-mobile"}}
     {{with .E.Kine}}
-    <div class="mobile">
+    <div class="graph-kine">
       {{range .}}
       <div class="graph-kine-mobile">
         {{template "graph-kine-title" (eL . $.L)}}
@@ -107,10 +107,8 @@
 
 {{define "graph-kine-title"}}
 <span class="graph-kine-title">
-  <!--
-  <img class="icon" src="/static/svg/mov.svg">
-  -->
-  KINE: 
+  <img class="icon" src="/static/svg/cam.svg">
+  <span class="kine-date-notes">{{template "kine-date" .}}</span>:
   <a href="{{.E.Perma .L}}">
     {{.E.Title .L}}
   </a>
@@ -123,9 +121,8 @@
   <div class="desktop">
       {{range .}}
         {{if .Cover}}
-        <span class="graph-kine">
+        <span class="graph-kine-image">
         {{template "image" (eL .Cover $.L)}}
-        {{template "graph-kine-title" (eL . $.L)}}
         </span>
         {{end}}
       {{end}}

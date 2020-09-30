@@ -36,6 +36,9 @@
 
 {{end}}
 
+{{define "kine-date" -}}
+{{.E.Date.Format "2"}} {{abbr (monthLang .Entry.Date .L)}}
+{{- end}}
 
 {{define "video-entry"}}
 {{$type := $.E.Type}}
