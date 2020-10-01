@@ -3,8 +3,6 @@ package text
 import (
 	"sacer/go/entry"
 	"sacer/go/entry/tools"
-	"sacer/go/entry/tools/hyph"
-	"sacer/go/entry/tools/markup"
 	"sacer/go/entry/file"
 	"sacer/go/entry/info"
 	"time"
@@ -17,12 +15,8 @@ type Text struct {
 	date time.Time
 	info info.Info
 
-	Langs Langs
-	Notes Notes
+	Script *Script
 }
-
-type Langs map[string]string
-type Notes map[string][]string
 
 func NewText(path string, parent entry.Entry) (*Text, error) {
 	fnErr := &tools.Err{
@@ -51,7 +45,7 @@ func NewText(path string, parent entry.Entry) (*Text, error) {
 		}
 	}
 
-	langs, notes := RenderLangs(langs)
+	script := RenderScript(langs)
 
 	return &Text{
 		parent: parent,
@@ -60,53 +54,8 @@ func NewText(path string, parent entry.Entry) (*Text, error) {
 		date: date,
 		info: inf,
 
-		Langs: langs,
-		Notes: notes,
+		Script: script,
 	}, nil
-}
-
-func RenderLangs(langs Langs) (Langs, Notes) {
-	notes := langs.OwnRender()
-
-	langs.Markdown()
-	langs.Hyphenate()
-	notes.MarkdownHyphenate()
-
-	return langs, notes
-}
-
-
-func (notes Notes) MarkdownHyphenate() {
-	for l, _ := range tools.Langs {
-		for i, _ := range notes[l] {
-			notes[l][i] = tools.MarkdownNoP(notes[l][i])
-			notes[l][i] = hyph.Hyphenate(notes[l][i], l)
-		}
-	}
-}
-
-func (langs Langs) Hyphenate() {
-	for l, _ := range tools.Langs {
-		langs[l] = hyph.Hyphenate(langs[l], l)
-	}
-}
-
-func (langs Langs) Markdown() {
-	for l, _ := range tools.Langs {
-		langs[l] = tools.Markdown(langs[l])
-	}
-}
-
-func (langs Langs) OwnRender() Notes {
-	notes := map[string][]string{}
-
-	for l, _ := range tools.Langs {
-		text, ns := markup.Render(langs[l])
-		langs[l] = text
-		notes[l] = ns
-	}
-
-	return notes
 }
 
 func ReadTextFile(path string) (info.Info, Langs, error) {

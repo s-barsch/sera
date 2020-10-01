@@ -21,7 +21,7 @@ type Audio struct {
 
 	Subtitles []string
 
-	Transcript *Transcript
+	Transcript *text.Script
 }
 
 type Transcript struct {
@@ -62,7 +62,7 @@ func NewAudio(path string, parent entry.Entry) (*Audio, error) {
 
 	subs := getSubtitles(path)
 
-	transcript := GetTranscript(inf)
+	script := GetTranscript(inf)
 
 	return &Audio{
 		parent:     parent,
@@ -70,7 +70,7 @@ func NewAudio(path string, parent entry.Entry) (*Audio, error) {
 		date:       date,
 		info:       inf,
 		Subtitles:  subs,
-		Transcript: transcript,
+		Transcript: script,
 	}, nil
 }
 
@@ -87,17 +87,11 @@ func getSubtitles(path string) []string {
 	return langs
 }
 
-func GetTranscript(i info.Info) *Transcript {
-	if i["transcript"] == "" {
-		return nil
-	}
+func GetTranscript(i info.Info) *text.Script {
+	script := text.RenderScript(extractTranscript(i))
+	script.NumberFootnotes(1)
 
-	langs, notes := text.RenderLangs(extractTranscript(i))
-
-	return &Transcript{
-		Langs: langs,
-		Notes: notes,
-	}
+	return script
 }
 
 func extractTranscript(i info.Info) text.Langs {

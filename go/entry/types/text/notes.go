@@ -1,5 +1,6 @@
 package text
 
+/*
 import (
 	"sacer/go/entry/tools"
 	"bytes"
@@ -17,14 +18,14 @@ func (t *Text) RenderFootnotesLang(count int, lang string) {
 	buf := bytes.Buffer{}
 
 	i := 0
-	s := t.Langs[lang]
+	s := t.Script.Langs[lang]
 	for len(s) > 0 {
 		c, size := utf8.DecodeRuneInString(s)
 		s = s[size:]
 
 		if c == '‡' {
 			buf.WriteString(fmt.Sprintf("<span class=\"ref\">%d</span>", count))
-			buf.WriteString(fmt.Sprintf("<span class=\"inline-note\">%v</span>", t.Notes[lang][i]))
+			buf.WriteString(fmt.Sprintf("<span class=\"inline-note\">%v</span>", t.Script.Notes[lang][i]))
 			i++
 			count++
 			continue
@@ -32,5 +33,6 @@ func (t *Text) RenderFootnotesLang(count int, lang string) {
 		buf.WriteString(string(c))
 	}
 
-	t.Langs[lang] = buf.String()
+	t.Script.Langs[lang] = buf.String()
 }
+*/

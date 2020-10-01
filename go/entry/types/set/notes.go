@@ -10,12 +10,12 @@ func (s *Set) RenderFootnotes() {
 	for _, e := range s.Entries() {
 		t, ok := e.(*text.Text)
 		if ok {
-			t.RenderFootnotes(c)
+			t.Script.NumberFootnotes(c)
 
-			notes["de"] = append(notes["de"], t.Notes["de"]...)
-			notes["en"] = append(notes["en"], t.Notes["en"]...)
+			notes["de"] = append(notes["de"], t.Script.Notes["de"]...)
+			notes["en"] = append(notes["en"], t.Script.Notes["en"]...)
 
-			c += len(t.Notes["de"])
+			c += len(t.Script.Notes["de"])
 		}
 	}
 
