@@ -25,7 +25,7 @@
         {{.Entry.Title .Head.Lang}}
         </span>
       </h1>
-          {{template "video-entry" $eL}}
+          {{template "kine-entry" $eL}}
     </div>
 
   {{if isLocal}}
@@ -40,23 +40,38 @@
 {{.E.Date.Format "2"}} {{abbr (monthLang .Entry.Date .L)}}
 {{- end}}
 
-{{define "video-entry"}}
+{{define "kine-entry"}}
 {{$type := $.E.Type}}
     {{if eq $type "set"}}
-      {{template "video-set" .}}
+      {{template "kine-set" .}}
+    {{else if eq $type "video"}}
+      {{template "kine-video" .}}
     {{else}}
       {{template "entry" .}}
     {{end}}
 {{end}}
 
-{{define "video-set"}}
+{{define "kine-set"}}
 <div class="set">
     {{range .E.Entries}}
-      {{template "video-entry" (eL . $.L)}}
+      {{template "kine-entry" (eL . $.L)}}
     {{end}}
 </div>
 {{end}}
 
+{{define "kine-video"}}
+      {{template "entry" .}}
+  {{with .E.Transcript}}
 
-
-
+  {{$text := index .Langs $.L}}
+  {{if $text}}
+  <div class="transcript transcript-kine column">
+    <h3>{{var "transcript" $.L}}</h3>
+    <div class="{{$.E.Info.TextStyle}}">
+      {{$text}}
+    </div>
+    {{template "footnotes" (nL .Notes $.L)}}
+  </div>
+  {{end}}
+  {{end}}
+{{end}}
