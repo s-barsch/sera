@@ -1,0 +1,25 @@
+{{define "log"}}
+<ul id="log" class="column">
+  <h1 class="index-title">Log</h1>
+{{range .}}
+  {{/* log entries written in English in the "de" field. */}}
+  {{template "log-entry" (eL . "de")}}
+{{end}}
+</ul>
+{{end}}
+
+{{define "log-entry"}}
+<li class="log">
+  <span class="date">
+  {{.E.Date.Format "1"}}
+  {{abbr (.E.Date.Format "January")}}
+  {{.E.Date.Format "15:04"}}
+  </span>
+  <span class="desktop">
+  --
+  </span>
+  <span class="entry">
+  {{shaveParagraph (index .E.Script.Langs "de")}}
+  </span>
+</li>
+{{end}}

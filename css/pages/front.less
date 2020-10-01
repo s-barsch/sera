@@ -159,9 +159,26 @@ h2.front-head {
     margin-top:2.75rem;
 }
 
+#log {
+    list-style:none;
+    padding-left:0;
+}
+
+.log {
+    font-family:var(--fontfamily-mono);
+}
+
+.log .date {
+    display:block;
+}
+
 .media-mixin(@break) when (@break = @break-single) {
     .col__spacer {
         display:none;
+    }
+
+    .log .date {
+        display:inline-block;
     }
 
     .cols {
@@ -200,3 +217,4 @@ h2.front-head {
 
 .media-mixin(@break) when (@break = @break-wide) {
 }
+

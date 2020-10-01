@@ -26,9 +26,12 @@ func Markdown(text string) string {
 	return string(bf.Run([]byte(text), bf.WithNoExtensions(), bfExtensions))
 }
 
-// shave of <p> and </p> at beginning and end
 func MarkdownNoP(text string) string {
-	text = Markdown(text)
+	return ShaveParagraph(Markdown(text))
+}
+
+// shave of <p> and </p> at beginning and end
+func ShaveParagraph(text string) string {
 	if l := len(text); l > 8 {
 		return text[3:l-5]
 	}

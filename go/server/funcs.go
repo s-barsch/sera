@@ -87,6 +87,7 @@ func (s *Server) Funcs() template.FuncMap {
 		"esLy": tmpl.NewEntriesLangLazy,
 		"snav": tmpl.NewSubnav,
 
+		"shaveParagraph": tools.ShaveParagraph,
 		"minifySvg": minifySVG,
 	}
 }

@@ -13,6 +13,7 @@ type frontMain struct {
 	Index    entry.Entries
 	Graph    entry.Entries
 	Kine     entry.Entries
+	Log      entry.Entries
 	Featured entry.Entry
 }
 
@@ -42,6 +43,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		Index:    index.Limit(s.Vars.FrontSettings.Index),
 		Graph:    graph.Limit(s.Vars.FrontSettings.Graph),
 		Kine:     kine.Limit(10),
+		Log:      s.Recents["log"]["de"],
 	})
 	if err != nil {
 		log.Println(err)

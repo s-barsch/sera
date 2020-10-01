@@ -12,6 +12,7 @@ var sections = []string{
 	"about",
 	"extra",
 	"kine",
+	"log",
 }
 
 func (s *Server) LoadSafe() error {
