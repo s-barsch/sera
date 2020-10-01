@@ -8,19 +8,19 @@ import (
 
 func (s *Server) processAllTexts() error {
 	/*
-	patterns, err := process.LoadHyphPatterns(s.Paths.Root)
-	if err != nil {
-		return err
-	}
-	// Hyphenation will be done for both languages. We just iterate through
-	// the German tree here, but will process all fiels within the entries.
-	lang := "de"
-	for _, section := range sections {
-		for _, e := range s.Trees[section][lang].TraverseTrees() {
-			patterns.HyphInfo(e)
+		patterns, err := process.LoadHyphPatterns(s.Paths.Root)
+		if err != nil {
+			return err
 		}
-		patterns.HyphEntries(s.Recents[section][lang])
-	}
+		// Hyphenation will be done for both languages. We just iterate through
+		// the German tree here, but will process all fiels within the entries.
+		lang := "de"
+		for _, section := range sections {
+			for _, e := range s.Trees[section][lang].TraverseTrees() {
+				patterns.HyphInfo(e)
+			}
+			patterns.HyphEntries(s.Recents[section][lang])
+		}
 	*/
 	return nil
 }

@@ -77,9 +77,11 @@
     {{end}}
     {{template "object-groups" (esL .E.Entries .L)}}
   {{template "graph-kine-mobile" .}}
+  {{with .E.Notes}}
   <div class="column">
-  {{template "footnotes" (nL .Notes .L)}}
+  {{template "footnotes" (nL . $.L)}}
   </div>
+  {{end}}
 </div>
 {{end}}
 

@@ -7,10 +7,10 @@ import (
 	"log"
 	"os"
 	p "path/filepath"
-	"sacer/go/server/tmpl"
-	"text/template"
 	"sacer/go/entry/tools"
 	"sacer/go/entry/tools/hyph"
+	"sacer/go/server/tmpl"
+	"text/template"
 )
 
 type Server struct {

@@ -8,7 +8,7 @@ import (
 	"sort"
 )
 
-type langTrees   map[string]*tree.Tree
+type langTrees map[string]*tree.Tree
 type langEntries map[string]entry.Entries
 
 func (s *Server) ReadTrees() error {
@@ -35,7 +35,7 @@ func (s *Server) ReadTrees() error {
 			"en": serialize(trees[section]["en"]),
 		}
 	}
-		
+
 	s.Trees = trees
 	s.Recents = recents
 

@@ -79,12 +79,13 @@ func (s *Server) Funcs() template.FuncMap {
 			}
 			return hasSubtitles(s, lang)
 		},
-		"nL":        tmpl.NewNotesLang,
-		"eL":        tmpl.NewEntryLang,
-		"eLy":       tmpl.NewEntryLangLazy,
-		"esL":       tmpl.NewEntriesLang,
-		"esLy":      tmpl.NewEntriesLangLazy,
-		"snav":      tmpl.NewSubnav,
+
+		"nL":   tmpl.NewNotesLang,
+		"eL":   tmpl.NewEntryLang,
+		"eLy":  tmpl.NewEntryLangLazy,
+		"esL":  tmpl.NewEntriesLang,
+		"esLy": tmpl.NewEntriesLangLazy,
+		"snav": tmpl.NewSubnav,
 
 		"minifySvg": minifySVG,
 	}
