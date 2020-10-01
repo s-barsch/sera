@@ -5,9 +5,10 @@ import (
 	"os"
 	"path/filepath"
 	"sacer/go/entry"
-	"sacer/go/entry/tools"
-	"sacer/go/entry/info"
 	"sacer/go/entry/file"
+	"sacer/go/entry/info"
+	"sacer/go/entry/tools"
+	"sacer/go/entry/types/audio"
 	"time"
 )
 
@@ -18,7 +19,8 @@ type Video struct {
 	date time.Time
 	info info.Info
 
-	Subtitles []string
+	Subtitles  []string
+	Transcript *audio.Transcript
 }
 
 func NewVideo(path string, parent entry.Entry) (*Video, error) {
@@ -54,12 +56,15 @@ func NewVideo(path string, parent entry.Entry) (*Video, error) {
 
 	subs := getSubtitles(path)
 
+	transcript := audio.GetTranscript(inf)
+
 	return &Video{
-		parent: parent,
-		file:   file,
-		date:   date,
-		info:   inf,
-		Subtitles: subs,
+		parent:     parent,
+		file:       file,
+		date:       date,
+		info:       inf,
+		Subtitles:  subs,
+		Transcript: transcript,
 	}, nil
 }
 
@@ -75,4 +80,3 @@ func getSubtitles(path string) []string {
 	}
 	return langs
 }
-

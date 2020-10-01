@@ -95,12 +95,12 @@
     src="{{.E.CaptionPath .}}"{{if and (ne $.L "de") (eq $.L .)}} default{{end}}>
     {{end}}
 </audio>
-  {{with .E.Transcript $.L}}
+  {{with .E.Transcript}}
 
   <div class="transcript">
     <h3>{{var "transcript" $.L}}</h3>
     <div class="{{$.E.Info.TextStyle}}">
-          {{.}}
+      {{index .Langs $.L}}
     </div>
   </div>
   {{end}}

@@ -18,10 +18,11 @@ type Text struct {
 	info info.Info
 
 	Langs Langs
-	Notes map[string][]string
+	Notes Notes
 }
 
 type Langs map[string]string
+type Notes map[string][]string
 
 func NewText(path string, parent entry.Entry) (*Text, error) {
 	fnErr := &tools.Err{
@@ -50,10 +51,7 @@ func NewText(path string, parent entry.Entry) (*Text, error) {
 		}
 	}
 
-	notes := langs.OwnRender()
-
-	langs.Markdown()
-	langs.Hyphenate()
+	langs, notes := RenderLangs(langs)
 
 	return &Text{
 		parent: parent,
@@ -63,19 +61,28 @@ func NewText(path string, parent entry.Entry) (*Text, error) {
 		info: inf,
 
 		Langs: langs,
-
-		Notes: renderNotes(notes),
+		Notes: notes,
 	}, nil
 }
 
-func renderNotes(notes map[string][]string) map[string][]string {
+func RenderLangs(langs Langs) (Langs, Notes) {
+	notes := langs.OwnRender()
+
+	langs.Markdown()
+	langs.Hyphenate()
+	notes.MarkdownHyphenate()
+
+	return langs, notes
+}
+
+
+func (notes Notes) MarkdownHyphenate() {
 	for l, _ := range tools.Langs {
 		for i, _ := range notes[l] {
 			notes[l][i] = tools.MarkdownNoP(notes[l][i])
 			notes[l][i] = hyph.Hyphenate(notes[l][i], l)
 		}
 	}
-	return notes
 }
 
 func (langs Langs) Hyphenate() {
@@ -90,7 +97,7 @@ func (langs Langs) Markdown() {
 	}
 }
 
-func (langs Langs) OwnRender() map[string][]string {
+func (langs Langs) OwnRender() Notes {
 	notes := map[string][]string{}
 
 	for l, _ := range tools.Langs {

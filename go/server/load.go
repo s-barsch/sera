@@ -28,13 +28,7 @@ func (s *Server) LoadSafe() error {
 func (s *Server) Load() error {
 	tStart := time.Now()
 
-	err := s.LoadTemplates()
-	if err != nil {
-		return err
-
-	}
-
-	err = s.ReadTrees()
+	err := s.ReadTrees()
 	if err != nil {
 		return err
 	}
@@ -45,6 +39,12 @@ func (s *Server) Load() error {
 	}
 
 	s.makeLinks()
+
+	err = s.LoadTemplates()
+	if err != nil {
+		return err
+
+	}
 
 	tEnd := time.Now()
 	tDif := tEnd.Sub(tStart)

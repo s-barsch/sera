@@ -8,8 +8,6 @@ func (a *Audio) Location(arg string) string {
 	return a.file.Path
 }
 
-
-
 func (a *Audio) CaptionPath(lang string) string {
 	return fmt.Sprintf(
 		"%v/files/vtt/%v-%v.vtt",
@@ -26,5 +24,3 @@ func (a *Audio) FilePath(lang string) string {
 	}
 	return fmt.Sprintf("%v/cache/%v", a.Perma(lang), a.file.Name())
 }
-
-

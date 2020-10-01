@@ -5,9 +5,10 @@ import (
 	"os"
 	p "path/filepath"
 	"sacer/go/entry"
-	"sacer/go/entry/tools"
 	"sacer/go/entry/file"
 	"sacer/go/entry/info"
+	"sacer/go/entry/tools"
+	"sacer/go/entry/types/text"
 	"time"
 )
 
@@ -20,11 +21,12 @@ type Audio struct {
 
 	Subtitles []string
 
-	//Transcript
+	Transcript *Transcript
 }
 
-func (a *Audio) Transcript(lang string) string {
-	return a.Info().Field("transcript", lang)
+type Transcript struct {
+	Langs text.Langs
+	Notes text.Notes
 }
 
 func NewAudio(path string, parent entry.Entry) (*Audio, error) {
@@ -49,8 +51,6 @@ func NewAudio(path string, parent entry.Entry) (*Audio, error) {
 		inf = i
 	}
 
-	inf = markupTranscript(inf)
-
 	date, err := tools.ParseTimestamp(inf["date"])
 	if err != nil {
 		date, err = tools.ParseDatePath(path)
@@ -62,12 +62,15 @@ func NewAudio(path string, parent entry.Entry) (*Audio, error) {
 
 	subs := getSubtitles(path)
 
+	transcript := GetTranscript(inf)
+
 	return &Audio{
-		parent:    parent,
-		file:      file,
-		date:      date,
-		info:      inf,
-		Subtitles: subs,
+		parent:     parent,
+		file:       file,
+		date:       date,
+		info:       inf,
+		Subtitles:  subs,
+		Transcript: transcript,
 	}, nil
 }
 
@@ -84,13 +87,27 @@ func getSubtitles(path string) []string {
 	return langs
 }
 
-func markupTranscript(inf info.Info) info.Info {
-	for _, lang := range []string {"de", "en"} {
-		key := "transcript"
-		if lang != "de" {
-			key += "-" + lang
-		}
-		inf[key] = tools.Markdown(inf[key])
+func GetTranscript(i info.Info) *Transcript {
+	if i["transcript"] == "" {
+		return nil
 	}
-	return inf
+
+	langs, notes := text.RenderLangs(extractTranscript(i))
+
+	return &Transcript{
+		Langs: langs,
+		Notes: notes,
+	}
+}
+
+func extractTranscript(i info.Info) text.Langs {
+	langs := text.Langs{}
+	for l, _ := range tools.Langs {
+		key := "transcript"
+		if l != "de" {
+			key += "-" + l
+		}
+		langs[l] = i[key]
+	}
+	return langs
 }
