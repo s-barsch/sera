@@ -7,6 +7,7 @@ import (
 	"sacer/go/entry/file"
 	"sacer/go/entry/info"
 	"sacer/go/entry/types/image"
+	"sacer/go/entry/types/text"
 	"time"
 )
 
@@ -21,7 +22,7 @@ type Set struct {
 	Cover   *image.Image
 
 	Kine    entry.Entries
-	Notes   map[string][]string
+	Notes   text.Notes
 }
 
 func (s *Set) Copy() *Set {

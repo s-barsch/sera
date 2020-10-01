@@ -29,12 +29,8 @@
 {{define "text"}}
 {{$style := index .E.Info "style"}}
 <div class="{{.E.Info.TextStyle}}">
-    {{.E.Text .L}}
+    {{index .E.Script.Langs .L}}
 </div>
-{{/*
-{{if gt (len .E.Notes.de) 0}}true{{end}}
-{{.E.Notes.de}}
-*/}}
 {{end}}
 
 {{define "html"}}

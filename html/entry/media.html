@@ -102,6 +102,7 @@
     <div class="{{$.E.Info.TextStyle}}">
       {{index .Langs $.L}}
     </div>
+    {{template "footnotes" (nL .Notes $.L)}}
   </div>
   {{end}}
 {{end}}

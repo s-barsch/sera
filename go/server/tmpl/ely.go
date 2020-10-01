@@ -2,7 +2,28 @@ package tmpl
 
 import (
 	"sacer/go/entry"
+	"sacer/go/entry/types/text"
 )
+
+type NotesLang struct {
+	Notes *text.Notes
+	Lang  string
+}
+
+func (nL NotesLang) N() *text.Notes {
+	return nL.Notes
+}
+
+func (nL NotesLang) L() string {
+	return nL.Lang
+}
+
+func NewNotesLang(n *text.Notes, lang string) *NotesLang {
+	return &NotesLang{
+		Notes: n,
+		Lang:  lang,
+	}
+}
 
 type EntryLangLazy struct {
 	Entry entry.Entry

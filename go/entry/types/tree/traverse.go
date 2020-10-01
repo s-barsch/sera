@@ -144,7 +144,7 @@ func isNotTranslated(e entry.Entry, lang string) bool {
 func isEmptyText(e entry.Entry, lang string) bool {
 	tx, ok := e.(*text.Text)
 	if ok {
-		if tx.Text(lang) == "" {
+		if tx.Script.Langs[lang] == "" {
 			return true
 		}
 	}
