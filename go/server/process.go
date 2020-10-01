@@ -3,27 +3,7 @@ package server
 import (
 	"sacer/go/entry"
 	"sacer/go/entry/types/set"
-	//"sacer/go/server/process"
 )
-
-func (s *Server) processAllTexts() error {
-	/*
-		patterns, err := process.LoadHyphPatterns(s.Paths.Root)
-		if err != nil {
-			return err
-		}
-		// Hyphenation will be done for both languages. We just iterate through
-		// the German tree here, but will process all fiels within the entries.
-		lang := "de"
-		for _, section := range sections {
-			for _, e := range s.Trees[section][lang].TraverseTrees() {
-				patterns.HyphInfo(e)
-			}
-			patterns.HyphEntries(s.Recents[section][lang])
-		}
-	*/
-	return nil
-}
 
 func (s *Server) makeLinks() {
 	kines := s.Recents["kine"]["de"]
@@ -45,6 +25,7 @@ func (s *Server) makeLinks() {
 func findMatchingKines(kines entry.Entries, s *set.Set) entry.Entries {
 	matches := entry.Entries{}
 	for _, e := range kines {
+		// TODO: start at 20-08
 		if e.Date().Format("060102") == s.Date().Format("060102") {
 			matches = append(matches, e)
 		}
@@ -54,5 +35,3 @@ func findMatchingKines(kines entry.Entries, s *set.Set) entry.Entries {
 	}
 	return nil
 }
-
-// templates
