@@ -11,10 +11,13 @@ type Info map[string]string
 func (i Info) Hyphenate() {
 	for key, value := range i {
 		switch name(key) {
-		case "caption", "transcript", "alt":
+		case "transcript", "alt":
 			continue
 		case "title":
 			i.HyphenateTitle(key)
+		case "caption":
+			i[key] = tools.MarkdownNoP(value)
+			fallthrough
 		default:
 			i[key] = hyph.Hyphenate(value, keyLang(key))
 		}
@@ -22,7 +25,7 @@ func (i Info) Hyphenate() {
 }
 
 func (i Info) HyphenateTitle(key string) {
-	// "title-en" or "title"
+	// determine "title" or "title-en"
 	lang := keyLang(key)
 
 	// new key: "title-hyph-en"

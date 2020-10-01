@@ -17,7 +17,7 @@ type Text struct {
 	date time.Time
 	info info.Info
 
-	Langs map[string]string
+	Langs Langs
 	Notes map[string][]string
 }
 
@@ -50,7 +50,7 @@ func NewText(path string, parent entry.Entry) (*Text, error) {
 		}
 	}
 
-	notes := langs.Markup()
+	notes := langs.OwnRender()
 
 	langs.Markdown()
 	langs.Hyphenate()
@@ -71,7 +71,7 @@ func NewText(path string, parent entry.Entry) (*Text, error) {
 func renderNotes(notes map[string][]string) map[string][]string {
 	for l, _ := range tools.Langs {
 		for i, _ := range notes[l] {
-			notes[l][i] = tools.Markdown(notes[l][i])
+			notes[l][i] = tools.MarkdownNoP(notes[l][i])
 			notes[l][i] = hyph.Hyphenate(notes[l][i], l)
 		}
 	}
@@ -90,7 +90,7 @@ func (langs Langs) Markdown() {
 	}
 }
 
-func (langs Langs) Markup() map[string][]string {
+func (langs Langs) OwnRender() map[string][]string {
 	notes := map[string][]string{}
 
 	for l, _ := range tools.Langs {
