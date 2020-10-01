@@ -162,14 +162,13 @@ h2.front-head {
 #log {
     list-style:none;
     padding-left:0;
+    overflow-x:scroll;
+    font-size:var(--fontsize-third);
 }
 
 .log {
     font-family:var(--fontfamily-mono);
-}
-
-.log .date {
-    display:block;
+    white-space: nowrap;
 }
 
 .media-mixin(@break) when (@break = @break-single) {
@@ -177,6 +176,9 @@ h2.front-head {
         display:none;
     }
 
+    #log {
+        overflow:auto;
+    }
     .log .date {
         display:inline-block;
     }
