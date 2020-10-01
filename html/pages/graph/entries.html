@@ -76,7 +76,9 @@
     <em>This entry is not yet translated.</em>
     {{end}}
     {{template "object-groups" (esL .E.Entries .L)}}
+  <div class="column">
   {{template "graph-kine-mobile" .}}
+  </div>
   {{with .E.Notes}}
   <div class="column">
   {{template "footnotes" (nL . $.L)}}

@@ -30,7 +30,7 @@ func MarkdownNoP(text string) string {
 	return ShaveParagraph(Markdown(text))
 }
 
-// shave of <p> and </p> at beginning and end
+// shave off <p> and </p> at beginning and end
 func ShaveParagraph(text string) string {
 	if l := len(text); l > 8 {
 		return text[3:l-5]
