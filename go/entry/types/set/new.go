@@ -35,6 +35,9 @@ func (s *Set) Copy() *Set {
 
 		entries: s.entries,
 		Cover: s.Cover,
+
+		Notes: s.Notes,
+		Kine:  s.Kine,
 	}
 }
 
@@ -80,7 +83,7 @@ func NewSet(path string, parent entry.Entry) (*Set, error) {
 
 	s.Cover, s.entries = extractCover(entries)
 
-	s.RenderFootnotes()
+	s.NumberFootnotes()
 
 	return s, nil
 }

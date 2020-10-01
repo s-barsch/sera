@@ -4,7 +4,7 @@ import (
 	"sacer/go/entry/types/text"
 )
 
-func (s *Set) RenderFootnotes() {
+func (s *Set) NumberFootnotes() {
 	c := 1
 	notes := map[string][]string{}
 	for _, e := range s.Entries() {

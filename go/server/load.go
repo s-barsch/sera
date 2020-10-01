@@ -33,11 +33,6 @@ func (s *Server) Load() error {
 		return err
 	}
 
-	err = s.processAllTexts()
-	if err != nil {
-		return err
-	}
-
 	s.makeLinks()
 
 	err = s.LoadTemplates()
