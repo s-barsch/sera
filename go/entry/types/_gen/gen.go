@@ -14,7 +14,8 @@ import (
 	"text/template"
 )
 
-var typeDir = "types"
+//var typeDir = "types"
+var typeDir = "."
 
 func main() {
 	types, err := readTypes()
