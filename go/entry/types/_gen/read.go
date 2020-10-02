@@ -17,7 +17,8 @@ func readTypesDir(path string) ([]string, error) {
 	}
 
 	for _, fi := range l {
-		if !fi.IsDir() {
+		switch {
+		case !fi.IsDir(), fi.Name() == "_gen":
 			continue
 		}
 		types = append(types, fi.Name())

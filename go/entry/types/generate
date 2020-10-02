@@ -1,4 +1,4 @@
 #!/bin/bash
 EXEC_PATH="`dirname \"$0\"`"
-cd "$EXEC_PATH"
-go run _gen/*go
+cd "$EXEC_PATH/.."
+go run types/_gen/*go

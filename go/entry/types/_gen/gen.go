@@ -10,12 +10,12 @@ import (
 	"io/ioutil"
 	"log"
 	"os/exec"
+	p "path/filepath"
 	"strings"
 	"text/template"
 )
 
-//var typeDir = "types"
-var typeDir = "."
+var typeDir = "types"
 
 func main() {
 	types, err := readTypes()
@@ -62,7 +62,7 @@ func printOutFile(typ string, tmpl *template.Template) error {
 	if err != nil {
 		return err
 	}
-	fmt.Printf("written: %v\n", path)
+	fmt.Printf("written: %v\n", p.Clean(path))
 	return nil
 }
 
