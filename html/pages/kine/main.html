@@ -22,16 +22,17 @@
       <div class="video-grid">
       {{range $i, $set := $entries}}
         {{if $set.Cover}}
-        <span>
+        <div>
           {{if isTranslated $set $.Head.Lang}}
-          <span>
+          <div>
           {{else}}
           <img class="no-subtitles" src="/static/svg/no-subtitles.svg">
           <span class="untranslated">
           {{end}}
           {{template "graph-image" (eL .Cover $.Head.Lang)}}
-          </span>
-        </span>
+          </div>
+          {{$set.Title $.Head.Lang}}
+        </div>
         {{else}}
           Has no cover:<br>{{.}}
         {{end}}
