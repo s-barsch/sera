@@ -10,7 +10,6 @@ import (
 	"io/ioutil"
 	"log"
 	"os/exec"
-	p "path/filepath"
 	"strings"
 	"text/template"
 )
@@ -62,7 +61,7 @@ func printOutFile(typ string, tmpl *template.Template) error {
 	if err != nil {
 		return err
 	}
-	fmt.Printf("written: %v\n", p.Clean(path))
+	fmt.Printf("written: %v\n", path)
 	return nil
 }
 
