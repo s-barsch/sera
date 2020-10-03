@@ -22,7 +22,7 @@
           {{abbr (monthLang .Entry.Date $.Head.Lang)}}
         </span>
         <span class="video-title">
-        {{.Entry.Title .Head.Lang}}
+        {{.Entry.Info.Field "title-display" .Head.Lang}}
         </span>
       </h1>
           {{template "kine-entry" $eL}}

@@ -15,7 +15,8 @@ func (i Info) Hyphenate() {
 		case "transcript", "alt":
 			continue
 		case "title":
-			i.HyphenateTitle(key)
+			i[newKey(key, "display")] = displayTitle(key, value)
+			i[key] = strings.Replace(value, "|", "", -1)
 		case "caption":
 			i[key] = tools.MarkdownNoP(value)
 			fallthrough
@@ -25,15 +26,22 @@ func (i Info) Hyphenate() {
 	}
 }
 
-func (i Info) HyphenateTitle(key string) {
-	// determine "title" or "title-en"
-	lang := keyLang(key)
+func displayTitle(key, value string) string {
+	hyphed := hyph.Hyphenate(value, keyLang(key))
 
-	// new key: "title-hyph-en"
-	keyName := fmt.Sprintf("%v-hyph", name(key)) + langSuffix(lang)
-	
-	// save hyphenated title under new key
-	i[keyName] = hyph.Hyphenate(i[key], lang)
+	return makeBrackets(hyphed)
+}
+
+func newKey(key, newName string) string {
+	return fmt.Sprintf("%v-%v", name(key), newName) + langSuffix(keyLang(key))
+}
+
+func makeBrackets(title string) string {
+	brackets := ""
+	for _, el := range strings.Split(title, "|") {
+		brackets += fmt.Sprintf("<span class=\"bracket\">%v</span> ", el)
+	}
+	return brackets
 }
 
 func name(key string) string {
@@ -49,7 +57,12 @@ func keyLang(key string) string {
 	if i <= 0 || i+1 >= len(key) {
 		return "de"
 	}
-	return key[i+1:]
+	switch x := key[i+1:]; x {
+	case "de", "en":
+		return x
+	default:
+		return "de"
+	}
 }
 
 func langSuffix(lang string) string {

@@ -35,7 +35,7 @@ func ParseInfoFile(path string) (Info, error) {
 		Func: "ParseInfoFile",
 	}
 
-	i := map[string]string{}
+	i := Info{}
 
 	f, err := os.Open(path)
 	if err != nil {
@@ -51,36 +51,40 @@ func ParseInfoFile(path string) (Info, error) {
 		return i, fnErr
 	}
 
-	for k, v := range i {
-		delete(i, k)
-		i[norm(k)] = trim(v)
-	}
+	i.Clean()
+	i.Hyphenate()
 
 	return i, nil
 
 }
 
 func UnmarshalInfo(input []byte) (Info, error) {
-	i := map[string]string{}
+	i := Info{}
 	err := yaml.Unmarshal(input, &i)
 	if err != nil {
 		return i, err
 	}
 
-	for k, v := range i {
-		delete(i, k)
-		i[norm(k)] = trim(v)
-	}
+	i.Clean()
+	i.Hyphenate()
 
 	return i, nil
 }
 
 
-func norm(str string) string {
-	return tools.Normalize(str)
+func (i Info) Clean() {
+	for k, v := range i {
+		delete(i, k)
+		key := tools.Normalize(k)
+
+		// Keep new lines EOF
+		if name(key) == "transcript" {
+			i[key] = v
+			continue
+		}
+
+		i[key] = strings.TrimSpace(v)
+	}
 }
 
-func trim(str string) string {
-	return strings.TrimSpace(str)
-}
 
