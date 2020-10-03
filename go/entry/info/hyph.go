@@ -15,21 +15,19 @@ func (i Info) Hyphenate() {
 		case "transcript", "alt":
 			continue
 		case "title":
-			i[newKey(key, "display")] = displayTitle(key, value)
+			i[newKey(key, "display")] = makeBrackets(hyphenate(key, value))
 			i[key] = strings.Replace(value, "|", "", -1)
 		case "caption":
 			i[key] = tools.MarkdownNoP(value)
 			fallthrough
 		default:
-			i[key] = hyph.Hyphenate(value, keyLang(key))
+			i[key] = hyphenate(key, value)
 		}
 	}
 }
 
-func displayTitle(key, value string) string {
-	hyphed := hyph.Hyphenate(value, keyLang(key))
-
-	return makeBrackets(hyphed)
+func hyphenate(key, value string) string {
+	return hyph.Hyphenate(value, keyLang(key))
 }
 
 func newKey(key, newName string) string {
