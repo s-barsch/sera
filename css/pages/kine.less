@@ -35,7 +35,7 @@
 
 .video-title-bar {
     margin:.25rem 0 .75rem;
-    line-height:1.2;
+    line-height:1;
     /*
     display:flex;
     justify-content:space-between;
@@ -45,7 +45,7 @@
 
 .video-title {
     font-family: var(--fontfamily-garamond12);
-    font-size:1.5625rem;
+    font-size:2rem;
 }
 
 .video-date {
@@ -53,14 +53,15 @@
     font-weight:550;
     font-family: var(--fontfamily-sans);
     margin-right:.5rem;
+    display:none;
 }
 
 .media-mixin(@break) when (@break = @break-single) {
     .video-title-bar {
-        margin:0 0 .25rem;
+        margin:1.25rem 0 .75rem;
     }
     .video-title {
-        font-size:2.25rem;
+        font-size:2.75rem;
     }
     .video-date {
         //font-size:1.5rem;
