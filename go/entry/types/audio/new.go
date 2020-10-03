@@ -101,14 +101,8 @@ func extractTranscript(i info.Info) text.Langs {
 		if l != "de" {
 			key += "-" + l
 		}
-		langs[l] = addNewLine(i[key])
+		langs[l] = i[key]
 	}
 	return langs
 }
 
-func addNewLine(text string) string {
-	if l := len(text); l > 0 && text[l-1] != '\n' {
-		return text + "\n"
-	}
-	return text
-}

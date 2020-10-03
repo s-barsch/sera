@@ -12,15 +12,14 @@ type Info map[string]string
 func (i Info) Hyphenate() {
 	for key, value := range i {
 		switch name(key) {
-		case "transcript", "alt":
+		case "transcript", "alt", "slug":
 			continue
 		case "title":
 			i[newKey(key, "display")] = makeBrackets(hyphenate(key, value))
 			i[key] = strings.Replace(value, "|", "", -1)
+			i[newKey(key, "hyph")] = hyphenate(key, i[key])
 		case "caption":
 			i[key] = tools.MarkdownNoP(value)
-			fallthrough
-		default:
 			i[key] = hyphenate(key, value)
 		}
 	}
@@ -43,8 +42,8 @@ func makeBrackets(title string) string {
 }
 
 func name(key string) string {
-	i := strings.Index(key, "-")
-	if i <= 0 {
+	i := strings.LastIndex(key, "-")
+	if i <= 0 || key[i+1:] != "en" {
 		return key
 	}
 	return key[:i]
