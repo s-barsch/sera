@@ -15,6 +15,8 @@ type Text struct {
 	date time.Time
 	info info.Info
 
+	raw  Langs
+
 	Script *Script
 }
 
@@ -25,6 +27,8 @@ func (t *Text) Copy() *Text {
 
 		date: t.date,
 		info: t.info,
+
+		raw:  t.raw.Copy(),
 
 		Script: t.Script.Copy(),
 	}
@@ -57,6 +61,7 @@ func NewText(path string, parent entry.Entry) (*Text, error) {
 		}
 	}
 
+	raw := langs.Copy()
 	script := RenderScript(langs)
 
 	return &Text{
@@ -65,6 +70,8 @@ func NewText(path string, parent entry.Entry) (*Text, error) {
 
 		date: date,
 		info: inf,
+
+		raw: raw,
 
 		Script: script,
 	}, nil

@@ -81,7 +81,7 @@ func makePublic(es entry.Entries, newParent entry.Entry) entry.Entries {
 			ns.SetEntries(makePublic(ns.Entries(), ns))
 			e = ns
 		}
-		if e.Info()["wall"] == "true" {
+		if newParent.Info()["wall"] == "true" || e.Info()["wall"] == "true" {
 			if t, ok := e.(*text.Text); ok {
 				e = t.Blur()
 			}
