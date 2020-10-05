@@ -76,11 +76,15 @@ func makePublic(es entry.Entries, newParent entry.Entry) entry.Entries {
 			continue
 		}
 		e.SetParent(newParent)
-		s, ok := e.(*set.Set)
-		if ok {
+		if s, ok := e.(*set.Set); ok {
 			ns := s.Copy()
 			ns.SetEntries(makePublic(ns.Entries(), ns))
 			e = ns
+		}
+		if e.Info()["wall"] == "true" {
+			if t, ok := e.(*text.Text); ok {
+				e = t.Blur()
+			}
 		}
 		l = append(l, e)
 	}

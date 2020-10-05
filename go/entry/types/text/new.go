@@ -18,6 +18,18 @@ type Text struct {
 	Script *Script
 }
 
+func (t *Text) Copy() *Text {
+	return &Text{
+		parent: t.parent, // TODO: is this dangerous?
+		file:   t.file,
+
+		date: t.date,
+		info: t.info,
+
+		Script: t.Script.Copy(),
+	}
+}
+
 func NewText(path string, parent entry.Entry) (*Text, error) {
 	fnErr := &tools.Err{
 		Path: path,

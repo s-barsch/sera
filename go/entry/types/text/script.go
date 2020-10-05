@@ -30,6 +30,34 @@ func RenderScript(langs Langs) (*Script) {
 	}
 }
 
+func (s Script) Copy() *Script {
+	return &Script{
+		Langs: s.Langs.Copy(),
+		Notes: s.Notes.Copy(),
+	}
+}
+
+func (n Notes) Copy() Notes {
+	m := map[string][]string{}
+
+	for k, v := range n {
+		s := make([]string, len(v))
+		copy(v, s)
+		m[k] = s
+	}
+	
+	return m
+}
+
+func (l Langs) Copy() Langs {
+	m := map[string]string{}
+
+	for k, v := range l {
+		m[k] = v
+	}
+
+	return m
+}
 
 func (notes Notes) MarkdownHyphenate() {
 	for l, _ := range tools.Langs {
