@@ -73,6 +73,21 @@ func IndexEls(w http.ResponseWriter, r *http.Request) {
 }
 */
 
+func Kines(s *server.Server, w http.ResponseWriter, r *http.Request) {
+	entries, err := elEntries(s, "kine", head.Lang(r.Host))
+	if err != nil {
+		http.Error(w, "internal error", 500)
+		log.Println(err)
+		return
+	}
+
+	err = s.Templates.ExecuteTemplate(w, "sitemap", entries)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+}
+
 func GraphEntries(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	entries, err := elEntries(s, "graph", head.Lang(r.Host))
 	if err != nil {
@@ -183,13 +198,8 @@ func elEntries(s *server.Server, page, lang string) ([]*SitemapEntry, error) {
 	es := entry.Entries{}
 	prio := ""
 
-	if page == "graph" {
-		es = s.Recents["graph"][lang]
-		prio = "0.5"
-	} else {
-		es = s.Recents["index"][lang]
-		prio = "0.4"
-	}
+	es = s.Recents[page][lang]
+	prio = "0.5"
 
 	for _, e := range es {
 		entries = append(entries, &SitemapEntry{

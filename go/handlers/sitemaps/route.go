@@ -13,6 +13,8 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		Core(s, w, r)
 	case "/sitemaps/trees.xml":
 		Trees(s, w, r)
+	case "/sitemaps/kines.xml":
+		Kines(s, w, r)
 	case "/sitemaps/graph-entries.xml":
 		GraphEntries(s, w, r)
 	default:
