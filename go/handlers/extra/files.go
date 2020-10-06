@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-
 	"sacer/go/entry"
+	"sacer/go/entry/types/image"
 	"sacer/go/entry/types/video"
 	"sacer/go/entry/types/set"
 	"sacer/go/head"
@@ -52,7 +52,16 @@ func serveSingleBlob(w http.ResponseWriter, r *http.Request, e entry.Entry, path
 			return nil
 		}
 	}
-	serveStatic(w, r, blob.Location(path.SubFile.Size))
+	loc := blob.Location(path.SubFile.Size)
+	// TODO: sketchy
+	if blur := path.SubFile.Blur; blur {
+		if i, ok := blob.(*image.Image); ok {
+			loc = i.LocationBlur(path.SubFile.Size, blur)
+		} else {
+			return fmt.Errorf("serveSingleBlob: unknown type, not implemented")
+		}
+	}
+	serveStatic(w, r, loc)
 	return nil
 }
 

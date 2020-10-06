@@ -10,15 +10,31 @@ func (i *Image) Location(size string) string {
 	return p.Join(i.file.Dir(), "cache", size, i.file.Name())
 }
 
-func (i *Image) ImagePath(size int, lang string) string {
-	if i.parent.Type() == "set" {
-		return fmt.Sprintf("%v/cache/%v", i.parent.Perma(lang), i.ImageName(size))
+// TODO: sketchy
+func (i *Image) LocationBlur(size string, blur bool) string {
+	blurStr := ""
+	if blur {
+		blurStr = "_blur"
 	}
-	return fmt.Sprintf("%v/cache/%v", i.Perma(lang), i.ImageName(size))
+	return p.Join(i.file.Dir(), "cache", size, i.file.NameNoExt() + blurStr + i.file.Ext())
 }
 
-func (i *Image) ImageName(size int) string {
-	return fmt.Sprintf("%v-%v%v", i.file.NameNoExt(), size, i.file.Ext())
+func (i *Image) ImagePath(size int, lang string) string {
+	parent := ""
+	if i.parent.Type() == "set" {
+		parent = i.parent.Perma(lang)
+	} else {
+		parent = i.Perma(lang)
+	}
+	return fmt.Sprintf("%v/cache/%v", parent, i.ImageName(size, i.info.Wall()))
+}
+
+func (i *Image) ImageName(size int, blur bool) string {
+	blurStr := ""
+	if blur {
+		blurStr = "_blur"
+	}
+	return fmt.Sprintf("%v-%v%v%v", i.file.NameNoExt(), size, blurStr, i.file.Ext())
 }
 
 func (i *Image) SrcSet(size int, lang string) string {

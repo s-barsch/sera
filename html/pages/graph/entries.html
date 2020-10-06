@@ -8,9 +8,14 @@
             {{if eq .Parent.Type "set"}}
               {{template "graph-set-entry" (eLy . $.L false)}}
             {{else}}
-            <article class="object object--graph{{if eq (index .Info "wall") "true"}} wall{{end}}">
+            <article class="object object--graph{{if .Info.Wall}} wall{{end}}">
               {{template "graph-object" (eLy . $.L false)}}
-              </article>
+              {{if .Info.Wall}}
+              <div class="get-access">
+                Get access.
+              </div>
+              {{end}}
+            </article>
             {{end}}
           {{end}}
         </section>

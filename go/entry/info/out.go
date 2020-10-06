@@ -12,6 +12,10 @@ func (i Info) Private() bool {
 	return i["private"] == "true"
 }
 
+func (i Info) Wall() bool {
+	return i["wall"] == "true"
+}
+
 func (i Info) Caption(lang string) string {
 	return i.Field("caption", lang)
 }
