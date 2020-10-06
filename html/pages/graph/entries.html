@@ -8,7 +8,7 @@
             {{if eq .Parent.Type "set"}}
               {{template "graph-set-entry" (eLy . $.L false)}}
             {{else}}
-              <article class="object object--graph">
+            <article class="object object--graph{{if eq (index .Info "wall") "true"}} wall{{end}}">
               {{template "graph-object" (eLy . $.L false)}}
               </article>
             {{end}}
