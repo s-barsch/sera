@@ -10,6 +10,14 @@ type Auth struct {
 
 func CheckAuth(r *http.Request) *Auth {
 	return &Auth{
-		Subscriber: false,
+		Subscriber: isSubscriber(r),
 	}
+}
+
+func isSubscriber(r *http.Request) bool {
+	c, err := r.Cookie("auth")
+	if err != nil {
+		return false
+	}
+	return c.Value == "supersecret"
 }
