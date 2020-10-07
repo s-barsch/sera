@@ -8,6 +8,7 @@ import (
 	"sacer/go/entry/types/tree"
 	"sacer/go/head"
 	"sacer/go/server"
+	"sacer/go/server/auth"
 )
 
 type graphMain struct {
@@ -18,7 +19,7 @@ type graphMain struct {
 	//Next *entry.Hold
 }
 
-func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
+func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
 	lang := head.Lang(r.Host)
 	t := s.Trees["graph"][lang]
 	head := &head.Head{

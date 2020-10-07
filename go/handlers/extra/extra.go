@@ -7,6 +7,7 @@ import (
 	"sacer/go/head"
 	"sacer/go/paths"
 	"sacer/go/server"
+	"sacer/go/server/auth"
 	"strings"
 )
 
@@ -15,7 +16,7 @@ type extraHold struct {
 	Tree *tree.Tree
 }
 
-func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
+func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
 	path, err := paths.Sanitize(r.URL.Path)
 	if err != nil {
 		http.NotFound(w, r)

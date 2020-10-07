@@ -6,6 +6,7 @@ import (
 	"sacer/go/entry"
 	"sacer/go/head"
 	"sacer/go/server"
+	"sacer/go/server/auth"
 )
 
 type frontMain struct {
@@ -17,7 +18,7 @@ type frontMain struct {
 	Featured entry.Entry
 }
 
-func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
+func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
 	lang := head.Lang(r.Host)
 
 	head := &head.Head{

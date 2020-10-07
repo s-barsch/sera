@@ -8,9 +8,10 @@ import (
 	"sacer/go/head"
 	"sacer/go/paths"
 	"sacer/go/server"
+	"sacer/go/server/auth"
 )
 
-func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
+func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
 	reqPath, err := paths.Sanitize(r.URL.Path)
 	if err != nil {
 		http.NotFound(w, r)
@@ -20,27 +21,27 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	rel := reqPath[len("/index"):]
 
 	if rel == "" {
-		Main(s, w, r)
+		Main(s, w, r, a)
 		return
 	}
 
 	if rel == "/serial" {
-		Serial(s, w, r)
+		Serial(s, w, r, a)
 		return
 	}
 
 	if rel == "/map.svg" {
-		MapIndex(s, w, r)
+		MapIndex(s, w, r, a)
 		return
 	}
 
 	if rel == "/map-all.svg" {
-		MapAll(s, w, r)
+		MapAll(s, w, r, a)
 		return
 	}
 	
 	if rel == "/map.dot" {
-		MapDot(s, w, r)
+		MapDot(s, w, r, a)
 		return
 	}
 

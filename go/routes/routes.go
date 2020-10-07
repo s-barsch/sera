@@ -11,6 +11,7 @@ import (
 	"sacer/go/handlers/kine"
 	"sacer/go/handlers/sitemaps"
 	"sacer/go/server"
+	"sacer/go/server/auth"
 )
 
 func Router(s *server.Server) *mux.Router {
@@ -57,15 +58,16 @@ func Router(s *server.Server) *mux.Router {
 		path := fileRoutes[query]
 		r.HandleFunc(query, func(w http.ResponseWriter, r *http.Request) {
 			r.URL.Path = path
-			extra.StaticFiles(s, w, r)
+			extra.StaticFiles(s, w, r, auth.CheckAuth(r))
 		})
 	}
 
 	return r
 }
 
-func makeHandler(s *server.Server, fn func(*server.Server, http.ResponseWriter, *http.Request)) http.HandlerFunc {
+func makeHandler(s *server.Server, fn func(*server.Server, http.ResponseWriter, *http.Request, *auth.Auth)) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		fn(s, w, r)
+		fn(s, w, r, auth.CheckAuth(r))
 	}
 }
+

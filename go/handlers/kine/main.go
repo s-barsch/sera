@@ -9,6 +9,7 @@ import (
 	"sacer/go/entry/types/tree"
 	"sacer/go/head"
 	"sacer/go/server"
+	"sacer/go/server/auth"
 	"strings"
 )
 
@@ -18,7 +19,7 @@ type kineMain struct {
 	Entries entry.Entries
 }
 
-func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
+func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
 	lang := head.Lang(r.Host)
 	t := s.Trees["kine"][lang]
 	head := &head.Head{

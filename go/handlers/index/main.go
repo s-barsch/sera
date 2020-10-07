@@ -8,6 +8,7 @@ import (
 	"sacer/go/head"
 	"sacer/go/paths"
 	"sacer/go/server"
+	"sacer/go/server/auth"
 )
 
 type indexMain struct {
@@ -16,7 +17,7 @@ type indexMain struct {
 	Recents entry.Entries
 }
 
-func Main(s *server.Server, w http.ResponseWriter, r *http.Request) {
+func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
 	path, err := paths.Sanitize(r.URL.Path)
 	if err != nil {
 		http.NotFound(w, r)

@@ -22,7 +22,7 @@ type graphPart struct {
 	Langs  map[string]string `json:"langs"`
 }
 
-func ElPart(s *server.Server, w http.ResponseWriter, r *http.Request) {
+func ElPart(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
 	p := paths.Split(r.URL.Path)
 
 	e, err := s.Trees["graph"].LookupAcronym(p.Acronym)
