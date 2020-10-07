@@ -6,16 +6,19 @@ import (
 	"sacer/go/entry/types/set"
 )
 
+
 func (s *Server) makeLinks() {
 	kines := s.Recents["kine"].Access(true)["de"]
 
-	for lang, _ := range tools.Langs {
-		for _, e := range s.Recents["graph"].Access(true)[lang] {
-			s, ok := e.(*set.Set)
-			if ok {
-				es := findMatchingKines(kines, s)
-				if es != nil {
-					s.Kine = es
+	for _, access := range []bool{ false, true } {
+		for lang, _ := range tools.Langs {
+			for _, e := range s.Recents["graph"].Access(access)[lang] {
+				s, ok := e.(*set.Set)
+				if ok {
+					es := findMatchingKines(kines, s)
+					if es != nil {
+						s.Kine = es
+					}
 				}
 			}
 		}

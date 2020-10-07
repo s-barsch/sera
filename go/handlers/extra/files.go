@@ -52,8 +52,7 @@ func serveSingleBlob(w http.ResponseWriter, r *http.Request, e entry.Entry, path
 			return nil
 		}
 	}
-	loc := blob.Location(path.SubFile.Size)
-	serveStatic(w, r, loc)
+	serveStatic(w, r, blob.Location(path.SubFile.Size))
 	return nil
 }
 

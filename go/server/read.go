@@ -8,6 +8,15 @@ import (
 	"sort"
 )
 
+var sections = []string{
+	"kine",
+	"index",
+	"graph",
+	"about",
+	"extra",
+	"log",
+}
+
 type DoubleTree struct {
 	All, Blur map[string]*tree.Tree
 }

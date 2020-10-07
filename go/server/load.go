@@ -6,15 +6,6 @@ import (
 	"time"
 )
 
-var sections = []string{
-	"index",
-	"graph",
-	"about",
-	"extra",
-	"kine",
-	"log",
-}
-
 func (s *Server) LoadSafe() error {
 	select {
 	case s.Queue <- 1:

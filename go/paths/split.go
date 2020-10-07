@@ -16,7 +16,6 @@ type Path struct {
 
 type SubFile struct {
 	Name, Size string
-	Blur bool
 }
 
 func (p *Path) Section() string {
@@ -113,25 +112,16 @@ func Split(path string) *Path {
 	}
 }
 
-// subpath == 160403_124512-1600_blur.jpg
+// subpath == 160403_124512-1600.jpg
 //			  |             |
 //			  filename	    size
 
-// 160403_124512-1600_blur.jpg -> (160403_124512.jpg) (1600)
+// 160403_124512-1600.jpg -> (160403_124512.jpg) (1600)
 func SplitSubpath(subp string) *SubFile {
-
-	blur := false
-	h := strings.LastIndex(subp, "_blur")
-	if h > 0 {
-		subp = subp[:h] + subp[h+5:]
-		blur = true
-	}
-
 	i := strings.LastIndex(subp, "-")
 	if i < 0 {
 		return &SubFile{
 			Name: subp,
-			Blur: blur,
 		}
 	}
 	j := strings.LastIndex(subp, ".")
@@ -141,13 +131,11 @@ func SplitSubpath(subp string) *SubFile {
 		return &SubFile{
 			Name: subp[:i],
 			Size: subp[i+1:],
-			Blur: blur,
 		}
 	}
 	// Remove size and put filename back together.
 	return &SubFile{
 		Name: subp[:i] + subp[j:],
 		Size: subp[i+1 : j],
-		Blur: blur,
 	}
 }
