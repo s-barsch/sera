@@ -9,6 +9,15 @@ import (
 	"strings"
 )
 
+func (i Info) Copy() Info {
+	m := map[string]string{}
+
+	for k, v := range i {
+		m[k] = v
+	}
+	return m
+}
+
 func ReadDirInfo(path string) (Info, error) {
 	return ParseInfoFile(p.Join(path, "info"))
 }

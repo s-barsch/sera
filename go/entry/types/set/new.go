@@ -31,7 +31,7 @@ func (s *Set) Copy() *Set {
 		file:   s.file,
 
 		date: s.date,
-		info: s.info,
+		info: s.info.Copy(),
 
 		entries: s.entries,
 		Cover: s.Cover,

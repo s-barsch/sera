@@ -76,3 +76,31 @@ func getImageDate(path string, parent entry.Entry) (time.Time, error) {
 	}
 	return tools.ParseDatePath(path)
 }
+
+func (i *Image) Copy() *Image {
+	return &Image{
+		parent: i.parent,
+		file:   i.file.Copy(),
+
+		date:   i.date,
+		info:   i.info.Copy(),
+
+		Dims:   i.Dims,
+	}
+}
+
+func (i *Image) Blur() *Image {
+	i = i.Copy()
+
+	i.file.Path = addBlur(i.file.Path)
+
+	return i
+}
+
+func addBlur(path string) string {
+	i := strings.LastIndex(path, ".")
+	if i < 0 {
+		panic("addBlur: invalid path: " + path)
+	}
+	return path[:i] + "_blur" + path[i:]
+}

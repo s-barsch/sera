@@ -11,6 +11,13 @@ type File struct {
 	ModTime time.Time
 }
 
+func (f *File) Copy() *File {
+	return &File{
+		Path:    f.Path,
+		ModTime: f.ModTime,
+	}
+}
+
 func NewFile(path string) (*File, error) {
 	mod, err := getModTime(path)
 	if err != nil {

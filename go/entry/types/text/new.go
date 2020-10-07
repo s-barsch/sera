@@ -26,7 +26,7 @@ func (t *Text) Copy() *Text {
 		file:   t.file,
 
 		date: t.date,
-		info: t.info,
+		info: t.info.Copy(),
 
 		raw:  t.raw.Copy(),
 

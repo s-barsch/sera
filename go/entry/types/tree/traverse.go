@@ -2,6 +2,7 @@ package tree
 
 import (
 	"sacer/go/entry"
+	"sacer/go/entry/types/image"
 	"sacer/go/entry/types/text"
 	"sacer/go/entry/types/set"
 )
@@ -81,10 +82,14 @@ func makePublic(es entry.Entries, newParent entry.Entry) entry.Entries {
 			ns.SetEntries(makePublic(ns.Entries(), ns))
 			e = ns
 		}
-		if newParent.Info()["wall"] == "true" || e.Info()["wall"] == "true" {
+		if newParent.Info().Wall() || e.Info().Wall() {
 			if t, ok := e.(*text.Text); ok {
 				e = t.Blur()
 			}
+			if i, ok := e.(*image.Image); ok {
+				e = i.Blur()
+			}
+			e.Info()["blur"] = "true"
 		}
 		l = append(l, e)
 	}

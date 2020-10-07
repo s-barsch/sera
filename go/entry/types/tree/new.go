@@ -23,10 +23,10 @@ type Tree struct {
 func (t *Tree) Copy() *Tree {
 	return &Tree{
 		parent: t.parent,
-		file:   t.file,
+		file:   t.file.Copy(),
 
 		date: t.date,
-		info: t.info,
+		info: t.info.Copy(),
 
 		entries: t.entries,
 		Trees:   t.Trees,

@@ -8,6 +8,10 @@ func (i Info) HyphTitle(lang string) string {
 	return i.Field("title-hyph", lang)
 }
 
+func (i Info) Blur() bool {
+	return i["blur"] == "true"
+}
+
 func (i Info) Private() bool {
 	return i["private"] == "true"
 }

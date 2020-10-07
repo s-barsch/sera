@@ -10,21 +10,10 @@ func (i *Image) Location(size string) string {
 	return p.Join(i.file.Dir(), "cache", size, i.file.Name())
 }
 
-// TODO: sketchy
-func (i *Image) LocationBlur(size string, blur bool) string {
-	blurStr := ""
-	if blur {
-		blurStr = "_blur"
-	}
-	return p.Join(i.file.Dir(), "cache", size, i.file.NameNoExt() + blurStr + i.file.Ext())
-}
-
 func (i *Image) ImagePath(size int, lang string) string {
-	parent := ""
+	parent := i.Perma(lang)
 	if i.parent.Type() == "set" {
 		parent = i.parent.Perma(lang)
-	} else {
-		parent = i.Perma(lang)
 	}
 	return fmt.Sprintf("%v/cache/%v", parent, i.ImageName(size, i.info.Wall()))
 }
