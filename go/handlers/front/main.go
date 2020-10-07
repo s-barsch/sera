@@ -35,26 +35,26 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth
 		return
 	}
 
-	index := s.Recents["index"][lang]
-	graph := s.Recents["graph"][lang]
-	kine := s.Recents["kine"][lang]
+	index := s.Recents["index"].Access(a.Subscriber)[lang]
+	graph := s.Recents["graph"].Access(a.Subscriber)[lang]
+	kine := s.Recents["kine"].Access(a.Subscriber)[lang]
 
 	err = s.ExecuteTemplate(w, "front", &frontMain{
-		Head:     head,
-		Index:    index.Limit(s.Vars.FrontSettings.Index),
-		Graph:    graph.Limit(s.Vars.FrontSettings.Graph),
-		Kine:     kine.Limit(10),
-		Log:      s.Recents["log"]["de"],
+		Head:  head,
+		Index: index.Limit(s.Vars.FrontSettings.Index),
+		Graph: graph.Limit(s.Vars.FrontSettings.Graph),
+		Kine:  kine.Limit(10),
+		Log:   s.Recents["log"].Access(true)["de"],
 	})
 	if err != nil {
 		log.Println(err)
 	}
 }
 
-	/*
-	e, err := s.Trees["graph"][lang].LookupEntryHash(s.Vars.FrontSettings.Featured)
+/*
+	e, err := s.Trees["graph"].Access(a.Subscriber)[lang].LookupEntryHash(s.Vars.FrontSettings.Featured)
 	if err != nil {
 		s.Log.Println(err)
 	}
-	*/
-		//Featured: e,
+*/
+//Featured: e,

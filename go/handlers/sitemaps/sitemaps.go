@@ -107,9 +107,9 @@ func GraphEntries(s *server.Server, w http.ResponseWriter, r *http.Request, a *a
 func coreEntries(s *server.Server, lang string) ([]*SitemapEntry, error) {
 	entries := []*SitemapEntry{}
 
-	tIndex := s.Recents["index"][lang][0].Date()
+	tIndex := s.Recents["index"].Access(false)[lang][0].Date()
 
-	tGraph := s.Recents["graph"][lang][0].Date()
+	tGraph := s.Recents["graph"].Access(false)[lang][0].Date()
 
 	for _, v := range head.NewNav(lang) {
 		priority := "0.9"
@@ -128,7 +128,7 @@ func coreEntries(s *server.Server, lang string) ([]*SitemapEntry, error) {
 		case "graph":
 			lastmod = tGraph
 		case "über", "about":
-			lastmod = s.Trees["about"][lang].File().ModTime
+			lastmod = s.Trees["about"].Access(false)[lang].File().ModTime
 		}
 
 		entries = append(entries, &SitemapEntry{
@@ -143,8 +143,8 @@ func coreEntries(s *server.Server, lang string) ([]*SitemapEntry, error) {
 func categoryEntries(s *server.Server, lang string) []*SitemapEntry {
 	entries := []*SitemapEntry{}
 	trees := tree.Trees{
-		s.Trees["graph"][lang],
-		s.Trees["index"][lang],
+		s.Trees["graph"].Access(false)[lang],
+		s.Trees["index"].Access(false)[lang],
 	}
 	for _, tree := range trees {
 		for _, t := range tree.Trees {
@@ -167,7 +167,7 @@ func holdEntries(s *server.Server, lang string) []*SitemapEntry {
 
 func aboutHolds(s *server.Server, lang string) []*SitemapEntry {
 	entries := []*SitemapEntry{}
-	trees := s.Trees["about"][lang].TraverseTrees()
+	trees := s.Trees["about"].Access(false)[lang].TraverseTrees()
 	for _, t := range trees {
 		entries = append(entries, &SitemapEntry{
 			Loc:      absoluteURL(t.Perma(lang), lang),
@@ -180,7 +180,7 @@ func aboutHolds(s *server.Server, lang string) []*SitemapEntry {
 
 func indexHolds(s *server.Server, lang string) []*SitemapEntry {
 	entries := []*SitemapEntry{}
-	for _, category := range s.Trees["index"][lang].Trees {
+	for _, category := range s.Trees["index"].Access(false)[lang].Trees {
 		trees := category.TraverseTrees()
 		for _, t := range trees {
 			entries = append(entries, &SitemapEntry{
@@ -199,7 +199,7 @@ func elEntries(s *server.Server, page, lang string) ([]*SitemapEntry, error) {
 	es := entry.Entries{}
 	prio := ""
 
-	es = s.Recents[page][lang]
+	es = s.Recents[page].Access(false)[lang]
 	prio = "0.5"
 
 	for _, e := range es {

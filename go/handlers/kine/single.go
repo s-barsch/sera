@@ -8,6 +8,7 @@ import (
 	"sacer/go/head"
 	"sacer/go/paths"
 	"sacer/go/server"
+	"sacer/go/server/auth"
 	"time"
 	"sacer/go/entry/tools"
 	"strings"
@@ -18,9 +19,9 @@ type graphSingle struct {
 	Entry  entry.Entry
 }
 
-func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Path) {
+func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth, p *paths.Path) {
 	lang := head.Lang(r.Host)
-	graph := s.Trees["kine"][lang]
+	graph := s.Trees["kine"].Access(a.Subscriber)[lang]
 	e, err := graph.LookupEntryHash(p.Hash)
 	if err != nil {
 		http.Redirect(w, r, "/kine", 301)

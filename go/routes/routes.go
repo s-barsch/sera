@@ -67,7 +67,11 @@ func Router(s *server.Server) *mux.Router {
 
 func makeHandler(s *server.Server, fn func(*server.Server, http.ResponseWriter, *http.Request, *auth.Auth)) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		fn(s, w, r, auth.CheckAuth(r))
+		a := auth.CheckAuth(r)
+		if s.Flags.Local {
+			a.Subscriber = true
+		}
+		fn(s, w, r, a)
 	}
 }
 

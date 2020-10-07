@@ -82,7 +82,45 @@ func makePublic(es entry.Entries, newParent entry.Entry) entry.Entries {
 			ns.SetEntries(makePublic(ns.Entries(), ns))
 			e = ns
 		}
+		l = append(l, e)
+	}
+	return l
+}
+
+// blur
+
+func (t *Tree) Blur() *Tree {
+	nt := t.Copy()
+	trees := Trees{}
+	if nt.Info().Wall() {
+		nt.Info()["blur"] = "true"
+	}
+	for _, child := range nt.Trees {
+		if nt.Info().Wall() {
+			child.Info()["wall"] = "true"
+		}
+		nchild := child.Blur()
+		nchild.parent = nt
+		trees = append(trees, nchild)
+	}
+
+	nt.entries = makeBlur(nt.entries, nt)
+	nt.Trees = trees
+
+	return nt
+}
+
+func makeBlur(es entry.Entries, newParent entry.Entry) entry.Entries {
+	l := entry.Entries{}
+	for _, e := range es {
 		if newParent.Info().Wall() || e.Info().Wall() {
+			e.SetParent(newParent)
+			if s, ok := e.(*set.Set); ok {
+				ns := s.Copy()
+				e.Info()["wall"] = "true"
+				ns.SetEntries(makeBlur(ns.Entries(), ns))
+				e = ns
+			}
 			if t, ok := e.(*text.Text); ok {
 				e = t.Blur()
 			}
@@ -96,16 +134,18 @@ func makePublic(es entry.Entries, newParent entry.Entry) entry.Entries {
 	return l
 }
 
+
+
 // langs
 
-func (t *Tree) Lang(lang string) *Tree {
+func (t *Tree) Translated(lang string) *Tree {
 	nt := t.Copy()
 	trees := Trees{}
 	for _, tree := range nt.Trees {
 		if isNotTranslated(tree, lang) {
 			continue
 		}
-		ntree := tree.Lang(lang)
+		ntree := tree.Translated(lang)
 		ntree.parent = nt
 		trees = append(trees, ntree)
 	}

@@ -26,7 +26,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth
 
 	lang := head.Lang(r.Host)
 
-	t := s.Trees["index"][lang]
+	t := s.Trees["index"].Access(a.Subscriber)[lang]
 
 	head := &head.Head{
 		Title:   "Index",
@@ -42,7 +42,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth
 		return
 	}
 
-	recents := s.Recents["index"][lang]
+	recents := s.Recents["index"].Access(a.Subscriber)[lang]
 
 	err = s.ExecuteTemplate(w, "index-main", &indexMain{
 		Head:    head,

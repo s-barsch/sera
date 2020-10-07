@@ -19,11 +19,7 @@ func (i *Image) ImagePath(size int, lang string) string {
 }
 
 func (i *Image) ImageName(size int, blur bool) string {
-	blurStr := ""
-	if blur {
-		blurStr = "_blur"
-	}
-	return fmt.Sprintf("%v-%v%v%v", i.file.NameNoExt(), size, blurStr, i.file.Ext())
+	return fmt.Sprintf("%v-%v%v", i.file.NameNoExt(), size, i.file.Ext())
 }
 
 func (i *Image) SrcSet(size int, lang string) string {

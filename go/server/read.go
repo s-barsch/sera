@@ -8,12 +8,31 @@ import (
 	"sort"
 )
 
-type langTrees map[string]*tree.Tree
-type langEntries map[string]entry.Entries
+type DoubleTree struct {
+	All, Blur map[string]*tree.Tree
+}
+
+type DoubleEntries struct {
+	All, Blur map[string]entry.Entries
+}
+
+func (d *DoubleTree) Access(subscriber bool) map[string]*tree.Tree {
+	if subscriber {
+		return d.All
+	}
+	return d.Blur
+}
+
+func (d *DoubleEntries) Access(subscriber bool) map[string]entry.Entries {
+	if subscriber {
+		return d.All
+	}
+	return d.Blur
+}
 
 func (s *Server) ReadTrees() error {
-	trees := map[string]langTrees{}
-	recents := map[string]langEntries{}
+	trees := map[string]*DoubleTree{}
+	recents := map[string]*DoubleEntries{}
 
 	for _, section := range sections {
 		t, err := tree.ReadTree(s.Paths.Data+"/"+section, nil)
@@ -25,21 +44,36 @@ func (s *Server) ReadTrees() error {
 			t = t.Public()
 		}
 
-		trees[section] = map[string]*tree.Tree{
-			"de": t,
-			"en": t.Lang("en"),
+		trees[section] = &DoubleTree{
+			All:  makeLangs(t),
+			Blur: makeLangs(t.Blur()),
 		}
 
-		recents[section] = map[string]entry.Entries{
-			"de": serialize(trees[section]["de"]),
-			"en": serialize(trees[section]["en"]),
+		recents[section] = &DoubleEntries{
+			All:  serializeLangs(trees[section].All),
+			Blur: serializeLangs(trees[section].Blur),
 		}
+
 	}
 
 	s.Trees = trees
 	s.Recents = recents
 
 	return nil
+}
+
+func makeLangs(t *tree.Tree) map[string]*tree.Tree {
+	return map[string]*tree.Tree{
+		"de": t,
+		"en": t.Translated("en"),
+	}
+}
+
+func serializeLangs(langMap map[string]*tree.Tree) map[string]entry.Entries {
+	return map[string]entry.Entries{
+		"de": serialize(langMap["de"]),
+		"en": serialize(langMap["en"]),
+	}
 }
 
 func serialize(t *tree.Tree) entry.Entries {

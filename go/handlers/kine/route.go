@@ -30,9 +30,9 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Aut
 	path := paths.Split(p)
 
 	if path.IsFile() {
-		extra.ServeFile(s, w, r, path)
+		extra.ServeFile(s, w, r, a, path)
 		return
 	}
 
-	ServeSingle(s, w, r, path)
+	ServeSingle(s, w, r, a, path)
 }

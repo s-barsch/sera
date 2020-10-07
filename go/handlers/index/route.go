@@ -49,11 +49,11 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Aut
 	path := paths.Split(reqPath)
 
 	if path.IsFile() {
-		extra.ServeFile(s, w, r, path)
+		extra.ServeFile(s, w, r, a, path)
 		return
 	}
 
-	index := s.Trees["index"][lang]
+	index := s.Trees["index"].Access(a.Subscriber)[lang]
 
 	if path.Hash == "" {
 		t, err := index.SearchTree(path.Slug, lang)

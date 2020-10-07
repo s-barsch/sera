@@ -10,21 +10,22 @@ import (
 	"sacer/go/head"
 	"sacer/go/paths"
 	"sacer/go/server"
+	"sacer/go/server/auth"
 	p "path/filepath"
 )
 
-func ServeFile(s *server.Server, w http.ResponseWriter, r *http.Request, path *paths.Path) {
-	err := serveFile(s, w, r, path)
+func ServeFile(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth, path *paths.Path) {
+	err := serveFile(s, w, r, a, path)
 	if err != nil {
 		log.Println(err)
 		http.NotFound(w, r)
 	}
 }
 
-func serveFile(s *server.Server, w http.ResponseWriter, r *http.Request, path *paths.Path) error {
+func serveFile(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth, path *paths.Path) error {
 	section := path.Section()
 	lang := head.Lang(r.Host)
-	tree := s.Trees[section][lang]
+	tree := s.Trees[section].Access(a.Subscriber)[lang]
 	e, err := tree.LookupEntryHash(path.Hash)
 	if err != nil {
 		return err

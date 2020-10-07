@@ -7,10 +7,10 @@ import (
 )
 
 func (s *Server) makeLinks() {
-	kines := s.Recents["kine"]["de"]
+	kines := s.Recents["kine"].Access(true)["de"]
 
 	for lang, _ := range tools.Langs {
-		for _, e := range s.Recents["graph"][lang] {
+		for _, e := range s.Recents["graph"].Access(true)[lang] {
 			s, ok := e.(*set.Set)
 			if ok {
 				es := findMatchingKines(kines, s)

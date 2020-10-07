@@ -8,6 +8,7 @@ import (
 	"sacer/go/head"
 	"sacer/go/paths"
 	"sacer/go/server"
+	"sacer/go/server/auth"
 	"time"
 )
 
@@ -19,10 +20,10 @@ type yearPage struct {
 	Next *tree.Tree
 }
 
-func YearPage(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Path) {
+func YearPage(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth, p *paths.Path) {
 	lang := head.Lang(r.Host)
 
-	graph := s.Trees["graph"][lang]
+	graph := s.Trees["graph"].Access(a.Subscriber)[lang]
 
 	id, err := getId(p.Slug)
 	if err != nil {

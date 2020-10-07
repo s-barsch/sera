@@ -39,16 +39,16 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Aut
 	path := paths.Split(p)
 
 	if path.IsFile() {
-		extra.ServeFile(s, w, r, path)
+		extra.ServeFile(s, w, r, a, path)
 		return
 	}
 
 	if isYearPage(path.Slug) {
-		YearPage(s, w, r, path)
+		YearPage(s, w, r, a, path)
 		return
 	}
 
-	ServeSingle(s, w, r, path)
+	ServeSingle(s, w, r, a, path)
 }
 
 func isYearPage(str string) bool {
