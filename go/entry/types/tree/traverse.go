@@ -119,6 +119,11 @@ func makeBlur(es entry.Entries, newParent entry.Entry) entry.Entries {
 				ns := s.Copy()
 				e.Info()["wall"] = "true"
 				ns.SetEntries(makeBlur(ns.Entries(), ns))
+
+				if ns.Cover != nil {
+					ns.Cover = ns.Cover.Blur()
+				}
+
 				e = ns
 			}
 			if t, ok := e.(*text.Text); ok {
