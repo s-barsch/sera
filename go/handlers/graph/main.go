@@ -44,7 +44,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth
 		Head:    head,
 		Tree:    t,
 		Entries: entries.Offset(0, 100),
-		Prev: prev,
+		Prev:    prev,
 	})
 	if err != nil {
 		log.Println(err)

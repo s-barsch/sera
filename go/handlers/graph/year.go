@@ -16,8 +16,8 @@ type yearPage struct {
 	Head    *head.Head
 	Tree    *tree.Tree
 	Entries entry.Entries
-	Prev *tree.Tree
-	Next *tree.Tree
+	Prev    *tree.Tree
+	Next    *tree.Tree
 }
 
 func YearPage(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth, p *paths.Path) {
@@ -65,8 +65,8 @@ func YearPage(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.
 		Head:    head,
 		Tree:    t,
 		Entries: serializeMonths(t),
-		Prev: prev,
-		Next: next,
+		Prev:    prev,
+		Next:    next,
 	})
 	if err != nil {
 		log.Println(err)

@@ -5,19 +5,19 @@ import (
 	"log"
 	"net/http"
 	"sacer/go/entry"
+	"sacer/go/entry/tools"
 	"sacer/go/head"
 	"sacer/go/paths"
 	"sacer/go/server"
 	"sacer/go/server/auth"
 	"time"
-	"sacer/go/entry/tools"
 )
 
 type graphSingle struct {
-	Head   *head.Head
-	Entry  entry.Entry
-	Prev   entry.Entry
-	Next   entry.Entry
+	Head  *head.Head
+	Entry entry.Entry
+	Prev  entry.Entry
+	Next  entry.Entry
 }
 
 func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth, p *paths.Path) {
@@ -53,19 +53,19 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, a *au
 	}
 
 	/*
-	schema, err := head.ElSchema()
-	if err != nil {
-		s.Log.Println(err)
-		return
-	}
-	head.Schema = schema
+		schema, err := head.ElSchema()
+		if err != nil {
+			s.Log.Println(err)
+			return
+		}
+		head.Schema = schema
 	*/
 
 	err = s.ExecuteTemplate(w, "graph-single", &graphSingle{
-		Head:   head,
-		Entry:  e,
-		Prev:   prev,
-		Next:   next,
+		Head:  head,
+		Entry: e,
+		Prev:  prev,
+		Next:  next,
 	})
 	if err != nil {
 		log.Println(err)

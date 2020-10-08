@@ -20,7 +20,6 @@ type frontMain struct {
 
 func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
 	lang := head.Lang(r.Host)
-
 	head := &head.Head{
 		Title:   "",
 		Section: "home",

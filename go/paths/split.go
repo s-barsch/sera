@@ -30,11 +30,13 @@ func (p *Path) Section() string {
 }
 
 func (p *Path) IsFile() bool {
-	if p.SubDir != "" { // || strings.Contains(p.Raw, ".") {
+	if p.SubDir != "" {
 		return true
 	}
 	return false
 }
+
+	// || strings.Contains(p.Raw, ".") {
 
 /*
 	/graph/2020/03/09-36e55605/cache/200310_012140-1280.jpg
@@ -48,6 +50,35 @@ func (p *Path) IsFile() bool {
             Subpath: "200310_012140-1280.jpg",
         }
 */
+
+func Split(path string) *Path {
+	chain := strings.Split(strings.Trim(path, "/"), "/")
+
+	subdir := ""
+	subpath := ""
+
+	for i, c := range chain {
+		if c == "files" || c == "cache" {
+			subdir = c
+			subpath = strings.Join(chain[i+1:], "/")
+			chain = chain[:i]
+			break
+		}
+	}
+
+	slug, hash := splitName(last(chain))
+
+	chain = removeLast(chain)
+
+	return &Path{
+		Raw:     path,
+		Chain:   chain,
+		Slug:    slug,
+		Hash:    hash,
+		SubDir:  subdir,
+		SubFile: SplitSubpath(subpath),
+	}
+}
 
 func last(chain []string) string {
 	if len(chain) == 0 {
@@ -81,35 +112,6 @@ func discernName(str string) (slug, hash string) {
 		return "", str
 	}
 	return str, ""
-}
-
-func Split(path string) *Path {
-	chain := strings.Split(strings.Trim(path, "/"), "/")
-
-	subdir := ""
-	subpath := ""
-
-	for i, c := range chain {
-		if c == "files" || c == "cache" {
-			subdir = c
-			subpath = strings.Join(chain[i+1:], "/")
-			chain = chain[:i]
-			break
-		}
-	}
-
-	slug, hash := splitName(last(chain))
-
-	chain = removeLast(chain)
-
-	return &Path{
-		Raw:     path,
-		Chain:   chain,
-		Slug:    slug,
-		Hash:    hash,
-		SubDir:  subdir,
-		SubFile: SplitSubpath(subpath),
-	}
 }
 
 // subpath == 160403_124512-1600.jpg
