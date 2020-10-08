@@ -43,7 +43,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth
 		Index: index.Limit(s.Vars.FrontSettings.Index),
 		Graph: graph.Limit(s.Vars.FrontSettings.Graph),
 		Kine:  kine.Limit(10),
-		Log:   s.Recents["log"].Access(true)["de"],
+		Log:   s.Recents["log"].Access(true)["de"].Limit(20),
 	})
 	if err != nil {
 		log.Println(err)
