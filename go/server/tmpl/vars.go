@@ -31,6 +31,7 @@ func (a *Article) Title(lang string) string {
 type FrontSettings struct {
 	Graph    int    `yaml:"graph-num"`
 	Index    int    `yaml:"index-num"`
+	Log      int    `yaml:"log-num"`
 	Featured string `yaml:"featured"`
 	Articles []*Article
 }
