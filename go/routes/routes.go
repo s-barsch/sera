@@ -8,6 +8,7 @@ import (
 	"sacer/go/handlers/graph"
 	"sacer/go/handlers/index"
 	"sacer/go/handlers/kine"
+	"sacer/go/handlers/log"
 	"sacer/go/handlers/sitemaps"
 	"sacer/go/server"
 	"sacer/go/server/auth"
@@ -30,6 +31,8 @@ func Router(s *server.Server) *mux.Router {
 		r.PathPrefix("/part/").HandlerFunc(makeHandler(s, graph.ElPart))
 		r.PathPrefix("/alt-text/").HandlerFunc(makeHandler(s, extra.Route))
 	*/
+
+	r.PathPrefix("/log").HandlerFunc(makeHandler(s, log.Main))
 
 	r.HandleFunc("/sitemaps.xml", makeHandler(s, sitemaps.Route))
 	r.PathPrefix("/sitemaps").HandlerFunc(makeHandler(s, sitemaps.Route))
