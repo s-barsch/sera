@@ -8,3 +8,5 @@ navigate-de: Wischgesten und Pfeiltasten benutzbar
 navigate-en: Swipe gestures and arrow keys supported
 serial-link-de: 'Mehr Einträge bei → <a class="morel" href="/index/serial">Serial</a>.'
 serial-link-en: 'More entries at → <a class="morel" href="/index/serial">Serial</a>.'
+log-more-de: 'Mehr unter → <a class="morel" href="/log">Log</a>.'
+log-more-en: 'More at → <a class="morel" href="/log">Log</a>.'
