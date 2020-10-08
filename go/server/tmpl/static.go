@@ -2,11 +2,12 @@ package tmpl
 
 import (
 	"fmt"
-	"github.com/tdewolff/minify"
-	"github.com/tdewolff/minify/css"
 	"io/ioutil"
 	"os"
 	"time"
+
+	"github.com/tdewolff/minify"
+	"github.com/tdewolff/minify/css"
 )
 
 func JsModtime(root string) (string, error) {

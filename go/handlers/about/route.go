@@ -3,8 +3,8 @@ package about
 import (
 	"net/http"
 	//"sacer/go/entry"
-	"sacer/go/head"
-	"sacer/go/paths"
+	"sacer/go/server/head"
+	"sacer/go/server/paths"
 	"sacer/go/server"
 	"sacer/go/server/auth"
 )

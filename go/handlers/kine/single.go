@@ -5,18 +5,18 @@ import (
 	"log"
 	"net/http"
 	"sacer/go/entry"
-	"sacer/go/head"
-	"sacer/go/paths"
+	"sacer/go/entry/tools"
 	"sacer/go/server"
 	"sacer/go/server/auth"
-	"time"
-	"sacer/go/entry/tools"
+	"sacer/go/server/head"
+	"sacer/go/server/paths"
 	"strings"
+	"time"
 )
 
 type graphSingle struct {
-	Head   *head.Head
-	Entry  entry.Entry
+	Head  *head.Head
+	Entry entry.Entry
 }
 
 func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth, p *paths.Path) {
@@ -50,8 +50,8 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, a *au
 	}
 
 	err = s.ExecuteTemplate(w, "kine-single", &graphSingle{
-		Head:   head,
-		Entry:  e,
+		Head:  head,
+		Entry: e,
 	})
 	if err != nil {
 		log.Println(err)

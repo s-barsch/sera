@@ -3,9 +3,9 @@ package graph
 import (
 	"net/http"
 	"sacer/go/handlers/extra"
-	"sacer/go/paths"
 	"sacer/go/server"
 	"sacer/go/server/auth"
+	"sacer/go/server/paths"
 	"strconv"
 )
 

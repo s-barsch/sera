@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"net/http"
 	"path/filepath"
-	"sacer/go/head"
-	"sacer/go/paths"
 	"sacer/go/server"
 	"sacer/go/server/auth"
+	"sacer/go/server/head"
+	"sacer/go/server/paths"
 	"strings"
 	"time"
 )

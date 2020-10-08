@@ -1,4 +1,4 @@
-package kine 
+package kine
 
 import (
 	//"fmt"
@@ -7,9 +7,9 @@ import (
 	"sacer/go/entry"
 	"sacer/go/entry/tools"
 	"sacer/go/entry/types/tree"
-	"sacer/go/head"
 	"sacer/go/server"
 	"sacer/go/server/auth"
+	"sacer/go/server/head"
 	"strings"
 )
 
@@ -47,4 +47,3 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth
 		log.Println(err)
 	}
 }
-

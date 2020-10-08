@@ -1,11 +1,11 @@
-package kine 
+package kine
 
 import (
-	"sacer/go/paths"
+	"net/http"
+	"sacer/go/handlers/extra"
 	"sacer/go/server"
 	"sacer/go/server/auth"
-	"sacer/go/handlers/extra"
-	"net/http"
+	"sacer/go/server/paths"
 )
 
 func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {

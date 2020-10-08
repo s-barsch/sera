@@ -1,17 +1,18 @@
-package routes 
+package routes
 
 import (
-	"github.com/gorilla/mux"
 	"net/http"
-	"sacer/go/handlers/index"
 	"sacer/go/handlers/about"
 	"sacer/go/handlers/extra"
-	"sacer/go/handlers/graph"
 	"sacer/go/handlers/front"
+	"sacer/go/handlers/graph"
+	"sacer/go/handlers/index"
 	"sacer/go/handlers/kine"
 	"sacer/go/handlers/sitemaps"
 	"sacer/go/server"
 	"sacer/go/server/auth"
+
+	"github.com/gorilla/mux"
 )
 
 func Router(s *server.Server) *mux.Router {
@@ -26,8 +27,8 @@ func Router(s *server.Server) *mux.Router {
 	r.PathPrefix("/about").HandlerFunc(makeHandler(s, about.Route))
 
 	/*
-	r.PathPrefix("/part/").HandlerFunc(makeHandler(s, graph.ElPart))
-	r.PathPrefix("/alt-text/").HandlerFunc(makeHandler(s, extra.Route))
+		r.PathPrefix("/part/").HandlerFunc(makeHandler(s, graph.ElPart))
+		r.PathPrefix("/alt-text/").HandlerFunc(makeHandler(s, extra.Route))
 	*/
 
 	r.HandleFunc("/sitemaps.xml", makeHandler(s, sitemaps.Route))
@@ -41,7 +42,6 @@ func Router(s *server.Server) *mux.Router {
 	r.HandleFunc("/opt/{option}/{value}", makeHandler(s, extra.SetOption))
 
 	r.HandleFunc("/rl/", makeHandler(s, extra.Reload))
-
 
 	r.PathPrefix("/static/").HandlerFunc(makeHandler(s, extra.StaticFiles))
 	r.PathPrefix("/js/").HandlerFunc(makeHandler(s, extra.JSFiles))
@@ -74,4 +74,3 @@ func makeHandler(s *server.Server, fn func(*server.Server, http.ResponseWriter, 
 		fn(s, w, r, a)
 	}
 }
-

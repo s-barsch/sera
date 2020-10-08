@@ -4,9 +4,9 @@ import (
 	"log"
 	"net/http"
 	"sacer/go/entry"
-	"sacer/go/head"
 	"sacer/go/server"
 	"sacer/go/server/auth"
+	"sacer/go/server/head"
 )
 
 type frontMain struct {

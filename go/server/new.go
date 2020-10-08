@@ -3,7 +3,6 @@ package server
 import (
 	"flag"
 	"fmt"
-	"github.com/rjeczalik/notify"
 	"log"
 	"os"
 	p "path/filepath"
@@ -11,6 +10,8 @@ import (
 	"sacer/go/entry/tools/hyph"
 	"sacer/go/server/tmpl"
 	"text/template"
+
+	"github.com/rjeczalik/notify"
 )
 
 type Server struct {

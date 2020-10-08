@@ -88,7 +88,7 @@ func (s *Server) Funcs() template.FuncMap {
 		"snav": tmpl.NewSubnav,
 
 		"shaveParagraph": tools.ShaveParagraph,
-		"minifySvg": minifySVG,
+		"minifySvg":      minifySVG,
 	}
 }
 

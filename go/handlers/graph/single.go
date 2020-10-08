@@ -6,10 +6,10 @@ import (
 	"net/http"
 	"sacer/go/entry"
 	"sacer/go/entry/tools"
-	"sacer/go/head"
-	"sacer/go/paths"
 	"sacer/go/server"
 	"sacer/go/server/auth"
+	"sacer/go/server/head"
+	"sacer/go/server/paths"
 	"time"
 )
 

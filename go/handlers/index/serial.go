@@ -4,14 +4,14 @@ import (
 	"log"
 	"net/http"
 	"sacer/go/entry"
-	"sacer/go/head"
 	"sacer/go/server"
 	"sacer/go/server/auth"
+	"sacer/go/server/head"
 )
 
 type indexSerial struct {
-	Head *head.Head
-	Entries  entry.Entries
+	Head    *head.Head
+	Entries entry.Entries
 }
 
 func Serial(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {

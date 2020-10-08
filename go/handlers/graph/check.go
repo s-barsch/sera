@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 	"sacer/go/entry"
-	"sacer/go/head"
+	"sacer/go/server/head"
 	"sacer/go/server"
 )
 

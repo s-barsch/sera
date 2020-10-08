@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"sacer/go/entry"
 	"sacer/go/entry/types/tree"
-	"sacer/go/head"
 	"sacer/go/server"
 	"sacer/go/server/auth"
+	"sacer/go/server/head"
 )
 
 type graphMain struct {

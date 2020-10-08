@@ -1,11 +1,12 @@
 package server
 
 import (
-	"github.com/rjeczalik/notify"
 	"log"
 	"os"
 	"os/signal"
 	"strings"
+
+	"github.com/rjeczalik/notify"
 )
 
 func (s *Server) SetupWatcher() error {

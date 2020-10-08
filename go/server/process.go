@@ -6,11 +6,10 @@ import (
 	"sacer/go/entry/types/set"
 )
 
-
 func (s *Server) makeLinks() {
 	kines := s.Recents["kine"].Access(true)["de"]
 
-	for _, access := range []bool{ false, true } {
+	for _, access := range []bool{false, true} {
 		for lang, _ := range tools.Langs {
 			for _, e := range s.Recents["graph"].Access(access)[lang] {
 				s, ok := e.(*set.Set)

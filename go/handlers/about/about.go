@@ -3,16 +3,10 @@ package about
 import (
 	"log"
 	"net/http"
-	//"sacer/go/entry"
 	"sacer/go/entry/types/tree"
-	"sacer/go/head"
 	"sacer/go/server"
-	/*
-		"strings"
-		"path/filepath"
-		"sacer/go/entry"
-		"sacer/go/head"
-	*/)
+	"sacer/go/server/head"
+)
 
 type aboutTree struct {
 	Head *head.Head
@@ -53,5 +47,5 @@ func aboutTemplate(level int) string {
 	if level == 0 {
 		return "about-main"
 	}
-	return  "about-page"
+	return "about-page"
 }

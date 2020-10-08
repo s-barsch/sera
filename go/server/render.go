@@ -2,11 +2,12 @@ package server
 
 import (
 	"bytes"
+	"io"
+
 	"github.com/tdewolff/minify"
 	"github.com/tdewolff/minify/html"
 	"github.com/tdewolff/minify/json"
 	"github.com/tdewolff/minify/svg"
-	"io"
 )
 
 func (s *Server) ExecuteTemplate(w io.Writer, tmpl string, d interface{}) error {

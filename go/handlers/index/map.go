@@ -13,9 +13,9 @@ import (
 	"net/http"
 	"os/exec"
 	"sacer/go/entry/types/tree"
-	"sacer/go/head"
 	"sacer/go/server"
 	"sacer/go/server/auth"
+	"sacer/go/server/head"
 )
 
 func MapDot(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {

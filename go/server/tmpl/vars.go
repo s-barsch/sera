@@ -2,10 +2,11 @@ package tmpl
 
 import (
 	"fmt"
-	"gopkg.in/yaml.v3"
 	"io/ioutil"
 	"strconv"
 	"strings"
+
+	"gopkg.in/yaml.v3"
 )
 
 type Vars struct {

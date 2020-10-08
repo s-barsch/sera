@@ -5,10 +5,10 @@ import (
 	"net/http"
 	"sacer/go/entry"
 	"sacer/go/entry/types/tree"
-	"sacer/go/head"
-	"sacer/go/paths"
 	"sacer/go/server"
 	"sacer/go/server/auth"
+	"sacer/go/server/head"
+	"sacer/go/server/paths"
 )
 
 type indexMain struct {

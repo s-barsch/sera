@@ -2,7 +2,7 @@ package extra
 
 import (
 	"net/http"
-	"sacer/go/head"
+	"sacer/go/server/head"
 	"sacer/go/server"
 	"sacer/go/server/auth"
 )

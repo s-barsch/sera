@@ -5,8 +5,8 @@ import (
 	"log"
 	"net/http"
 	"sacer/go/entry/types/tree"
-	"sacer/go/head"
 	"sacer/go/server"
+	"sacer/go/server/head"
 )
 
 type indexPage struct {
