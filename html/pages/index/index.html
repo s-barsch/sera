@@ -79,6 +79,9 @@
 
         {{template "index-entries" (eL .Tree .Head.Lang)}}
 
+      {{template "footnotes" (nL .Tree.Notes .Head.Lang)}}
+
+
 {{template "bot" .Head}}
 {{end}}
 
@@ -120,7 +123,7 @@
 
 {{define "index-date-link"}}
     {{$year := .E.Date.Format "06"}}
-    <a class="index-datel" href="{{.E.Perma .Lang}}">
+    <a href="{{.E.Perma .Lang}}">
         {{.E.Date.Format "2. 1."}}
         {{- with ne $year "20"}}
          {{$year}}

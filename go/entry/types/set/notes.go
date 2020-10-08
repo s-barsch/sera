@@ -1,13 +1,14 @@
 package set
 
 import (
+	"sacer/go/entry"
 	"sacer/go/entry/types/text"
 )
 
-func (s *Set) NumberFootnotes() {
+func NumberFootnotes(entries entry.Entries) text.Notes {
 	c := 1
 	notes := map[string][]string{}
-	for _, e := range s.Entries() {
+	for _, e := range entries {
 		t, ok := e.(*text.Text)
 		if ok {
 			t.Script.NumberFootnotes(c)
@@ -19,6 +20,6 @@ func (s *Set) NumberFootnotes() {
 		}
 	}
 
-	s.Notes = notes
+	return notes
 }
 

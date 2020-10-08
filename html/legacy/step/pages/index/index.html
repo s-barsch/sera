@@ -90,7 +90,7 @@
 
 {{define "index-date-link"}}
     {{$year := .El.Date.Format "06"}}
-    <a class="index-datel" href="{{.El.Permalink .Lang}}">
+    <a href="{{.El.Permalink .Lang}}">
         {{.El.Date.Format "2. 1."}}
         {{- with ne $year "20"}}
          {{$year}}

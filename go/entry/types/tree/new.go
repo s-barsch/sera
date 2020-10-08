@@ -6,6 +6,8 @@ import (
 	"sacer/go/entry/tools"
 	"sacer/go/entry/file"
 	"sacer/go/entry/info"
+	"sacer/go/entry/types/text"
+	"sacer/go/entry/types/set"
 	"time"
 )
 
@@ -18,6 +20,8 @@ type Tree struct {
 
 	entries entry.Entries
 	Trees   Trees
+
+	Notes   text.Notes
 }
 
 func (t *Tree) Copy() *Tree {
@@ -81,6 +85,8 @@ func ReadTree(path string, parent *Tree) (*Tree, error) {
 
 	s.entries = entries
 	s.Trees = trees
+
+	s.Notes = set.NumberFootnotes(s.Entries())
 
 	return s, nil
 }

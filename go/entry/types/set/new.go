@@ -83,7 +83,7 @@ func NewSet(path string, parent entry.Entry) (*Set, error) {
 
 	s.Cover, s.entries = extractCover(entries)
 
-	s.NumberFootnotes()
+	s.Notes = NumberFootnotes(s.Entries())
 
 	return s, nil
 }
