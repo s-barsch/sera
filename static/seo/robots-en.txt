@@ -16,4 +16,7 @@ Disallow: /
 User-agent: Yandex
 Disallow: /
 
+User-agent: Bytespider
+Disallow: /
+
 Sitemap: https://en.sacer.site/sitemaps.xml
