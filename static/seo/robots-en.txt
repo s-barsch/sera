@@ -19,4 +19,7 @@ Disallow: /
 User-agent: Bytespider
 Disallow: /
 
+User-agent: Sogou web spider
+Disallow: /
+
 Sitemap: https://en.sacer.site/sitemaps.xml
