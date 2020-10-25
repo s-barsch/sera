@@ -22,4 +22,7 @@ Disallow: /
 User-agent: Sogou web spider
 Disallow: /
 
+User-agent: sogou spider
+Disallow: /
+
 Sitemap: https://sacer.site/sitemaps.xml
