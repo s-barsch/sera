@@ -77,7 +77,7 @@
 
 {{define "video"}}
 <figure>
-  <video src="{{.E.FilePath .Lang}}" preload="metadata" loop controls {{if eq .E.Section "video"}}autoplay{{end}}>
+  <video src="{{.E.FilePath .Lang}}" preload="metadata" loop controls {{if eq .E.Section "kine"}}autoplay{{end}}>
     {{range .E.Subtitles}}
     <track label="{{langName .}}" srclang="{{.}}" kind="subtitles"
     src="{{$.E.SubtitlePath .}}"{{if $.E.SubtitlesOn . $.L}} default{{end}}>

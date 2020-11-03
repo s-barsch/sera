@@ -8,14 +8,16 @@
 }
 .get-access {
     position:absolute;
-    top: 50%;
-    transform: translate(0, -50%);
-    font-family:var(--fontfamily-sans);
+    top: 30%;
+    transform: translate(0, -20%);
+    font-family:var(--fontfamily-garamond12);
     font-size:2rem;
-    color:red;
-    font-weight:600;
     text-align:center;
+    background:white;
     width:100%;
+    max-width:40rem;
+    box-shadow:3px 5px 14px 2px #373737;
+    padding:1rem 2rem;
 }
 .text {
     margin-bottom:1.5rem;
@@ -252,9 +254,9 @@ blockquote {
 
 .media-mixin(@break) when (@break = @break-single) {
     .get-access {
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size:3rem;
+        left: 42%;
+        transform: translate(-58%, -30%);
+        font-size:4rem;
     }
     .column,
     .lefter {
