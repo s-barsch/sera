@@ -1,10 +1,15 @@
 package tools
 
 import (
-	bf "gopkg.in/russross/blackfriday.v2"
+	//bf "gopkg.in/russross/blackfriday.v2"
 	"github.com/kennygrant/sanitize"
 	"regexp"
 	"strings"
+	"bytes"
+	"github.com/yuin/goldmark"
+	"github.com/yuin/goldmark/extension"
+	"github.com/yuin/goldmark/parser"
+	"github.com/yuin/goldmark/renderer/html"
 )
 
 var validSlug = regexp.MustCompile("[^a-z0-9-]+")
@@ -20,10 +25,29 @@ func Normalize(name string) string {
 	return name
 }
 
-var bfExtensions = bf.WithExtensions(bf.HardLineBreak|bf.Footnotes|bf.DefinitionLists|bf.Strikethrough)
+//var bfExtensions = bf.WithExtensions(bf.HardLineBreak|bf.Footnotes|bf.DefinitionLists|bf.Strikethrough)
 
 func Markdown(text string) string {
-	return string(bf.Run([]byte(text), bf.WithNoExtensions(), bfExtensions))
+	md := goldmark.New(
+		goldmark.WithExtensions(
+			extension.Footnote,
+			extension.DefinitionList,
+		),
+		goldmark.WithParserOptions(
+			parser.WithAutoHeadingID(),
+		),
+		goldmark.WithRendererOptions(
+			html.WithHardWraps(),
+			html.WithXHTML(),
+			html.WithUnsafe(),
+		),
+	)
+	b := bytes.Buffer{}
+	if err := md.Convert([]byte(text), &b); err != nil {
+		panic(err)
+	}
+	return b.String()
+	//return string(bf.Run([]byte(text), bf.WithNoExtensions(), bfExtensions))
 }
 
 func MarkdownNoP(text string) string {
