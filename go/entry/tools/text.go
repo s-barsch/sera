@@ -10,6 +10,7 @@ import (
 	"github.com/yuin/goldmark/extension"
 	"github.com/yuin/goldmark/parser"
 	"github.com/yuin/goldmark/renderer/html"
+	"sacer/go/entry/tools/markup/gmext"
 )
 
 var validSlug = regexp.MustCompile("[^a-z0-9-]+")
@@ -32,6 +33,7 @@ func Markdown(text string) string {
 		goldmark.WithExtensions(
 			extension.Footnote,
 			extension.DefinitionList,
+			gmext.Asterism,
 		),
 		goldmark.WithParserOptions(
 			parser.WithAutoHeadingID(),

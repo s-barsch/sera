@@ -81,9 +81,11 @@ func (r *Renderer) renderSnippet(s string) string {
 					continue
 				}
 			}
+			/*
 		case '⁂':
 			buf.WriteString("<span class=\"asterism\">⁂</span>")
 			continue
+		*/
 		}
 
 		buf.WriteRune(c)
