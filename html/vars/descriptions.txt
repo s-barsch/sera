@@ -1,5 +1,5 @@
-site-de: Sacer Feral ist ein deutschsprachiger Künstler und Philosoph.
-site-en: Sacer Feral is a German-speaking artist and philosopher.
+site-de: Sacer Feral ist ein deutschsprachiger Autotheoretiker.
+site-en: Sacer Feral is a German-speaking autotheorist.
 serial-de: Eine Liste der serialisierten Einträge des Index.
 serial-en: A list of the serialized entries of Index.
 index-subtitle-en: Topical&nbsp;structure

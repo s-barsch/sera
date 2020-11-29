@@ -21,7 +21,7 @@ func (t *Text) Blur() *Text {
 	
 	s := &Script{
 		Langs: langs,
-		Notes: notes,
+		Footnotes: notes,
 	}
 
 	t.Script = s

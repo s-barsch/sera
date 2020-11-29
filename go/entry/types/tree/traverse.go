@@ -80,6 +80,7 @@ func makePublic(es entry.Entries, newParent entry.Entry) entry.Entries {
 		if s, ok := e.(*set.Set); ok {
 			ns := s.Copy()
 			ns.SetEntries(makePublic(ns.Entries(), ns))
+			ns.SetNotes(makePublic(ns.Notes, ns))
 			e = ns
 		}
 		l = append(l, e)

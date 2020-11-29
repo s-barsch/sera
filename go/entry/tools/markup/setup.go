@@ -10,7 +10,7 @@ func Render(input string) (string, []string) {
 	//s := bufio.NewScanner(strings.NewReader(input))
 
 	r := &Renderer{
-		Notes: []string{},
+		Footnotes: []string{},
 	}
 
 	/*
@@ -22,7 +22,7 @@ func Render(input string) (string, []string) {
 	}
 	*/
 
-	return r.renderSnippet(input), r.Notes
+	return r.renderSnippet(input), r.Footnotes
 }
 
 /*
@@ -67,12 +67,12 @@ func (p *Parser) Parse(input string) *Text {
 		}
 	}
 
-	t.Notes = p.Notes
+	t.Footnotes = p.Footnotes
 	*/
 
 	/*
 	return &Text{
-		Notes: p.Notes,
+		Footnotes: p.Footnotes,
 		Lines: lines,
 	}
 }
@@ -92,7 +92,7 @@ func NewParser(path string, medium) (*Parser, error) {
 
 	return &Parser{
 		Template: t,
-		Notes: []string{},
+		Footnotes: []string{},
 	}, nil
 }
 */

@@ -84,16 +84,23 @@
   <div class="column">
   {{template "graph-kine-mobile" .}}
   </div>
-  {{with .E.Notes}}
-  <div class="column">
-  {{template "footnotes" (nL . $.L)}}
-  </div>
+  {{with .E.Footnotes}}
+    <div class="column">
+    {{template "footnotes" (nL . $.L)}}
+    </div>
   {{end}}
+  {{template "notes" (esL .E.Notes $.L)}}
 </div>
 {{end}}
 
+{{define "notes"}}
+{{range .Es}}
+{{template "graph-tob" (eL . $.L)}}
+{{end}}
+{{end}}
+
 {{define "footnotes"}}
-    {{with .Notes}}
+    {{with .Footnotes}}
     <div class="footnotes">
       {{$notes := index . $.L}}
       {{range $i, $n := $notes}}

@@ -6,21 +6,21 @@ import (
 )
 
 type NotesLang struct {
-	Notes *text.Notes
+	Footnotes *text.Footnotes
 	Lang  string
 }
 
-func (nL NotesLang) N() *text.Notes {
-	return nL.Notes
+func (nL NotesLang) FN() *text.Footnotes {
+	return nL.Footnotes
 }
 
 func (nL NotesLang) L() string {
 	return nL.Lang
 }
 
-func NewNotesLang(n *text.Notes, lang string) *NotesLang {
+func NewNotesLang(fn *text.Footnotes, lang string) *NotesLang {
 	return &NotesLang{
-		Notes: n,
+		Footnotes: fn,
 		Lang:  lang,
 	}
 }

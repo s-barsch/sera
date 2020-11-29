@@ -21,8 +21,10 @@ type Set struct {
 	entries entry.Entries
 	Cover   *image.Image
 
-	Kine    entry.Entries
-	Notes   text.Notes
+	Kine      entry.Entries
+	Notes     entry.Entries
+
+	Footnotes text.Footnotes
 }
 
 func (s *Set) Copy() *Set {
@@ -38,6 +40,8 @@ func (s *Set) Copy() *Set {
 
 		Notes: s.Notes,
 		Kine:  s.Kine,
+		
+		Footnotes: s.Footnotes,
 	}
 }
 
@@ -83,9 +87,24 @@ func NewSet(path string, parent entry.Entry) (*Set, error) {
 
 	s.Cover, s.entries = extractCover(entries)
 
-	s.Notes = NumberFootnotes(s.Entries())
+	s.Notes, s.entries = extractNotes(s.entries)
+
+	s.Footnotes = NumberFootnotes(s.Entries())
 
 	return s, nil
+}
+
+func extractNotes(es entry.Entries) (entry.Entries, entry.Entries) {
+	notes := entry.Entries{}
+	entries := entry.Entries{}
+	for _, e := range es {
+		if e.Info().Note() == true {
+			notes = append(notes, e)
+			continue
+		}
+		entries = append(entries, e)
+	}
+	return notes, entries
 }
 
 func extractCover(es entry.Entries) (*image.Image, entry.Entries) {

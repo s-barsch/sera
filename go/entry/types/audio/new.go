@@ -26,7 +26,7 @@ type Audio struct {
 
 type Transcript struct {
 	Langs text.Langs
-	Notes text.Notes
+	Footnotes text.Footnotes
 }
 
 func NewAudio(path string, parent entry.Entry) (*Audio, error) {

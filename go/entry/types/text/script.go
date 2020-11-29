@@ -1,23 +1,23 @@
 package text
 
 import (
+	"bytes"
+	"fmt"
 	"sacer/go/entry/tools"
 	"sacer/go/entry/tools/hyph"
 	"sacer/go/entry/tools/markup"
-	"bytes"
 	"unicode/utf8"
-	"fmt"
 )
 
 type Script struct {
-	Langs Langs
-	Notes Notes
+	Langs     Langs
+	Footnotes Footnotes
 }
 
 type Langs map[string]string
-type Notes map[string][]string
+type Footnotes map[string][]string
 
-func RenderScript(langs Langs) (*Script) {
+func RenderScript(langs Langs) *Script {
 	notes := langs.OwnRender()
 
 	langs.Markdown()
@@ -25,19 +25,19 @@ func RenderScript(langs Langs) (*Script) {
 	notes.MarkdownHyphenate()
 
 	return &Script{
-		Langs: langs,
-		Notes: notes,
+		Langs:     langs,
+		Footnotes: notes,
 	}
 }
 
 func (s Script) Copy() *Script {
 	return &Script{
-		Langs: s.Langs.Copy(),
-		Notes: s.Notes.Copy(),
+		Langs:     s.Langs.Copy(),
+		Footnotes: s.Footnotes.Copy(),
 	}
 }
 
-func (n Notes) Copy() Notes {
+func (n Footnotes) Copy() Footnotes {
 	m := map[string][]string{}
 
 	for k, v := range n {
@@ -45,7 +45,7 @@ func (n Notes) Copy() Notes {
 		copy(v, s)
 		m[k] = s
 	}
-	
+
 	return m
 }
 
@@ -59,7 +59,7 @@ func (l Langs) Copy() Langs {
 	return m
 }
 
-func (notes Notes) MarkdownHyphenate() {
+func (notes Footnotes) MarkdownHyphenate() {
 	for l, _ := range tools.Langs {
 		for i, _ := range notes[l] {
 			notes[l][i] = tools.MarkdownNoP(notes[l][i])
@@ -80,7 +80,7 @@ func (langs Langs) Markdown() {
 	}
 }
 
-func (langs Langs) OwnRender() Notes {
+func (langs Langs) OwnRender() Footnotes {
 	notes := map[string][]string{}
 
 	for l, _ := range tools.Langs {
@@ -104,7 +104,7 @@ func (s *Script) NumberFootnotes(count int) {
 
 			if c == '‡' {
 				buf.WriteString(fmt.Sprintf("<span class=\"ref\">%d</span>", count))
-				buf.WriteString(fmt.Sprintf("<span class=\"inline-note\">%v</span>", s.Notes[lang][i]))
+				buf.WriteString(fmt.Sprintf("<span class=\"inline-note\">%v</span>", s.Footnotes[lang][i]))
 				i++
 				count++
 				continue

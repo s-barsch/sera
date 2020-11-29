@@ -21,7 +21,7 @@ type Tree struct {
 	entries entry.Entries
 	Trees   Trees
 
-	Notes   text.Notes
+	Footnotes text.Footnotes
 }
 
 func (t *Tree) Copy() *Tree {
@@ -86,7 +86,7 @@ func ReadTree(path string, parent *Tree) (*Tree, error) {
 	s.entries = entries
 	s.Trees = trees
 
-	s.Notes = set.NumberFootnotes(s.Entries())
+	s.Footnotes = set.NumberFootnotes(s.Entries())
 
 	return s, nil
 }

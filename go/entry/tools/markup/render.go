@@ -21,7 +21,7 @@ var markupTags = map[string]string {
 }
 
 type Renderer struct {
-	Notes []string
+	Footnotes []string
 }
 
 func (r *Renderer) renderSnippet(s string) string {
@@ -125,9 +125,9 @@ var noteTmpl = "‡"
 
 func (r *Renderer) renderNote(buf *bytes.Buffer, s string) int {
 	if x := closingPos(s, "}"); x != -1 {
-		//buf.WriteString(fmt.Sprintf(noteTmpl, len(r.Notes)+1))
+		//buf.WriteString(fmt.Sprintf(noteTmpl, len(r.Footnotes)+1))
 		buf.WriteString(noteTmpl)
-		r.Notes = append(r.Notes, r.renderSnippet(s[:x-1]))
+		r.Footnotes = append(r.Footnotes, r.renderSnippet(s[:x-1]))
 		return x
 	}
 	return 0

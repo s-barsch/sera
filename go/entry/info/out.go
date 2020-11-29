@@ -16,6 +16,10 @@ func (i Info) Private() bool {
 	return i["private"] == "true"
 }
 
+func (i Info) Note() bool {
+	return i["note"] == "true"
+}
+
 func (i Info) Wall() bool {
 	return i["wall"] == "true"
 }
