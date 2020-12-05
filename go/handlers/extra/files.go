@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"sacer/go/entry"
+	"sacer/go/entry/tools"
 	"sacer/go/entry/types/video"
 	"sacer/go/entry/types/set"
 	"sacer/go/server/head"
@@ -45,10 +46,17 @@ func serveSingleBlob(w http.ResponseWriter, r *http.Request, e entry.Entry, path
 	if !ok {
 		return fmt.Errorf("File to serve (%v) is no blob.", e.File().Name())
 	}
-	video, ok := e.(*video.Video)
+	v, ok := e.(*video.Video)
 	if ok {
-		if p.Ext(path.SubFile.Name) == ".vtt" {
-			serveStatic(w, r, video.SubtitleLocation(path.SubFile.Size))
+		switch p.Ext(path.SubFile.Name) {
+		case ".vtt":
+			serveStatic(w, r, v.SubtitleLocation(path.SubFile.Size))
+			return nil
+		case ".ts":
+			serveStatic(w, r, p.Join(v.File().Dir(), path.SubFile.Name))
+			return nil
+		case ".m3u8":
+			serveStatic(w, r, v.HLSLocation())
 			return nil
 		}
 	}
@@ -57,8 +65,9 @@ func serveSingleBlob(w http.ResponseWriter, r *http.Request, e entry.Entry, path
 }
 
 func serveCollectionBlob(w http.ResponseWriter, r *http.Request, col entry.Collection, path *paths.Path) error {
+	name := stripName(path.SubFile.Name)
 	for _, e := range col.Entries() {
-		if e.File().Name() == path.SubFile.Name {
+		if tools.StripExt(e.File().Name()) == name {
 			return serveSingleBlob(w, r, e, path)
 		}
 	}
@@ -71,19 +80,14 @@ func serveCollectionBlob(w http.ResponseWriter, r *http.Request, col entry.Colle
 		return fmt.Errorf("serveCollectionBlob: Cover %v not found.", path.SubFile.Name)
 	}
 
-	if e, ok := col.(entry.Entry); ok && p.Ext(path.SubFile.Name) == ".vtt" {
-		file := p.Join(e.File().Path, path.SubFile.Name)
-		serveStatic(w, r, vttPath(file, path.SubFile.Size))
-		return nil
-	}
-
 	return fmt.Errorf("serveCollectionBlob: File %v not found.", path.SubFile.Name)
 }
 
-func vttPath(path, lang string) string {
-	l := len(path)
-	if l < 5 {
-		return path
+
+func stripName(name string) string {
+	name = tools.StripExt(p.Base(name))
+	if l := len(name); l > 4 && name[l-4] == '_' {
+		return name[:l-4]
 	}
-	return fmt.Sprintf("%v-%v.vtt", path[:l-4], lang)
+	return name
 }

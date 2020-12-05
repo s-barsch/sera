@@ -5,6 +5,7 @@
   "dependencies": {
     "babel": "^6.23.0",
     "hammerjs": "^2.0.8",
+    "hls.js": "^0.14.16",
     "webpack-cli": "^3.3.5"
   },
   "devDependencies": {

@@ -64,7 +64,7 @@ func IsNameSys(name string) bool {
 	}
 
 	switch name {
-	case ".sort", "bot", "cache", "info", "vtt":
+	case ".sort", "bot", "cache", "info", "hls", "vtt":
 		return true
 	}
 

@@ -16,17 +16,20 @@ func (v *Video) FilePath(lang string) string {
 	return fmt.Sprintf("%v/files/%v", parent, v.file.Name())
 }
 
+func (v *Video) HLSPath(lang string) string {
+	parent := v.Perma(lang)
+	if v.parent.Type() == "set" {
+		parent = v.parent.Perma(lang)
+	}
+	return hlsPath(parent + "/files", v.file.NameNoExt())
+}
+
 func (v *Video) SubtitlePath(lang string) string {
 	parent := v.Perma(lang)
 	if v.parent.Type() == "set" {
 		parent = v.parent.Perma(lang)
 	}
-	return fmt.Sprintf(
-		"%v/files/vtt/%v-%v.vtt",
-		parent,
-		v.file.NameNoExt(),
-		lang,
-	)
+	return vttPath(parent + "/files", v.file.NameNoExt(), lang)
 }
 
 func (v *Video) SubtitlesOn(subLang, pageLang string) bool {
@@ -47,6 +50,19 @@ func (v *Video) HasSubtitles(lang string) bool {
 	return false
 }
 
-func (v *Video) SubtitleLocation(lang string) string {
-	return fmt.Sprintf("%v/vtt/%v-%v.vtt", v.file.Dir(), v.file.NameNoExt(), lang)
+func (v *Video) HLSLocation() string {
+	return hlsPath(v.file.Dir(), v.file.NameNoExt())
 }
+
+func (v *Video) SubtitleLocation(lang string) string {
+	return vttPath(v.file.Dir(), v.file.NameNoExt(), lang)
+}
+
+func hlsPath(path, nameNoExt string) string {
+	return fmt.Sprintf("%v/hls/%v.m3u8", path, nameNoExt)
+}
+
+func vttPath(path, nameNoExt, lang string) string {
+	return fmt.Sprintf("%v/vtt/%v-%v.vtt", path, nameNoExt, lang)
+}
+

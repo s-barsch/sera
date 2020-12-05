@@ -22,6 +22,8 @@ type Video struct {
 
 	Subtitles  []string
 	Transcript *text.Script
+
+	HLS bool
 }
 
 func NewVideo(path string, parent entry.Entry) (*Video, error) {
@@ -59,6 +61,8 @@ func NewVideo(path string, parent entry.Entry) (*Video, error) {
 
 	script := audio.GetTranscript(inf)
 
+	hls := hasHLS(path)
+
 	return &Video{
 		parent:     parent,
 		file:       file,
@@ -66,6 +70,7 @@ func NewVideo(path string, parent entry.Entry) (*Video, error) {
 		info:       inf,
 		Subtitles:  subs,
 		Transcript: script,
+		HLS:		hls,
 	}, nil
 }
 
@@ -80,4 +85,11 @@ func getSubtitles(path string) []string {
 		}
 	}
 	return langs
+}
+
+func hasHLS(path string) bool {
+	dir := filepath.Dir(path)
+	name := tools.StripExt(filepath.Base(path))
+	_, err := os.Stat(filepath.Join(dir, "hls", name + ".m3u8"))
+	return err == nil
 }

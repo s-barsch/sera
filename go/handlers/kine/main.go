@@ -41,7 +41,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth
 	err = s.ExecuteTemplate(w, "kine-main", &kineMain{
 		Head:    head,
 		Tree:    t,
-		Entries: entries.Offset(0, 100),
+		Entries: entries,
 	})
 	if err != nil {
 		log.Println(err)

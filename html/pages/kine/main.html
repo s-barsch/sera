@@ -12,7 +12,7 @@
         </h4>
     </div>
 
-    {{$months := (.Entries.Offset 0 25).Months}} <!-- 25 -->
+    {{$months := .Entries.Months}}
     {{range $i, $entries := $months}}
       {{if $i}}
         <h2 class="month-title">
