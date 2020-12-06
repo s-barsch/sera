@@ -4,6 +4,7 @@ import initText from "./text";
 import initAudio from "./audio";
 import initGraphMore from "./graph-overview/more";
 import initOptionToggles from "./options";
+import initHLSVideo from "./video";
 
 const stInit = page => {
     switch (page.type) {
@@ -22,6 +23,7 @@ const stInit = page => {
 document.addEventListener("DOMContentLoaded", function() {
   initText();
   initAudio();
+  initHLSVideo();
   initOptionToggles();
   initServiceWorker();
   if (typeof pageVars !== "undefined") {
