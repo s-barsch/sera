@@ -77,7 +77,8 @@
 
 {{define "video"}}
 <figure>
-  <video preload="metadata" loop controls {{if eq .E.Section "kine"}}autoplay{{end}}>
+  <video preload="metadata" loop controls {{if eq .E.Section "kine"}}autoplay
+    poster={{.E.Parent.Cover.ImagePath 1600 .L}}{{end}}>
     {{if .E.HLS}}
     <source src="{{.E.HLSPath .Lang}}" type="application/x-mpegURL">
     {{end}}
