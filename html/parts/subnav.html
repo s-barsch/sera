@@ -46,9 +46,11 @@
         {{end}}
         {{if .HasDays}}
           {{range $i, $e := .Tree.Entries.Reverse}}
+          <!--
             {{if not $i}}
             <span class="year-label">Days:</span>
             {{end}}
+          -->
             {{$isActive := eq $.Active $e.Id}}
             <a {{if $isActive}}class="active" {{end}}href="{{$e.Perma $.L}}">{{$e.Date.Format "02"}}</a>
           {{end}}

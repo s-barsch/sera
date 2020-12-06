@@ -64,8 +64,11 @@ func kinePerma(t *Tree, lang string) string {
 	case l == 0:
 		return "/kine"
 	case l == 2:
-		// TODO: do something more refined here later.
-		return "/kine"
+		last := "/kine"
+		if l := len(t.Entries()); l > 0 {
+			last = t.Entries()[l-1].Perma(lang)
+		}
+		return last
 	case l < 3:
 		return t.Path(lang)
 	}

@@ -39,6 +39,7 @@ func readTrees(path string, parent *Tree) (Trees, error) {
 	return toTrees(entries)
 }
 
+// I did that – apparently – to use the same sort function I use for entries.
 func toEntries(trees Trees) entry.Entries {
 	es := entry.Entries{}
 	for _, t := range trees {
