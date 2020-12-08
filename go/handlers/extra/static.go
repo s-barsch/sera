@@ -13,7 +13,8 @@ import (
 )
 
 func serveStatic(w http.ResponseWriter, r *http.Request, p string) {
-	if filepath.Ext(p) == ".vtt" {
+	switch filepath.Ext(p) {
+	case ".vtt":
 		w.Header().Set("Content-Type", "text/vtt")
 	}
 	w.Header().Set("Expires", time.Now().AddDate(0, 3, 0).Format(time.RFC1123))

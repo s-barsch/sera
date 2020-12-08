@@ -20,6 +20,10 @@ const stripPath = url => {
 // Network falling back to the cache
 self.addEventListener('fetch', function(event) {
   const path = stripPath(event.request.url);
+  const ext = path.substr(-3);
+  if (ext == "mp4" || ".ts") {
+    return false;
+  }
   event.respondWith(
     fetch(event.request).then(response => {
       if (path == "/" || path == "manifest.json") {
