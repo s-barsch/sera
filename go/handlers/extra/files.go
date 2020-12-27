@@ -4,15 +4,15 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	p "path/filepath"
 	"sacer/go/entry"
 	"sacer/go/entry/tools"
-	"sacer/go/entry/types/video"
 	"sacer/go/entry/types/set"
-	"sacer/go/server/head"
-	"sacer/go/server/paths"
+	"sacer/go/entry/types/video"
 	"sacer/go/server"
 	"sacer/go/server/auth"
-	p "path/filepath"
+	"sacer/go/server/head"
+	"sacer/go/server/paths"
 )
 
 func ServeFile(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth, path *paths.Path) {
@@ -52,12 +52,6 @@ func serveSingleBlob(w http.ResponseWriter, r *http.Request, e entry.Entry, path
 		case ".vtt":
 			serveStatic(w, r, v.SubtitleLocation(path.SubFile.Size))
 			return nil
-		case ".ts":
-			serveStatic(w, r, p.Join(v.File().Dir(), path.SubFile.Name))
-			return nil
-		case ".m3u8":
-			serveStatic(w, r, v.HLSLocation())
-			return nil
 		}
 	}
 	serveStatic(w, r, blob.Location(path.SubFile.Size))
@@ -75,14 +69,13 @@ func serveCollectionBlob(w http.ResponseWriter, r *http.Request, col entry.Colle
 	if name := path.SubFile.Name; len(name) > 5 && name[:5] == "cover" {
 		set, ok := col.(*set.Set)
 		if ok && set.Cover != nil {
-				return serveSingleBlob(w, r, set.Cover, path)
+			return serveSingleBlob(w, r, set.Cover, path)
 		}
 		return fmt.Errorf("serveCollectionBlob: Cover %v not found.", path.SubFile.Name)
 	}
 
 	return fmt.Errorf("serveCollectionBlob: File %v not found.", path.SubFile.Name)
 }
-
 
 func stripName(name string) string {
 	name = tools.StripExt(p.Base(name))

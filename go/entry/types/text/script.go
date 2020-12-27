@@ -92,8 +92,9 @@ func (langs Langs) OwnRender() Footnotes {
 	return notes
 }
 
-func (s *Script) NumberFootnotes(count int) {
+func (s *Script) NumberFootnotes(init int) {
 	for lang, _ := range tools.Langs {
+		count := init
 		buf := bytes.Buffer{}
 
 		i := 0

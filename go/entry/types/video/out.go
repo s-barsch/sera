@@ -16,14 +16,6 @@ func (v *Video) FilePath(lang string) string {
 	return fmt.Sprintf("%v/files/%v", parent, v.file.Name())
 }
 
-func (v *Video) HLSPath(lang string) string {
-	parent := v.Perma(lang)
-	if v.parent.Type() == "set" {
-		parent = v.parent.Perma(lang)
-	}
-	return hlsPath(parent + "/files", v.file.NameNoExt())
-}
-
 func (v *Video) SubtitlePath(lang string) string {
 	parent := v.Perma(lang)
 	if v.parent.Type() == "set" {
@@ -48,10 +40,6 @@ func (v *Video) HasSubtitles(lang string) bool {
 		}
 	}
 	return false
-}
-
-func (v *Video) HLSLocation() string {
-	return hlsPath(v.file.Dir(), v.file.NameNoExt())
 }
 
 func (v *Video) SubtitleLocation(lang string) string {
