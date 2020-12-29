@@ -33,6 +33,9 @@
           <div class="title">
           {{$set.Info.Field "title-hyph" $.Head.Lang}}
           </div>
+          {{if isLocal}}
+          {{template "kine-meta" (eL $set $.Head.Lang)}}
+          {{end}}
         </div>
         {{else}}
           Has no cover:<br>{{.}}
@@ -45,4 +48,30 @@
 
 
 {{template "bot" .Head}}
+{{end}}
+
+
+{{define "kine-meta"}}
+  {{$transcript := (hasTranscript .E .L)}}
+  {{if $transcript}}
+  <span style="background:green">
+    Transcript
+  </span>
+  {{else}}
+  <span style="background:red">
+    Transcript
+  </span>
+  {{end}}
+
+  &nbsp;
+  {{$subtitles := (hasSubtitles .E .L)}}
+  {{if $subtitles}}
+  <span style="background:green">
+    Subtitles
+  </span>
+  {{else}}
+  <span style="background:red">
+    Subtitles
+  </span>
+  {{end}}
 {{end}}

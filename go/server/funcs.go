@@ -79,7 +79,20 @@ func (s *Server) Funcs() template.FuncMap {
 			}
 			return hasSubtitles(s, lang)
 		},
-
+		"hasSubtitles": func(e entry.Entry, lang string) bool {
+			s, ok := e.(*set.Set)
+			if !ok {
+				return false
+			}
+			return hasSubtitles(s, lang)
+		},
+		"hasTranscript": func(e entry.Entry, lang string) bool {
+			s, ok := e.(*set.Set)
+			if !ok {
+				return false
+			}
+			return hasTranscript(s, lang)
+		},
 		"nL":   tmpl.NewNotesLang,
 		"eL":   tmpl.NewEntryLang,
 		"eLy":  tmpl.NewEntryLangLazy,
@@ -97,6 +110,16 @@ func hasSubtitles(s *set.Set, lang string) bool {
 		v, ok := child.(*video.Video)
 		if ok {
 			return v.HasSubtitles(lang)
+		}
+	}
+	return false
+}
+
+func hasTranscript(s *set.Set, lang string) bool {
+	for _, child := range s.Entries() {
+		v, ok := child.(*video.Video)
+		if ok {
+			return v.Info().Field("transcript", lang) != ""
 		}
 	}
 	return false
