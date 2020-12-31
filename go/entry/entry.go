@@ -36,7 +36,7 @@ type Collection interface {
 }
 
 type Blob interface {
-	Location(string) string
+	Location(string) (string, error)
 }
 
 func IsBlob(e Entry) bool {

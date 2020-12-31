@@ -4,8 +4,8 @@ import (
 	"fmt"
 )
 
-func (a *Audio) Location(arg string) string {
-	return a.file.Path
+func (a *Audio) Location(arg string) (string, error) {
+	return a.file.Path, nil
 }
 
 func (a *Audio) CaptionPath(lang string) string {

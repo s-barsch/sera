@@ -6,8 +6,8 @@ import (
 	"strconv"
 )
 
-func (i *Image) Location(size string) string {
-	return p.Join(i.file.Dir(), "cache", size, i.file.Name())
+func (i *Image) Location(size string) (string, error) {
+	return p.Join(i.file.Dir(), "cache", size, i.file.Name()), nil
 }
 
 func (i *Image) ImagePath(size int, lang string) string {

@@ -2,12 +2,30 @@ package video
 
 import (
 	"fmt"
+	"path/filepath"
 )
 
-func (v *Video) Location(arg string) string {
-	return v.file.Path
+func (v *Video) Location(size string) (string, error) {
+	if size == "" {
+		size = "1080"
+	}
+	for _, s := range v.Sources {
+		if s.Size == size {
+			return filepath.Join(v.file.Dir(), s.Path), nil
+		}
+	}
+	return "", fmt.Errorf("Cannot find size %v in %v", size, v.file.Path)
 }
 
+func (v *Video) FilesPath(lang string) string {
+	parent := v.Perma(lang)
+	if v.parent.Type() == "set" {
+		parent = v.parent.Perma(lang)
+	}
+	return fmt.Sprintf("%v/files", parent)
+}
+
+/*
 func (v *Video) FilePath(lang string) string {
 	parent := v.Perma(lang)
 	if v.parent.Type() == "set" {
@@ -15,13 +33,14 @@ func (v *Video) FilePath(lang string) string {
 	}
 	return fmt.Sprintf("%v/files/%v", parent, v.file.Name())
 }
+*/
 
 func (v *Video) SubtitlePath(lang string) string {
 	parent := v.Perma(lang)
 	if v.parent.Type() == "set" {
 		parent = v.parent.Perma(lang)
 	}
-	return vttPath(parent + "/files", v.file.NameNoExt(), lang)
+	return vttPath(parent + "/files", stripSize(v.file.NameNoExt()), lang)
 }
 
 func (v *Video) SubtitlesOn(subLang, pageLang string) bool {
