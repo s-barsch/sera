@@ -21,16 +21,30 @@ function initPlayers(videos) {
 }
 
 function playerOptions(video) {
-  console.log(video)
   const lang = document.documentElement.lang;
+  const captionsActive = displayCaptions(video, lang);
   return {
     disableContextMenu: false,
-    captions: { active: false, language: lang, update: false },
+    captions: { active: captionsActive, language: lang, update: false },
     settings: ['captions', 'quality', 'loop'],
     controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'fullscreen'],
     quality: { default: 1080, options: [1080, 720] },
+    storage: { enabled: false },
     invertTime: false
   }
+}
+
+function displayCaptions(video, lang) {
+  if (lang == "en") {
+    return true
+  }
+  const children = video.children;
+  for (var i = 0; i < children.length; i++) {
+    if (children[i].tagName == 'TRACK' && children[i].default) {
+      return true
+    }
+  }
+  return false
 }
 
 const loadCSS = src => {
