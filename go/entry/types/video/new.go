@@ -3,6 +3,7 @@ package video
 import (
 	"fmt"
 	"io/ioutil"
+	"github.com/alfg/mp4"
 	"os"
 	"path/filepath"
 	"sacer/go/entry"
@@ -12,6 +13,7 @@ import (
 	"sacer/go/entry/types/audio"
 	"sacer/go/entry/types/text"
 	"sacer/go/server/paths"
+	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -28,11 +30,18 @@ type Video struct {
 
 	Subtitles  []string
 	Transcript *text.Script
+
+	Duration float64 
 }
 
 type Source struct {
 	Path string
-	Size string 
+	Size int64
+	Resolution string 
+}
+
+func (s *Source) Mbyte() int64 {
+	return s.Size / 1024 / 1024
 }
 
 func NewVideo(path string, parent entry.Entry) (*Video, error) {
@@ -47,6 +56,11 @@ func NewVideo(path string, parent entry.Entry) (*Video, error) {
 	}
 
 	sources, err := getSources(path)
+	if err != nil {
+		return nil, err
+	}
+
+	duration, err := Mp4Duration(path)
 	if err != nil {
 		return nil, err
 	}
@@ -83,12 +97,13 @@ func NewVideo(path string, parent entry.Entry) (*Video, error) {
 		Subtitles:  subs,
 		Transcript: script,
 		Sources:    sources,
+		Duration: duration,
 	}, nil
 }
 
 func getSubtitles(path string) []string {
 	dir := filepath.Dir(path)
-	name := stripSize(tools.StripExt(filepath.Base(path)))
+	name := stripResolution(tools.StripExt(filepath.Base(path)))
 	langs := []string{}
 	for _, lang := range []string{"de", "en"} {
 		_, err := os.Stat(filepath.Join(dir, "vtt", fmt.Sprintf("%v-%v.vtt", name, lang)))
@@ -102,29 +117,38 @@ func getSubtitles(path string) []string {
 
 func getSources(path string) ([]*Source, error) {
 
-	s, _ := getSource(filepath.Base(path), true)
+	top, _ := getSource(path)
 
-	sources := []*Source{s}
+	sources := []*Source{top}
 
-	sizes := filepath.Dir(path) + "/sizes"
-	_, err := os.Stat(sizes)
+	ress := filepath.Dir(path) + "/sizes"
+	_, err := os.Stat(ress)
 	if err != nil {
 		return sources, nil
 	}
 
-	l, err := ioutil.ReadDir(sizes)
+	l, err := ioutil.ReadDir(ress)
 	if err != nil {
 		return nil, err
 	}
+
+	sort.Sort(Desc(l))
+
+	dir := filepath.Dir(path)
 
 	for _, fi := range l {
 		if fi.IsDir() {
 			continue
 		}
 
-		s, err := getSource(filepath.Join("sizes", fi.Name()), false)
+		s, err := getSource(filepath.Join(dir, "sizes", fi.Name()))
 		if err != nil {
 			return nil, err
+		}
+
+		if s.Resolution == "1080" && sources[0].Resolution == "1080" {
+			sources[0] = s
+			continue
 		}
 
 		sources = append(sources, s)
@@ -132,26 +156,82 @@ func getSources(path string) ([]*Source, error) {
 	return sources, nil
 }
 
-func getSource(path string, isTop bool) (*Source, error) {
+func parent(path string) string {
+	return filepath.Base(filepath.Dir(path))
+}
+
+func getSource(path string) (*Source, error) {
+	isTop := false
+	name := ""
+
+	if parent(path) == "sizes" {
+		name = "sizes/" + filepath.Base(path)
+	} else {
+		name = filepath.Base(path)
+		isTop = true
+	}
+
 	subfile := paths.SplitSubpath(path)
-	size, err := strconv.Atoi(subfile.Size)
+	res, err := strconv.Atoi(subfile.Size)
 	if err != nil {
 		if isTop {
-			size = 1080
+			res = 1080
 		} else {
-			return nil, fmt.Errorf("getSources: Could not find size of %v", path)
+			return nil, fmt.Errorf("getSources: Could not find resolution of %v", path)
 		}
 	}
+	fi, err := os.Stat(path)
+	if err != nil {
+		return nil, err
+	}
 	return &Source{
-		Path: path,
-		Size: strconv.Itoa(size),
+		Path: name,
+		Size: fi.Size(),
+		Resolution: strconv.Itoa(res),
 	}, nil
 }
 
-func stripSize(name string) string {
+func stripResolution(name string) string {
 	i := strings.LastIndex(name, "-")
 	if i > 0 {
 		return name[:i]
 	}
 	return name
 }
+
+type Desc []os.FileInfo
+
+
+func (a Desc) Len() int      { return len(a) }
+func (a Desc) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
+
+func (a Desc) Less(i, j int) bool {
+	return a[i].Name() > a[j].Name()
+}
+
+
+/*
+func getDuration(path string) (uint32, error) {
+	f, err := os.Open(path)
+	if err != nil {
+		return 0, err
+	}
+	defer f.Close()
+	m, err := mp4.Decode(io.Reader(f))
+	if err != nil {
+		println(path)
+		println("here")
+		return 0, err
+	}
+	return m.Moov.Mvhd.Duration, nil
+}
+*/
+
+func Mp4Duration(path string) (float64, error) {
+	f, err := mp4.Open(path)
+	if err != nil {
+		return 0, err
+	}
+	return float64(f.Moov.Mvhd.Duration/1000), nil
+}
+

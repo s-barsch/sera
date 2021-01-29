@@ -52,7 +52,9 @@
 
 
 {{define "kine-meta"}}
+  {{$video := setVideo .E}}
   {{$transcript := (hasTranscript .E .L)}}
+  <br>
   {{if $transcript}}
   <span style="background:green">
     Transcript
@@ -77,8 +79,16 @@
 
   <br>
   <br>
-  {{range sources .E}}
-  {{.Size}}p
+  <small>1080p [{{$video.Ideal "1080"}}mb]
+  720p [{{$video.Ideal "720"}}mb]
+  480p [{{$video.Ideal "480"}}mb]</small>
+  <br>
+  <small>{{$video.Duration}}</small>
+  <br>
+  <br>
+  {{range $video.Sources}}
+  <code>{{.Resolution}}p ({{.Mbyte}}mb)</code><br>
   &nbsp;
   {{end}}
+  <br>
 {{end}}

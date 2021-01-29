@@ -79,7 +79,15 @@ func (s *Server) Funcs() template.FuncMap {
 			}
 			return hasSubtitles(s, lang)
 		},
-		"sources": sources,
+		"setVideo": func(s *set.Set) *video.Video {
+			for _, child := range s.Entries() {
+				v, ok := child.(*video.Video)
+				if ok {
+					return v
+				}
+			}
+			return nil
+		},
 		"hasSubtitles": func(e entry.Entry, lang string) bool {
 			s, ok := e.(*set.Set)
 			if !ok {
@@ -104,16 +112,6 @@ func (s *Server) Funcs() template.FuncMap {
 		"shaveParagraph": tools.ShaveParagraph,
 		"minifySvg":      minifySVG,
 	}
-}
-
-func sources(s *set.Set) ([]*video.Source) {
-	for _, child := range s.Entries() {
-		v, ok := child.(*video.Video)
-		if ok {
-			return v.Sources
-		}
-	}
-	return nil
 }
 
 func hasSubtitles(s *set.Set, lang string) bool {

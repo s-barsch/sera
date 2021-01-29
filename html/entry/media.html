@@ -79,7 +79,7 @@
 <figure>
   <video preload="metadata" loop controls {{if eq .E.Section "kine"}}autoplay {{end}} type="video/mp4">
     {{range .E.Sources}}
-    <source src="{{$.E.FilesPath $.L}}/{{.Path}}" size="{{.Size}}" type="video/mp4">
+    <source src="{{$.E.FilesPath $.L}}/{{.Path}}" size="{{.Resolution}}" type="video/mp4">
     {{end}}
     {{range .E.Subtitles}}
     <track label="{{langName .}}" srclang="{{.}}" kind="subtitles"

@@ -28,7 +28,7 @@ function playerOptions(video) {
     captions: { active: captionsActive, language: lang, update: false },
     settings: ['captions', 'quality', 'loop'],
     controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'fullscreen'],
-    quality: { default: 1080, options: [1080, 720] },
+    quality: { default: 1080, options: [1080, 720, 480] },
     storage: { enabled: false },
     invertTime: false
   }
