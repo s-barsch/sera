@@ -27,15 +27,6 @@ func makeTimestamp(t time.Time) string {
 	return s
 }
 
-func ReadCSS(root string) (string, error) {
-	b, err := ioutil.ReadFile(root + "/css/dist/main.css")
-	if err != nil {
-		return "", err
-	}
-
-	return minifyCSS(string(b))
-}
-
 func readFile(path string) (string, error) {
 	b, err := ioutil.ReadFile(path)
 	return string(b), err
