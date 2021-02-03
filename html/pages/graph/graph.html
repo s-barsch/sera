@@ -19,6 +19,10 @@
         <h2 class="month-title column">
             <a href="#{{$monthNum}}">{{monthLang .Date $.Head.Lang}}</a>
         </h2>
+        {{with .Summary}}{{template "summary" .}}{{end}}
+        {{if isLocal}}
+        {{with .SummaryPrivate}}{{template "summary" .}}{{end}}
+        {{end}}
         {{if eq (index .Info "alpha") "true"}}
           {{template "unedited-hint" (var "alpha-month" $.Head.Lang)}}
         {{end}}
@@ -35,13 +39,18 @@
 {{template "bot" .Head}}
 {{end}}
 
+{{define "summary"}}
+<div class="indent summary column">
+  {{index .Langs "de"}}
+</div>
+{{end}}
 
 {{define "year-number"}}
 <img src="/static/svg/years/{{.}}.svg" alt="{{.}}">
 {{end}}
 
 {{define "unedited-hint"}}
-<h2 class="draft"><mark>{{.}}</mark></h2>
+<h2 class="draft column"><mark>{{.}}</mark></h2>
 {{end}}
 
 

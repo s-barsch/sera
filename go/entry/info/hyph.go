@@ -12,7 +12,7 @@ type Info map[string]string
 func (i Info) Hyphenate() {
 	for key, value := range i {
 		switch name(key) {
-		case "transcript", "alt", "slug":
+		case "transcript", "summary", "summary-private", "alt", "slug":
 			continue
 		case "title":
 			i[newKey(key, "display")] = makeBrackets(hyphenate(key, value))

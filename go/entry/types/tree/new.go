@@ -22,6 +22,9 @@ type Tree struct {
 	Trees   Trees
 
 	Footnotes text.Footnotes
+
+	Summary	 	   *text.Script
+	SummaryPrivate *text.Script
 }
 
 func (t *Tree) Copy() *Tree {
@@ -83,6 +86,12 @@ func ReadTree(path string, parent *Tree) (*Tree, error) {
 		return nil, fnErr
 	}
 
+	summary := getScript(inf, "summary")
+	summaryPrivate := getScript(inf, "summary-private")
+
+	s.Summary = summary
+	s.SummaryPrivate = summaryPrivate 
+
 	s.entries = entries
 	s.Trees = trees
 
@@ -114,3 +123,29 @@ func isGraphSection(section string) bool {
 	}
 	return false
 }
+
+func getScript(i info.Info, key string) *text.Script {
+	langs := extractScript(i, key)
+	if langs == nil {
+		return nil
+	}
+	script := text.RenderScript(langs)
+	script.NumberFootnotes(1)
+
+	return script
+}
+
+func extractScript(i info.Info, key string) text.Langs {
+	langs := text.Langs{}
+	for l, _ := range tools.Langs {
+		if l != "de" {
+			key += "-" + l
+		}
+		langs[l] = i[key]
+	}
+	if langs["de"] == "" && langs["en"] == "" {
+		return nil
+	}
+	return langs
+}
+
