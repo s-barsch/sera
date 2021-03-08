@@ -77,7 +77,7 @@ var DefinitionListAttributeFilter = html.GlobalAttributeFilter
 
 func (r *AsterismHTMLRenderer) renderAsterism(w util.BufWriter, source []byte, n gast.Node, entering bool) (gast.WalkStatus, error) {
 	if entering {
-		_, _ = w.WriteString(`<div class="asterism">⁂</div>`)
+		_, _ = w.WriteString(`<div class="asterism">*</div>`) // ⁂
 	}
 	return gast.WalkContinue, nil
 }
