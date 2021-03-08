@@ -11,6 +11,12 @@ import (
 )
 
 func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
+
+	if !s.Flags.Local {
+		http.Error(w, "temporarily unavailable", 503)
+		return
+	}
+
 	reqPath, err := paths.Sanitize(r.URL.Path)
 	if err != nil {
 		http.NotFound(w, r)
