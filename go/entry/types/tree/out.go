@@ -88,11 +88,11 @@ func graphPerma(t *Tree, lang string) string {
 }
 
 func monthAnchor(path string) string {
-	if len(path) > 3 {
-		month := len(path) - 3
-		return path[:month] + "#" + path[month+1:]
-	}
-	return path
+       if len(path) > 3 {
+               month := len(path) - 3
+               return path[:month] + "#" + path[month+1:]
+       }
+       return path
 }
 
 func indexPerma(t *Tree, lang string) string {
