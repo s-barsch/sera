@@ -1,0 +1,31 @@
+{{define "graph-month"}}
+{{template "head" .Head}}
+{{template "top" .}}
+{{template "subnav" (snav .Tree 0 .Head.Lang)}}
+
+<div id="graph">
+{{with .Tree}}
+    {{$monthNum := .Date.Format "01"}}
+    <section id="{{$monthNum}}" class="month">
+        <h2 class="month-title column">
+            <a href="{{.Perma $.Head.Lang}}">{{monthLang .Date $.Head.Lang}}</a>
+        </h2>
+        {{with .Summary}}{{template "summary" .}}{{end}}
+        {{if isLocal}}
+        {{with .SummaryPrivate}}{{template "summary" .}}{{end}}
+        {{end}}
+        {{if eq (index .Info "alpha") "true"}}
+          {{template "unedited-hint" (var "alpha-month" $.Head.Lang)}}
+        {{end}}
+        {{template "object-groups" (esL .Entries $.Head.Lang)}}
+    </section>
+{{end}}
+</div>
+
+{{template "subnav-fixed" (snav .Tree 0 .Head.Lang)}}
+
+{{template "prev-next-year" .}}
+{{template "graph-arr" .Tree}}
+
+{{template "bot" .Head}}
+{{end}}

@@ -32,10 +32,12 @@ func (s *Subnav) NavTrees() tree.Trees {
 		if t.Level() == 0 {
 			return t.Trees.Reverse()
 		}
+		/*
 		// if only one month
 		if len(t.Trees) < 2 {
 			return nil
 		}
+		*/
 	}
 	if t.Section() =="kine" {
 		if t.Level() == 1 {
@@ -49,12 +51,18 @@ func (s *Subnav) IsYear() bool {
 	return s.Tree.Level() == 0 && s.Tree.Section() == "graph"
 }
 
-func (s *Subnav) HasDays() bool {
-	switch s.Tree.Section() {
-	case "graph", "kine":
-		return true
+func (s *Subnav) IsDay() bool {
+	section := s.Tree.Section()
+	if section != "graph" && section != "kine" {
+		return false
 	}
-	return false
+	if s.Tree.Level() != 2 {
+		return false
+	}
+	if s.Active == 0 {
+		return false
+	}
+	return s.Tree.Id() != s.Active
 }
 
 var years = map[string]string{

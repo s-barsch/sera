@@ -17,7 +17,7 @@
     {{$monthNum := .Date.Format "01"}}
     <section id="{{$monthNum}}" class="month">
         <h2 class="month-title column">
-            <a href="#{{$monthNum}}">{{monthLang .Date $.Head.Lang}}</a>
+            <a href="{{.Perma $.Head.Lang}}">{{monthLang .Date $.Head.Lang}}</a>
         </h2>
         {{with .Summary}}{{template "summary" .}}{{end}}
         {{if isLocal}}
