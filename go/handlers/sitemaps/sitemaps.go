@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 	"sacer/go/entry"
-	"sacer/go/entry/types/tree"
+	//"sacer/go/entry/types/tree"
 	"sacer/go/server"
 	"sacer/go/server/auth"
 	"sacer/go/server/head"
@@ -46,7 +46,7 @@ func Core(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth
 }
 
 func Trees(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
-	entries := categoryEntries(s, head.Lang(r.Host))
+	entries := categoryTrees(s, head.Lang(r.Host))
 
 	entries = append(entries, holdEntries(s, head.Lang(r.Host))...)
 
@@ -140,29 +140,27 @@ func coreEntries(s *server.Server, lang string) ([]*SitemapEntry, error) {
 	return entries, nil
 }
 
-func categoryEntries(s *server.Server, lang string) []*SitemapEntry {
+func categoryTrees(s *server.Server, lang string) []*SitemapEntry {
 	entries := []*SitemapEntry{}
+	trees := s.Trees["graph"].Access(false)[lang].TraverseTrees()
+	/*
 	trees := tree.Trees{
-		s.Trees["graph"].Access(false)[lang],
-		s.Trees["index"].Access(false)[lang],
+		//s.Trees["index"].Access(false)[lang],
 	}
-	for _, tree := range trees {
-		for _, t := range tree.Trees {
-			if t.Level() != 1 {
-				continue
-			}
-			entries = append(entries, &SitemapEntry{
-				Loc:      absoluteURL(t.Perma(lang), lang),
-				Lastmod:  t.File().ModTime.Format(time.RFC3339),
-				Priority: "0.7",
-			})
-		}
+	*/
+	for _, t := range trees {
+		entries = append(entries, &SitemapEntry{
+			Loc:      absoluteURL(t.Perma(lang), lang),
+			Lastmod:  t.File().ModTime.Format(time.RFC3339),
+			Priority: "0.7",
+		})
 	}
 	return entries
 }
 
 func holdEntries(s *server.Server, lang string) []*SitemapEntry {
-	return append(indexHolds(s, lang), aboutHolds(s, lang)...)
+	return aboutHolds(s, lang)
+	//return append(indexHolds(s, lang), aboutHolds(s, lang)...)
 }
 
 func aboutHolds(s *server.Server, lang string) []*SitemapEntry {
