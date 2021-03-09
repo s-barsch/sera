@@ -40,11 +40,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Aut
 		extra.ServeFile(s, w, r, a, path)
 
 	case isYearPage(path.Slug):
-		if !s.Flags.Local {
-			http.Error(w, "temporarily unavailable", 503)
-			return
-		}
-		YearPage(s, w, r, a, path)
+		YearRedirect(s, w, r, a, path)
 
 	case isMonth(path.Slug):
 		MonthPage(s, w, r, a, path)
@@ -69,3 +65,5 @@ func isYearPage(str string) bool {
 	_, err := strconv.Atoi(str)
 	return err == nil
 }
+
+

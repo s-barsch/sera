@@ -58,9 +58,7 @@ func parseGraphDate(path string, parent *Tree) (time.Time, error) {
 			return t, err
 		}
 		// Workaround so 2005 and 2005-01 won’t collide.
-		if t.Month() == 1 {
-			t = t.Add(time.Second)
-		}
+		t = t.Add(time.Second)
 		return t, nil
 	}
 	return time.Time{}, fmt.Errorf("Could not determine graph tree date. %v", path)
