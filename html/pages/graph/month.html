@@ -7,8 +7,9 @@
 {{with .Tree}}
     {{$monthNum := .Date.Format "01"}}
     <section id="{{$monthNum}}" class="month">
-        <h2 class="month-title column">
-            <a href="{{.Perma $.Head.Lang}}">{{monthLang .Date $.Head.Lang}}</a>
+        <h2 class="monthpage-title">
+          <span class="monthyear">{{.Date.Format "2006"}},</span>
+          {{monthLang .Date $.Head.Lang}}
         </h2>
         {{with .Summary}}{{template "summary" .}}{{end}}
         {{if isLocal}}
