@@ -34,7 +34,8 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Aut
 	switch {
 
 	case p == "/graph":
-		Main(s, w, r, a)
+		MainRedirect(s, w, r, a)
+		//Main(s, w, r, a)
 
 	case path.IsFile():
 		extra.ServeFile(s, w, r, a, path)

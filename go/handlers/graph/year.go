@@ -10,6 +10,15 @@ import (
 	"time"
 )
 
+func MainRedirect(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
+	graph := s.Trees["graph"].Access(true)["de"]
+	if len(graph.Trees) < 1 {
+		http.Error(w, "graph not found", 500)
+		return
+	}
+	http.Redirect(w, r, graph.Trees[len(graph.Trees)-1].Perma("de"), 307)
+}
+
 func YearRedirect(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth, p *paths.Path) {
 	t, err := findYear(s, p.Slug)
 	if err != nil {
