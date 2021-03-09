@@ -22,7 +22,8 @@ func MainRedirect(s *server.Server, w http.ResponseWriter, r *http.Request, a *a
 func YearRedirect(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth, p *paths.Path) {
 	t, err := findYear(s, p.Slug)
 	if err != nil {
-		http.NotFound(w, r)
+		http.Redirect(w, r, "/graph", 307)
+		//http.NotFound(w, r)
 		return
 	}
 	if len(t.Trees) < 1 {
