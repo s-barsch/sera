@@ -1,7 +1,6 @@
 var CACHE_NAME = "sacer";
 var urlsToCache = [
-  "/",
-  "/manifest.json"
+  "/static/offline.html",
 ];
 
 self.addEventListener("install", function(event) {
@@ -21,22 +20,26 @@ const stripPath = url => {
 self.addEventListener('fetch', function(event) {
   const path = stripPath(event.request.url);
   const ext = path.substr(-3);
-  if (ext == "mp4" || ".ts") {
+  if (ext == "mp4") {
     return false;
   }
   event.respondWith(
-    fetch(event.request).then(response => {
-      if (path == "/" || path == "manifest.json") {
-        let responseToCache = response.clone();
-        caches.open(CACHE_NAME)
-          .then(cache => {
-            cache.put(event.request, responseToCache);
-          });
-      }
-      return response;
-    }).catch(function() {
-      return caches.match(event.request);
-    })
+    fetch(event.request)
+      .then(response => {
+        if (path == "/static/offline.html") {
+          caches.open(CACHE_NAME)
+            .then(cache => {
+              cache.put(event.request, response.clone());
+            });
+        }
+        return response;
+      }).catch(function() {
+        console.log("catched fetch");
+        if (path === "/") {
+          return caches.match("/static/offline.html");
+        }
+        return caches.match(event.request);
+      })
   );
 });
 

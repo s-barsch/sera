@@ -23,7 +23,6 @@ func YearRedirect(s *server.Server, w http.ResponseWriter, r *http.Request, a *a
 	t, err := findYear(s, p.Slug)
 	if err != nil {
 		http.Redirect(w, r, "/graph", 307)
-		//http.NotFound(w, r)
 		return
 	}
 	if len(t.Trees) < 1 {
