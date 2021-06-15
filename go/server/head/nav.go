@@ -40,7 +40,7 @@ func sectionLang(section, lang string) string {
 
 func NewNav(lang string) Nav {
 	about := tools.AboutName[lang]
-	//kine := tools.KineName[lang]
+	kine := tools.KineName[lang]
 	return []*Link{
 		&Link{
 			Name: "home",
@@ -56,12 +56,10 @@ func NewNav(lang string) Nav {
 			Name: "graph",
 			Href: "/graph",
 		},
-		/*
 		&Link{
 			Name: kine,
 			Href: fmt.Sprintf("/%v", kine),
 		},
-		*/
 		&Link{
 			Name: about,
 			Href: fmt.Sprintf("/%v", sanitize.Name(about)),
