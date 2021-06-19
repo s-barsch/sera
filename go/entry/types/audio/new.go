@@ -24,11 +24,6 @@ type Audio struct {
 	Transcript *text.Script
 }
 
-type Transcript struct {
-	Langs text.Langs
-	Footnotes text.Footnotes
-}
-
 func NewAudio(path string, parent entry.Entry) (*Audio, error) {
 	fnErr := &tools.Err{
 		Path: path,

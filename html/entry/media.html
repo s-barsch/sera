@@ -98,6 +98,7 @@
     src="{{.E.CaptionPath .}}"{{if and (ne $.L "de") (eq $.L .)}} default{{end}}>
     {{end}}
 </audio>
+  {{if .E.Transcript.Is}}
   {{with .E.Transcript}}
 
   <div class="transcript">
@@ -107,6 +108,7 @@
     </div>
     {{template "footnotes" (nL .Footnotes $.L)}}
   </div>
+  {{end}}
   {{end}}
 {{end}}
 

@@ -14,6 +14,20 @@ type Script struct {
 	Footnotes Footnotes
 }
 
+func (s *Script) Is() bool {
+	for _, str := range s.Langs {
+		if str != "" {
+			return true
+		}
+	}
+	for _, strs := range s.Footnotes {
+		if len(strs) > 0 {
+			return true
+		}
+	}
+	return false
+}
+
 type Langs map[string]string
 type Footnotes map[string][]string
 
