@@ -24,18 +24,28 @@
     color:var(--color-red-first);
 }
 
+.kine-card a:hover .image {
+    opacity:.8;
+}
+
 .kine-card a {
     color:var(--color-fg);
     border:0;
 }
 
-.untranslated .thumb {
+.untranslated img {
     opacity:.6;
 }
 
 .no-subtitles {
     position:absolute;
     z-index:1;
+    display:none;
+}
+
+.untranslated .no-subtitles {
+    display:inline-block;
+    opacity:1;
 }
 
 .front-video .no-subtitles {

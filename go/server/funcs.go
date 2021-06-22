@@ -4,6 +4,7 @@ import (
 	"sacer/go/entry"
 	"sacer/go/entry/tools"
 	"sacer/go/entry/types/set"
+	"sacer/go/entry/types/audio"
 	"sacer/go/entry/types/video"
 	"sacer/go/server/tmpl"
 	"strings"
@@ -129,6 +130,10 @@ func hasTranscript(s *set.Set, lang string) bool {
 		v, ok := child.(*video.Video)
 		if ok {
 			return v.Info().Field("transcript", lang) != ""
+		}
+		a, ok := child.(*audio.Audio)
+		if ok {
+			return a.Info().Field("transcript", lang) != ""
 		}
 	}
 	return false

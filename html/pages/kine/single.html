@@ -44,8 +44,8 @@
 {{$type := $.E.Type}}
     {{if eq $type "set"}}
       {{template "kine-set" .}}
-    {{else if eq $type "video"}}
-      {{template "kine-video" .}}
+    {{else if or (eq $type "video") (eq $type "audio")}}
+      {{template "kine-av" .}}
     {{else}}
       {{template "entry" .}}
     {{end}}
@@ -59,19 +59,30 @@
 </div>
 {{end}}
 
-{{define "kine-video"}}
-      {{template "entry" .}}
-  {{with .E.Transcript}}
-
-  {{$text := index .Langs $.L}}
-  {{if $text}}
-  <div class="transcript transcript-kine column">
-    <h3>{{var "transcript" $.L}}</h3>
-    <div class="{{$.E.Info.TextStyle}}">
-      {{$text}}
-    </div>
-    {{template "footnotes" (nL .Footnotes $.L)}}
+{{define "kine-av"}}
+{{if eq .E.Type "audio"}}
+  <div class="column" style="text-align:center;">
+    {{template "entry" .}}
   </div>
-  {{end}}
+{{else}}
+  {{template "entry" .}}
+{{end}}
+
+  {{template "kine-transcript" .}}
+
+{{end}}
+
+{{define "kine-transcript"}}
+  {{with .E.Transcript}}
+    {{$text := index .Langs $.L}}
+    {{if $text}}
+    <div class="transcript transcript-kine column">
+      <h3>{{var "transcript" $.L}}</h3>
+      <div class="{{$.E.Info.TextStyle}}">
+        {{$text}}
+      </div>
+      {{template "footnotes" (nL .Footnotes $.L)}}
+    </div>
+    {{end}}
   {{end}}
 {{end}}

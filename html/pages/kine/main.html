@@ -22,25 +22,26 @@
       <div class="video-grid">
       {{range $i, $set := $entries}}
         {{$isAudio := eq "true" (index $set.Info "is-audio")}}
-        <div class="kine-card">
+        {{$isTranslated := isTranslated $set $.Head.Lang}}
+        <div class="kine-card{{if not $isTranslated}} untranslated{{end}}">
         <a href="{{$set.Perma $.Head.Lang}}">
           <span class="image">
-            {{if not (isTranslated $set $.Head.Lang)}}
-              <img class="no-subtitles" src="/static/svg/no-subtitles.svg">
-              <span class="untranslated">
-            {{end}}
+            <img class="no-subtitles" src="/static/svg/no-subtitles.svg">
             {{if $isAudio}}
               <img src="/static/svg/audio.svg" alt="" >
-              {{template "kine-audio-cover" (eL $set $.Head.Lang)}}
             {{else if $set.Cover}}
-              {{template "graph-image" (eL .Cover $.Head.Lang)}}
+             <img alt=""
+               src="{{$set.Cover.ImagePath 320 $.Head.Lang}}" 
+               srcset="{{template "graph-thumb-srcset" (eL $set.Cover $.Head.Lang)}}">
             {{else}}
               NO COVER
             {{end}}
           </span>
-          {{$set.Info.Field "title-hyph" $.Head.Lang}}
+              <span class="title">
+                {{$set.Info.Field "title-hyph" $.Head.Lang}}
+              </span>
           </a>
-          {{if and (not $isAudio) isLocal}}
+          {{if isLocal}}
             {{template "kine-meta" (eL $set $.Head.Lang)}}
           {{end}}
         </div>
@@ -49,23 +50,10 @@
     {{end}}
 
 
-
-
 {{template "bot" .Head}}
 {{end}}
 
-{{define "kine-title-link"}}
-<div>
-<a href="{{.E.Perma .L}}" class="title">{{.E.Info.Field "title-hyph" .L}}</a>
-</div>
-{{end}}
-
-{{define "kine-audio-cover"}}
-    <a href="{{.E.Perma .L}}"></a>
-{{end}}
-
 {{define "kine-meta"}}
-  {{$video := setVideo .E}}
   {{$transcript := (hasTranscript .E .L)}}
   <br>
   {{if $transcript}}
@@ -90,18 +78,21 @@
   </span>
   {{end}}
 
-  <br>
-  <br>
-  <small>1080p [{{$video.Ideal "1080"}}mb]
-  720p [{{$video.Ideal "720"}}mb]
-  480p [{{$video.Ideal "480"}}mb]</small>
-  <br>
-  <small>{{$video.Duration}}</small>
-  <br>
-  <br>
-  {{range $video.Sources}}
-  <code>{{.Resolution}}p ({{.Mbyte}}mb)</code><br>
-  &nbsp;
+  {{$video := setVideo .E}}
+    {{if $video}}
+    <br>
+    <br>
+    <small>1080p [{{$video.Ideal "1080"}}mb]
+    720p [{{$video.Ideal "720"}}mb]
+    480p [{{$video.Ideal "480"}}mb]</small>
+    <br>
+    <small>{{$video.Duration}}</small>
+    <br>
+    <br>
+    {{range $video.Sources}}
+    <code>{{.Resolution}}p ({{.Mbyte}}mb)</code><br>
+    &nbsp;
+    {{end}}
+    <br>
   {{end}}
-  <br>
 {{end}}
