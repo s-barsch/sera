@@ -175,10 +175,14 @@
 
 {{define "graph-image-thumbnail"}}
     {{/* Title is used, because we **link** to entries. */}}
+
     {{$alt := .E.Title .L}}
 
-    {{$src := .E.ImagePath 320 .L}}
+    {{if (eq "cover.jpg" .E.File.Name)}}
+      {{$alt = .E.Parent.Title .L}}
+    {{end}}
 
+    {{$src := .E.ImagePath 320 .L}}
 
     <a href="{{.E.Perma .L}}"><img src="{{$src}}"
          alt="{{$alt}}"

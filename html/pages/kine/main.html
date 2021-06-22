@@ -21,25 +21,29 @@
       {{end}}
       <div class="video-grid">
       {{range $i, $set := $entries}}
-        {{if $set.Cover}}
+        {{$isAudio := eq "true" (index $set.Info "is-audio")}}
         <div class="kine-card">
-          <div class="image">
+        <a href="{{$set.Perma $.Head.Lang}}">
+          <span class="image">
             {{if not (isTranslated $set $.Head.Lang)}}
               <img class="no-subtitles" src="/static/svg/no-subtitles.svg">
               <span class="untranslated">
             {{end}}
-            {{template "graph-image" (eL .Cover $.Head.Lang)}}
-          </div>
-          <div class="title">
+            {{if $isAudio}}
+              <img src="/static/svg/audio.svg" alt="" >
+              {{template "kine-audio-cover" (eL $set $.Head.Lang)}}
+            {{else if $set.Cover}}
+              {{template "graph-image" (eL .Cover $.Head.Lang)}}
+            {{else}}
+              NO COVER
+            {{end}}
+          </span>
           {{$set.Info.Field "title-hyph" $.Head.Lang}}
-          </div>
-          {{if isLocal}}
-          {{template "kine-meta" (eL $set $.Head.Lang)}}
+          </a>
+          {{if and (not $isAudio) isLocal}}
+            {{template "kine-meta" (eL $set $.Head.Lang)}}
           {{end}}
         </div>
-        {{else}}
-          Has no cover:<br>{{.}}
-        {{end}}
       {{end}}
       </div>
     {{end}}
@@ -50,6 +54,15 @@
 {{template "bot" .Head}}
 {{end}}
 
+{{define "kine-title-link"}}
+<div>
+<a href="{{.E.Perma .L}}" class="title">{{.E.Info.Field "title-hyph" .L}}</a>
+</div>
+{{end}}
+
+{{define "kine-audio-cover"}}
+    <a href="{{.E.Perma .L}}"></a>
+{{end}}
 
 {{define "kine-meta"}}
   {{$video := setVideo .E}}
