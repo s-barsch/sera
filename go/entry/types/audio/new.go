@@ -19,7 +19,7 @@ type Audio struct {
 	date time.Time
 	info info.Info
 
-	Subtitles []string
+	Captions []string
 
 	Transcript *text.Script
 }
@@ -55,7 +55,7 @@ func NewAudio(path string, parent entry.Entry) (*Audio, error) {
 		}
 	}
 
-	subs := getSubtitles(path)
+	captions := getCaptions(path)
 
 	script := GetTranscript(inf)
 
@@ -64,12 +64,12 @@ func NewAudio(path string, parent entry.Entry) (*Audio, error) {
 		file:       file,
 		date:       date,
 		info:       inf,
-		Subtitles:  subs,
+		Captions:   captions,
 		Transcript: script,
 	}, nil
 }
 
-func getSubtitles(path string) []string {
+func getCaptions(path string) []string {
 	dir := p.Dir(path)
 	name := tools.StripExt(p.Base(path))
 	langs := []string{}

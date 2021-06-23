@@ -28,7 +28,7 @@ type Video struct {
 
 	Sources []*Source
 
-	Subtitles  []string
+	Captions  []string
 	Transcript *text.Script
 
 	Duration float64 
@@ -85,7 +85,7 @@ func NewVideo(path string, parent entry.Entry) (*Video, error) {
 		}
 	}
 
-	subs := getSubtitles(path)
+	captions := getCaptions(path)
 
 	script := audio.GetTranscript(inf)
 
@@ -94,14 +94,14 @@ func NewVideo(path string, parent entry.Entry) (*Video, error) {
 		file:       file,
 		date:       date,
 		info:       inf,
-		Subtitles:  subs,
+		Captions:   captions,
 		Transcript: script,
 		Sources:    sources,
 		Duration: duration,
 	}, nil
 }
 
-func getSubtitles(path string) []string {
+func getCaptions(path string) []string {
 	dir := filepath.Dir(path)
 	name := stripResolution(tools.StripExt(filepath.Base(path)))
 	langs := []string{}

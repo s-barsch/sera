@@ -3,10 +3,27 @@ svg {
     max-width:100%;
 }
 
+.captions mark,
 ::cue {
     font-size:1.625rem;
     line-height:1.5;
     font-family:var(--fontfamily-sans);
+}
+
+.captions mark {
+    background: var(--color-fg);
+    color: var(--color-bg);
+    padding:.125rem .25rem;
+}
+
+.captions {
+    display:none;
+    height:5.5rem;
+    margin:2rem 0 0;
+}
+
+.captions.showing {
+    display:block;
 }
 
 figure {

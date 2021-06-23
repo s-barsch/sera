@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"path/filepath"
 	"math"
+	"sacer/go/entry/tools"
 )
 
 func (v *Video) Ideal(res string) float64 {
@@ -50,41 +51,36 @@ func (v *Video) FilePath(lang string) string {
 }
 */
 
-func (v *Video) SubtitlePath(lang string) string {
+func (v *Video) CaptionPath(lang string) string {
 	parent := v.Perma(lang)
 	if v.parent.Type() == "set" {
 		parent = v.parent.Perma(lang)
 	}
-	return vttPath(parent + "/files", stripResolution(v.file.NameNoExt()), lang)
+	return tools.VTTPath(parent + "/files", stripResolution(v.file.NameNoExt()), lang)
 }
 
-func (v *Video) SubtitlesOn(subLang, pageLang string) bool {
+func (v *Video) CaptionsOn(captionsLang, pageLang string) bool {
 	if pageLang != "de" {
-		if subLang != "de" {
+		if captionsLang != "de" {
 			return true
 		}
 	}
-	return subLang == "de" && pageLang == "de" && v.Info()["subtitles-on"] == "true"
+	return captionsLang == "de" && pageLang == "de" && v.Info()["captions-on"] == "true"
 }
 
-func (v *Video) HasSubtitles(lang string) bool {
-	for _, subLang := range v.Subtitles {
-		if lang == subLang {
+func (v *Video) HasCaptions(lang string) bool {
+	for _, captionsLang := range v.Captions {
+		if lang == captionsLang {
 			return true
 		}
 	}
 	return false
 }
 
-func (v *Video) SubtitleLocation(lang string) string {
-	return vttPath(v.file.Dir(), v.file.NameNoExt(), lang)
+func (v *Video) CaptionLocation(lang string) string {
+	return tools.VTTPath(v.file.Dir(), v.file.NameNoExt(), lang)
 }
 
 func hlsPath(path, nameNoExt string) string {
 	return fmt.Sprintf("%v/hls/%v.m3u8", path, nameNoExt)
 }
-
-func vttPath(path, nameNoExt, lang string) string {
-	return fmt.Sprintf("%v/vtt/%v-%v.vtt", path, nameNoExt, lang)
-}
-

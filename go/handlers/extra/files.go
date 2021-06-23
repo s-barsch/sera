@@ -8,7 +8,6 @@ import (
 	"sacer/go/entry"
 	"sacer/go/entry/tools"
 	"sacer/go/entry/types/set"
-	"sacer/go/entry/types/video"
 	"sacer/go/server"
 	"sacer/go/server/auth"
 	"sacer/go/server/head"
@@ -53,11 +52,12 @@ func serveSingleBlob(w http.ResponseWriter, r *http.Request, e entry.Entry, path
 	if !ok {
 		return fmt.Errorf("File to serve (%v) is no blob.", e.File().Name())
 	}
-	v, ok := e.(*video.Video)
+
+	m, ok := e.(entry.Media)
 	if ok {
 		switch p.Ext(path.SubFile.Name) {
 		case ".vtt":
-			serveStatic(w, r, v.SubtitleLocation(path.SubFile.Size))
+			serveStatic(w, r, m.CaptionLocation(path.SubFile.Size))
 			return nil
 		}
 	}

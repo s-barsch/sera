@@ -80,9 +80,9 @@
     {{range .E.Sources}}
     <source src="{{$.E.FilesPath $.L}}/{{.Path}}" size="{{.Resolution}}" type="video/mp4">
     {{end}}
-    {{range .E.Subtitles}}
-    <track label="{{langName .}}" srclang="{{.}}" kind="subtitles"
-    src="{{$.E.SubtitlePath .}}"{{if $.E.SubtitlesOn . $.L}} default{{end}}>
+    {{range .E.Captions}}
+    <track label="{{langName .}}" srclang="{{.}}" kind="captions"
+    src="{{$.E.CaptionPath .}}"{{if $.E.CaptionsOn . $.L}} default{{end}}>
     {{end}}
 </video>
 </figure>
@@ -91,15 +91,16 @@
 
 
 {{define "audio"}}
-<audio class="audio" src="{{.E.FilePath .Lang}}" controls>
-    {{range .E.Subtitles}}
+<audio class="audio" src="{{.E.FilePath .Lang}}" {{if eq .E.Section "kine"}}autoplay="true"{{end}} controls>
+    {{range .E.Captions}}
     <track label="{{langName .}}" srclang="{{.}}" kind="captions"
-    src="{{.E.CaptionPath .}}"{{if and (ne $.L "de") (eq $.L .)}} default{{end}}>
+    src="{{$.E.CaptionPath .}}" {{if eq . $.L}} default{{end}}>
     {{end}}
 </audio>
   {{if .E.Transcript.Is}}
   {{with .E.Transcript}}
 
+  <div class="captions"></div>
   <!--
   <div class="transcript">
     <h3>{{var "transcript" $.L}}</h3>

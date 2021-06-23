@@ -39,6 +39,11 @@ type Blob interface {
 	Location(string) (string, error)
 }
 
+type Media interface {
+	HasCaptions(string) bool
+	CaptionLocation(string) string
+}
+
 func IsBlob(e Entry) bool {
 	_, ok := e.(Blob)
 	return ok

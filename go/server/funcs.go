@@ -78,7 +78,7 @@ func (s *Server) Funcs() template.FuncMap {
 			if !ok {
 				return false
 			}
-			return hasSubtitles(s, lang)
+			return hasCaptions(s, lang)
 		},
 		"setVideo": func(s *set.Set) *video.Video {
 			for _, child := range s.Entries() {
@@ -89,12 +89,12 @@ func (s *Server) Funcs() template.FuncMap {
 			}
 			return nil
 		},
-		"hasSubtitles": func(e entry.Entry, lang string) bool {
+		"hasCaptions": func(e entry.Entry, lang string) bool {
 			s, ok := e.(*set.Set)
 			if !ok {
 				return false
 			}
-			return hasSubtitles(s, lang)
+			return hasCaptions(s, lang)
 		},
 		"hasTranscript": func(e entry.Entry, lang string) bool {
 			s, ok := e.(*set.Set)
@@ -115,11 +115,11 @@ func (s *Server) Funcs() template.FuncMap {
 	}
 }
 
-func hasSubtitles(s *set.Set, lang string) bool {
+func hasCaptions(s *set.Set, lang string) bool {
 	for _, child := range s.Entries() {
-		v, ok := child.(*video.Video)
+		m, ok := child.(entry.Media)
 		if ok {
-			return v.HasSubtitles(lang)
+			return m.HasCaptions(lang)
 		}
 	}
 	return false

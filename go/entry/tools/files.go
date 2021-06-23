@@ -1,6 +1,7 @@
 package tools
 
 import (
+	"fmt"
 	"os"
 	p "path/filepath"
 	"sort"
@@ -88,3 +89,8 @@ func IsDontIndex(path string) bool {
 	}
 	return false
 }
+
+func VTTPath(path, nameNoExt, lang string) string {
+	return fmt.Sprintf("%v/vtt/%v-%v.vtt", path, nameNoExt, lang)
+}
+

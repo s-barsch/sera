@@ -51,7 +51,7 @@
     <div class="front-videos col--video">
       {{$c := 0}}
       {{range $i, $set := .Kine}}
-      {{$untranslated := not (hasSubtitles $set $.Head.Lang)}}
+      {{$untranslated := not (hasCaptions $set $.Head.Lang)}}
       <span class="front-video{{if gt $c 3}} desktop{{end}}
       {{if $untranslated}} untranslated{{end}}">
         {{if $set.Cover}}
@@ -63,7 +63,7 @@
           Has no cover:<br>{{$set}}
         {{end}}
       </span>
-      {{if hasSubtitles $set $.Head.Lang}}
+      {{if hasCaptions $set $.Head.Lang}}
       {{$c = add $c 1}}
       {{end}}
       {{end}}
