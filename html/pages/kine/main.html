@@ -54,29 +54,14 @@
 {{end}}
 
 {{define "kine-meta"}}
-  {{$transcript := (isTranscripted .E)}}
-  <br>
-  {{if $transcript}}
-  <span style="background:green">
-    Transcript
-  </span>
-  {{else}}
-  <span style="background:red">
-    Transcript
-  </span>
-  {{end}}
-
-  &nbsp;
-  {{$captioned := isCaptioned .E}}
-  {{if $captioned}}
-  <span style="background:green">
-    Captions
-  </span>
-  {{else}}
-  <span style="background:red">
-    Captions
-  </span>
-  {{end}}
+  <div class="kine-meta">
+    <span class="{{if isTranscripted .E}}has-meta{{end}}">
+      Transcript
+    </span>
+    <span class="{{if isCaptioned .E}}has-meta{{end}}">
+      Transcript
+    </span>
+  </div>
 
   {{$video := setVideo .E}}
     {{if $video}}
