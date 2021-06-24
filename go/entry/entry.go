@@ -40,6 +40,8 @@ type Blob interface {
 }
 
 type Media interface {
+	Transcripted() bool
+	Captioned() bool
 	HasCaptions(string) bool
 	CaptionLocation(string) string
 }

@@ -4,7 +4,6 @@ import (
 	"sacer/go/entry"
 	"sacer/go/entry/tools"
 	"sacer/go/entry/types/set"
-	"sacer/go/entry/types/audio"
 	"sacer/go/entry/types/video"
 	"sacer/go/server/tmpl"
 	"strings"
@@ -78,7 +77,7 @@ func (s *Server) Funcs() template.FuncMap {
 			if !ok {
 				return false
 			}
-			return hasCaptions(s, lang)
+			return isCaptioned(s)
 		},
 		"setVideo": func(s *set.Set) *video.Video {
 			for _, child := range s.Entries() {
@@ -89,20 +88,8 @@ func (s *Server) Funcs() template.FuncMap {
 			}
 			return nil
 		},
-		"hasCaptions": func(e entry.Entry, lang string) bool {
-			s, ok := e.(*set.Set)
-			if !ok {
-				return false
-			}
-			return hasCaptions(s, lang)
-		},
-		"hasTranscript": func(e entry.Entry, lang string) bool {
-			s, ok := e.(*set.Set)
-			if !ok {
-				return false
-			}
-			return hasTranscript(s, lang)
-		},
+		"isCaptioned": isCaptioned,
+		"isTranscripted": isTranscripted,
 		"nL":   tmpl.NewNotesLang,
 		"eL":   tmpl.NewEntryLang,
 		"eLy":  tmpl.NewEntryLangLazy,
@@ -115,25 +102,21 @@ func (s *Server) Funcs() template.FuncMap {
 	}
 }
 
-func hasCaptions(s *set.Set, lang string) bool {
+func isCaptioned(s *set.Set,) bool {
 	for _, child := range s.Entries() {
 		m, ok := child.(entry.Media)
 		if ok {
-			return m.HasCaptions(lang)
+			return m.Captioned()
 		}
 	}
 	return false
 }
 
-func hasTranscript(s *set.Set, lang string) bool {
+func isTranscripted(s *set.Set) bool {
 	for _, child := range s.Entries() {
-		v, ok := child.(*video.Video)
+		m, ok := child.(entry.Media)
 		if ok {
-			return v.Info().Field("transcript", lang) != ""
-		}
-		a, ok := child.(*audio.Audio)
-		if ok {
-			return a.Info().Field("transcript", lang) != ""
+			return m.Transcripted()
 		}
 	}
 	return false

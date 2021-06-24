@@ -41,16 +41,6 @@ func (v *Video) FilesPath(lang string) string {
 	return fmt.Sprintf("%v/files", parent)
 }
 
-/*
-func (v *Video) FilePath(lang string) string {
-	parent := v.Perma(lang)
-	if v.parent.Type() == "set" {
-		parent = v.parent.Perma(lang)
-	}
-	return fmt.Sprintf("%v/files/%v", parent, v.file.Name())
-}
-*/
-
 func (v *Video) CaptionPath(lang string) string {
 	parent := v.Perma(lang)
 	if v.parent.Type() == "set" {
@@ -68,6 +58,10 @@ func (v *Video) CaptionsOn(captionsLang, pageLang string) bool {
 	return captionsLang == "de" && pageLang == "de" && v.Info()["captions-on"] == "true"
 }
 
+func (v *Video) CaptionLocation(lang string) string {
+	return tools.VTTPath(v.file.Dir(), v.file.NameNoExt(), lang)
+}
+
 func (v *Video) HasCaptions(lang string) bool {
 	for _, captionsLang := range v.Captions {
 		if lang == captionsLang {
@@ -77,10 +71,15 @@ func (v *Video) HasCaptions(lang string) bool {
 	return false
 }
 
-func (v *Video) CaptionLocation(lang string) string {
-	return tools.VTTPath(v.file.Dir(), v.file.NameNoExt(), lang)
+func (v *Video) Captioned() bool {
+	return len(v.Captions) == 2
 }
 
-func hlsPath(path, nameNoExt string) string {
-	return fmt.Sprintf("%v/hls/%v.m3u8", path, nameNoExt)
+func (v *Video) Transcripted() bool {
+	for _, str := range v.Transcript.Langs {
+		if str == "" {
+			return false
+		}
+	}
+	return true
 }

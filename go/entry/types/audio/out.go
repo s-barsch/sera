@@ -39,3 +39,15 @@ func (a *Audio) HasCaptions(lang string) bool {
 	return false
 }
 
+func (a *Audio) Captioned() bool {
+	return len(a.Captions) == 2
+}
+
+func (a *Audio) Transcripted() bool {
+	for _, str := range a.Transcript.Langs {
+		if str == "" {
+			return false
+		}
+	}
+	return true
+}

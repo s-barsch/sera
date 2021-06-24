@@ -54,7 +54,7 @@
 {{end}}
 
 {{define "kine-meta"}}
-  {{$transcript := (hasTranscript .E .L)}}
+  {{$transcript := (isTranscripted .E)}}
   <br>
   {{if $transcript}}
   <span style="background:green">
@@ -67,14 +67,14 @@
   {{end}}
 
   &nbsp;
-  {{$subtitles := (hasCaptions .E .L)}}
-  {{if $subtitles}}
+  {{$captioned := isCaptioned .E}}
+  {{if $captioned}}
   <span style="background:green">
-    Subtitles
+    Captions
   </span>
   {{else}}
   <span style="background:red">
-    Subtitles
+    Captions
   </span>
   {{end}}
 
