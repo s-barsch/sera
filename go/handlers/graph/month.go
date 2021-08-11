@@ -44,6 +44,7 @@ func MonthPage(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth
 	}
 
 	head := &head.Head{
+		Title:   monthTitle(t, lang),
 		Section: "graph",
 		Path:    r.URL.Path,
 		Host:    r.Host,
@@ -64,6 +65,10 @@ func MonthPage(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth
 	if err != nil {
 		log.Println(err)
 	}
+}
+
+func monthTitle(t *tree.Tree, lang string) string {
+	return fmt.Sprintf("%v %v", t.Title(lang), t.Date().Format("2006"))
 }
 
 func getMonthId(p *paths.Path) (int64, error) {
