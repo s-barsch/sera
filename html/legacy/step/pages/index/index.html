@@ -1,4 +1,4 @@
-{{define "index-hold"}}
+{{define "indecs-hold"}}
 {{template "head" .Head}}
 {{template "top" .}}
 
@@ -14,7 +14,7 @@
             {{.Hold.Info.Title .Head.Lang}}
         </h1>
         <h4 class="section-lead">
-            {{var "index-subtitle" .Head.Lang}}
+            {{var "indecs-subtitle" .Head.Lang}}
         </h4>
     </div>
     {{else}}
@@ -33,7 +33,7 @@
     {{end}}
 
     {{if eq 0 (len .Hold.Els)}}
-    <div class="index-el">
+    <div class="indecs-el">
       –
     </div>
     {{end}}
@@ -41,13 +41,13 @@
 
     {{if $isMain}}
 
-        <section class="index-map">
+        <section class="indecs-map">
             <h2 id="map" class="subtitle">
               <a href="#map">{{var "map" .Head.Lang}}</a>
             </h2>
 
             <div class="center">
-            {{var "indexmap" .Head.Lang}}
+            {{var "indecsmap" .Head.Lang}}
             </div>
             <div style="text-align:right;">
                 <small>{{var "map-info" .Head.Lang}}</small>
@@ -60,7 +60,7 @@
             </h2>
 
             {{range .Recents.Offset 0 35}}
-            {{template "index-el-front" elArg . false $lang}}
+            {{template "indecs-el-front" elArg . false $lang}}
             {{end}}
 
             <div class="more-tip">
@@ -74,21 +74,21 @@
 {{end}}
 
 {{define "hold-el"}}
-    <article class="index-el">
-        <div class="index-date-top">
-        {{template "index-date" .}}
+    <article class="indecs-el">
+        <div class="indecs-date-top">
+        {{template "indecs-date" .}}
         </div>
         <div id="{{normalize (.El.Title .Lang)}}">
         {{template "el" .}}
         </div>
-        <div class="index-date-bot">
-            {{template "index-date" .}}
+        <div class="indecs-date-bot">
+            {{template "indecs-date" .}}
         </div>
       {{template "edit-link" .}}
     </article>
 {{end}}
 
-{{define "index-date-link"}}
+{{define "indecs-date-link"}}
     {{$year := .El.Date.Format "06"}}
     <a href="{{.El.Permalink .Lang}}">
         {{.El.Date.Format "2. 1."}}
@@ -98,9 +98,9 @@
     </a>
 {{end}}
 
-{{define "index-date"}}
-    <div class="index-date">
-      {{template "index-date-link" .}}
+{{define "indecs-date"}}
+    <div class="indecs-date">
+      {{template "indecs-date-link" .}}
     </div>
 {{end}}
 

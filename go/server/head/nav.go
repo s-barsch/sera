@@ -48,8 +48,8 @@ func NewNav(lang string) Nav {
 		},
 		/*
 		&Link{
-			Name: "index",
-			Href: "/index",
+			Name: "indecs",
+			Href: "/indecs",
 		},
 		*/
 		&Link{

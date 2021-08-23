@@ -1,4 +1,4 @@
-package index
+package indecs
 
 import (
 	//"bufio"
@@ -26,7 +26,7 @@ func MapDot(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Au
 }
 
 func printMapDot(s *server.Server, w io.Writer, lang string, all bool) error {
-	t := s.Trees["index"].Access(false)[lang].Public()
+	t := s.Trees["indecs"].Access(false)[lang].Public()
 	return s.Templates.ExecuteTemplate(w, "map", struct {
 		Lang string
 		Tree *tree.Tree
@@ -117,7 +117,7 @@ func saveMap(s *server.Server, lang string) error {
 		return err
 	}
 
-	path := fmt.Sprintf(s.Paths.Data+"/static/svg/indexmap-%v.svg", lang)
+	path := fmt.Sprintf(s.Paths.Data+"/static/svg/indecsmap-%v.svg", lang)
 
 	err = ioutil.WriteFile(path, minified, 0644)
 	if err != nil {
@@ -142,7 +142,7 @@ func stripTitles(input []byte) ([]byte, error) {
 	for s.Scan() {
 		text := s.Text()
 		if len(text) >= 7 && text[:4] == "<svg" {
-			text = `<svg class="indexmap"` + text[4:]
+			text = `<svg class="indecsmap"` + text[4:]
 		}
 		if len(text) >= 7 && text[:7] == "<title>" {
 			continue

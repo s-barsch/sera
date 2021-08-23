@@ -1,4 +1,4 @@
-package index
+package indecs
 
 import (
 	"net/http"
@@ -23,7 +23,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Aut
 		return
 	}
 
-	rel := reqPath[len("/index"):]
+	rel := reqPath[len("/indecs"):]
 
 	if rel == "" {
 		Main(s, w, r, a)
@@ -58,10 +58,10 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Aut
 		return
 	}
 
-	index := s.Trees["index"].Access(a.Subscriber)[lang]
+	indecs := s.Trees["indecs"].Access(a.Subscriber)[lang]
 
 	if path.Hash == "" {
-		t, err := index.SearchTree(path.Slug, lang)
+		t, err := indecs.SearchTree(path.Slug, lang)
 		if err != nil {
 			s.Log.Println(err)
 			http.NotFound(w, r)
@@ -71,7 +71,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Aut
 		return
 	}
 
-	t, err := index.LookupTreeHash(path.Hash)
+	t, err := indecs.LookupTreeHash(path.Hash)
 	if err != nil {
 		http.Redirect(w, r, p.Dir(r.URL.Path), 301)
 		return

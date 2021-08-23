@@ -1,4 +1,4 @@
-package index
+package indecs
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ import (
 	"sacer/go/server/head"
 )
 
-type indexPage struct {
+type indecsPage struct {
 	Head *head.Head
 	Tree *tree.Tree
 }
@@ -23,8 +23,8 @@ func IndexPage(s *server.Server, w http.ResponseWriter, r *http.Request, t *tree
 	}
 
 	head := &head.Head{
-		Title:   indexTitle(t, lang),
-		Section: "index",
+		Title:   indecsTitle(t, lang),
+		Section: "indecs",
 		Path:    r.URL.Path,
 		Host:    r.Host,
 		Entry:   t,
@@ -37,7 +37,7 @@ func IndexPage(s *server.Server, w http.ResponseWriter, r *http.Request, t *tree
 		return
 	}
 
-	err = s.ExecuteTemplate(w, "index-page", &indexPage{
+	err = s.ExecuteTemplate(w, "indecs-page", &indecsPage{
 		Head: head,
 		Tree: t,
 	})
@@ -46,7 +46,7 @@ func IndexPage(s *server.Server, w http.ResponseWriter, r *http.Request, t *tree
 	}
 }
 
-func indexTitle(t *tree.Tree, lang string) string {
+func indecsTitle(t *tree.Tree, lang string) string {
 	title := t.Title(lang)
 
 	topicTitle := ""

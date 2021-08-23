@@ -34,13 +34,13 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth
 		return
 	}
 
-	index := s.Recents["index"].Access(a.Subscriber)[lang]
+	indecs := s.Recents["indecs"].Access(a.Subscriber)[lang]
 	graph := s.Recents["graph"].Access(a.Subscriber)[lang]
 	kine := s.Recents["kine"].Access(a.Subscriber)[lang]
 
 	err = s.ExecuteTemplate(w, "front", &frontMain{
 		Head:  head,
-		Index: index.Limit(s.Vars.FrontSettings.Index),
+		Index: indecs.Limit(s.Vars.FrontSettings.Index),
 		Graph: graph.Limit(s.Vars.FrontSettings.Graph),
 		Kine:  kine.Limit(10),
 		Log:   s.Recents["log"].Access(true)["de"].Limit(s.Vars.FrontSettings.Log),

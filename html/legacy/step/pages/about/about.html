@@ -9,7 +9,7 @@
     {{$isMain := eq (.Hold.Name "en") "about"}}
 
         {{if $isMain}}
-    <div class="section-title-box {{if $isMain}}index-title{{end}}">
+    <div class="section-title-box {{if $isMain}}indecs-title{{end}}">
         <h1 class="section-title">
         {{if eq .Head.Lang "de"}}
         Über
@@ -39,7 +39,7 @@
     {{end}}
 
     {{if eq 0 (len .Hold.Els)}}
-    <div class="index-el">
+    <div class="indecs-el">
       –
     </div>
     {{end}}
@@ -52,7 +52,7 @@
 {{end}}
 
 {{define "about-el"}}
-    <article class="index-el">
+    <article class="indecs-el">
         {{template "el" .}}
     </article>
 {{end}}

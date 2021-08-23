@@ -1,4 +1,4 @@
-{{define "index-main"}}
+{{define "indecs-main"}}
 {{template "head" .Head}}
 {{template "top" .}}
 
@@ -9,19 +9,19 @@
             {{.Tree.Title .Head.Lang}}
         </h1>
         <h4 class="section-lead">
-            {{var "index-subtitle" .Head.Lang}}
+            {{var "indecs-subtitle" .Head.Lang}}
         </h4>
     </div>
 
-    {{template "index-entries" (eL .Tree .Head.Lang)}}
+    {{template "indecs-entries" (eL .Tree .Head.Lang)}}
 
-    <section class="index-map">
+    <section class="indecs-map">
         <h2 id="map" class="subtitle">
           <a href="#map">{{var "map" .Head.Lang}}</a>
         </h2>
 
         <div class="center">
-        {{inlineFileLang "indexmap" .Head.Lang}}
+        {{inlineFileLang "indecsmap" .Head.Lang}}
         </div>
         <div style="text-align:right;">
             <small>{{var "map-info" .Head.Lang}}</small>
@@ -48,7 +48,7 @@
 {{end}}
 
 
-{{define "index-page"}}
+{{define "indecs-page"}}
 {{template "head" .Head}}
 {{template "top" .}}
 
@@ -71,13 +71,13 @@
     <h1 class="{{if $isArticle}}article{{else}}index{{end}}-title l{{.Tree.Level}}">
       {{$pageTitle}}
       {{with $subTitle}}
-      <span class="index-title__sep">–</span>
+      <span class="indecs-title__sep">–</span>
       {{.}}
       {{end}}
     </h1>
 
 
-        {{template "index-entries" (eL .Tree .Head.Lang)}}
+        {{template "indecs-entries" (eL .Tree .Head.Lang)}}
 
       {{template "footnotes" (nL .Tree.Footnotes .Head.Lang)}}
 
@@ -87,10 +87,10 @@
 
 
 
-{{define "index-entries"}}
+{{define "indecs-entries"}}
     {{range .E.Entries}}
       <article id="{{normalize (.Title $.Lang)}}" class="entry--index lefter">
-          {{template "index-entry" (eL . $.Lang)}}
+          {{template "indecs-entry" (eL . $.Lang)}}
       </article>
     {{end}}
     {{if eq 0 (len .E.Entries)}}
@@ -100,9 +100,9 @@
     {{end}}
 {{end}}
 
-{{define "index-entry"}}
-  <div class="index-date-top">
-    {{template "index-date" .}}
+{{define "indecs-entry"}}
+  <div class="indecs-date-top">
+    {{template "indecs-date" .}}
   </div>
 
   {{if .E.MediaObject}}
@@ -113,15 +113,15 @@
     </article>
   {{end}}
 
-  <div class="index-date-bot">
-    {{template "index-date" .}}
+  <div class="indecs-date-bot">
+    {{template "indecs-date" .}}
   </div>
   {{template "private-mark-graph" .E}}
   {{template "edit-link" .}}
 
 {{end}}
 
-{{define "index-date-link"}}
+{{define "indecs-date-link"}}
     {{$year := .E.Date.Format "06"}}
     <a href="{{.E.Perma .Lang}}">
         {{.E.Date.Format "2. 1."}}
@@ -131,9 +131,9 @@
     </a>
 {{end}}
 
-{{define "index-date"}}
-    <div class="index-date">
-      {{template "index-date-link" .}}
+{{define "indecs-date"}}
+    <div class="indecs-date">
+      {{template "indecs-date-link" .}}
     </div>
 {{end}}
 
