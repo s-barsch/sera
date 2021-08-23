@@ -1,0 +1,23 @@
+{{define "index-main"}}
+{{template "head" .Head}}
+{{template "top" .}}
+
+{{/*template "subnav" (snav .Tree 0 .Head.Lang)*/}}
+
+    <div class="section-title__box section-title--index">
+        <h1 class="section-title">
+          Index
+        </h1>
+    </div>
+
+    <h2>
+      Articles
+    </h2>
+
+    <li>Zur Gebrochenheit</li>
+
+
+    {{template "bot" .Head}}
+{{end}}
+
+
