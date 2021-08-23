@@ -68,7 +68,7 @@ func MonthPage(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth
 }
 
 func monthTitle(t *tree.Tree, lang string) string {
-	return fmt.Sprintf("%v %v", t.Title(lang), t.Date().Format("2006"))
+	return fmt.Sprintf("%v %v - Graph", t.Title(lang), t.Date().Format("2006"))
 }
 
 func getMonthId(p *paths.Path) (int64, error) {
