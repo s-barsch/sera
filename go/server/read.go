@@ -10,6 +10,7 @@ import (
 
 var sections = []string{
 	"kine",
+	"komposita",
 	"indecs",
 	"graph",
 	"about",

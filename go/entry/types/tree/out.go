@@ -34,6 +34,8 @@ func (t *Tree) Perma(lang string) string {
 	switch t.Section() {
 	case "graph":
 		return graphPerma(t, lang)
+	case "komposita":
+		return kompositaPerma(t, lang)
 	case "kine":
 		return kinePerma(t, lang)
 	case "indecs":
@@ -57,6 +59,10 @@ func defaultPerma(t *Tree, lang string) string {
 
 func extraPerma(t *Tree, lang string) string {
 	return fmt.Sprintf("/%v", t.Title(lang))
+}
+
+func kompositaPerma(t *Tree, lang string) string {
+	return fmt.Sprintf("komposita/%v-%v", t.Slug(lang), t.Hash())
 }
 
 func kinePerma(t *Tree, lang string) string {

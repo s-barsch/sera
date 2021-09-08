@@ -23,6 +23,9 @@ func (h *Head) MakeNav() Nav {
 		if section == l.Name {
 			l.IsActive = true
 		}
+		if section == "komposita" && l.Name == "index" {
+			l.IsActive = true
+		}
 	}
 
 	return nav

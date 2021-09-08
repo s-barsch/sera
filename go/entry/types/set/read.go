@@ -14,7 +14,7 @@ func readEntries(path string, parent entry.Entry) (entry.Entries, error) {
 		Func: "readEntries",
 	}
 
-	files, err := read.GetFiles(path, false)
+	files, err := read.GetFiles(path, true)
 	if err != nil {
 		fnErr.Err = err
 		return nil, fnErr
@@ -32,6 +32,14 @@ func readEntries(path string, parent entry.Entry) (entry.Entries, error) {
 func readEntryFiles(files []*read.FileInfo, parent entry.Entry) (entry.Entries, error) {
 	entries := entry.Entries{}
 	for _, fi := range files {
+		if fi.IsDir() {
+			set, err := NewSet(fi.Path, parent)
+			if err != nil {
+				return nil, err
+			}
+			entries = append(entries, set)
+			continue
+		}
 		entry, err := media.NewMediaEntry(fi.Path, parent)
 		if err != nil {
 			return nil, err

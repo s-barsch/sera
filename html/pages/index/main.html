@@ -10,12 +10,11 @@
         </h1>
     </div>
 
-    <h2>
-      Articles
-    </h2>
-
-    <li>Zur Gebrochenheit</li>
-
+    {{range .Phanes.Trees}}
+    <li>
+      <a href="{{.Perma $.Head.Lang}}">{{.Title $.Head.Lang}}</a>
+    </li>
+    {{end}}
 
     {{template "bot" .Head}}
 {{end}}

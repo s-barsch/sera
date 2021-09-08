@@ -113,6 +113,10 @@ func {{receiver .}} Perma(lang string) string {
 	}
 
 	switch e.Section() {
+		/*
+	case "komposita":
+		return fmt.Sprintf("/komposita/%v/%v", e.parent.Path(lang), name)
+		*/
 	case "kine":
 		return fmt.Sprintf(
 			"/%v/%v/%v",

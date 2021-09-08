@@ -3,6 +3,7 @@ package index
 import (
 	"log"
 	"net/http"
+	"sacer/go/entry/types/tree"
 	"sacer/go/server"
 	"sacer/go/server/auth"
 	"sacer/go/server/head"
@@ -10,7 +11,8 @@ import (
 )
 
 type indexMain struct {
-	Head    *head.Head
+	Head   *head.Head
+	Phanes *tree.Tree
 }
 
 func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
@@ -19,6 +21,9 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth
 		http.NotFound(w, r)
 		return
 	}
+
+	lang := head.Lang(r.Host)
+	komposita := s.Trees["komposita"].Access(a.Subscriber)[lang]
 
 	head := &head.Head{
 		Title:   "Index",
@@ -34,7 +39,8 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth
 	}
 
 	err = s.ExecuteTemplate(w, "index-main", &indexMain{
-		Head:    head,
+		Head:   head,
+		Phanes: komposita,
 	})
 	if err != nil {
 		log.Println(err)

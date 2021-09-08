@@ -1,0 +1,20 @@
+
+.komp-number {
+    text-align:center;
+    margin: 3.5rem 0 1.8rem;
+}
+
+.komposit-title {
+    font-family:var(--fontfamily-garamond12);
+    font-weight:normal;
+    margin-bottom:2rem;
+    font-size:2.25rem;
+    font-feature-settings:"lnum" on;
+}
+
+.media-mixin(@break) when (@break = @break-single) {
+    .komposit-title {
+        font-size:3rem;
+    }
+}
+
