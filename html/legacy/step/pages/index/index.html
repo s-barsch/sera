@@ -1,4 +1,4 @@
-{{define "indecs-hold"}}
+{{define "register-hold"}}
 {{template "head" .Head}}
 {{template "top" .}}
 
@@ -14,7 +14,7 @@
             {{.Hold.Info.Title .Head.Lang}}
         </h1>
         <h4 class="section-lead">
-            {{var "indecs-subtitle" .Head.Lang}}
+            {{var "register-subtitle" .Head.Lang}}
         </h4>
     </div>
     {{else}}
@@ -33,7 +33,7 @@
     {{end}}
 
     {{if eq 0 (len .Hold.Els)}}
-    <div class="indecs-el">
+    <div class="register-el">
       –
     </div>
     {{end}}
@@ -41,13 +41,13 @@
 
     {{if $isMain}}
 
-        <section class="indecs-map">
+        <section class="register-map">
             <h2 id="map" class="subtitle">
               <a href="#map">{{var "map" .Head.Lang}}</a>
             </h2>
 
             <div class="center">
-            {{var "indecsmap" .Head.Lang}}
+            {{var "registermap" .Head.Lang}}
             </div>
             <div style="text-align:right;">
                 <small>{{var "map-info" .Head.Lang}}</small>
@@ -60,7 +60,7 @@
             </h2>
 
             {{range .Recents.Offset 0 35}}
-            {{template "indecs-el-front" elArg . false $lang}}
+            {{template "register-el-front" elArg . false $lang}}
             {{end}}
 
             <div class="more-tip">
@@ -74,21 +74,21 @@
 {{end}}
 
 {{define "hold-el"}}
-    <article class="indecs-el">
-        <div class="indecs-date-top">
-        {{template "indecs-date" .}}
+    <article class="register-el">
+        <div class="register-date-top">
+        {{template "register-date" .}}
         </div>
         <div id="{{normalize (.El.Title .Lang)}}">
         {{template "el" .}}
         </div>
-        <div class="indecs-date-bot">
-            {{template "indecs-date" .}}
+        <div class="register-date-bot">
+            {{template "register-date" .}}
         </div>
       {{template "edit-link" .}}
     </article>
 {{end}}
 
-{{define "indecs-date-link"}}
+{{define "register-date-link"}}
     {{$year := .El.Date.Format "06"}}
     <a href="{{.El.Permalink .Lang}}">
         {{.El.Date.Format "2. 1."}}
@@ -98,9 +98,9 @@
     </a>
 {{end}}
 
-{{define "indecs-date"}}
-    <div class="indecs-date">
-      {{template "indecs-date-link" .}}
+{{define "register-date"}}
+    <div class="register-date">
+      {{template "register-date-link" .}}
     </div>
 {{end}}
 

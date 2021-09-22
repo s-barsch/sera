@@ -28,7 +28,7 @@ func (i *Image) SrcSet(size int, lang string) string {
 
 /*
 func (i *Image) Permalink(lang string) string {
-	if i.File.Section() == "indecs" {
+	if i.File.Section() == "register" {
 		return fmt.Sprintf("%v#%v", i.File.Hold.Permalink(lang), Normalize(i.Title(lang)))
 	}
 	if i.Info.Title(lang) == "" {

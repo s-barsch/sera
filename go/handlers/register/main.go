@@ -1,4 +1,4 @@
-package indecs
+package register
 
 import (
 	"log"
@@ -11,7 +11,7 @@ import (
 	"sacer/go/server/paths"
 )
 
-type indecsMain struct {
+type registerMain struct {
 	Head    *head.Head
 	Tree    *tree.Tree
 	Recents entry.Entries
@@ -26,11 +26,11 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth
 
 	lang := head.Lang(r.Host)
 
-	t := s.Trees["indecs"].Access(a.Subscriber)[lang]
+	t := s.Trees["register"].Access(a.Subscriber)[lang]
 
 	head := &head.Head{
 		Title:   "Indecs",
-		Section: "indecs",
+		Section: "register",
 		Path:    path,
 		Host:    r.Host,
 		Entry:   t,
@@ -42,9 +42,9 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth
 		return
 	}
 
-	recents := s.Recents["indecs"].Access(a.Subscriber)[lang]
+	recents := s.Recents["register"].Access(a.Subscriber)[lang]
 
-	err = s.ExecuteTemplate(w, "indecs-main", &indecsMain{
+	err = s.ExecuteTemplate(w, "register-main", &registerMain{
 		Head:    head,
 		Tree:    t,
 		Recents: recents.Offset(0, 100),

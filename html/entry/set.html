@@ -12,15 +12,15 @@
 
 {{define "set-entry"}}
 
-    <article class="indecs-el">
-        <div class="indecs-date-top">
-        {{template "indecs-date" .}}
+    <article class="register-el">
+        <div class="register-date-top">
+        {{template "register-date" .}}
         </div>
         <div id="{{normalize (.E.Title .L)}}">
         {{template "entry" .}}
         </div>
-        <div class="indecs-date-bot">
-            {{template "indecs-date" .}}
+        <div class="register-date-bot">
+            {{template "register-date" .}}
         </div>
       {{template "edit-link" .}}
     </article>

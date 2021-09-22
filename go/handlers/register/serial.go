@@ -1,4 +1,4 @@
-package indecs
+package register
 
 import (
 	"log"
@@ -9,7 +9,7 @@ import (
 	"sacer/go/server/head"
 )
 
-type indecsSerial struct {
+type registerSerial struct {
 	Head    *head.Head
 	Entries entry.Entries
 }
@@ -18,7 +18,7 @@ func Serial(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Au
 	lang := head.Lang(r.Host)
 	h := &head.Head{
 		Title:   "Serial - Index",
-		Section: "indecs",
+		Section: "register",
 		Path:    r.URL.Path,
 		Host:    r.Host,
 		Entry:   nil,
@@ -36,17 +36,17 @@ func Serial(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Au
 	h.Langs = []*head.Link{
 		&head.Link{
 			Name: "de",
-			Href: h.AbsoluteURL("/indecs/serial", "de"),
+			Href: h.AbsoluteURL("/register/serial", "de"),
 		},
 		&head.Link{
 			Name: "en",
-			Href: h.AbsoluteURL("/indecs/serial", "en"),
+			Href: h.AbsoluteURL("/register/serial", "en"),
 		},
 	}
 
-	recents := s.Recents["indecs"].Access(a.Subscriber)[lang]
+	recents := s.Recents["register"].Access(a.Subscriber)[lang]
 
-	err = s.ExecuteTemplate(w, "indecs-serial", &indecsSerial{
+	err = s.ExecuteTemplate(w, "register-serial", &registerSerial{
 		Head:    h,
 		Entries: recents,
 	})

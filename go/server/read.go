@@ -11,7 +11,7 @@ import (
 var sections = []string{
 	"kine",
 	"komposita",
-	"indecs",
+	"register",
 	"graph",
 	"about",
 	"extra",
@@ -90,7 +90,7 @@ func serialize(t *tree.Tree) entry.Entries {
 	switch t.Section() {
 	case "graph", "kine":
 		return t.TraverseEntriesReverse()
-	case "indecs":
+	case "register":
 		es := entry.Entries{}
 		for _, tree := range t.TraverseTrees() {
 			if len(tree.Entries()) == 0 {

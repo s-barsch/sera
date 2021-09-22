@@ -15,7 +15,7 @@
 {{ template "kine-col" . }}
   <div class="cols">
     <div class="col__content col--index">
-    {{template "indecs-col" .}}
+    {{template "register-col" .}}
     </div>
 
     <div class="col__spacer">
@@ -34,14 +34,14 @@
 {{end}}
 
   
-{{define "indecs-col" -}}
+{{define "register-col" -}}
 <div>
       {{range .Index}}
       {{template "front-index-entry" (eL . $.Head.Lang)}}
       {{end}}
       <!--
       <div class="more-tip">
-          {{var "indecs-more" .Head.Lang}}
+          {{var "register-more" .Head.Lang}}
       </div>
       -->
 </div>

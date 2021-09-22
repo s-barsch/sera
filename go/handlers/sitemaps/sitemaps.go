@@ -23,7 +23,7 @@ func Index(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Aut
 	if head.Lang(r.Host) == "en" {
 		domain = "https://en.sacer.site"
 	}
-	err := s.Templates.ExecuteTemplate(w, "sitemap-indecs", struct{ Domain string }{domain})
+	err := s.Templates.ExecuteTemplate(w, "sitemap-register", struct{ Domain string }{domain})
 	if err != nil {
 		log.Println(err)
 		return
@@ -59,7 +59,7 @@ func Trees(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Aut
 
 /*
 func IndexEls(w http.ResponseWriter, r *http.Request) {
-	entries, err := smEls("indecs", lang(r.Host))
+	entries, err := smEls("register", lang(r.Host))
 	if err != nil {
 		http.Error(w, "internal error", 500)
 		log.Println(err)
@@ -107,7 +107,7 @@ func GraphEntries(s *server.Server, w http.ResponseWriter, r *http.Request, a *a
 func coreEntries(s *server.Server, lang string) ([]*SitemapEntry, error) {
 	entries := []*SitemapEntry{}
 
-	tIndex := s.Recents["indecs"].Access(false)[lang][0].Date()
+	tIndex := s.Recents["register"].Access(false)[lang][0].Date()
 
 	tGraph := s.Recents["graph"].Access(false)[lang][0].Date()
 
@@ -123,7 +123,7 @@ func coreEntries(s *server.Server, lang string) ([]*SitemapEntry, error) {
 			} else {
 				lastmod = tGraph
 			}
-		case "indecs":
+		case "register":
 			lastmod = tIndex
 		case "graph":
 			lastmod = tGraph
@@ -145,7 +145,7 @@ func categoryTrees(s *server.Server, lang string) []*SitemapEntry {
 	trees := s.Trees["graph"].Access(false)[lang].TraverseTrees()
 	/*
 	trees := tree.Trees{
-		//s.Trees["indecs"].Access(false)[lang],
+		//s.Trees["register"].Access(false)[lang],
 	}
 	*/
 	for _, t := range trees {
@@ -160,7 +160,7 @@ func categoryTrees(s *server.Server, lang string) []*SitemapEntry {
 
 func holdEntries(s *server.Server, lang string) []*SitemapEntry {
 	return aboutHolds(s, lang)
-	//return append(indecsHolds(s, lang), aboutHolds(s, lang)...)
+	//return append(registerHolds(s, lang), aboutHolds(s, lang)...)
 }
 
 func aboutHolds(s *server.Server, lang string) []*SitemapEntry {
@@ -176,9 +176,9 @@ func aboutHolds(s *server.Server, lang string) []*SitemapEntry {
 	return entries
 }
 
-func indecsHolds(s *server.Server, lang string) []*SitemapEntry {
+func registerHolds(s *server.Server, lang string) []*SitemapEntry {
 	entries := []*SitemapEntry{}
-	for _, category := range s.Trees["indecs"].Access(false)[lang].Trees {
+	for _, category := range s.Trees["register"].Access(false)[lang].Trees {
 		trees := category.TraverseTrees()
 		for _, t := range trees {
 			entries = append(entries, &SitemapEntry{

@@ -30,7 +30,7 @@ func (a *Article) Title(lang string) string {
 
 type FrontSettings struct {
 	Graph    int    `yaml:"graph-num"`
-	Index    int    `yaml:"indecs-num"`
+	Index    int    `yaml:"register-num"`
 	Log      int    `yaml:"log-num"`
 	Featured string `yaml:"featured"`
 	Articles []*Article
@@ -116,8 +116,10 @@ func ReadInlineStatics(root string) (map[string]string, error) {
 
 	sources := map[string]string{
 		"css":         "/css/dist/main.css",
-		"indecsmap-de": "/static/svg/indecsmap-de.svg",
-		"indecsmap-en": "/static/svg/indecsmap-en.svg",
+		/*
+		"registermap-de": "/static/svg/registermap-de.svg",
+		"registermap-en": "/static/svg/registermap-en.svg",
+		*/
 		"logo-mobile": "/static/svg/logo/sacferal-c.svg",
 		"logo-desk":   "/static/svg/logo/sacerferal-c.svg",
 		"email":       "/static/svg/email.svg",

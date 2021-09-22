@@ -13,9 +13,9 @@ type testCase struct {
 
 var cases = []*testCase{
 	&testCase{
-		path: "/indecs/leben/ueberleben/oeffnungen-33ac2565",
+		path: "/register/leben/ueberleben/oeffnungen-33ac2565",
 		result: &Path{
-			Page:    "indecs",
+			Page:    "register",
 			Slugs:   []string{"leben", "ueberleben"},
 			Slug:    "oeffnungen",
 			Hash:    "33ac2565",
@@ -24,9 +24,9 @@ var cases = []*testCase{
 		},
 	},
 	&testCase{
-		path: "/indecs/kunst/innen-aussen-35e1fcdd",
+		path: "/register/kunst/innen-aussen-35e1fcdd",
 		result: &Path{
-			Page:    "indecs",
+			Page:    "register",
 			Slugs:   []string{"kunst"},
 			Slug:    "innen-aussen",
 			Hash:    "35e1fcdd",
@@ -35,9 +35,9 @@ var cases = []*testCase{
 		},
 	},
 	&testCase{
-		path: "/indecs/kunst/form-34a1a15e",
+		path: "/register/kunst/form-34a1a15e",
 		result: &Path{
-			Page:    "indecs",
+			Page:    "register",
 			Slugs:   []string{"kunst"},
 			Slug:    "form",
 			Hash:    "34a1a15e",
