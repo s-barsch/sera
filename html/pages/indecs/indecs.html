@@ -15,6 +15,7 @@
 
     {{template "register-entries" (eL .Tree .Head.Lang)}}
 
+    <!--
     <section class="register-map">
         <h2 id="map" class="subtitle">
           <a href="#map">{{var "map" .Head.Lang}}</a>
@@ -27,7 +28,9 @@
             <small>{{var "map-info" .Head.Lang}}</small>
         </div>
     </section>
+    -->
 
+    <!--
     <section id="serial">
         <h2 class="subtitle column">
           <a href="/index/serial/">Serial</a>
@@ -43,6 +46,7 @@
         </div>
     </section>
     */}}
+    -->
 
     {{template "bot" .Head}}
 {{end}}
@@ -101,9 +105,11 @@
 {{end}}
 
 {{define "register-entry"}}
+  <!--
   <div class="register-date-top">
     {{template "register-date" .}}
   </div>
+  -->
 
   {{if .E.MediaObject}}
     {{template "entry" .}}
@@ -111,11 +117,16 @@
     <article class="tob tob--index lefter">
         {{template "entry" .}}
     </article>
+    <div>
+    {{template "register-date" .}}
+    </div>
   {{end}}
 
+  <!--
   <div class="register-date-bot">
     {{template "register-date" .}}
   </div>
+  -->
   {{template "private-mark-graph" .E}}
   {{template "edit-link" .}}
 
@@ -125,7 +136,7 @@
     {{$year := .E.Date.Format "06"}}
     <a href="{{.E.Perma .Lang}}">
         {{.E.Date.Format "2. 1."}}
-        {{- with ne $year "20"}}
+        {{- with ne $year "21"}}
          {{$year}}
         {{end}}
     </a>

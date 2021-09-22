@@ -29,7 +29,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth
 	t := s.Trees["register"].Access(a.Subscriber)[lang]
 
 	head := &head.Head{
-		Title:   "Indecs",
+		Title:   "Register",
 		Section: "register",
 		Path:    path,
 		Host:    r.Host,
