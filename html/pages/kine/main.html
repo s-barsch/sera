@@ -12,15 +12,9 @@
         </h4>
     </div>
 
-    {{$months := .Entries.Months}}
-    {{range $i, $entries := $months}}
-      {{if $i}}
-        <h2 class="month-title">
-          {{monthLang $entries.First.Date $.Head.Lang}}
-        </h2>
-      {{end}}
-      <div class="video-grid">
-      {{range $i, $set := $entries}}
+    <div class="video-grid">
+    {{range $set := .Entries}}
+
         {{$isAudio := eq "true" (index $set.Info "is-audio")}}
         {{$isTranslated := isTranslated $set $.Head.Lang}}
         <div class="kine-card{{if not $isTranslated}} untranslated{{end}}">
@@ -41,13 +35,14 @@
                 {{$set.Info.Field "title-hyph" $.Head.Lang}}
               </span>
           </a>
+          <!--{{$set.Date.Format "Jan 06"}}-->
           {{if displayInfo}}
             {{template "kine-meta" (eL $set $.Head.Lang)}}
           {{end}}
         </div>
-      {{end}}
-      </div>
+
     {{end}}
+    </div>
 
 
 {{template "bot" .Head}}
