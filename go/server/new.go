@@ -41,6 +41,7 @@ type flags struct {
 	Debug  bool
 	Reload bool
 	Mobile bool
+	Info   bool
 }
 
 func NewServer() *Server {
@@ -51,6 +52,7 @@ func NewServer() *Server {
 	local := flag.Bool("local", false, "enable local testing")
 	reload := flag.Bool("reload", false, "reload files on every request")
 	mobile := flag.Bool("mobile", false, "adjust polyfill path")
+	info := flag.Bool("info", false, "display more video infos")
 
 	flag.Parse()
 
@@ -77,6 +79,7 @@ func NewServer() *Server {
 		Local:  *local,
 		Reload: *reload,
 		Mobile: *mobile,
+		Info: *info,
 	}
 
 	return s

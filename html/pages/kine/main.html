@@ -41,7 +41,7 @@
                 {{$set.Info.Field "title-hyph" $.Head.Lang}}
               </span>
           </a>
-          {{if isLocal}}
+          {{if displayInfo}}
             {{template "kine-meta" (eL $set $.Head.Lang)}}
           {{end}}
         </div>

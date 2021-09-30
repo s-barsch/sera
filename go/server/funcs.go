@@ -53,6 +53,9 @@ func (s *Server) Funcs() template.FuncMap {
 		"isLocal": func() bool {
 			return s.Flags.Local
 		},
+		"displayInfo": func() bool {
+			return s.Flags.Info
+		},
 		"langName": func(lang string) string {
 			return tools.Langs[lang]
 		},
