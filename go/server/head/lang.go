@@ -71,6 +71,10 @@ func (h *Head) HostAddress(lang string) string {
 	return fmt.Sprintf("https://%v", hosts[lang])
 }
 
+func (h *Head) IsLocal() bool {
+	return isLocal(h.Host)
+}
+
 func isLocal(host string) bool {
 	switch host {
 	case "sacer", "en.sacer":
