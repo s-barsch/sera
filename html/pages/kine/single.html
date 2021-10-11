@@ -28,6 +28,12 @@
           {{template "kine-entry" $eL}}
     </div>
 
+    <div class="video-grid">
+    {{range .Neighbors}}
+    {{template "kine-card" eL . $.Head.Lang}}
+    {{end}}
+    </div>
+
   {{if isLocal}}
   <div class="margin">
   {{template "edit-link" $eL}}

@@ -14,15 +14,16 @@ import (
 	"time"
 )
 
-type graphSingle struct {
-	Head  *head.Head
-	Entry entry.Entry
+type kineSingle struct {
+	Head	  *head.Head
+	Entry	  entry.Entry
+	Neighbors []entry.Entry
 }
 
 func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth, p *paths.Path) {
 	lang := head.Lang(r.Host)
-	graph := s.Trees["kine"].Access(a.Subscriber)[lang]
-	e, err := graph.LookupEntryHash(p.Hash)
+	kine := s.Trees["kine"].Access(a.Subscriber)[lang]
+	e, err := kine.LookupEntryHash(p.Hash)
 	if err != nil {
 		http.Redirect(w, r, "/kine", 301)
 		return
@@ -49,9 +50,11 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, a *au
 		return
 	}
 
-	err = s.ExecuteTemplate(w, "kine-single", &graphSingle{
-		Head:  head,
-		Entry: e,
+
+	err = s.ExecuteTemplate(w, "kine-single", &kineSingle{
+		Head:	   head,
+		Entry:     e,
+		Neighbors: getNeighbors(s.Recents["kine"].Access(a.Subscriber)[lang], p.Hash),
 	})
 	if err != nil {
 		log.Println(err)
@@ -64,4 +67,53 @@ func getDate(d time.Time, lang string) string {
 
 func getTitle(e entry.Entry, lang string) string {
 	return fmt.Sprintf("%v - %v - %v", getDate(e.Date(), lang), e.Title(lang), strings.Title(tools.KineName[lang]))
+}
+
+func getNeighbors(es entry.Entries, hash string) []entry.Entry {
+	cpy := make([]entry.Entry, len(es))
+	copy(cpy, es)
+	for i, e := range cpy {
+		if e.Hash() == hash {
+			l := len(es)
+			j, k := limits(l, i)
+			d := i + 1
+			if d > l {
+				d = i
+			}
+			return append(cpy[j:i], cpy[d:k]...)
+		}
+	}
+	return nil
+}
+
+// TODO: verbose... should be simplified
+func limits(l, i int) (int, int) {
+	// number of neighors left and right
+	number := 2
+	j, k := 0, l
+	// set start position
+	if x := i-number; x > 0 {
+		j = x
+	}
+
+	if left := i-j; left < 2 {
+		number = number + (number - left)
+	}
+
+	if y := i+1+number; y < l {
+		k = y
+	} else {
+		k = l
+	}
+
+	if right := k-i-1; right < 2 {
+		if j - (number - right) > 0 {
+			j = j - (number - right)
+		} else {
+			println(right)
+			j = 0
+		}
+	}
+
+	return j, k
 }

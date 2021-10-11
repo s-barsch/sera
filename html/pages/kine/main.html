@@ -15,37 +15,41 @@
     <div class="video-grid">
     {{range $set := .Entries}}
 
-        {{$isAudio := eq "true" (index $set.Info "is-audio")}}
-        {{$isTranslated := isTranslated $set $.Head.Lang}}
-        <div class="kine-card{{if not $isTranslated}} untranslated{{end}}">
-        <a href="{{$set.Perma $.Head.Lang}}">
-          <span class="image">
-            <img class="no-subtitles" src="/static/svg/no-subtitles.svg">
-            {{if $isAudio}}
-              <img src="/static/svg/audio.svg" alt="" >
-            {{else if $set.Cover}}
-             <img alt=""
-               src="{{$set.Cover.ImagePath 320 $.Head.Lang}}" 
-               srcset="{{template "graph-thumb-srcset" (eL $set.Cover $.Head.Lang)}}">
-            {{else}}
-              NO COVER
-            {{end}}
-          </span>
-              <span class="title">
-                {{$set.Info.Field "title-hyph" $.Head.Lang}}
-              </span>
-          </a>
-          <!--{{$set.Date.Format "Jan 06"}}-->
-          {{if displayInfo}}
-            {{template "kine-meta" (eL $set $.Head.Lang)}}
-          {{end}}
-        </div>
+    {{template "kine-card" (eL $set $.Head.Lang)}}
 
     {{end}}
     </div>
 
 
 {{template "bot" .Head}}
+{{end}}
+
+{{define "kine-card"}}
+    {{$isAudio := eq "true" (index .Entry.Info "is-audio")}}
+    {{$isTranslated := isTranslated .Entry .Lang}}
+    <div class="kine-card{{if not $isTranslated}} untranslated{{end}}">
+      <a href="{{.Entry.Perma .Lang}}">
+        <span class="image">
+          <img class="no-subtitles" src="/static/svg/no-subtitles.svg">
+          {{if $isAudio}}
+          <img src="/static/svg/audio.svg" alt="" >
+          {{else if .Entry.Cover}}
+          <img alt=""
+               src="{{.Entry.Cover.ImagePath 320 .Lang}}" 
+               srcset="{{template "graph-thumb-srcset" (eL .Entry.Cover .Lang)}}">
+          {{else}}
+          NO COVER
+          {{end}}
+        </span>
+          <span class="title">
+            {{.Entry.Info.Field "title-hyph" .Lang}}
+          </span>
+      </a>
+      <!--{{.Entry.Date.Format "Jan 06"}}-->
+      {{if displayInfo}}
+      {{template "kine-meta" (eL .Entry .Lang)}}
+      {{end}}
+    </div>
 {{end}}
 
 {{define "kine-meta"}}
