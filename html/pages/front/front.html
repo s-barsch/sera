@@ -11,6 +11,7 @@
     {{var "log-more" .Head.Lang}}
     */}}
 
+    {{template "kine-front" eL (index .Kine 0) .Head.Lang}}
     {{/*
 {{ template "kine-col" . }}
   <div class="cols">
@@ -32,6 +33,27 @@
 
 {{template "bot" .Head}}
 {{end}}
+
+{{define "kine-front"}}
+
+<center>
+  <br>
+  <a href="{{.Entry.Perma .Lang}}"><img alt="{{.Entry.Perma .Lang}}"
+       src="{{.Entry.Cover.ImagePath 2560 .Lang}}" 
+       srcset="{{template "graph-thumb-srcset" (eL .Entry.Cover .Lang)}}"></a>
+  <!--
+  <br>
+  Kine: <a href="{{.Entry.Perma .Lang}}"><i>{{.Entry.Info.Field "title-display" .Lang}}</i></a>
+  -->
+</center>
+<!--
+      <h1 class="video-title-bar">
+        <span class="video-title">
+        {{.Entry.Info.Field "title-display" .Lang}}
+        </span>
+      </h1>
+-->
+  {{end}}
 
   
 {{define "register-col" -}}
