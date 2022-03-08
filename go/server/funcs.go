@@ -1,6 +1,8 @@
 package server
 
 import (
+	"fmt"
+	"math"
 	"sacer/go/entry"
 	"sacer/go/entry/tools"
 	"sacer/go/entry/types/set"
@@ -90,6 +92,17 @@ func (s *Server) Funcs() template.FuncMap {
 				}
 			}
 			return nil
+		},
+		"duration": func(s *set.Set) (string, error) {
+			for _, child := range s.Entries() {
+				v, ok := child.(*video.Video)
+				if ok {
+					mins := (v.Duration / 60) - 1
+					secs := math.Mod(v.Duration, 60)
+					return fmt.Sprintf( "%.0f:%.0f", mins, secs), nil
+				}
+			}
+			return "", fmt.Errorf("err 'duration': has no entries")
 		},
 		"isCaptioned": isCaptioned,
 		"isTranscripted": isTranscripted,

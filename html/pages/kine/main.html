@@ -41,11 +41,18 @@
           NO COVER
           {{end}}
         </span>
+          <span class="date">
+          {{.Entry.Date.Format "2 Jan 06"}}
+          </span>
+          <!--
+          <span class="date">
+          {{duration .Entry}}
+          </span>
+          -->
           <span class="title">
             {{.Entry.Info.Field "title-hyph" .Lang}}
           </span>
       </a>
-      <!--{{.Entry.Date.Format "Jan 06"}}-->
       {{if displayInfo}}
       {{template "kine-meta" (eL .Entry .Lang)}}
       {{end}}
