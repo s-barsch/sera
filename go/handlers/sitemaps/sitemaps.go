@@ -23,7 +23,7 @@ func Index(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Aut
 	if head.Lang(r.Host) == "en" {
 		domain = "https://en.sacer.site"
 	}
-	err := s.Templates.ExecuteTemplate(w, "sitemap-register", struct{ Domain string }{domain})
+	err := s.Templates.ExecuteTemplate(w, "sitemap-index", struct{ Domain string }{domain})
 	if err != nil {
 		log.Println(err)
 		return
