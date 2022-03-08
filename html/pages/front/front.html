@@ -38,13 +38,11 @@
 
 <center>
   <br>
-  <a href="{{.Entry.Perma .Lang}}"><img alt="{{.Entry.Perma .Lang}}"
+  <a href="{{.Entry.Perma .Lang}}"><img alt="{{.Entry.Title .Lang}}"
        src="{{.Entry.Cover.ImagePath 2560 .Lang}}" 
        srcset="{{template "graph-thumb-srcset" (eL .Entry.Cover .Lang)}}"></a>
-  <!--
   <br>
-  Kine: <a href="{{.Entry.Perma .Lang}}"><i>{{.Entry.Info.Field "title-display" .Lang}}</i></a>
-  -->
+ <a href="{{.Entry.Perma .Lang}}" class="kine-title-front">{{.Entry.Info.Field "title-display" .Lang}}</a>
 </center>
 <!--
       <h1 class="video-title-bar">
