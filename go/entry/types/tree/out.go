@@ -69,6 +69,16 @@ func kinoPerma(t *Tree, lang string) string {
 	switch l := t.Level(); {
 	case l == 0:
 		return "/kino"
+	case l == 1:
+		last := "/kino"
+		year := t
+		if d := len(year.Trees); d > 0 {
+			month := year.Trees[d-1]
+			if x := len(month.Entries()); x > 0 {
+				last = month.Entries()[x-1].Perma(lang)
+			}
+		}
+		return last
 	case l == 2:
 		last := "/kino"
 		if l := len(t.Entries()); l > 0 {
