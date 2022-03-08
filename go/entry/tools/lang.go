@@ -10,7 +10,7 @@ var AboutName = map[string]string{
 	"en": "about",
 }
 
-var KineName = map[string]string{
-	"de": "kine",
+var KinoName = map[string]string{
+	"de": "kino",
 	"en": "cine",
 }

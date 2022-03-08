@@ -14,8 +14,8 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Aut
 		Core(s, w, r, a)
 	case "/sitemaps/trees.xml":
 		Trees(s, w, r, a)
-	case "/sitemaps/kines.xml":
-		Kines(s, w, r, a)
+	case "/sitemaps/kinos.xml":
+		Kinos(s, w, r, a)
 	case "/sitemaps/graph-entries.xml":
 		GraphEntries(s, w, r, a)
 	default:

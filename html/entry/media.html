@@ -76,7 +76,7 @@
 
 {{define "video"}}
 <figure>
-  <video preload="metadata" loop controls {{if eq .E.Section "kine"}}autoplay {{end}} type="video/mp4">
+  <video preload="metadata" loop controls {{if eq .E.Section "kino"}}autoplay {{end}} type="video/mp4">
     {{range .E.Sources}}
     <source src="{{$.E.FilesPath $.L}}/{{.Path}}" size="{{.Resolution}}" type="video/mp4">
     {{end}}
@@ -91,7 +91,7 @@
 
 
 {{define "audio"}}
-<audio class="audio" src="{{.E.FilePath .Lang}}" {{if eq .E.Section "kine"}}autoplay="true"{{end}} controls>
+<audio class="audio" src="{{.E.FilePath .Lang}}" {{if eq .E.Section "kino"}}autoplay="true"{{end}} controls>
     {{range .E.Captions}}
     <track label="{{langName .}}" srclang="{{.}}" kind="captions"
     src="{{$.E.CaptionPath .}}" {{if eq . $.L}} default{{end}}>

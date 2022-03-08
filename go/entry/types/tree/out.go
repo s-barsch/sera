@@ -25,7 +25,7 @@ func (t *Tree) Label(lang string) string {
 func (t *Tree) Section() string {
 	section := t.Chain()[0].Slug("en")
 	if section == "cine" {
-		return "kine"
+		return "kino"
 	}
 	return section
 }
@@ -36,8 +36,8 @@ func (t *Tree) Perma(lang string) string {
 		return graphPerma(t, lang)
 	case "komposita":
 		return kompositaPerma(t, lang)
-	case "kine":
-		return kinePerma(t, lang)
+	case "kino":
+		return kinoPerma(t, lang)
 	case "register":
 		return registerPerma(t, lang)
 	case "about":
@@ -65,12 +65,12 @@ func kompositaPerma(t *Tree, lang string) string {
 	return fmt.Sprintf("komposita/%v-%v", t.Slug(lang), t.Hash())
 }
 
-func kinePerma(t *Tree, lang string) string {
+func kinoPerma(t *Tree, lang string) string {
 	switch l := t.Level(); {
 	case l == 0:
-		return "/kine"
+		return "/kino"
 	case l == 2:
-		last := "/kine"
+		last := "/kino"
 		if l := len(t.Entries()); l > 0 {
 			last = t.Entries()[l-1].Perma(lang)
 		}

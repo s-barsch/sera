@@ -11,9 +11,9 @@
     {{var "log-more" .Head.Lang}}
     */}}
 
-    {{template "kine-front" eL (index .Kine 0) .Head.Lang}}
+    {{template "kino-front" eL (index .Kino 0) .Head.Lang}}
     {{/*
-{{ template "kine-col" . }}
+{{ template "kino-col" . }}
   <div class="cols">
     <div class="col__content col--index">
     {{template "register-col" .}}
@@ -34,7 +34,7 @@
 {{template "bot" .Head}}
 {{end}}
 
-{{define "kine-front"}}
+{{define "kino-front"}}
 
 <center>
   <br>
@@ -42,7 +42,7 @@
        src="{{.Entry.Cover.ImagePath 2560 .Lang}}" 
        srcset="{{template "graph-thumb-srcset" (eL .Entry.Cover .Lang)}}"></a>
   <br>
- <a href="{{.Entry.Perma .Lang}}" class="kine-title-front">{{.Entry.Info.Field "title-display" .Lang}}</a>
+ <a href="{{.Entry.Perma .Lang}}" class="kino-title-front">{{.Entry.Info.Field "title-display" .Lang}}</a>
 </center>
 <!--
       <h1 class="video-title-bar">
@@ -67,10 +67,10 @@
 </div>
 {{- end}}
 
-{{define "kine-col" -}}
+{{define "kino-col" -}}
     <div class="front-videos col--video">
       {{$c := 0}}
-      {{range $i, $set := .Kine}}
+      {{range $i, $set := .Kino}}
       {{$untranslated := isCaptioned $set}}
       <span class="front-video{{if gt $c 3}} desktop{{end}}
       {{if $untranslated}} untranslated{{end}}">

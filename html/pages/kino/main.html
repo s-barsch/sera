@@ -1,4 +1,4 @@
-{{define "kine-main"}}
+{{define "kino-main"}}
 {{template "head" .Head}}
 {{template "top" .}}
 
@@ -15,7 +15,7 @@
     <div class="video-grid">
     {{range $set := .Entries}}
 
-    {{template "kine-card" (eL $set $.Head.Lang)}}
+    {{template "kino-card" (eL $set $.Head.Lang)}}
 
     {{end}}
     </div>
@@ -24,10 +24,10 @@
 {{template "bot" .Head}}
 {{end}}
 
-{{define "kine-card"}}
+{{define "kino-card"}}
     {{$isAudio := eq "true" (index .Entry.Info "is-audio")}}
     {{$isTranslated := isTranslated .Entry .Lang}}
-    <div class="kine-card{{if not $isTranslated}} untranslated{{end}}">
+    <div class="kino-card{{if not $isTranslated}} untranslated{{end}}">
       <a href="{{.Entry.Perma .Lang}}">
         <span class="image">
           <img class="no-subtitles" src="/static/svg/no-subtitles.svg">
@@ -54,13 +54,13 @@
           </span>
       </a>
       {{if displayInfo}}
-      {{template "kine-meta" (eL .Entry .Lang)}}
+      {{template "kino-meta" (eL .Entry .Lang)}}
       {{end}}
     </div>
 {{end}}
 
-{{define "kine-meta"}}
-  <div class="kine-meta">
+{{define "kino-meta"}}
+  <div class="kino-meta">
     <span class="{{if isTranscripted .E}}has-meta{{end}}">
       Transcript
     </span>

@@ -74,8 +74,8 @@ func IndexEls(w http.ResponseWriter, r *http.Request) {
 }
 */
 
-func Kines(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
-	entries, err := elEntries(s, "kine", head.Lang(r.Host))
+func Kinos(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
+	entries, err := elEntries(s, "kino", head.Lang(r.Host))
 	if err != nil {
 		http.Error(w, "internal error", 500)
 		log.Println(err)

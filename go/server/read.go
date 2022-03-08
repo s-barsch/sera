@@ -9,7 +9,7 @@ import (
 )
 
 var sections = []string{
-	"kine",
+	"kino",
 	"komposita",
 	"register",
 	"graph",
@@ -88,7 +88,7 @@ func serializeLangs(langMap map[string]*tree.Tree) map[string]entry.Entries {
 
 func serialize(t *tree.Tree) entry.Entries {
 	switch t.Section() {
-	case "graph", "kine":
+	case "graph", "kino":
 		return t.TraverseEntriesReverse()
 	case "register":
 		es := entry.Entries{}
