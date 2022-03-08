@@ -62,11 +62,11 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, a *au
 }
 
 func getDate(d time.Time, lang string) string {
-	return fmt.Sprintf(d.Format("02 %v"), tools.Abbr(tools.MonthLang(d, lang)))
+	return fmt.Sprintf(d.Format("02 %v 2006"), tools.Abbr(tools.MonthLang(d, lang)))
 }
 
 func getTitle(e entry.Entry, lang string) string {
-	return fmt.Sprintf("%v - %v - %v", getDate(e.Date(), lang), e.Title(lang), strings.Title(tools.KineName[lang]))
+	return fmt.Sprintf("%v - %v - %v", e.Title(lang), getDate(e.Date(), lang), strings.Title(tools.KineName[lang]))
 }
 
 func getNeighbors(es entry.Entries, hash string) []entry.Entry {
