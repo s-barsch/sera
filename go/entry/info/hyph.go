@@ -38,7 +38,7 @@ func makeBrackets(title string) string {
 	for _, el := range strings.Split(title, "|") {
 		brackets += fmt.Sprintf("<span class=\"bracket\">%v</span> ", el)
 	}
-	return brackets
+	return strings.TrimSpace(brackets)
 }
 
 func name(key string) string {

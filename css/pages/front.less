@@ -2,15 +2,33 @@
     margin-bottom:4rem;
 }
 
+.frontcover:hover {
+    border:0;
+    opacity:.95;
+}
+
 .kino-title-front {
     display:inline-block;
-    display:none;
-    font-size:.875rem;
+    font-size:1.0625rem;
     font-family:var(--fontfamily-sans);
     //font-style:italic;
     font-weight:400;
-    color:black;
-    //margin:1.5rem 0 3rem;
+    color:var(--color-fg);
+    margin:.125rem 0 0;
+}
+
+.kino-title-front a {
+    color:var(--color-fg);
+    font-style:italic;
+    margin:.125rem;
+    margin-right:.0625rem;
+}
+
+.kino-title-front .icon {
+    vertical-align:middle;
+}
+
+.kino-title-front .date {
 }
 
 .front-videos {
@@ -183,6 +201,12 @@ h2.front-head {
 }
 
 .media-mixin(@break) when (@break = @break-single) {
+    .frontcover img {
+        max-width:80%;
+    }
+    .kino-title-front {
+        font-size:1.125rem;
+    }
     .col__spacer {
         display:none;
     }
@@ -229,5 +253,8 @@ h2.front-head {
 }
 
 .media-mixin(@break) when (@break = @break-wide) {
+    .frontcover img {
+        max-width:67%;
+    }
 }
 
