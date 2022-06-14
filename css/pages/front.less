@@ -2,6 +2,11 @@
     margin-bottom:4rem;
 }
 
+.frontcover {
+    margin:2rem 0 0;
+    display:inline-block;
+}
+
 .frontcover:hover {
     border:0;
     opacity:.95;
@@ -201,8 +206,9 @@ h2.front-head {
 }
 
 .media-mixin(@break) when (@break = @break-single) {
+
     .frontcover img {
-        max-width:80%;
+        max-width:64rem;
     }
     .kino-title-front {
         font-size:1.125rem;
@@ -254,7 +260,7 @@ h2.front-head {
 
 .media-mixin(@break) when (@break = @break-wide) {
     .frontcover img {
-        max-width:67%;
+        max-width:52rem;
     }
 }
 

@@ -35,9 +35,7 @@
 {{end}}
 
 {{define "kino-front"}}
-</main>
 <center>
-  <br>
   <a href="{{.Entry.Perma .Lang}}" class="frontcover"><img alt="{{.Entry.Title .Lang}}"
        src="{{.Entry.Cover.ImagePath 2560 .Lang}}" 
        srcset="{{template "graph-thumb-srcset" (eL .Entry.Cover .Lang)}}"></a>
@@ -46,10 +44,8 @@
     Video: <a href="{{.Entry.Perma .Lang}}">{{.Entry.Info.Field "title" .Lang}}</a>
   </span>
 </center>
-<main class="margin">
   {{end}}
 
-  
 {{define "register-col" -}}
 <div>
       {{range .Index}}
