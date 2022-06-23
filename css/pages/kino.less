@@ -2,7 +2,7 @@
 .video-grid {
     display:grid;
     grid-template-columns:1fr;
-    gap:2rem 0;
+    gap:3rem 0;
 }
 
 .kino-card {
@@ -107,12 +107,14 @@
 .media-mixin(@break) when (@break = @break-single) {
     .video-grid {
         grid-template-columns:1fr 1fr;
-        gap:2rem 1rem;
+        gap:3rem;
     }
+    /*
     .kino-card .image {
         width:70%;
         min-width:14rem;
     }
+    */
     .kino-card .title {
         font-size:1.7rem;
     }
@@ -138,10 +140,12 @@
     .video-grid {
         grid-template-columns:1fr 1fr 1fr;
     }
+    /*
     .kino-card .image {
         width:75%;
         min-width:13rem;
     }
+    */
     .kino-card .title {
         font-size:1.7rem;
     }
@@ -150,7 +154,7 @@
 .media-mixin(@break) when (@break = @break-wide) {
     .video-grid {
         grid-template-columns:1fr 1fr 1fr 1fr;
-        gap:2rem;
+        gap:3rem;
     }
 }
 
