@@ -102,10 +102,10 @@ func (e *Text) Perma(lang string) string {
 	}
 
 	switch e.Section() {
-	case "kino":
+	case "kine":
 		return fmt.Sprintf(
 			"/%v/%v/%v",
-			tools.KinoName[lang],
+			tools.KineName[lang],
 			e.Date().Format("06-01"),
 			fmt.Sprintf("%v-%v", e.Date().Format("02"), name),
 		)

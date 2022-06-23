@@ -118,7 +118,7 @@ func isGraph(path string, parent *Tree) bool {
 
 func isGraphSection(section string) bool {
 	switch section {
-	case "graph", "kino":
+	case "graph", "kine":
 		return true
 	}
 	return false

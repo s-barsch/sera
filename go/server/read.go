@@ -9,7 +9,7 @@ import (
 )
 
 var sections = []string{
-	"kino",
+	"kine",
 	"komposita",
 	"register",
 	"graph",
@@ -46,7 +46,7 @@ func (s *Server) ReadTrees() error {
 
 	for _, section := range sections {
 		folder := section
-		if section == "kino" {
+		if section == "kine" {
 			folder = "kine"
 		}
 		t, err := tree.ReadTree(s.Paths.Data+"/"+folder, nil)
@@ -92,7 +92,7 @@ func serializeLangs(langMap map[string]*tree.Tree) map[string]entry.Entries {
 
 func serialize(t *tree.Tree) entry.Entries {
 	switch t.Section() {
-	case "graph", "kino":
+	case "graph", "kine":
 		return t.TraverseEntriesReverse()
 	case "register":
 		es := entry.Entries{}

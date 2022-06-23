@@ -22,7 +22,7 @@ func (p *Path) Section() string {
 	if len(p.Chain) > 0 {
 		section := p.Chain[0]
 		if section == "cine" {
-			return "kino"
+			return "kine"
 		}
 		return section
 	}

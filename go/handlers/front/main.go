@@ -13,7 +13,7 @@ type frontMain struct {
 	Head     *head.Head
 	Index    entry.Entries
 	Graph    entry.Entries
-	Kino     entry.Entries
+	Kine     entry.Entries
 	Log      entry.Entries
 	Featured entry.Entry
 }
@@ -36,13 +36,13 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth
 
 	register := s.Recents["register"].Access(a.Subscriber)[lang]
 	graph := s.Recents["graph"].Access(a.Subscriber)[lang]
-	kino := s.Recents["kino"].Access(a.Subscriber)[lang]
+	kine := s.Recents["kine"].Access(a.Subscriber)[lang]
 
 	err = s.ExecuteTemplate(w, "front", &frontMain{
 		Head:  head,
 		Index: register.Limit(s.Vars.FrontSettings.Index),
 		Graph: graph.Limit(s.Vars.FrontSettings.Graph),
-		Kino:  kino.Limit(10),
+		Kine:  kine.Limit(10),
 		Log:   s.Recents["log"].Access(true)["de"].Limit(s.Vars.FrontSettings.Log),
 	})
 	if err != nil {

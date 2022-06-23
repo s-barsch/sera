@@ -1,4 +1,4 @@
-package kino
+package kine
 
 import (
 	"fmt"
@@ -14,7 +14,7 @@ import (
 	"time"
 )
 
-type kinoSingle struct {
+type kineSingle struct {
 	Head	  *head.Head
 	Entry	  entry.Entry
 	Neighbors []entry.Entry
@@ -22,10 +22,10 @@ type kinoSingle struct {
 
 func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth, p *paths.Path) {
 	lang := head.Lang(r.Host)
-	kino := s.Trees["kino"].Access(a.Subscriber)[lang]
-	e, err := kino.LookupEntryHash(p.Hash)
+	kine := s.Trees["kine"].Access(a.Subscriber)[lang]
+	e, err := kine.LookupEntryHash(p.Hash)
 	if err != nil {
-		http.Redirect(w, r, "/kino", 301)
+		http.Redirect(w, r, "/kine", 301)
 		return
 	}
 
@@ -37,7 +37,7 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, a *au
 
 	head := &head.Head{
 		Title:   getTitle(e, head.Lang(r.Host)),
-		Section: "kino",
+		Section: "kine",
 		Path:    r.URL.Path,
 		Host:    r.Host,
 		Entry:   e,
@@ -51,10 +51,10 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, a *au
 	}
 
 
-	err = s.ExecuteTemplate(w, "kino-single", &kinoSingle{
+	err = s.ExecuteTemplate(w, "kine-single", &kineSingle{
 		Head:	   head,
 		Entry:     e,
-		Neighbors: getNeighbors(s.Recents["kino"].Access(a.Subscriber)[lang], p.Hash),
+		Neighbors: getNeighbors(s.Recents["kine"].Access(a.Subscriber)[lang], p.Hash),
 	})
 	if err != nil {
 		log.Println(err)
@@ -66,7 +66,7 @@ func getDate(d time.Time, lang string) string {
 }
 
 func getTitle(e entry.Entry, lang string) string {
-	return fmt.Sprintf("%v - %v - %v", e.Title(lang), getDate(e.Date(), lang), strings.Title(tools.KinoName[lang]))
+	return fmt.Sprintf("%v - %v - %v", e.Title(lang), getDate(e.Date(), lang), strings.Title(tools.KineName[lang]))
 }
 
 func getNeighbors(es entry.Entries, hash string) []entry.Entry {

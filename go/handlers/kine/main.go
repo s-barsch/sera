@@ -1,4 +1,4 @@
-package kino
+package kine
 
 import (
 	//"fmt"
@@ -13,7 +13,7 @@ import (
 	"strings"
 )
 
-type kinoMain struct {
+type kineMain struct {
 	Head    *head.Head
 	Tree    *tree.Tree
 	Entries entry.Entries
@@ -21,10 +21,10 @@ type kinoMain struct {
 
 func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
 	lang := head.Lang(r.Host)
-	t := s.Trees["kino"].Access(a.Subscriber)[lang]
+	t := s.Trees["kine"].Access(a.Subscriber)[lang]
 	head := &head.Head{
-		Title:   strings.Title(tools.KinoName[lang]),
-		Section: "kino",
+		Title:   strings.Title(tools.KineName[lang]),
+		Section: "kine",
 		Path:    r.URL.Path,
 		Host:    r.Host,
 		Entry:   t,
@@ -36,9 +36,9 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth
 		return
 	}
 
-	entries := s.Recents["kino"].Access(a.Subscriber)[lang]
+	entries := s.Recents["kine"].Access(a.Subscriber)[lang]
 
-	err = s.ExecuteTemplate(w, "kino-main", &kinoMain{
+	err = s.ExecuteTemplate(w, "kine-main", &kineMain{
 		Head:    head,
 		Tree:    t,
 		Entries: entries,

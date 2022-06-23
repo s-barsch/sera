@@ -21,7 +21,7 @@ type Set struct {
 	entries entry.Entries
 	Cover   *image.Image
 
-	Kino      entry.Entries
+	Kine      entry.Entries
 	Notes     entry.Entries
 
 	Footnotes text.Footnotes
@@ -39,7 +39,7 @@ func (s *Set) Copy() *Set {
 		Cover: s.Cover,
 
 		Notes: s.Notes,
-		Kino:  s.Kino,
+		Kine:  s.Kine,
 		
 		Footnotes: s.Footnotes,
 	}

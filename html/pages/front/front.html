@@ -11,9 +11,9 @@
     {{var "log-more" .Head.Lang}}
     */}}
 
-    {{template "kino-front" eL (index .Kino 0) .Head.Lang}}
+    {{template "kine-front" eL (index .Kine 0) .Head.Lang}}
     {{/*
-{{ template "kino-col" . }}
+{{ template "kine-col" . }}
   <div class="cols">
     <div class="col__content col--index">
     {{template "register-col" .}}
@@ -34,13 +34,13 @@
 {{template "bot" .Head}}
 {{end}}
 
-{{define "kino-front"}}
+{{define "kine-front"}}
 <center>
   <a href="{{.Entry.Perma .Lang}}" class="frontcover"><img alt="{{.Entry.Title .Lang}}"
        src="{{.Entry.Cover.ImagePath 2560 .Lang}}" 
        srcset="{{template "graph-thumb-srcset" (eL .Entry.Cover .Lang)}}"></a>
   <br>
-  <span class="kino-title-front">
+  <span class="kine-title-front">
     Video: <a href="{{.Entry.Perma .Lang}}">{{.Entry.Info.Field "title" .Lang}}</a>
   </span>
 </center>
@@ -59,10 +59,10 @@
 </div>
 {{- end}}
 
-{{define "kino-col" -}}
+{{define "kine-col" -}}
     <div class="front-videos col--video">
       {{$c := 0}}
-      {{range $i, $set := .Kino}}
+      {{range $i, $set := .Kine}}
       {{$untranslated := isCaptioned $set}}
       <span class="front-video{{if gt $c 3}} desktop{{end}}
       {{if $untranslated}} untranslated{{end}}">

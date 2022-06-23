@@ -76,13 +76,13 @@
 
 {{define "graph-set"}}
 <div class="set set--graph">
-  {{/*template "graph-kino-desk" .*/}}
+  {{/*template "graph-kine-desk" .*/}}
     {{if eq 0 (len .E.Entries)}}
     <em>This entry has not been translated.</em>
     {{end}}
     {{template "object-groups" (esL .E.Entries .L)}}
   <div class="column">
-  {{template "graph-kino-mobile" .}}
+  {{template "graph-kine-mobile" .}}
   </div>
   {{with .E.Footnotes}}
     <div class="column">
@@ -110,22 +110,22 @@
     {{end}}
 {{end}}
 
-{{define "graph-kino-mobile"}}
-    {{with .E.Kino}}
-    <div class="graph-kino">
+{{define "graph-kine-mobile"}}
+    {{with .E.Kine}}
+    <div class="graph-kine">
       {{range .}}
-      <div class="graph-kino-mobile">
-        {{template "graph-kino-title" (eL . $.L)}}
+      <div class="graph-kine-mobile">
+        {{template "graph-kine-title" (eL . $.L)}}
       </div>
       {{end}}
     </div>
     {{end}}
 {{end}}
 
-{{define "graph-kino-title"}}
-<span class="graph-kino-title">
+{{define "graph-kine-title"}}
+<span class="graph-kine-title">
   <img class="icon" src="/static/svg/cam.svg">
-  <span class="kino-date-notes">{{template "kino-date" .}}</span>:
+  <span class="kine-date-notes">{{template "kine-date" .}}</span>:
   <a href="{{.E.Perma .L}}">
     {{.E.Title .L}}
   </a>
@@ -133,12 +133,12 @@
 {{end}}
 
 
-{{define "graph-kino-desk"}}
-    {{with .E.Kino}}
+{{define "graph-kine-desk"}}
+    {{with .E.Kine}}
   <div class="desktop">
       {{range .}}
         {{if .Cover}}
-        <span class="graph-kino-image">
+        <span class="graph-kine-image">
         {{template "image" (eL .Cover $.L)}}
         </span>
         {{end}}

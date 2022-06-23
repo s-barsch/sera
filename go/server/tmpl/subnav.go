@@ -39,7 +39,7 @@ func (s *Subnav) NavTrees() tree.Trees {
 		}
 		*/
 	}
-	if t.Section() =="kino" {
+	if t.Section() =="kine" {
 		return t.Trees.Reverse()
 		if t.Level() == 1 {
 			return t.Trees.Reverse()
@@ -54,7 +54,7 @@ func (s *Subnav) IsYear() bool {
 
 func (s *Subnav) IsDay() bool {
 	section := s.Tree.Section()
-	if section != "graph" && section != "kino" {
+	if section != "graph" && section != "kine" {
 		return false
 	}
 	if s.Tree.Level() != 2 {

@@ -7,16 +7,16 @@ import (
 )
 
 func (s *Server) makeLinks() {
-	kinos := s.Recents["kino"].Access(true)["de"]
+	kines := s.Recents["kine"].Access(true)["de"]
 
 	for _, access := range []bool{false, true} {
 		for lang, _ := range tools.Langs {
 			for _, e := range s.Recents["graph"].Access(access)[lang] {
 				s, ok := e.(*set.Set)
 				if ok {
-					es := findMatchingKinos(kinos, s)
+					es := findMatchingKines(kines, s)
 					if es != nil {
-						s.Kino = es
+						s.Kine = es
 					}
 				}
 			}
@@ -24,9 +24,9 @@ func (s *Server) makeLinks() {
 	}
 }
 
-func findMatchingKinos(kinos entry.Entries, s *set.Set) entry.Entries {
+func findMatchingKines(kines entry.Entries, s *set.Set) entry.Entries {
 	matches := entry.Entries{}
-	for _, e := range kinos {
+	for _, e := range kines {
 		// TODO: start at 20-08
 		if e.Date().Format("060102") == s.Date().Format("060102") {
 			matches = append(matches, e)

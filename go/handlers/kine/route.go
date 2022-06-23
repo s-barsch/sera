@@ -1,4 +1,4 @@
-package kino
+package kine
 
 import (
 	"net/http"
@@ -15,10 +15,10 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Aut
 		return
 	}
 
-	rel := p[len("/kino"):]
+	rel := p[len("/kine"):]
 
 	if rel == "/" {
-		http.Redirect(w, r, "/kino", 301)
+		http.Redirect(w, r, "/kine", 301)
 		return
 	}
 

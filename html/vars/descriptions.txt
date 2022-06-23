@@ -6,7 +6,7 @@ index-subtitle-en: Topical&nbsp;structure
 index-subtitle-de: Thematische&nbsp;Struktur
 graph-subtitle-en: Temporal&nbsp;structure
 graph-subtitle-de: Zeitliche&nbsp;Struktur
-kino-subtitle-en: Daily&nbsp;updates
-kino-subtitle-de: Tages&shy;be&shy;rich&shy;te
+kine-subtitle-en: Daily&nbsp;updates
+kine-subtitle-de: Tages&shy;be&shy;rich&shy;te
 map-info-de: Diese Karte wird automatisch generiert.
 map-info-en: This map is automatically generated.

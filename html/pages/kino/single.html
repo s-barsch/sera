@@ -1,17 +1,17 @@
-{{define "kino-single"}}
+{{define "kine-single"}}
 
 {{template "head" .Head}}
 {{template "top" .}}
 
     <div id="part">
-    {{template "kino-single-part" .}}
+    {{template "kine-single-part" .}}
     </div>
 
     {{template "bot" .Head}}
 
 {{end}}}
 
-{{define "kino-single-part"}}
+{{define "kine-single-part"}}
 
     {{template "subnav" (snav .Entry.Parent .Entry.Id .Head.Lang)}}
 
@@ -26,13 +26,13 @@
         {{.Entry.Info.Field "title-display" .Head.Lang}}
         </span>
       </h1>
-          {{template "kino-entry" $eL}}
+          {{template "kine-entry" $eL}}
     </div>
 
     <!--
     <div class="video-grid">
     {{/* range .Neighbors}}
-    {{template "kino-card" eL . $.Head.Lang}}
+    {{template "kine-card" eL . $.Head.Lang}}
     {{end */}}
     </div>
     -->
@@ -45,47 +45,47 @@
 
 {{end}}
 
-{{define "kino-date" -}}
+{{define "kine-date" -}}
 {{.E.Date.Format "2"}} {{abbr (monthLang .Entry.Date .L)}}
 {{- end}}
 
-{{define "kino-entry"}}
+{{define "kine-entry"}}
 {{$type := $.E.Type}}
     {{if eq $type "set"}}
-      {{template "kino-set" .}}
+      {{template "kine-set" .}}
     {{else if or (eq $type "video") (eq $type "audio")}}
-      {{template "kino-av" .}}
+      {{template "kine-av" .}}
     {{else}}
       {{template "entry" .}}
     {{end}}
 {{end}}
 
-{{define "kino-set"}}
+{{define "kine-set"}}
 <div class="set">
     {{range .E.Entries}}
-      {{template "kino-entry" (eL . $.L)}}
+      {{template "kine-entry" (eL . $.L)}}
     {{end}}
 </div>
 {{end}}
 
-{{define "kino-av"}}
+{{define "kine-av"}}
 {{if eq .E.Type "audio"}}
-  <div class="column kino-audio">
+  <div class="column kine-audio">
     {{template "entry" .}}
   </div>
 {{else}}
   {{template "entry" .}}
 {{end}}
 
-  {{template "kino-transcript" .}}
+  {{template "kine-transcript" .}}
 
 {{end}}
 
-{{define "kino-transcript"}}
+{{define "kine-transcript"}}
   {{with .E.Transcript}}
     {{$text := index .Langs $.L}}
     {{if $text}}
-    <div class="transcript transcript-kino column">
+    <div class="transcript transcript-kine column">
       <h3>{{var "transcript" $.L}}</h3>
       <div class="{{$.E.Info.TextStyle}}">
         {{$text}}
