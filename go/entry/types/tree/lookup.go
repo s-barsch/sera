@@ -27,6 +27,7 @@ func (t *Tree) LookupTree(id int64) (*Tree, error) {
 }
 
 func (t *Tree) LookupEntryHash(hash string) (entry.Entry, error) {
+	println(hash)
 	id, err := tools.ParseHash(hash)
 	if err != nil {
 		return nil, fmt.Errorf("LookupEntryHash: Couldn’t parse hash %v.", err)

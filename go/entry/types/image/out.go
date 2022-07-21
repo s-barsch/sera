@@ -12,7 +12,8 @@ func (i *Image) Location(size string) (string, error) {
 
 func (i *Image) ImagePath(size int, lang string) string {
 	parent := i.Perma(lang)
-	if i.parent.Type() == "set" {
+	switch typ := i.parent.Type(); typ {
+	case "set", "tree":
 		parent = i.parent.Perma(lang)
 	}
 	return fmt.Sprintf("%v/cache/%v", parent, i.ImageName(size, i.info.Wall()))

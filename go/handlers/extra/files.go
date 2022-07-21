@@ -5,9 +5,11 @@ import (
 	"log"
 	"net/http"
 	p "path/filepath"
+	"time"
 	"sacer/go/entry"
 	"sacer/go/entry/tools"
 	"sacer/go/entry/types/set"
+	"sacer/go/entry/types/tree"
 	"sacer/go/server"
 	"sacer/go/server/auth"
 	"sacer/go/server/head"
@@ -33,7 +35,8 @@ func serveFile(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth
 	section := path.Section()
 	lang := head.Lang(r.Host)
 	tree := s.Trees[section].Access(a.Subscriber)[lang]
-	e, err := tree.LookupEntryHash(path.Hash)
+
+	e, err := getEntry(tree, path)
 	if err != nil {
 		return err
 	}
@@ -82,6 +85,10 @@ func serveCollectionBlob(w http.ResponseWriter, r *http.Request, col entry.Colle
 		if ok && set.Cover != nil {
 			return serveSingleBlob(w, r, set.Cover, path)
 		}
+		t, ok := col.(*tree.Tree)
+		if ok && t.Cover != nil {
+			return serveSingleBlob(w, r, t.Cover, path)
+		}
 		return fmt.Errorf("serveCollectionBlob: Cover %v not found.", path.SubFile.Name)
 	}
 
@@ -108,3 +115,33 @@ func stripBlur(name string) string {
 	}
 	return name
 }
+
+func getEntry(t *tree.Tree, path *paths.Path) (entry.Entry, error) {
+	hash := path.Hash
+	if hash == "" {
+		h, err := getMonthHash(path)
+		if err != nil {
+			return nil, err
+		}
+		hash = h
+	}
+	return t.LookupEntryHash(hash)
+}
+
+func getMonthHash(path *paths.Path) (string, error) {
+	if len(path.Chain) != 2 {
+		return "", fmt.Errorf("getMonthEntry: wrong month format. %v", path.Raw)
+	} 
+
+	date, err := time.Parse("200601--150405", path.Chain[1] + path.Slug + "--000001")
+	if err != nil {
+		return "", err
+	}
+
+	return tools.ToB16(date), nil
+}
+
+
+
+
+

@@ -12,6 +12,12 @@
     opacity:.95;
 }
 
+.month-front {
+    margin:.25rem 0;
+    font-weight:normal;
+    font-size:2.5rem;
+}
+
 .kine-title-front {
     display:inline-block;
     font-size:1.0625rem;
@@ -206,6 +212,9 @@ h2.front-head {
 }
 
 .media-mixin(@break) when (@break = @break-single) {
+    .month-front {
+        font-size:4rem;
+    }
 
     .frontcover img {
         max-width:64rem;

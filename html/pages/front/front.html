@@ -11,7 +11,7 @@
     {{var "log-more" .Head.Lang}}
     */}}
 
-    {{template "kine-front" eL (index .Kine 0) .Head.Lang}}
+    {{template "month-front" eL (index .Months 0) .Head.Lang}}
     {{/*
 {{ template "kine-col" . }}
   <div class="cols">
@@ -32,6 +32,18 @@
 
 
 {{template "bot" .Head}}
+{{end}}
+
+{{define "month-front"}}
+<center>
+  <a href="{{.Entry.Perma .Lang}}" class="frontcover"><img alt="{{.Entry.Title .Lang}}"
+       src="{{.Entry.Cover.ImagePath 2560 .Lang}}" 
+       srcset="{{template "graph-thumb-srcset" (eL .Entry.Cover .Lang)}}"></a>
+  <br>
+    <h2 class="month-front">
+     <a href="{{.Entry.Perma .Lang}}">{{.Entry.Info.Field "title" .Lang}} {{.Entry.Date.Format "2006"}}</a>
+    </h2>
+</center>
 {{end}}
 
 {{define "kine-front"}}
