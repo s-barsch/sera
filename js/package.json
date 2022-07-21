@@ -18,7 +18,7 @@
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
     "babel-loader": "^8.2.2",
-    "webpack": "^4.35.0"
+    "webpack": "^5.73.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

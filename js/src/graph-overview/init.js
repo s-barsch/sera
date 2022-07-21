@@ -12,5 +12,18 @@ export default function initOverview(pageType) {
         initSubnavFix();
         observeMonths();
     };
+  initZoom();
+}
+
+
+const initZoom = () => {
+  const l = document.getElementsByClassName("img");
+  for (let img of l) {
+    img.addEventListener("click", performZoom);
+  }
+}
+
+const performZoom = evt => {
+  evt.target.classList.toggle("expand");
 }
 
