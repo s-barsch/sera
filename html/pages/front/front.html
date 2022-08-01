@@ -11,7 +11,8 @@
     {{var "log-more" .Head.Lang}}
     */}}
 
-    {{template "month-front" eL (index .Months 0) .Head.Lang}}
+    {{/*template "month-front" eL (index .Months 0) .Head.Lang*/}}
+    {{template "kine-front" eL (index .Kine 0) .Head.Lang}}
     {{/*
 {{ template "kine-col" . }}
   <div class="cols">
