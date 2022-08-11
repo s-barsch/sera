@@ -3,6 +3,7 @@ package routes
 import (
 	"net/http"
 	"sacer/go/handlers/about"
+	"sacer/go/handlers/api"
 	"sacer/go/handlers/extra"
 	"sacer/go/handlers/front"
 	"sacer/go/handlers/graph"
@@ -37,6 +38,7 @@ func Router(s *server.Server) *mux.Router {
 	*/
 
 	r.PathPrefix("/log").HandlerFunc(makeHandler(s, log.Main))
+	r.PathPrefix("/api").HandlerFunc(api.Main)
 
 	r.HandleFunc("/sitemaps.xml", makeHandler(s, sitemaps.Route))
 	r.PathPrefix("/sitemaps").HandlerFunc(makeHandler(s, sitemaps.Route))

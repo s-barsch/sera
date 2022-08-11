@@ -1,0 +1,52 @@
+{{define "support-page"}}
+<div>
+  <li>See all posts</li>
+  <li>Access archvie</li>
+</div>
+<br>
+
+<h3>Fill in information</h3>
+<input type="text" placeholder="Name"/><br>
+<input type="email" placeholder="Email address"/>
+<h3>Checkout via PayPal</h3>
+<div id="paypal-button-container-P-6G4632365X655423YMLX24SI" class="paypal-container"></div>
+<script src="https://www.paypal.com/sdk/js?client-id=AQXdUaMkcLq499D2u5rvMlEmMKEH2krclSuQheuza_lzuMZj7d6KxjISJWjhue5vsle_fwRB706ZxXCL&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+<script>
+  function createSubscription() {
+      fetch('/api', {
+          method: 'POST',
+          body: JSON.stringify({
+              name: 'john',
+              mail: 'john@gmail.com',
+              //subscriptionID: data.subscriptionID,
+              subscriptionID: 'I-SE9PDYJB1KF1'
+            })
+        })
+          console.log('yes');
+    }
+  paypal.Buttons({
+      style: {
+          shape: 'rect',
+          color: 'gold',
+          layout: 'vertical',
+          label: 'subscribe'
+      },
+      onInit: function(data, actions) {
+          actions.disable();
+      },
+      onClick: function(data, actions) {
+          alert("not working yet");
+      },
+      createSubscription: function(data, actions) {
+        return actions.subscription.create({
+          /* Creates the subscription */
+          plan_id: 'P-6G4632365X655423YMLX24SI'
+        });
+      },
+      onApprove: function(data, actions) {
+      }
+  }).render('#paypal-button-container-P-6G4632365X655423YMLX24SI'); // Renders the PayPal button
+</script>
+<button onclick="createSubscription()">Send</button>
+
+{{end}}

@@ -7,13 +7,15 @@
     <div class="section-title__box section-title--index">
         <h1 class="section-title">
             {{aboutTitle $.Head.Lang}}
-        <h1>
+        </h1>
     </div>
+
 
     <div class="cols">
       <div>
       {{template "about-entries" (esL .Tree.Entries .Head.Lang)}}
       </div>
+
       {{template "chamomile" .Head}}
     </div>
 
@@ -28,15 +30,20 @@
 
 {{template "subnav" (snav .Tree 0 .Head.Lang)}}
 
-    <h1 class="about-title">
+<h1 class="about-title {{.Tree.Slug "en"}}-title">
         {{.Tree.Title .Head.Lang}}
     </h1>
 
-    {{template "about-entries" (esL .Tree.Entries .Head.Lang)}}
+    {{if eq (.Tree.Slug "en") "support"}}
+      {{template "support-page"}}
+    {{else}}
+      {{template "about-entries" (esL .Tree.Entries .Head.Lang)}}
+    {{end}}
 
 
   
     {{/*template "edit-link-hold" (holdArg .Hold false .Head.Lang)*/}}
+
 
 
 {{template "bot" .Head}}
