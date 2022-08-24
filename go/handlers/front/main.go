@@ -36,7 +36,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth
 		return
 	}
 
-	register := s.Recents["register"].Access(a.Subscriber)[lang]
+	indecs := s.Recents["indecs"].Access(a.Subscriber)[lang]
 	graph := s.Recents["graph"].Access(a.Subscriber)[lang]
 	kine := s.Recents["kine"].Access(a.Subscriber)[lang]
 
@@ -53,7 +53,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth
 
 	err = s.ExecuteTemplate(w, "front", &frontMain{
 		Head:  head,
-		Index: register.Limit(s.Vars.FrontSettings.Index),
+		Index: indecs.Limit(s.Vars.FrontSettings.Index),
 		Graph: graph.Limit(s.Vars.FrontSettings.Graph),
 		Kine:  kine.Limit(10),
 		Months: months,

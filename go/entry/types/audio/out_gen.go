@@ -109,7 +109,7 @@ func (e *Audio) Perma(lang string) string {
 			e.Date().Format("06-01"),
 			fmt.Sprintf("%v-%v", e.Date().Format("02"), name),
 		)
-	case "register":
+	case "indecs":
 		if e.Type() != "image" {
 			return fmt.Sprintf("%v#%v", e.parent.Perma(lang), tools.Normalize(e.Title(lang)))
 		}

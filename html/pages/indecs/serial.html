@@ -1,4 +1,4 @@
-{{define "register-serial" -}}
+{{define "indecs-serial" -}}
 {{template "head" .Head}}
 {{template "top" .}}
 
@@ -9,14 +9,14 @@
 </div>
 
 {{range .Entries}}
-{{template "register-entry-serial" (eL . $.Head.Lang)}}
+{{template "indecs-entry-serial" (eL . $.Head.Lang)}}
 {{end}}
 
 
 {{template "bot" .Head}}
 {{end}}
 
-{{define "register-entry-serial"}}
+{{define "indecs-entry-serial"}}
   <article class="text-entry index-el-front lefter">
     {{if eq .E.Type "image"}}
         <span class="thumb index-thumb">
@@ -29,7 +29,7 @@
     {{end}}
 <header class="front-meta">
     {{template "private-mark" .E}}
-    {{template "register-date-link" .}}
+    {{template "indecs-date-link" .}}
     {{with .E.Parent}}
     <a href="{{.Perma $.L}}">{{removeß (.Title $.L)}}</a> 
     {{end}}

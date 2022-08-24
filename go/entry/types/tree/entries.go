@@ -70,7 +70,7 @@ func skipEntry(fi *read.FileInfo, parent *Tree) bool {
 			if isDateTree(fi.Path, parent) {
 				return true
 			}
-		case "register", "about", "extra":
+		case "indecs", "about", "extra":
 			return true
 		}
 	}

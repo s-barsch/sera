@@ -38,8 +38,8 @@ func (t *Tree) Perma(lang string) string {
 		return kompositaPerma(t, lang)
 	case "kine":
 		return kinePerma(t, lang)
-	case "register":
-		return registerPerma(t, lang)
+	case "indecs":
+		return indecsPerma(t, lang)
 	case "about":
 		return aboutPerma(t, lang)
 	}
@@ -103,15 +103,15 @@ func graphPerma(t *Tree, lang string) string {
 	return fmt.Sprintf("/graph-permalink-error-%v", t.Title(lang))
 }
 
-func registerPerma(t *Tree, lang string) string {
+func indecsPerma(t *Tree, lang string) string {
 	switch l := t.Level(); {
 	case l == 0:
-		return "/register"
+		return "/indecs"
 	case l < 2:
-		// prints /register/welt
+		// prints /indecs/welt
 		return t.Path(lang)
 	}
-	// prints /register/welt/wuestenleben-36c35dcb
+	// prints /indecs/welt/wuestenleben-36c35dcb
 	return fmt.Sprintf("%v-%v", t.Path(lang), t.Hash())
 }
 

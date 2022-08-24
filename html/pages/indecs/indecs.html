@@ -1,4 +1,4 @@
-{{define "register-main"}}
+{{define "indecs-main"}}
 {{template "head" .Head}}
 {{template "top" .}}
 
@@ -9,20 +9,20 @@
             {{.Tree.Title .Head.Lang}}
         </h1>
         <h4 class="section-lead">
-            {{var "register-subtitle" .Head.Lang}}
+            {{var "indecs-subtitle" .Head.Lang}}
         </h4>
     </div>
 
-    {{template "register-entries" (eL .Tree .Head.Lang)}}
+    {{template "indecs-entries" (eL .Tree .Head.Lang)}}
 
     <!--
-    <section class="register-map">
+    <section class="indecs-map">
         <h2 id="map" class="subtitle">
           <a href="#map">{{var "map" .Head.Lang}}</a>
         </h2>
 
         <div class="center">
-        {{inlineFileLang "registermap" .Head.Lang}}
+        {{inlineFileLang "indecsmap" .Head.Lang}}
         </div>
         <div style="text-align:right;">
             <small>{{var "map-info" .Head.Lang}}</small>
@@ -52,7 +52,7 @@
 {{end}}
 
 
-{{define "register-page"}}
+{{define "indecs-page"}}
 {{template "head" .Head}}
 {{template "top" .}}
 
@@ -75,13 +75,13 @@
     <h1 class="{{if $isArticle}}article{{else}}index{{end}}-title l{{.Tree.Level}}">
       {{$pageTitle}}
       {{with $subTitle}}
-      <span class="register-title__sep">–</span>
+      <span class="indecs-title__sep">–</span>
       {{.}}
       {{end}}
     </h1>
 
 
-        {{template "register-entries" (eL .Tree .Head.Lang)}}
+        {{template "indecs-entries" (eL .Tree .Head.Lang)}}
 
       {{template "footnotes" (nL .Tree.Footnotes .Head.Lang)}}
 
@@ -91,10 +91,10 @@
 
 
 
-{{define "register-entries"}}
+{{define "indecs-entries"}}
     {{range .E.Entries}}
       <article id="{{normalize (.Title $.Lang)}}" class="entry--index lefter">
-          {{template "register-entry" (eL . $.Lang)}}
+          {{template "indecs-entry" (eL . $.Lang)}}
       </article>
     {{end}}
     {{if eq 0 (len .E.Entries)}}
@@ -104,10 +104,10 @@
     {{end}}
 {{end}}
 
-{{define "register-entry"}}
+{{define "indecs-entry"}}
   <!--
-  <div class="register-date-top">
-    {{template "register-date" .}}
+  <div class="indecs-date-top">
+    {{template "indecs-date" .}}
   </div>
   -->
 
@@ -118,13 +118,13 @@
         {{template "entry" .}}
     </article>
     <div>
-    {{template "register-date" .}}
+    {{template "indecs-date" .}}
     </div>
   {{end}}
 
   <!--
-  <div class="register-date-bot">
-    {{template "register-date" .}}
+  <div class="indecs-date-bot">
+    {{template "indecs-date" .}}
   </div>
   -->
   {{template "private-mark-graph" .E}}
@@ -132,7 +132,7 @@
 
 {{end}}
 
-{{define "register-date-link"}}
+{{define "indecs-date-link"}}
     {{$year := .E.Date.Format "06"}}
     <a href="{{.E.Perma .Lang}}">
         {{.E.Date.Format "2. 1."}}
@@ -142,9 +142,9 @@
     </a>
 {{end}}
 
-{{define "register-date"}}
-    <div class="register-date">
-      {{template "register-date-link" .}}
+{{define "indecs-date"}}
+    <div class="indecs-date">
+      {{template "indecs-date-link" .}}
     </div>
 {{end}}
 

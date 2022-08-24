@@ -7,8 +7,8 @@ import (
 )
 
 func TestReadTree(t *testing.T) {
-	tree, err := ReadTree("/srv/rg-s/st/data/register/", nil)
-	//s, err := ReadTree("./test/register", nil)
+	tree, err := ReadTree("/srv/rg-s/st/data/indecs/", nil)
+	//s, err := ReadTree("./test/indecs", nil)
 	if err != nil {
 		t.Error(err)
 	}

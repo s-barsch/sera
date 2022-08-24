@@ -9,7 +9,7 @@ func (t *Text) Permalink(lang string) string {
 	switch t.File.Section() {
 	case "about":
 		return t.File.Hold.Permalink(lang)
-	case "register":
+	case "indecs":
 		return fmt.Sprintf("%v#%v", t.File.Hold.Permalink(lang), Normalize(t.Title(lang)))
 	case "graph":
 		if t.Info.Title(lang) == "" {

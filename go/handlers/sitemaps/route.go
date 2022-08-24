@@ -28,5 +28,5 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Aut
 	r.HandleFunc("/sitemaps/core.xml", sitemapCore)
 	r.HandleFunc("/sitemaps/holds.xml", sitemapHolds)
 	r.HandleFunc("/sitemaps/graph-els.xml", sitemapGraphEls)
-	r.HandleFunc("/sitemaps/register-els.xml", sitemapIndexEls)
+	r.HandleFunc("/sitemaps/indecs-els.xml", sitemapIndexEls)
 */
