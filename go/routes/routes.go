@@ -10,7 +10,6 @@ import (
 	"sacer/go/handlers/register"
 	"sacer/go/handlers/index"
 	"sacer/go/handlers/kine"
-	"sacer/go/handlers/komposita"
 	"sacer/go/handlers/sitemaps"
 	"sacer/go/server"
 	"sacer/go/server/auth"
@@ -24,7 +23,6 @@ func Router(s *server.Server) *mux.Router {
 	r.HandleFunc("/", makeHandler(s, front.Main))
 	r.PathPrefix("/index").HandlerFunc(makeHandler(s, index.Route))
 	r.PathPrefix("/graph").HandlerFunc(makeHandler(s, graph.Route))
-	r.PathPrefix("/komposita").HandlerFunc(makeHandler(s, komposita.Route))
 	r.PathPrefix("/kine").HandlerFunc(makeHandler(s, kine.Route))
 	r.PathPrefix("/cine").HandlerFunc(makeHandler(s, kine.Route))
 	r.PathPrefix("/ueber").HandlerFunc(makeHandler(s, about.Route))
@@ -33,7 +31,6 @@ func Router(s *server.Server) *mux.Router {
 	r.PathPrefix("/register").HandlerFunc(makeHandler(s, register.Route))
 	/*
 		r.PathPrefix("/part/").HandlerFunc(makeHandler(s, graph.ElPart))
-		r.PathPrefix("/alt-text/").HandlerFunc(makeHandler(s, extra.Route))
 	*/
 
 	r.PathPrefix("/api").HandlerFunc(api.Main)
