@@ -11,7 +11,6 @@ import (
 	"sacer/go/handlers/index"
 	"sacer/go/handlers/kine"
 	"sacer/go/handlers/komposita"
-	"sacer/go/handlers/log"
 	"sacer/go/handlers/sitemaps"
 	"sacer/go/server"
 	"sacer/go/server/auth"
@@ -37,7 +36,6 @@ func Router(s *server.Server) *mux.Router {
 		r.PathPrefix("/alt-text/").HandlerFunc(makeHandler(s, extra.Route))
 	*/
 
-	r.PathPrefix("/log").HandlerFunc(makeHandler(s, log.Main))
 	r.PathPrefix("/api").HandlerFunc(api.Main)
 
 	r.HandleFunc("/sitemaps.xml", makeHandler(s, sitemaps.Route))
