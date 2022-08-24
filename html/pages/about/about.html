@@ -34,11 +34,7 @@
         {{.Tree.Title .Head.Lang}}
     </h1>
 
-    {{if eq (.Tree.Slug "en") "support"}}
-      {{template "support-page"}}
-    {{else}}
       {{template "about-entries" (esL .Tree.Entries .Head.Lang)}}
-    {{end}}
 
 
   
