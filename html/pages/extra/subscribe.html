@@ -1,4 +1,35 @@
-{{define "subscribe-page"}}
+{{define "register-extra"}}
+{{template "head" .Head}}
+{{template "top" .}}
+<h1 class="about-title subscribe-title">
+        {{.Tree.Title .Head.Lang}}
+    </h1>
+    <form action="/api/login">
+    <input type="text" placeholder="name@mail.com"> <br>
+    <button>Submit</button>
+    </form>
+{{template "bot" .Head}}
+{{end}}
+
+{{define "login-extra"}}
+{{template "head" .Head}}
+{{template "top" .}}
+<h1 class="about-title subscribe-title">
+        {{.Tree.Title .Head.Lang}}
+    </h1>
+    <form action="/api/login">
+    <input type="text" placeholder="name@mail.com"> <br>
+    <button>Submit</button>
+    </form>
+      <br>
+      No account? Go <a href="/register">register</a>!
+      <br>
+{{template "bot" .Head}}
+{{end}}
+
+{{define "subscribe-extra"}}
+{{template "head" .Head}}
+{{template "top" .}}
 <h1 class="about-title {{.Tree.Slug "en"}}-title">
         {{.Tree.Title .Head.Lang}}
     </h1>

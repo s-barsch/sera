@@ -35,7 +35,12 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Aut
 		return
 	}
 
-	Extra(s, w, r, t)
+	switch path {
+	case "/subscribe", "/login", "/register":
+		SysPage(s, w, r, t)
+	default:
+		Extra(s, w, r, t)
+	}
 }
 
 func Extra(s *server.Server, w http.ResponseWriter, r *http.Request, t *tree.Tree) {
