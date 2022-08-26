@@ -3,7 +3,7 @@ package routes
 import (
 	"net/http"
 	"sacer/go/handlers/about"
-	"sacer/go/handlers/api"
+	authH "sacer/go/handlers/auth"
 	"sacer/go/handlers/extra"
 	"sacer/go/handlers/front"
 	"sacer/go/handlers/graph"
@@ -33,14 +33,14 @@ func Router(s *server.Server) *mux.Router {
 		r.PathPrefix("/part/").HandlerFunc(makeHandler(s, graph.ElPart))
 	*/
 
-	r.PathPrefix("/api").HandlerFunc(api.Main)
+	r.PathPrefix("/api").HandlerFunc(makeHandler(s, authH.Route))
+	r.PathPrefix("/register").HandlerFunc(makeHandler(s, authH.Route))
+	r.PathPrefix("/subscribe").HandlerFunc(makeHandler(s, authH.Route))
+	r.PathPrefix("/login").HandlerFunc(makeHandler(s, authH.Route))
 
 	r.HandleFunc("/sitemaps.xml", makeHandler(s, sitemaps.Route))
 	r.PathPrefix("/sitemaps").HandlerFunc(makeHandler(s, sitemaps.Route))
 
-	r.PathPrefix("/register").HandlerFunc(makeHandler(s, extra.Route))
-	r.PathPrefix("/subscribe").HandlerFunc(makeHandler(s, extra.Route))
-	r.PathPrefix("/login").HandlerFunc(makeHandler(s, extra.Route))
 
 	r.PathPrefix("/legal").HandlerFunc(makeHandler(s, extra.Route))
 	r.PathPrefix("/impressum").HandlerFunc(makeHandler(s, extra.Route))
