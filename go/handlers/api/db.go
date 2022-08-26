@@ -28,3 +28,15 @@ func add(u *User) error {
 	fmt.Println(id)
 	return nil
 }
+
+func lookup(mail string) (*User, error) {
+	user := &User{}
+
+	db, err := sql.Open("sqlite3", "./users.db")
+	if err != nil {
+		return nil, err
+	}
+	defer db.Close()
+
+	return user, db.QueryRow("SELECT name, mail FROM users WHERE mail=?", mail).Scan(&user.Name, &user.Mail)
+}

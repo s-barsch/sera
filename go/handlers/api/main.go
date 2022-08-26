@@ -15,6 +15,20 @@ type User struct {
 
 func Main(w http.ResponseWriter, r *http.Request) {
 
+	switch r.URL.Path {
+	case "/api/login":
+		Login(w, r)
+	case "/api/subscribe":
+		Subscribe(w, r)
+	case "/api/register":
+		Register(w, r)
+	}
+
+	//fmt.Printf("%v", r)
+	return
+}
+
+func Subscribe(w http.ResponseWriter, r *http.Request) {
 	user := &User{}
 
 	err := json.NewDecoder(io.Reader(r.Body)).Decode(&user)
@@ -27,8 +41,27 @@ func Main(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	//fmt.Printf("%v", r)
-	return
 }
 
+func Register(w http.ResponseWriter, r *http.Request) {
+	user := &User{}
 
+	user.Name = r.FormValue("name")
+	user.Mail = r.FormValue("mail")
+
+	err := add(user)
+	if err != nil {
+		fmt.Println(err)
+		http.Error(w, err.Error(), 500)
+	}
+}
+
+func Login(w http.ResponseWriter, r *http.Request) {
+	mail := r.FormValue("mail")
+	user, err := lookup(mail)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(user)
+}

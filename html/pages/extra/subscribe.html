@@ -4,8 +4,9 @@
 <h1 class="about-title subscribe-title">
         {{.Tree.Title .Head.Lang}}
     </h1>
-    <form action="/api/login">
-    <input type="text" placeholder="name@mail.com"> <br>
+    <form action="/api/register" method="post">
+    <input type="text" name="name" placeholder="your name"> <br>
+    <input type="text" name="mail" placeholder="name@mail.com"> <br>
     <button>Submit</button>
     </form>
 {{template "bot" .Head}}
@@ -17,8 +18,8 @@
 <h1 class="about-title subscribe-title">
         {{.Tree.Title .Head.Lang}}
     </h1>
-    <form action="/api/login">
-    <input type="text" placeholder="name@mail.com"> <br>
+    <form action="/api/login" method="post">
+    <input type="email" name="mail" placeholder="name@mail.com"> <br>
     <button>Submit</button>
     </form>
       <br>
