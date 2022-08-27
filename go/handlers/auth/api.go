@@ -63,5 +63,9 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 
-	fmt.Println(user)
+	err = send(user.Mail, "hello my friend")
+	if err != nil {
+		fmt.Println(err)
+	}
+	println("apperantly i sent")
 }
