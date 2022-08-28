@@ -14,9 +14,15 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Aut
 		return
 	}
 
+	vr := "/api/login/verify"
+	if len(vr) < len(path) && path[:len(vr)] == vr {
+		VerifyLogin(w, r)
+		return
+	}
+
 	switch path {
-	case "/api/login":
-		Login(w, r)
+	case "/api/login/request":
+		RequestLogin(w, r)
 	case "/api/subscribe":
 		Subscribe(w, r)
 	case "/api/register":
@@ -24,6 +30,8 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Aut
 	case "/subscribe", "/login", "/register":
 		SysPage(s, w, r, a)
 	default:
+		println(path)
 		http.NotFound(w, r)
 	}
 }
+

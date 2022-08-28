@@ -6,6 +6,50 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
+func storeSession(mail, key string) error {
+	db, err := sql.Open("sqlite3", "./users.db")
+	if err != nil {
+		return err
+	}
+	defer db.Close()
+
+	_, err = db.Exec(
+		"INSERT INTO session(mail, key) VALUES(?,?);",
+		mail,
+		key,
+	)
+	return err
+}
+
+func storeVerifyKey(mail, key string) error {
+	db, err := sql.Open("sqlite3", "./users.db")
+	if err != nil {
+		return err
+	}
+	defer db.Close()
+
+	_, err = db.Exec(
+		"INSERT INTO verify(mail, key) VALUES(?,?);",
+		mail,
+		key,
+	)
+	return err
+}
+
+func getVerifyKey(mail string) (string, error) {
+	db, err := sql.Open("sqlite3", "./users.db")
+	if err != nil {
+		return "", err
+	}
+	defer db.Close()
+
+	var str string
+
+	return str, db.QueryRow("SELECT key FROM verify WHERE mail=?", mail).Scan(&str)
+}
+
+
+
 func add(u *User) error {
 	db, err := sql.Open("sqlite3", "./users.db")
 	if err != nil {
@@ -13,7 +57,7 @@ func add(u *User) error {
 	}
 	defer db.Close()
 
-	res, err := db.Exec(
+	_, err = db.Exec(
 		"INSERT INTO users(name, mail) VALUES(?,?);",
 		u.Name,
 		u.Mail,
@@ -21,11 +65,6 @@ func add(u *User) error {
 	if err != nil {
 		return fmt.Errorf("insert: %v", err)
 	}
-	id, err := res.LastInsertId()
-	if err != nil {
-		return err
-	}
-	fmt.Println(id)
 	return nil
 }
 
