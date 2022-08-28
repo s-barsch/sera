@@ -69,6 +69,7 @@ func (s *Server) Watch() {
 			printEvent(ei)
 			runLoad(s)
 		case <-s.Quit:
+			s.CloseUsers()
 			notify.Stop(s.Watcher)
 
 			if s.Flags.Debug {

@@ -9,7 +9,9 @@ import (
 	"sacer/go/entry/tools"
 	"sacer/go/entry/tools/hyph"
 	"sacer/go/server/tmpl"
+	"sacer/go/server/users"
 	"text/template"
+
 
 	"github.com/rjeczalik/notify"
 )
@@ -18,6 +20,8 @@ type Server struct {
 	Paths *paths
 	Flags *flags
 	Log   *log.Logger
+
+	Users *users.Users
 
 	Trees   map[string]*DoubleTree
 	Recents map[string]*DoubleEntries
@@ -100,7 +104,25 @@ func LoadServer() (*Server, error) {
 		return nil, err
 	}
 
+	u, err := users.LoadUsers()
+	if err != nil {
+		return nil, err
+	}
+
+	s.Users = u
+
 	return s, s.Load()
+}
+
+func (s *Server) CloseUsers() error {
+	err := s.Users.Close()
+	if err != nil {
+		return err
+	}
+	if s.Flags.Debug {
+		log.Println("Closed user database.")
+	}
+	return nil
 }
 
 func newLogger(debug bool) *log.Logger {

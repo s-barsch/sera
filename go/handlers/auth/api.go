@@ -1,6 +1,8 @@
 package auth
 
 import (
+	"sacer/go/server"
+	"sacer/go/server/users"
 	"net/http"
 	"fmt"
 	"encoding/json"
@@ -10,14 +12,8 @@ import (
 	"strings"
 )
 
-type User struct {
-	Name string
-	Mail string
-	PaypalID string `json:"subscriptionID"`
-}
-
-func Subscribe(w http.ResponseWriter, r *http.Request) {
-	user := &User{}
+func Subscribe(s *server.Server, w http.ResponseWriter, r *http.Request) {
+	user := &users.User{}
 
 	err := json.NewDecoder(io.Reader(r.Body)).Decode(&user)
 	if err != nil {
@@ -25,28 +21,28 @@ func Subscribe(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = add(user)
+	err = s.Users.AddUser(user)
 	if err != nil {
 		fmt.Println(err)
 	}
 }
 
-func Register(w http.ResponseWriter, r *http.Request) {
-	user := &User{}
+func Register(s *server.Server, w http.ResponseWriter, r *http.Request) {
+	user := &users.User{}
 
 	user.Name = r.FormValue("name")
 	user.Mail = r.FormValue("mail")
 
-	err := add(user)
+	err := s.Users.AddUser(user)
 	if err != nil {
 		fmt.Println(err)
 		http.Error(w, err.Error(), 500)
 	}
 }
 
-func RequestLogin(w http.ResponseWriter, r *http.Request) {
+func RequestLogin(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	mail := r.FormValue("mail")
-	user, err := lookup(mail)
+	user, err := s.Users.LookupUser(mail)
 	if err != nil {
 		log.Println(err)
 		return 
@@ -65,7 +61,7 @@ func RequestLogin(w http.ResponseWriter, r *http.Request) {
 		return 
 	}
 
-	err = storeVerifyKey(mail, key)
+	err = s.Users.StoreVerify(mail, key)
 	if err != nil {
 		log.Println(err)
 		return 
@@ -105,21 +101,21 @@ func decodeMailKey(b64 string) (mail, key string, err error) {
 
 }
 
-func VerifyLogin(w http.ResponseWriter, r *http.Request) {
+func VerifyLogin(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	mail, outsideKey, err := decodeMailKey(r.URL.Path[len("/api/login/verify/"):])
 	if err != nil {
 		log.Println(err)
 		return
 	}
 
-	key, err := getVerifyKey(mail)
+	key, err := s.Users.GetVerify(mail)
 	if err != nil {
 		log.Println(err)
 		return
 	}
 
 	if outsideKey == key {
-		err = generateSession(w, mail)
+		err = generateSession(s, w, mail)
 		if err != nil {
 			log.Println(err)
 			return
@@ -130,14 +126,14 @@ func VerifyLogin(w http.ResponseWriter, r *http.Request) {
 	http.Error(w, "server error", 502)
 }
 
-func generateSession(w http.ResponseWriter, mail string) error {
+func generateSession(s *server.Server, w http.ResponseWriter, mail string) error {
 	key, err := generateSessionKey()
 	if err != nil {
 		return err
 	}
 
 	storeToCookie(w, mail, key)
-	return storeSession(mail, key)
+	return s.Users.StoreSession(mail, key)
 }
 
 func generateSessionKey() (string, error) {

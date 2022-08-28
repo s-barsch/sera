@@ -15,7 +15,7 @@ func CheckAuth(r *http.Request) *Auth {
 }
 
 func isSubscriber(r *http.Request) bool {
-	c, err := r.Cookie("auth")
+	c, err := r.Cookie("session")
 	if err != nil {
 		return false
 	}
