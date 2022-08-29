@@ -6,7 +6,7 @@ import (
 	"sacer/go/entry"
 	"sacer/go/entry/types/tree"
 	"sacer/go/server"
-	"sacer/go/server/auth"
+	"sacer/go/server/users"
 	"sacer/go/server/head"
 	"sacer/go/server/paths"
 )
@@ -17,7 +17,7 @@ type indecsMain struct {
 	Recents entry.Entries
 }
 
-func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
+func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
 	path, err := paths.Sanitize(r.URL.Path)
 	if err != nil {
 		http.NotFound(w, r)

@@ -1,4 +1,4 @@
-package auth
+package users
 
 // https://gist.github.com/dopey/c69559607800d2f2f90b1b1ed4e550fb
 

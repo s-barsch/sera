@@ -7,7 +7,7 @@ import (
 	"sacer/go/entry"
 	//"sacer/go/entry/types/tree"
 	"sacer/go/server"
-	"sacer/go/server/auth"
+	"sacer/go/server/users"
 	"sacer/go/server/head"
 	"time"
 )
@@ -18,7 +18,7 @@ type SitemapEntry struct {
 	Priority string
 }
 
-func Index(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
+func Index(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
 	domain := "https://sacer.site"
 	if head.Lang(r.Host) == "en" {
 		domain = "https://en.sacer.site"
@@ -30,7 +30,7 @@ func Index(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Aut
 	}
 }
 
-func Core(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
+func Core(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
 	entries, err := coreEntries(s, head.Lang(r.Host))
 	if err != nil {
 		http.Error(w, "internal error", 500)
@@ -45,7 +45,7 @@ func Core(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth
 	}
 }
 
-func Trees(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
+func Trees(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
 	entries := categoryTrees(s, head.Lang(r.Host))
 
 	entries = append(entries, holdEntries(s, head.Lang(r.Host))...)
@@ -74,7 +74,7 @@ func IndexEls(w http.ResponseWriter, r *http.Request) {
 }
 */
 
-func Kines(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
+func Kines(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
 	entries, err := elEntries(s, "kine", head.Lang(r.Host))
 	if err != nil {
 		http.Error(w, "internal error", 500)
@@ -89,7 +89,7 @@ func Kines(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Aut
 	}
 }
 
-func GraphEntries(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
+func GraphEntries(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
 	entries, err := elEntries(s, "graph", head.Lang(r.Host))
 	if err != nil {
 		http.Error(w, "internal error", 500)

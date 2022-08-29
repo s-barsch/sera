@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"sacer/go/entry"
 	"sacer/go/server"
-	"sacer/go/server/auth"
+	"sacer/go/server/users"
 	"sacer/go/server/head"
 )
 
@@ -14,7 +14,7 @@ type indecsSerial struct {
 	Entries entry.Entries
 }
 
-func Serial(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
+func Serial(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
 	lang := head.Lang(r.Host)
 	h := &head.Head{
 		Title:   "Serial - Index",

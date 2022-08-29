@@ -1,14 +1,12 @@
-package auth
+package users
 
-import (
-	"net/http"
-)
-
+/*
 type Auth struct {
 	Subscriber bool
 }
 
-func CheckAuth(r *http.Request) *Auth {
+func (u *Users) CheckAuth(r *http.Request) *Auth {
+	decode
 	return &Auth{
 		Subscriber: isSubscriber(r),
 	}
@@ -21,3 +19,6 @@ func isSubscriber(r *http.Request) bool {
 	}
 	return c.Value == "supersecret"
 }
+*/
+
+

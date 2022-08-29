@@ -7,7 +7,7 @@ import (
 	"sacer/go/entry"
 	"sacer/go/entry/tools"
 	"sacer/go/server"
-	"sacer/go/server/auth"
+	"sacer/go/server/users"
 	"sacer/go/server/head"
 	"sacer/go/server/paths"
 	"strings"
@@ -20,7 +20,7 @@ type kineSingle struct {
 	Neighbors []entry.Entry
 }
 
-func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth, p *paths.Path) {
+func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth, p *paths.Path) {
 	lang := head.Lang(r.Host)
 	kine := s.Trees["kine"].Access(a.Subscriber)[lang]
 	e, err := kine.LookupEntryHash(p.Hash)

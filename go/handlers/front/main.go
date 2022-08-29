@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"sacer/go/entry"
 	"sacer/go/server"
-	"sacer/go/server/auth"
+	"sacer/go/server/users"
 	"sacer/go/server/head"
 	"sacer/go/entry/types/tree"
 )
@@ -20,7 +20,7 @@ type frontMain struct {
 	Featured entry.Entry
 }
 
-func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
+func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
 	lang := head.Lang(r.Host)
 	head := &head.Head{
 		Title:   "",
@@ -29,6 +29,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth
 		Host:    r.Host,
 		Entry:   nil,
 		Desc:    s.Vars.Lang("site", lang),
+		Auth:    a,
 		Options: head.GetOptions(r),
 	}
 	err := head.Process()

@@ -11,7 +11,7 @@ import (
 	"sacer/go/entry/types/set"
 	"sacer/go/entry/types/tree"
 	"sacer/go/server"
-	"sacer/go/server/auth"
+	"sacer/go/server/users"
 	"sacer/go/server/head"
 	"sacer/go/server/paths"
 	"strings"
@@ -23,7 +23,7 @@ import (
 
 */
 
-func ServeFile(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth, path *paths.Path) {
+func ServeFile(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth, path *paths.Path) {
 	err := serveFile(s, w, r, a, path)
 	if err != nil {
 		log.Println(err)
@@ -31,7 +31,7 @@ func ServeFile(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth
 	}
 }
 
-func serveFile(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth, path *paths.Path) error {
+func serveFile(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth, path *paths.Path) error {
 	section := path.Section()
 	lang := head.Lang(r.Host)
 	tree := s.Trees[section].Access(a.Subscriber)[lang]

@@ -7,7 +7,7 @@ import (
 	"sacer/go/entry"
 	"sacer/go/entry/types/tree"
 	"sacer/go/server"
-	"sacer/go/server/auth"
+	"sacer/go/server/users"
 	"sacer/go/server/head"
 )
 
@@ -19,7 +19,7 @@ type graphMain struct {
 	//Next *entry.Hold
 }
 
-func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
+func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
 	lang := head.Lang(r.Host)
 	t := s.Trees["graph"].Access(a.Subscriber)[lang]
 	head := &head.Head{

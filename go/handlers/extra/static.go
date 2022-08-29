@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"path/filepath"
 	"sacer/go/server"
-	"sacer/go/server/auth"
+	"sacer/go/server/users"
 	"sacer/go/server/head"
 	"sacer/go/server/paths"
 	"strings"
@@ -21,11 +21,11 @@ func serveStatic(w http.ResponseWriter, r *http.Request, p string) {
 	http.ServeFile(w, r, p)
 }
 
-func ServiceWorker(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
+func ServiceWorker(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
 	serveStatic(w, r, s.Paths.Data+"/static/js"+r.URL.Path)
 }
 
-func JSFiles(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
+func JSFiles(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
 	path, err := paths.Sanitize(r.URL.Path)
 	if err != nil {
 		s.Debug(err)
@@ -42,7 +42,7 @@ func JSFiles(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.A
 	serveStatic(w, r, s.Paths.Data+"/static"+path)
 }
 
-func StaticFiles(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
+func StaticFiles(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
 	path, err := paths.Sanitize(r.URL.Path)
 	if err != nil {
 		s.Debug(err)
@@ -59,7 +59,7 @@ func StaticFiles(s *server.Server, w http.ResponseWriter, r *http.Request, a *au
 	serveStatic(w, r, s.Paths.Data+path)
 }
 
-func RobotsFiles(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
+func RobotsFiles(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
 	path := fmt.Sprintf(
 		"%v/static/seo/robots-%v.txt",
 		s.Paths.Data,

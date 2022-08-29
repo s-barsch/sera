@@ -14,11 +14,11 @@ import (
 	"os/exec"
 	"sacer/go/entry/types/tree"
 	"sacer/go/server"
-	"sacer/go/server/auth"
+	"sacer/go/server/users"
 	"sacer/go/server/head"
 )
 
-func MapDot(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
+func MapDot(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
 	err := printMapDot(s, w, head.Lang(r.Host), false)
 	if err != nil {
 		log.Println(err)
@@ -38,7 +38,7 @@ func printMapDot(s *server.Server, w io.Writer, lang string, all bool) error {
 	})
 }
 
-func MapAll(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
+func MapAll(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
 	buf := bytes.Buffer{}
 	err := printMapDot(s, &buf, head.Lang(r.Host), true)
 	if err != nil {
@@ -56,7 +56,7 @@ func MapAll(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Au
 	fmt.Fprintf(w, "%s", b)
 }
 
-func MapIndex(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
+func MapIndex(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
 	buf := bytes.Buffer{}
 	err := printMapDot(s, &buf, head.Lang(r.Host), false)
 	if err != nil {

@@ -46,13 +46,17 @@ func (u *Users) StoreVerify(mail, key string) error {
 	return err
 }
 
+func (u *Users) GetSessionKey(mail string) (string, error) {
+	var str string
+
+	return str, u.db.QueryRow("SELECT key FROM session WHERE mail=?", mail).Scan(&str)
+}
+
 func (u *Users) GetVerify(mail string) (string, error) {
 	var str string
 
 	return str, u.db.QueryRow("SELECT key FROM verify WHERE mail=?", mail).Scan(&str)
 }
-
-
 
 func (u *Users) AddUser(user *User) error {
 	_, err := u.db.Exec(

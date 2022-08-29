@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"log"
 	"net/http"
 	"sacer/go/handlers/about"
 	authH "sacer/go/handlers/auth"
@@ -12,7 +13,7 @@ import (
 	"sacer/go/handlers/kine"
 	"sacer/go/handlers/sitemaps"
 	"sacer/go/server"
-	"sacer/go/server/auth"
+	"sacer/go/server/users"
 
 	"github.com/gorilla/mux"
 )
@@ -66,18 +67,19 @@ func Router(s *server.Server) *mux.Router {
 		path := fileRoutes[query]
 		r.HandleFunc(query, func(w http.ResponseWriter, r *http.Request) {
 			r.URL.Path = path
-			extra.StaticFiles(s, w, r, auth.CheckAuth(r))
+			a, _ := s.Users.CheckAuth(r)
+			extra.StaticFiles(s, w, r, a)
 		})
 	}
 
 	return r
 }
 
-func makeHandler(s *server.Server, fn func(*server.Server, http.ResponseWriter, *http.Request, *auth.Auth)) http.HandlerFunc {
+func makeHandler(s *server.Server, fn func(*server.Server, http.ResponseWriter, *http.Request, *users.Auth)) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		a := auth.CheckAuth(r)
-		if s.Flags.Local {
-			a.Subscriber = true
+		a, err := s.Users.CheckAuth(r)
+		if err != nil {
+			log.Println(err)
 		}
 		fn(s, w, r, a)
 	}

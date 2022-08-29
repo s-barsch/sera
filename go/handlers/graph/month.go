@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"sacer/go/entry/types/tree"
 	"sacer/go/server"
-	"sacer/go/server/auth"
+	"sacer/go/server/users"
 	"sacer/go/server/head"
 	"sacer/go/server/paths"
 	"time"
@@ -19,7 +19,7 @@ type monthPage struct {
 	Next    *tree.Tree
 }
 
-func MonthPage(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth, p *paths.Path) {
+func MonthPage(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth, p *paths.Path) {
 	lang := head.Lang(r.Host)
 
 	graph := s.Trees["graph"].Access(a.Subscriber)[lang]

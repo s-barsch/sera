@@ -3,13 +3,13 @@ package extra
 import (
 	"net/http"
 	"sacer/go/server"
-	"sacer/go/server/auth"
+	"sacer/go/server/users"
 	"github.com/gorilla/mux"
 )
 
 const expire = 60 * 60 * 24 * 365 // 1 year
 
-func SetOption(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
+func SetOption(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
     v := mux.Vars(r)
 	http.SetCookie(w, &http.Cookie{
 		Name:   v["option"],

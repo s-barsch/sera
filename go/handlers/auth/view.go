@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 	"sacer/go/entry/types/tree"
-	"sacer/go/server/auth"
+	"sacer/go/server/users"
 	"sacer/go/server/head"
 	"sacer/go/server"
 	"strings"
@@ -16,7 +16,7 @@ type extraHold struct {
 }
 
 
-func SysPage(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
+func SysPage(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
 	lang := head.Lang(r.Host)
 	extra := s.Trees["extra"].Access(a.Subscriber)[lang]
 

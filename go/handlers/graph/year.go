@@ -3,18 +3,18 @@ package graph
 import (
 	"net/http"
 	"sacer/go/server"
-	"sacer/go/server/auth"
+	"sacer/go/server/users"
 	"sacer/go/server/head"
 	"sacer/go/server/paths"
 	"sacer/go/entry/types/tree"
 	"time"
 )
 
-func MainRedirect(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
+func MainRedirect(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
 	http.Redirect(w, r, "/graph/2021/04", 307)
 }
 /*
-func MainRedirect(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
+func MainRedirect(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
 	graph := s.Trees["graph"].Access(true)["de"]
 	if len(graph.Trees) < 1 {
 		http.Error(w, "graph not found", 500)
@@ -24,7 +24,7 @@ func MainRedirect(s *server.Server, w http.ResponseWriter, r *http.Request, a *a
 }
 */
 
-func YearRedirect(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth, p *paths.Path) {
+func YearRedirect(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth, p *paths.Path) {
 	t, err := findYear(s, p.Slug)
 	if err != nil {
 		http.Redirect(w, r, "/graph", 307)

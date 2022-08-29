@@ -7,7 +7,7 @@ import (
 	"sacer/go/entry"
 	"sacer/go/entry/tools"
 	"sacer/go/server"
-	"sacer/go/server/auth"
+	"sacer/go/server/users"
 	"sacer/go/server/head"
 	"sacer/go/server/paths"
 	"time"
@@ -20,7 +20,7 @@ type graphSingle struct {
 	Next  entry.Entry
 }
 
-func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth, p *paths.Path) {
+func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth, p *paths.Path) {
 	lang := head.Lang(r.Host)
 	graph := s.Trees["graph"].Access(a.Subscriber)[lang]
 	e, err := graph.LookupEntryHash(p.Hash)

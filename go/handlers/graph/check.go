@@ -14,7 +14,7 @@ type graphSitemap struct {
 	Tree *entry.Hold
 }
 
-func Check(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
+func Check(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
 	head := &head.Head{
 		Title:   "Check - Graph",
 		Section: "graph",

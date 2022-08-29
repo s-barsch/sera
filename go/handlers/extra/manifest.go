@@ -4,10 +4,10 @@ import (
 	"net/http"
 	"sacer/go/server/head"
 	"sacer/go/server"
-	"sacer/go/server/auth"
+	"sacer/go/server/users"
 )
 
-func Manifest(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
+func Manifest(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
 	lang := head.Lang(r.Host)
 	head := &head.Head{
 		Title:   head.SiteName(lang),

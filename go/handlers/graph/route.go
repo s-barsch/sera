@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"sacer/go/handlers/extra"
 	"sacer/go/server"
-	"sacer/go/server/auth"
+	"sacer/go/server/users"
 	"sacer/go/server/paths"
 	"strconv"
 )
@@ -22,7 +22,7 @@ func graphPart(w http.ResponseWriter, r *http.Request) {
 	}
 */
 
-func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *auth.Auth) {
+func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
 	p, err := paths.Sanitize(r.URL.Path)
 	if err != nil {
 		http.NotFound(w, r)
