@@ -73,5 +73,5 @@ func (u *Users) AddUser(user *User) error {
 func (u *Users) LookupUser(mail string) (*User, error) {
 	user := &User{}
 
-	return user, u.db.QueryRow("SELECT name, mail FROM users WHERE mail=?", mail).Scan(&user.Name, &user.Mail)
+	return user, u.db.QueryRow("SELECT name, mail, paypal_id FROM users WHERE mail=?", mail).Scan(&user.Name, &user.Mail, &user.PaypalID)
 }

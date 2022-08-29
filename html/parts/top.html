@@ -28,6 +28,9 @@
     <a {{if eq .Name $lang}}class="active"{{end}} href="{{.Href}}">{{langName .Name}}</a>
   {{end}}
   </nav>
+  {{.Auth.User.Mail}}
+  {{.Auth.User.PaypalID}}
+  {{.Auth.Subscriber}}
   <nav id="options">
     <a href="/subscribe" class="subscribe-top">Subscribe</a>
     <a href="/login">Login</a>

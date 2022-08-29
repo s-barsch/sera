@@ -3,6 +3,7 @@ package head
 import (
 	"fmt"
 	"sacer/go/entry"
+	"sacer/go/server/users"
 )
 
 type Head struct {
@@ -24,6 +25,8 @@ type Head struct {
 	Nav   Nav
 	Lang  string
 	Langs Langs
+
+	Auth  *users.Auth
 
 	Desc   string
 	Schema *Schema
