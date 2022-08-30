@@ -18,7 +18,7 @@ type extraHold struct {
 
 func SysPage(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
 	lang := head.Lang(r.Host)
-	extra := s.Trees["extra"].Access(a.Subscriber)[lang]
+	extra := s.Trees["extra"].Access(a.Sub())[lang]
 
 	items := strings.Split(strings.Trim(r.URL.Path, "/"), "/")
 

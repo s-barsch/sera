@@ -37,11 +37,11 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Aut
 		return
 	}
 
-	indecs := s.Recents["indecs"].Access(a.Subscriber)[lang]
-	graph := s.Recents["graph"].Access(a.Subscriber)[lang]
-	kine := s.Recents["kine"].Access(a.Subscriber)[lang]
+	indecs := s.Recents["indecs"].Access(a.Sub())[lang]
+	graph := s.Recents["graph"].Access(a.Sub())[lang]
+	kine := s.Recents["kine"].Access(a.Sub())[lang]
 
-	months := s.Trees["graph"].Access(a.Subscriber)[lang].TraverseTrees()
+	months := s.Trees["graph"].Access(a.Sub())[lang].TraverseTrees()
 	newmonths := []*tree.Tree{}
 
 	for _, m := range months {
@@ -66,7 +66,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Aut
 }
 
 /*
-	e, err := s.Trees["graph"].Access(a.Subscriber)[lang].LookupEntryHash(s.Vars.FrontSettings.Featured)
+	e, err := s.Trees["graph"].Access(a.Sub())[lang].LookupEntryHash(s.Vars.FrontSettings.Featured)
 	if err != nil {
 		s.Log.Println(err)
 	}

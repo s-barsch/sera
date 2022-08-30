@@ -58,7 +58,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Au
 		return
 	}
 
-	indecs := s.Trees["indecs"].Access(a.Subscriber)[lang]
+	indecs := s.Trees["indecs"].Access(a.Sub())[lang]
 
 	if path.Hash == "" {
 		t, err := indecs.SearchTree(path.Slug, lang)

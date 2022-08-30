@@ -23,7 +23,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Aut
 	}
 
 	lang := head.Lang(r.Host)
-	komposita := s.Trees["komposita"].Access(a.Subscriber)[lang]
+	komposita := s.Trees["komposita"].Access(a.Sub())[lang]
 
 	head := &head.Head{
 		Title:   "Index",

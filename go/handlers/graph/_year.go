@@ -23,7 +23,7 @@ type yearPage struct {
 func YearPage(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth, p *paths.Path) {
 	lang := head.Lang(r.Host)
 
-	graph := s.Trees["graph"].Access(a.Subscriber)[lang]
+	graph := s.Trees["graph"].Access(a.Sub())[lang]
 
 	id, err := getYearId(p.Slug)
 	if err != nil {

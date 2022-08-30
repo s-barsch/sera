@@ -67,7 +67,10 @@ func Router(s *server.Server) *mux.Router {
 		path := fileRoutes[query]
 		r.HandleFunc(query, func(w http.ResponseWriter, r *http.Request) {
 			r.URL.Path = path
-			a, _ := s.Users.CheckAuth(r)
+			a, err := s.Users.CheckAuth(r)
+			if err != nil && err != http.ErrNoCookie {
+				log.Println(err)
+			}
 			extra.StaticFiles(s, w, r, a)
 		})
 	}

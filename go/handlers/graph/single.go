@@ -22,7 +22,7 @@ type graphSingle struct {
 
 func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth, p *paths.Path) {
 	lang := head.Lang(r.Host)
-	graph := s.Trees["graph"].Access(a.Subscriber)[lang]
+	graph := s.Trees["graph"].Access(a.Sub())[lang]
 	e, err := graph.LookupEntryHash(p.Hash)
 	if err != nil {
 		http.Redirect(w, r, "/graph", 301)
@@ -35,7 +35,7 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, a *us
 		return
 	}
 
-	prev, next := getPrevNext(s.Recents["graph"].Access(a.Subscriber)[lang], e)
+	prev, next := getPrevNext(s.Recents["graph"].Access(a.Sub())[lang], e)
 
 	head := &head.Head{
 		Title:   graphEntryTitle(e, head.Lang(r.Host)),

@@ -34,7 +34,7 @@ func ServeFile(s *server.Server, w http.ResponseWriter, r *http.Request, a *user
 func serveFile(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth, path *paths.Path) error {
 	section := path.Section()
 	lang := head.Lang(r.Host)
-	tree := s.Trees[section].Access(a.Subscriber)[lang]
+	tree := s.Trees[section].Access(a.Sub())[lang]
 
 	e, err := getEntry(tree, path)
 	if err != nil {

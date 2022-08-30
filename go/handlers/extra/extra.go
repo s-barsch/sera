@@ -26,7 +26,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Au
 	items := strings.Split(strings.Trim(path, "/"), "/")
 
 	lang := head.Lang(r.Host)
-	extra := s.Trees["extra"].Access(a.Subscriber)[lang]
+	extra := s.Trees["extra"].Access(a.Sub())[lang]
 
 	t, err := extra.SearchTree(items[len(items)-1], head.Lang(r.Host))
 	if err != nil {

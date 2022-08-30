@@ -22,7 +22,7 @@ type kineSingle struct {
 
 func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth, p *paths.Path) {
 	lang := head.Lang(r.Host)
-	kine := s.Trees["kine"].Access(a.Subscriber)[lang]
+	kine := s.Trees["kine"].Access(a.Sub())[lang]
 	e, err := kine.LookupEntryHash(p.Hash)
 	if err != nil {
 		http.Redirect(w, r, "/kine", 301)
@@ -55,7 +55,7 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, a *us
 	err = s.ExecuteTemplate(w, "kine-single", &kineSingle{
 		Head:	   head,
 		Entry:     e,
-		Neighbors: getNeighbors(s.Recents["kine"].Access(a.Subscriber)[lang], p.Hash),
+		Neighbors: getNeighbors(s.Recents["kine"].Access(a.Sub())[lang], p.Hash),
 	})
 	if err != nil {
 		log.Println(err)

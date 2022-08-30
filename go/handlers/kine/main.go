@@ -21,7 +21,7 @@ type kineMain struct {
 
 func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
 	lang := head.Lang(r.Host)
-	t := s.Trees["kine"].Access(a.Subscriber)[lang]
+	t := s.Trees["kine"].Access(a.Sub())[lang]
 	head := &head.Head{
 		Title:   strings.Title(tools.KineName[lang]),
 		Section: "kine",
@@ -37,7 +37,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Aut
 		return
 	}
 
-	entries := s.Recents["kine"].Access(a.Subscriber)[lang]
+	entries := s.Recents["kine"].Access(a.Sub())[lang]
 
 	err = s.ExecuteTemplate(w, "kine-main", &kineMain{
 		Head:    head,

@@ -7,42 +7,47 @@ import (
 
 type Auth struct {
 	User	   *User
-	Subscriber bool
+}
+
+func (a Auth) Sub() bool {
+	return isSubscriber(a.User)
 }
 
 func (u *Users) CheckAuth(r *http.Request) (*Auth, error) {
+	na := noAuth()
 	c, err := r.Cookie("session")
 	if err != nil {
-		return nil, err
+		return na, err
 	}
 
 	mail, outsideKey, err := DecodeMailKey(c.Value)
 	if err != nil {
-		return nil, err
+		return na, err
 	}
 
 	key, err := u.GetSessionKey(mail)
 	if err != nil {
-		return nil, err
+		return na, err
 	}
 
 	if key != outsideKey {
-		return nil, fmt.Errorf("key mismatch")
+		return na, fmt.Errorf("key mismatch")
 	}
 
 	user, err := u.LookupUser(mail)
 	if err != nil {
-		return nil, err
+		return na, err
 	}
 	
 	return &Auth{
 		User:	    user,
-		Subscriber: isSubscriber(user),
 	}, nil
 }
 
 func noAuth() *Auth {
-	return nil
+	return &Auth{
+		User: &User{},
+	}
 }
 
 func isSubscriber(u *User) bool {
