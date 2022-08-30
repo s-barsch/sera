@@ -67,7 +67,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Au
 			http.NotFound(w, r)
 			return
 		}
-		IndexPage(s, w, r, t)
+		IndexPage(s, w, r, a, t)
 		return
 	}
 
@@ -77,5 +77,5 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Au
 		return
 	}
 
-	IndexPage(s, w, r, t)
+	IndexPage(s, w, r, a, t)
 }

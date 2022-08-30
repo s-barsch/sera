@@ -12,6 +12,7 @@ func Manifest(s *server.Server, w http.ResponseWriter, r *http.Request, a *users
 	head := &head.Head{
 		Title:   head.SiteName(lang),
 		Desc:    s.Vars.Lang("site", lang),
+		Auth:    a,
 		Options: head.GetOptions(r),
 		Host:    r.Host,
 	}

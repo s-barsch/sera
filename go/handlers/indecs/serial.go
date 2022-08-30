@@ -23,6 +23,7 @@ func Serial(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.A
 		Host:    r.Host,
 		Entry:   nil,
 		//Desc:    s.Vars.Lang("serial", head.Lang(r.Host)),
+		Auth:    a,
 		Options: head.GetOptions(r),
 	}
 	err := h.Process()

@@ -21,7 +21,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Au
 	about := s.Trees["about"].Access(a.Subscriber)[lang]
 
 	if rel == "" {
-		ServeAbout(s, w, r, about)
+		ServeAbout(s, w, r, a, about)
 		return
 	}
 
@@ -32,5 +32,5 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Au
 		return
 	}
 
-	ServeAbout(s, w, r, t)
+	ServeAbout(s, w, r, a, t)
 }

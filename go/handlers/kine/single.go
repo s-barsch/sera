@@ -41,6 +41,7 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, a *us
 		Path:    r.URL.Path,
 		Host:    r.Host,
 		Entry:   e,
+		Auth:    a,
 		Options: head.GetOptions(r),
 	}
 

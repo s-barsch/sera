@@ -7,6 +7,7 @@ import (
 	"sacer/go/entry/types/tree"
 	"sacer/go/server"
 	"sacer/go/server/head"
+	"sacer/go/server/users"
 )
 
 type indecsPage struct {
@@ -14,7 +15,7 @@ type indecsPage struct {
 	Tree *tree.Tree
 }
 
-func IndexPage(s *server.Server, w http.ResponseWriter, r *http.Request, t *tree.Tree) {
+func IndexPage(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth, t *tree.Tree) {
 	lang := head.Lang(r.Host)
 
 	if perma := t.Perma(lang); r.URL.Path != perma {
@@ -28,6 +29,7 @@ func IndexPage(s *server.Server, w http.ResponseWriter, r *http.Request, t *tree
 		Path:    r.URL.Path,
 		Host:    r.Host,
 		Entry:   t,
+		Auth:    a,
 		Options: head.GetOptions(r),
 	}
 

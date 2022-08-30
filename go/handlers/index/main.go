@@ -30,6 +30,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Aut
 		Section: "index",
 		Path:    path,
 		Host:    r.Host,
+		Auth:    a,
 		Options: head.GetOptions(r),
 	}
 	err = head.Process()

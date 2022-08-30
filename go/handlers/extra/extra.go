@@ -35,10 +35,10 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Au
 		return
 	}
 
-	Extra(s, w, r, t)
+	Extra(s, w, r, a, t)
 }
 
-func Extra(s *server.Server, w http.ResponseWriter, r *http.Request, t *tree.Tree) {
+func Extra(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth, t *tree.Tree) {
 	if perma := t.Perma(head.Lang(r.Host)); r.URL.Path != perma {
 		http.Redirect(w, r, perma, 301)
 		return
@@ -52,6 +52,7 @@ func Extra(s *server.Server, w http.ResponseWriter, r *http.Request, t *tree.Tre
 		Path:    r.URL.Path,
 		Host:    r.Host,
 		Entry:   t,
+		Auth:    a,
 		Options: head.GetOptions(r),
 	}
 	err := head.Process()

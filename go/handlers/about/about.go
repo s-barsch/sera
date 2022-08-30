@@ -6,6 +6,7 @@ import (
 	"sacer/go/entry/types/tree"
 	"sacer/go/server"
 	"sacer/go/server/head"
+	"sacer/go/server/users"
 )
 
 type aboutTree struct {
@@ -13,7 +14,7 @@ type aboutTree struct {
 	Tree *tree.Tree
 }
 
-func ServeAbout(s *server.Server, w http.ResponseWriter, r *http.Request, t *tree.Tree) {
+func ServeAbout(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth, t *tree.Tree) {
 	lang := head.Lang(r.Host)
 	if perma := t.Perma(lang); r.URL.Path != perma {
 		http.Redirect(w, r, perma, 301)
@@ -26,6 +27,7 @@ func ServeAbout(s *server.Server, w http.ResponseWriter, r *http.Request, t *tre
 		Path:    r.URL.Path,
 		Host:    r.Host,
 		Entry:   t,
+		Auth:    a,
 		Options: head.GetOptions(r),
 	}
 	err := head.Process()

@@ -34,6 +34,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Aut
 		Path:    path,
 		Host:    r.Host,
 		Entry:   t,
+		Auth:    a,
 		Options: head.GetOptions(r),
 	}
 	err = head.Process()
