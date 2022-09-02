@@ -7,7 +7,7 @@ import (
 	"log"
 	"net/http"
 	"sacer/go/entry"
-	"sacer/go/server/head"
+	"sacer/go/server/meta"
 	"sacer/go/server/paths"
 	"sacer/go/server"
 )
@@ -22,7 +22,7 @@ type graphPart struct {
 	Langs  map[string]string `json:"langs"`
 }
 
-func ElPart(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
+func ElPart(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	p := paths.Split(r.URL.Path)
 
 	e, err := s.Trees["graph"].LookupAcronym(p.Acronym)
@@ -62,14 +62,13 @@ func ElPart(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.A
 		return
 	}
 
-	head := &head.Head{
+	head := &meta.Meta{
 		Title:   title,
 		Section: "graph",
 		Path:    r.URL.Path,
-		Host:    r.Host,
 		El:      s.Trees["graph"],
 	}
-	err = head.Process()
+	err = head.Process(r)
 	if err != nil {
 		s.Log.Println(err)
 		return

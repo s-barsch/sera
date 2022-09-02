@@ -1,27 +1,27 @@
 {{define "kine-main"}}
-{{template "head" .Head}}
+{{template "head" .Meta}}
 {{template "top" .}}
 
 
     <div class="section-title__box section-title--index">
         <h1 class="section-title">
-            {{.Head.Title}}
+            {{.Meta.Title}}
         </h1>
         <h4 class="section-lead">
-            {{var "video-subtitle" .Head.Lang}}
+            {{var "video-subtitle" .Meta.Lang}}
         </h4>
     </div>
 
     <div class="video-grid">
     {{range $set := .Entries}}
 
-    {{template "kine-card" (eL $set $.Head.Lang)}}
+    {{template "kine-card" (eL $set $.Meta.Lang)}}
 
     {{end}}
     </div>
 
 
-{{template "bot" .Head}}
+{{template "bot" .Meta}}
 {{end}}
 
 {{define "kine-card"}}

@@ -1,12 +1,12 @@
 {{define "top"}}
-<body data-size="{{.Head.O.Size.Active}}"
-      data-colors="{{.Head.O.Colors.Active}}"
+<body data-size="{{.Meta.O.Size.Active}}"
+      data-colors="{{.Meta.O.Colors.Active}}"
       >
 <main class="margin">
 <header id="top">
-{{template "lang-nav" .Head}}
+{{template "lang-nav" .Meta}}
 {{template "logo" .}}
-{{template "nav" .Head.Nav}}
+{{template "nav" .Meta.Nav}}
 </header>
 
 {{end}}
@@ -30,7 +30,7 @@
   </nav>
   {{.Auth.User.Mail}}
   {{.Auth.User.PaypalID}}
-  {{.Auth.Sub}}
+  {{.Auth.Subscriber}}
   <nav id="options">
     <a href="/subscribe" class="subscribe-top">Subscribe</a>
     <a href="/login">Login</a>

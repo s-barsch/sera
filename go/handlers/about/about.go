@@ -5,39 +5,31 @@ import (
 	"net/http"
 	"sacer/go/entry/types/tree"
 	"sacer/go/server"
-	"sacer/go/server/head"
-	"sacer/go/server/users"
+	"sacer/go/server/meta"
 )
 
 type aboutTree struct {
-	Head *head.Head
+	Meta *meta.Meta
 	Tree *tree.Tree
 }
 
-func ServeAbout(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth, t *tree.Tree) {
-	lang := head.Lang(r.Host)
-	if perma := t.Perma(lang); r.URL.Path != perma {
+func ServeAbout(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta, t *tree.Tree) {
+	if perma := t.Perma(m.Lang); m.Path != perma {
 		http.Redirect(w, r, perma, 301)
 		return
 	}
 
-	head := &head.Head{
-		Title:   t.Title(lang),
-		Section: "about",
-		Path:    r.URL.Path,
-		Host:    r.Host,
-		Entry:   t,
-		Auth:    a,
-		Options: head.GetOptions(r),
-	}
-	err := head.Process()
+	m.Title = t.Title(m.Lang)
+	m.Section = "about"
+
+	err := m.Process(t)
 	if err != nil {
 		s.Log.Println(err)
 		return
 	}
 
 	err = s.ExecuteTemplate(w, aboutTemplate(t.Level()), &aboutTree{
-		Head: head,
+		Meta: m,
 		Tree: t,
 	})
 	if err != nil {

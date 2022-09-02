@@ -1,22 +1,22 @@
 {{define "register-extra"}}
-{{template "head" .Head}}
+{{template "head" .Meta}}
 {{template "top" .}}
 <h1 class="about-title subscribe-title">
-        {{.Tree.Title .Head.Lang}}
+        {{.Tree.Title .Meta.Lang}}
     </h1>
     <form action="/api/register" method="post">
     <input type="text" name="name" placeholder="your name"> <br>
     <input type="text" name="mail" placeholder="name@mail.com"> <br>
     <button>Submit</button>
     </form>
-{{template "bot" .Head}}
+{{template "bot" .Meta}}
 {{end}}
 
 {{define "login-extra"}}
-{{template "head" .Head}}
+{{template "head" .Meta}}
 {{template "top" .}}
 <h1 class="about-title subscribe-title">
-        {{.Tree.Title .Head.Lang}}
+        {{.Tree.Title .Meta.Lang}}
     </h1>
     <form action="/api/login/request" method="post">
     <input type="email" name="mail" placeholder="name@mail.com"> <br>
@@ -25,14 +25,14 @@
       <br>
       No account? Go <a href="/register">register</a>!
       <br>
-{{template "bot" .Head}}
+{{template "bot" .Meta}}
 {{end}}
 
 {{define "subscribe-extra"}}
-{{template "head" .Head}}
+{{template "head" .Meta}}
 {{template "top" .}}
 <h1 class="about-title {{.Tree.Slug "en"}}-title">
-        {{.Tree.Title .Head.Lang}}
+        {{.Tree.Title .Meta.Lang}}
     </h1>
 
 

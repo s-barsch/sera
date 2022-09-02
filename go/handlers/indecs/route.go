@@ -2,15 +2,14 @@ package indecs
 
 import (
 	"net/http"
-	p "path/filepath"
 	"sacer/go/handlers/extra"
 	"sacer/go/server"
-	"sacer/go/server/users"
-	"sacer/go/server/head"
+	"sacer/go/server/meta"
 	"sacer/go/server/paths"
+	"path/filepath"
 )
 
-func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
+func Route(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 
 	if !s.Flags.Local {
 		http.Error(w, "temporarily unavailable", 503)
@@ -26,56 +25,55 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Au
 	rel := reqPath[len("/indecs"):]
 
 	if rel == "" {
-		Main(s, w, r, a)
+		Main(s, w, r, m)
 		return
 	}
 
 	if rel == "/serial" {
-		Serial(s, w, r, a)
+		Serial(s, w, r, m)
 		return
 	}
 
 	if rel == "/map.svg" {
-		MapIndex(s, w, r, a)
+		MapIndex(s, w, r, m)
 		return
 	}
 
 	if rel == "/map-all.svg" {
-		MapAll(s, w, r, a)
+		MapAll(s, w, r, m)
 		return
 	}
 
 	if rel == "/map.dot" {
-		MapDot(s, w, r, a)
+		MapDot(s, w, r, m)
 		return
 	}
 
-	lang := head.Lang(r.Host)
-	path := paths.Split(reqPath)
+	p := paths.Split(reqPath)
 
-	if path.IsFile() {
-		extra.ServeFile(s, w, r, a, path)
+	if p.IsFile() {
+		extra.ServeFile(s, w, r, m, p)
 		return
 	}
 
-	indecs := s.Trees["indecs"].Access(a.Sub())[lang]
+	indecs := s.Trees["indecs"].Access(m.Auth.Subscriber)[m.Lang]
 
-	if path.Hash == "" {
-		t, err := indecs.SearchTree(path.Slug, lang)
+	if p.Hash == "" {
+		t, err := indecs.SearchTree(p.Slug, m.Lang)
 		if err != nil {
 			s.Log.Println(err)
 			http.NotFound(w, r)
 			return
 		}
-		IndexPage(s, w, r, a, t)
+		IndexPage(s, w, r, m, t)
 		return
 	}
 
-	t, err := indecs.LookupTreeHash(path.Hash)
+	t, err := indecs.LookupTreeHash(p.Hash)
 	if err != nil {
-		http.Redirect(w, r, p.Dir(r.URL.Path), 301)
+		http.Redirect(w, r, filepath.Dir(m.Path), 301)
 		return
 	}
 
-	IndexPage(s, w, r, a, t)
+	IndexPage(s, w, r, m, t)
 }

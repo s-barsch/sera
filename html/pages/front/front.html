@@ -1,5 +1,5 @@
 {{define "front"}}
-{{template "head" .Head}}
+{{template "head" .Meta}}
 
 {{template "top" .}}
 
@@ -8,11 +8,11 @@
 {{/*
     {{template "graph-col" .}}
     {{template "log-list" .Log}}
-    {{var "log-more" .Head.Lang}}
+    {{var "log-more" .Meta.Lang}}
     */}}
 
-    {{/*template "month-front" eL (index .Months 0) .Head.Lang*/}}
-    {{template "kine-front" eL (index .Kine 0) .Head.Lang}}
+    {{/*template "month-front" eL (index .Months 0) .Meta.Lang*/}}
+    {{template "kine-front" eL (index .Kine 0) .Meta.Lang}}
     {{/*
 {{ template "kine-col" . }}
   <div class="cols">
@@ -32,7 +32,7 @@
 
 
 
-{{template "bot" .Head}}
+{{template "bot" .Meta}}
 {{end}}
 
 {{define "month-front"}}
@@ -62,11 +62,11 @@
 {{define "indecs-col" -}}
 <div>
       {{range .Index}}
-      {{template "front-index-entry" (eL . $.Head.Lang)}}
+      {{template "front-index-entry" (eL . $.Meta.Lang)}}
       {{end}}
       <!--
       <div class="more-tip">
-          {{var "indecs-more" .Head.Lang}}
+          {{var "indecs-more" .Meta.Lang}}
       </div>
       -->
 </div>
@@ -83,7 +83,7 @@
           {{if $untranslated}}
           <img class="no-subtitles" src="/static/svg/no-subtitles.svg">
           {{end}}
-          {{template "graph-image" (eL $set.Cover $.Head.Lang)}}
+          {{template "graph-image" (eL $set.Cover $.Meta.Lang)}}
         {{else}}
           Has no cover:<br>{{$set}}
         {{end}}
@@ -98,10 +98,10 @@
 {{define "graph-col" -}}
   
 <div id="graph" class="graph-front">
-      {{template "object-groups" (esL .Graph .Head.Lang)}}
+      {{template "object-groups" (esL .Graph .Meta.Lang)}}
       <!--
       <div class="more-tip">
-      {{var "graph-more" .Head.Lang}}
+      {{var "graph-more" .Meta.Lang}}
       </div>
       -->
 </div>
@@ -147,17 +147,17 @@
 
 
 <!--
-  <h4 class="front-lead">{{var "front-lead" .Head.Lang}}</h4>
+  <h4 class="front-lead">{{var "front-lead" .Meta.Lang}}</h4>
 <h2 class="front-head">Wichtige Artikel</h2>
 -->
 <!--
 <div class="quicklinks">
   {{range frontArticles}}
-  <a href="/index/{{.Hash}}">{{.Title $.Head.Lang}}</a>
+  <a href="/index/{{.Hash}}">{{.Title $.Meta.Lang}}</a>
   {{end}}
 </div>
 {{with .Featured}}
-{{template "graph-front-entry" (eL . $.Head.Lang)}}
+{{template "graph-front-entry" (eL . $.Meta.Lang)}}
 {{end}}
 -->
 <!--
@@ -165,7 +165,7 @@
 
 <div class="quicklinks">
   {{range frontArticles}}
-  <a href="/index/{{.Hash}}">{{.Title $.Head.Lang}}</a>
+  <a href="/index/{{.Hash}}">{{.Title $.Meta.Lang}}</a>
   <br>
   {{end}}
 </div>
@@ -176,7 +176,7 @@
 -->
 
 <!--
-  <h4 class="front-lead">{{var "front-lead" .Head.Lang}}</h4>
+  <h4 class="front-lead">{{var "front-lead" .Meta.Lang}}</h4>
 
   <div></div>
 -->

@@ -5,42 +5,28 @@ import (
 	"net/http"
 	"sacer/go/entry/types/tree"
 	"sacer/go/server"
-	"sacer/go/server/users"
-	"sacer/go/server/head"
-	"sacer/go/server/paths"
+	"sacer/go/server/meta"
 )
 
 type indexMain struct {
-	Head   *head.Head
+	Meta   *meta.Meta
 	Phanes *tree.Tree
 }
 
-func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
-	path, err := paths.Sanitize(r.URL.Path)
-	if err != nil {
-		http.NotFound(w, r)
-		return
-	}
+func Main(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+	komposita := s.Trees["komposita"].Access(m.Auth.Subscriber)[m.Lang]
 
-	lang := head.Lang(r.Host)
-	komposita := s.Trees["komposita"].Access(a.Sub())[lang]
+	m.Title = "Index"
+	m.Section = "index"
 
-	head := &head.Head{
-		Title:   "Index",
-		Section: "index",
-		Path:    path,
-		Host:    r.Host,
-		Auth:    a,
-		Options: head.GetOptions(r),
-	}
-	err = head.Process()
+	err := m.Process(nil)
 	if err != nil {
 		s.Log.Println(err)
 		return
 	}
 
 	err = s.ExecuteTemplate(w, "index-main", &indexMain{
-		Head:   head,
+		Meta:   m,
 		Phanes: komposita,
 	})
 	if err != nil {

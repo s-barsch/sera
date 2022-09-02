@@ -1,20 +1,20 @@
 {{define "extra-page"}}
-{{template "head" .Head}}
+{{template "head" .Meta}}
 {{template "top" .}}
 
 
 {{if not (eq (.Tree.Slug "en") "subscribe")}}
   <h1 class="mainh hold-title">
-    {{.Tree.Title .Head.Lang}}
+    {{.Tree.Title .Meta.Lang}}
   </h1>
 
-  {{template "about-entries" (esL .Tree.Entries .Head.Lang)}}
+  {{template "about-entries" (esL .Tree.Entries .Meta.Lang)}}
 {{else}}
   {{template "subscribe-page" .}}
 {{end}}
 
 
-{{template "bot" .Head}}
+{{template "bot" .Meta}}
 {{end}}
 
 

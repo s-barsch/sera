@@ -3,21 +3,21 @@ package sitemaps
 import (
 	"net/http"
 	"sacer/go/server"
-	"sacer/go/server/users"
+	"sacer/go/server/meta"
 )
 
-func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
+func Route(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	switch r.URL.Path {
 	case "/sitemaps.xml":
-		Index(s, w, r, a)
+		Index(s, w, r, m)
 	case "/sitemaps/core.xml":
-		Core(s, w, r, a)
+		Core(s, w, r, m)
 	case "/sitemaps/trees.xml":
-		Trees(s, w, r, a)
+		Trees(s, w, r, m)
 	case "/sitemaps/kines.xml":
-		Kines(s, w, r, a)
+		Kines(s, w, r, m)
 	case "/sitemaps/graph-entries.xml":
-		GraphEntries(s, w, r, a)
+		GraphEntries(s, w, r, m)
 	default:
 		http.NotFound(w, r)
 	}

@@ -1,31 +1,31 @@
 {{define "indecs-main"}}
-{{template "head" .Head}}
+{{template "head" .Meta}}
 {{template "top" .}}
 
-{{template "subnav" (snav .Tree 0 .Head.Lang)}}
+{{template "subnav" (snav .Tree 0 .Meta.Lang)}}
 
     <div class="section-title__box section-title--index">
         <h1 class="section-title">
-            {{.Tree.Title .Head.Lang}}
+            {{.Tree.Title .Meta.Lang}}
         </h1>
         <h4 class="section-lead">
-            {{var "indecs-subtitle" .Head.Lang}}
+            {{var "indecs-subtitle" .Meta.Lang}}
         </h4>
     </div>
 
-    {{template "indecs-entries" (eL .Tree .Head.Lang)}}
+    {{template "indecs-entries" (eL .Tree .Meta.Lang)}}
 
     <!--
     <section class="indecs-map">
         <h2 id="map" class="subtitle">
-          <a href="#map">{{var "map" .Head.Lang}}</a>
+          <a href="#map">{{var "map" .Meta.Lang}}</a>
         </h2>
 
         <div class="center">
-        {{inlineFileLang "indecsmap" .Head.Lang}}
+        {{inlineFileLang "indecsmap" .Meta.Lang}}
         </div>
         <div style="text-align:right;">
-            <small>{{var "map-info" .Head.Lang}}</small>
+            <small>{{var "map-info" .Meta.Lang}}</small>
         </div>
     </section>
     -->
@@ -37,37 +37,37 @@
         </h2>
 
         {{range .Recents.Offset 0 35}}
-          {{template "front-index-entry" (eL . $.Head.Lang)}}
+          {{template "front-index-entry" (eL . $.Meta.Lang)}}
         {{end}}
 
     {{/*
         <div class="more-tip">
-            {{var "serial-link" .Head.Lang}}
+            {{var "serial-link" .Meta.Lang}}
         </div>
     </section>
     */}}
     -->
 
-    {{template "bot" .Head}}
+    {{template "bot" .Meta}}
 {{end}}
 
 
 {{define "indecs-page"}}
-{{template "head" .Head}}
+{{template "head" .Meta}}
 {{template "top" .}}
 
 {{/* TODO: isArticle */}}
 
-{{template "subnav" (snav .Tree 0 .Head.Lang)}}
+{{template "subnav" (snav .Tree 0 .Meta.Lang)}}
 
     {{$isArticle := eq (index .Tree.Info "article") "true"}}
 
-    {{$pageTitle := .Tree.Info.HyphTitle .Head.Lang}}
+    {{$pageTitle := .Tree.Info.HyphTitle .Meta.Lang}}
     {{$subTitle := ""}}
 
     {{with .Tree.TopicPage}}
       {{$subTitle = $pageTitle}}
-      {{$pageTitle = .Info.HyphTitle $.Head.Lang}}
+      {{$pageTitle = .Info.HyphTitle $.Meta.Lang}}
     {{end}}
 
 
@@ -81,12 +81,12 @@
     </h1>
 
 
-        {{template "indecs-entries" (eL .Tree .Head.Lang)}}
+        {{template "indecs-entries" (eL .Tree .Meta.Lang)}}
 
-      {{template "footnotes" (nL .Tree.Footnotes .Head.Lang)}}
+      {{template "footnotes" (nL .Tree.Footnotes .Meta.Lang)}}
 
 
-{{template "bot" .Head}}
+{{template "bot" .Meta}}
 {{end}}
 
 

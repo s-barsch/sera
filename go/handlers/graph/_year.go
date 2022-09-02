@@ -7,23 +7,23 @@ import (
 	"sacer/go/entry/types/tree"
 	"sacer/go/server"
 	"sacer/go/server/users"
-	"sacer/go/server/head"
+	"sacer/go/server/meta"
 	"sacer/go/server/paths"
 	"time"
 )
 
 type yearPage struct {
-	Head    *head.Head
+	Head    *meta.Meta
 	Tree    *tree.Tree
 	Entries entry.Entries
 	Prev    *tree.Tree
 	Next    *tree.Tree
 }
 
-func YearPage(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth, p *paths.Path) {
+func YearPage(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Path) {
 	lang := head.Lang(r.Host)
 
-	graph := s.Trees["graph"].Access(a.Sub())[lang]
+	graph := s.Trees["graph"].Access(a.Subscriber)[lang]
 
 	id, err := getYearId(p.Slug)
 	if err != nil {
@@ -39,24 +39,21 @@ func YearPage(s *server.Server, w http.ResponseWriter, r *http.Request, a *users
 		return
 	}
 
-	if perma := t.Perma(lang); r.URL.Path != perma {
+	if perma := t.Perma(lang); m.Path != perma {
 		http.Redirect(w, r, perma, 301)
 		return
 	}
 
 	prev, next := yearSiblings(t)
 
-	head := &head.Head{
+	head := &meta.Meta{
 		Title:   yearTitle(t, lang),
 		Section: "graph",
 		Path:    r.URL.Path,
-		Host:    r.Host,
 		Entry:   t,
-		Auth:    a,
-		Options: head.GetOptions(r),
 	}
 
-	err = head.Process()
+	err = head.Process(r)
 	if err != nil {
 		s.Log.Println(err)
 		return

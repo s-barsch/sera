@@ -4,11 +4,11 @@ import (
 	"net/http"
 	"sacer/go/handlers/extra"
 	"sacer/go/server"
-	"sacer/go/server/users"
+	"sacer/go/server/meta"
 	"sacer/go/server/paths"
 )
 
-func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
+func Route(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	p, err := paths.Sanitize(r.URL.Path)
 	if err != nil {
 		http.NotFound(w, r)
@@ -23,16 +23,16 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Au
 	}
 
 	if rel == "" {
-		Main(s, w, r, a)
+		Main(s, w, r, m)
 		return
 	}
 
 	path := paths.Split(p)
 
 	if path.IsFile() {
-		extra.ServeFile(s, w, r, a, path)
+		extra.ServeFile(s, w, r, m, path)
 		return
 	}
 
-	ServeSingle(s, w, r, a, path)
+	ServeSingle(s, w, r, m, path)
 }

@@ -1,13 +1,13 @@
 {{define "indecs-el-page"}}
 
-    {{template "head" .Head}}
+    {{template "head" .Meta}}
     {{template "top" .}}
 
     <main>
         {{template "el-indecs" .Arg}}
     </main>
 
-    {{template "bot" .Head}}
+    {{template "bot" .Meta}}
 
 {{end}}
 
@@ -64,8 +64,8 @@
 
 {{define "compare-link"}}
 <div class="compare-link margin">
-{{$prim := ""}}{{/*primLang .Head.Lang*/}}
-{{$sec := ""}}{{/*secLang .Head.Lang*/}}
+{{$prim := ""}}{{/*primLang .Meta.Lang*/}}
+{{$sec := ""}}{{/*secLang .Meta.Lang*/}}
 {{$perma := .Set.Permalink $prim}}
 <p>
 {{if $sec}}
@@ -91,7 +91,7 @@
 
 
 {{define "old-pine-logo"}}
-    {{if or (eq .Head.Title "Über") (eq .Head.Title "About")}}
+    {{if or (eq .Meta.Title "Über") (eq .Meta.Title "About")}}
     <!--
     {{template "pine-logo"}}
     -->

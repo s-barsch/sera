@@ -1,10 +1,9 @@
 package routes
 
 import (
-	"log"
 	"net/http"
 	"sacer/go/handlers/about"
-	authH "sacer/go/handlers/auth"
+	"sacer/go/handlers/auth"
 	"sacer/go/handlers/extra"
 	"sacer/go/handlers/front"
 	"sacer/go/handlers/graph"
@@ -13,7 +12,7 @@ import (
 	"sacer/go/handlers/kine"
 	"sacer/go/handlers/sitemaps"
 	"sacer/go/server"
-	"sacer/go/server/users"
+	"sacer/go/server/meta"
 
 	"github.com/gorilla/mux"
 )
@@ -34,19 +33,19 @@ func Router(s *server.Server) *mux.Router {
 		r.PathPrefix("/part/").HandlerFunc(makeHandler(s, graph.ElPart))
 	*/
 
-	r.PathPrefix("/api").HandlerFunc(makeHandler(s, authH.Route))
-	r.PathPrefix("/register").HandlerFunc(makeHandler(s, authH.Route))
-	r.PathPrefix("/subscribe").HandlerFunc(makeHandler(s, authH.Route))
-	r.PathPrefix("/login").HandlerFunc(makeHandler(s, authH.Route))
+	r.PathPrefix("/api").HandlerFunc(makeHandler(s, auth.Route))
+	r.PathPrefix("/register").HandlerFunc(makeHandler(s, auth.Route))
+	r.PathPrefix("/subscribe").HandlerFunc(makeHandler(s, auth.Route))
+	r.PathPrefix("/login").HandlerFunc(makeHandler(s, auth.Route))
 
 	r.HandleFunc("/sitemaps.xml", makeHandler(s, sitemaps.Route))
 	r.PathPrefix("/sitemaps").HandlerFunc(makeHandler(s, sitemaps.Route))
 
 
-	r.PathPrefix("/legal").HandlerFunc(makeHandler(s, extra.Route))
-	r.PathPrefix("/impressum").HandlerFunc(makeHandler(s, extra.Route))
-	r.PathPrefix("/datenschutz").HandlerFunc(makeHandler(s, extra.Route))
-	r.PathPrefix("/privacy").HandlerFunc(makeHandler(s, extra.Route))
+	r.PathPrefix("/legal").HandlerFunc(makeHandler(s, extra.Extra))
+	r.PathPrefix("/impressum").HandlerFunc(makeHandler(s, extra.Extra))
+	r.PathPrefix("/datenschutz").HandlerFunc(makeHandler(s, extra.Extra))
+	r.PathPrefix("/privacy").HandlerFunc(makeHandler(s, extra.Extra))
 
 	r.HandleFunc("/opt/{option}/{value}", makeHandler(s, extra.SetOption))
 
@@ -67,23 +66,34 @@ func Router(s *server.Server) *mux.Router {
 		path := fileRoutes[query]
 		r.HandleFunc(query, func(w http.ResponseWriter, r *http.Request) {
 			r.URL.Path = path
-			a, err := s.Users.CheckAuth(r)
-			if err != nil && err != http.ErrNoCookie {
-				log.Println(err)
+			m, err := meta.NewMeta(s.Users, r)
+			if err != nil {
+				s.Log.Println(err)
 			}
-			extra.StaticFiles(s, w, r, a)
+
+			extra.StaticFiles(s, w, r, m)
 		})
 	}
 
 	return r
 }
 
-func makeHandler(s *server.Server, fn func(*server.Server, http.ResponseWriter, *http.Request, *users.Auth)) http.HandlerFunc {
+func makeHandler(s *server.Server, fn func(*server.Server, http.ResponseWriter, *http.Request, *meta.Meta)) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		a, err := s.Users.CheckAuth(r)
+		m, err := meta.NewMeta(s.Users, r)
 		if err != nil {
-			log.Println(err)
+			s.Log.Println(err)
+			http.Error(w, "internal error", 502)
+			return
 		}
-		fn(s, w, r, a)
+		fn(s, w, r, m)
 	}
 }
+
+
+
+// auth
+// options
+// lang
+// path
+

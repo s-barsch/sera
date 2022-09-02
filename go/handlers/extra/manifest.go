@@ -2,27 +2,21 @@ package extra
 
 import (
 	"net/http"
-	"sacer/go/server/head"
+	"sacer/go/server/meta"
 	"sacer/go/server"
-	"sacer/go/server/users"
 )
 
-func Manifest(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
-	lang := head.Lang(r.Host)
-	head := &head.Head{
-		Title:   head.SiteName(lang),
-		Desc:    s.Vars.Lang("site", lang),
-		Auth:    a,
-		Options: head.GetOptions(r),
-		Host:    r.Host,
-	}
-	err := head.Process()
+func Manifest(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+	m.Title = meta.SiteName(m.Lang)
+	m.Desc = s.Vars.Lang("site", m.Lang)
+
+	err := m.Process(nil)
 	if err != nil {
 		s.Log.Println(err)
 		return
 	}
 
-	err = s.ExecuteTemplate(w, "manifest", head)
+	err = s.ExecuteTemplate(w, "manifest", m)
 	if err != nil {
 		s.Log.Println(err)
 	}

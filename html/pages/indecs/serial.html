@@ -1,5 +1,5 @@
 {{define "indecs-serial" -}}
-{{template "head" .Head}}
+{{template "head" .Meta}}
 {{template "top" .}}
 
 <div class="section-title__box section-title--index">
@@ -9,11 +9,11 @@
 </div>
 
 {{range .Entries}}
-{{template "indecs-entry-serial" (eL . $.Head.Lang)}}
+{{template "indecs-entry-serial" (eL . $.Meta.Lang)}}
 {{end}}
 
 
-{{template "bot" .Head}}
+{{template "bot" .Meta}}
 {{end}}
 
 {{define "indecs-entry-serial"}}

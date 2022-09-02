@@ -5,13 +5,12 @@ import (
 	"net/http"
 	"sacer/go/entry"
 	"sacer/go/server"
-	"sacer/go/server/users"
-	"sacer/go/server/head"
+	"sacer/go/server/meta"
 	"sacer/go/entry/types/tree"
 )
 
 type frontMain struct {
-	Head     *head.Head
+	Meta	 *meta.Meta
 	Index    entry.Entries
 	Graph    entry.Entries
 	Kine     entry.Entries
@@ -20,28 +19,22 @@ type frontMain struct {
 	Featured entry.Entry
 }
 
-func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
-	lang := head.Lang(r.Host)
-	head := &head.Head{
-		Title:   "",
-		Section: "home",
-		Path:    "/",
-		Host:    r.Host,
-		Entry:   nil,
-		Desc:    s.Vars.Lang("site", lang),
-		Auth:    a,
-		Options: head.GetOptions(r),
-	}
-	err := head.Process()
+func Main(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+
+	m.Title = ""
+	m.Section = "home"
+	m.Desc = s.Vars.Lang("site", m.Lang)
+
+	err := m.Process(nil)
 	if err != nil {
 		return
 	}
 
-	indecs := s.Recents["indecs"].Access(a.Sub())[lang]
-	graph := s.Recents["graph"].Access(a.Sub())[lang]
-	kine := s.Recents["kine"].Access(a.Sub())[lang]
+	indecs := s.Recents["indecs"].Access(m.Auth.Subscriber)[m.Lang]
+	graph := s.Recents["graph"].Access(m.Auth.Subscriber)[m.Lang]
+	kine := s.Recents["kine"].Access(m.Auth.Subscriber)[m.Lang]
 
-	months := s.Trees["graph"].Access(a.Sub())[lang].TraverseTrees()
+	months := s.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang].TraverseTrees()
 	newmonths := []*tree.Tree{}
 
 	for _, m := range months {
@@ -53,7 +46,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Aut
 	months = newmonths
 
 	err = s.ExecuteTemplate(w, "front", &frontMain{
-		Head:  head,
+		Meta:  m,
 		Index: indecs.Limit(s.Vars.FrontSettings.Index),
 		Graph: graph.Limit(s.Vars.FrontSettings.Graph),
 		Kine:  kine.Limit(10),
@@ -66,7 +59,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Aut
 }
 
 /*
-	e, err := s.Trees["graph"].Access(a.Sub())[lang].LookupEntryHash(s.Vars.FrontSettings.Featured)
+	e, err := s.Trees["graph"].Access(a.Subscriber)[m.Lang].LookupEntryHash(s.Vars.FrontSettings.Featured)
 	if err != nil {
 		s.Log.Println(err)
 	}

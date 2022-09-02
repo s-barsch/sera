@@ -4,10 +4,10 @@ import (
 	"net/http"
 	"sacer/go/server/paths"
 	"sacer/go/server"
-	"sacer/go/server/users"
+	"sacer/go/server/meta"
 )
 
-func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
+func Route(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	path, err := paths.Sanitize(r.URL.Path)
 	if err != nil {
 		http.NotFound(w, r)
@@ -28,7 +28,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Au
 	case "/api/register":
 		Register(s, w, r)
 	case "/subscribe", "/login", "/register":
-		SysPage(s, w, r, a)
+		SysPage(s, w, r, m)
 	default:
 		println(path)
 		http.NotFound(w, r)

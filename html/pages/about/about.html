@@ -1,48 +1,48 @@
 {{define "about-main"}}
-{{template "head" .Head}}
+{{template "head" .Meta}}
 {{template "top" .}}
 
-{{template "subnav" (snav .Tree 0 .Head.Lang)}}
+{{template "subnav" (snav .Tree 0 .Meta.Lang)}}
 
     <div class="section-title__box section-title--index">
         <h1 class="section-title">
-            {{aboutTitle $.Head.Lang}}
+            {{aboutTitle $.Meta.Lang}}
         </h1>
     </div>
 
 
     <div class="cols">
       <div>
-      {{template "about-entries" (esL .Tree.Entries .Head.Lang)}}
+      {{template "about-entries" (esL .Tree.Entries .Meta.Lang)}}
       </div>
 
-      {{template "chamomile" .Head}}
+      {{template "chamomile" .Meta}}
     </div>
 
 
-{{template "bot" .Head}}
+{{template "bot" .Meta}}
 {{end}}
 
 
 {{define "about-page"}}
-{{template "head" .Head}}
+{{template "head" .Meta}}
 {{template "top" .}}
 
-{{template "subnav" (snav .Tree 0 .Head.Lang)}}
+{{template "subnav" (snav .Tree 0 .Meta.Lang)}}
 
 <h1 class="about-title {{.Tree.Slug "en"}}-title">
-        {{.Tree.Title .Head.Lang}}
+        {{.Tree.Title .Meta.Lang}}
     </h1>
 
-      {{template "about-entries" (esL .Tree.Entries .Head.Lang)}}
+      {{template "about-entries" (esL .Tree.Entries .Meta.Lang)}}
 
 
   
-    {{/*template "edit-link-hold" (holdArg .Hold false .Head.Lang)*/}}
+    {{/*template "edit-link-hold" (holdArg .Hold false .Meta.Lang)*/}}
 
 
 
-{{template "bot" .Head}}
+{{template "bot" .Meta}}
 {{end}}
 
 {{define "about-entries"}}

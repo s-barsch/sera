@@ -5,24 +5,21 @@ import (
 	"net/http"
 	"sacer/go/entry/types/tree"
 	"sacer/go/server"
-	"sacer/go/server/users"
-	"sacer/go/server/head"
+	"sacer/go/server/meta"
 	"sacer/go/server/paths"
 	"time"
 	"fmt"
 )
 
 type monthPage struct {
-	Head    *head.Head
+	Meta    *meta.Meta
 	Tree    *tree.Tree
 	Prev    *tree.Tree
 	Next    *tree.Tree
 }
 
-func MonthPage(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth, p *paths.Path) {
-	lang := head.Lang(r.Host)
-
-	graph := s.Trees["graph"].Access(a.Sub())[lang]
+func MonthPage(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta, p *paths.Path) {
+	graph := s.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
 
 	id, err := getMonthId(p)
 	if err != nil {
@@ -38,30 +35,25 @@ func MonthPage(s *server.Server, w http.ResponseWriter, r *http.Request, a *user
 		return
 	}
 
-	if perma := t.Perma(lang); r.URL.Path != perma {
+	if perma := t.Perma(m.Lang); m.Path != perma {
 		http.Redirect(w, r, perma, 301)
 		return
 	}
 
-	head := &head.Head{
-		Title:   monthTitle(t, lang),
+	head := &meta.Meta{
+		Title:   monthTitle(t, m.Lang),
 		Section: "graph",
-		Path:    r.URL.Path,
-		Host:    r.Host,
-		Entry:   t,
-		Auth:    a,
-		Options: head.GetOptions(r),
 	}
 
-	err = head.Process()
+	err = head.Process(t)
 	if err != nil {
 		s.Log.Println(err)
 		return
 	}
 
 	err = s.ExecuteTemplate(w, "graph-month", &monthPage{
-		Head:    head,
-		Tree:    t,
+		Meta:	m,
+		Tree:   t,
 	})
 	if err != nil {
 		log.Println(err)

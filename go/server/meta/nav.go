@@ -1,4 +1,4 @@
-package head
+package meta
 
 import (
 	"fmt"
@@ -14,10 +14,10 @@ type Link struct {
 	Name, Href string
 }
 
-func (h *Head) MakeNav() Nav {
-	nav := NewNav(h.Lang)
+func (m *Meta) MakeNav() Nav {
+	nav := NewNav(m.Lang)
 
-	section := sectionLang(h.Section, h.Lang)
+	section := sectionLang(m.Section, m.Lang)
 
 	for _, l := range nav {
 		if section == l.Name {

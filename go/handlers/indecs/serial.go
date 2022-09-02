@@ -5,50 +5,41 @@ import (
 	"net/http"
 	"sacer/go/entry"
 	"sacer/go/server"
-	"sacer/go/server/users"
-	"sacer/go/server/head"
+	"sacer/go/server/meta"
 )
 
 type indecsSerial struct {
-	Head    *head.Head
+	meta    *meta.Meta
 	Entries entry.Entries
 }
 
-func Serial(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
-	lang := head.Lang(r.Host)
-	h := &head.Head{
-		Title:   "Serial - Index",
-		Section: "indecs",
-		Path:    r.URL.Path,
-		Host:    r.Host,
-		Entry:   nil,
-		//Desc:    s.Vars.Lang("serial", head.Lang(r.Host)),
-		Auth:    a,
-		Options: head.GetOptions(r),
-	}
-	err := h.Process()
+func Serial(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+	m.Title = "Serial - Index"
+	m.Section = "indecs"
+
+	//Desc:    s.Vars.Lang("serial", meta.Lang(r.Host)),
+
+	err := m.Process(nil)
 	if err != nil {
 		s.Log.Println(err)
 		return
 	}
 
-	//head.Description = srv.varsLang("serial", lang)
-
-	h.Langs = []*head.Link{
-		&head.Link{
+	m.Langs = []*meta.Link{
+		&meta.Link{
 			Name: "de",
-			Href: h.AbsoluteURL("/indecs/serial", "de"),
+			Href: m.AbsoluteURL("/indecs/serial", "de"),
 		},
-		&head.Link{
+		&meta.Link{
 			Name: "en",
-			Href: h.AbsoluteURL("/indecs/serial", "en"),
+			Href: m.AbsoluteURL("/indecs/serial", "en"),
 		},
 	}
 
-	recents := s.Recents["indecs"].Access(a.Sub())[lang]
+	recents := s.Recents["indecs"].Access(m.Auth.Subscriber)[m.Lang]
 
 	err = s.ExecuteTemplate(w, "indecs-serial", &indecsSerial{
-		Head:    h,
+		meta:    m,
 		Entries: recents,
 	})
 	if err != nil {

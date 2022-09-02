@@ -1,14 +1,14 @@
 {{define "graph-year"}}
-{{template "head" .Head}}
+{{template "head" .Meta}}
 {{template "top" .}}
-{{template "subnav" (snav .Tree 0 .Head.Lang)}}
+{{template "subnav" (snav .Tree 0 .Meta.Lang)}}
 
 <div class="section-title__box section-title--year">
     <h1 class="section-title column">
       {{template "year-number" (.Tree.Date.Format "2006")}}
     </h1>
     {{if eq (index .Tree.Info "alpha") "true"}}
-      {{template "unedited-hint" (var "alpha-year" $.Head.Lang)}}
+      {{template "unedited-hint" (var "alpha-year" $.Meta.Lang)}}
     {{end}}
 </div>
 
@@ -18,27 +18,27 @@
     {{$monthNum := .Date.Format "01"}}
     <section id="{{$monthNum}}" class="month">
         <h2 class="month-title column">
-            <a href="{{.Perma $.Head.Lang}}">{{monthLang .Date $.Head.Lang}}</a>
+            <a href="{{.Perma $.Meta.Lang}}">{{monthLang .Date $.Meta.Lang}}</a>
         </h2>
         {{with .Summary}}{{template "summary" .}}{{end}}
         {{if isLocal}}
         {{with .SummaryPrivate}}{{template "summary" .}}{{end}}
         {{end}}
         {{if eq (index .Info "alpha") "true"}}
-          {{template "unedited-hint" (var "alpha-month" $.Head.Lang)}}
+          {{template "unedited-hint" (var "alpha-month" $.Meta.Lang)}}
         {{end}}
-        {{template "object-groups" (esL .Entries $.Head.Lang)}}
+        {{template "object-groups" (esL .Entries $.Meta.Lang)}}
     </section>
 {{end}}
 </div>
 
-{{template "subnav-fixed" (snav .Tree 0 .Head.Lang)}}
+{{template "subnav-fixed" (snav .Tree 0 .Meta.Lang)}}
 
 {{template "prev-next-year" .}}
 {{template "graph-arr" .Tree}}
 */}}
 
-{{template "bot" .Head}}
+{{template "bot" .Meta}}
 {{end}}
 
 {{define "summary"}}
@@ -57,17 +57,17 @@
 
 
 {{define "graph-main"}}
-{{template "head" .Head}}
+{{template "head" .Meta}}
 {{template "top" .}}
-{{template "subnav" (snav .Tree 0 .Head.Lang)}}
+{{template "subnav" (snav .Tree 0 .Meta.Lang)}}
 
 
     <div class="section-title__box section-title--graph">
         <h1 class="section-title">
-            {{.Head.Title}}
+            {{.Meta.Title}}
         </h1>
         <h4 class="section-lead">
-            {{var "graph-subtitle" .Head.Lang}}
+            {{var "graph-subtitle" .Meta.Lang}}
         </h4>
     </div>
 
@@ -77,22 +77,22 @@
     {{range $i, $entries := $months}}
       {{if $i}}
         <h2 class="month-title">
-          {{monthLang $entries.First.Date $.Head.Lang}}
+          {{monthLang $entries.First.Date $.Meta.Lang}}
         </h2>
       {{end}}
-      {{template "object-groups" (esLy $entries $.Head.Lang false)}}
+      {{template "object-groups" (esLy $entries $.Meta.Lang false)}}
     {{end}}
 
 
     <div class="graph-tip">
-      {{var "graph-main-more" .Head.Lang}}
+      {{var "graph-main-more" .Meta.Lang}}
     </div>
 
     {{template "graph-arr" .Tree}}
 
     */}}
 
-{{template "bot" .Head}}
+{{template "bot" .Meta}}
 {{end}}
 
 {{define "graph-arr"}}
@@ -121,7 +121,7 @@
 
         {{if eq $depth 0}}
             <!-- MAIN -->
-            {{$lang := .Head.Lang}}
+            {{$lang := .Meta.Lang}}
             {{$months := (.Els.Offset 0 10).Months}} <!-- 25 -->
             {{range $i, $els := $months}}
             {{if $i}}
@@ -137,7 +137,7 @@
             {{ template "graph-main-more" .}}
         {{else if lt .Hold.Level 2}}
             <!-- YEAR -->
-            {{$lang := .Head.Lang}}
+            {{$lang := .Meta.Lang}}
             {{$months := .Els.Months}}
             {{range $i, $els := $months}}
             {{$firstEntry := (index $els 0)}}
@@ -160,7 +160,7 @@
 
     </section>
 
-    {{template "subnav-fixed" (snav .Tree 0 .Head.Lang)}}
+    {{template "subnav-fixed" (snav .Tree 0 .Meta.Lang)}}
 
     <div id="top-link" class="hide">
             <!--
@@ -179,7 +179,7 @@
     {{end}}
     </script>
 
-    {{template "bot" .Head}}
+    {{template "bot" .Meta}}
 
 {{end}}
 

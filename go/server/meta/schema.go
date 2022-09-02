@@ -1,4 +1,4 @@
-package head
+package meta
 
 import (
 	//"sacer/go/entry"
@@ -22,7 +22,7 @@ type Schema struct {
 }
 
 /*
-func (h *Head) ElSchema() (*Schema, error) {
+func (m *Meta) ElSchema() (*Schema, error) {
 	date, err := entry.DateSafe(h.El)
 	if err != nil {
 		return nil, err

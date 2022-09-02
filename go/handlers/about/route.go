@@ -2,35 +2,26 @@ package about
 
 import (
 	"net/http"
-	//"sacer/go/entry"
-	"sacer/go/server/head"
+	"sacer/go/server/meta"
 	"sacer/go/server/paths"
 	"sacer/go/server"
-	"sacer/go/server/users"
 )
 
-func Route(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
-	p, err := paths.Sanitize(r.URL.Path)
-	if err != nil {
-		http.NotFound(w, r)
-		return
-	}
-
-	rel := p[len("/about"):] // same length as "ueber"
-	lang := head.Lang(r.Host)
-	about := s.Trees["about"].Access(a.Sub())[lang]
+func Route(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+	rel := m.Path[len("/about"):] // same length as "ueber"
+	about := s.Trees["about"].Access(m.Auth.Subscriber)[m.Lang]
 
 	if rel == "" {
-		ServeAbout(s, w, r, a, about)
+		ServeAbout(s, w, r, m, about)
 		return
 	}
 
-	path := paths.Split(p)
-	t, err := about.SearchTree(path.Slug, lang)
+	p := paths.Split(m.Path)
+	t, err := about.SearchTree(p.Slug, m.Lang)
 	if err != nil {
 		http.NotFound(w, r)
 		return
 	}
 
-	ServeAbout(s, w, r, a, t)
+	ServeAbout(s, w, r, m, t)
 }

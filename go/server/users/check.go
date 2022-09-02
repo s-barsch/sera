@@ -7,10 +7,7 @@ import (
 
 type Auth struct {
 	User	   *User
-}
-
-func (a Auth) Sub() bool {
-	return isSubscriber(a.User)
+	Subscriber bool
 }
 
 func (u *Users) CheckAuth(r *http.Request) (*Auth, error) {
@@ -38,9 +35,13 @@ func (u *Users) CheckAuth(r *http.Request) (*Auth, error) {
 	if err != nil {
 		return na, err
 	}
+
+	sub := isSubscriber(user)
+	user.PaypalID = ""
 	
 	return &Auth{
-		User:	    user,
+		User:       user,
+		Subscriber: sub,
 	}, nil
 }
 

@@ -1,4 +1,4 @@
-package head
+package meta
 
 import (
 	"fmt"
@@ -26,22 +26,22 @@ func (langs Langs) Hreflang(name string) *Link {
 	return nil
 }
 
-func (h *Head) MakeLangs() Langs {
+func (m *Meta) MakeLangs(e entry.Entry) Langs {
 	langs := []*Link{}
 	for _, lang := range []string{"de", "en"} {
-		langs = append(langs, getLink(h, h.Entry, lang))
+		langs = append(langs, getLink(m, e, lang))
 	}
 	return langs
 }
 
-func getLink(h *Head, e entry.Entry, lang string) *Link {
+func getLink(m *Meta, e entry.Entry, lang string) *Link {
 	href := ""
 
 	// TODO: still necessary?
 	if e == nil { //|| (lang != "de" && !isTranslated(e, lang)) {
-		href = h.HostAddress(lang)
+		href = m.HostAddress(lang)
 	} else {
-		href = h.AbsoluteURL(e.Perma(lang), lang)
+		href = m.AbsoluteURL(e.Perma(lang), lang)
 	}
 
 	return &Link{
@@ -60,19 +60,19 @@ func isTranslated(e entry.Entry, lang string) bool {
 	return true
 }
 
-func (h *Head) AbsoluteURL(path, lang string) string {
-	return fmt.Sprintf("%v%v", h.HostAddress(lang), path)
+func (m *Meta) AbsoluteURL(path, lang string) string {
+	return fmt.Sprintf("%v%v", m.HostAddress(lang), path)
 }
 
-func (h *Head) HostAddress(lang string) string {
-	if isLocal(h.Host) {
+func (m *Meta) HostAddress(lang string) string {
+	if isLocal(m.Host) {
 		return fmt.Sprintf("http://%v", hostsLocal[lang])
 	}
 	return fmt.Sprintf("https://%v", hosts[lang])
 }
 
-func (h *Head) IsLocal() bool {
-	return isLocal(h.Host)
+func (m *Meta) IsLocal() bool {
+	return isLocal(m.Host)
 }
 
 func isLocal(host string) bool {

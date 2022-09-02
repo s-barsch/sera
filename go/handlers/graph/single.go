@@ -7,47 +7,38 @@ import (
 	"sacer/go/entry"
 	"sacer/go/entry/tools"
 	"sacer/go/server"
-	"sacer/go/server/users"
-	"sacer/go/server/head"
+	"sacer/go/server/meta"
 	"sacer/go/server/paths"
 	"time"
 )
 
 type graphSingle struct {
-	Head  *head.Head
+	Meta  *meta.Meta
 	Entry entry.Entry
 	Prev  entry.Entry
 	Next  entry.Entry
 }
 
-func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth, p *paths.Path) {
-	lang := head.Lang(r.Host)
-	graph := s.Trees["graph"].Access(a.Sub())[lang]
+func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta, p *paths.Path) {
+	graph := s.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
 	e, err := graph.LookupEntryHash(p.Hash)
 	if err != nil {
 		http.Redirect(w, r, "/graph", 301)
 		return
 	}
 
-	perma := e.Perma(lang)
-	if r.URL.Path != perma {
+	perma := e.Perma(m.Lang)
+	if m.Path != perma {
 		http.Redirect(w, r, perma, 301)
 		return
 	}
 
-	prev, next := getPrevNext(s.Recents["graph"].Access(a.Sub())[lang], e)
+	prev, next := getPrevNext(s.Recents["graph"].Access(m.Auth.Subscriber)[m.Lang], e)
 
-	head := &head.Head{
-		Title:   graphEntryTitle(e, head.Lang(r.Host)),
-		Section: "graph",
-		Path:    r.URL.Path,
-		Host:    r.Host,
-		Entry:   e,
-		Auth:    a,
-		Options: head.GetOptions(r),
-	}
+	m.Title = graphEntryTitle(e, m.Lang)
+	m.Section = "graph"
 
-	err = head.Process()
+	err = m.Process(e)
 	if err != nil {
 		s.Log.Println(err)
 		return
@@ -63,7 +54,7 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, a *us
 	*/
 
 	err = s.ExecuteTemplate(w, "graph-single", &graphSingle{
-		Head:  head,
+		Meta:  m,
 		Entry: e,
 		Prev:  prev,
 		Next:  next,

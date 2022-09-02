@@ -6,47 +6,31 @@ import (
 	"sacer/go/entry"
 	"sacer/go/entry/types/tree"
 	"sacer/go/server"
-	"sacer/go/server/users"
-	"sacer/go/server/head"
-	"sacer/go/server/paths"
+	"sacer/go/server/meta"
 )
 
 type indecsMain struct {
-	Head    *head.Head
+	Meta    *meta.Meta
 	Tree    *tree.Tree
 	Recents entry.Entries
 }
 
-func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
-	path, err := paths.Sanitize(r.URL.Path)
-	if err != nil {
-		http.NotFound(w, r)
-		return
-	}
+func Main(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+	t := s.Trees["indecs"].Access(m.Auth.Subscriber)[m.Lang]
 
-	lang := head.Lang(r.Host)
+	m.Title = "indecs"
+	m.Section = "indecs"
 
-	t := s.Trees["indecs"].Access(a.Sub())[lang]
-
-	head := &head.Head{
-		Title:   "indecs",
-		Section: "indecs",
-		Path:    path,
-		Host:    r.Host,
-		Entry:   t,
-		Auth:    a,
-		Options: head.GetOptions(r),
-	}
-	err = head.Process()
+	err := m.Process(t)
 	if err != nil {
 		s.Log.Println(err)
 		return
 	}
 
-	recents := s.Recents["indecs"].Access(a.Sub())[lang]
+	recents := s.Recents["indecs"].Access(m.Auth.Subscriber)[m.Lang]
 
 	err = s.ExecuteTemplate(w, "indecs-main", &indecsMain{
-		Head:    head,
+		Meta:    m,
 		Tree:    t,
 		Recents: recents.Offset(0, 100),
 	})

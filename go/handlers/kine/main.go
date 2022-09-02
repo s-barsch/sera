@@ -8,39 +8,33 @@ import (
 	"sacer/go/entry/tools"
 	"sacer/go/entry/types/tree"
 	"sacer/go/server"
-	"sacer/go/server/users"
-	"sacer/go/server/head"
+	"sacer/go/server/meta"
 	"strings"
 )
 
 type kineMain struct {
-	Head    *head.Head
+	Meta    *meta.Meta
 	Tree    *tree.Tree
 	Entries entry.Entries
 }
 
-func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
-	lang := head.Lang(r.Host)
-	t := s.Trees["kine"].Access(a.Sub())[lang]
-	head := &head.Head{
-		Title:   strings.Title(tools.KineName[lang]),
-		Section: "kine",
-		Path:    r.URL.Path,
-		Host:    r.Host,
-		Entry:   t,
-		Auth:    a,
-		Options: head.GetOptions(r),
-	}
-	err := head.Process()
+func Main(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+
+	t := s.Trees["kine"].Access(m.Auth.Subscriber)[m.Lang]
+
+	m.Title = strings.Title(tools.KineName[m.Lang])
+	m.Section = "kine"
+
+	err := m.Process(t)
 	if err != nil {
 		s.Log.Println(err)
 		return
 	}
 
-	entries := s.Recents["kine"].Access(a.Sub())[lang]
+	entries := s.Recents["kine"].Access(m.Auth.Subscriber)[m.Lang]
 
 	err = s.ExecuteTemplate(w, "kine-main", &kineMain{
-		Head:    head,
+		Meta:    m,
 		Tree:    t,
 		Entries: entries,
 	})

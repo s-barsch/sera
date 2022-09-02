@@ -7,31 +7,24 @@ import (
 	"sacer/go/entry"
 	"sacer/go/entry/types/tree"
 	"sacer/go/server"
-	"sacer/go/server/users"
-	"sacer/go/server/head"
+	"sacer/go/server/meta"
 )
 
 type graphMain struct {
-	Head    *head.Head
+	Meta    *meta.Meta
 	Tree    *tree.Tree
 	Entries entry.Entries
 	Prev    *tree.Tree
 	//Next *entry.Hold
 }
 
-func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
-	lang := head.Lang(r.Host)
-	t := s.Trees["graph"].Access(a.Sub())[lang]
-	head := &head.Head{
-		Title:   "Graph",
-		Section: "graph",
-		Path:    r.URL.Path,
-		Host:    r.Host,
-		Entry:   t,
-		Auth:    a,
-		Options: head.GetOptions(r),
-	}
-	err := head.Process()
+func Main(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+	t := s.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
+
+	m.Title = "Graph"
+	m.Section = "graph"
+
+	err := m.Process(t)
 	if err != nil {
 		s.Log.Println(err)
 		return
@@ -39,10 +32,10 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Aut
 
 	prev, _ := yearSiblings(lastTree(t))
 
-	entries := s.Recents["graph"].Access(a.Sub())[lang]
+	entries := s.Recents["graph"].Access(m.Auth.Subscriber)[m.Lang]
 
 	err = s.ExecuteTemplate(w, "graph-main", &graphMain{
-		Head:    head,
+		Meta:    m,
 		Tree:    t,
 		Entries: entries.Offset(0, 100),
 		Prev:    prev,

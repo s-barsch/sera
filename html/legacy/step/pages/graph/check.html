@@ -1,13 +1,13 @@
 {{define "graph-check"}}
 
-  {{template "head" .Head}}
+  {{template "head" .Meta}}
   {{template "top" .}}
 
   <main class="margin">
-  {{template "sitemap-hold" (holdArg .Tree false .Head.Lang)}}
+  {{template "sitemap-hold" (holdArg .Tree false .Meta.Lang)}}
   </main>
 
-  {{template "bot" .Head}}
+  {{template "bot" .Meta}}
 
 {{end}}
 

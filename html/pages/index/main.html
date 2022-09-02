@@ -1,8 +1,8 @@
 {{define "index-main"}}
-{{template "head" .Head}}
+{{template "head" .Meta}}
 {{template "top" .}}
 
-{{/*template "subnav" (snav .Tree 0 .Head.Lang)*/}}
+{{/*template "subnav" (snav .Tree 0 .Meta.Lang)*/}}
 
     <div class="section-title__box section-title--index">
         <h1 class="section-title">
@@ -12,11 +12,11 @@
 
     {{range .Phanes.Trees}}
     <li>
-      <a href="{{.Perma $.Head.Lang}}">{{.Title $.Head.Lang}}</a>
+      <a href="{{.Perma $.Meta.Lang}}">{{.Title $.Meta.Lang}}</a>
     </li>
     {{end}}
 
-    {{template "bot" .Head}}
+    {{template "bot" .Meta}}
 {{end}}
 
 

@@ -1,20 +1,20 @@
 {{define "indecs-hold"}}
-{{template "head" .Head}}
+{{template "head" .Meta}}
 {{template "top" .}}
 
-{{template "subnav" (snavArg .Hold "" .Head.Lang)}}
+{{template "subnav" (snavArg .Hold "" .Meta.Lang)}}
 
 <main class="margin">
 
-    {{$isMain := eq (.Head.Title) "Index"}}
+    {{$isMain := eq (.Meta.Title) "Index"}}
 
     {{if $isMain}}
     <div class="section-title-box {{if $isMain}}index-title{{end}}">
         <h1 class="section-title">
-            {{.Hold.Info.Title .Head.Lang}}
+            {{.Hold.Info.Title .Meta.Lang}}
         </h1>
         <h4 class="section-lead">
-            {{var "indecs-subtitle" .Head.Lang}}
+            {{var "indecs-subtitle" .Meta.Lang}}
         </h4>
     </div>
     {{else}}
@@ -23,11 +23,11 @@
         {{if eq .Hold.Depth 1}}
         <span class="fleuron">❧</span>
         {{end}}
-            {{.Hold.Info.Field "title-hyph" .Head.Lang}}
+            {{.Hold.Info.Field "title-hyph" .Meta.Lang}}
         </h1>
     {{end}}
 
-    {{$lang := .Head.Lang}}
+    {{$lang := .Meta.Lang}}
     {{range .Hold.Els}}
         {{template "hold-el" (elArg . false $lang)}}
     {{end}}
@@ -43,14 +43,14 @@
 
         <section class="indecs-map">
             <h2 id="map" class="subtitle">
-              <a href="#map">{{var "map" .Head.Lang}}</a>
+              <a href="#map">{{var "map" .Meta.Lang}}</a>
             </h2>
 
             <div class="center">
-            {{var "indecsmap" .Head.Lang}}
+            {{var "indecsmap" .Meta.Lang}}
             </div>
             <div style="text-align:right;">
-                <small>{{var "map-info" .Head.Lang}}</small>
+                <small>{{var "map-info" .Meta.Lang}}</small>
             </div>
         </section>
 
@@ -64,13 +64,13 @@
             {{end}}
 
             <div class="more-tip">
-                {{var "serial-link" .Head.Lang}}
+                {{var "serial-link" .Meta.Lang}}
             </div>
         </section>
     {{end}}
 </main>
 
-{{template "bot" .Head}}
+{{template "bot" .Meta}}
 {{end}}
 
 {{define "hold-el"}}

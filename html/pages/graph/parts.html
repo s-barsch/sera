@@ -16,13 +16,13 @@
 {{define "prev-next-year"}}
     <div class="prev-next-year graph-tip">
         {{with .Next}}
-            &larr; <a href="{{.Perma $.Head.Lang}}">{{.Title $.Head.Lang}}</a>
+            &larr; <a href="{{.Perma $.Meta.Lang}}">{{.Title $.Meta.Lang}}</a>
         {{else}}
             &nbsp;
         {{end}}
         {{with .Prev}}
             <span class="right">
-            <a href="{{.Perma $.Head.Lang}}">{{.Title $.Head.Lang}}</a>
+            <a href="{{.Perma $.Meta.Lang}}">{{.Title $.Meta.Lang}}</a>
             &rarr; 
             </span>
         {{end}}

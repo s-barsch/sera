@@ -1,8 +1,8 @@
 {{define "about"}}
-{{template "head" .Head}}
+{{template "head" .Meta}}
 {{template "top" .}}
 
-{{template "subnav" (snavArg .Hold "" .Head.Lang)}}
+{{template "subnav" (snavArg .Hold "" .Meta.Lang)}}
 
 <main class="margin">
 
@@ -11,7 +11,7 @@
         {{if $isMain}}
     <div class="section-title-box {{if $isMain}}indecs-title{{end}}">
         <h1 class="section-title">
-        {{if eq .Head.Lang "de"}}
+        {{if eq .Meta.Lang "de"}}
         Über
         {{else}}
         About
@@ -20,11 +20,11 @@
     </div>
         {{else}}
     <h1 class="about-title">
-        {{.Hold.Info.Title .Head.Lang}}
+        {{.Hold.Info.Title .Meta.Lang}}
     </h1>
         {{end}}
 
-    {{$lang := .Head.Lang}}
+    {{$lang := .Meta.Lang}}
     {{if $isMain}}
     <div class="cols">
     <div class="col">
@@ -33,7 +33,7 @@
         {{template "about-el" (elArg . false $lang)}}
     {{end}}
     {{if $isMain}}</div>{{end}}{{if $isMain}}<div class="col">
-    {{template "chamomile" .Head.Lang}}
+    {{template "chamomile" .Meta.Lang}}
     </div>
     </div>
     {{end}}
@@ -44,11 +44,11 @@
     </div>
     {{end}}
 
-    {{template "edit-link-hold" (holdArg .Hold false .Head.Lang)}}
+    {{template "edit-link-hold" (holdArg .Hold false .Meta.Lang)}}
 
 </main>
 
-{{template "bot" .Head}}
+{{template "bot" .Meta}}
 {{end}}
 
 {{define "about-el"}}

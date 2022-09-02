@@ -1,6 +1,6 @@
 {{define "graph-single"}}
 
-{{template "head" .Head}}
+{{template "head" .Meta}}
 {{template "top" .}}
 
     <div id="swipe-bar-bg">
@@ -13,7 +13,7 @@
     </div>
 
     <div id="nav-tip">
-        {{template "tip" var "navigate" .Head.Lang}}
+        {{template "tip" var "navigate" .Meta.Lang}}
     </div>
 
     <div id="preload">
@@ -22,29 +22,29 @@
     var pageVars = {
         type   : "graph-el",
         nav : {
-            parent : "{{.Entry.Parent.Perma .Head.Lang}}",
-            next   : "{{if .Next}}{{.Next.Perma .Head.Lang}}{{end}}",
-            prev   : "{{if .Prev}}{{.Prev.Perma .Head.Lang}}{{end}}"
+            parent : "{{.Entry.Parent.Perma .Meta.Lang}}",
+            next   : "{{if .Next}}{{.Next.Perma .Meta.Lang}}{{end}}",
+            prev   : "{{if .Prev}}{{.Prev.Perma .Meta.Lang}}{{end}}"
         }
     };
     </script>
 
-    {{template "bot" .Head}}
+    {{template "bot" .Meta}}
 
 {{end}}}
 
 {{define "graph-single-part"}}
-    {{template "subnav" (snav .Entry.Parent .Entry.Id .Head.Lang)}}
+    {{template "subnav" (snav .Entry.Parent .Entry.Id .Meta.Lang)}}
 
-    {{$eL := eL .Entry .Head.Lang}}
+    {{$eL := eL .Entry .Meta.Lang}}
 
     <div id="body">
         <div class="title-bar">
             <span class="graph-date">
                 {{.Entry.Date.Format "2. 1."}}
             </span>
-            <span class="el-title{{if eq (.Entry.Info.Title .Head.Lang) ""}} acr-title{{end}}">
-                {{.Entry.Title .Head.Lang}}
+            <span class="el-title{{if eq (.Entry.Info.Title .Meta.Lang) ""}} acr-title{{end}}">
+                {{.Entry.Title .Meta.Lang}}
             </span>
         </div>
         {{if eq .Entry.Type "text"}}
@@ -75,21 +75,21 @@
     <nav id="prev-next" class="prev-next-nav">
         <div>
             {{with .Prev}}
-            &larr; <a href="{{.Perma $.Head.Lang}}">{{.Title $.Head.Lang}}</a>
+            &larr; <a href="{{.Perma $.Meta.Lang}}">{{.Title $.Meta.Lang}}</a>
             {{else}}
             &nbsp;
             {{end}}
 
             {{with .Next}}
             <span class="right">
-                <a href="{{.Perma $.Head.Lang}}">{{.Title $.Head.Lang}}</a>
+                <a href="{{.Perma $.Meta.Lang}}">{{.Title $.Meta.Lang}}</a>
                 &rarr;
             </span>
             {{end}}
         </div>
         <!--
           <div class="prev-next-tip">
-          {{var "navigate" $.Head.Lang}}
+          {{var "navigate" $.Meta.Lang}}
           </div>
         -->
     </nav>

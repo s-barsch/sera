@@ -1,4 +1,4 @@
-package head
+package meta
 
 import (
 	"net/http"
@@ -124,7 +124,7 @@ func (o *Option) isValid(value string) bool {
 }
 
 /*
-func (h *Head) SwitchTypeTitle(lang string) string {
+func (m *Meta) SwitchTypeTitle(lang string) string {
 	switch lang {
 	case "en":
 		if h.Dark() {
@@ -141,7 +141,7 @@ func (h *Head) SwitchTypeTitle(lang string) string {
 	}
 }
 
-func (h *Head) SwitchColorsTitle(lang string) string {
+func (m *Meta) SwitchColorsTitle(lang string) string {
 	switch lang {
 	case "en":
 		if h.Colors() == "dark" {

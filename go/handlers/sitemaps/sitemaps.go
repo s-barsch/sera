@@ -7,8 +7,7 @@ import (
 	"sacer/go/entry"
 	//"sacer/go/entry/types/tree"
 	"sacer/go/server"
-	"sacer/go/server/users"
-	"sacer/go/server/head"
+	"sacer/go/server/meta"
 	"time"
 )
 
@@ -18,9 +17,9 @@ type SitemapEntry struct {
 	Priority string
 }
 
-func Index(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
+func Index(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	domain := "https://sacer.site"
-	if head.Lang(r.Host) == "en" {
+	if m.Lang == "en" {
 		domain = "https://en.sacer.site"
 	}
 	err := s.Templates.ExecuteTemplate(w, "sitemap-index", struct{ Domain string }{domain})
@@ -30,8 +29,8 @@ func Index(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Au
 	}
 }
 
-func Core(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
-	entries, err := coreEntries(s, head.Lang(r.Host))
+func Core(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+	entries, err := coreEntries(s, m.Lang)
 	if err != nil {
 		http.Error(w, "internal error", 500)
 		log.Println(err)
@@ -45,10 +44,10 @@ func Core(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Aut
 	}
 }
 
-func Trees(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
-	entries := categoryTrees(s, head.Lang(r.Host))
+func Trees(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+	entries := categoryTrees(s, m.Lang)
 
-	entries = append(entries, holdEntries(s, head.Lang(r.Host))...)
+	entries = append(entries, holdEntries(s, m.Lang)...)
 
 	err := s.Templates.ExecuteTemplate(w, "sitemap", entries)
 	if err != nil {
@@ -58,7 +57,7 @@ func Trees(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Au
 }
 
 /*
-func IndexEls(w http.ResponseWriter, r *http.Request) {
+func IndexEls(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	entries, err := smEls("indecs", lang(r.Host))
 	if err != nil {
 		http.Error(w, "internal error", 500)
@@ -74,8 +73,8 @@ func IndexEls(w http.ResponseWriter, r *http.Request) {
 }
 */
 
-func Kines(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
-	entries, err := elEntries(s, "kine", head.Lang(r.Host))
+func Kines(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+	entries, err := elEntries(s, "kine", m.Lang)
 	if err != nil {
 		http.Error(w, "internal error", 500)
 		log.Println(err)
@@ -89,8 +88,8 @@ func Kines(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Au
 	}
 }
 
-func GraphEntries(s *server.Server, w http.ResponseWriter, r *http.Request, a *users.Auth) {
-	entries, err := elEntries(s, "graph", head.Lang(r.Host))
+func GraphEntries(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+	entries, err := elEntries(s, "graph", m.Lang)
 	if err != nil {
 		http.Error(w, "internal error", 500)
 		log.Println(err)
@@ -111,7 +110,7 @@ func coreEntries(s *server.Server, lang string) ([]*SitemapEntry, error) {
 
 	tGraph := s.Recents["graph"].Access(false)[lang][0].Date()
 
-	for _, v := range head.NewNav(lang) {
+	for _, v := range meta.NewNav(lang) {
 		priority := "0.9"
 		lastmod := time.Time{}
 

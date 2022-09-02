@@ -1,7 +1,7 @@
 {{define "graph-month"}}
-{{template "head" .Head}}
+{{template "head" .Meta}}
 {{template "top" .}}
-{{template "subnav" (snav .Tree 0 .Head.Lang)}}
+{{template "subnav" (snav .Tree 0 .Meta.Lang)}}
 
 <div id="graph">
 {{with .Tree}}
@@ -9,7 +9,7 @@
     <section id="{{$monthNum}}" class="month">
         <h2 class="monthpage-title">
           <span class="monthyear">{{.Date.Format "2006"}},</span>
-          {{monthLang .Date $.Head.Lang}}
+          {{monthLang .Date $.Meta.Lang}}
           {{if .Info.Private}}
           <span class="right month-private">
             👻
@@ -21,17 +21,17 @@
         {{with .SummaryPrivate}}{{template "summary" .}}{{end}}
         {{end}}
         {{if eq (index .Info "alpha") "true"}}
-          {{template "unedited-hint" (var "alpha-month" $.Head.Lang)}}
+          {{template "unedited-hint" (var "alpha-month" $.Meta.Lang)}}
         {{end}}
-        {{template "object-groups" (esL .Entries $.Head.Lang)}}
+        {{template "object-groups" (esL .Entries $.Meta.Lang)}}
     </section>
 {{end}}
 </div>
 
-{{template "subnav-fixed" (snav .Tree 0 .Head.Lang)}}
+{{template "subnav-fixed" (snav .Tree 0 .Meta.Lang)}}
 
 {{template "prev-next-year" .}}
 {{template "graph-arr" .Tree}}
 
-{{template "bot" .Head}}
+{{template "bot" .Meta}}
 {{end}}
