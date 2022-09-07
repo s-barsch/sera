@@ -37,6 +37,7 @@ func Router(s *server.Server) *mux.Router {
 	r.PathPrefix("/register").HandlerFunc(makeHandler(s, auth.Route))
 	r.PathPrefix("/subscribe").HandlerFunc(makeHandler(s, auth.Route))
 	r.PathPrefix("/login").HandlerFunc(makeHandler(s, auth.Route))
+	r.PathPrefix("/account").HandlerFunc(makeHandler(s, auth.Route))
 
 	r.HandleFunc("/sitemaps.xml", makeHandler(s, sitemaps.Route))
 	r.PathPrefix("/sitemaps").HandlerFunc(makeHandler(s, sitemaps.Route))

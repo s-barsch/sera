@@ -10,6 +10,10 @@ type Auth struct {
 	Subscriber bool
 }
 
+func (a *Auth) SignedIn() bool {
+	return a.User == nil
+}
+
 func (u *Users) CheckAuth(r *http.Request) (*Auth, error) {
 	na := noAuth()
 	c, err := r.Cookie("session")

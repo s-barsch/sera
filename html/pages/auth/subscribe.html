@@ -1,3 +1,13 @@
+{{define "account-extra"}}
+{{template "head" .Meta}}
+{{template "top" .}}
+<h1 class="about-title subscribe-title">
+        {{.Tree.Title .Meta.Lang}}
+    </h1>
+    Email: <code>{{.Meta.Auth.User.Mail}}</code>
+{{template "bot" .Meta}}
+{{end}}
+
 {{define "register-extra"}}
 {{template "head" .Meta}}
 {{template "top" .}}

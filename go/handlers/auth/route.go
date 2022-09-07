@@ -27,7 +27,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Met
 		Subscribe(s, w, r)
 	case "/api/register":
 		Register(s, w, r)
-	case "/subscribe", "/login", "/register":
+	case "/subscribe", "/login", "/register", "/account":
 		SysPage(s, w, r, m)
 	default:
 		println(path)
