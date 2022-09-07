@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"fmt"
 	"sacer/go/entry/tools"
-	"sacer/go/entry/tools/hyph"
 	"sacer/go/entry/tools/markup"
 	"unicode/utf8"
 )
@@ -35,7 +34,6 @@ func RenderScript(langs Langs) *Script {
 	notes := langs.OwnRender()
 
 	langs.Markdown()
-	langs.Hyphenate()
 	notes.MarkdownHyphenate()
 
 	return &Script{
@@ -77,14 +75,7 @@ func (notes Footnotes) MarkdownHyphenate() {
 	for l, _ := range tools.Langs {
 		for i, _ := range notes[l] {
 			notes[l][i] = tools.MarkdownNoP(notes[l][i])
-			notes[l][i] = hyph.Hyphenate(notes[l][i], l)
 		}
-	}
-}
-
-func (langs Langs) Hyphenate() {
-	for l, _ := range tools.Langs {
-		langs[l] = hyph.Hyphenate(langs[l], l)
 	}
 }
 

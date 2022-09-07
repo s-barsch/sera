@@ -3,7 +3,6 @@ package info
 import (
 	"fmt"
 	"sacer/go/entry/tools"
-	"sacer/go/entry/tools/hyph"
 	"strings"
 )
 
@@ -15,18 +14,13 @@ func (i Info) Hyphenate() {
 		case "transcript", "summary", "summary-private", "alt", "slug":
 			continue
 		case "title":
-			i[newKey(key, "display")] = makeBrackets(hyphenate(key, value))
+			i[newKey(key, "display")] = makeBrackets(value)
 			i[key] = strings.Replace(value, "|", "", -1)
-			i[newKey(key, "hyph")] = hyphenate(key, i[key])
+			i[newKey(key, "hyph")] = i[key]
 		case "caption":
 			i[key] = tools.MarkdownNoP(value)
-			i[key] = hyphenate(key, value)
 		}
 	}
-}
-
-func hyphenate(key, value string) string {
-	return hyph.Hyphenate(value, keyLang(key))
 }
 
 func newKey(key, newName string) string {

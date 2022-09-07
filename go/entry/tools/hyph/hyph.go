@@ -13,6 +13,7 @@ func Hyphenate(str, lang string) string {
 	if lp == nil {
 		panic("language patterns not set.")
 	}
+	return str
 	return lp[lang].HyphenateText(str)
 }
 

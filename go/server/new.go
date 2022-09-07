@@ -2,12 +2,9 @@ package server
 
 import (
 	"flag"
-	"fmt"
 	"log"
 	"os"
 	p "path/filepath"
-	"sacer/go/entry/tools"
-	"sacer/go/entry/tools/hyph"
 	"sacer/go/server/tmpl"
 	"sacer/go/server/users"
 	"text/template"
@@ -99,11 +96,6 @@ func LoadServer() (*Server, error) {
 		}
 	}
 
-	err := LoadHyphPatterns(s.Paths.Root)
-	if err != nil {
-		return nil, err
-	}
-
 	u, err := users.LoadUsers()
 	if err != nil {
 		return nil, err
@@ -133,18 +125,4 @@ func (s *Server) Debug(err error) {
 	if s.Flags.Debug {
 		s.Log.Println(err)
 	}
-}
-
-func LoadHyphPatterns(root string) error {
-	patterns := hyph.LangPatterns{}
-	for lang, _ := range tools.Langs {
-		path := fmt.Sprintf("%v/go/entry/tools/hyph/hyph-%v.dic", root, lang)
-		p, err := hyph.LoadPattern(path)
-		if err != nil {
-			return err
-		}
-		patterns[lang] = p
-	}
-	hyph.SetLangPatterns(patterns)
-	return nil
 }
