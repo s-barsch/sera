@@ -32,13 +32,15 @@
     {{if not .Auth.Subscriber}}
     <a href="/subscribe" class="subscribe-top">Subscribe</a>
     {{end}}
-    {{if not .Auth.User}}
+    {{if not .Auth.SignedIn}}
     <a href="/login">Login</a>
     {{end}}
     <a class="option" href="{{.O.Colors.NextLink}}"
                       data-next="{{.O.Colors.CurrentLink}}" >◧</a>
     <!--<a class="option" ref=/opt/colors/dark data-next=/opt/colors/light><svg style="vertical-align:middle;height:20px;display:none" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></a>-->
+    {{if .Auth.SignedIn}}
     <a href="/account">Account</a>
+    {{end}}
     <!--
     <a href="/profile"><svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSvgIcon-root MuiSvgIcon-fontSizeLarge css-zjt8k" style="height:20px;vertical-align:middle;" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="PersonIcon" tabindex="-1" title="Person"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg></a>
     -->

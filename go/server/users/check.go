@@ -11,7 +11,7 @@ type Auth struct {
 }
 
 func (a *Auth) SignedIn() bool {
-	return a.User == nil
+	return a.User.Mail != ""
 }
 
 func (u *Users) CheckAuth(r *http.Request) (*Auth, error) {
