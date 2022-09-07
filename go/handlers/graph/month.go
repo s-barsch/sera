@@ -40,12 +40,10 @@ func MonthPage(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta
 		return
 	}
 
-	head := &meta.Meta{
-		Title:   monthTitle(t, m.Lang),
-		Section: "graph",
-	}
+	m.Title = monthTitle(t, m.Lang)
+	m.Section = "graph"
 
-	err = head.Process(t)
+	err = m.Process(t)
 	if err != nil {
 		s.Log.Println(err)
 		return
