@@ -22,7 +22,7 @@ function initPlayers(videos) {
 
 function playerOptions(video) {
   const lang = document.documentElement.lang;
-  const captionsActive = displayCaptions(video, lang);
+  const captionsActive = true;//displayCaptions(video, lang);
   return {
     disableContextMenu: false,
     captions: { active: captionsActive, language: lang, update: false },
