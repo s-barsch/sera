@@ -19,7 +19,7 @@
 {{end}}
 
 {{template "icons"}}
-<link rel="manifest" href="/manifest.json">
+<link rel="manifest" href="{{if eq "de" $lang}}/de{{end}}/manifest.json">
 
 {{range $i, $l := .Langs}}
     {{with $l}}

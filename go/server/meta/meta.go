@@ -40,7 +40,7 @@ func NewMeta(users *users.Users, r *http.Request) (*Meta, error) {
 	return &Meta{
 		Auth:	 auth,
 		Path:	 path,
-		Lang:    Lang(r.Host),
+		Lang:    Lang(path),
 		Options: GetOptions(r),
 	}, nil
 }

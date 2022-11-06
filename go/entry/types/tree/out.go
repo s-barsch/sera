@@ -3,6 +3,7 @@ package tree
 import (
 	"fmt"
 	"sacer/go/entry"
+	"sacer/go/entry/tools"
 )
 
 func (t *Tree) CombinedTitle(lang string) string {
@@ -34,8 +35,6 @@ func (t *Tree) Perma(lang string) string {
 	switch t.Section() {
 	case "graph":
 		return graphPerma(t, lang)
-	case "komposita":
-		return kompositaPerma(t, lang)
 	case "kine":
 		return kinePerma(t, lang)
 	case "indecs":
@@ -61,16 +60,13 @@ func extraPerma(t *Tree, lang string) string {
 	return fmt.Sprintf("/%v", t.Title(lang))
 }
 
-func kompositaPerma(t *Tree, lang string) string {
-	return fmt.Sprintf("komposita/%v-%v", t.Slug(lang), t.Hash())
-}
-
 func kinePerma(t *Tree, lang string) string {
+	start := fmt.Sprintf("/%v/%v", lang, tools.KineName[lang])
 	switch l := t.Level(); {
 	case l == 0:
-		return "/kine"
+		return start
 	case l == 1:
-		last := "/kine"
+		last := start
 		year := t
 		if d := len(year.Trees); d > 0 {
 			month := year.Trees[d-1]
@@ -80,7 +76,7 @@ func kinePerma(t *Tree, lang string) string {
 		}
 		return last
 	case l == 2:
-		last := "/kine"
+		last := start
 		if l := len(t.Entries()); l > 0 {
 			last = t.Entries()[l-1].Perma(lang)
 		}
@@ -94,7 +90,7 @@ func kinePerma(t *Tree, lang string) string {
 func graphPerma(t *Tree, lang string) string {
 	switch l := t.Level(); {
 	case l == 0:
-		return "/graph"
+		return fmt.Sprintf("%v/graph", lang)
 	case l == 2:
 		fallthrough
 	case l < 3:
@@ -116,7 +112,7 @@ func indecsPerma(t *Tree, lang string) string {
 }
 
 func (t *Tree) Path(lang string) string {
-	path := ""
+	path := "/" + lang
 	for _, tree := range t.Chain() {
 		path += "/" + tree.Slug(lang)
 	}

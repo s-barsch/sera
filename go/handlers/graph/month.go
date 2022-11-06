@@ -63,10 +63,10 @@ func monthTitle(t *tree.Tree, lang string) string {
 }
 
 func getMonthId(p *paths.Path) (int64, error) {
-	if len(p.Chain) != 2 {
+	if len(p.Chain) != 3 {
 		return 0, fmt.Errorf("Could not parse month id: %v", p.Raw)
 	}
-	t, err := time.Parse("2006-01", fmt.Sprintf("%v-%v", p.Chain[1], p.Slug))
+	t, err := time.Parse("2006-01", fmt.Sprintf("%v-%v", p.Chain[2], p.Slug))
 	if err != nil {
 		return 0, err
 	}

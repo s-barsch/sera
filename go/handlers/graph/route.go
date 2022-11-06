@@ -32,8 +32,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Met
 	path := paths.Split(p)
 
 	switch {
-
-	case p == "/graph":
+	case p == "/en/graph" || p == "/de/graph":
 		MainRedirect(s, w, r, m)
 		//Main(s, w, r, a)
 

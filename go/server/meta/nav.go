@@ -42,31 +42,28 @@ func sectionLang(section, lang string) string {
 }
 
 func NewNav(lang string) Nav {
-	about := tools.AboutName[lang]
-	kine := tools.KineName[lang]
+	aboutName := tools.AboutName[lang]
+	kineName := tools.KineName[lang]
+	homeLang := ""
+	if lang == "de" {
+		homeLang = "de"
+	}
 	return []*Link{
 		&Link{
 			Name: "home",
-			Href: "/",
+			Href: fmt.Sprintf("/%v", homeLang),
 		},
 		&Link{
 			Name: "graph",
-			Href: "/graph",
+			Href: fmt.Sprintf("/%v/graph", lang),
 		},
 		&Link{
-			Name: kine,
-			//Href: "/cine",
-			Href: fmt.Sprintf("/%v", kine),
+			Name: kineName,
+			Href: fmt.Sprintf("/%v/%v", lang, kineName),
 		},
-		/*
 		&Link{
-			Name: "index",
-			Href: "/index",
-		},
-		*/
-		&Link{
-			Name: about,
-			Href: fmt.Sprintf("/%v", sanitize.Name(about)),
+			Name: aboutName,
+			Href: fmt.Sprintf("/%v/%v", lang, sanitize.Name(aboutName)),
 		},
 	}
 }

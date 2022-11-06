@@ -6,13 +6,14 @@ import (
 	"sacer/go/entry/types/text"
 )
 
-func Lang(host string) string {
-	switch host {
-	case "en.sacer", "en.sacer.site":
+func Lang(path string) string {
+	if len(path) < 3 {
 		return "en"
-	default:
+	}
+	if path[:3] == "/de" {
 		return "de"
 	}
+	return "en"
 }
 
 type Langs []*Link
@@ -37,9 +38,8 @@ func (m *Meta) MakeLangs(e entry.Entry) Langs {
 func getLink(m *Meta, e entry.Entry, lang string) *Link {
 	href := ""
 
-	// TODO: still necessary?
-	if e == nil { //|| (lang != "de" && !isTranslated(e, lang)) {
-		href = m.HostAddress(lang)
+	if e == nil {
+		href = fmt.Sprintf("%v/%v", m.HostAddress(), homeAddress[lang])
 	} else {
 		href = m.AbsoluteURL(e.Perma(lang), lang)
 	}
@@ -61,14 +61,14 @@ func isTranslated(e entry.Entry, lang string) bool {
 }
 
 func (m *Meta) AbsoluteURL(path, lang string) string {
-	return fmt.Sprintf("%v%v", m.HostAddress(lang), path)
+	return fmt.Sprintf("%v%v", m.HostAddress(), path)
 }
 
-func (m *Meta) HostAddress(lang string) string {
+func (m *Meta) HostAddress() string {
 	if isLocal(m.Host) {
-		return fmt.Sprintf("http://%v", hostsLocal[lang])
+		return "http://sacer"
 	}
-	return fmt.Sprintf("https://%v", hosts[lang])
+	return "https://sacer.site"
 }
 
 func (m *Meta) IsLocal() bool {
@@ -77,18 +77,13 @@ func (m *Meta) IsLocal() bool {
 
 func isLocal(host string) bool {
 	switch host {
-	case "sacer", "en.sacer":
+	case "", "sacer", "en.sacer":
 		return true
 	}
 	return false
 }
 
-var hosts = map[string]string{
-	"de": "sacer.site",
-	"en": "en.sacer.site",
-}
-
-var hostsLocal = map[string]string{
-	"de": "sacer",
-	"en": "en.sacer",
+var homeAddress = map[string]string{
+	"de": "de",
+	"en": "",
 }

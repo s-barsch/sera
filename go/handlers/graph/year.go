@@ -1,6 +1,7 @@
 package graph
 
 import (
+	"fmt"
 	"net/http"
 	"sacer/go/server"
 	"sacer/go/server/meta"
@@ -10,7 +11,8 @@ import (
 )
 
 func MainRedirect(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	http.Redirect(w, r, "/graph/2021/04", 307)
+	path := fmt.Sprintf("/%v/graph/2021/04", m.Lang)
+	http.Redirect(w, r, path, 307)
 }
 /*
 func MainRedirect(s *server.Server, w http.ResponseWriter, r *http.Request) {

@@ -7,8 +7,8 @@ import (
 	"sacer/go/handlers/extra"
 	"sacer/go/handlers/front"
 	"sacer/go/handlers/graph"
-	"sacer/go/handlers/indecs"
-	"sacer/go/handlers/index"
+	//"sacer/go/handlers/indecs"
+	//"sacer/go/handlers/index"
 	"sacer/go/handlers/kine"
 	"sacer/go/handlers/sitemaps"
 	"sacer/go/server"
@@ -21,15 +21,17 @@ func Router(s *server.Server) *mux.Router {
 	r := mux.NewRouter().StrictSlash(true)
 
 	r.HandleFunc("/", makeHandler(s, front.Main))
-	r.PathPrefix("/index").HandlerFunc(makeHandler(s, index.Route))
-	r.PathPrefix("/graph").HandlerFunc(makeHandler(s, graph.Route))
-	r.PathPrefix("/kine").HandlerFunc(makeHandler(s, kine.Route))
-	r.PathPrefix("/cine").HandlerFunc(makeHandler(s, kine.Route))
-	r.PathPrefix("/ueber").HandlerFunc(makeHandler(s, about.Route))
-	r.PathPrefix("/about").HandlerFunc(makeHandler(s, about.Route))
+	r.HandleFunc("/de", makeHandler(s, front.Main))
+	r.PathPrefix("/de/graph").HandlerFunc(makeHandler(s, graph.Route))
+	r.PathPrefix("/en/graph").HandlerFunc(makeHandler(s, graph.Route))
+	r.PathPrefix("/de/kine").HandlerFunc(makeHandler(s, kine.Route))
+	r.PathPrefix("/en/cine").HandlerFunc(makeHandler(s, kine.Route))
+	r.PathPrefix("/de/ueber").HandlerFunc(makeHandler(s, about.Route))
+	r.PathPrefix("/en/about").HandlerFunc(makeHandler(s, about.Route))
 
-	r.PathPrefix("/indecs").HandlerFunc(makeHandler(s, indecs.Route))
 	/*
+		r.PathPrefix("/indecs").HandlerFunc(makeHandler(s, indecs.Route))
+		r.PathPrefix("/index").HandlerFunc(makeHandler(s, index.Route))
 		r.PathPrefix("/part/").HandlerFunc(makeHandler(s, graph.ElPart))
 	*/
 
@@ -57,7 +59,8 @@ func Router(s *server.Server) *mux.Router {
 	r.HandleFunc("/sw.js", makeHandler(s, extra.ServiceWorker))
 	r.HandleFunc("/robots.txt", makeHandler(s, extra.RobotsFiles))
 
-	r.PathPrefix("/manifest.json").HandlerFunc(makeHandler(s, extra.Manifest))
+	r.PathPrefix("/de/manifest.json").HandlerFunc(makeHandler(s, extra.Manifest))
+	r.PathPrefix("/en/manifest.json").HandlerFunc(makeHandler(s, extra.Manifest))
 
 	fileRoutes := map[string]string{
 		"/BingSiteAuth.xml": "/static/seo/BingSiteAuth.xml",
@@ -90,11 +93,3 @@ func makeHandler(s *server.Server, fn func(*server.Server, http.ResponseWriter, 
 		fn(s, w, r, m)
 	}
 }
-
-
-
-// auth
-// options
-// lang
-// path
-

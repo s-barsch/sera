@@ -18,9 +18,16 @@ type SubFile struct {
 	Name, Size string
 }
 
-func (p *Path) Section() string {
+func (p *Path) Lang() string {
 	if len(p.Chain) > 0 {
-		section := p.Chain[0]
+		return p.Chain[0]
+	}
+	return ""
+}
+
+func (p *Path) Section() string {
+	if len(p.Chain) > 1 {
+		section := p.Chain[1]
 		if section == "cine" {
 			return "kine"
 		}
