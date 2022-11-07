@@ -1,12 +1,13 @@
 package info
 
 import (
-	"gopkg.in/yaml.v2"
 	"io"
 	"os"
 	p "path/filepath"
 	"sacer/go/entry/tools"
 	"strings"
+
+	"gopkg.in/yaml.v3"
 )
 
 func (i Info) Copy() Info {
@@ -80,7 +81,6 @@ func UnmarshalInfo(input []byte) (Info, error) {
 	return i, nil
 }
 
-
 func (i Info) Clean() {
 	for k, v := range i {
 		delete(i, k)
@@ -95,5 +95,3 @@ func (i Info) Clean() {
 		i[key] = strings.TrimSpace(v)
 	}
 }
-
-

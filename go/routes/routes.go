@@ -10,7 +10,7 @@ import (
 	//"sacer/go/handlers/indecs"
 	//"sacer/go/handlers/index"
 	"sacer/go/handlers/kine"
-	"sacer/go/handlers/sitemaps"
+	//"sacer/go/handlers/sitemaps"
 	"sacer/go/server"
 	"sacer/go/server/meta"
 
@@ -21,6 +21,8 @@ func Router(s *server.Server) *mux.Router {
 	r := mux.NewRouter().StrictSlash(true)
 
 	r.HandleFunc("/", makeHandler(s, front.Main))
+	r.HandleFunc("/en", makeHandler(s, front.Rewrites))
+	r.HandleFunc("/en/", makeHandler(s, front.Rewrites))
 	r.HandleFunc("/de", makeHandler(s, front.Main))
 	r.PathPrefix("/de/graph").HandlerFunc(makeHandler(s, graph.Route))
 	r.PathPrefix("/en/graph").HandlerFunc(makeHandler(s, graph.Route))
@@ -47,9 +49,10 @@ func Router(s *server.Server) *mux.Router {
 	r.PathPrefix("/login").HandlerFunc(makeHandler(s, auth.Route))
 	r.PathPrefix("/account").HandlerFunc(makeHandler(s, auth.Route))
 
+	/*
 	r.HandleFunc("/sitemaps.xml", makeHandler(s, sitemaps.Route))
 	r.PathPrefix("/sitemaps").HandlerFunc(makeHandler(s, sitemaps.Route))
-
+	*/
 
 	r.PathPrefix("/legal").HandlerFunc(makeHandler(s, extra.Extra))
 	r.PathPrefix("/impressum").HandlerFunc(makeHandler(s, extra.Extra))

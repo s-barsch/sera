@@ -77,7 +77,7 @@ func (m *Meta) IsLocal() bool {
 
 func isLocal(host string) bool {
 	switch host {
-	case "", "sacer", "en.sacer":
+	case "sacer", "en.sacer":
 		return true
 	}
 	return false

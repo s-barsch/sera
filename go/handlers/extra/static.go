@@ -59,10 +59,6 @@ func StaticFiles(s *server.Server, w http.ResponseWriter, r *http.Request, m *me
 }
 
 func RobotsFiles(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	path := fmt.Sprintf(
-		"%v/static/seo/robots-%v.txt",
-		s.Paths.Data,
-		m.Lang,
-	)
+	path := fmt.Sprintf("%v/static/seo/robots-de.txt", s.Paths.Data)
 	serveStatic(w, r, path)
 }
