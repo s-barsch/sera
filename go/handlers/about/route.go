@@ -25,3 +25,15 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Met
 
 	ServeAbout(s, w, r, m, t)
 }
+
+func Rewrites(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+	folder := m.Path[:len("/about")]
+	if folder == "/about" {
+		http.Redirect(w, r, "/en" + m.Path, 301)
+		return
+	}
+	if folder == "/ueber" {
+		http.Redirect(w, r, "/de" + m.Path, 301)
+		return
+	}
+}

@@ -29,6 +29,12 @@ func Router(s *server.Server) *mux.Router {
 	r.PathPrefix("/de/ueber").HandlerFunc(makeHandler(s, about.Route))
 	r.PathPrefix("/en/about").HandlerFunc(makeHandler(s, about.Route))
 
+	r.PathPrefix("/ueber").HandlerFunc(makeHandler(s, about.Rewrites))
+	r.PathPrefix("/about").HandlerFunc(makeHandler(s, about.Rewrites))
+	r.PathPrefix("/kine").HandlerFunc(makeHandler(s, kine.Rewrites))
+	r.PathPrefix("/cine").HandlerFunc(makeHandler(s, kine.Rewrites))
+	r.PathPrefix("/graph").HandlerFunc(makeHandler(s, graph.Rewrites))
+
 	/*
 		r.PathPrefix("/indecs").HandlerFunc(makeHandler(s, indecs.Route))
 		r.PathPrefix("/index").HandlerFunc(makeHandler(s, index.Route))
@@ -60,7 +66,7 @@ func Router(s *server.Server) *mux.Router {
 	r.HandleFunc("/robots.txt", makeHandler(s, extra.RobotsFiles))
 
 	r.PathPrefix("/de/manifest.json").HandlerFunc(makeHandler(s, extra.Manifest))
-	r.PathPrefix("/en/manifest.json").HandlerFunc(makeHandler(s, extra.Manifest))
+	r.PathPrefix("/manifest.json").HandlerFunc(makeHandler(s, extra.Manifest))
 
 	fileRoutes := map[string]string{
 		"/BingSiteAuth.xml": "/static/seo/BingSiteAuth.xml",
