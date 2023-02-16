@@ -29,7 +29,7 @@
     --text-width: 37rem;
 }
 
-:root {
+.light-theme() {
     --color-bg:         white;
     --color-fg:         black;
     --color-fg-true:    black;
@@ -41,7 +41,7 @@
     --color-red-second: hsl(0, 100%, 37%);
 }
 
-[data-colors="dark"] {
+.dark-theme() {
     --color-bg:         hsl(0, 0%, 3%);
     --color-fg:         hsl(0, 0%, 93%);
     --color-fg-true:    white; 
@@ -52,6 +52,33 @@
     --color-red-first:  hsl(0, 100%, 51%);
     --color-red-second: hsl(0, 100%, 55%);
 }
+
+:root {
+    .light-theme;
+}
+
+[data-colors="dark"] {
+    .dark-theme;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        .dark-theme;
+    }
+    [data-colors="dark"] {
+        .light-theme;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        .light-theme;
+    }
+    [data-colors="dark"] {
+        .dark-theme;
+    }
+}
+
 
 :root {
     --fontfamily-mono:          "CMU Typewriter", "Courier New", monospace;
