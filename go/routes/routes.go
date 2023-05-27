@@ -7,6 +7,7 @@ import (
 	"sacer/go/handlers/extra"
 	"sacer/go/handlers/front"
 	"sacer/go/handlers/graph"
+
 	//"sacer/go/handlers/indecs"
 	//"sacer/go/handlers/index"
 	"sacer/go/handlers/kine"
@@ -50,8 +51,8 @@ func Router(s *server.Server) *mux.Router {
 	r.PathPrefix("/account").HandlerFunc(makeHandler(s, auth.Route))
 
 	/*
-	r.HandleFunc("/sitemaps.xml", makeHandler(s, sitemaps.Route))
-	r.PathPrefix("/sitemaps").HandlerFunc(makeHandler(s, sitemaps.Route))
+		r.HandleFunc("/sitemaps.xml", makeHandler(s, sitemaps.Route))
+		r.PathPrefix("/sitemaps").HandlerFunc(makeHandler(s, sitemaps.Route))
 	*/
 
 	r.PathPrefix("/legal").HandlerFunc(makeHandler(s, extra.Extra))
@@ -79,7 +80,7 @@ func Router(s *server.Server) *mux.Router {
 		path := fileRoutes[query]
 		r.HandleFunc(query, func(w http.ResponseWriter, r *http.Request) {
 			r.URL.Path = path
-			m, err := meta.NewMeta(s.Users, r)
+			m, err := meta.NewMeta(s.Users, w, r)
 			if err != nil {
 				s.Log.Println(err)
 			}
@@ -93,7 +94,7 @@ func Router(s *server.Server) *mux.Router {
 
 func makeHandler(s *server.Server, fn func(*server.Server, http.ResponseWriter, *http.Request, *meta.Meta)) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		m, err := meta.NewMeta(s.Users, r)
+		m, err := meta.NewMeta(s.Users, w, r)
 		if err != nil {
 			s.Log.Println(err)
 			http.Error(w, "internal error", 502)

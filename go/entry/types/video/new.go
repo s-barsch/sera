@@ -3,7 +3,6 @@ package video
 import (
 	"fmt"
 	"io/ioutil"
-	"github.com/alfg/mp4"
 	"os"
 	"path/filepath"
 	"sacer/go/entry"
@@ -17,6 +16,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/alfg/mp4"
 )
 
 type Video struct {
@@ -28,16 +29,16 @@ type Video struct {
 
 	Sources []*Source
 
-	Captions  []string
+	Captions   []string
 	Transcript *text.Script
 
-	Duration float64 
+	Duration float64
 }
 
 type Source struct {
-	Path string
-	Size int64
-	Resolution string 
+	Path       string
+	Size       int64
+	Resolution string
 }
 
 func (s *Source) Mbyte() int64 {
@@ -97,7 +98,7 @@ func NewVideo(path string, parent entry.Entry) (*Video, error) {
 		Captions:   captions,
 		Transcript: script,
 		Sources:    sources,
-		Duration: duration,
+		Duration:   duration,
 	}, nil
 }
 
@@ -113,7 +114,6 @@ func getCaptions(path string) []string {
 	}
 	return langs
 }
-
 
 func getSources(path string) ([]*Source, error) {
 
@@ -137,7 +137,7 @@ func getSources(path string) ([]*Source, error) {
 	dir := filepath.Dir(path)
 
 	for _, fi := range l {
-		if fi.IsDir() {
+		if fi.IsDir() || tools.IsNameSys(fi.Name()) {
 			continue
 		}
 
@@ -185,8 +185,8 @@ func getSource(path string) (*Source, error) {
 		return nil, err
 	}
 	return &Source{
-		Path: name,
-		Size: fi.Size(),
+		Path:       name,
+		Size:       fi.Size(),
 		Resolution: strconv.Itoa(res),
 	}, nil
 }
@@ -201,14 +201,12 @@ func stripResolution(name string) string {
 
 type Desc []os.FileInfo
 
-
 func (a Desc) Len() int      { return len(a) }
 func (a Desc) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
 
 func (a Desc) Less(i, j int) bool {
 	return a[i].Name() > a[j].Name()
 }
-
 
 /*
 func getDuration(path string) (uint32, error) {
@@ -232,6 +230,5 @@ func Mp4Duration(path string) (float64, error) {
 	if err != nil {
 		return 0, err
 	}
-	return float64(f.Moov.Mvhd.Duration/1000), nil
+	return float64(f.Moov.Mvhd.Duration / 1000), nil
 }
-

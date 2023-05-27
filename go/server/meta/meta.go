@@ -2,18 +2,19 @@ package meta
 
 import (
 	"fmt"
-	"sacer/go/entry"
-	"sacer/go/server/users"
-	"sacer/go/server/paths"
 	"net/http"
+	"sacer/go/entry"
+	"sacer/go/server/paths"
+	"sacer/go/server/users"
+	usr "sacer/go/server/users"
 )
 
 type Meta struct {
-	Auth    *users.Auth
+	Auth    *usr.Auth
 	Options *Options
 
-	Path    string
-	Host    string
+	Path string
+	Host string
 
 	Title   string
 	Section string
@@ -26,9 +27,10 @@ type Meta struct {
 	Schema *Schema
 }
 
-func NewMeta(users *users.Users, r *http.Request) (*Meta, error) {
+func NewMeta(users *usr.Users, w http.ResponseWriter, r *http.Request) (*Meta, error) {
 	auth, err := users.CheckAuth(r)
 	if err != nil && err != http.ErrNoCookie {
+		usr.DeleteSessionCookie(w)
 		return nil, err
 	}
 
@@ -38,8 +40,8 @@ func NewMeta(users *users.Users, r *http.Request) (*Meta, error) {
 	}
 
 	return &Meta{
-		Auth:	 auth,
-		Path:	 path,
+		Auth:    auth,
+		Path:    path,
 		Lang:    Lang(path),
 		Options: GetOptions(r),
 	}, nil

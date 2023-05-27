@@ -2,9 +2,9 @@ package auth
 
 import (
 	"net/http"
-	"sacer/go/server/paths"
 	"sacer/go/server"
 	"sacer/go/server/meta"
+	"sacer/go/server/paths"
 )
 
 func Route(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
@@ -34,4 +34,3 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Met
 		http.NotFound(w, r)
 	}
 }
-

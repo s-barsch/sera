@@ -1,12 +1,12 @@
 package users
 
 import (
-	"net/http"
 	"fmt"
+	"net/http"
 )
 
 type Auth struct {
-	User	   *User
+	User       *User
 	Subscriber bool
 }
 
@@ -42,7 +42,7 @@ func (u *Users) CheckAuth(r *http.Request) (*Auth, error) {
 
 	sub := isSubscriber(user)
 	user.PaypalID = ""
-	
+
 	return &Auth{
 		User:       user,
 		Subscriber: sub,
@@ -59,4 +59,10 @@ func isSubscriber(u *User) bool {
 	return u.PaypalID != ""
 }
 
-
+func DeleteSessionCookie(w http.ResponseWriter) {
+	http.SetCookie(w, &http.Cookie{
+		Name:   "session",
+		Path:   "/",
+		MaxAge: -1,
+	})
+}
