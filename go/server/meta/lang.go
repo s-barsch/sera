@@ -41,7 +41,7 @@ func getLink(m *Meta, e entry.Entry, lang string) *Link {
 	if e == nil {
 		href = fmt.Sprintf("%v/%v", m.HostAddress(), homeAddress[lang])
 	} else {
-		href = m.AbsoluteURL(e.Perma(lang), lang)
+		href = e.Perma(lang)
 	}
 
 	return &Link{

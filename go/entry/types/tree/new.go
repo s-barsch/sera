@@ -3,12 +3,12 @@ package tree
 import (
 	p "path/filepath"
 	"sacer/go/entry"
-	"sacer/go/entry/tools"
 	"sacer/go/entry/file"
 	"sacer/go/entry/info"
+	"sacer/go/entry/tools"
 	"sacer/go/entry/types/image"
-	"sacer/go/entry/types/text"
 	"sacer/go/entry/types/set"
+	"sacer/go/entry/types/text"
 	"time"
 )
 
@@ -26,7 +26,7 @@ type Tree struct {
 
 	Footnotes text.Footnotes
 
-	Summary	 	   *text.Script
+	Summary        *text.Script
 	SummaryPrivate *text.Script
 }
 
@@ -42,6 +42,11 @@ func (t *Tree) Copy() *Tree {
 		Trees:   t.Trees,
 
 		Cover: t.Cover,
+
+		Footnotes: t.Footnotes,
+
+		Summary:        t.Summary,
+		SummaryPrivate: t.SummaryPrivate,
 	}
 }
 
@@ -99,7 +104,7 @@ func ReadTree(path string, parent *Tree) (*Tree, error) {
 	summaryPrivate := getScript(inf, "summary-private")
 
 	s.Summary = summary
-	s.SummaryPrivate = summaryPrivate 
+	s.SummaryPrivate = summaryPrivate
 
 	s.entries = entries
 	s.Trees = trees
@@ -170,5 +175,3 @@ func extractCover(es entry.Entries) (*image.Image, entry.Entries) {
 	}
 	return nil, es
 }
-
-
