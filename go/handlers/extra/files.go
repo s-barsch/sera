@@ -5,7 +5,6 @@ import (
 	"log"
 	"net/http"
 	p "path/filepath"
-	"time"
 	"sacer/go/entry"
 	"sacer/go/entry/tools"
 	"sacer/go/entry/types/set"
@@ -14,6 +13,7 @@ import (
 	"sacer/go/server/meta"
 	"sacer/go/server/paths"
 	"strings"
+	"time"
 )
 
 /*
@@ -127,19 +127,14 @@ func getEntry(t *tree.Tree, path *paths.Path) (entry.Entry, error) {
 }
 
 func getMonthHash(path *paths.Path) (string, error) {
-	if len(path.Chain) != 2 {
+	if len(path.Chain) != 3 {
 		return "", fmt.Errorf("getMonthEntry: wrong month format. %v", path.Raw)
-	} 
+	}
 
-	date, err := time.Parse("200601--150405", path.Chain[1] + path.Slug + "--000001")
+	date, err := time.Parse("200601--150405", path.Chain[2]+path.Slug+"--000001")
 	if err != nil {
 		return "", err
 	}
 
 	return tools.ToB16(date), nil
 }
-
-
-
-
-
