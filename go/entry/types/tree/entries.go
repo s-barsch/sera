@@ -2,18 +2,30 @@ package tree
 
 import (
 	"fmt"
+	"os"
+	p "path/filepath"
+	"regexp"
 	"sacer/go/entry"
 	"sacer/go/entry/tools"
 	"sacer/go/entry/tools/read"
 	"sacer/go/entry/tools/sort"
-	"sacer/go/entry/types"
+	media "sacer/go/entry/types"
 	"sacer/go/entry/types/set"
+	gosort "sort"
 )
+
+func isMergeTree(path string) bool {
+	return regexp.MustCompile("\\d{2}-\\d{4}").MatchString(p.Base(path))
+}
 
 func readEntries(path string, parent *Tree) (entry.Entries, error) {
 	fnErr := &tools.Err{
 		Path: path,
 		Func: "readEntries",
+	}
+
+	if isMergeTree(path) {
+		return readMergeTreeEntries(path, parent)
 	}
 
 	files, err := read.GetFiles(path, true)
@@ -29,6 +41,32 @@ func readEntries(path string, parent *Tree) (entry.Entries, error) {
 	}
 
 	return sort.SortEntries(path, entries)
+}
+
+func readMergeTreeEntries(path string, parent *Tree) (entry.Entries, error) {
+	l, err := os.ReadDir(path)
+	if err != nil {
+		return nil, err
+	}
+	dirsAsc(l)
+	entries := entry.Entries{}
+	for _, dir := range l {
+		if !dir.IsDir() {
+			continue
+		}
+		es, err := readEntries(p.Join(path, dir.Name()), parent)
+		if err != nil {
+			return entries, err
+		}
+		entries = append(entries, es...)
+	}
+	return sort.SortEntries(path, entries)
+}
+
+func dirsAsc(files []os.DirEntry) {
+	gosort.Slice(files, func(i, j int) bool {
+		return files[i].Name() < files[j].Name()
+	})
 }
 
 func readEntryFiles(files []*read.FileInfo, parent *Tree) (entry.Entries, error) {

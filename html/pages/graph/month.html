@@ -9,7 +9,7 @@
     <section id="{{$monthNum}}" class="month">
         <h2 class="monthpage-title">
           <span class="monthyear">{{.Date.Format "2006"}},</span>
-          {{monthLang .Date $.Meta.Lang}}
+          {{.Info.Title $.Meta.Lang}}
           {{if .Info.Private}}
           <span class="right month-private">
             👻
