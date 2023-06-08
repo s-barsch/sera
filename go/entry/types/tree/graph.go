@@ -47,7 +47,6 @@ func readGraphInfo(path string, parent *Tree) (info.Info, error) {
 			i["label"] = fmt.Sprintf("%v–%v", i["label"], tools.Abbr(m["de"]))
 			i["label-en"] = fmt.Sprintf("%v–%v", i["label-en"], tools.Abbr(m["en"]))
 			setBothLang(i, "slug", "11-12")
-			fmt.Println(i)
 		}
 
 	}

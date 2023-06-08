@@ -66,7 +66,13 @@ func getMonthId(p *paths.Path) (int64, error) {
 	if len(p.Chain) != 3 {
 		return 0, fmt.Errorf("Could not parse month id: %v", p.Raw)
 	}
-	t, err := time.Parse("2006-01", fmt.Sprintf("%v-%v", p.Chain[2], p.Slug))
+
+	slug := p.Slug
+	if paths.IsMergedMonths(p.Slug) {
+		slug = slug[:2]
+	}
+
+	t, err := time.Parse("2006-01", fmt.Sprintf("%v-%v", p.Chain[2], slug))
 	if err != nil {
 		return 0, err
 	}

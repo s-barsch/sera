@@ -51,6 +51,9 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Met
 }
 
 func isMonth(str string) bool {
+	if paths.IsMergedMonths(str) {
+		return true
+	}
 	if len(str) != 2 {
 		return false
 	}

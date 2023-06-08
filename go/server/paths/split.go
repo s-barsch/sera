@@ -1,6 +1,7 @@
 package paths
 
 import (
+	"regexp"
 	"sacer/go/entry/tools"
 	"strings"
 )
@@ -101,10 +102,18 @@ func removeLast(chain []string) []string {
 	return chain[:len(chain)-1]
 }
 
+func IsMergedMonths(str string) bool {
+	return regexp.MustCompile("\\d{2}-\\d{2}").MatchString(str)
+}
+
 func splitName(str string) (slug, hash string) {
 	i := strings.LastIndex(str, "-")
 	if i < 0 {
 		return discernName(str)
+	}
+	// for merged months "11-12"
+	if i == 2 && IsMergedMonths(str) {
+		return str, ""
 	}
 	return str[:i], str[i+1:]
 }

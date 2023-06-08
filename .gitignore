@@ -21,3 +21,4 @@ token
 users.db
 .DS_Store
 sacer
+__debug_bin

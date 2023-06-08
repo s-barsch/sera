@@ -131,7 +131,12 @@ func getMonthHash(path *paths.Path) (string, error) {
 		return "", fmt.Errorf("getMonthEntry: wrong month format. %v", path.Raw)
 	}
 
-	date, err := time.Parse("200601--150405", path.Chain[2]+path.Slug+"--000001")
+	slug := path.Slug
+	if paths.IsMergedMonths(path.Slug) {
+		slug = slug[:2]
+	}
+
+	date, err := time.Parse("200601--150405", path.Chain[2]+slug+"--000001")
 	if err != nil {
 		return "", err
 	}
