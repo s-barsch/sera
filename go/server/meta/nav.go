@@ -49,19 +49,19 @@ func NewNav(lang string) Nav {
 		homeLang = "de"
 	}
 	return []*Link{
-		&Link{
+		{
 			Name: "home",
 			Href: fmt.Sprintf("/%v", homeLang),
 		},
-		&Link{
+		{
 			Name: "graph",
 			Href: fmt.Sprintf("/%v/graph", lang),
 		},
-		&Link{
+		{
 			Name: kineName,
 			Href: fmt.Sprintf("/%v/%v", lang, kineName),
 		},
-		&Link{
+		{
 			Name: aboutName,
 			Href: fmt.Sprintf("/%v/%v", lang, sanitize.Name(aboutName)),
 		},
