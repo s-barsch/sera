@@ -3,12 +3,12 @@ package gmext
 import (
 	"github.com/yuin/goldmark"
 	gast "github.com/yuin/goldmark/ast"
-	"sacer/go/entry/tools/markup/gmext/ast"
 	"github.com/yuin/goldmark/parser"
 	"github.com/yuin/goldmark/renderer"
 	"github.com/yuin/goldmark/renderer/html"
 	"github.com/yuin/goldmark/text"
 	"github.com/yuin/goldmark/util"
+	"sacer/go/entry/tools/markup/gmext/ast"
 	"unicode/utf8"
 )
 

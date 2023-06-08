@@ -91,7 +91,7 @@ func GetTranscript(i info.Info) *text.Script {
 
 func extractTranscript(i info.Info) text.Langs {
 	langs := text.Langs{}
-	for l, _ := range tools.Langs {
+	for l := range tools.Langs {
 		key := "transcript"
 		if l != "de" {
 			key += "-" + l
@@ -100,4 +100,3 @@ func extractTranscript(i info.Info) text.Langs {
 	}
 	return langs
 }
-

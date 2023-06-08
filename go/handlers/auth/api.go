@@ -1,13 +1,13 @@
 package auth
 
 import (
-	"sacer/go/server"
-	"sacer/go/server/users"
-	"net/http"
-	"fmt"
 	"encoding/json"
+	"fmt"
 	"io"
 	"log"
+	"net/http"
+	"sacer/go/server"
+	"sacer/go/server/users"
 )
 
 func Subscribe(s *server.Server, w http.ResponseWriter, r *http.Request) {
@@ -43,25 +43,25 @@ func RequestLogin(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	user, err := s.Users.LookupUser(mail)
 	if err != nil {
 		log.Println(err)
-		return 
+		return
 	}
 
-	key, err:= users.GenerateLoginKey()
+	key, err := users.GenerateLoginKey()
 	if err != nil {
 		log.Println(err)
-		return 
+		return
 	}
 
 	err = s.Users.StoreVerify(mail, key)
 	if err != nil {
 		log.Println(err)
-		return 
+		return
 	}
 
 	err = send(user.Mail, fmt.Sprintf(loginTmpl, users.EncodeMailKey(mail, key)))
 	if err != nil {
 		log.Println(err)
-		return 
+		return
 	}
 	println("apperantly i sent")
 	// redirect page
@@ -112,4 +112,3 @@ func storeToCookie(w http.ResponseWriter, mail, key string) {
 		MaxAge: 15552000,
 	})
 }
-

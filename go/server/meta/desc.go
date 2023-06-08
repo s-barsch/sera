@@ -2,27 +2,26 @@ package meta
 
 import (
 	"sacer/go/entry"
-/*
-	"strings"
-*/
-)
+	/*
+	   "strings"
+	*/)
 
 func (m *Meta) GetDesc(e entry.Entry) string {
-		if m.Desc != "" {
-			return m.Desc
-		}
+	if m.Desc != "" {
+		return m.Desc
+	}
 
-		if e != nil {
-			return e.Info().Field("description", m.Lang)
-		}
-		return ""
-		/*
+	if e != nil {
+		return e.Info().Field("description", m.Lang)
+	}
+	return ""
+	/*
 		d = m.MakeElDesc()
 		if d != "" {
 			return d
 		}
 		return d
-		*/
+	*/
 }
 
 func (m *Meta) MakeElDesc() string {

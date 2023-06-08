@@ -1,6 +1,7 @@
 package graph
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"sacer/go/entry/types/tree"
@@ -8,14 +9,13 @@ import (
 	"sacer/go/server/meta"
 	"sacer/go/server/paths"
 	"time"
-	"fmt"
 )
 
 type monthPage struct {
-	Meta    *meta.Meta
-	Tree    *tree.Tree
-	Prev    *tree.Tree
-	Next    *tree.Tree
+	Meta *meta.Meta
+	Tree *tree.Tree
+	Prev *tree.Tree
+	Next *tree.Tree
 }
 
 func MonthPage(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta, p *paths.Path) {
@@ -50,8 +50,8 @@ func MonthPage(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta
 	}
 
 	err = s.ExecuteTemplate(w, "graph-month", &monthPage{
-		Meta:	m,
-		Tree:   t,
+		Meta: m,
+		Tree: t,
 	})
 	if err != nil {
 		log.Println(err)
@@ -73,5 +73,3 @@ func getMonthId(p *paths.Path) (int64, error) {
 	// Years start on second 00, months on 01, days on 02. Hence, add a second.
 	return t.Add(time.Second).Unix(), nil
 }
-
-

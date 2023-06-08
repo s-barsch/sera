@@ -1,8 +1,8 @@
 package hyph
 
 import (
-	"os"
 	"io"
+	"os"
 )
 
 var lp LangPatterns

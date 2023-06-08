@@ -115,10 +115,10 @@ func ReadInlineStatics(root string) (map[string]string, error) {
 	inlines := map[string]string{}
 
 	sources := map[string]string{
-		"css":         "/css/dist/main.css",
+		"css": "/css/dist/main.css",
 		/*
-		"indecsmap-de": "/static/svg/indecsmap-de.svg",
-		"indecsmap-en": "/static/svg/indecsmap-en.svg",
+			"indecsmap-de": "/static/svg/indecsmap-de.svg",
+			"indecsmap-en": "/static/svg/indecsmap-en.svg",
 		*/
 		"logo-mobile": "/static/svg/logo/sacferal-c.svg",
 		"logo-desk":   "/static/svg/logo/sacerferal-c.svg",

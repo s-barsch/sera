@@ -4,9 +4,9 @@ import (
 	"log"
 	"net/http"
 	"sacer/go/entry"
+	"sacer/go/entry/types/tree"
 	"sacer/go/server"
 	"sacer/go/server/meta"
-	"sacer/go/entry/types/tree"
 )
 
 func Rewrites(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
@@ -14,7 +14,7 @@ func Rewrites(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.
 }
 
 type frontMain struct {
-	Meta	 *meta.Meta
+	Meta     *meta.Meta
 	Index    entry.Entries
 	Graph    entry.Entries
 	Kine     entry.Entries
@@ -50,12 +50,12 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta
 	months = newmonths
 
 	err = s.ExecuteTemplate(w, "front", &frontMain{
-		Meta:  m,
-		Index: indecs.Limit(s.Vars.FrontSettings.Index),
-		Graph: graph.Limit(s.Vars.FrontSettings.Graph),
-		Kine:  kine.Limit(10),
+		Meta:   m,
+		Index:  indecs.Limit(s.Vars.FrontSettings.Index),
+		Graph:  graph.Limit(s.Vars.FrontSettings.Graph),
+		Kine:   kine.Limit(10),
 		Months: months,
-		Log:   s.Recents["log"].Access(true)["de"].Limit(s.Vars.FrontSettings.Log),
+		Log:    s.Recents["log"].Access(true)["de"].Limit(s.Vars.FrontSettings.Log),
 	})
 	if err != nil {
 		log.Println(err)

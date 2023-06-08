@@ -3,15 +3,14 @@ package image
 import (
 	"fmt"
 	"io/ioutil"
+	p "path/filepath"
 	"strconv"
 	"strings"
-	p "path/filepath"
 )
 
 type dims struct {
 	width, height int
 }
-
 
 func dimsFile(path string) string {
 	return p.Join(cacheFolder(path), "dims", p.Base(path)+".txt")
@@ -49,5 +48,3 @@ func loadDims(path string) (*dims, error) {
 
 	return &dims{width: width, height: height}, nil
 }
-
-

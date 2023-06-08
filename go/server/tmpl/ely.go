@@ -7,7 +7,7 @@ import (
 
 type NotesLang struct {
 	Footnotes *text.Footnotes
-	Lang  string
+	Lang      string
 }
 
 func (nL NotesLang) FN() *text.Footnotes {
@@ -21,7 +21,7 @@ func (nL NotesLang) L() string {
 func NewNotesLang(fn *text.Footnotes, lang string) *NotesLang {
 	return &NotesLang{
 		Footnotes: fn,
-		Lang:  lang,
+		Lang:      lang,
 	}
 }
 

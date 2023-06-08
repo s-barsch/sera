@@ -2,8 +2,8 @@ package users
 
 import (
 	"encoding/base64"
-	"strings"
 	"fmt"
+	"strings"
 )
 
 func EncodeMailKey(mail, key string) string {
@@ -32,4 +32,3 @@ func GenerateSessionKey() (string, error) {
 func GenerateLoginKey() (string, error) {
 	return GenerateRandomStringURLSafe(32)
 }
-

@@ -15,7 +15,6 @@ func max(a, b int) int {
 // Given a word, returns a list of pieces, broken at the possible
 // hyphenation points. Note: returned pieces may reuse underlying storage
 // of the input word.
-//
 func (h *Patterns) FindHyphens(word string) []int {
 	// Short words aren't hyphenated.
 	if utf8.RuneCountInString(word) <= 4 {

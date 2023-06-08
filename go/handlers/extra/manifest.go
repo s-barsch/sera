@@ -2,8 +2,8 @@ package extra
 
 import (
 	"net/http"
-	"sacer/go/server/meta"
 	"sacer/go/server"
+	"sacer/go/server/meta"
 )
 
 func Manifest(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
@@ -12,11 +12,11 @@ func Manifest(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.
 	m.Desc = s.Vars.Lang("site", m.Lang)
 
 	/*
-	err := m.Process(nil)
-	if err != nil {
-		s.Log.Println(err)
-		return
-	}
+		err := m.Process(nil)
+		if err != nil {
+			s.Log.Println(err)
+			return
+		}
 	*/
 
 	err := s.ExecuteTemplate(w, "manifest", m)

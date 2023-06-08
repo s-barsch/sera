@@ -152,7 +152,7 @@ func getScript(i info.Info, key string) *text.Script {
 
 func extractScript(i info.Info, key string) text.Langs {
 	langs := text.Langs{}
-	for l, _ := range tools.Langs {
+	for l := range tools.Langs {
 		if l != "de" {
 			key += "-" + l
 		}

@@ -43,7 +43,9 @@ func (es Entries) Limit(n int) Entries {
 	c := 0
 	nu := Entries{}
 	for i := 0; c < n; i++ {
-		if i + 1 >= l { return nu }
+		if i+1 >= l {
+			return nu
+		}
 
 		nu = append(nu, es[i])
 

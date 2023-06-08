@@ -9,7 +9,6 @@ import (
 	"sacer/go/server/users"
 	"text/template"
 
-
 	"github.com/rjeczalik/notify"
 )
 
@@ -80,7 +79,7 @@ func NewServer() *Server {
 		Local:  *local,
 		Reload: *reload,
 		Mobile: *mobile,
-		Info: *info,
+		Info:   *info,
 	}
 
 	return s

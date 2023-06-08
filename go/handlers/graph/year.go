@@ -3,10 +3,10 @@ package graph
 import (
 	"fmt"
 	"net/http"
+	"sacer/go/entry/types/tree"
 	"sacer/go/server"
 	"sacer/go/server/meta"
 	"sacer/go/server/paths"
-	"sacer/go/entry/types/tree"
 	"time"
 )
 
@@ -14,6 +14,7 @@ func MainRedirect(s *server.Server, w http.ResponseWriter, r *http.Request, m *m
 	path := fmt.Sprintf("/%v/graph/2021/04", m.Lang)
 	http.Redirect(w, r, path, 307)
 }
+
 /*
 func MainRedirect(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	graph := s.Trees["graph"].Access(true)["de"]
@@ -57,5 +58,3 @@ func getYearId(year string) (int64, error) {
 	}
 	return t.Unix(), nil
 }
-
-

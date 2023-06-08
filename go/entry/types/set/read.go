@@ -49,4 +49,3 @@ func readEntryFiles(files []*read.FileInfo, parent entry.Entry) (entry.Entries, 
 
 	return entries, nil
 }
-

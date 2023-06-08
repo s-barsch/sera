@@ -2,8 +2,8 @@ package video
 
 import (
 	"fmt"
-	"path/filepath"
 	"math"
+	"path/filepath"
 	"sacer/go/entry/tools"
 )
 
@@ -18,7 +18,7 @@ func (v *Video) Ideal(res string) float64 {
 		rate = 0.075
 	}
 	mb := v.Duration * rate
-	return math.Round(mb*10)/10
+	return math.Round(mb*10) / 10
 }
 
 func (v *Video) Location(res string) (string, error) {
@@ -46,7 +46,7 @@ func (v *Video) CaptionPath(lang string) string {
 	if v.parent.Type() == "set" {
 		parent = v.parent.Perma(lang)
 	}
-	return tools.VTTPath(parent + "/files", stripResolution(v.file.NameNoExt()), lang)
+	return tools.VTTPath(parent+"/files", stripResolution(v.file.NameNoExt()), lang)
 }
 
 func (v *Video) CaptionsOn(captionsLang, pageLang string) bool {

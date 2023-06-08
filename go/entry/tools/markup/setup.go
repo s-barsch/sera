@@ -1,9 +1,9 @@
 package markup
 
 import (
-	//"bufio"
-	//"strings"
-	//"bytes"
+// "bufio"
+// "strings"
+// "bytes"
 )
 
 func Render(input string) (string, []string) {
@@ -14,12 +14,12 @@ func Render(input string) (string, []string) {
 	}
 
 	/*
-	buf := bytes.Buffer{}
+		buf := bytes.Buffer{}
 
-	for s.Scan() {
-		buf.WriteString(r.renderSnippet(s.Text()))
-		buf.WriteString("\n")
-	}
+		for s.Scan() {
+			buf.WriteString(r.renderSnippet(s.Text()))
+			buf.WriteString("\n")
+		}
 	*/
 
 	return r.renderSnippet(input), r.Footnotes
@@ -46,8 +46,8 @@ func (p *Parser) Parse(input string) *Text {
 		tt.WriteString(p.parseSnippet(l))
 	}
 
-	*/
-	/*
+*/
+/*
 	for i := 0; i < len(t.Lines); {
 		if i > 0 && t.Lines[i] != "" && t.Lines[i-1] != "" {
 			t.Lines[i-1] += "<br>" + t.Lines[i]
@@ -68,9 +68,9 @@ func (p *Parser) Parse(input string) *Text {
 	}
 
 	t.Footnotes = p.Footnotes
-	*/
+*/
 
-	/*
+/*
 	return &Text{
 		Footnotes: p.Footnotes,
 		Lines: lines,
@@ -96,5 +96,3 @@ func NewParser(path string, medium) (*Parser, error) {
 	}, nil
 }
 */
-
-

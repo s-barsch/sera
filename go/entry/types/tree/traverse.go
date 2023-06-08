@@ -3,8 +3,8 @@ package tree
 import (
 	"sacer/go/entry"
 	"sacer/go/entry/types/image"
-	"sacer/go/entry/types/text"
 	"sacer/go/entry/types/set"
+	"sacer/go/entry/types/text"
 )
 
 func (ts Trees) Reverse() Trees {
@@ -140,8 +140,6 @@ func makeBlur(es entry.Entries, newParent entry.Entry) entry.Entries {
 	return l
 }
 
-
-
 // langs
 
 func (t *Tree) Translated(lang string) *Tree {
@@ -157,7 +155,7 @@ func (t *Tree) Translated(lang string) *Tree {
 	}
 
 	nt.entries = langOnly(nt.entries, lang, nt)
-	nt.Trees = trees 
+	nt.Trees = trees
 
 	return nt
 }
@@ -189,9 +187,9 @@ func isNotTranslated(e entry.Entry, lang string) bool {
 		return false
 	}
 	/*
-	if e.Info().Title(lang) == "" {
-		return true
-	}
+		if e.Info().Title(lang) == "" {
+			return true
+		}
 	*/
 	return lang != "de" && e.Info()["translated"] == "false"
 }

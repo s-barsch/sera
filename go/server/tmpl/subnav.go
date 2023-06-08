@@ -33,13 +33,13 @@ func (s *Subnav) NavTrees() tree.Trees {
 			return t.Trees.Reverse()
 		}
 		/*
-		// if only one month
-		if len(t.Trees) < 2 {
-			return nil
-		}
+			// if only one month
+			if len(t.Trees) < 2 {
+				return nil
+			}
 		*/
 	}
-	if t.Section() =="kine" {
+	if t.Section() == "kine" {
 		return t.Trees.Reverse()
 		if t.Level() == 1 {
 			return t.Trees.Reverse()

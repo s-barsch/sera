@@ -67,5 +67,5 @@ func isYearPage(str string) bool {
 }
 
 func Rewrites(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	http.Redirect(w, r, "/de" + m.Path, 301)
+	http.Redirect(w, r, "/de"+m.Path, 301)
 }

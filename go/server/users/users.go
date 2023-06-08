@@ -11,8 +11,8 @@ type Users struct {
 }
 
 type User struct {
-	Name string
-	Mail string
+	Name     string
+	Mail     string
 	PaypalID string `json:"subscriptionID"`
 }
 
@@ -21,7 +21,7 @@ func LoadUsers() (*Users, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &Users{ db: db }, nil
+	return &Users{db: db}, nil
 }
 
 func (u *Users) Close() error {

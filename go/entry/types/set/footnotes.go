@@ -22,4 +22,3 @@ func NumberFootnotes(entries entry.Entries) text.Footnotes {
 
 	return notes
 }
-

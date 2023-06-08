@@ -1,8 +1,8 @@
 package meta
 
 import (
-	"net/http"
 	"fmt"
+	"net/http"
 	"strings"
 )
 
@@ -70,13 +70,12 @@ func GetOptions(r *http.Request) *Options {
 		Default: "medium",
 	}
 	size.setActive(r)
-	
+
 	return &Options{
 		Colors: colors,
 		Size:   size,
 	}
 }
-
 
 func (o *Option) NextValue() string {
 	c := 0
@@ -103,7 +102,6 @@ func (o *Option) NextLink() string {
 func valueHref(option, value string) string {
 	return fmt.Sprintf("/opt/%v/%v", option, value)
 }
-
 
 func (o *Option) setActive(r *http.Request) {
 	c, _ := r.Cookie(o.Name)
@@ -158,4 +156,3 @@ func (m *Meta) SwitchColorsTitle(lang string) string {
 	}
 }
 */
-

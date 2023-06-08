@@ -2,9 +2,9 @@ package text
 
 import (
 	"sacer/go/entry"
-	"sacer/go/entry/tools"
 	"sacer/go/entry/file"
 	"sacer/go/entry/info"
+	"sacer/go/entry/tools"
 	"time"
 )
 
@@ -15,7 +15,7 @@ type Text struct {
 	date time.Time
 	info info.Info
 
-	raw  Langs
+	raw Langs
 
 	Script *Script
 }
@@ -28,7 +28,7 @@ func (t *Text) Copy() *Text {
 		date: t.date,
 		info: t.info.Copy(),
 
-		raw:  t.raw.Copy(),
+		raw: t.raw.Copy(),
 
 		Script: t.Script.Copy(),
 	}

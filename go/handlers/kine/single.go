@@ -15,7 +15,7 @@ import (
 
 type kineSingle struct {
 	Meta      *meta.Meta
-	Entry	  entry.Entry
+	Entry     entry.Entry
 	Neighbors []entry.Entry
 }
 
@@ -43,7 +43,7 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, m *me
 	}
 
 	err = s.ExecuteTemplate(w, "kine-single", &kineSingle{
-		Meta:	   m,
+		Meta:      m,
 		Entry:     e,
 		Neighbors: getNeighbors(s.Recents["kine"].Access(m.Auth.Subscriber)[m.Lang], p.Hash),
 	})
@@ -83,22 +83,22 @@ func limits(l, i int) (int, int) {
 	number := 2
 	j, k := 0, l
 	// set start position
-	if x := i-number; x > 0 {
+	if x := i - number; x > 0 {
 		j = x
 	}
 
-	if left := i-j; left < 2 {
+	if left := i - j; left < 2 {
 		number = number + (number - left)
 	}
 
-	if y := i+1+number; y < l {
+	if y := i + 1 + number; y < l {
 		k = y
 	} else {
 		k = l
 	}
 
-	if right := k-i-1; right < 2 {
-		if j - (number - right) > 0 {
+	if right := k - i - 1; right < 2 {
+		if j-(number-right) > 0 {
 			j = j - (number - right)
 		} else {
 			println(right)

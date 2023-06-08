@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 	"sacer/go/entry/types/tree"
-	"sacer/go/server/meta"
 	"sacer/go/server"
+	"sacer/go/server/meta"
 	"strings"
 )
 
@@ -21,7 +21,6 @@ func lastItem(path string) string {
 
 func SysPage(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	extra := s.Trees["extra"].Access(m.Auth.Subscriber)[m.Lang]
-
 
 	t, err := extra.SearchTree(lastItem(m.Path), m.Lang)
 	if err != nil {
@@ -44,7 +43,7 @@ func SysPage(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.M
 		return
 	}
 
-	err = s.ExecuteTemplate(w, t.Slug("en") + "-extra", &extraHold{
+	err = s.ExecuteTemplate(w, t.Slug("en")+"-extra", &extraHold{
 		Meta: m,
 		Tree: t,
 	})
@@ -52,4 +51,3 @@ func SysPage(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.M
 		log.Println(err)
 	}
 }
-

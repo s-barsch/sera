@@ -20,5 +20,3 @@ func isSubscriber(r *http.Request) bool {
 	return c.Value == "supersecret"
 }
 */
-
-

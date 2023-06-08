@@ -7,17 +7,17 @@ import (
 )
 
 var markupNames = map[string]string{
-	"#":  "sc",
-	"+":  "sperr",
-	"%":  "strike",
-	"~":  "italic",
+	"#": "sc",
+	"+": "sperr",
+	"%": "strike",
+	"~": "italic",
 }
 
-var markupTags = map[string]string {
+var markupTags = map[string]string{
 	"italic": "em",
 	"strike": "span",
-	"sc": "mark",
-	"sperr": "em",
+	"sc":     "mark",
+	"sperr":  "em",
 }
 
 type Renderer struct {
@@ -82,10 +82,10 @@ func (r *Renderer) renderSnippet(s string) string {
 				}
 			}
 			/*
-		case '⁂':
-			buf.WriteString("<span class=\"asterism\">⁂</span>")
-			continue
-		*/
+				case '⁂':
+					buf.WriteString("<span class=\"asterism\">⁂</span>")
+					continue
+			*/
 		}
 
 		buf.WriteRune(c)
@@ -108,7 +108,7 @@ func (r *Renderer) renderTag(b *bytes.Buffer, str, c string) int {
 		tag := markupTags[name]
 		b.WriteString(
 			fmt.Sprintf(
-				"<%v class=\"%v\">%v</%v>", 
+				"<%v class=\"%v\">%v</%v>",
 				tag,
 				name,
 				r.renderSnippet(str[:x-1]),
@@ -120,7 +120,7 @@ func (r *Renderer) renderTag(b *bytes.Buffer, str, c string) int {
 	return 0
 }
 
-//var noteTmpl = `<sup class="reference"><a href="#">%v</a></sup>`
+// var noteTmpl = `<sup class="reference"><a href="#">%v</a></sup>`
 var noteTmpl = "‡"
 
 func (r *Renderer) renderNote(buf *bytes.Buffer, s string) int {
@@ -168,4 +168,3 @@ func closingPos(s string, closing string) int {
 	}
 	return -1
 }
-

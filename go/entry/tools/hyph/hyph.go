@@ -82,6 +82,3 @@ func (p *Patterns) HyphenateWord(word string) string {
 	}
 	return nw.String()
 }
-
-
-

@@ -1,10 +1,10 @@
-package html 
+package html
 
 import (
 	"sacer/go/entry"
-	"sacer/go/entry/tools"
 	"sacer/go/entry/file"
 	"sacer/go/entry/info"
+	"sacer/go/entry/tools"
 	"sacer/go/entry/types/text"
 	"time"
 )
@@ -62,5 +62,3 @@ func NewHtml(path string, parent entry.Entry) (*Html, error) {
 		},
 	}, nil
 }
-
-

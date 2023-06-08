@@ -26,11 +26,11 @@ func Serial(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Me
 	}
 
 	m.Langs = []*meta.Link{
-		&meta.Link{
+		{
 			Name: "de",
 			Href: m.AbsoluteURL("/indecs/serial", "de"),
 		},
-		&meta.Link{
+		{
 			Name: "en",
 			Href: m.AbsoluteURL("/indecs/serial", "en"),
 		},

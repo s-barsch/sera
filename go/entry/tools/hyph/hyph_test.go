@@ -5,7 +5,7 @@ import (
 )
 
 func TestHyphenateWord(t *testing.T) {
-	h, err := LoadPattern("./hyph-de.dic")	
+	h, err := LoadPattern("./hyph-de.dic")
 	if err != nil {
 		t.Error(err)
 	}

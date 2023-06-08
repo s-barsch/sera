@@ -1,11 +1,11 @@
 package blur
 
 import (
+	"bytes"
 	"math/rand"
+	"time"
 	"unicode"
 	"unicode/utf8"
-	"bytes"
-	"time"
 )
 
 func ReplaceText(str, lang string) string {
@@ -30,7 +30,7 @@ func ReplaceText(str, lang string) string {
 }
 
 // this is to prioritize vowels
-var chars = []rune {
+var chars = []rune{
 	'a',
 	'a',
 	'a',
@@ -101,4 +101,3 @@ func Hyphenate(str string) string {
 	}
 	return buf.String()
 }
-

@@ -99,26 +99,26 @@ func (s *Server) Funcs() template.FuncMap {
 				if ok {
 					mins := (v.Duration / 60) - 1
 					secs := math.Mod(v.Duration, 60)
-					return fmt.Sprintf( "%.0f:%.0f", mins, secs), nil
+					return fmt.Sprintf("%.0f:%.0f", mins, secs), nil
 				}
 			}
 			return "", fmt.Errorf("err 'duration': has no entries")
 		},
-		"isCaptioned": isCaptioned,
+		"isCaptioned":    isCaptioned,
 		"isTranscripted": isTranscripted,
-		"nL":   tmpl.NewNotesLang,
-		"eL":   tmpl.NewEntryLang,
-		"eLy":  tmpl.NewEntryLangLazy,
-		"esL":  tmpl.NewEntriesLang,
-		"esLy": tmpl.NewEntriesLangLazy,
-		"snav": tmpl.NewSubnav,
+		"nL":             tmpl.NewNotesLang,
+		"eL":             tmpl.NewEntryLang,
+		"eLy":            tmpl.NewEntryLangLazy,
+		"esL":            tmpl.NewEntriesLang,
+		"esLy":           tmpl.NewEntriesLangLazy,
+		"snav":           tmpl.NewSubnav,
 
 		"shaveParagraph": tools.ShaveParagraph,
 		"minifySvg":      minifySVG,
 	}
 }
 
-func isCaptioned(s *set.Set,) bool {
+func isCaptioned(s *set.Set) bool {
 	for _, child := range s.Entries() {
 		m, ok := child.(entry.Media)
 		if ok {

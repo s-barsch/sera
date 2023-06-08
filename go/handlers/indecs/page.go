@@ -22,7 +22,7 @@ func IndexPage(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta
 
 	m.Title = indecsTitle(t, m.Lang)
 	m.Section = "indecs"
-	
+
 	err := m.Process(t)
 	if err != nil {
 		s.Log.Println(err)

@@ -2,15 +2,15 @@ package tools
 
 import (
 	//bf "gopkg.in/russross/blackfriday.v2"
-	"github.com/kennygrant/sanitize"
-	"regexp"
-	"strings"
 	"bytes"
+	"github.com/kennygrant/sanitize"
 	"github.com/yuin/goldmark"
 	"github.com/yuin/goldmark/extension"
 	"github.com/yuin/goldmark/parser"
 	"github.com/yuin/goldmark/renderer/html"
+	"regexp"
 	"sacer/go/entry/tools/markup/gmext"
+	"strings"
 )
 
 var validSlug = regexp.MustCompile("[^a-z0-9-]+")
@@ -59,7 +59,7 @@ func MarkdownNoP(text string) string {
 // shave off <p> and </p> at beginning and end
 func ShaveParagraph(text string) string {
 	if l := len(text); l > 8 {
-		return text[3:l-5]
+		return text[3 : l-5]
 	}
 	return text
 }

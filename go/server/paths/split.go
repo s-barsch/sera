@@ -43,7 +43,7 @@ func (p *Path) IsFile() bool {
 	return false
 }
 
-	// || strings.Contains(p.Raw, ".") {
+// || strings.Contains(p.Raw, ".") {
 
 /*
 	/graph/2020/03/09-36e55605/cache/200310_012140-1280.jpg

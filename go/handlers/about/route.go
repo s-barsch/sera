@@ -2,9 +2,9 @@ package about
 
 import (
 	"net/http"
+	"sacer/go/server"
 	"sacer/go/server/meta"
 	"sacer/go/server/paths"
-	"sacer/go/server"
 )
 
 func Route(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
@@ -29,11 +29,11 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Met
 func Rewrites(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	folder := m.Path[:len("/about")]
 	if folder == "/about" {
-		http.Redirect(w, r, "/en" + m.Path, 301)
+		http.Redirect(w, r, "/en"+m.Path, 301)
 		return
 	}
 	if folder == "/ueber" {
-		http.Redirect(w, r, "/de" + m.Path, 301)
+		http.Redirect(w, r, "/de"+m.Path, 301)
 		return
 	}
 }

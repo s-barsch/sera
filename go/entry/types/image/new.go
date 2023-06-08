@@ -4,9 +4,9 @@ import (
 	"fmt"
 	p "path/filepath"
 	"sacer/go/entry"
-	"sacer/go/entry/tools"
 	"sacer/go/entry/file"
 	"sacer/go/entry/info"
+	"sacer/go/entry/tools"
 	"strings"
 	"time"
 )
@@ -63,7 +63,7 @@ func NewImage(path string, parent entry.Entry) (*Image, error) {
 		file:   file,
 		date:   date,
 		info:   inf,
-		Dims: dims,
+		Dims:   dims,
 	}, nil
 }
 
@@ -82,10 +82,10 @@ func (i *Image) Copy() *Image {
 		parent: i.parent,
 		file:   i.file.Copy(),
 
-		date:   i.date,
-		info:   i.info.Copy(),
+		date: i.date,
+		info: i.info.Copy(),
 
-		Dims:   i.Dims,
+		Dims: i.Dims,
 	}
 }
 

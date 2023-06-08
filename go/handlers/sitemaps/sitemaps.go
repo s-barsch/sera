@@ -143,9 +143,9 @@ func categoryTrees(s *server.Server, lang string) []*SitemapEntry {
 	entries := []*SitemapEntry{}
 	trees := s.Trees["graph"].Access(false)[lang].TraverseTrees()
 	/*
-	trees := tree.Trees{
-		//s.Trees["indecs"].Access(false)[lang],
-	}
+		trees := tree.Trees{
+			//s.Trees["indecs"].Access(false)[lang],
+		}
 	*/
 	for _, t := range trees {
 		entries = append(entries, &SitemapEntry{

@@ -5,19 +5,19 @@ import (
 )
 
 var tests = []map[string]string{
-	map[string]string{
+	{
 		"sample":  "A line with a //comment.",
 		"outcome": "A line with a ",
 	},
-	map[string]string{
+	{
 		"sample":  "A multiline. //comment here.\nAnother line.",
 		"outcome": "A multiline. \nAnother line.",
 	},
-	map[string]string{
+	{
 		"sample":  "A line with a Note{here}.",
 		"outcome": "A line with a Note.",
 	},
-	map[string]string{
+	{
 		"sample":  "A line with a/* special comment */.",
 		"outcome": "A line with a.",
 	},

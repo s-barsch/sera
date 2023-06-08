@@ -1,6 +1,5 @@
 package auth
 
-
 import (
 	"fmt"
 	"net/smtp"

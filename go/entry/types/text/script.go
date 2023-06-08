@@ -72,15 +72,15 @@ func (l Langs) Copy() Langs {
 }
 
 func (notes Footnotes) MarkdownHyphenate() {
-	for l, _ := range tools.Langs {
-		for i, _ := range notes[l] {
+	for l := range tools.Langs {
+		for i := range notes[l] {
 			notes[l][i] = tools.MarkdownNoP(notes[l][i])
 		}
 	}
 }
 
 func (langs Langs) Markdown() {
-	for l, _ := range tools.Langs {
+	for l := range tools.Langs {
 		langs[l] = tools.Markdown(langs[l])
 	}
 }
@@ -88,7 +88,7 @@ func (langs Langs) Markdown() {
 func (langs Langs) OwnRender() Footnotes {
 	notes := map[string][]string{}
 
-	for l, _ := range tools.Langs {
+	for l := range tools.Langs {
 		text, ns := markup.Render(langs[l])
 		langs[l] = text
 		notes[l] = ns
@@ -98,7 +98,7 @@ func (langs Langs) OwnRender() Footnotes {
 }
 
 func (s *Script) NumberFootnotes(init int) {
-	for lang, _ := range tools.Langs {
+	for lang := range tools.Langs {
 		count := init
 		buf := bytes.Buffer{}
 

@@ -3,9 +3,9 @@ package set
 import (
 	// "log"
 	"sacer/go/entry"
-	"sacer/go/entry/tools"
 	"sacer/go/entry/file"
 	"sacer/go/entry/info"
+	"sacer/go/entry/tools"
 	"sacer/go/entry/types/image"
 	"sacer/go/entry/types/text"
 	"time"
@@ -21,8 +21,8 @@ type Set struct {
 	entries entry.Entries
 	Cover   *image.Image
 
-	Kine      entry.Entries
-	Notes     entry.Entries
+	Kine  entry.Entries
+	Notes entry.Entries
 
 	Footnotes text.Footnotes
 }
@@ -36,11 +36,11 @@ func (s *Set) Copy() *Set {
 		info: s.info.Copy(),
 
 		entries: s.entries,
-		Cover: s.Cover,
+		Cover:   s.Cover,
 
 		Notes: s.Notes,
 		Kine:  s.Kine,
-		
+
 		Footnotes: s.Footnotes,
 	}
 }

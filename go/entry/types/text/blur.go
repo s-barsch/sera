@@ -9,7 +9,7 @@ func (t *Text) Blur() *Text {
 
 	langs := Langs{}
 
-	for k, _ := range t.Script.Langs {
+	for k := range t.Script.Langs {
 		langs[k] = blur.ReplaceText(t.raw[k], k)
 	}
 
@@ -18,9 +18,9 @@ func (t *Text) Blur() *Text {
 
 	langs.Markdown()
 	langs.BlurHyphenate()
-	
+
 	s := &Script{
-		Langs: langs,
+		Langs:     langs,
 		Footnotes: notes,
 	}
 
@@ -34,4 +34,3 @@ func (langs Langs) BlurHyphenate() {
 		langs[k] = blur.Hyphenate(v)
 	}
 }
-
