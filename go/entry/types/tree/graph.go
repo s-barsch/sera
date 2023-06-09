@@ -9,7 +9,7 @@ import (
 )
 
 func readGraphInfo(path string, parent *Tree) (info.Info, error) {
-	date, err := parseFolderDate(path, parent)
+	d, d2, err := parseFolderDate(path, parent)
 	if err != nil {
 		return nil, fmt.Errorf("readGraphInfo: %v", err)
 
@@ -18,7 +18,7 @@ func readGraphInfo(path string, parent *Tree) (info.Info, error) {
 	// if not present, we use the empty object.
 	i, _ := info.ReadDirInfo(path)
 
-	i["date"] = date.Format(tools.Timestamp)
+	i["date"] = d.Format(tools.Timestamp)
 
 	if parent == nil {
 		return i, nil
@@ -26,27 +26,23 @@ func readGraphInfo(path string, parent *Tree) (info.Info, error) {
 
 	switch parent.Level() {
 	case 0:
-		setBothLang(i, "title", date.Format("2006"))
-		setBothLang(i, "label", date.Format("06"))
+		setBothLang(i, "title", d.Format("2006"))
+		setBothLang(i, "label", d.Format("06"))
 	case 1:
-		m := buildMonthName(date)
+		m := buildMonthName(d)
 		i["title"] = m["de"]
 		i["title-en"] = m["en"]
 		i["label"] = tools.Abbr(m["de"])
 		i["label-en"] = tools.Abbr(m["en"])
-		setBothLang(i, "slug", date.Format("01"))
+		setBothLang(i, "slug", d.Format("01"))
 
-		if isMergeTree(path) {
-			t, err := time.Parse("06-01", "20-12")
-			if err != nil {
-				fmt.Println(err)
-			}
-			m = buildMonthName(t)
+		if !d2.IsZero() {
+			m = buildMonthName(d2)
 			i["title"] = fmt.Sprintf("%v – %v", i["title"], m["de"])
 			i["title-en"] = fmt.Sprintf("%v – %v", i["title-en"], m["en"])
 			i["label"] = fmt.Sprintf("%v–%v", i["label"], tools.Abbr(m["de"]))
 			i["label-en"] = fmt.Sprintf("%v–%v", i["label-en"], tools.Abbr(m["en"]))
-			setBothLang(i, "slug", "11-12")
+			setBothLang(i, "slug", fmt.Sprintf("%v-%v", d.Format("01"), d2.Format("01")))
 		}
 
 	}
@@ -65,26 +61,35 @@ func setBothLang(i info.Info, key, value string) {
 	i[key+"-en"] = value
 }
 
-func parseFolderDate(path string, parent *Tree) (time.Time, error) {
+func parseFolderDate(path string, parent *Tree) (time.Time, time.Time, error) {
 	if parent == nil {
-		return time.Parse("2006_01_02", "1991_01_02")
+		d, err := time.Parse("2006_01_02", "1991_01_02")
+		return d, time.Time{}, err
 	}
 	dirName := p.Base(path)
 	switch parent.Level() {
 	case 0:
-		return time.Parse("06", dirName)
+		d, err := time.Parse("06", dirName)
+		return d, time.Time{}, err
 	case 1:
+		d2 := time.Time{}
 		format := "06-01"
-		if len(dirName) > len(format) {
-			dirName = dirName[:len(format)]
+		l := len(format)
+		if isMergeTree(path) {
+			d, err := time.Parse("01", dirName[l:])
+			if err != nil {
+				return time.Time{}, time.Time{}, err
+			}
+			dirName = dirName[:l]
+			d2 = d
 		}
-		t, err := time.Parse("06-01", dirName)
+		d, err := time.Parse("06-01", dirName)
 		if err != nil {
-			return t, err
+			return time.Time{}, time.Time{}, err
 		}
 		// Workaround so 2005 and 2005-01 won’t collide.
-		t = t.Add(time.Second)
-		return t, nil
+		d = d.Add(time.Second)
+		return d, d2, nil
 	}
-	return time.Time{}, fmt.Errorf("Could not determine graph tree date. %v", path)
+	return time.Time{}, time.Time{}, fmt.Errorf("Could not determine graph tree date. %v", path)
 }
