@@ -41,6 +41,7 @@ func MonthPage(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta
 	}
 
 	prev, next := prevNext(t)
+	println("called")
 
 	m.Title = monthTitle(t, m.Lang)
 	m.Section = "graph"
@@ -94,21 +95,24 @@ func prevNext(t *tree.Tree) (prev, next *tree.Tree) {
 			if i > 0 {
 				prev = pr.Trees[i-1]
 			}
-			if i == 0 {
-				prev = prevTreeLastChild(pr)
-			}
 			if i+1 < len(pr.Trees) {
-
 				next = pr.Trees[i+1]
 			}
-			if i+1 == len(pr.Trees) {
-				next = nextTreeFirstChild(pr)
+			// TODO: not good
+			if t.Level() >= 2 {
+				if i == 0 {
+					prev = prevTreeLastChild(pr)
+				}
+				if i+1 == len(pr.Trees) && i != 0 {
+					next = nextTreeFirstChild(pr)
+				}
 			}
 		}
 	}
 	return
 }
 
+// TODO: rework this
 func nextTreeFirstChild(t *tree.Tree) *tree.Tree {
 	_, next := prevNext(t)
 	if next == nil {
@@ -120,6 +124,7 @@ func nextTreeFirstChild(t *tree.Tree) *tree.Tree {
 	return nil
 }
 
+// TODO: rework this
 func prevTreeLastChild(t *tree.Tree) *tree.Tree {
 	prev, _ := prevNext(t)
 	if prev == nil {
