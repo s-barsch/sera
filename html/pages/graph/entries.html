@@ -78,7 +78,11 @@
 <div class="set set--graph">
   {{/*template "graph-kine-desk" .*/}}
     {{if eq 0 (len .E.Entries)}}
-    <em>This entry has not been translated.</em>
+    <div class="tob text column">
+    <div class="indent">
+      <em>This entry has not been translated.</em>
+    </div>
+    </div>
     {{end}}
     {{template "object-groups" (esL .E.Entries .L)}}
   <div class="column">
