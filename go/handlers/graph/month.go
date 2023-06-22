@@ -40,6 +40,8 @@ func MonthPage(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta
 		return
 	}
 
+	prev, next := prevNext(t)
+
 	m.Title = monthTitle(t, m.Lang)
 	m.Section = "graph"
 
@@ -52,6 +54,8 @@ func MonthPage(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta
 	err = s.ExecuteTemplate(w, "graph-month", &monthPage{
 		Meta: m,
 		Tree: t,
+		Prev: prev,
+		Next: next,
 	})
 	if err != nil {
 		log.Println(err)
@@ -78,4 +82,51 @@ func getMonthId(p *paths.Path) (int64, error) {
 	}
 	// Years start on second 00, months on 01, days on 02. Hence, add a second.
 	return t.Add(time.Second).Unix(), nil
+}
+
+func prevNext(t *tree.Tree) (prev, next *tree.Tree) {
+	pr, ok := t.Parent().(*tree.Tree)
+	if !ok {
+		return
+	}
+	for i, child := range pr.Trees {
+		if child.Id() == t.Id() {
+			if i > 0 {
+				prev = pr.Trees[i-1]
+			}
+			if i == 0 {
+				prev = prevTreeLastChild(pr)
+			}
+			if i+1 < len(pr.Trees) {
+
+				next = pr.Trees[i+1]
+			}
+			if i+1 == len(pr.Trees) {
+				next = nextTreeFirstChild(pr)
+			}
+		}
+	}
+	return
+}
+
+func nextTreeFirstChild(t *tree.Tree) *tree.Tree {
+	_, next := prevNext(t)
+	if next == nil {
+		return nil
+	}
+	if len(next.Trees) > 0 {
+		return next.Trees[0]
+	}
+	return nil
+}
+
+func prevTreeLastChild(t *tree.Tree) *tree.Tree {
+	prev, _ := prevNext(t)
+	if prev == nil {
+		return nil
+	}
+	if l := len(prev.Trees); l > 0 {
+		return prev.Trees[l-1]
+	}
+	return nil
 }
