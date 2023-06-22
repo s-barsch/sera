@@ -41,7 +41,6 @@ func MonthPage(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta
 	}
 
 	prev, next := prevNext(t)
-	println("called")
 
 	m.Title = monthTitle(t, m.Lang)
 	m.Section = "graph"

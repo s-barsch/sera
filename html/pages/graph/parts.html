@@ -15,14 +15,16 @@
 
 {{define "prev-next-year"}}
     <div class="prev-next-year graph-tip">
-        {{with .Next}}
-            &larr; <a href="{{.Perma $.Meta.Lang}}">{{.Title $.Meta.Lang}}</a>
+        <!--
+        {{with .Prev}}
+            &larr; <a href="{{.Perma $.Meta.Lang}}">{{.Date.Format "2006"}}, {{.Title $.Meta.Lang}}</a>
         {{else}}
             &nbsp;
         {{end}}
-        {{with .Prev}}
+        -->
+        {{with .Next}}
             <span class="right">
-            <a href="{{.Perma $.Meta.Lang}}">{{.Title $.Meta.Lang}}</a>
+            <a href="{{.Perma $.Meta.Lang}}">{{.Date.Format "2006"}}, {{.Title $.Meta.Lang}}</a>
             &rarr; 
             </span>
         {{end}}
