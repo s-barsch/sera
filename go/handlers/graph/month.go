@@ -85,52 +85,61 @@ func getMonthId(p *paths.Path) (int64, error) {
 }
 
 func prevNext(t *tree.Tree) (prev, next *tree.Tree) {
-	pr, ok := t.Parent().(*tree.Tree)
+	year, ok := t.Parent().(*tree.Tree)
 	if !ok {
 		return
 	}
-	for i, child := range pr.Trees {
+	for i, child := range year.Trees {
 		if child.Id() == t.Id() {
 			if i > 0 {
-				prev = pr.Trees[i-1]
+				prev = year.Trees[i-1]
 			}
-			if i+1 < len(pr.Trees) {
-				next = pr.Trees[i+1]
+			if i+1 < len(year.Trees) {
+				next = year.Trees[i+1]
 			}
-			// TODO: not good
-			if t.Level() >= 2 {
-				if i == 0 {
-					prev = prevTreeLastChild(pr)
-				}
-				if i+1 == len(pr.Trees) && i != 0 {
-					next = nextTreeFirstChild(pr)
-				}
+			if i == 0 {
+				prev = prevYearLastMonth(year)
+			}
+			if i+1 == len(year.Trees) && i != 0 {
+				next = nextYearFirstMonth(year)
 			}
 		}
 	}
 	return
 }
 
-// TODO: rework this
-func nextTreeFirstChild(t *tree.Tree) *tree.Tree {
-	_, next := prevNext(t)
-	if next == nil {
+func nextYearFirstMonth(year *tree.Tree) *tree.Tree {
+	graph, ok := year.Parent().(*tree.Tree)
+	if !ok {
 		return nil
 	}
-	if len(next.Trees) > 0 {
-		return next.Trees[0]
+	for i, child := range graph.Trees {
+		if child.Id() == year.Id() {
+			if i+1 < len(graph.Trees) {
+				next := graph.Trees[i+1]
+				if len(next.Trees) > 0 {
+					return next.Trees[0]
+				}
+			}
+		}
 	}
 	return nil
 }
 
-// TODO: rework this
-func prevTreeLastChild(t *tree.Tree) *tree.Tree {
-	prev, _ := prevNext(t)
-	if prev == nil {
+func prevYearLastMonth(year *tree.Tree) *tree.Tree {
+	graph, ok := year.Parent().(*tree.Tree)
+	if !ok {
 		return nil
 	}
-	if l := len(prev.Trees); l > 0 {
-		return prev.Trees[l-1]
+	for i, child := range graph.Trees {
+		if child.Id() == year.Id() {
+			if i < 0 {
+				prev := graph.Trees[i-1]
+				if l := len(prev.Trees); l > 0 {
+					return prev.Trees[l-1]
+				}
+			}
+		}
 	}
 	return nil
 }
