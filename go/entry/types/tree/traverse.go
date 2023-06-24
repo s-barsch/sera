@@ -164,7 +164,8 @@ func langOnly(es entry.Entries, lang string, newParent entry.Entry) entry.Entrie
 	l := entry.Entries{}
 	for _, e := range es {
 		if isEmptyText(e, lang) {
-			continue
+			// Formerly: continue.
+			// Empty texts are now kept and displayed via html template.
 		}
 		e.SetParent(newParent)
 		s, ok := e.(*set.Set)

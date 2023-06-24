@@ -29,7 +29,11 @@
 {{define "text"}}
 {{$style := index .E.Info "style"}}
 <div class="{{.E.Info.TextStyle}}">
-    {{index .E.Script.Langs .L}}
+    {{with index .E.Script.Langs .L}}
+    {{.}}
+    {{else}}
+    <em>This text has not been translated.</em>
+    {{end}}
 </div>
 {{end}}
 
