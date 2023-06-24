@@ -1,5 +1,11 @@
 package info
 
+import (
+	"fmt"
+	"sacer/go/entry/tools"
+	"time"
+)
+
 func (i Info) Title(lang string) string {
 	return i.Field("title", lang)
 }
@@ -52,6 +58,34 @@ func (i Info) Field(key, lang string) string {
 		return i[key+"-"+lang]
 	}
 	return i[key]
+}
+
+func (i Info) Published(format string) string {
+	p := i["published"]
+	if p == "" {
+		return ""
+	}
+	d, err := parseDate(p)
+	if err != nil {
+		return fmt.Errorf("Could’t parse published date: %v", err).Error()
+	}
+	return d.Format(format)
+}
+
+func (i Info) Revision(format string) string {
+	r := i["revision"]
+	if r == "" {
+		return ""
+	}
+	d, err := parseDate(r)
+	if err != nil {
+		return fmt.Errorf("Could’t parse revision date: %v", err).Error()
+	}
+	return d.Format(format)
+}
+
+func parseDate(field string) (time.Time, error) {
+	return time.Parse(tools.Timestamp, field)
 }
 
 /*
