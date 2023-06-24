@@ -42,9 +42,9 @@
     {{with .Tree}}
     {{with .Info.Published}}
     {{if eq $.Meta.Lang "en"}}
-    First published {{.Format "January, 2006"}}.
+    First published: {{.Format "January,"}} {{.Format "2006"}}.
     {{else}}
-    Zuerst publiziert im {{monthLang .Date $.Meta.Lang}} {{.Format "2006"}}.
+    Erstmals publiziert: {{monthLang .Date $.Meta.Lang}} {{.Format "2006"}}.
     {{end}}
     {{end}}
     {{end}}

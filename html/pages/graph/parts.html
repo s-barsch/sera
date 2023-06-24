@@ -24,7 +24,7 @@
         -->
         {{with .Next}}
             <span class="right">
-            <a href="{{.Perma $.Meta.Lang}}">{{.Date.Format "2006"}}, {{.Title $.Meta.Lang}}</a>
+            <a href="{{.Perma $.Meta.Lang}}"><span class="next-year">{{.Date.Format "2006"}},</span> {{.Title $.Meta.Lang}}</a>
             &rarr; 
             </span>
         {{end}}
