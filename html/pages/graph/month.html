@@ -25,16 +25,28 @@
         {{end}}
         {{template "object-groups" (esL .Entries $.Meta.Lang)}}
     </section>
-    {{with .Info.Published "Jan, 2006"}}
-    First published on {{.}}.
-    {{end}}
 {{end}}
 </div>
 
 {{template "subnav-fixed" (snav .Tree 0 .Meta.Lang)}}
 
 {{template "prev-next-year" .}}
+{{template "first-published" .}}
 {{template "graph-arr" .Tree}}
 
 {{template "bot" .Meta}}
+{{end}}
+
+{{define "first-published"}}
+<div class="first-published">
+    {{with .Tree}}
+    {{with .Info.Published}}
+    {{if eq $.Meta.Lang "en"}}
+    First published {{.Format "January, 2006"}}.
+    {{else}}
+    Zuerst publiziert im {{monthLang .Date $.Meta.Lang}} {{.Format "2006"}}.
+    {{end}}
+    {{end}}
+    {{end}}
+</div>
 {{end}}

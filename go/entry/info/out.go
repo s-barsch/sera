@@ -60,32 +60,42 @@ func (i Info) Field(key, lang string) string {
 	return i[key]
 }
 
-func (i Info) Published(format string) string {
+type DateWrapper struct {
+	Date time.Time
+}
+
+func (d *DateWrapper) Format(format string) string {
+	if d == nil {
+		return ""
+	}
+	return d.Date.Format(format)
+}
+
+func (i Info) Published() *DateWrapper {
 	p := i["published"]
 	if p == "" {
-		return ""
+		return nil
 	}
-	d, err := parseDate(p)
-	if err != nil {
-		return fmt.Errorf("Could’t parse published date: %v", err).Error()
-	}
-	return d.Format(format)
+	return parseDate(p)
 }
 
-func (i Info) Revision(format string) string {
+func (i Info) Revision(format string) *DateWrapper {
 	r := i["revision"]
 	if r == "" {
-		return ""
+		return nil
 	}
-	d, err := parseDate(r)
-	if err != nil {
-		return fmt.Errorf("Could’t parse revision date: %v", err).Error()
-	}
-	return d.Format(format)
+	return parseDate(r)
 }
 
-func parseDate(field string) (time.Time, error) {
-	return time.Parse(tools.Timestamp, field)
+func parseDate(field string) *DateWrapper {
+	d, err := time.Parse(tools.Timestamp, field)
+	if err != nil {
+		fmt.Println(err)
+		return nil
+	}
+	return &DateWrapper{
+		Date: d,
+	}
 }
 
 /*
