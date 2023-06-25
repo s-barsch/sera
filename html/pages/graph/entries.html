@@ -8,7 +8,7 @@
             {{if eq .Parent.Type "set"}}
               {{template "graph-set-entry" (eLy . $.L false)}}
             {{else}}
-            <article class="object object--graph{{if .Info.Blur}} blur{{end}}">
+            <article id="{{.Hash}}" class="object object--graph{{if .Info.Blur}} blur{{end}}">
               {{template "graph-object" (eLy . $.L false)}}
               {{if .Info.Blur}}
               <div class="get-access">
