@@ -18,7 +18,7 @@ type Image struct {
 	date time.Time
 	info info.Info
 
-	Dims *dims
+	Dims *Dims
 }
 
 func NewImage(path string, parent entry.Entry) (*Image, error) {

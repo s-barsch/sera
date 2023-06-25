@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-type dims struct {
+type Dims struct {
 	Width, Height int
 }
 
@@ -20,7 +20,7 @@ func cacheFolder(path string) string {
 	return p.Join(p.Dir(path), "cache")
 }
 
-func loadDims(path string) (*dims, error) {
+func loadDims(path string) (*Dims, error) {
 	// /dir/file.jpg/cache/dims/file.jpg.txt
 	b, err := ioutil.ReadFile(dimsFile(path))
 	if err != nil {
@@ -46,5 +46,8 @@ func loadDims(path string) (*dims, error) {
 		return nil, err
 	}
 
-	return &dims{Width: width, Height: height}, nil
+	fmt.Println(p.Base(path))
+	fmt.Printf("width: %v, height: %v\n", w, h)
+	fmt.Printf("width: %v, height: %v\n", width, height)
+	return &Dims{Width: width, Height: height}, nil
 }
