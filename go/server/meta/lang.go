@@ -41,7 +41,7 @@ func getLink(m *Meta, e entry.Entry, lang string) *Link {
 	if e == nil {
 		href = fmt.Sprintf("%v/%v", m.HostAddress(), homeAddress[lang])
 	} else {
-		href = e.Perma(lang)
+		href = m.AbsoluteURL(e.Perma(lang), lang)
 	}
 
 	return &Link{
@@ -65,19 +65,19 @@ func (m *Meta) AbsoluteURL(path, lang string) string {
 }
 
 func (m *Meta) HostAddress() string {
-	if isLocal(m.Host) {
+	if isHostnameLocal(m.Host) {
 		return "http://sacer"
 	}
 	return "https://sacer.site"
 }
 
-func (m *Meta) IsLocal() bool {
-	return isLocal(m.Host)
+func (m *Meta) IsHostnameLocal() bool {
+	return isHostnameLocal(m.Host)
 }
 
-func isLocal(host string) bool {
+func isHostnameLocal(host string) bool {
 	switch host {
-	case "sacer", "en.sacer":
+	case "localhost:8013":
 		return true
 	}
 	return false
