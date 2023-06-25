@@ -15,6 +15,10 @@ func serveStatic(w http.ResponseWriter, r *http.Request, p string) {
 	switch filepath.Ext(p) {
 	case ".vtt":
 		w.Header().Set("Content-Type", "text/vtt")
+	case ".css":
+		w.Header().Set("Content-Type", "text/css")
+	case ".js":
+		w.Header().Set("Content-Type", "text/javascript")
 	}
 	w.Header().Set("Expires", time.Now().AddDate(0, 3, 0).Format(time.RFC1123))
 	http.ServeFile(w, r, p)
