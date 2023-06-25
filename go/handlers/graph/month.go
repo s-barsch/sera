@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"sacer/go/entry/tools"
 	"sacer/go/entry/types/tree"
 	"sacer/go/server"
 	"sacer/go/server/meta"
@@ -44,6 +45,7 @@ func MonthPage(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta
 
 	m.Title = monthTitle(t, m.Lang)
 	m.Section = "graph"
+	m.Desc = metaDescription(t.Date(), m.Lang)
 
 	err = m.Process(t)
 	if err != nil {
@@ -60,6 +62,13 @@ func MonthPage(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta
 	if err != nil {
 		log.Println(err)
 	}
+}
+
+func metaDescription(d time.Time, lang string) string {
+	if lang == "de" {
+		return fmt.Sprintf("Monat %v %v des Graph von Sacer Feral.", tools.MonthLang(d, lang), d.Format("2006"))
+	}
+	return fmt.Sprintf("Month %v %v of Graph by Sacer Feral.", d.Format("January"), d.Format("2006"))
 }
 
 func monthTitle(t *tree.Tree, lang string) string {
