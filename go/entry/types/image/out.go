@@ -53,8 +53,8 @@ func (i *Image) ImagePath(size int, lang string) string {
 // dim related
 
 func (i *Image) Ratio() float64 {
-	w := i.Dims.width
-	h := i.Dims.height
+	w := i.Dims.Width
+	h := i.Dims.Height
 	return float64(w) / float64(h)
 }
 
@@ -85,15 +85,15 @@ func (i *Image) PlaceholderPath() string {
 }
 
 func (i *Image) Orientation() string {
-	if i.Dims.width >= i.Dims.height {
+	if i.Dims.Width >= i.Dims.Height {
 		return "landscape"
 	}
 	return "portrait"
 }
 
 func (i *Image) Height(size int) string {
-	w := i.Dims.width
-	h := i.Dims.height
+	w := i.Dims.Width
+	h := i.Dims.Height
 	if w <= h {
 		return strconv.Itoa(size)
 	}
@@ -101,8 +101,8 @@ func (i *Image) Height(size int) string {
 }
 
 func (i *Image) Width(size int) string {
-	w := i.Dims.width
-	h := i.Dims.height
+	w := i.Dims.Width
+	h := i.Dims.Height
 	if w >= h {
 		return strconv.Itoa(size)
 	}

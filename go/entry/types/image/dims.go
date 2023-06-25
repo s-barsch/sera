@@ -9,7 +9,7 @@ import (
 )
 
 type dims struct {
-	width, height int
+	Width, Height int
 }
 
 func dimsFile(path string) string {
@@ -46,5 +46,5 @@ func loadDims(path string) (*dims, error) {
 		return nil, err
 	}
 
-	return &dims{width: width, height: height}, nil
+	return &dims{Width: width, Height: height}, nil
 }
