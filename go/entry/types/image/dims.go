@@ -45,9 +45,5 @@ func loadDims(path string) (*Dims, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	fmt.Println(p.Base(path))
-	fmt.Printf("width: %v, height: %v\n", w, h)
-	fmt.Printf("width: %v, height: %v\n", width, height)
 	return &Dims{Width: width, Height: height}, nil
 }
