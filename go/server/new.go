@@ -47,7 +47,7 @@ type flags struct {
 func NewServer() *Server {
 	host := flag.String("host", "", "override host variable for testing")
 	path := flag.String("path", ".", "set the root path of this app")
-	all := flag.Bool("a", false, "sets all flags except mobile")
+	all := flag.Bool("a", false, "sets debug and local to true")
 	debug := flag.Bool("debug", false, "log to stdout")
 	local := flag.Bool("local", false, "enable local testing")
 	reload := flag.Bool("reload", false, "reload files on every request")

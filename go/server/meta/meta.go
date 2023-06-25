@@ -43,6 +43,7 @@ func NewMeta(users *usr.Users, w http.ResponseWriter, r *http.Request) (*Meta, e
 		Auth:    auth,
 		Path:    path,
 		Lang:    Lang(path),
+		Host:    r.Host,
 		Options: GetOptions(r),
 	}, nil
 }
