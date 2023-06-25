@@ -77,7 +77,7 @@ func (m *Meta) IsHostnameLocal() bool {
 
 func isHostnameLocal(host string) bool {
 	switch host {
-	case "localhost:8013":
+	case "localhost:8013", "sacer":
 		return true
 	}
 	return false
