@@ -35,13 +35,8 @@
 
 {{define "subnav-row"}}
     <div class="subnav">
-          {{if .IsYear}}
-          <!--
-          <span class="year-label">{{.YearLabel $.L}}:</span>
-          -->
-          {{end}}
           {{range $i, $t := .NavTrees -}}
-          {{$isActive := eq $.Active $t.Id}}
+          {{- $isActive := eq $.Active $t.Id -}}
           <a {{if $isActive}}class="active" {{end}}href="{{$t.Perma $.L}}">{{$t.Label $.L}}</a>
           {{- end -}}
         {{if .IsDay}}
