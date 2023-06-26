@@ -32,17 +32,20 @@ a:hover {
     border:0;
 }
 
-.mob-group img:hover {
-    opacity:.85;
-    cursor:zoom-in;
-}
-.mob-group img.expand:hover {
-    cursor:zoom-out;
-}
 
-[data-colors="dark"] .mob-group img:hover {
-    opacity:1;
-    filter:brightness(1.15);
+@media (min-width: @break-single) {
+    .mob-group img:hover {
+        opacity:.85;
+        cursor:zoom-in;
+    }
+    .mob-group img.expand:hover {
+        cursor:zoom-out;
+    }
+
+    [data-colors="dark"] .mob-group img:hover {
+        opacity:1;
+        filter:brightness(1.15);
+    }
 }
 
 .more-tip {
