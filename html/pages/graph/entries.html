@@ -151,15 +151,6 @@
     {{end}}
 {{end}}
 
-<!--
-    {{range $i, $group := .E.Entries.Groups}}
-      <section class="{{$group.First.ObjectType}}-group">
-        {{range $group}}
-          {{template "graph-set-child" (eLy . $.L $.Y)}}
-        {{end}}
-      </section>
-    {{end}}
--->
 
 {{define "graph-set-entry"}}
     {{template "private-mark-graph" .E}}
@@ -199,42 +190,3 @@
     {{end}}
 {{end}}
 
-{{define "graph-set-image"}}
-{{$alt := .E.Title .L}}
-{{$src := .E.ImagePath 320 .L}}
-<img src="{{$src}}" alt="{{$alt}}" srcset="{{template "graph-thumb-srcset" .}}">
-{{end}}
-
-{{define "graph-thumb-srcset" -}}
-    {{.E.SrcSet 320 .L}}, {{.E.SrcSet 480 .L}}, {{.E.SrcSet 960 .L}}, {{.E.SrcSet 1280 .L}}
-{{- end}}
-{{/*
-
-
-    {{/*
-    {{if .Lazy}}
-      {{$src = .El.PlaceholderPath}}
-    {{else}}
-      {{$src = $realSrc}}
-    {{end}}
-    */}}
-*/}}
-{{/*
-{{if .El.Cover}}
-    <a href="{{.El.Perma.Lang}}">
-    {{template "graph-image-thumbnail" (elArg .El.Cover .Lazy .Lang)}}
-    </a>
-{{else}}
-
-    <img class="{{if .Lazy}} lazy{{end}}"
-         src="{{$src}}"
-         alt="{{$alt}}"
-         {{if .Lazy}}
-         data-src="{{$realSrc}}"
-         data-srcset="{{- template "graph-thumb-srcset" .}}"
-         {{else}}
-         srcset="{{template "graph-thumb-srcset" .}}"
-         {{end}}
-         >
-
-*/}}

@@ -32,11 +32,17 @@
         <span class="image">
           <img class="no-subtitles" src="/static/svg/no-subtitles.svg">
           {{if $isAudio}}
-          <img src="/static/svg/audio.svg" alt="" >
+          <img src="/static/svg/audio.svg" alt="">
           {{else if .Entry.Cover}}
-          <img alt=""
-               src="{{.Entry.Cover.ImagePath 320 .Lang}}" 
-               srcset="{{template "graph-thumb-srcset" (eL .Entry.Cover .Lang)}}">
+          <picture>
+            <source srcset="{{.E.Cover.SrcSet 320 .L}},
+                            {{.E.Cover.SrcSet 480 .L}},
+                            {{.E.Cover.SrcSet 960 .L}},
+                            {{.E.Cover.SrcSet 1280 .L}}"
+                    sizes="(max-width: 36rem) 90vw, 25vw">
+            <img alt="" loading="lazy" src="{{.Entry.Cover.ImagePath 320 .Lang}}" 
+                 width="{{.Entry.Cover.Width 1280}}" height="{{.Entry.Cover.Height 1280}}">
+          </picture>
           {{else}}
           NO COVER
           {{end}}
