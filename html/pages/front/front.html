@@ -39,29 +39,22 @@
 {{template "bot" .Meta}}
 {{end}}
 
-{{define "month-front"}}
-<center>
-  <a href="{{.Entry.Perma .Lang}}" class="frontcover"><img alt="{{.Entry.Title .Lang}}"
-       src="{{.Entry.Cover.ImagePath 2560 .Lang}}" 
-       srcset="{{template "graph-thumb-srcset" (eL .Entry.Cover .Lang)}}"></a>
-  <br>
-    <h2 class="month-front">
-     <a href="{{.Entry.Perma .Lang}}">{{.Entry.Info.Field "title" .Lang}} {{.Entry.Date.Format "2006"}}</a>
-    </h2>
-</center>
-{{end}}
-
 {{define "kine-front"}}
-<center>
-  <a href="{{.Entry.Perma .Lang}}" class="frontcover"><img alt="{{.Entry.Title .Lang}}"
-       src="{{.Entry.Cover.ImagePath 2560 .Lang}}" 
-       srcset="{{template "graph-thumb-srcset" (eL .Entry.Cover .Lang)}}"></a>
+<div class="center">
+  <a href="{{.Entry.Perma .Lang}}" class="frontcover"><picture>
+      <source srcset="{{.Entry.Cover.SrcSet 1280 .L}},
+                      {{.Entry.Cover.SrcSet 1440 .L}},
+                      {{.Entry.Cover.SrcSet 1600 .L}},
+                      {{.Entry.Cover.SrcSet 1920 .L}}"
+              sizes="(max-width: 48rem) 64rem, 100vw">
+      <img alt="{{.Entry.Title .Lang}}" src="{{.Entry.Cover.ImagePath 1280 .Lang}}">
+    </picture></a>
   <br>
   <span class="kine-title-front">
     Video: <a href="{{.Entry.Perma .Lang}}">{{.Entry.Info.Field "title" .Lang}}</a>
   </span>
-</center>
-  {{end}}
+</div>
+{{end}}
 
 {{define "indecs-col" -}}
 <div>
@@ -184,3 +177,16 @@
 
   <div></div>
 -->
+
+
+{{define "month-front"}}
+<center>
+  <a href="{{.Entry.Perma .Lang}}" class="frontcover"><img alt="{{.Entry.Title .Lang}}"
+       src="{{.Entry.Cover.ImagePath 2560 .Lang}}" 
+       srcset="{{template "graph-thumb-srcset" (eL .Entry.Cover .Lang)}}"></a>
+  <br>
+    <h2 class="month-front">
+     <a href="{{.Entry.Perma .Lang}}">{{.Entry.Info.Field "title" .Lang}} {{.Entry.Date.Format "2006"}}</a>
+    </h2>
+</center>
+{{end}}

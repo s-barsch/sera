@@ -151,6 +151,15 @@
     {{end}}
 {{end}}
 
+<!--
+    {{range $i, $group := .E.Entries.Groups}}
+      <section class="{{$group.First.ObjectType}}-group">
+        {{range $group}}
+          {{template "graph-set-child" (eLy . $.L $.Y)}}
+        {{end}}
+      </section>
+    {{end}}
+-->
 
 {{define "graph-set-entry"}}
     {{template "private-mark-graph" .E}}
@@ -190,3 +199,10 @@
     {{end}}
 {{end}}
 
+{{define "graph-set-image"}}
+{{$alt := .E.Title .L}}
+{{$src := .E.ImagePath 320 .L}}
+<picture>
+<img alt="{{$alt}}" src="{{$src}}">
+</picture>
+{{end}}
