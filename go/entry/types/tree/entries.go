@@ -77,7 +77,6 @@ func readEntryFiles(files []*read.FileInfo, parent *Tree) (entry.Entries, error)
 		}
 		e, err := newEntry(fi.Path, parent)
 		if err != nil {
-			println(parent.Level())
 			return nil, err
 		}
 		entries = append(entries, e)

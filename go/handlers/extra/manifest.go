@@ -7,7 +7,6 @@ import (
 )
 
 func Manifest(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	println(m.Path)
 	m.Title = meta.SiteName(m.Lang)
 	m.Desc = s.Vars.Lang("site", m.Lang)
 

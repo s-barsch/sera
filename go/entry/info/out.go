@@ -1,7 +1,6 @@
 package info
 
 import (
-	"fmt"
 	"sacer/go/entry/tools"
 	"time"
 )
@@ -90,7 +89,6 @@ func (i Info) Revision(format string) *DateWrapper {
 func parseDate(field string) *DateWrapper {
 	d, err := time.Parse(tools.Timestamp, field)
 	if err != nil {
-		fmt.Println(err)
 		return nil
 	}
 	return &DateWrapper{

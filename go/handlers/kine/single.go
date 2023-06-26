@@ -101,7 +101,6 @@ func limits(l, i int) (int, int) {
 		if j-(number-right) > 0 {
 			j = j - (number - right)
 		} else {
-			println(right)
 			j = 0
 		}
 	}
