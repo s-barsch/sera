@@ -24,6 +24,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta
 
 	m.Title = strings.Title(tools.KineName[m.Lang])
 	m.Section = "kine"
+	m.Desc = s.Vars.Lang("kine-desc", m.Lang)
 
 	err := m.Process(t)
 	if err != nil {
