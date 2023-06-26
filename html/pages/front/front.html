@@ -46,8 +46,9 @@
                       {{.Entry.Cover.SrcSet 1440 .L}},
                       {{.Entry.Cover.SrcSet 1600 .L}},
                       {{.Entry.Cover.SrcSet 1920 .L}}"
-              sizes="(max-width: 48rem) 64rem, 100vw">
-      <img alt="{{.Entry.Title .Lang}}" src="{{.Entry.Cover.ImagePath 1280 .Lang}}">
+              sizes="(min-width: 48rem) 64rem, 100vw">
+      <img alt="{{.Entry.Title .Lang}}" src="{{.Entry.Cover.ImagePath 1280 .Lang}}"
+           width="{{.Entry.Cover.Width 1280}}" height="{{.Entry.Cover.Height 1280}}">
     </picture></a>
   <br>
   <span class="kine-title-front">
