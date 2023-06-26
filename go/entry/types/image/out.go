@@ -19,12 +19,25 @@ func (i *Image) ImagePath(size int, lang string) string {
 	return fmt.Sprintf("%v/cache/%v", parent, i.ImageName(size, i.info.Wall()))
 }
 
+func (i *Image) ImagePathWebP(size int, lang string) string {
+	parent := i.Perma(lang)
+	switch typ := i.parent.Type(); typ {
+	case "set", "tree":
+		parent = i.parent.Perma(lang)
+	}
+	return fmt.Sprintf("%v/cache/%v", parent, i.ImageNameWebP(size, i.info.Wall()))
+}
+
+func (i *Image) ImageNameWebP(size int, blur bool) string {
+	return fmt.Sprintf("%v-%v%v", i.file.NameNoExt(), size, ".webp")
+}
+
 func (i *Image) ImageName(size int, blur bool) string {
 	return fmt.Sprintf("%v-%v%v", i.file.NameNoExt(), size, i.file.Ext())
 }
 
 func (i *Image) SrcSet(size int, lang string) string {
-	return fmt.Sprintf("%v %vw", i.ImagePath(size, lang), i.Width(size))
+	return fmt.Sprintf("%v %vw", i.ImagePathWebP(size, lang), i.Width(size))
 }
 
 /*
