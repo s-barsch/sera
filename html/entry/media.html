@@ -1,8 +1,3 @@
-
-{{define "media-query-portrait"}}(orientation: landscape) 50vw, 100vw{{end}}
-{{define "media-query-landscape-old"}}((orientation: landscape) and (max-height: {{.Height 1280}}px)) {{.Width 1280}}px, 100vw{{end}}
-{{define "media-query-landscape"}}{{end}}
-
 {{define "image"}}
   {{$lang := .Lang}}
 
@@ -54,35 +49,11 @@
 </figure>
 {{- end}}
 
-{{define "image-old"}}
-{{$lang := .Lang}}
-{{with .El}}
-<figure>
-{{if eq .Ext ".svg"}}{{minifySvg (printf "%s" .Content)}}
-{{else if eq .Ext ".jpg"}}
-    <img {{with .Info.Alt $lang}}alt="{{.}}"{{end}}
- sizes="{{if eq .Orientation "landscape"}}{{template "media-query-landscape" .}}{{else}}{{template "media-query-portrait"}}{{end}}"
- srcset="{{.SrcSet 1280}}, {{.SrcSet 1600}}, {{.SrcSet 1920}}, {{.SrcSet 2560}}" src="{{.PhotoName 1280}}">
-{{$date := .DateFormat "02.01.2006"}}
-{{if eq (.Page $lang) "graph"}}
-{{with .Info }}
-<figcaption class="margin caption">
-    {{with .Title $lang}}<h1 class="image-title">{{.}}</h1>{{end}}
-    <div class="alt-text">{{.Alt $lang}}</div>
-    {{$date}}
-</figcaption>
-{{end}}
-{{end}}
-{{else}}
-<img src="{{.Path}}">
-{{end}}
-</figure>
-{{end}}
-{{end}}
 
 {{define "video"}}
 <figure>
-  <video preload="metadata" loop controls {{if eq .E.Section "kine"}}poster="{{.E.Parent.Cover.ImagePath 1280 .L}}" autoplay {{end}} type="video/mp4">
+  <video preload="metadata" loop controls type="video/mp4"
+  {{if eq .E.Section "kine"}}poster="{{.E.Parent.Cover.ImagePath 1280 .L}}" autoplay {{end}}>
     {{range .E.Sources}}
     <source src="{{$.E.FilesPath $.L}}/{{.Path}}" size="{{.Resolution}}" type="video/mp4">
     {{end}}
