@@ -109,10 +109,12 @@ video {
     max-height:30rem;
 }
 
+/*
 .mob-group img {
     max-width:20rem;
     max-height:20rem;
 }
+*/
 
 @media (max-width:@break-single) {
     .mob-group img:only-child {
@@ -122,11 +124,13 @@ video {
 }
 
 .media-mixin(@break) when (@break = @break-single) {
+    /*
     .video-main video,
     .mob-group img {
         max-width:25rem;
         max-height:25rem;
     }
+    */
 
     /*
     .mob-group.single img {
