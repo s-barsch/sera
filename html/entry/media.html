@@ -18,7 +18,7 @@
                 {{.E.SrcSet 2560 .L}},
                 {{.E.SrcSet 3200 .L}}"
         >
-        <img loading="lazy" alt="{{$alt}}" src="{{.E.ImagePath 1280 .L}}">
+        <img loading="lazy" {{with $alt}}alt="{{.}}"{{end}} src="{{.E.ImagePath 1280 .L}}">
     </picture>
 
     {{if eq .E.Section "graph"}}
