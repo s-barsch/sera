@@ -41,9 +41,11 @@ func (s *Subnav) NavTrees() tree.Trees {
 	}
 	if t.Section() == "kine" {
 		return t.Trees.Reverse()
-		if t.Level() == 1 {
-			return t.Trees.Reverse()
-		}
+		/*
+			if t.Level() == 1 {
+				return t.Trees.Reverse()
+			}
+		*/
 	}
 	return t.Trees
 }

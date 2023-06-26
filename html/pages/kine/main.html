@@ -13,10 +13,12 @@
     </div>
 
     <div class="video-grid">
-    {{range $set := .Entries}}
-
-    {{template "kine-card" (eL $set $.Meta.Lang)}}
-
+    {{range $i, $k := .Entries}}
+      {{if lt $i 9}}
+        {{template "kine-card" (eLy $k $.Meta.Lang false)}}
+      {{else}}
+        {{template "kine-card" (eLy $k $.Meta.Lang true)}}
+      {{end}}
     {{end}}
     </div>
 
@@ -40,7 +42,7 @@
                             {{.E.Cover.SrcSet 960 .L}},
                             {{.E.Cover.SrcSet 1280 .L}}"
                     sizes="(max-width: 36rem) 90vw, 25vw">
-            <img alt="" loading="lazy" src="{{.Entry.Cover.ImagePath 320 .Lang}}" 
+            <img alt="" {{if .Lazy}}loading="lazy" {{end}} src="{{.Entry.Cover.ImagePath 320 .Lang}}" 
                  width="{{.Entry.Cover.Width 1280}}" height="{{.Entry.Cover.Height 1280}}">
           </picture>
           {{else}}
