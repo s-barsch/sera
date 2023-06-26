@@ -36,14 +36,13 @@ type Collection interface {
 }
 
 type Blob interface {
-	Location(string) (string, error)
+	Location(string, string) (string, error)
 }
 
 type Media interface {
 	Transcripted() bool
 	Captioned() bool
 	HasCaptions(string) bool
-	CaptionLocation(string) string
 }
 
 func IsBlob(e Entry) bool {

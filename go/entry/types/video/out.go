@@ -21,16 +21,25 @@ func (v *Video) Ideal(res string) float64 {
 	return math.Round(mb*10) / 10
 }
 
-func (v *Video) Location(res string) (string, error) {
-	if res == "" {
-		res = "1080"
+// ext = mp4 | vtt
+// option = 1280, 720 | de, en
+func (v *Video) Location(ext, opt string) (string, error) {
+	if ext == "vtt" {
+		return v.CaptionLocation(opt), nil
+	}
+	if opt == "" {
+		opt = "1080"
 	}
 	for _, s := range v.Sources {
-		if s.Resolution == res {
+		if s.Resolution == opt {
 			return filepath.Join(v.file.Dir(), s.Path), nil
 		}
 	}
-	return "", fmt.Errorf("Cannot find resolution %v in %v", res, v.file.Path)
+	return "", fmt.Errorf("Cannot find resolution %v in %v", opt, v.file.Path)
+}
+
+func (v *Video) CaptionLocation(lang string) string {
+	return tools.VTTPath(v.file.Dir(), v.file.NameNoExt(), lang)
 }
 
 func (v *Video) FilesPath(lang string) string {
@@ -56,10 +65,6 @@ func (v *Video) CaptionsOn(captionsLang, pageLang string) bool {
 		}
 	}
 	return captionsLang == "de" && pageLang == "de" && v.Info()["captions-on"] == "true"
-}
-
-func (v *Video) CaptionLocation(lang string) string {
-	return tools.VTTPath(v.file.Dir(), v.file.NameNoExt(), lang)
 }
 
 func (v *Video) HasCaptions(lang string) bool {

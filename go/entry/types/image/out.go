@@ -6,9 +6,12 @@ import (
 	"strconv"
 )
 
-func (i *Image) Location(size string) (string, error) {
+func (i *Image) Location(ext, size string) (string, error) {
 	if size == "" {
 		return i.file.Path, nil
+	}
+	if ext == "webp" {
+		return p.Join(i.file.Dir(), "cache", size, i.file.NameNoExt()+".webp"), nil
 	}
 	return p.Join(i.file.Dir(), "cache", size, i.file.Name()), nil
 }

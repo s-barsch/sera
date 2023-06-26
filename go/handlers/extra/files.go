@@ -54,15 +54,7 @@ func serveSingleBlob(w http.ResponseWriter, r *http.Request, e entry.Entry, path
 		return fmt.Errorf("File to serve (%v) is no blob.", e.File().Name())
 	}
 
-	m, ok := e.(entry.Media)
-	if ok {
-		switch p.Ext(path.SubFile.Name) {
-		case ".vtt":
-			serveStatic(w, r, m.CaptionLocation(path.SubFile.Size))
-			return nil
-		}
-	}
-	location, err := blob.Location(path.SubFile.Size)
+	location, err := blob.Location(path.File.Ext, path.File.Option)
 	if err != nil {
 		return err
 	}
@@ -71,14 +63,14 @@ func serveSingleBlob(w http.ResponseWriter, r *http.Request, e entry.Entry, path
 }
 
 func serveCollectionBlob(w http.ResponseWriter, r *http.Request, col entry.Collection, path *paths.Path) error {
-	name := baseName(path.SubFile.Name)
+	name := baseName(path.File.Name)
 	for _, e := range col.Entries() {
 		if baseName(e.File().Name()) == name {
 			return serveSingleBlob(w, r, e, path)
 		}
 	}
 
-	if name := path.SubFile.Name; len(name) > 5 && name[:5] == "cover" {
+	if name := path.File.Name; len(name) > 5 && name[:5] == "cover" {
 		set, ok := col.(*set.Set)
 		if ok && set.Cover != nil {
 			return serveSingleBlob(w, r, set.Cover, path)
@@ -87,10 +79,10 @@ func serveCollectionBlob(w http.ResponseWriter, r *http.Request, col entry.Colle
 		if ok && t.Cover != nil {
 			return serveSingleBlob(w, r, t.Cover, path)
 		}
-		return fmt.Errorf("serveCollectionBlob: Cover %v not found.", path.SubFile.Name)
+		return fmt.Errorf("serveCollectionBlob: Cover %v not found.", path.File.Name)
 	}
 
-	return fmt.Errorf("serveCol !N!,onBlob: File %v not found.", path.SubFile.Name)
+	return fmt.Errorf("serveCol !N!,onBlob: File %v not found.", path.File.Name)
 }
 
 func baseName(name string) string {

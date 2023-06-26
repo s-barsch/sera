@@ -171,8 +171,8 @@ func getSource(path string) (*Source, error) {
 		isTop = true
 	}
 
-	subfile := paths.SplitSubpath(path)
-	res, err := strconv.Atoi(subfile.Size)
+	file := paths.SplitFile(path)
+	res, err := strconv.Atoi(file.Option)
 	if err != nil {
 		if isTop {
 			res = 1080

@@ -7,16 +7,16 @@ import (
 )
 
 type Path struct {
-	Raw     string
-	Chain   []string
-	Slug    string
-	Hash    string
-	SubDir  string
-	SubFile *SubFile
+	Raw    string
+	Chain  []string
+	Slug   string
+	Hash   string
+	Folder string
+	File   *File
 }
 
-type SubFile struct {
-	Name, Size string
+type File struct {
+	Name, Option, Ext string
 }
 
 func (p *Path) Lang() string {
@@ -38,7 +38,7 @@ func (p *Path) Section() string {
 }
 
 func (p *Path) IsFile() bool {
-	if p.SubDir != "" {
+	if p.Folder != "" {
 		return true
 	}
 	return false
@@ -62,12 +62,12 @@ func (p *Path) IsFile() bool {
 func Split(path string) *Path {
 	chain := strings.Split(strings.Trim(path, "/"), "/")
 
-	subdir := ""
+	folder := ""
 	subpath := ""
 
 	for i, c := range chain {
 		if c == "files" || c == "cache" {
-			subdir = c
+			folder = c
 			subpath = strings.Join(chain[i+1:], "/")
 			chain = chain[:i]
 			break
@@ -79,12 +79,12 @@ func Split(path string) *Path {
 	chain = removeLast(chain)
 
 	return &Path{
-		Raw:     path,
-		Chain:   chain,
-		Slug:    slug,
-		Hash:    hash,
-		SubDir:  subdir,
-		SubFile: SplitSubpath(subpath),
+		Raw:    path,
+		Chain:  chain,
+		Slug:   slug,
+		Hash:   hash,
+		Folder: folder,
+		File:   SplitFile(subpath),
 	}
 }
 
@@ -130,30 +130,31 @@ func discernName(str string) (slug, hash string) {
 	return str, ""
 }
 
-// subpath == 160403_124512-1600.jpg
+// filepath == 160403_124512-1600.jpg
 //			  |             |
 //			  filename	    size
 
 // 160403_124512-1600.jpg -> (160403_124512.jpg) (1600)
-func SplitSubpath(subp string) *SubFile {
-	i := strings.LastIndex(subp, "-")
+func SplitFile(filep string) *File {
+	i := strings.LastIndex(filep, "-")
 	if i < 0 {
-		return &SubFile{
-			Name: subp,
+		return &File{
+			Name: filep,
 		}
 	}
-	j := strings.LastIndex(subp, ".")
+	j := strings.LastIndex(filep, ".")
 	if j < 0 {
 		// No file extension.
 		// 160403_124512-1600 -> (160403_124512) (1600)
-		return &SubFile{
-			Name: subp[:i],
-			Size: subp[i+1:],
+		return &File{
+			Name:   filep[:i],
+			Option: filep[i+1:],
 		}
 	}
 	// Remove size and put filename back together.
-	return &SubFile{
-		Name: subp[:i] + subp[j:],
-		Size: subp[i+1 : j],
+	return &File{
+		Name:   filep[:i] + filep[j:],
+		Option: filep[i+1 : j],
+		Ext:    filep[j+1:],
 	}
 }
