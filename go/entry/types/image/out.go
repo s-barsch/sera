@@ -7,6 +7,9 @@ import (
 )
 
 func (i *Image) Location(size string) (string, error) {
+	if size == "" {
+		return i.file.Path, nil
+	}
 	return p.Join(i.file.Dir(), "cache", size, i.file.Name()), nil
 }
 
