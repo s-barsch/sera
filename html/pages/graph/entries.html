@@ -114,7 +114,7 @@
     {{end}}
 {{end}}
 
-{{define "graph-kine-mobile"}}
+{{define "-mobile"}}
     {{with .E.Kine}}
     <div class="graph-kine">
       {{range .}}
@@ -128,7 +128,7 @@
 
 {{define "graph-kine-title"}}
 <span class="graph-kine-title">
-  <img class="icon" src="/static/svg/cam.svg">
+  <img alt="" class="icon" src="/static/svg/cam.svg">
   <span class="kine-date-notes">{{template "kine-date" .}}</span>:
   <a href="{{.E.Perma .L}}">
     {{.E.Title .L}}
