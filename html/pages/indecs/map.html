@@ -10,7 +10,7 @@ graph [overlap=false tooltip="" edgetooltip=""];
 node [fontname="eb garamond, times, serif" fontsize=14 overlap=false];
 edge [arrowhead=none len=10 minlen=10 sep=1 tooltip=""];
 {{nodeName .Tree.Id}} [label="Index" tooltip="" shape=plaintext fontname="nimbus sans l" fontsize=18]
-{{template "print-trees" (snav .Tree .Tree.Id .Lang)}}
+{{template "print-trees" (snav .Tree .Tree .Lang)}}
 }
 {{end}}
 
@@ -21,7 +21,7 @@ edge [arrowhead=none len=10 minlen=10 sep=1 tooltip=""];
         {{- $t := nodeName .Id -}}
         {{$t}} [label="{{.Title $.L}}" tooltip="" href="{{.Perma $.L}}" shape=plaintext]
         {{$parent}} -> {{$t}};
-        {{- template "print-trees" (snav . .Id $.L) -}}
+        {{- template "print-trees" (snav . . $.L) -}}
   {{end}}
 {{end}}
 {{- end}}

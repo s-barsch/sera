@@ -11,7 +11,7 @@
 {{end}}
 
 {{define "subnavs"}}
-    <div class="subnavs {{.Tree.Section}}-subnavs">
+    <div class="subnavs {{.Tree.Section}}nav">
         <div class="subnav__steps">
             {{template "subnav-recursive" (eL .Tree .Lang)}}
         </div>
@@ -22,12 +22,11 @@
 {{end}}
 
 {{define "subnav-recursive"}}
-    {{$active := .E.Id}}
     {{with .E.Parent}}
         {{if .Parent}}
             {{template "subnav-recursive" (eL . $.L)}}
         {{end}}
-        {{template "subnav-row" (snav . $active $.L)}}
+        {{template "subnav-row" (snav . $.E $.L)}}
     {{end}}
 {{end}}
 
@@ -36,12 +35,12 @@
 {{define "subnav-row"}}
     <div class="subnav">
           {{range $i, $t := .NavTrees -}}
-          {{- $isActive := eq $.Active $t.Id -}}
+          {{- $isActive := eq $.ActiveId $t.Id -}}
           <a {{if $isActive}}class="active" {{end}}href="{{$t.Perma $.L}}">{{$t.Label $.L}}</a>
           {{- end -}}
         {{if .IsDay}}
           {{range $i, $e := .Tree.Entries.Reverse}}
-            {{$isActive := eq $.Active $e.Id}}
+            {{$isActive := eq $.ActiveId $e.Id}}
             <a {{if $isActive}}class="active" {{end}}href="{{$e.Perma $.L}}">{{$e.Date.Format "02"}}</a>
           {{end}}
         {{end}}

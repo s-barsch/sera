@@ -1,7 +1,7 @@
 {{define "graph-month"}}
 {{template "head" .Meta}}
 {{template "top" .}}
-{{template "subnav" (snav .Tree 0 .Meta.Lang)}}
+{{template "subnav" (snav .Tree nil .Meta.Lang)}}
 
 <div id="graph">
 {{with .Tree}}
@@ -28,7 +28,7 @@
 {{end}}
 </div>
 
-{{template "subnav-fixed" (snav .Tree 0 .Meta.Lang)}}
+{{template "subnav-fixed" (snav .Tree nil .Meta.Lang)}}
 
 {{template "prev-next-year" .}}
 {{template "first-published" .}}

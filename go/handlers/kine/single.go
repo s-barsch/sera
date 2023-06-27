@@ -43,9 +43,9 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, m *me
 	}
 
 	err = s.ExecuteTemplate(w, "kine-single", &kineSingle{
-		Meta:      m,
-		Entry:     e,
-		Neighbors: getNeighbors(s.Recents["kine"].Access(m.Auth.Subscriber)[m.Lang], p.Hash),
+		Meta:  m,
+		Entry: e,
+		//Neighbors: getNeighbors(s.Recents["kine"].Access(m.Auth.Subscriber)[m.Lang], p.Hash),
 	})
 	if err != nil {
 		log.Println(err)

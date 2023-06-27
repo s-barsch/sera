@@ -1,7 +1,7 @@
 {{define "graph-year"}}
 {{template "head" .Meta}}
 {{template "top" .}}
-{{template "subnav" (snav .Tree 0 .Meta.Lang)}}
+{{template "subnav" (snav .Tree nil .Meta.Lang)}}
 
 <div class="section-title__box section-title--year">
     <h1 class="section-title column">
@@ -32,7 +32,7 @@
 {{end}}
 </div>
 
-{{template "subnav-fixed" (snav .Tree 0 .Meta.Lang)}}
+{{template "subnav-fixed" (snav .Tree nil .Meta.Lang)}}
 
 {{template "prev-next-year" .}}
 {{template "graph-arr" .Tree}}
@@ -59,7 +59,7 @@
 {{define "graph-main"}}
 {{template "head" .Meta}}
 {{template "top" .}}
-{{template "subnav" (snav .Tree 0 .Meta.Lang)}}
+{{template "subnav" (snav .Tree nil .Meta.Lang)}}
 
 
     <div class="section-title__box section-title--graph">
@@ -157,7 +157,7 @@
 
     </section>
 
-    {{template "subnav-fixed" (snav .Tree 0 .Meta.Lang)}}
+    {{template "subnav-fixed" (snav .Tree nil .Meta.Lang)}}
 
     <div id="top-link" class="hide">
             <!--

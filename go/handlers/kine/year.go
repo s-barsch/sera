@@ -1,6 +1,7 @@
 package kine
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"sacer/go/entry"
@@ -41,7 +42,7 @@ func Year(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta
 		return
 	}
 
-	m.Title = strings.Title(tools.KineName[m.Lang])
+	m.Title = strings.Title(fmt.Sprintf("%v - %v", t.Date().Format("2006"), tools.KineName[m.Lang]))
 	m.Section = "kine"
 	// TODO:
 	//m.Desc = s.Vars.Lang("kine-desc", m.Lang)
@@ -54,7 +55,7 @@ func Year(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta
 
 	entries := t.TraverseEntriesReverse()
 
-	err = s.ExecuteTemplate(w, "kine-main", &kineMain{
+	err = s.ExecuteTemplate(w, "kine-year", &kineMain{
 		Meta:    m,
 		Tree:    t,
 		Entries: entries,

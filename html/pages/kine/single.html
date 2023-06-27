@@ -11,22 +11,25 @@
 
 {{end}}}
 
-{{/* template "subnav" (snav .Entry.Parent .Entry.Id .Meta.Lang) */}}
 
-{{define "yearnav"}}
-    <nav id="subnav" class="subnavs">
-      {{$year := .E.Parent.Parent}}
-      {{template "subnav-row" (snav $year.Parent $year.Id .L)}}
+{{define "kinenav"}}
+    <nav id="subnav" class="subnavs kinenav">
+      {{$year := .T.Parent}}
+      {{template "subnav-row" (snav $year.Parent $year .L)}}
+      {{template "monthnav" (snav $year .Active .L)}}
     </nav>
 {{end}}
 
-{{define "daynav"}}
-      {{$year := .E.Parent.Parent}}
-      <div class="subnav">
-      {{range $month := $year.Trees}}
-        <a href="#">{{$month.Date.Format "Jan"}}</a>
-        {{range $day := $month.Entries}}
-          <a href="{{$day.Perma "en"}}">{{$day.Date.Format "2"}}</a>
+{{define "monthnav"}}
+      <div class="subnav monthnav">
+      {{range $month := .T.Trees}}
+        {{$isActive := eq $month.Id $.Active.Parent.Id}}
+        <a href="{{$month.Perma $.L}}" class="kinemonth{{if $isActive}} active{{end}}">{{$month.Date.Format "Jan"}}</a>
+        {{if $isActive}}
+          {{range $day := $month.Entries}}
+            <a href="{{$day.Perma $.L}}"
+               {{if eq $day.Id $.ActiveId}}class="active"{{end}}>{{$day.Date.Format "2"}}</a>
+          {{end}}
         {{end}}
       {{end}}
       </div>
@@ -47,7 +50,7 @@
 
 {{define "kine-single-part"}}
 
-{{template "yearnav" (eL .Entry .Meta.Lang)}}
+{{template "kinenav" (snav .Entry.Parent .Entry .Meta.Lang)}}
 
     {{$eL := eL .Entry .Meta.Lang}}
     <div id="body">
@@ -102,7 +105,6 @@
 {{else}}
   {{template "entry" .}}
 {{end}}
-  {{template "daynav" (eL .E.Parent .L)}}
   {{template "kine-transcript" .}}
 
 {{end}}

@@ -2,30 +2,44 @@
 {{template "head" .Meta}}
 {{template "top" .}}
 
-
-    <div class="section-title__box section-title--index">
-        <h1 class="section-title">
-            {{.Meta.Title}}
-        </h1>
-        <!--
-        <h4 class="section-lead">
-            {{var "video-subtitle" .Meta.Lang}}
-        </h4>
-        -->
-    </div>
-
-    <div class="video-grid">
-    {{range $i, $k := .Entries}}
-      {{if lt $i 9}}
-        {{template "kine-card" (eLy $k $.Meta.Lang false)}}
-      {{else}}
-        {{template "kine-card" (eLy $k $.Meta.Lang true)}}
-      {{end}}
-    {{end}}
-    </div>
-
+  {{template "subnav" (snav .Tree nil .Meta.Lang)}}
+  {{template "kine-header" .Meta.Title}}
+  {{template "kine-grid" (esL .Entries .Meta.Lang)}}
 
 {{template "bot" .Meta}}
+{{end}}
+
+{{define "kine-year"}}
+{{template "head" .Meta}}
+{{template "top" .}}
+
+  {{template "subnav" (snav .Tree nil .Meta.Lang)}}
+    <div class="section-title__box section-title--index">
+        <h1 class="section-title">
+          <span style="font-family: var(--fontfamily-garamond12);
+          font-feature-settings: 'lnum' on;">
+          {{.Tree.Date.Format "2006"}},</span> Kine
+        </h1>
+    </div>
+  {{template "kine-grid" (esL .Entries .Meta.Lang)}}
+
+{{template "bot" .Meta}}
+{{end}}
+
+{{define "kine-header"}}
+    <div class="section-title__box section-title--index">
+        <h1 class="section-title">
+          {{.}}
+        </h1>
+    </div>
+{{end}}
+
+{{define "kine-grid"}}
+    <div class="video-grid">
+    {{range $i, $k := .Entries}}
+      {{template "kine-card" (eLy $k $.Lang false)}}
+    {{end}}
+    </div>
 {{end}}
 
 {{define "kine-card"}}

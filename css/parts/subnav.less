@@ -2,7 +2,7 @@
 //
 .subnavs {
     font-size: var(--fontsize-third);
-    margin:.625rem 0 2.25rem;
+    margin:.625rem 0 0;
     line-height:2rem;
 }
 
@@ -10,7 +10,7 @@
     margin-left:-.375rem;
 }
 
-.graph-subnavs .subnav {
+.graphnav .subnav {
     white-space:nowrap;
     overflow:auto;
 }
@@ -45,6 +45,7 @@
 
 // links
 
+.kinenav .subnav a.kinemonth,
 .subnav a {
     color:var(--color-inactive);
     padding:.375rem .375rem;
@@ -56,11 +57,13 @@
     background:#fffa96;
 }
 
+.kinenav .subnav a.kinemonth.active,
 .subnav:last-child a,
 .subnav .active {
     color:var(--color-fg);
 }
 
+.kinenav .subnav a.active,
 .subnav:last-child .active {
     color: var(--color-red-second);
 }
@@ -71,4 +74,8 @@
 
 .subnav a.top-link {
     color:var(--color-fg);
+}
+
+.monthnav {
+    font-feature-settings: 'lnum' on;
 }
