@@ -1,12 +1,2 @@
 site-de: Sacer Feral ist ein deutschsprachiger Künstler und Philosoph.
 site-en: Sacer Feral is a German-speaking artist and philosopher.
-kine-desc-de: Kine zeigt die neusten Videos von Sacer Feral 
-kine-desc-en: Cine displays recent videos of Sacer Feral
-serial-de: Eine Liste der serialisierten Einträge des Index.
-serial-en: A list of the serialized entries of Index.
-index-subtitle-en: Topical&nbsp;structure
-index-subtitle-de: Thematische&nbsp;Struktur
-graph-subtitle-en: Temporal&nbsp;structure
-graph-subtitle-de: Zeitliche&nbsp;Struktur
-map-info-de: Diese Karte wird automatisch generiert.
-map-info-en: This map is automatically generated.
