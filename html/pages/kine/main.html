@@ -14,20 +14,17 @@
 {{template "top" .}}
 
   {{template "subnav" (snav .Tree nil .Meta.Lang)}}
-    <div class="section-title__box section-title--index">
-        <h1 class="section-title">
-          <span style="font-family: var(--fontfamily-garamond12);
-          font-feature-settings: 'lnum' on;">
-          {{.Tree.Date.Format "2006"}},</span> Kine
+        <h1 class="monthpage-title kine-header">
+          <span class="kine-year">{{.Tree.Date.Format "2006"}},</span>
+          <span class="kine-logo">{{if eq .Meta.Lang "en"}}Cine{{else}}Kine{{end}}</span>
         </h1>
-    </div>
   {{template "kine-grid" (esL .Entries .Meta.Lang)}}
 
 {{template "bot" .Meta}}
 {{end}}
 
 {{define "kine-header"}}
-    <div class="section-title__box section-title--index">
+    <div class="section-title__box section-title--kine">
         <h1 class="section-title">
           {{.}}
         </h1>
