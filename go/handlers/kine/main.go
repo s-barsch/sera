@@ -32,7 +32,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta
 		return
 	}
 
-	entries := s.Recents["kine"].Access(m.Auth.Subscriber)[m.Lang]
+	entries := s.Recents["kine"].Access(m.Auth.Subscriber)[m.Lang].Limit(10)
 
 	err = s.ExecuteTemplate(w, "kine-main", &kineMain{
 		Meta:    m,
