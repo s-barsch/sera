@@ -87,7 +87,7 @@ func ReadFrontSettings(root string) (*FrontSettings, error) {
 
 func ReadVarFiles(root string) (map[string]string, error) {
 	vars := map[string]string{}
-	for _, name := range []string{"descriptions", "links", "headings"} {
+	for _, name := range []string{"descriptions", "headings"} {
 
 		path := fmt.Sprintf("/html/vars/%v.txt", name)
 		b, err := ioutil.ReadFile(root + path)
