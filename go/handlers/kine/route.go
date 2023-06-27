@@ -6,6 +6,7 @@ import (
 	"sacer/go/server"
 	"sacer/go/server/meta"
 	"sacer/go/server/paths"
+	"strconv"
 )
 
 func Route(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
@@ -14,7 +15,6 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Met
 		http.NotFound(w, r)
 		return
 	}
-
 	rel := p[len("/de/kine"):]
 
 	if rel == "/" {
@@ -26,8 +26,12 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Met
 		Main(s, w, r, m)
 		return
 	}
-
 	path := paths.Split(p)
+
+	if isYearPage(path.Slug) {
+		Year(s, w, r, m, path)
+		return
+	}
 
 	if path.IsFile() {
 		extra.ServeFile(s, w, r, m, path)
@@ -47,4 +51,12 @@ func Rewrites(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.
 		http.Redirect(w, r, "/de"+m.Path, 301)
 		return
 	}
+}
+
+func isYearPage(str string) bool {
+	if len(str) != 4 {
+		return false
+	}
+	_, err := strconv.Atoi(str)
+	return err == nil
 }
