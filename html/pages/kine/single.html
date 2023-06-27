@@ -11,22 +11,48 @@
 
 {{end}}}
 
+{{/* template "subnav" (snav .Entry.Parent .Entry.Id .Meta.Lang) */}}
+
+{{define "yearnav"}}
+    <nav id="subnav" class="subnavs">
+      {{$year := .E.Parent.Parent}}
+      {{template "subnav-row" (snav $year.Parent $year.Id .L)}}
+    </nav>
+{{end}}
+
+{{define "daynav"}}
+      {{$year := .E.Parent.Parent}}
+      <div class="subnav">
+      {{range $month := $year.Trees}}
+        <a href="#">{{$month.Date.Format "Jan"}}</a>
+        {{range $day := $month.Entries}}
+          <a href="{{$day.Perma "en"}}">{{$day.Date.Format "2"}}</a>
+        {{end}}
+      {{end}}
+      </div>
+{{end}}
+
+
+{{define "kine-title"}}
+    <h1 class="video-title-bar">
+      <span class="video-date">
+        {{.Entry.Date.Format "2"}}
+        {{abbr (monthLang .Entry.Date .L)}}
+      </span>
+      <span class="video-title">
+      {{.Entry.Info.Field "title-display" .L}}
+      </span>
+    </h1>
+{{end}}
+
 {{define "kine-single-part"}}
 
-    {{template "subnav" (snav .Entry.Parent .Entry.Id .Meta.Lang)}}
+{{template "yearnav" (eL .Entry .Meta.Lang)}}
 
     {{$eL := eL .Entry .Meta.Lang}}
     <div id="body">
-      <h1 class="video-title-bar">
-        <span class="video-date">
-          {{.Entry.Date.Format "2"}}
-          {{abbr (monthLang .Entry.Date $.Meta.Lang)}}
-        </span>
-        <span class="video-title">
-        {{.Entry.Info.Field "title-display" .Meta.Lang}}
-        </span>
-      </h1>
-          {{template "kine-entry" $eL}}
+      {{template "kine-title" $eL}}
+      {{template "kine-entry" $eL}}
     </div>
 
     <!--
@@ -76,7 +102,7 @@
 {{else}}
   {{template "entry" .}}
 {{end}}
-
+  {{template "daynav" (eL .E.Parent .L)}}
   {{template "kine-transcript" .}}
 
 {{end}}
