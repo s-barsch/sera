@@ -64,7 +64,6 @@ func (m *Meta) Process(e entry.Entry) error {
 	if m.Section == "" {
 		return fmt.Errorf("section not set")
 	}
-	m.Desc = m.GetDesc(e)
 	m.Langs = m.MakeLangs(e)
 	m.Nav = m.MakeNav()
 
