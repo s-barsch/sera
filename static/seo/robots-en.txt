@@ -28,4 +28,5 @@ Disallow: /
 User-agent: Adsbot/3.1
 Disallow: /
 
-Sitemap: https://en.sacer.site/sitemaps.xml
+User-agent: dotbot
+Disallow: /
