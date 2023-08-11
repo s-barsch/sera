@@ -27,3 +27,6 @@ Disallow: /
 
 User-agent: Adsbot/3.1
 Disallow: /
+
+User-agent: dotbot
+Disallow: /
