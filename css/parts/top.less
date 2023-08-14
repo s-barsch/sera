@@ -91,10 +91,19 @@ a#type-switch-link,
 }
 
 #logo svg {
-    fill: var(--color-fg-true);
+    //fill: var(--color-fg-true);
+    fill: #dd094f;
     width:auto;
     height:1.625rem;
 }
+
+#logo a:hover path {
+    //fill:var(--color-red-logo);
+    fill:var(--color-fg-true);
+    fill:#10610b;
+    fill: #252525;
+}
+
 
 [data-size="medium"] #logo svg {
     height:1.75rem;
@@ -106,17 +115,6 @@ a#type-switch-link,
 
 #logo a:hover {
     border:0;
-}
-
-#logo a:hover path {
-    fill:var(--color-red-logo);
-}
-
-#nav {
-    /*
-    display:flex;
-    justify-content:space-between;
-    */
 }
 
 // main nav
