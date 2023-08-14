@@ -2,27 +2,11 @@
 {{range .Lines}}
 {{template "p-lines" .}}
 {{end}}
-{{with .Footnotes}}
-<div class="footnotes">
-{{$multi := gt (len .) 1}}
-{{range $i, $n := .}}
-<div class="note">{{if $multi}}<span class="note-number">{{plus1 $i}}</span> {{end}}{{$n}}</div>
-{{end}}
-</div>
-{{end}}
 {{end}}
 
 {{define "text-indent"}}
 {{range .Lines}}
 {{template "p-indent" .}}
-{{end}}
-{{with .Footnotes}}
-<div class="footnotes">
-{{$multi := gt (len .) 1}}
-{{range $i, $n := .}}
-<div class="note">{{if $multi}}<span class="note-number">{{plus1 $i}}</span> {{end}}{{$n}}</div>
-{{end}}
-</div>
 {{end}}
 {{end}}
 

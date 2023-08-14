@@ -88,11 +88,11 @@
   <div class="column">
   {{template "graph-kine-mobile" .}}
   </div>
-  {{with .E.Footnotes}}
+  {{/* with .E.Footnotes}}
     <div class="column">
     {{template "footnotes" (nL . $.L)}}
     </div>
-  {{end}}
+  {{end */}}
   {{template "notes" (esL .E.Notes $.L)}}
 </div>
 {{end}}

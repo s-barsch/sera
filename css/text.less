@@ -203,11 +203,13 @@ p code {
 
 .footnotes {
     text-align:justify;
+    font-size:var(--fontsize-quote);
     margin:1rem 0;
+    display:none;
 }
 
-.footnotes {
-    font-size:var(--fontsize-quote);
+.footnotes.show {
+    display: block;
 }
 
 .note-num,
@@ -234,18 +236,12 @@ ol li::before {
     display:none;
 }
 
-.inline-note {
-    display:none;
-}
-
 .ref {
     vertical-align:unset;
     padding-left:.5px;
     font-family:var(--fontfamily-garamond-sups);
     line-height:1;
-}
-
-.note-number {
+    cursor: pointer;
 }
 
 .quote {

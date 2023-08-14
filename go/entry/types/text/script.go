@@ -97,6 +97,8 @@ func (langs Langs) OwnRender() Footnotes {
 	return notes
 }
 
+var inlineNoteTmpl = `<span class="footnotes inline-note"><span class="note"><span class="note-num">%d.</span> %v</span>`
+
 func (s *Script) NumberFootnotes(init int) {
 	for lang := range tools.Langs {
 		count := init
@@ -110,7 +112,7 @@ func (s *Script) NumberFootnotes(init int) {
 
 			if c == '‡' {
 				buf.WriteString(fmt.Sprintf("<span class=\"ref\">%d</span>", count))
-				buf.WriteString(fmt.Sprintf("<span class=\"inline-note\">%v</span>", s.Footnotes[lang][i]))
+				buf.WriteString(fmt.Sprintf(inlineNoteTmpl, i+1, s.Footnotes[lang][i]))
 				i++
 				count++
 				continue
