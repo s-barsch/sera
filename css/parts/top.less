@@ -91,19 +91,19 @@ a#type-switch-link,
 }
 
 #logo svg {
-    //fill: var(--color-fg-true);
-    fill: #dd094f;
+    fill: var(--color-fg-true);
     width:auto;
     height:1.625rem;
 }
 
-#logo a:hover path {
-    //fill:var(--color-red-logo);
-    fill:var(--color-fg-true);
-    fill:#10610b;
-    fill: #252525;
+#logo a:hover path,
+#logo.home svg {
+    fill: #d00c4d;
 }
 
+#logo.home a:hover path {
+    fill: var(--color-fg-true);
+}
 
 [data-size="medium"] #logo svg {
     height:1.75rem;
