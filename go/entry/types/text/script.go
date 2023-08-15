@@ -97,7 +97,7 @@ func (langs Langs) OwnRender() Footnotes {
 	return notes
 }
 
-var inlineNoteTmpl = `<span class="footnotes inline-note"><span class="note"><span class="note-num">%d.</span> %v</span>`
+var inlineNoteTmpl = `<span class="footnotes inline-note"><span class="note"><span class="note-num">%d.</span> %v</span></span>`
 
 func (s *Script) NumberFootnotes(init int) {
 	for lang := range tools.Langs {
