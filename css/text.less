@@ -213,6 +213,22 @@ p code {
     display: block;
 }
 
+.media-mixin(@break) when (@break = @break-desk) {
+    .footnotes.show {
+        position: absolute;
+        margin:0 1rem 0 0;
+        display: inline-block;
+        left: calc(17% + var(--text-width) + 12%);
+        max-width:24rem;
+    }
+}
+
+.media-mixin(@break) when (@break = @break-wide) {
+    .footnotes.show {
+        left: calc(17% + var(--text-width) + 17%);
+    }
+}
+
 .note-num,
 ol li::before {
     display:inline-block;
