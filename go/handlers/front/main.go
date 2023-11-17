@@ -34,7 +34,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta
 		return
 	}
 
-	indecs := s.Recents["indecs"].Access(m.Auth.Subscriber)[m.Lang]
+	//indecs := s.Recents["indecs"].Access(m.Auth.Subscriber)[m.Lang]
 	graph := s.Recents["graph"].Access(m.Auth.Subscriber)[m.Lang]
 	kine := s.Recents["kine"].Access(m.Auth.Subscriber)[m.Lang]
 
@@ -50,8 +50,8 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta
 	months = newmonths
 
 	err = s.ExecuteTemplate(w, "front", &frontMain{
-		Meta:   m,
-		Index:  indecs.Limit(s.Vars.FrontSettings.Index),
+		Meta: m,
+		//Index:  indecs.Limit(s.Vars.FrontSettings.Index),
 		Graph:  graph.Limit(s.Vars.FrontSettings.Graph),
 		Kine:   kine.Limit(10),
 		Months: months,

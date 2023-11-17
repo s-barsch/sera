@@ -28,6 +28,9 @@ func (t *Tree) Section() string {
 	if section == "cine" {
 		return "kine"
 	}
+	if section == "" {
+		return "extra"
+	}
 	return section
 }
 
@@ -41,6 +44,10 @@ func (t *Tree) Perma(lang string) string {
 		return indecsPerma(t, lang)
 	case "about":
 		return aboutPerma(t, lang)
+	case "extra":
+		if lang == "de" {
+			return fmt.Sprintf("/de/%v", t.Slug(lang))
+		}
 	}
 	return fmt.Sprintf("/%v", t.Slug(lang))
 }

@@ -55,9 +55,9 @@ func Router(s *server.Server) *mux.Router {
 		r.PathPrefix("/sitemaps").HandlerFunc(makeHandler(s, sitemaps.Route))
 	*/
 
+	r.PathPrefix("/de/impressum").HandlerFunc(makeHandler(s, extra.Extra))
 	r.PathPrefix("/legal").HandlerFunc(makeHandler(s, extra.Extra))
-	r.PathPrefix("/impressum").HandlerFunc(makeHandler(s, extra.Extra))
-	r.PathPrefix("/datenschutz").HandlerFunc(makeHandler(s, extra.Extra))
+	r.PathPrefix("/de/datenschutz").HandlerFunc(makeHandler(s, extra.Extra))
 	r.PathPrefix("/privacy").HandlerFunc(makeHandler(s, extra.Extra))
 
 	r.HandleFunc("/opt/{option}/{value}", makeHandler(s, extra.SetOption))
