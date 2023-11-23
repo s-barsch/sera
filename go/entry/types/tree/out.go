@@ -25,9 +25,6 @@ func (t *Tree) Label(lang string) string {
 // the root node will return a short hash.
 func (t *Tree) Section() string {
 	section := t.Chain()[0].Slug("en")
-	if section == "cine" {
-		return "kine"
-	}
 	if section == "" {
 		return "extra"
 	}
@@ -38,8 +35,8 @@ func (t *Tree) Perma(lang string) string {
 	switch t.Section() {
 	case "graph":
 		return graphPerma(t, lang)
-	case "kine":
-		return kinePerma(t, lang)
+	case "reels":
+		return reelsPerma(t, lang)
 	case "indecs":
 		return indecsPerma(t, lang)
 	case "about":
@@ -67,7 +64,7 @@ func extraPerma(t *Tree, lang string) string {
 	return fmt.Sprintf("/%v", t.Title(lang))
 }
 
-func kinePerma(t *Tree, lang string) string {
+func reelsPerma(t *Tree, lang string) string {
 	start := fmt.Sprintf("/%v/%v", lang, tools.KineName[lang])
 	switch l := t.Level(); {
 	case l == 0:

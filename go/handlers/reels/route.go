@@ -1,4 +1,4 @@
-package kine
+package reels
 
 import (
 	"net/http"
@@ -15,10 +15,10 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Met
 		http.NotFound(w, r)
 		return
 	}
-	rel := p[len("/de/kine"):]
+	rel := p[len("/de/reels"):]
 
 	if rel == "/" {
-		http.Redirect(w, r, "/kine", 301)
+		http.Redirect(w, r, "/reels", 301)
 		return
 	}
 
@@ -39,18 +39,6 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Met
 	}
 
 	ServeSingle(s, w, r, m, path)
-}
-
-func Rewrites(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	folder := m.Path[:len("/kine")]
-	if folder == "/cine" {
-		http.Redirect(w, r, "/en"+m.Path, 301)
-		return
-	}
-	if folder == "/kine" {
-		http.Redirect(w, r, "/de"+m.Path, 301)
-		return
-	}
 }
 
 func isYearPage(str string) bool {

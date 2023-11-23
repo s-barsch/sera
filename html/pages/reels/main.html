@@ -1,48 +1,48 @@
-{{define "kine-main"}}
+{{define "reels-main"}}
 {{template "head" .Meta}}
 {{template "top" .}}
 
   {{template "subnav" (snav .Tree nil .Meta.Lang)}}
-  {{template "kine-header" .Meta.Title}}
-  {{template "kine-grid" (esL .Entries .Meta.Lang)}}
+  {{template "reels-header" .Meta.Title}}
+  {{template "reels-grid" (esL .Entries .Meta.Lang)}}
 
 {{template "bot" .Meta}}
 {{end}}
 
-{{define "kine-year"}}
+{{define "reels-year"}}
 {{template "head" .Meta}}
 {{template "top" .}}
 
   {{template "subnav" (snav .Tree nil .Meta.Lang)}}
-        <h1 class="monthpage-title kine-header">
-          <span class="kine-year">{{.Tree.Date.Format "2006"}},</span>
-          <span class="kine-logo">{{if eq .Meta.Lang "en"}}Cine{{else}}Kine{{end}}</span>
+        <h1 class="monthpage-title reels-header">
+          <span class="reels-year">{{.Tree.Date.Format "2006"}},</span>
+          <span class="reels-logo">{{if eq .Meta.Lang "en"}}Cine{{else}}Kine{{end}}</span>
         </h1>
-  {{template "kine-grid" (esL .Entries .Meta.Lang)}}
+  {{template "reels-grid" (esL .Entries .Meta.Lang)}}
 
 {{template "bot" .Meta}}
 {{end}}
 
-{{define "kine-header"}}
-    <div class="section-title__box section-title--kine">
+{{define "reels-header"}}
+    <div class="section-title__box section-title--reels">
         <h1 class="section-title">
           {{.}}
         </h1>
     </div>
 {{end}}
 
-{{define "kine-grid"}}
+{{define "reels-grid"}}
     <div class="video-grid">
     {{range $i, $k := .Entries}}
-      {{template "kine-card" (eLy $k $.Lang false)}}
+      {{template "reels-card" (eLy $k $.Lang false)}}
     {{end}}
     </div>
 {{end}}
 
-{{define "kine-card"}}
+{{define "reels-card"}}
     {{$isAudio := eq "true" (index .Entry.Info "is-audio")}}
     {{$isTranslated := isTranslated .Entry .Lang}}
-    <div class="kine-card{{if not $isTranslated}} untranslated{{end}}">
+    <div class="reels-card{{if not $isTranslated}} untranslated{{end}}">
       <a href="{{.Entry.Perma .Lang}}">
         <span class="image">
           <img class="no-subtitles" src="/static/svg/no-subtitles.svg">
@@ -75,13 +75,13 @@
           </span>
       </a>
       {{if displayInfo}}
-      {{template "kine-meta" (eL .Entry .Lang)}}
+      {{template "reels-meta" (eL .Entry .Lang)}}
       {{end}}
     </div>
 {{end}}
 
-{{define "kine-meta"}}
-  <div class="kine-meta">
+{{define "reels-meta"}}
+  <div class="reels-meta">
     <span class="{{if isTranscripted .E}}has-meta{{end}}">
       Transcript
     </span>

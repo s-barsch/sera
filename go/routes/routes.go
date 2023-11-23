@@ -7,10 +7,11 @@ import (
 	"sacer/go/handlers/extra"
 	"sacer/go/handlers/front"
 	"sacer/go/handlers/graph"
+	"sacer/go/handlers/reels"
 
 	//"sacer/go/handlers/indecs"
 	//"sacer/go/handlers/index"
-	"sacer/go/handlers/kine"
+
 	//"sacer/go/handlers/sitemaps"
 	"sacer/go/server"
 	"sacer/go/server/meta"
@@ -27,15 +28,13 @@ func Router(s *server.Server) *mux.Router {
 	r.HandleFunc("/de", makeHandler(s, front.Main))
 	r.PathPrefix("/de/graph").HandlerFunc(makeHandler(s, graph.Route))
 	r.PathPrefix("/en/graph").HandlerFunc(makeHandler(s, graph.Route))
-	r.PathPrefix("/de/kine").HandlerFunc(makeHandler(s, kine.Route))
-	r.PathPrefix("/en/cine").HandlerFunc(makeHandler(s, kine.Route))
+	r.PathPrefix("/de/reels").HandlerFunc(makeHandler(s, reels.Route))
+	r.PathPrefix("/en/reels").HandlerFunc(makeHandler(s, reels.Route))
 	r.PathPrefix("/de/ueber").HandlerFunc(makeHandler(s, about.Route))
 	r.PathPrefix("/en/about").HandlerFunc(makeHandler(s, about.Route))
 
 	r.PathPrefix("/ueber").HandlerFunc(makeHandler(s, about.Rewrites))
 	r.PathPrefix("/about").HandlerFunc(makeHandler(s, about.Rewrites))
-	r.PathPrefix("/kine").HandlerFunc(makeHandler(s, kine.Rewrites))
-	r.PathPrefix("/cine").HandlerFunc(makeHandler(s, kine.Rewrites))
 	r.PathPrefix("/graph").HandlerFunc(makeHandler(s, graph.Rewrites))
 
 	/*

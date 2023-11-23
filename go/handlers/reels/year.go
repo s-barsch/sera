@@ -1,4 +1,4 @@
-package kine
+package reels
 
 import (
 	"fmt"
@@ -14,14 +14,14 @@ import (
 	"time"
 )
 
-type kineYear struct {
+type reelsYear struct {
 	Meta    *meta.Meta
 	Tree    *tree.Tree
 	Entries entry.Entries
 }
 
 func Year(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta, p *paths.Path) {
-	kine := s.Trees["kine"].Access(m.Auth.Subscriber)[m.Lang]
+	reels := s.Trees["reels"].Access(m.Auth.Subscriber)[m.Lang]
 
 	id, err := getYearId(p.Slug)
 	if err != nil {
@@ -30,7 +30,7 @@ func Year(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta
 		return
 	}
 
-	t, err := kine.LookupTree(id)
+	t, err := reels.LookupTree(id)
 	if err != nil {
 		http.NotFound(w, r)
 		s.Log.Println(err)
@@ -43,9 +43,9 @@ func Year(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta
 	}
 
 	m.Title = strings.Title(fmt.Sprintf("%v - %v", t.Date().Format("2006"), tools.KineName[m.Lang]))
-	m.Section = "kine"
+	m.Section = "reels"
 	// TODO:
-	//m.Desc = s.Vars.Lang("kine-desc", m.Lang)
+	//m.Desc = s.Vars.Lang("reels-desc", m.Lang)
 
 	err = m.Process(t)
 	if err != nil {
@@ -55,7 +55,7 @@ func Year(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta
 
 	entries := t.TraverseEntriesReverse()
 
-	err = s.ExecuteTemplate(w, "kine-year", &kineMain{
+	err = s.ExecuteTemplate(w, "reels-year", &reelsMain{
 		Meta:    m,
 		Tree:    t,
 		Entries: entries,

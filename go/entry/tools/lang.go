@@ -11,6 +11,6 @@ var AboutName = map[string]string{
 }
 
 var KineName = map[string]string{
-	"de": "kine",
-	"en": "cine",
+	"de": "reels",
+	"en": "reels",
 }

@@ -106,7 +106,7 @@ func (e *Set) Perma(lang string) string {
 	}
 
 	switch e.Section() {
-	case "kine":
+	case "reels":
 		return fmt.Sprintf(
 			"/%v/%v/%v/%v",
 			lang,

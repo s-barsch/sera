@@ -1,4 +1,4 @@
-package kine
+package reels
 
 import (
 	//"fmt"
@@ -12,7 +12,7 @@ import (
 	"strings"
 )
 
-type kineMain struct {
+type reelsMain struct {
 	Meta    *meta.Meta
 	Tree    *tree.Tree
 	Entries entry.Entries
@@ -20,10 +20,10 @@ type kineMain struct {
 
 func Main(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 
-	t := s.Trees["kine"].Access(m.Auth.Subscriber)[m.Lang]
+	t := s.Trees["reels"].Access(m.Auth.Subscriber)[m.Lang]
 
 	m.Title = strings.Title(tools.KineName[m.Lang])
-	m.Section = "kine"
+	m.Section = "reels"
 	m.Desc = t.Info().Field("description", m.Lang)
 
 	err := m.Process(t)
@@ -32,9 +32,9 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta
 		return
 	}
 
-	entries := s.Recents["kine"].Access(m.Auth.Subscriber)[m.Lang].Limit(10)
+	entries := s.Recents["reels"].Access(m.Auth.Subscriber)[m.Lang].Limit(10)
 
-	err = s.ExecuteTemplate(w, "kine-main", &kineMain{
+	err = s.ExecuteTemplate(w, "reels-main", &reelsMain{
 		Meta:    m,
 		Tree:    t,
 		Entries: entries,

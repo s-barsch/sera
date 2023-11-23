@@ -14,11 +14,11 @@
     {{/*template "month-front" eL (index .Months 0) .Meta.Lang*/}}
 
 
-    {{/* template "kine-front" eL (index .Kine 0) .Meta.Lang */}}
+    {{/* template "reels-front" eL (index .Kine 0) .Meta.Lang */}}
 
 
     {{/*
-{{ template "kine-col" . }}
+{{ template "reels-col" . }}
   <div class="cols">
     <div class="col__content col--index">
     {{template "indecs-col" .}}
@@ -39,7 +39,7 @@
 {{template "bot" .Meta}}
 {{end}}
 
-{{define "kine-front"}}
+{{define "reels-front"}}
 <div class="center">
   <a href="{{.Entry.Perma .Lang}}" class="frontcover"><picture>
       <source srcset="{{.Entry.Cover.SrcSet 1280 .L}},
@@ -51,7 +51,7 @@
            width="{{.Entry.Cover.Width 1280}}" height="{{.Entry.Cover.Height 1280}}">
     </picture></a>
   <br>
-  <span class="kine-title-front">
+  <span class="reels-title-front">
     Video: <a href="{{.Entry.Perma .Lang}}">{{.Entry.Info.Field "title" .Lang}}</a>
   </span>
 </div>
@@ -70,7 +70,7 @@
 </div>
 {{- end}}
 
-{{define "kine-col" -}}
+{{define "reels-col" -}}
     <div class="front-videos col--video">
       {{$c := 0}}
       {{range $i, $set := .Kine}}

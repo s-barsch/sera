@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"sacer/go/entry"
+
 	//"sacer/go/entry/types/tree"
 	"sacer/go/server"
 	"sacer/go/server/meta"
@@ -74,7 +75,7 @@ func IndexEls(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 */
 
 func Kines(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	entries, err := elEntries(s, "kine", m.Lang)
+	entries, err := elEntries(s, "reels", m.Lang)
 	if err != nil {
 		http.Error(w, "internal error", 500)
 		log.Println(err)

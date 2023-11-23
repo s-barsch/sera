@@ -29,9 +29,6 @@ func (p *Path) Lang() string {
 func (p *Path) Section() string {
 	if len(p.Chain) > 1 {
 		section := p.Chain[1]
-		if section == "cine" {
-			return "kine"
-		}
 		return section
 	}
 	return ""

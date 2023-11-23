@@ -35,7 +35,7 @@ func sectionLang(section, lang string) string {
 	switch section {
 	case "about":
 		return tools.AboutName[lang]
-	case "kine":
+	case "reels":
 		return tools.KineName[lang]
 	}
 	return section
@@ -43,7 +43,7 @@ func sectionLang(section, lang string) string {
 
 func NewNav(lang string) Nav {
 	aboutName := tools.AboutName[lang]
-	kineName := tools.KineName[lang]
+	reelsName := tools.KineName[lang]
 	homeLang := ""
 	if lang == "de" {
 		homeLang = "de"
@@ -58,8 +58,8 @@ func NewNav(lang string) Nav {
 			Href: fmt.Sprintf("/%v/graph", lang),
 		},
 		{
-			Name: kineName,
-			Href: fmt.Sprintf("/%v/%v", lang, kineName),
+			Name: reelsName,
+			Href: fmt.Sprintf("/%v/%v", lang, reelsName),
 		},
 		{
 			Name: aboutName,

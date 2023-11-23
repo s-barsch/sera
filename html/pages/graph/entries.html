@@ -76,7 +76,7 @@
 
 {{define "graph-set"}}
 <div class="set set--graph">
-  {{/*template "graph-kine-desk" .*/}}
+  {{/*template "graph-reels-desk" .*/}}
     {{if eq 0 (len .E.Entries)}}
     <div class="tob text column">
     <div class="indent">
@@ -86,7 +86,7 @@
     {{end}}
     {{template "object-groups" (esL .E.Entries .L)}}
   <div class="column">
-  {{template "graph-kine-mobile" .}}
+  {{template "graph-reels-mobile" .}}
   </div>
   {{/* with .E.Footnotes}}
     <div class="column">
@@ -114,22 +114,22 @@
     {{end}}
 {{end}}
 
-{{define "graph-kine-mobile"}}
+{{define "graph-reels-mobile"}}
     {{with .E.Kine}}
-    <div class="graph-kine">
+    <div class="graph-reels">
       {{range .}}
-      <div class="graph-kine-mobile">
-        {{template "graph-kine-title" (eL . $.L)}}
+      <div class="graph-reels-mobile">
+        {{template "graph-reels-title" (eL . $.L)}}
       </div>
       {{end}}
     </div>
     {{end}}
 {{end}}
 
-{{define "graph-kine-title"}}
-<span class="graph-kine-title">
+{{define "graph-reels-title"}}
+<span class="graph-reels-title">
   <img alt="" class="icon" src="/static/svg/cam.svg">
-  <span class="kine-date-notes">{{template "kine-date" .}}</span>:
+  <span class="reels-date-notes">{{template "reels-date" .}}</span>:
   <a href="{{.E.Perma .L}}">
     {{.E.Title .L}}
   </a>
@@ -137,12 +137,12 @@
 {{end}}
 
 
-{{define "graph-kine-desk"}}
+{{define "graph-reels-desk"}}
     {{with .E.Kine}}
   <div class="desktop">
       {{range .}}
         {{if .Cover}}
-        <span class="graph-kine-image">
+        <span class="graph-reels-image">
         {{template "image" (eL .Cover $.L)}}
         </span>
         {{end}}

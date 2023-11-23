@@ -1,4 +1,4 @@
-package kine
+package reels
 
 import (
 	"fmt"
@@ -13,17 +13,17 @@ import (
 	"time"
 )
 
-type kineSingle struct {
+type reelsSingle struct {
 	Meta      *meta.Meta
 	Entry     entry.Entry
 	Neighbors []entry.Entry
 }
 
 func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta, p *paths.Path) {
-	kine := s.Trees["kine"].Access(m.Auth.Subscriber)[m.Lang]
-	e, err := kine.LookupEntryHash(p.Hash)
+	reels := s.Trees["reels"].Access(m.Auth.Subscriber)[m.Lang]
+	e, err := reels.LookupEntryHash(p.Hash)
 	if err != nil {
-		http.Redirect(w, r, "/kine", 301)
+		http.Redirect(w, r, "/reels", 301)
 		return
 	}
 
@@ -34,7 +34,7 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, m *me
 	}
 
 	m.Title = getTitle(e, m.Lang)
-	m.Section = "kine"
+	m.Section = "reels"
 
 	err = m.Process(e)
 	if err != nil {
@@ -42,10 +42,10 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, m *me
 		return
 	}
 
-	err = s.ExecuteTemplate(w, "kine-single", &kineSingle{
+	err = s.ExecuteTemplate(w, "reels-single", &reelsSingle{
 		Meta:  m,
 		Entry: e,
-		//Neighbors: getNeighbors(s.Recents["kine"].Access(m.Auth.Subscriber)[m.Lang], p.Hash),
+		//Neighbors: getNeighbors(s.Recents["reels"].Access(m.Auth.Subscriber)[m.Lang], p.Hash),
 	})
 	if err != nil {
 		log.Println(err)

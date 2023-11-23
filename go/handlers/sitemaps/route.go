@@ -14,7 +14,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Met
 		Core(s, w, r, m)
 	case "/sitemaps/trees.xml":
 		Trees(s, w, r, m)
-	case "/sitemaps/kines.xml":
+	case "/sitemaps/reelss.xml":
 		Kines(s, w, r, m)
 	case "/sitemaps/graph-entries.xml":
 		GraphEntries(s, w, r, m)
