@@ -55,7 +55,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta
 		Graph:  graph.Limit(s.Vars.FrontSettings.Graph),
 		Reels:  reels.Limit(10),
 		Months: months,
-		Log:    s.Recents["log"].Access(true)["de"].Limit(s.Vars.FrontSettings.Log),
+		// Log:    s.Recents["log"].Access(true)["de"].Limit(s.Vars.FrontSettings.Log),
 	})
 	if err != nil {
 		log.Println(err)

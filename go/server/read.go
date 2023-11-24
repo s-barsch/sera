@@ -9,13 +9,10 @@ import (
 )
 
 var sections = []string{
-	"reels",
-	"komposita",
-	"indecs",
 	"graph",
+	"reels",
 	"about",
 	"extra",
-	"log",
 }
 
 type DoubleTree struct {
