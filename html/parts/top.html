@@ -13,9 +13,11 @@
 
 
 {{define "logo"}}
+{{$lang := ""}}
+{{with eq .Meta.Lang "de"}}{{$lang = "de"}}{{end}}
 <div id="logo" class="{{.Meta.Section}}">
-    <a class="desktop" href="/">{{inlineFile "logo-desk"}}</a>
-    <a class="mobile" href="/">{{inlineFile "logo-mobile"}}</a>
+    <a class="desktop" href="/{{$lang}}">{{inlineFile "logo-desk"}}</a>
+    <a class="mobile" href="/{{$lang}}">{{inlineFile "logo-mobile"}}</a>
 </div>
 {{end}}
 
