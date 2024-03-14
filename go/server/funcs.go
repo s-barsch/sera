@@ -102,6 +102,7 @@ func (s *Server) Funcs() template.FuncMap {
 					return fmt.Sprintf("%.0f:%.0f", mins, secs), nil
 				}
 			}
+			fmt.Println(s)
 			return "", fmt.Errorf("err 'duration': has no entries")
 		},
 		"isCaptioned":    isCaptioned,
