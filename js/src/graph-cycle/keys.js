@@ -1,4 +1,4 @@
-import {goNext, goPrev, goParent} from "./init";
+import {goNext, goPrev, goParent} from './init';
 
 const handleKeyNav = evt => {
     if (evt.keyCode == 37) {

@@ -1,6 +1,6 @@
-import initZoom from "./zoom";
-import initKeys from "./keys";
-import {initSwipe, blockSwipe, unblockSwipe} from "./swipe";
+import initZoom from './zoom';
+import initKeys from './keys';
+import {initSwipe, blockSwipe, unblockSwipe} from './swipe';
 //import stretchBody from "./body";
 //import addHead from "./add-head";
 //import initInfoBarScroll from "./info-bar";

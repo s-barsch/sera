@@ -1,5 +1,5 @@
-import yall from "./yall";
-import initTopLink from "./top-link";
+import yall from './yall';
+import initTopLink from './top-link';
 
 export default function initGraphMore() {
     initTopLink();

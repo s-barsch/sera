@@ -1,4 +1,4 @@
-import {goNext, goPrev} from "./init";
+import {goNext, goPrev} from './init';
 //import Hammer from "hammerjs";
 
 export function initSwipe() {
