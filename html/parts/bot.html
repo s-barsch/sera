@@ -1,5 +1,11 @@
 {{define "bot"}}
+</main>
+    <footer id="bot">
 
+{{$lang := ""}}
+{{with eq .Lang "de"}}{{$lang = "de"}}{{end}}
+      <a class="pine" href="/{{$lang}}">{{inlineFile "pine"}}</a>
+    </footer>
 <!--
 <footer id="bot">
   {{template "impressum" .}}
@@ -7,8 +13,6 @@
 -->
 
 {{template "javascript" .}}
-
-{{template "ga"}}
 
 </body> 
 {{end}}
@@ -31,7 +35,9 @@
 {{end}}
 
 {{define "javascript"}}
+<!--
     <script type="text/javascript" src="/js/polyfill.min.js"></script>
+-->
     <script type="text/javascript" src="/js/bundle.js?v={{varRaw "jsmodtime"}}"></script>
 {{end}}
 

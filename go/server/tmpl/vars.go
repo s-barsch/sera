@@ -122,6 +122,7 @@ func ReadInlineStatics(root string) (map[string]string, error) {
 		*/
 		"logo-mobile": "/static/svg/logo/sacferal-c.svg",
 		"logo-desk":   "/static/svg/logo/sacerferal-c.svg",
+		"pine":        "/static/img/icons/pine-c.svg",
 		"email":       "/static/svg/email.svg",
 	}
 	for name, path := range sources {

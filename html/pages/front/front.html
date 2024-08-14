@@ -41,10 +41,10 @@
 {{end}}
 
 {{define "reels-front"}}
-<div class="center">
+<div class="stretch center">
   <a href="{{.Entry.Perma .Lang}}" class="frontcover"><picture>
       <source srcset="{{.Entry.Cover.SrcSet 1280 .L}},
-                      {{.Entry.Cover.SrcSet 1440 .L}},
+                      {{/*.Entry.Cover.SrcSet 1440 .L*/}},
                       {{.Entry.Cover.SrcSet 1600 .L}},
                       {{.Entry.Cover.SrcSet 1920 .L}}"
               sizes="(min-width: 48rem) 64rem, 100vw">

@@ -22,13 +22,13 @@ function initPlayers(videos) {
 
 function playerOptions(video) {
   const lang = document.documentElement.lang;
-  const captionsActive = true;//displayCaptions(video, lang);
+  const captionsActive = displayCaptions(video, lang);
   return {
     disableContextMenu: false,
-    captions: { active: captionsActive, language: lang, update: false },
+    captions: { active: captionsActive, language: lang, update: true },
     settings: ['captions', 'quality', 'loop'],
-    controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'fullscreen'],
-    quality: { default: 720, options: [1080, 720, 480] },
+    controls: ['play-large', 'play', 'progress', 'current-time', 'captions', 'settings', 'fullscreen'],
+    quality: { default: 1080, options: [1080, 720, 480] },
     storage: { enabled: false },
     invertTime: false
   }
