@@ -35,7 +35,7 @@ func (v *Video) Location(ext, opt string) (string, error) {
 			return filepath.Join(v.file.Dir(), s.Path), nil
 		}
 	}
-	return "", fmt.Errorf("Cannot find resolution %v in %v", opt, v.file.Path)
+	return "", fmt.Errorf("cannot find resolution %v in %v", opt, v.file.Path)
 }
 
 func (v *Video) CaptionLocation(lang string) string {

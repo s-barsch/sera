@@ -45,6 +45,16 @@ func (s *Source) Mbyte() int64 {
 	return s.Size / 1024 / 1024
 }
 
+var resWidth = map[string]string{
+	"1080": "1920",
+	"720":  "1280",
+	"480":  "854",
+}
+
+func (s *Source) ResolutionWidth() string {
+	return resWidth[s.Resolution]
+}
+
 func NewVideo(path string, parent entry.Entry) (*Video, error) {
 	fnErr := &tools.Err{
 		Path: path,
