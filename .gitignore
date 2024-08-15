@@ -25,3 +25,7 @@ __debug_bin
 ga.html
 static/svg/logo/sacerferal-edit.svg
 static/svg/bw.svg
+js/.pnp.cjs
+js/package.json
+js/.yarn/install-state.gz
+js/.pnp.loader.mjs

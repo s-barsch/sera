@@ -1,4 +1,4 @@
-import Plyr from 'plyr';
+//import Plyr from 'plyr';
 
 export default function initVideoPlayer() {
   run();
@@ -10,14 +10,16 @@ async function run() {
   const videos = document.getElementsByTagName('video');
 
   if (videos.length > 0) {
+    /*
     loadCSS('/js/plyr/plyr.css');
     await loadJS('/js/plyr/plyr.min.js');
     initPlayers(videos);
+    */
   }
 }
 
 function initPlayers(videos) {
-  const players = Array.from(videos).map(v => new Plyr(v, playerOptions(v)));
+  //const players = Array.from(videos).map(v => new Plyr(v, playerOptions(v)));
 }
 
 function playerOptions(video) {

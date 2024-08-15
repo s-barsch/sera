@@ -3,8 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "dependencies": {
-    "hammerjs": "^2.0.8",
-    "plyr": "^3.6.3",
     "webpack-cli": "^5.1.1"
   },
   "devDependencies": {
@@ -20,5 +18,6 @@
     "build": "webpack"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "packageManager": "yarn@4.4.0"
 }
