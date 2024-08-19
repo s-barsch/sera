@@ -2,7 +2,6 @@ import initCycle from './graph-cycle/init';
 import initOverview from './graph-overview/init';
 import initText from './text';
 import initAudio from './audio';
-import initVideoPlayer from './video';
 import initGraphMore from './graph-overview/more';
 import initOptionToggles from './options';
 
@@ -23,7 +22,6 @@ const stInit = page => {
 document.addEventListener("DOMContentLoaded", function() {
   initText();
   initAudio();
-  initVideoPlayer();
   initOptionToggles();
   initServiceWorker();
   if (typeof pageVars !== "undefined") {
