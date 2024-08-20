@@ -46,6 +46,13 @@ func LoadVars(root string) (*Vars, error) {
 		return nil, err
 	}
 
+	js, css, err := ReadVideoMainFiles(root)
+	if err != nil {
+		return nil, err
+	}
+	s["video-main.css"] = css
+	s["video-main.js"] = js
+
 	modtime, err := JsModtime(root)
 	if err != nil {
 		return nil, err

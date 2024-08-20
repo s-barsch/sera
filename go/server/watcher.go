@@ -19,7 +19,7 @@ func (s *Server) SetupWatcher() error {
 		s.Paths.Data,
 		s.Paths.Root + "/html",
 		s.Paths.Root + "/css/dist",
-		s.Paths.Root + "/js/dist",
+		s.Paths.Root + "/js",
 	}
 
 	for _, path := range paths {

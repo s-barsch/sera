@@ -1,1 +1,1 @@
-../../js/dist/bundle.js
+../../js/bundle/dist/bundle.js

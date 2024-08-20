@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 	"time"
 
 	"github.com/tdewolff/minify"
@@ -36,4 +37,28 @@ func minifyCSS(str string) (string, error) {
 	m := minify.New()
 	m.Add("text/css", &css.Minifier{})
 	return m.String("text/css", str)
+}
+
+func ReadVideoMainFiles(root string) (js string, css string, err error) {
+	path := "/static/js/video"
+	l, nerr := os.ReadDir(root + path)
+	if nerr != nil {
+		err = nerr
+		return
+	}
+	for _, fi := range l {
+		if len(fi.Name()) > 4 && fi.Name()[:4] == "main" {
+			if ext := filepath.Ext(fi.Name()); ext == ".js" {
+				js = filepath.Join(path, fi.Name())
+				continue
+			} else if ext == ".css" {
+				css = filepath.Join(path, fi.Name())
+			}
+		}
+	}
+	if css == "" || js == "" {
+		err = fmt.Errorf("could not find video main js AND css")
+		return
+	}
+	return
 }
