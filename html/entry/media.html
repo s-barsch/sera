@@ -50,15 +50,18 @@
 {{- end}}
 
 
-{{define "video"}}
+{{define "video-legacy"}}
+<!--
 <link rel="stylesheet" href="{{varRaw "video-main.css"}}">
 <script type="module" src="{{varRaw "video-main.js"}}"></script>
+-->
+<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
 <div class="video-container">
 <div id="video-player">
   <video preload="metadata" loop controls type="video/mp4"
   {{if eq .E.Section "reels"}}poster="{{.E.Parent.Cover.ImagePath 1280 .L}}" autoplay {{end}}>
     {{range .E.Sources}}
-    <source src="{{$.E.FilesPath $.L}}/{{.Path}}" data-size="{{.Resolution}}" type="video/mp4">
+    <source src="{{$.E.FilesPath $.L}}/{{.Path}}" size="{{.Resolution}}" type="video/mp4">
     {{end}}
     {{range .E.Captions}}
     <track label="{{langName .}}" srclang="{{.}}" kind="captions"

@@ -1,9 +1,7 @@
-//import Plyr from 'plyr';
+import Plyr from 'plyr';
 
 export default function initVideoPlayer() {
   run();
-  /*
-  */
 }
 
 async function run() {
@@ -13,26 +11,29 @@ async function run() {
     /*
     loadCSS('/js/plyr/plyr.css');
     await loadJS('/js/plyr/plyr.min.js');
-    initPlayers(videos);
     */
+    initPlayers(videos);
   }
 }
 
 function initPlayers(videos) {
-  //const players = Array.from(videos).map(v => new Plyr(v, playerOptions(v)));
+  const players = Array.from(videos).map(v => new Plyr(v, playerOptions(v)));
 }
 
 function playerOptions(video) {
   const lang = document.documentElement.lang;
   const captionsActive = displayCaptions(video, lang);
+  console.log(captionsActive)
   return {
     disableContextMenu: false,
     captions: { active: captionsActive, language: lang, update: true },
-    settings: ['captions', 'quality', 'loop'],
+    keyboard: { focused: true, global: true },
+    speed: { selected: 1, options: [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2] },
+    settings: ['speed', 'captions', 'quality'],
     controls: ['play-large', 'play', 'progress', 'current-time', 'captions', 'settings', 'fullscreen'],
     quality: { default: 1080, options: [1080, 720, 480] },
-    storage: { enabled: false },
-    invertTime: false
+    invertTime: false,
+    storage: { enabled: false, key: 'plyr' }
   }
 }
 

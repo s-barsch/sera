@@ -1,0 +1,263 @@
+
+<html>
+  <head>
+    <title>Video: Default Theme Example</title>
+
+    <!--
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+    <link rel="stylesheet" href="./src/video-player.css" />
+    <link rel="stylesheet" href="./src/document.css" />
+    -->
+
+    <style>
+      /*
+       * Do note, we don't use Shadow DOM. This line prevents FOUC because we're loading styles
+       * through the `main.ts` import. You don't need this if you're loading the default theme via
+       * link tags or server-side rendering.
+       */
+      *:not(:defined) {
+        opacity: 0;
+      }
+      .vds-radio[value="auto"] {
+        display: none;
+      }
+      :root {
+        --default-color: white;
+      }
+    </style>
+
+    <script src="./src/main.ts" type="module"></script>
+  </head>
+  <body>
+    <main>
+      <media-player
+        crossorigin
+      >
+        <media-provider>
+          <media-poster class=vds-poster alt="" src=http://sacer/en/reels/24-08/10-well-i-call-it-art-theory-3f358b02/cache/cover-1280.jpg></media-poster>
+          <source src=http://sacer/en/reels/24-08/10-well-i-call-it-art-theory-3f358b02/files/sizes/240810_094201-1080.mp4 data-width=1920 data-height=1080 type=video/mp4 />
+          <source src=http://sacer/en/reels/24-08/10-well-i-call-it-art-theory-3f358b02/files/sizes/240810_094201-720.mp4 data-width=1280 data-height=720 type=video/mp4 />
+          <source src=http://sacer/en/reels/24-08/10-well-i-call-it-art-theory-3f358b02/files/sizes/240810_094201-480.mp4 data-width=854 data-height=480 type=video/mp4 />
+          </media-provider>
+
+        <!-- Gestures -->
+        <media-gesture event="pointerup" action="toggle:paused"></media-gesture>
+        <media-gesture event="dblpointerup" action="toggle:fullscreen"></media-gesture>
+        <media-gesture event="pointerup" action="toggle:controls"></media-gesture>
+        <media-gesture event="dblpointerup" action="seek:-10"></media-gesture>
+        <media-gesture event="dblpointerup" action="seek:10"></media-gesture>
+
+        <!-- Captions -->
+        <media-captions class="vds-captions"></media-captions>
+
+        <!-- Controls -->
+        <media-controls class="vds-controls">
+          <div class="vds-controls-spacer"></div>
+          <!-- Time Slider Controls Group -->
+          <media-controls-group class="vds-controls-group">
+            <!-- Time Slider -->
+            <media-time-slider class="vds-time-slider vds-slider">
+              <media-slider-chapters class="vds-slider-chapters">
+                <template>
+                  <div class="vds-slider-chapter">
+                    <div class="vds-slider-track"></div>
+                    <div class="vds-slider-track-fill vds-slider-track"></div>
+                    <div class="vds-slider-progress vds-slider-track"></div>
+                  </div>
+                </template>
+              </media-slider-chapters>
+
+              <div class="vds-slider-thumb"></div>
+
+              <!-- Slider Preview -->
+              <media-slider-preview class="vds-slider-preview">
+                <media-slider-thumbnail
+                  class="vds-slider-thumbnail vds-thumbnail"
+                  src="https://files.vidstack.io/sprite-fight/thumbnails.vtt"
+                ></media-slider-thumbnail>
+                <div class="vds-slider-chapter-title" data-part="chapter-title"></div>
+                <media-slider-value class="vds-slider-value"></media-slider-value>
+              </media-slider-preview>
+            </media-time-slider>
+          </media-controls-group>
+          <!-- Lower Controls Group -->
+          <media-controls-group class="vds-controls-group">
+            <!-- Play Button -->
+            <media-tooltip>
+              <media-tooltip-trigger>
+                <media-play-button class="vds-button">
+                  <media-icon class="vds-play-icon" type="play"></media-icon>
+                  <media-icon class="vds-pause-icon" type="pause"></media-icon>
+                </media-play-button>
+              </media-tooltip-trigger>
+              <media-tooltip-content class="vds-tooltip-content" placement="top">
+                <span class="vds-play-tooltip-text">Play</span>
+                <span class="vds-pause-tooltip-text">Pause</span>
+              </media-tooltip-content>
+            </media-tooltip>
+
+            <!-- Mute Button -->
+            <media-tooltip>
+              <media-tooltip-trigger>
+                <media-mute-button class="vds-button">
+                  <media-icon class="vds-mute-icon" type="mute"></media-icon>
+                  <media-icon class="vds-volume-low-icon" type="volume-low"></media-icon>
+                  <media-icon class="vds-volume-high-icon" type="volume-high"></media-icon>
+                </media-mute-button>
+              </media-tooltip-trigger>
+              <media-tooltip-content class="vds-tooltip-content" placement="top">
+                <span class="vds-mute-tooltip-text">Unmute</span>
+                <span class="vds-unmute-tooltip-text">Mute</span>
+              </media-tooltip-content>
+            </media-tooltip>
+
+            <!-- Volume Slider -->
+            <media-volume-slider class="vds-slider">
+              <div class="vds-slider-track"></div>
+              <div class="vds-slider-track-fill vds-slider-track"></div>
+              <media-slider-preview class="vds-slider-preview" no-clamp>
+                <media-slider-value class="vds-slider-value"></media-slider-value>
+              </media-slider-preview>
+              <div class="vds-slider-thumb"></div>
+            </media-volume-slider>
+
+            <!-- Time Group -->
+            <div class="vds-time-group">
+              <media-time class="vds-time" type="current"></media-time>
+              <div class="vds-time-divider">/</div>
+              <media-time class="vds-time" type="duration"></media-time>
+            </div>
+
+            <media-chapter-title class="vds-chapter-title"></media-chapter-title>
+
+            <div class="vds-controls-spacer"></div>
+
+            <!-- Caption Button -->
+            <media-tooltip>
+              <media-tooltip-trigger>
+                <media-caption-button class="vds-button">
+                  <media-icon class="vds-cc-on-icon" type="closed-captions-on"></media-icon>
+                  <media-icon class="vds-cc-off-icon" type="closed-captions"></media-icon>
+                </media-caption-button>
+              </media-tooltip-trigger>
+              <media-tooltip-content class="vds-tooltip-content" placement="top">
+                <span class="vds-cc-on-tooltip-text">Closed-Captions Off</span>
+                <span class="vds-cc-off-tooltip-text">Closed-Captions On</span>
+              </media-tooltip-content>
+            </media-tooltip>
+
+            <!-- Settings Menu -->
+            <media-menu class="vds-menu">
+              <!-- Settings Menu Button -->
+              <media-tooltip>
+                <media-tooltip-trigger>
+                  <media-menu-button class="vds-menu-button vds-button">
+                    <media-icon class="vds-rotate-icon" type="settings"></media-icon>
+                  </media-menu-button>
+                </media-tooltip-trigger>
+                <media-tooltip-content class="vds-tooltip-content" placement="top">
+                  Settings
+                </media-tooltip-content>
+              </media-tooltip>
+              <!-- Settings Menu Items -->
+              <media-menu-items class="vds-menu-items" placement="top end">
+                <!-- Caption Submenu -->
+                <media-menu>
+                  <!-- Button -->
+                  <media-menu-button class="vds-menu-item">
+                    <media-icon type="chevron-left" class="vds-menu-close-icon"></media-icon>
+                    <media-icon type="closed-captions" class="vds-icon"></media-icon>
+                    <span class="vds-menu-item-label">Captions</span>
+                    <span class="vds-menu-item-hint" data-part="hint"></span>
+                    <media-icon type="chevron-right" class="vds-menu-open-icon"></media-icon>
+                  </media-menu-button>
+                  <!-- Items -->
+                  <media-menu-items class="vds-menu-items">
+                    <media-captions-radio-group class="vds-radio-group" off-label="Off">
+                      <template>
+                        <media-radio class="vds-radio">
+                          <span class="vds-icon" type="check"><svg
+                            width="32"
+                            height="32"
+                            viewBox="0 0 32 32"
+                            fill="none"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M24.9266 7.57992C25.015 7.60672 25.0886 7.64746 25.2462 7.80506L26.956 9.51488C27.1136 9.67248 27.1543 9.74604 27.1811 9.83447C27.2079 9.9229 27.2079 10.0133 27.1811 10.1018C27.1543 10.1902 27.1136 10.2638 26.956 10.4214L13.1822 24.1951C13.0246 24.3527 12.951 24.3935 12.8626 24.4203C12.797 24.4402 12.7304 24.4453 12.6642 24.4357L12.7319 24.4203C12.6435 24.4471 12.553 24.4471 12.4646 24.4203C12.3762 24.3935 12.3026 24.3527 12.145 24.1951L5.04407 17.0942C4.88647 16.9366 4.84573 16.863 4.81893 16.7746C4.79213 16.6862 4.79213 16.5957 4.81893 16.5073C4.84573 16.4189 4.88647 16.3453 5.04407 16.1877L6.7539 14.4779C6.9115 14.3203 6.98506 14.2796 7.07349 14.2528C7.16191 14.226 7.25235 14.226 7.34078 14.2528C7.42921 14.2796 7.50277 14.3203 7.66037 14.4779L12.6628 19.4808L24.3397 7.80506C24.4973 7.64746 24.5709 7.60672 24.6593 7.57992C24.7477 7.55311 24.8382 7.55311 24.9266 7.57992Z" fill="currentColor" />
+                          </svg></span>
+                          <span class="vds-radio-label" data-part="label"></span>
+                        </media-radio>
+                      </template>
+                    </media-captions-radio-group>
+                  </media-menu-items>
+                </media-menu>
+                <!-- Caption end -->
+
+                <media-menu class="vds-menu">
+                  <!-- Button -->
+                  <media-menu-button class="vds-menu-item">
+                    <media-icon type="chevron-left" class="vds-menu-close-icon"></media-icon>
+                    <media-icon type="settings-menu" class="vds-menu-button-icon vds-icon"></media-icon>
+                    <span class="vds-menu-button-label">Quality</span>
+                    <span class="vds-menu-button-hint" data-part="hint"></span>
+                    <media-icon type="chevron-right" class="vds-menu-button-open-icon"></media-icon>
+                  </media-menu-button>
+                  <!-- Items -->
+                  <media-menu-items class="vds-menu-items">
+                    <media-quality-radio-group class="vds-radio-group" auto-label="Auto">
+                      <template>
+                        <media-radio class="vds-radio">
+                          <media-icon class="vds-icon" type="check"></media-icon>
+                          <span class="vds-radio-label" data-part="label"></span>
+                          <span class="vds-radio-hint" data-part="bitrate"></span>
+                        </media-radio>
+                      </template>
+                    </media-quality-radio-group>
+                  </media-menu-items>
+                </media-menu>
+              </media-menu-items>
+            </media-menu>
+
+            <!-- Fullscreen Button -->
+            <media-tooltip>
+              <media-tooltip-trigger>
+                <media-fullscreen-button class="vds-button">
+                  <media-icon class="vds-fs-enter-icon" type="fullscreen"></media-icon>
+                  <media-icon class="vds-fs-exit-icon" type="fullscreen-exit"></media-icon>
+                </media-fullscreen-button>
+              </media-tooltip-trigger>
+              <media-tooltip-content class="vds-tooltip-content" placement="top end">
+                <span class="vds-fs-enter-tooltip-text">Enter Fullscreen</span>
+                <span class="vds-fs-exit-tooltip-text">Exit Fullscreen</span>
+              </media-tooltip-content>
+            </media-tooltip>
+          </media-controls-group>
+        </media-controls>
+      </media-player>
+      <script>
+        let player = document.querySelector("media-player");
+        player.addEventListener("can-load", (event) => {
+            player.src = [
+              {
+                src: "http://sacer/en/reels/24-08/01-i-have-no-self-confidence-to-say-that-3f2a9949/files/sizes/240801_164601-1080.mp4",
+                width: 1920,
+                height: 1080,
+                type: "video/mp4",
+              },
+              {
+                src: "http://sacer/en/reels/24-08/01-i-have-no-self-confidence-to-say-that-3f2a9949/files/sizes/240801_164601-720.mp4",
+                width: 1280,
+                height: 720,
+                type: "video/mp4",
+              },
+            ]
+          console.log(event)
+        })
+        console.log(player);
+      </script>
+    </main>
+  </body>
+</html>

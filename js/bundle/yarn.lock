@@ -2155,6 +2155,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"core-js@npm:^3.26.1":
+  version: 3.38.1
+  resolution: "core-js@npm:3.38.1"
+  checksum: 10c0/7df063b6f13a54e46515817ac3e235c6c598a4d3de65cd188a061fc250642be313b895fb9fb2f36e1e31890a1bb4ef61d82666a340413f540b7ce3c65689739b
+  languageName: node
+  linkType: hard
+
 "cross-spawn@npm:^7.0.0, cross-spawn@npm:^7.0.3":
   version: 7.0.3
   resolution: "cross-spawn@npm:7.0.3"
@@ -2163,6 +2170,13 @@ __metadata:
     shebang-command: "npm:^2.0.0"
     which: "npm:^2.0.1"
   checksum: 10c0/5738c312387081c98d69c98e105b6327b069197f864a60593245d64c8089c8a0a744e16349281210d56835bb9274130d825a78b2ad6853ca13cfbeffc0c31750
+  languageName: node
+  linkType: hard
+
+"custom-event-polyfill@npm:^1.0.7":
+  version: 1.0.7
+  resolution: "custom-event-polyfill@npm:1.0.7"
+  checksum: 10c0/b73c90d646d78f4acdff5453fa0f165f6d5506e32d074ca57d27f2bb7d9412356dab8cec7c00a0956b069e4987a8546a2c2c4b866d155e9fc4c27d223a225b78
   languageName: node
   linkType: hard
 
@@ -2838,6 +2852,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"loadjs@npm:^4.2.0":
+  version: 4.3.0
+  resolution: "loadjs@npm:4.3.0"
+  checksum: 10c0/8884520a7c5f3b0f6e4d3bc01d200c73b9c468986bea26acb54939d4a3f5da08f40f712812fadc1ff6030fca936e8c9eeb842aaafd287e32ca0ce6ae9f10e759
+  languageName: node
+  linkType: hard
+
 "locate-path@npm:^5.0.0":
   version: 5.0.0
   resolution: "locate-path@npm:5.0.0"
@@ -3261,6 +3282,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"plyr@npm:^3.7.8":
+  version: 3.7.8
+  resolution: "plyr@npm:3.7.8"
+  dependencies:
+    core-js: "npm:^3.26.1"
+    custom-event-polyfill: "npm:^1.0.7"
+    loadjs: "npm:^4.2.0"
+    rangetouch: "npm:^2.0.1"
+    url-polyfill: "npm:^1.1.12"
+  checksum: 10c0/75c3e070f7829f76409e0d34784bf8070b827ad99c4713a36338af7ce8dff7cf38998403f34a4a0b4d6e99efd1856ee056443c7e838db1dbb98ed38828110a97
+  languageName: node
+  linkType: hard
+
 "proc-log@npm:^4.1.0, proc-log@npm:^4.2.0":
   version: 4.2.0
   resolution: "proc-log@npm:4.2.0"
@@ -3291,6 +3325,13 @@ __metadata:
   dependencies:
     safe-buffer: "npm:^5.1.0"
   checksum: 10c0/50395efda7a8c94f5dffab564f9ff89736064d32addf0cc7e8bf5e4166f09f8ded7a0849ca6c2d2a59478f7d90f78f20d8048bca3cdf8be09d8e8a10790388f3
+  languageName: node
+  linkType: hard
+
+"rangetouch@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "rangetouch@npm:2.0.1"
+  checksum: 10c0/5f7947d1c5e95f50630ed1e0cbaeb4c32a6be37b66d864a68f7e70a4e86f782eb869df9fa2357b981b1301d2158eff50002a199b0fbbbf6e1746bc9d213914d9
   languageName: node
   linkType: hard
 
@@ -3434,6 +3475,7 @@ __metadata:
     "@babel/plugin-transform-runtime": "npm:^7.22.4"
     "@babel/preset-env": "npm:^7.22.4"
     babel-loader: "npm:^9.1.2"
+    plyr: "npm:^3.7.8"
     webpack: "npm:^5.73.0"
     webpack-cli: "npm:^5.1.1"
   languageName: unknown
@@ -3826,6 +3868,13 @@ __metadata:
   dependencies:
     punycode: "npm:^2.1.0"
   checksum: 10c0/4ef57b45aa820d7ac6496e9208559986c665e49447cb072744c13b66925a362d96dd5a46c4530a6b8e203e5db5fe849369444440cb22ecfc26c679359e5dfa3c
+  languageName: node
+  linkType: hard
+
+"url-polyfill@npm:^1.1.12":
+  version: 1.1.12
+  resolution: "url-polyfill@npm:1.1.12"
+  checksum: 10c0/69633c42e3182271d01d2f2f4acd889a9f54b88fd7b2f45fd84fed19eca7cfa98fb6bfbd43d9cd9fad222a11a2dffb562b8435cdaa67fca5e25e3da638741679
   languageName: node
   linkType: hard
 

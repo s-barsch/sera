@@ -1,6 +1,6 @@
 import styles from './layout.module.css';
 
-import { Captions, ChapterTitle, Controls, Gesture } from '@vidstack/react';
+import { Captions, ChapterTitle, Controls, Gesture, Spinner } from '@vidstack/react';
 
 import * as Buttons from './buttons';
 import * as Menus from './menus';
@@ -15,10 +15,22 @@ export interface VideoLayoutProps {
   currentSize: string;
 }
 
+function BufferingIndicator() {
+  return (
+    <div className="vds-buffering-indicator">
+      <Spinner.Root className="vds-buffering-spinner">
+        <Spinner.Track className="vds-buffering-track" />
+        <Spinner.TrackFill className="vds-buffering-track-fill" />
+      </Spinner.Root>
+    </div>
+  );
+}
+
 export function VideoLayout({ thumbnails, selectSource, sources, currentSize}: VideoLayoutProps) {
   return (
     <>
       <Gestures />
+      <BufferingIndicator />
       <Captions className={`${styles.captions} vds-captions`} />
       <Controls.Root className={`${styles.controls} vds-controls`}>
         <div className="vds-controls-spacer" />

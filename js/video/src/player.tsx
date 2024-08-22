@@ -59,10 +59,12 @@ export function Player({ sources, tracks, poster }: { sources: Source[], tracks:
         src={currentSrc}
         crossOrigin
         playsInline
+        load='eager'
         loop={true}
         autoPlay={true}
         onCanPlay={onCanPlay}
         ref={player}
+        posterLoad='eager'
       >
         <MediaProvider>
           <Poster src={poster} className='vds-poster' />
