@@ -1,16 +1,21 @@
-import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
+import { vite as vidstack } from 'vidstack/plugins';
 
+// https://vitejs.dev/config/
 export default defineConfig({
-  base: '/static/js/video',
+  //build: { cssMinify: false },
+  "base": "/static/js/video",
   build: {
+    watch: {
+
+    },
+    cssMinify: false,
     assetsDir: "",
-    // generate .vite/manifest.json in outDir
     manifest: true,
     rollupOptions: {
       // overwrite default .html entry
-      input: '/src/main.tsx',
+      input: 'src/main.ts',
     },
   },
- plugins: [react()],
+  plugins: [vidstack()],
 });
