@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"math"
 	"path/filepath"
-	"sacer/go/entry/tools"
+
+	"g.sacerb.com/sacer/go/entry/tools"
 )
 
 func (v *Video) Ideal(res string) float64 {

@@ -1,11 +1,11 @@
 package set
 
 import (
-	"sacer/go/entry"
-	"sacer/go/entry/tools"
-	"sacer/go/entry/tools/read"
-	"sacer/go/entry/tools/sort"
-	"sacer/go/entry/types"
+	"g.sacerb.com/sacer/go/entry"
+	"g.sacerb.com/sacer/go/entry/tools"
+	"g.sacerb.com/sacer/go/entry/tools/read"
+	"g.sacerb.com/sacer/go/entry/tools/sort"
+	media "g.sacerb.com/sacer/go/entry/types"
 )
 
 func readEntries(path string, parent entry.Entry) (entry.Entries, error) {

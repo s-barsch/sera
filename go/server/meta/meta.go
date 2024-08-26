@@ -3,10 +3,11 @@ package meta
 import (
 	"fmt"
 	"net/http"
-	"sacer/go/entry"
-	"sacer/go/server/paths"
-	"sacer/go/server/users"
-	usr "sacer/go/server/users"
+
+	"g.sacerb.com/sacer/go/entry"
+	"g.sacerb.com/sacer/go/server/paths"
+	"g.sacerb.com/sacer/go/server/users"
+	usr "g.sacerb.com/sacer/go/server/users"
 )
 
 type Meta struct {

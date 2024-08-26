@@ -3,14 +3,15 @@ package tools
 import (
 	//bf "gopkg.in/russross/blackfriday.v2"
 	"bytes"
+	"regexp"
+	"strings"
+
+	"g.sacerb.com/sacer/go/entry/tools/markup/gmext"
 	"github.com/kennygrant/sanitize"
 	"github.com/yuin/goldmark"
 	"github.com/yuin/goldmark/extension"
 	"github.com/yuin/goldmark/parser"
 	"github.com/yuin/goldmark/renderer/html"
-	"regexp"
-	"sacer/go/entry/tools/markup/gmext"
-	"strings"
 )
 
 var validSlug = regexp.MustCompile("[^a-z0-9-]+")

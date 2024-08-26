@@ -1,10 +1,11 @@
 package extra
 
 import (
-	"github.com/gorilla/mux"
 	"net/http"
-	"sacer/go/server"
-	"sacer/go/server/meta"
+
+	"g.sacerb.com/sacer/go/server"
+	"g.sacerb.com/sacer/go/server/meta"
+	"github.com/gorilla/mux"
 )
 
 const expire = 60 * 60 * 24 * 365 // 1 year

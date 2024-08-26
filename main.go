@@ -5,8 +5,9 @@ package main
 import (
 	"log"
 	"net/http"
-	"sacer/go/routes"
-	"sacer/go/server"
+
+	"g.sacerb.com/sacer/go/routes"
+	"g.sacerb.com/sacer/go/server"
 )
 
 func main() {

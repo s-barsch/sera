@@ -3,11 +3,12 @@ package graph
 import (
 	"fmt"
 	"net/http"
-	"sacer/go/entry/types/tree"
-	"sacer/go/server"
-	"sacer/go/server/meta"
-	"sacer/go/server/paths"
 	"time"
+
+	"g.sacerb.com/sacer/go/entry/types/tree"
+	"g.sacerb.com/sacer/go/server"
+	"g.sacerb.com/sacer/go/server/meta"
+	"g.sacerb.com/sacer/go/server/paths"
 )
 
 func MainRedirect(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {

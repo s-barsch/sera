@@ -2,7 +2,7 @@ package text
 
 /*
 import (
-	"sacer/go/entry/tools"
+	"g.sacerb.com/sacer/go/entry/tools"
 	"bytes"
 	"unicode/utf8"
 	"fmt"

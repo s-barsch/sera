@@ -2,19 +2,20 @@ package routes
 
 import (
 	"net/http"
-	"sacer/go/handlers/about"
-	"sacer/go/handlers/auth"
-	"sacer/go/handlers/extra"
-	"sacer/go/handlers/front"
-	"sacer/go/handlers/graph"
-	"sacer/go/handlers/reels"
 
-	//"sacer/go/handlers/indecs"
-	//"sacer/go/handlers/index"
+	"g.sacerb.com/sacer/go/handlers/about"
+	"g.sacerb.com/sacer/go/handlers/auth"
+	"g.sacerb.com/sacer/go/handlers/extra"
+	"g.sacerb.com/sacer/go/handlers/front"
+	"g.sacerb.com/sacer/go/handlers/graph"
+	"g.sacerb.com/sacer/go/handlers/reels"
 
-	//"sacer/go/handlers/sitemaps"
-	"sacer/go/server"
-	"sacer/go/server/meta"
+	//"g.sacerb.com/sacer/go/handlers/indecs"
+	//"g.sacerb.com/sacer/go/handlers/index"
+
+	//"g.sacerb.com/sacer/go/handlers/sitemaps"
+	"g.sacerb.com/sacer/go/server"
+	"g.sacerb.com/sacer/go/server/meta"
 
 	"github.com/gorilla/mux"
 )

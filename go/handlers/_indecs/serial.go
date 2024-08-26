@@ -3,9 +3,10 @@ package indecs
 import (
 	"log"
 	"net/http"
-	"sacer/go/entry"
-	"sacer/go/server"
-	"sacer/go/server/meta"
+
+	"g.sacerb.com/sacer/go/entry"
+	"g.sacerb.com/sacer/go/server"
+	"g.sacerb.com/sacer/go/server/meta"
 )
 
 type indecsSerial struct {

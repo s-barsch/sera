@@ -3,10 +3,11 @@ package auth
 import (
 	"log"
 	"net/http"
-	"sacer/go/entry/types/tree"
-	"sacer/go/server"
-	"sacer/go/server/meta"
 	"strings"
+
+	"g.sacerb.com/sacer/go/entry/types/tree"
+	"g.sacerb.com/sacer/go/server"
+	"g.sacerb.com/sacer/go/server/meta"
 )
 
 type extraHold struct {

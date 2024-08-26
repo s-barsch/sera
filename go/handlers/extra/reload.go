@@ -3,8 +3,9 @@ package extra
 import (
 	"log"
 	"net/http"
-	"sacer/go/server"
-	"sacer/go/server/meta"
+
+	"g.sacerb.com/sacer/go/server"
+	"g.sacerb.com/sacer/go/server/meta"
 )
 
 func AddSlash(w http.ResponseWriter, r *http.Request) {

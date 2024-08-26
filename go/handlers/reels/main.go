@@ -4,12 +4,13 @@ import (
 	//"fmt"
 	"log"
 	"net/http"
-	"sacer/go/entry"
-	"sacer/go/entry/tools"
-	"sacer/go/entry/types/tree"
-	"sacer/go/server"
-	"sacer/go/server/meta"
 	"strings"
+
+	"g.sacerb.com/sacer/go/entry"
+	"g.sacerb.com/sacer/go/entry/tools"
+	"g.sacerb.com/sacer/go/entry/types/tree"
+	"g.sacerb.com/sacer/go/server"
+	"g.sacerb.com/sacer/go/server/meta"
 )
 
 type reelsMain struct {

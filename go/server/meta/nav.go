@@ -2,7 +2,8 @@ package meta
 
 import (
 	"fmt"
-	"sacer/go/entry/tools"
+
+	"g.sacerb.com/sacer/go/entry/tools"
 
 	"github.com/kennygrant/sanitize"
 )

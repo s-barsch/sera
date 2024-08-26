@@ -5,7 +5,8 @@ import (
 	"bytes"
 	"io"
 	"os"
-	"sacer/go/entry/tools"
+
+	"g.sacerb.com/sacer/go/entry/tools"
 )
 
 var partNames = map[int]string{

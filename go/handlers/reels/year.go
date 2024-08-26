@@ -4,14 +4,15 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"sacer/go/entry"
-	"sacer/go/entry/tools"
-	"sacer/go/entry/types/tree"
-	"sacer/go/server"
-	"sacer/go/server/meta"
-	"sacer/go/server/paths"
 	"strings"
 	"time"
+
+	"g.sacerb.com/sacer/go/entry"
+	"g.sacerb.com/sacer/go/entry/tools"
+	"g.sacerb.com/sacer/go/entry/types/tree"
+	"g.sacerb.com/sacer/go/server"
+	"g.sacerb.com/sacer/go/server/meta"
+	"g.sacerb.com/sacer/go/server/paths"
 )
 
 type reelsYear struct {

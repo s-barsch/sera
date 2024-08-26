@@ -2,8 +2,9 @@ package paths
 
 import (
 	"regexp"
-	"sacer/go/entry/tools"
 	"strings"
+
+	"g.sacerb.com/sacer/go/entry/tools"
 )
 
 type Path struct {

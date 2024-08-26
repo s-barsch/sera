@@ -1,8 +1,8 @@
 package tmpl
 
 import (
-	"sacer/go/entry"
-	"sacer/go/entry/types/tree"
+	"g.sacerb.com/sacer/go/entry"
+	"g.sacerb.com/sacer/go/entry/types/tree"
 )
 
 type Subnav struct {

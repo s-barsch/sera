@@ -2,10 +2,11 @@ package server
 
 import (
 	"fmt"
-	"sacer/go/entry"
-	"sacer/go/entry/tools"
-	"sacer/go/entry/types/tree"
 	"sort"
+
+	"g.sacerb.com/sacer/go/entry"
+	"g.sacerb.com/sacer/go/entry/tools"
+	"g.sacerb.com/sacer/go/entry/types/tree"
 )
 
 var sections = []string{

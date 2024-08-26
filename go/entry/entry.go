@@ -1,9 +1,10 @@
 package entry
 
 import (
-	"sacer/go/entry/file"
-	"sacer/go/entry/info"
 	"time"
+
+	"g.sacerb.com/sacer/go/entry/file"
+	"g.sacerb.com/sacer/go/entry/info"
 )
 
 type Entry interface {

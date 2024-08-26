@@ -2,7 +2,8 @@ package file
 
 import (
 	p "path/filepath"
-	"sacer/go/entry/tools"
+
+	"g.sacerb.com/sacer/go/entry/tools"
 )
 
 func (f *File) Dir() string {

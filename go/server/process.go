@@ -1,9 +1,9 @@
 package server
 
 import (
-	"sacer/go/entry"
-	"sacer/go/entry/tools"
-	"sacer/go/entry/types/set"
+	"g.sacerb.com/sacer/go/entry"
+	"g.sacerb.com/sacer/go/entry/tools"
+	"g.sacerb.com/sacer/go/entry/types/set"
 )
 
 func (s *Server) makeLinks() {

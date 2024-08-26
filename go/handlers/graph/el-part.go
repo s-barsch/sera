@@ -6,10 +6,10 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"sacer/go/entry"
-	"sacer/go/server/meta"
-	"sacer/go/server/paths"
-	"sacer/go/server"
+	"g.sacerb.com/sacer/go/entry"
+	"g.sacerb.com/sacer/go/server/meta"
+	"g.sacerb.com/sacer/go/server/paths"
+	"g.sacerb.com/sacer/go/server"
 )
 
 type graphPart struct {

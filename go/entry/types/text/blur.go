@@ -1,7 +1,7 @@
 package text
 
 import (
-	"sacer/go/entry/tools/blur"
+	"g.sacerb.com/sacer/go/entry/tools/blur"
 )
 
 func (t *Text) Blur() *Text {

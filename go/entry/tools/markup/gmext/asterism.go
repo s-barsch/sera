@@ -1,6 +1,9 @@
 package gmext
 
 import (
+	"unicode/utf8"
+
+	"g.sacerb.com/sacer/go/entry/tools/markup/gmext/ast"
 	"github.com/yuin/goldmark"
 	gast "github.com/yuin/goldmark/ast"
 	"github.com/yuin/goldmark/parser"
@@ -8,8 +11,6 @@ import (
 	"github.com/yuin/goldmark/renderer/html"
 	"github.com/yuin/goldmark/text"
 	"github.com/yuin/goldmark/util"
-	"sacer/go/entry/tools/markup/gmext/ast"
-	"unicode/utf8"
 )
 
 type asterismParser struct {

@@ -2,11 +2,12 @@ package reels
 
 import (
 	"net/http"
-	"sacer/go/handlers/extra"
-	"sacer/go/server"
-	"sacer/go/server/meta"
-	"sacer/go/server/paths"
 	"strconv"
+
+	"g.sacerb.com/sacer/go/handlers/extra"
+	"g.sacerb.com/sacer/go/server"
+	"g.sacerb.com/sacer/go/server/meta"
+	"g.sacerb.com/sacer/go/server/paths"
 )
 
 func Route(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {

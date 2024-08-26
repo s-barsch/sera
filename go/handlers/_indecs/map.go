@@ -12,9 +12,10 @@ import (
 	"log"
 	"net/http"
 	"os/exec"
-	"sacer/go/entry/types/tree"
-	"sacer/go/server"
-	"sacer/go/server/meta"
+
+	"g.sacerb.com/sacer/go/entry/types/tree"
+	"g.sacerb.com/sacer/go/server"
+	"g.sacerb.com/sacer/go/server/meta"
 )
 
 func MapDot(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {

@@ -2,8 +2,9 @@ package info
 
 import (
 	"fmt"
-	"sacer/go/entry/tools"
 	"strings"
+
+	"g.sacerb.com/sacer/go/entry/tools"
 )
 
 type Info map[string]string

@@ -1,8 +1,9 @@
 package info
 
 import (
-	"sacer/go/entry/tools"
 	"time"
+
+	"g.sacerb.com/sacer/go/entry/tools"
 )
 
 func (i Info) Title(lang string) string {

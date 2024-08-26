@@ -4,12 +4,13 @@ import (
 	"fmt"
 	"os"
 	p "path/filepath"
-	"sacer/go/entry"
-	"sacer/go/entry/file"
-	"sacer/go/entry/info"
-	"sacer/go/entry/tools"
-	"sacer/go/entry/types/text"
 	"time"
+
+	"g.sacerb.com/sacer/go/entry"
+	"g.sacerb.com/sacer/go/entry/file"
+	"g.sacerb.com/sacer/go/entry/info"
+	"g.sacerb.com/sacer/go/entry/tools"
+	"g.sacerb.com/sacer/go/entry/types/text"
 )
 
 type Audio struct {

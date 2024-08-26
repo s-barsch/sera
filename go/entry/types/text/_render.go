@@ -3,8 +3,8 @@ package text
 /*
 import (
 	"github.com/grokify/html-strip-tags-go"
-	"sacer/go/entry/hyph"
-	"sacer/go/entry/parser"
+	"g.sacerb.com/sacer/go/entry/hyph"
+	"g.sacerb.com/sacer/go/entry/parser"
 )
 
 func markupLangs(langs map[string]string, paragraphstyle string) (map[string]string, error) {

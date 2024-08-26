@@ -3,14 +3,15 @@ package server
 import (
 	"fmt"
 	"math"
-	"sacer/go/entry"
-	"sacer/go/entry/tools"
-	"sacer/go/entry/types/set"
-	"sacer/go/entry/types/video"
-	"sacer/go/server/tmpl"
 	"strings"
 	"text/template"
 	"time"
+
+	"g.sacerb.com/sacer/go/entry"
+	"g.sacerb.com/sacer/go/entry/tools"
+	"g.sacerb.com/sacer/go/entry/types/set"
+	"g.sacerb.com/sacer/go/entry/types/video"
+	"g.sacerb.com/sacer/go/server/tmpl"
 )
 
 func (s *Server) Funcs() template.FuncMap {

@@ -2,13 +2,14 @@ package media
 
 import (
 	"fmt"
-	"sacer/go/entry"
-	"sacer/go/entry/tools"
-	"sacer/go/entry/types/audio"
-	"sacer/go/entry/types/html"
-	"sacer/go/entry/types/image"
-	"sacer/go/entry/types/text"
-	"sacer/go/entry/types/video"
+
+	"g.sacerb.com/sacer/go/entry"
+	"g.sacerb.com/sacer/go/entry/tools"
+	"g.sacerb.com/sacer/go/entry/types/audio"
+	"g.sacerb.com/sacer/go/entry/types/html"
+	"g.sacerb.com/sacer/go/entry/types/image"
+	"g.sacerb.com/sacer/go/entry/types/text"
+	"g.sacerb.com/sacer/go/entry/types/video"
 )
 
 func NewMediaEntry(path string, parent entry.Entry) (entry.Entry, error) {

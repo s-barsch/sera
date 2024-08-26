@@ -2,8 +2,9 @@ package server
 
 import (
 	"fmt"
-	"sacer/go/server/tmpl"
 	"time"
+
+	"g.sacerb.com/sacer/go/server/tmpl"
 )
 
 func (s *Server) LoadSafe() error {

@@ -1,10 +1,10 @@
 package tree
 
 import (
-	"sacer/go/entry"
-	"sacer/go/entry/types/image"
-	"sacer/go/entry/types/set"
-	"sacer/go/entry/types/text"
+	"g.sacerb.com/sacer/go/entry"
+	"g.sacerb.com/sacer/go/entry/types/image"
+	"g.sacerb.com/sacer/go/entry/types/set"
+	"g.sacerb.com/sacer/go/entry/types/text"
 )
 
 func (ts Trees) Reverse() Trees {

@@ -3,9 +3,10 @@ package text
 import (
 	"bytes"
 	"fmt"
-	"sacer/go/entry/tools"
-	"sacer/go/entry/tools/markup"
 	"unicode/utf8"
+
+	"g.sacerb.com/sacer/go/entry/tools"
+	"g.sacerb.com/sacer/go/entry/tools/markup"
 )
 
 type Script struct {
