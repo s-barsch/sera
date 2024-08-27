@@ -91,5 +91,5 @@ func IsDontIndex(path string) bool {
 }
 
 func VTTPath(path, nameNoExt, lang string) string {
-	return fmt.Sprintf("%v/vtt/%v-%v.vtt", path, nameNoExt, lang)
+	return fmt.Sprintf("%v/vtt/%v.%v.vtt", path, nameNoExt, lang)
 }

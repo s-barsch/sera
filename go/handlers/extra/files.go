@@ -52,7 +52,7 @@ func serveFile(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta
 func serveSingleBlob(w http.ResponseWriter, r *http.Request, e entry.Entry, path *paths.Path) error {
 	blob, ok := e.(entry.Blob)
 	if !ok {
-		return fmt.Errorf("File to serve (%v) is no blob.", e.File().Name())
+		return fmt.Errorf("file to serve (%v) is no blob", e.File().Name())
 	}
 
 	location, err := blob.Location(path.File.Ext, path.File.Option)
@@ -80,10 +80,10 @@ func serveCollectionBlob(w http.ResponseWriter, r *http.Request, col entry.Colle
 		if ok && t.Cover != nil {
 			return serveSingleBlob(w, r, t.Cover, path)
 		}
-		return fmt.Errorf("serveCollectionBlob: Cover %v not found.", path.File.Name)
+		return fmt.Errorf("serveCollectionBlob: Cover %v not found", path.File.Name)
 	}
 
-	return fmt.Errorf("serveCol !N!,onBlob: File %v not found.", path.File.Name)
+	return fmt.Errorf("serveCollectionBlob: File %v not found", path.File.Name)
 }
 
 func baseName(name string) string {

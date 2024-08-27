@@ -1,6 +1,7 @@
 package paths
 
 import (
+	"log"
 	"regexp"
 	"strings"
 
@@ -36,10 +37,7 @@ func (p *Path) Section() string {
 }
 
 func (p *Path) IsFile() bool {
-	if p.Folder != "" {
-		return true
-	}
-	return false
+	return p.Folder != ""
 }
 
 // || strings.Contains(p.Raw, ".") {
@@ -101,7 +99,7 @@ func removeLast(chain []string) []string {
 }
 
 func IsMergedMonths(str string) bool {
-	return regexp.MustCompile("\\d{2}-\\d{2}").MatchString(str)
+	return regexp.MustCompile(`\\d{2}-\\d{2}`).MatchString(str)
 }
 
 func splitName(str string) (slug, hash string) {
@@ -133,7 +131,26 @@ func discernName(str string) (slug, hash string) {
 //			  filename	    size
 
 // 160403_124512-1600.jpg -> (160403_124512.jpg) (1600)
+/*
+ * TODO: This function was supposed for images only. I also used it
+ * for VTTs then. Now it has become too complex. Should be redone.
+ */
+
+const minLen = len("vtt/x.de.vtt")
+
 func SplitFile(filep string) *File {
+	if len(filep) >= minLen && filep[:3] == "vtt" {
+		i := strings.Index(filep, ".")
+		j := strings.LastIndex(filep, ".")
+		if i < 0 || j < 0 || i == j {
+			log.Println("errornous vtt file name: ", filep)
+			return &File{
+				Name:   filep,
+				Option: "err",
+			}
+		}
+		return splitFileParamters(filep, i, j)
+	}
 	i := strings.LastIndex(filep, "-")
 	if i < 0 {
 		return &File{
@@ -149,6 +166,10 @@ func SplitFile(filep string) *File {
 			Option: filep[i+1:],
 		}
 	}
+	return splitFileParamters(filep, i, j)
+}
+
+func splitFileParamters(filep string, i, j int) *File {
 	// Remove size and put filename back together.
 	return &File{
 		Name:   filep[:i] + filep[j:],

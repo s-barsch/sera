@@ -28,6 +28,9 @@ func (v *Video) Location(ext, opt string) (string, error) {
 	if ext == "vtt" {
 		return v.CaptionLocation(opt), nil
 	}
+	if opt == "err" {
+		return "", fmt.Errorf("(*Video) Location(): faulty input: %v", v.File().Path)
+	}
 	if opt == "" {
 		opt = "1080"
 	}

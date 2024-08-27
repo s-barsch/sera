@@ -57,7 +57,7 @@ func ReadVideoMainFiles(root string) (js string, css string, err error) {
 		}
 	}
 	if css == "" || js == "" {
-		err = fmt.Errorf("could not find video main js AND css")
+		err = fmt.Errorf("could not find video main js AND css.\ncss: %v\njs: %v", css, js)
 		return
 	}
 	return
