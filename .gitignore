@@ -29,3 +29,5 @@ js/.pnp.cjs
 js/package.json
 js/.yarn/install-state.gz
 js/.pnp.loader.mjs
+install-state.gz
+.yarn
