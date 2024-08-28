@@ -97,7 +97,7 @@ func makeHandler(s *server.Server, fn func(*server.Server, http.ResponseWriter, 
 		m, err := meta.NewMeta(s.Users, w, r)
 		if err != nil {
 			s.Log.Println(err)
-			http.Error(w, "internal error", 502)
+			http.Error(w, "internal error", http.StatusInternalServerError)
 			return
 		}
 		fn(s, w, r, m)

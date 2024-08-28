@@ -38,7 +38,7 @@ func MyErrList(current error) ([]*Err, error) {
 	for {
 		myErr, err = ErrCheck(current)
 
-		if err != nil || (myErr == nil && err == nil) {
+		if err != nil || myErr == nil {
 			break
 		}
 

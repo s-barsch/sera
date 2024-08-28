@@ -5,8 +5,6 @@ import (
 	"log"
 	"net/http"
 
-	"g.sacerb.com/sacer/go/entry"
-
 	//"g.sacerb.com/sacer/go/entry/types/tree"
 	"time"
 
@@ -178,6 +176,7 @@ func aboutHolds(s *server.Server, lang string) []*SitemapEntry {
 	return entries
 }
 
+/*
 func indecsHolds(s *server.Server, lang string) []*SitemapEntry {
 	entries := []*SitemapEntry{}
 	for _, category := range s.Trees["indecs"].Access(false)[lang].Trees {
@@ -192,14 +191,15 @@ func indecsHolds(s *server.Server, lang string) []*SitemapEntry {
 	}
 	return entries
 }
+*/
 
 func elEntries(s *server.Server, page, lang string) ([]*SitemapEntry, error) {
 	entries := []*SitemapEntry{}
 
-	es := entry.Entries{}
 	prio := ""
 
-	es = s.Recents[page].Access(false)[lang]
+	//es := entry.Entries{}
+	es := s.Recents[page].Access(false)[lang]
 	prio = "0.5"
 
 	for _, e := range es {

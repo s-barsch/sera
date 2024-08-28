@@ -24,13 +24,13 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, m *me
 	graph := s.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
 	e, err := graph.LookupEntryHash(p.Hash)
 	if err != nil {
-		http.Redirect(w, r, "/graph", 301)
+		http.Redirect(w, r, "/graph", http.StatusMovedPermanently)
 		return
 	}
 
 	perma := e.Perma(m.Lang)
 	if m.Path != perma {
-		http.Redirect(w, r, perma, 301)
+		http.Redirect(w, r, perma, http.StatusMovedPermanently)
 		return
 	}
 

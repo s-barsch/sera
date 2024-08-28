@@ -63,7 +63,7 @@ func NewServer() *Server {
 	}
 
 	s := &Server{
-		Log:   newLogger(*debug),
+		Log:   newLogger(),
 		Queue: make(chan int, 1),
 	}
 
@@ -117,7 +117,7 @@ func (s *Server) CloseUsers() error {
 	return nil
 }
 
-func newLogger(debug bool) *log.Logger {
+func newLogger() *log.Logger {
 	return log.New(os.Stdout, "", log.LstdFlags)
 }
 

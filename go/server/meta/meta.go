@@ -6,7 +6,6 @@ import (
 
 	"g.sacerb.com/sacer/go/entry"
 	"g.sacerb.com/sacer/go/server/paths"
-	"g.sacerb.com/sacer/go/server/users"
 	usr "g.sacerb.com/sacer/go/server/users"
 )
 
@@ -53,10 +52,10 @@ func (m *Meta) O() *Options {
 	return m.Options
 }
 
-func GetAuth(r *http.Request) (*users.Auth, error) {
-	a, ok := r.Context().Value("auth").(*users.Auth)
+func GetAuth(r *http.Request) (*usr.Auth, error) {
+	a, ok := r.Context().Value("auth").(*usr.Auth)
 	if !ok {
-		return nil, fmt.Errorf("head.GetAuth type assertion failed.")
+		return nil, fmt.Errorf("head.GetAuth type assertion failed")
 	}
 	return a, nil
 }

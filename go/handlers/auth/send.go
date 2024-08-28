@@ -25,7 +25,7 @@ func send(mail string, body string) error {
 	if err != nil {
 		return err
 	}
-	_, err = fmt.Fprintf(wc, body)
+	_, err = fmt.Fprint(wc, body)
 	if err != nil {
 		return err
 	}

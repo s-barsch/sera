@@ -3,6 +3,7 @@ package tmpl
 import (
 	"fmt"
 	"io/ioutil"
+	"os"
 	"strconv"
 	"strings"
 
@@ -79,7 +80,7 @@ func LoadVars(root string) (*Vars, error) {
 
 func ReadFrontSettings(root string) (*FrontSettings, error) {
 	path := fmt.Sprintf(root + "/data/front/front.txt")
-	b, err := ioutil.ReadFile(path)
+	b, err := os.ReadFile(path)
 	if err != nil {
 		return nil, err
 	}
@@ -110,7 +111,7 @@ func ReadVarFiles(root string) (map[string]string, error) {
 
 		for k, v := range m {
 			if vars[k] != "" {
-				return nil, fmt.Errorf("Duplicate entry in Vars: %v", k)
+				return nil, fmt.Errorf("duplicate entry in Vars: %v", k)
 			}
 			vars[k] = v
 		}

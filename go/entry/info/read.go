@@ -34,10 +34,7 @@ func fileInfo(path string) string {
 
 func HasFileInfo(path string) bool {
 	_, err := os.Stat(fileInfo(path))
-	if err == nil {
-		return true
-	}
-	return false
+	return err == nil
 }
 
 func ParseInfoFile(path string) (Info, error) {

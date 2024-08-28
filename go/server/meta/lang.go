@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"g.sacerb.com/sacer/go/entry"
-	"g.sacerb.com/sacer/go/entry/types/text"
 )
 
 func Lang(path string) string {
@@ -51,6 +50,7 @@ func getLink(m *Meta, e entry.Entry, lang string) *Link {
 	}
 }
 
+/*
 func isTranslated(e entry.Entry, lang string) bool {
 	if e.Info()["translated"] == "false" {
 		return false
@@ -60,6 +60,7 @@ func isTranslated(e entry.Entry, lang string) bool {
 	}
 	return true
 }
+*/
 
 func (m *Meta) AbsoluteURL(path, lang string) string {
 	return fmt.Sprintf("%v%v", m.HostAddress(), path)

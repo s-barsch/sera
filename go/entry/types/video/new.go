@@ -2,7 +2,6 @@ package video
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"sort"
@@ -142,7 +141,7 @@ func getSources(path string) ([]*Source, error) {
 		return sources, nil
 	}
 
-	l, err := ioutil.ReadDir(ress)
+	l, err := os.ReadDir(ress)
 	if err != nil {
 		return nil, err
 	}
@@ -214,7 +213,7 @@ func stripResolution(name string) string {
 	return name
 }
 
-type Desc []os.FileInfo
+type Desc []os.DirEntry
 
 func (a Desc) Len() int      { return len(a) }
 func (a Desc) Swap(i, j int) { a[i], a[j] = a[j], a[i] }

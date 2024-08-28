@@ -61,9 +61,11 @@ func defaultPerma(t *Tree, lang string) string {
 	return fmt.Sprintf("%v/%v-%v", t.parent.Path(lang), t.Title(lang), t.Hash())
 }
 
+/*
 func extraPerma(t *Tree, lang string) string {
 	return fmt.Sprintf("/%v", t.Title(lang))
 }
+*/
 
 func reelsPerma(t *Tree, lang string) string {
 	start := fmt.Sprintf("/%v/%v", lang, tools.KineName[lang])

@@ -98,10 +98,6 @@ func isNextChar(s string, c byte) bool {
 	return len(s) >= 1 && s[0] == c
 }
 
-func class(c string) string {
-	return ""
-}
-
 func (r *Renderer) renderTag(b *bytes.Buffer, str, c string) int {
 	if x := closingPos(str, c); x != -1 {
 		name := markupNames[c]

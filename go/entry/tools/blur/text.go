@@ -3,14 +3,13 @@ package blur
 import (
 	"bytes"
 	"math/rand"
-	"time"
 	"unicode"
 	"unicode/utf8"
 )
 
 func ReplaceText(str, lang string) string {
 	buf := bytes.Buffer{}
-	rand.Seed(time.Now().UnixNano())
+	//rand.Seed(time.Now().UnixNano())
 	charLen := len(chars)
 	for len(str) > 0 {
 		r, size := utf8.DecodeRuneInString(str)
@@ -63,7 +62,7 @@ var chars = []rune{
 
 func Hyphenate(str string) string {
 	buf := bytes.Buffer{}
-	rand.Seed(time.Now().UnixNano())
+	//rand.Seed(time.Now().UnixNano())
 	c := 0
 	html := false
 	for len(str) > 0 {

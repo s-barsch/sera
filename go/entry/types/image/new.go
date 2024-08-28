@@ -71,7 +71,7 @@ func NewImage(path string, parent entry.Entry) (*Image, error) {
 func getImageDate(path string, parent entry.Entry) (time.Time, error) {
 	if p.Base(path) == "cover.jpg" {
 		if parent == nil {
-			return time.Time{}, fmt.Errorf("getImageDate: parent shall not be nil.")
+			return time.Time{}, fmt.Errorf("getImageDate: parent shall not be nil")
 		}
 		return parent.Date().Add(time.Second), nil
 	}

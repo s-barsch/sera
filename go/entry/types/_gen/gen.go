@@ -10,8 +10,9 @@ import (
 	"io/ioutil"
 	"log"
 	"os/exec"
-	"strings"
 	"text/template"
+
+	"g.sacerb.com/sacer/go/entry/tools"
 )
 
 var typeDir = "types"
@@ -84,13 +85,13 @@ func goFmt(types []string) error {
 func loadTemplate(path string) (*template.Template, error) {
 	t := template.New("").Funcs(template.FuncMap{
 		"receiver": func(typ string) string {
-			return fmt.Sprintf("(e *%v)", strings.Title(typ))
+			return fmt.Sprintf("(e *%v)", tools.Title(typ))
 		},
 		"isMedia": isMedia,
 		"isTree":  isTree,
-		"title":   strings.Title,
+		"title":   tools.Title,
 		"typeDef": func(name string) string {
-			return fmt.Sprintf("*%v.%v", name, strings.Title(name))
+			return fmt.Sprintf("*%v.%v", name, tools.Title(name))
 		},
 	})
 	return t.ParseFiles(path)

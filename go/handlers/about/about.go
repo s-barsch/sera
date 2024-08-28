@@ -16,7 +16,7 @@ type aboutTree struct {
 
 func ServeAbout(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta, t *tree.Tree) {
 	if perma := t.Perma(m.Lang); m.Path != perma {
-		http.Redirect(w, r, perma, 301)
+		http.Redirect(w, r, perma, http.StatusMovedPermanently)
 		return
 	}
 

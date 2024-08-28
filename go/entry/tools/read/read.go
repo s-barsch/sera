@@ -1,7 +1,6 @@
 package read
 
 import (
-	"io/ioutil"
 	"os"
 	p "path/filepath"
 
@@ -10,15 +9,15 @@ import (
 
 type FileInfo struct {
 	Path     string
-	FileInfo os.FileInfo
+	DirEntry os.DirEntry
 }
 
 func (fi *FileInfo) IsDir() bool {
-	return fi.FileInfo.IsDir()
+	return fi.DirEntry.IsDir()
 }
 
 func GetFiles(path string, withDirs bool) ([]*FileInfo, error) {
-	l, err := ioutil.ReadDir(path)
+	l, err := os.ReadDir(path)
 	if err != nil {
 		return nil, err
 	}
@@ -38,7 +37,7 @@ func GetFiles(path string, withDirs bool) ([]*FileInfo, error) {
 
 		list = append(list, &FileInfo{
 			Path:     filepath,
-			FileInfo: fi,
+			DirEntry: fi,
 		})
 	}
 

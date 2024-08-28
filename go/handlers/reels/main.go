@@ -4,7 +4,6 @@ import (
 	//"fmt"
 	"log"
 	"net/http"
-	"strings"
 
 	"g.sacerb.com/sacer/go/entry"
 	"g.sacerb.com/sacer/go/entry/tools"
@@ -23,7 +22,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta
 
 	t := s.Trees["reels"].Access(m.Auth.Subscriber)[m.Lang]
 
-	m.Title = strings.Title(tools.KineName[m.Lang])
+	m.Title = tools.Title(tools.KineName[m.Lang])
 	m.Section = "reels"
 	m.Desc = t.Info().Field("description", m.Lang)
 

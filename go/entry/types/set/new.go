@@ -99,7 +99,7 @@ func extractNotes(es entry.Entries) (entry.Entries, entry.Entries) {
 	notes := entry.Entries{}
 	entries := entry.Entries{}
 	for _, e := range es {
-		if e.Info().Note() == true {
+		if e.Info().Note() {
 			notes = append(notes, e)
 			continue
 		}

@@ -14,7 +14,7 @@ func (s *Server) LoadSafe() error {
 		<-s.Queue
 		return err
 	default:
-		return fmt.Errorf("Load is blocked.")
+		return fmt.Errorf("load is blocked")
 	}
 }
 

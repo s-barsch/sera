@@ -33,7 +33,7 @@ func ParseTimestamp(ts string) (time.Time, error) {
 }
 
 func DateErr(path string, err error) error {
-	return fmt.Errorf("date error. %v. path: %v\n", err, path)
+	return fmt.Errorf("date error. %v. path: %v", err, path)
 }
 
 func MonthLang(t time.Time, lang string) string {

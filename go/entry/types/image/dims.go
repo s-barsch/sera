@@ -2,7 +2,7 @@ package image
 
 import (
 	"fmt"
-	"io/ioutil"
+	"os"
 	p "path/filepath"
 	"strconv"
 	"strings"
@@ -22,7 +22,7 @@ func cacheFolder(path string) string {
 
 func loadDims(path string) (*Dims, error) {
 	// /dir/file.jpg/cache/dims/file.jpg.txt
-	b, err := ioutil.ReadFile(dimsFile(path))
+	b, err := os.ReadFile(dimsFile(path))
 	if err != nil {
 		return nil, err
 	}

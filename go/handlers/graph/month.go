@@ -38,7 +38,7 @@ func MonthPage(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta
 	}
 
 	if perma := t.Perma(m.Lang); m.Path != perma {
-		http.Redirect(w, r, perma, 301)
+		http.Redirect(w, r, perma, http.StatusMovedPermanently)
 		return
 	}
 
@@ -78,7 +78,7 @@ func monthTitle(t *tree.Tree, lang string) string {
 
 func getMonthId(p *paths.Path) (int64, error) {
 	if len(p.Chain) != 3 {
-		return 0, fmt.Errorf("Could not parse month id: %v", p.Raw)
+		return 0, fmt.Errorf("could not parse month id: %v", p.Raw)
 	}
 
 	slug := p.Slug

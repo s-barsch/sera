@@ -89,10 +89,10 @@ func VerifyLogin(s *server.Server, w http.ResponseWriter, r *http.Request) {
 			log.Println(err)
 			return
 		}
-		http.Redirect(w, r, "/", 307)
+		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
 		return
 	}
-	http.Error(w, "server error", 502)
+	http.Error(w, "server error", http.StatusInternalServerError)
 }
 
 func generateSession(s *server.Server, w http.ResponseWriter, mail string) error {

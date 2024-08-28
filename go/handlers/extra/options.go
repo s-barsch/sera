@@ -18,7 +18,7 @@ func SetOption(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta
 		Path:   "/",
 		MaxAge: expire,
 	})
-	http.Redirect(w, r, toRef(r.Referer()), 307)
+	http.Redirect(w, r, toRef(r.Referer()), http.StatusTemporaryRedirect)
 }
 
 func toRef(path string) string {

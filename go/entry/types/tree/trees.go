@@ -2,7 +2,6 @@ package tree
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	p "path/filepath"
 
@@ -77,12 +76,14 @@ func readTreeDirs(dirs []string, parent *Tree) (Trees, error) {
 	return trees, nil
 }
 
+/*
 func isSymLink(fi os.FileInfo) bool {
 	return !(fi.Mode()&os.ModeSymlink != 0)
 }
+*/
 
 func getTreeDirs(path string, parent *Tree) ([]string, error) {
-	l, err := ioutil.ReadDir(path)
+	l, err := os.ReadDir(path)
 	if err != nil {
 		return nil, &he.Err{
 			Path: path,

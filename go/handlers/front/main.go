@@ -11,7 +11,7 @@ import (
 )
 
 func Rewrites(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	http.Redirect(w, r, "/", 301)
+	http.Redirect(w, r, "/", http.StatusMovedPermanently)
 }
 
 type frontMain struct {

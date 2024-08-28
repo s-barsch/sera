@@ -1,14 +1,14 @@
 package text
 
 import (
-	"io/ioutil"
+	"os"
 	"testing"
 )
 
 var testDir = "./test/"
 
 func TestSplitTextFile(t *testing.T) {
-	files, err := ioutil.ReadDir(testDir)
+	files, err := os.ReadDir(testDir)
 	if err != nil {
 		t.Fatal(err)
 	}

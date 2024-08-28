@@ -2,13 +2,9 @@ package tmpl
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"time"
-
-	"github.com/tdewolff/minify"
-	"github.com/tdewolff/minify/css"
 )
 
 func JsModtime(root string) (string, error) {
@@ -28,6 +24,7 @@ func makeTimestamp(t time.Time) string {
 	return s
 }
 
+/*
 func readFile(path string) (string, error) {
 	b, err := ioutil.ReadFile(path)
 	return string(b), err
@@ -38,6 +35,7 @@ func minifyCSS(str string) (string, error) {
 	m.Add("text/css", &css.Minifier{})
 	return m.String("text/css", str)
 }
+*/
 
 func ReadVideoMainFiles(root string) (js string, css string, err error) {
 	path := "/static/js/video"

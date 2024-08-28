@@ -4,22 +4,21 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"strings"
 	"time"
 
-	"g.sacerb.com/sacer/go/entry"
 	"g.sacerb.com/sacer/go/entry/tools"
-	"g.sacerb.com/sacer/go/entry/types/tree"
 	"g.sacerb.com/sacer/go/server"
 	"g.sacerb.com/sacer/go/server/meta"
 	"g.sacerb.com/sacer/go/server/paths"
 )
 
+/*
 type reelsYear struct {
 	Meta    *meta.Meta
 	Tree    *tree.Tree
 	Entries entry.Entries
 }
+*/
 
 func Year(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta, p *paths.Path) {
 	reels := s.Trees["reels"].Access(m.Auth.Subscriber)[m.Lang]
@@ -39,11 +38,11 @@ func Year(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta
 	}
 
 	if perma := t.Perma(m.Lang); m.Path != perma {
-		http.Redirect(w, r, perma, 301)
+		http.Redirect(w, r, perma, http.StatusMovedPermanently)
 		return
 	}
 
-	m.Title = strings.Title(fmt.Sprintf("%v - %v", t.Date().Format("2006"), tools.KineName[m.Lang]))
+	m.Title = tools.Title(fmt.Sprintf("%v - %v", t.Date().Format("2006"), tools.KineName[m.Lang]))
 	m.Section = "reels"
 	// TODO:
 	//m.Desc = s.Vars.Lang("reels-desc", m.Lang)

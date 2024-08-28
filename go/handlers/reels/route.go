@@ -19,7 +19,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Met
 	rel := p[len("/de/reels"):]
 
 	if rel == "/" {
-		http.Redirect(w, r, "/reels", 301)
+		http.Redirect(w, r, "/reels", http.StatusMovedPermanently)
 		return
 	}
 

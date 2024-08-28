@@ -1,7 +1,6 @@
 package sort
 
 import (
-	"io/ioutil"
 	p "path/filepath"
 	"strings"
 
@@ -31,7 +30,7 @@ func SortFilePath(path string) string {
 }
 
 func ApplySortFile(path string, entries entry.Entries) (entry.Entries, error) {
-	sortfile, err := ioutil.ReadFile(SortFilePath(path))
+	sortfile, err := os.ReadFile(SortFilePath(path))
 	if err != nil {
 		return nil, err
 	}

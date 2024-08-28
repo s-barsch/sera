@@ -11,6 +11,7 @@ require (
 	github.com/rjeczalik/notify v0.9.3
 	github.com/tdewolff/minify v2.3.6+incompatible
 	github.com/yuin/goldmark v1.7.4
+	golang.org/x/text v0.17.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 

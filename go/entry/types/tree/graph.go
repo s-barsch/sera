@@ -92,5 +92,5 @@ func parseFolderDate(path string, parent *Tree) (time.Time, time.Time, error) {
 		d = d.Add(time.Second)
 		return d, d2, nil
 	}
-	return time.Time{}, time.Time{}, fmt.Errorf("Could not determine graph tree date. %v", path)
+	return time.Time{}, time.Time{}, fmt.Errorf("could not determine graph tree date: %v", path)
 }

@@ -3,7 +3,8 @@ package meta
 import (
 	"fmt"
 	"net/http"
-	"strings"
+
+	"g.sacerb.com/sacer/go/entry/tools"
 )
 
 type Options struct {
@@ -44,7 +45,7 @@ func valueTitle(option, value string) string {
 		if len(value) > 1 {
 			title = value[:1]
 		}
-		return strings.Title(title)
+		return tools.Title(title)
 	}
 	return value
 }

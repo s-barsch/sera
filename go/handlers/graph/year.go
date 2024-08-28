@@ -13,7 +13,7 @@ import (
 
 func MainRedirect(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	path := fmt.Sprintf("/%v/graph/2021/04", m.Lang)
-	http.Redirect(w, r, path, 307)
+	http.Redirect(w, r, path, http.StatusTemporaryRedirect)
 }
 
 /*
@@ -30,15 +30,14 @@ func MainRedirect(s *server.Server, w http.ResponseWriter, r *http.Request) {
 func YearRedirect(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta, p *paths.Path) {
 	t, err := findYear(s, p.Slug)
 	if err != nil {
-		http.Redirect(w, r, "/graph", 307)
+		http.Redirect(w, r, "/graph", http.StatusTemporaryRedirect)
 		return
 	}
 	if len(t.Trees) < 1 {
 		http.Error(w, "year has no months", 404)
 		return
 	}
-	http.Redirect(w, r, t.Trees[0].Perma(m.Lang), 307)
-	return
+	http.Redirect(w, r, t.Trees[0].Perma(m.Lang), http.StatusTemporaryRedirect)
 }
 
 func findYear(s *server.Server, str string) (*tree.Tree, error) {

@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"strings"
 	"time"
 
 	"g.sacerb.com/sacer/go/entry"
@@ -24,13 +23,13 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, m *me
 	reels := s.Trees["reels"].Access(m.Auth.Subscriber)[m.Lang]
 	e, err := reels.LookupEntryHash(p.Hash)
 	if err != nil {
-		http.Redirect(w, r, "/reels", 301)
+		http.Redirect(w, r, "/reels", http.StatusMovedPermanently)
 		return
 	}
 
 	perma := e.Perma(m.Lang)
 	if m.Path != perma {
-		http.Redirect(w, r, perma, 301)
+		http.Redirect(w, r, perma, http.StatusMovedPermanently)
 		return
 	}
 
@@ -58,9 +57,10 @@ func getDate(d time.Time, lang string) string {
 }
 
 func getTitle(e entry.Entry, lang string) string {
-	return fmt.Sprintf("%v - %v - %v", e.Title(lang), getDate(e.Date(), lang), strings.Title(tools.KineName[lang]))
+	return fmt.Sprintf("%v - %v - %v", e.Title(lang), getDate(e.Date(), lang), tools.Title(tools.KineName[lang]))
 }
 
+/*
 func getNeighbors(es entry.Entries, hash string) []entry.Entry {
 	cpy := make([]entry.Entry, len(es))
 	copy(cpy, es)
@@ -77,7 +77,9 @@ func getNeighbors(es entry.Entries, hash string) []entry.Entry {
 	}
 	return nil
 }
+*/
 
+/*
 // TODO: verbose... should be simplified
 func limits(l, i int) (int, int) {
 	// number of neighors left and right
@@ -108,3 +110,4 @@ func limits(l, i int) (int, int) {
 
 	return j, k
 }
+*/
