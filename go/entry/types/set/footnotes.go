@@ -2,10 +2,11 @@ package set
 
 import (
 	"g.sacerb.com/sacer/go/entry"
+	"g.sacerb.com/sacer/go/entry/tools/script"
 	"g.sacerb.com/sacer/go/entry/types/text"
 )
 
-func NumberFootnotes(entries entry.Entries) text.Footnotes {
+func NumberFootnotes(entries entry.Entries) script.Footnotes {
 	c := 1
 	notes := map[string][]string{}
 	for _, e := range entries {

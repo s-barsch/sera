@@ -19,7 +19,7 @@ func (i Info) Hyphenate() {
 			i[key] = strings.Replace(value, "|", "", -1)
 			i[newKey(key, "hyph")] = i[key]
 		case "caption":
-			i[key] = tools.MarkdownNoP(value)
+			i[key] = tools.MarkdownTrim(value)
 		}
 	}
 }

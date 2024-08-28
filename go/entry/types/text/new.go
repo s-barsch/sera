@@ -7,6 +7,7 @@ import (
 	"g.sacerb.com/sacer/go/entry/file"
 	"g.sacerb.com/sacer/go/entry/info"
 	"g.sacerb.com/sacer/go/entry/tools"
+	"g.sacerb.com/sacer/go/entry/tools/script"
 )
 
 type Text struct {
@@ -16,9 +17,9 @@ type Text struct {
 	date time.Time
 	info info.Info
 
-	raw Langs
+	raw script.LangMap
 
-	Script *Script
+	Script *script.Script
 }
 
 func (t *Text) Copy() *Text {
@@ -63,7 +64,7 @@ func NewText(path string, parent entry.Entry) (*Text, error) {
 	}
 
 	raw := langs.Copy()
-	script := RenderScript(langs)
+	script := script.RenderScript(langs)
 
 	return &Text{
 		parent: parent,
@@ -78,7 +79,7 @@ func NewText(path string, parent entry.Entry) (*Text, error) {
 	}, nil
 }
 
-func ReadTextFile(path string) (info.Info, Langs, error) {
+func ReadTextFile(path string) (info.Info, script.LangMap, error) {
 	fnErr := &tools.Err{
 		Path: path,
 		Func: "readTextFile",

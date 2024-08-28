@@ -14,8 +14,8 @@ import (
 	"g.sacerb.com/sacer/go/entry/file"
 	"g.sacerb.com/sacer/go/entry/info"
 	"g.sacerb.com/sacer/go/entry/tools"
-	"g.sacerb.com/sacer/go/entry/types/audio"
-	"g.sacerb.com/sacer/go/entry/types/text"
+	"g.sacerb.com/sacer/go/entry/tools/script"
+	"g.sacerb.com/sacer/go/entry/tools/transcript"
 	"g.sacerb.com/sacer/go/server/paths"
 
 	"github.com/alfg/mp4"
@@ -31,7 +31,7 @@ type Video struct {
 	Sources []*Source
 
 	Captions   []string
-	Transcript *text.Script
+	Transcript *script.Script
 
 	Duration float64
 }
@@ -99,7 +99,11 @@ func NewVideo(path string, parent entry.Entry) (*Video, error) {
 
 	captions := getCaptions(path)
 
-	script := audio.GetTranscript(inf)
+	script, err := transcript.GetTranscripts(path)
+	if err != nil {
+		fnErr.Err = err
+		return nil, fnErr
+	}
 
 	return &Video{
 		parent:     parent,

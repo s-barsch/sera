@@ -53,7 +53,7 @@ func Markdown(text string) string {
 	//return string(bf.Run([]byte(text), bf.WithNoExtensions(), bfExtensions))
 }
 
-func MarkdownNoP(text string) string {
+func MarkdownTrim(text string) string {
 	return ShaveParagraph(Markdown(text))
 }
 

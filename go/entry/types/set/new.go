@@ -8,8 +8,8 @@ import (
 	"g.sacerb.com/sacer/go/entry/file"
 	"g.sacerb.com/sacer/go/entry/info"
 	"g.sacerb.com/sacer/go/entry/tools"
+	"g.sacerb.com/sacer/go/entry/tools/script"
 	"g.sacerb.com/sacer/go/entry/types/image"
-	"g.sacerb.com/sacer/go/entry/types/text"
 )
 
 type Set struct {
@@ -25,7 +25,7 @@ type Set struct {
 	Kine  entry.Entries
 	Notes entry.Entries
 
-	Footnotes text.Footnotes
+	Footnotes script.Footnotes
 }
 
 func (s *Set) Copy() *Set {

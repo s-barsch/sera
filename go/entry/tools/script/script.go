@@ -1,4 +1,4 @@
-package text
+package script
 
 import (
 	"bytes"
@@ -10,8 +10,15 @@ import (
 )
 
 type Script struct {
-	Langs     Langs
+	Langs     LangMap
 	Footnotes Footnotes
+}
+
+func EmptyScript() *Script {
+	return &Script{
+		Langs:     map[string]string{},
+		Footnotes: map[string][]string{},
+	}
 }
 
 func (s *Script) Is() bool {
@@ -28,14 +35,14 @@ func (s *Script) Is() bool {
 	return false
 }
 
-type Langs map[string]string
+type LangMap map[string]string
 type Footnotes map[string][]string
 
-func RenderScript(langs Langs) *Script {
-	notes := langs.OwnRender()
+func RenderScript(langs LangMap) *Script {
+	notes := langs.RenderAndExtract()
 
-	langs.Markdown()
-	notes.MarkdownHyphenate()
+	langs.ApplyMarkdown()
+	notes.ApplyMarkdown()
 
 	return &Script{
 		Langs:     langs,
@@ -62,7 +69,7 @@ func (n Footnotes) Copy() Footnotes {
 	return m
 }
 
-func (l Langs) Copy() Langs {
+func (l LangMap) Copy() LangMap {
 	m := map[string]string{}
 
 	for k, v := range l {
@@ -72,21 +79,21 @@ func (l Langs) Copy() Langs {
 	return m
 }
 
-func (notes Footnotes) MarkdownHyphenate() {
+func (notes Footnotes) ApplyMarkdown() {
 	for l := range tools.Langs {
 		for i := range notes[l] {
-			notes[l][i] = tools.MarkdownNoP(notes[l][i])
+			notes[l][i] = tools.MarkdownTrim(notes[l][i])
 		}
 	}
 }
 
-func (langs Langs) Markdown() {
+func (langs LangMap) ApplyMarkdown() {
 	for l := range tools.Langs {
 		langs[l] = tools.Markdown(langs[l])
 	}
 }
 
-func (langs Langs) OwnRender() Footnotes {
+func (langs LangMap) RenderAndExtract() Footnotes {
 	notes := map[string][]string{}
 
 	for l := range tools.Langs {

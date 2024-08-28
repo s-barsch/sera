@@ -33,6 +33,6 @@ func (t *Text) RenderFootnotesLang(count int, lang string) {
 		buf.WriteString(string(c))
 	}
 
-	t.Script.Langs[lang] = buf.String()
+	t.Script.LangMap[lang] = buf.String()
 }
 */

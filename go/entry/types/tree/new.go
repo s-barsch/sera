@@ -8,9 +8,9 @@ import (
 	"g.sacerb.com/sacer/go/entry/file"
 	"g.sacerb.com/sacer/go/entry/info"
 	"g.sacerb.com/sacer/go/entry/tools"
+	"g.sacerb.com/sacer/go/entry/tools/script"
 	"g.sacerb.com/sacer/go/entry/types/image"
 	"g.sacerb.com/sacer/go/entry/types/set"
-	"g.sacerb.com/sacer/go/entry/types/text"
 )
 
 type Tree struct {
@@ -25,10 +25,10 @@ type Tree struct {
 
 	Cover *image.Image
 
-	Footnotes text.Footnotes
+	Footnotes script.Footnotes
 
-	Summary        *text.Script
-	SummaryPrivate *text.Script
+	Summary        *script.Script
+	SummaryPrivate *script.Script
 }
 
 func (t *Tree) Copy() *Tree {
@@ -140,19 +140,19 @@ func isGraphSection(section string) bool {
 	return false
 }
 
-func getScript(i info.Info, key string) *text.Script {
+func getScript(i info.Info, key string) *script.Script {
 	langs := extractScript(i, key)
 	if langs == nil {
 		return nil
 	}
-	script := text.RenderScript(langs)
+	script := script.RenderScript(langs)
 	script.NumberFootnotes(1)
 
 	return script
 }
 
-func extractScript(i info.Info, key string) text.Langs {
-	langs := text.Langs{}
+func extractScript(i info.Info, key string) script.LangMap {
+	langs := script.LangMap{}
 	for l := range tools.Langs {
 		if l != "de" {
 			key += "-" + l

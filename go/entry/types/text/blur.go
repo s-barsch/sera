@@ -2,24 +2,26 @@ package text
 
 import (
 	"g.sacerb.com/sacer/go/entry/tools/blur"
+	"g.sacerb.com/sacer/go/entry/tools/script"
 )
 
 func (t *Text) Blur() *Text {
 	t = t.Copy()
 
-	langs := Langs{}
+	langs := script.LangMap{}
 
 	for k := range t.Script.Langs {
 		langs[k] = blur.ReplaceText(t.raw[k], k)
 	}
 
-	notes := langs.OwnRender()
-	notes.MarkdownHyphenate()
+	notes := langs.RenderAndExtract()
 
-	langs.Markdown()
-	langs.BlurHyphenate()
+	notes.ApplyMarkdown()
+	langs.ApplyMarkdown()
 
-	s := &Script{
+	BlurHyphenate(langs)
+
+	s := &script.Script{
 		Langs:     langs,
 		Footnotes: notes,
 	}
@@ -29,8 +31,9 @@ func (t *Text) Blur() *Text {
 	return t
 }
 
-func (langs Langs) BlurHyphenate() {
+func BlurHyphenate(langs script.LangMap) script.LangMap {
 	for k, v := range langs {
 		langs[k] = blur.Hyphenate(v)
 	}
+	return langs
 }

@@ -10,7 +10,8 @@ import (
 	"g.sacerb.com/sacer/go/entry/file"
 	"g.sacerb.com/sacer/go/entry/info"
 	"g.sacerb.com/sacer/go/entry/tools"
-	"g.sacerb.com/sacer/go/entry/types/text"
+	"g.sacerb.com/sacer/go/entry/tools/script"
+	"g.sacerb.com/sacer/go/entry/tools/transcript"
 )
 
 type Audio struct {
@@ -22,7 +23,7 @@ type Audio struct {
 
 	Captions []string
 
-	Transcript *text.Script
+	Transcript *script.Script
 }
 
 func NewAudio(path string, parent entry.Entry) (*Audio, error) {
@@ -58,7 +59,11 @@ func NewAudio(path string, parent entry.Entry) (*Audio, error) {
 
 	captions := getCaptions(path)
 
-	script := GetTranscript(inf)
+	script, err := transcript.GetTranscripts(path)
+	if err != nil {
+		fnErr.Err = err
+		return nil, fnErr
+	}
 
 	return &Audio{
 		parent:     parent,
@@ -79,25 +84,6 @@ func getCaptions(path string) []string {
 		if err == nil {
 			langs = append(langs, lang)
 		}
-	}
-	return langs
-}
-
-func GetTranscript(i info.Info) *text.Script {
-	script := text.RenderScript(extractTranscript(i))
-	script.NumberFootnotes(1)
-
-	return script
-}
-
-func extractTranscript(i info.Info) text.Langs {
-	langs := text.Langs{}
-	for l := range tools.Langs {
-		key := "transcript"
-		if l != "de" {
-			key += "-" + l
-		}
-		langs[l] = i[key]
 	}
 	return langs
 }

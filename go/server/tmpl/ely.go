@@ -2,15 +2,15 @@ package tmpl
 
 import (
 	"g.sacerb.com/sacer/go/entry"
-	"g.sacerb.com/sacer/go/entry/types/text"
+	"g.sacerb.com/sacer/go/entry/tools/script"
 )
 
 type NotesLang struct {
-	Footnotes *text.Footnotes
+	Footnotes *script.Footnotes
 	Lang      string
 }
 
-func (nL NotesLang) FN() *text.Footnotes {
+func (nL NotesLang) FN() *script.Footnotes {
 	return nL.Footnotes
 }
 
@@ -18,7 +18,7 @@ func (nL NotesLang) L() string {
 	return nL.Lang
 }
 
-func NewNotesLang(fn *text.Footnotes, lang string) *NotesLang {
+func NewNotesLang(fn *script.Footnotes, lang string) *NotesLang {
 	return &NotesLang{
 		Footnotes: fn,
 		Lang:      lang,
