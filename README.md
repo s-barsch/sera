@@ -17,5 +17,5 @@ Build JavaScript:
 `pnpm -C js/bundle install`<br>
 `pnpm -C js/bundle build`
 
-`pnpm -C js/video`<br>
+`pnpm -C js/video install`<br>
 `pnpm -C js/video build`
