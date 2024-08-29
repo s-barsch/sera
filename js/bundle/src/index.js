@@ -4,7 +4,6 @@ import initText from './text';
 import initAudio from './audio';
 import initGraphMore from './graph-overview/more';
 import initOptionToggles from './options';
-import initVideoPlayer from './video';
 
 const stInit = page => {
     switch (page.type) {

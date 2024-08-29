@@ -12,6 +12,10 @@ Compile [Less](http://lesscss.org/) files:
 
 ## JS
 
-Build JavaScript bundle:
+Build JavaScript:
 
-`yarn --cwd ./js build`
+`pnpm -C js/bundle install`
+`pnpm -C js/bundle build`
+
+`pnpm -C js/video `
+`pnpm -C js/video build`
