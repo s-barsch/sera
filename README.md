@@ -14,8 +14,8 @@ Compile [Less](http://lesscss.org/) files:
 
 Build JavaScript:
 
-`pnpm -C js/bundle install`
+`pnpm -C js/bundle install`<br>
 `pnpm -C js/bundle build`
 
-`pnpm -C js/video `
+`pnpm -C js/video`<br>
 `pnpm -C js/video build`
