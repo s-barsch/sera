@@ -99,7 +99,7 @@ func removeLast(chain []string) []string {
 }
 
 func IsMergedMonths(str string) bool {
-	return regexp.MustCompile(`\\d{2}-\\d{2}`).MatchString(str)
+	return regexp.MustCompile(`\d{2}-\d{2}`).MatchString(str)
 }
 
 func splitName(str string) (slug, hash string) {

@@ -14,7 +14,7 @@ import (
 	"github.com/yuin/goldmark/renderer/html"
 )
 
-var validSlug = regexp.MustCompile("[^a-z0-9-]+")
+var validSlug = regexp.MustCompile(`[^a-z0-9-]+`)
 
 func Normalize(name string) string {
 	name = strings.TrimSpace(name)

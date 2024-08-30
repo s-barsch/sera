@@ -16,7 +16,7 @@ import (
 )
 
 func isMergeTree(path string) bool {
-	return regexp.MustCompile(`\\d{2}-\\d{4}`).MatchString(p.Base(path))
+	return regexp.MustCompile(`\d{2}-\d{4}`).MatchString(p.Base(path))
 }
 
 func readEntries(path string, parent *Tree) (entry.Entries, error) {
