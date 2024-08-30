@@ -2,7 +2,6 @@ package tmpl
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"strconv"
 	"strings"
@@ -98,7 +97,7 @@ func ReadVarFiles(root string) (map[string]string, error) {
 	for _, name := range []string{"descriptions", "headings"} {
 
 		path := fmt.Sprintf("/html/vars/%v.txt", name)
-		b, err := ioutil.ReadFile(root + path)
+		b, err := os.ReadFile(root + path)
 		if err != nil {
 			return nil, err
 		}
@@ -134,7 +133,7 @@ func ReadInlineStatics(root string) (map[string]string, error) {
 		"email":       "/static/svg/email.svg",
 	}
 	for name, path := range sources {
-		content, err := ioutil.ReadFile(root + path)
+		content, err := os.ReadFile(root + path)
 		if err != nil {
 			return nil, err
 		}
@@ -144,7 +143,7 @@ func ReadInlineStatics(root string) (map[string]string, error) {
 	for i := 2007; i <= 2021; i++ {
 		year := strconv.Itoa(i)
 		path := fmt.Sprintf(root+"/static/svg/years/%v.svg", year)
-		content, err := ioutil.ReadFile(path)
+		content, err := os.ReadFile(path)
 		if err != nil {
 			return nil, err
 		}

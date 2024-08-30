@@ -7,8 +7,8 @@ package main
 import (
 	"bytes"
 	"fmt"
-	"io/ioutil"
 	"log"
+	"os"
 	"os/exec"
 	"text/template"
 
@@ -58,7 +58,7 @@ func printOutFile(typ string, tmpl *template.Template) error {
 		return err
 	}
 	path := outFilePath(typ)
-	err = ioutil.WriteFile(path, buf.Bytes(), 0644)
+	err = os.WriteFile(path, buf.Bytes(), 0644)
 	if err != nil {
 		return err
 	}

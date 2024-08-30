@@ -1,7 +1,7 @@
 package main
 
 import (
-	"io/ioutil"
+	"os"
 	"sort"
 )
 
@@ -11,7 +11,7 @@ func readTypes() ([]string, error) {
 
 func readTypesDir(path string) ([]string, error) {
 	types := []string{}
-	l, err := ioutil.ReadDir(path)
+	l, err := os.ReadDir(path)
 	if err != nil {
 		return nil, err
 	}

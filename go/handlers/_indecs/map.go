@@ -119,7 +119,7 @@ func saveMap(s *server.Server, lang string) error {
 
 	path := fmt.Sprintf(s.Paths.Data+"/static/svg/indecsmap-%v.svg", lang)
 
-	err = ioutil.WriteFile(path, minified, 0644)
+	err = os.WriteFile(path, minified, 0644)
 	if err != nil {
 		return err
 	}
