@@ -1,30 +1,8 @@
 {{define "video"}}
 <link rel="stylesheet" href="{{varRaw "video-main.css"}}">
 <script type="module" src="{{varRaw "video-main.js"}}"></script>
-    <script>
-      /*
-            let src = [
-            {{range .E.Sources}}
-                {
-                    src: "{{$.E.FilesPath $.L}}/{{.Path}}",
-                    width: {{.ResolutionWidth}},
-                    height: {{.Resolution}},
-                    type: "video/mp4",
-                },
-            {{end}}
-            ];
-            */
-    </script>
     <div id="video">
-<media-player
-id="player"
-keyTarget="document"
-load="eager"
-posterLoad="eager"
-viewType="video"
-autoplay
-logLevel="debug"
->
+<media-player id="player" load="eager" autoplay >
 <media-provider>
   <media-poster
     class="vds-poster"
@@ -258,6 +236,8 @@ logLevel="debug"
     </div>
       <script>
         let player = document.querySelector("media-player");
+        player.posterLoad = "eager";
+        player.keyTarget = "document";
         const src = [
             {{range .E.Sources}}
                 {
@@ -269,7 +249,6 @@ logLevel="debug"
             {{end}}
             ];
         player.addEventListener("can-load", (event) => {
-          //player.src = src;
         })
         player.addEventListener("can-play", (event) => {
           player.src = src;
