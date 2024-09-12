@@ -15,8 +15,8 @@
 
   {{template "subnav" (snav .Tree nil .Meta.Lang)}}
         <h1 class="monthpage-title cache-header">
-          <span class="cache-year">{{.Tree.Date.Format "2006"}},</span>
-          <span class="cache-logo">{{if eq .Meta.Lang "en"}}Cine{{else}}Kine{{end}}</span>
+          <span class="cache-year">{{.Tree.Date.Format "2006"}}</span>
+          <span class="cache-logo">Cache</span>
         </h1>
   {{template "cache-grid" (esL .Entries .Meta.Lang)}}
 
