@@ -1,4 +1,4 @@
-package reels
+package cache
 
 import (
 	"net/http"
@@ -16,10 +16,10 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Met
 		http.NotFound(w, r)
 		return
 	}
-	rel := p[len("/de/reels"):]
+	rel := p[len("/de/cache"):]
 
 	if rel == "/" {
-		http.Redirect(w, r, "/reels", http.StatusMovedPermanently)
+		http.Redirect(w, r, "/cache", http.StatusMovedPermanently)
 		return
 	}
 

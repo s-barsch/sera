@@ -106,7 +106,7 @@ func getTreeDirs(path string, parent *Tree) ([]string, error) {
 		}
 
 		switch parent.Section() {
-		case "graph", "reels":
+		case "graph", "cache":
 			if !isDateTree(filepath, parent) {
 				continue
 			}

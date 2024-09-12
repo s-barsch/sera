@@ -25,10 +25,10 @@ var cases = []*testCase{
 		},
 	},
 	{
-		path: "/en/reels/24-08/10-well-i-call-it-art-theory-3f358b02/files/sizes/240810_094201-1080.mp4",
+		path: "/en/cache/24-08/10-well-i-call-it-art-theory-3f358b02/files/sizes/240810_094201-1080.mp4",
 		result: &Path{
-			Raw:    "/en/reels/24-08/10-well-i-call-it-art-theory-3f358b02/files/sizes/240810_094201-1080.mp4",
-			Chain:  []string{"en", "reels", "24-08"},
+			Raw:    "/en/cache/24-08/10-well-i-call-it-art-theory-3f358b02/files/sizes/240810_094201-1080.mp4",
+			Chain:  []string{"en", "cache", "24-08"},
 			Slug:   "10-well-i-call-it-art-theory",
 			Hash:   "3f358b02",
 			Folder: "files",
@@ -40,10 +40,10 @@ var cases = []*testCase{
 		},
 	},
 	{
-		path: "/en/reels/24-08/10-well-i-call-it-art-theory-3f358b02/img/cover-480.webp",
+		path: "/en/cache/24-08/10-well-i-call-it-art-theory-3f358b02/img/cover-480.webp",
 		result: &Path{
-			Raw:    "/en/reels/24-08/10-well-i-call-it-art-theory-3f358b02/img/cover-480.webp",
-			Chain:  []string{"en", "reels", "24-08"},
+			Raw:    "/en/cache/24-08/10-well-i-call-it-art-theory-3f358b02/img/cover-480.webp",
+			Chain:  []string{"en", "cache", "24-08"},
 			Slug:   "10-well-i-call-it-art-theory",
 			Hash:   "3f358b02",
 			Folder: "img",

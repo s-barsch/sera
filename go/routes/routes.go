@@ -5,10 +5,10 @@ import (
 
 	"g.sacerb.com/sacer/go/handlers/about"
 	"g.sacerb.com/sacer/go/handlers/auth"
+	"g.sacerb.com/sacer/go/handlers/cache"
 	"g.sacerb.com/sacer/go/handlers/extra"
 	"g.sacerb.com/sacer/go/handlers/front"
 	"g.sacerb.com/sacer/go/handlers/graph"
-	"g.sacerb.com/sacer/go/handlers/reels"
 
 	//"g.sacerb.com/sacer/go/handlers/indecs"
 	//"g.sacerb.com/sacer/go/handlers/index"
@@ -29,8 +29,8 @@ func Router(s *server.Server) *mux.Router {
 	r.HandleFunc("/de", makeHandler(s, front.Main))
 	r.PathPrefix("/de/graph").HandlerFunc(makeHandler(s, graph.Route))
 	r.PathPrefix("/en/graph").HandlerFunc(makeHandler(s, graph.Route))
-	r.PathPrefix("/de/reels").HandlerFunc(makeHandler(s, reels.Route))
-	r.PathPrefix("/en/reels").HandlerFunc(makeHandler(s, reels.Route))
+	r.PathPrefix("/de/cache").HandlerFunc(makeHandler(s, cache.Route))
+	r.PathPrefix("/en/cache").HandlerFunc(makeHandler(s, cache.Route))
 	r.PathPrefix("/de/ueber").HandlerFunc(makeHandler(s, about.Route))
 	r.PathPrefix("/en/about").HandlerFunc(makeHandler(s, about.Route))
 

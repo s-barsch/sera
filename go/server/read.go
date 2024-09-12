@@ -11,7 +11,7 @@ import (
 
 var sections = []string{
 	"graph",
-	"reels",
+	"cache",
 	"about",
 	"extra",
 }
@@ -44,7 +44,7 @@ func (s *Server) ReadTrees() error {
 
 	for _, section := range sections {
 		folder := section
-		if section == "reels" {
+		if section == "cache" {
 			folder = "kine"
 		}
 		t, err := tree.ReadTree(s.Paths.Data+"/"+folder, nil)
@@ -90,7 +90,7 @@ func serializeLangs(langMap map[string]*tree.Tree) map[string]entry.Entries {
 
 func serialize(t *tree.Tree) entry.Entries {
 	switch t.Section() {
-	case "graph", "reels":
+	case "graph", "cache":
 		return t.TraverseEntriesReverse()
 	case "indecs":
 		es := entry.Entries{}

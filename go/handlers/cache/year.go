@@ -1,4 +1,4 @@
-package reels
+package cache
 
 import (
 	"fmt"
@@ -13,7 +13,7 @@ import (
 )
 
 /*
-type reelsYear struct {
+type cacheYear struct {
 	Meta    *meta.Meta
 	Tree    *tree.Tree
 	Entries entry.Entries
@@ -21,7 +21,7 @@ type reelsYear struct {
 */
 
 func Year(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta, p *paths.Path) {
-	reels := s.Trees["reels"].Access(m.Auth.Subscriber)[m.Lang]
+	cache := s.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
 
 	id, err := getYearId(p.Slug)
 	if err != nil {
@@ -30,7 +30,7 @@ func Year(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta
 		return
 	}
 
-	t, err := reels.LookupTree(id)
+	t, err := cache.LookupTree(id)
 	if err != nil {
 		http.NotFound(w, r)
 		s.Log.Println(err)
@@ -43,9 +43,9 @@ func Year(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta
 	}
 
 	m.Title = tools.Title(fmt.Sprintf("%v - %v", t.Date().Format("2006"), tools.KineName[m.Lang]))
-	m.Section = "reels"
+	m.Section = "cache"
 	// TODO:
-	//m.Desc = s.Vars.Lang("reels-desc", m.Lang)
+	//m.Desc = s.Vars.Lang("cache-desc", m.Lang)
 
 	err = m.Process(t)
 	if err != nil {
@@ -55,7 +55,7 @@ func Year(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta
 
 	entries := t.TraverseEntriesReverse()
 
-	err = s.ExecuteTemplate(w, "reels-year", &reelsMain{
+	err = s.ExecuteTemplate(w, "cache-year", &cacheMain{
 		Meta:    m,
 		Tree:    t,
 		Entries: entries,

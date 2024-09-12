@@ -16,8 +16,8 @@ var AboutName = map[string]string{
 }
 
 var KineName = map[string]string{
-	"de": "reels",
-	"en": "reels",
+	"de": "cache",
+	"en": "cache",
 }
 
 func Title(str string) string {

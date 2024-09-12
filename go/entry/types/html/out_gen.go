@@ -102,7 +102,7 @@ func (e *Html) Perma(lang string) string {
 	}
 
 	switch e.Section() {
-	case "reels":
+	case "cache":
 		return fmt.Sprintf(
 			"/%v/%v/%v/%v",
 			lang,

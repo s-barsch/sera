@@ -1,48 +1,48 @@
-{{define "reels-main"}}
+{{define "cache-main"}}
 {{template "head" .Meta}}
 {{template "top" .}}
 
   {{template "subnav" (snav .Tree nil .Meta.Lang)}}
-  {{template "reels-header" .Meta.Title}}
-  {{template "reels-grid" (esL .Entries .Meta.Lang)}}
+  {{template "cache-header" .Meta.Title}}
+  {{template "cache-grid" (esL .Entries .Meta.Lang)}}
 
 {{template "bot" .Meta}}
 {{end}}
 
-{{define "reels-year"}}
+{{define "cache-year"}}
 {{template "head" .Meta}}
 {{template "top" .}}
 
   {{template "subnav" (snav .Tree nil .Meta.Lang)}}
-        <h1 class="monthpage-title reels-header">
-          <span class="reels-year">{{.Tree.Date.Format "2006"}},</span>
-          <span class="reels-logo">{{if eq .Meta.Lang "en"}}Cine{{else}}Kine{{end}}</span>
+        <h1 class="monthpage-title cache-header">
+          <span class="cache-year">{{.Tree.Date.Format "2006"}},</span>
+          <span class="cache-logo">{{if eq .Meta.Lang "en"}}Cine{{else}}Kine{{end}}</span>
         </h1>
-  {{template "reels-grid" (esL .Entries .Meta.Lang)}}
+  {{template "cache-grid" (esL .Entries .Meta.Lang)}}
 
 {{template "bot" .Meta}}
 {{end}}
 
-{{define "reels-header"}}
-    <div class="section-title__box section-title--reels">
+{{define "cache-header"}}
+    <div class="section-title__box section-title--cache">
         <h1 class="section-title">
           {{.}}
         </h1>
     </div>
 {{end}}
 
-{{define "reels-grid"}}
+{{define "cache-grid"}}
     <div class="video-grid">
     {{range $i, $k := .Entries}}
-      {{template "reels-card" (eLy $k $.Lang false)}}
+      {{template "cache-card" (eLy $k $.Lang false)}}
     {{end}}
     </div>
 {{end}}
 
-{{define "reels-card"}}
+{{define "cache-card"}}
     {{$isAudio := eq "true" (index .Entry.Info "is-audio")}}
     {{$isTranslated := isTranslated .Entry .Lang}}
-    <div class="reels-card{{if not $isTranslated}} untranslated{{end}}">
+    <div class="cache-card{{if not $isTranslated}} untranslated{{end}}">
       <a href="{{.Entry.Perma .Lang}}">
         <span class="image">
           <img class="no-subtitles" src="/static/svg/no-subtitles.svg">
@@ -75,13 +75,13 @@
           </span>
       </a>
       {{if displayInfo}}
-      {{template "reels-meta" (eL .Entry .Lang)}}
+      {{template "cache-meta" (eL .Entry .Lang)}}
       {{end}}
     </div>
 {{end}}
 
-{{define "reels-meta"}}
-  <div class="reels-meta">
+{{define "cache-meta"}}
+  <div class="cache-meta">
     <span class="{{if isTranscripted .E}}has-meta{{end}}">
       Transcript
     </span>

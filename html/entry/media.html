@@ -59,7 +59,7 @@
 <div class="video-container">
 <div id="video-player">
   <video preload="metadata" loop controls type="video/mp4"
-  {{if eq .E.Section "reels"}}poster="{{.E.Parent.Cover.ImagePath 1280 .L}}" autoplay {{end}}>
+  {{if eq .E.Section "cache"}}poster="{{.E.Parent.Cover.ImagePath 1280 .L}}" autoplay {{end}}>
     {{range .E.Sources}}
     <source src="{{$.E.FilesPath $.L}}/{{.Path}}" size="{{.Resolution}}" type="video/mp4">
     {{end}}
@@ -75,7 +75,7 @@
 
 
 {{define "audio"}}
-<audio class="audio" src="{{.E.FilePath .Lang}}" {{if eq .E.Section "reels"}}autoplay="true"{{end}} controls>
+<audio class="audio" src="{{.E.FilePath .Lang}}" {{if eq .E.Section "cache"}}autoplay="true"{{end}} controls>
     {{range .E.Captions}}
     <track label="{{langName .}}" srclang="{{.}}" kind="captions"
     src="{{$.E.CaptionPath .}}" {{if eq . $.L}} default{{end}}>

@@ -1,10 +1,10 @@
-{{define "reels-single"}}
+{{define "cache-single"}}
 
 {{template "head" .Meta}}
 {{template "top" .}}
 
     <div id="part">
-    {{template "reels-single-part" .}}
+    {{template "cache-single-part" .}}
     </div>
 
     {{template "bot" .Meta}}
@@ -12,8 +12,8 @@
 {{end}}}
 
 
-{{define "reelsnav"}}
-    <nav id="subnav" class="subnavs reelsnav">
+{{define "cachenav"}}
+    <nav id="subnav" class="subnavs cachenav">
       {{$year := .T.Parent}}
       {{template "subnav-row" (snav $year.Parent $year .L)}}
       {{template "monthnav" (snav $year .Active .L)}}
@@ -24,7 +24,7 @@
       <div class="subnav monthnav">
       {{range $month := .T.Trees}}
         {{$isActive := eq $month.Id $.Active.Parent.Id}}
-        <a href="{{$month.Perma $.L}}" class="reelsmonth{{if $isActive}} active{{end}}">{{$month.Date.Format "Jan"}}</a>
+        <a href="{{$month.Perma $.L}}" class="cachemonth{{if $isActive}} active{{end}}">{{$month.Date.Format "Jan"}}</a>
         {{if $isActive}}
           {{range $day := $month.Entries}}
             <a href="{{$day.Perma $.L}}"
@@ -36,7 +36,7 @@
 {{end}}
 
 
-{{define "reels-title"}}
+{{define "cache-title"}}
     <h1 class="video-title-bar">
       <span class="video-date">
         {{.Entry.Date.Format "2"}}
@@ -48,20 +48,20 @@
     </h1>
 {{end}}
 
-{{define "reels-single-part"}}
+{{define "cache-single-part"}}
 
-{{template "reelsnav" (snav .Entry.Parent .Entry .Meta.Lang)}}
+{{template "cachenav" (snav .Entry.Parent .Entry .Meta.Lang)}}
 
     {{$eL := eL .Entry .Meta.Lang}}
     <div id="body">
-      {{template "reels-title" $eL}}
-      {{template "reels-entry" $eL}}
+      {{template "cache-title" $eL}}
+      {{template "cache-entry" $eL}}
     </div>
 
     <!--
     <div class="video-grid">
     {{/* range .Neighbors}}
-    {{template "reels-card" eL . $.Meta.Lang}}
+    {{template "cache-card" eL . $.Meta.Lang}}
     {{end */}}
     </div>
     -->
@@ -74,46 +74,46 @@
 
 {{end}}
 
-{{define "reels-date" -}}
+{{define "cache-date" -}}
 {{.E.Date.Format "2"}} {{abbr (monthLang .Entry.Date .L)}}
 {{- end}}
 
-{{define "reels-entry"}}
+{{define "cache-entry"}}
 {{$type := $.E.Type}}
     {{if eq $type "set"}}
-      {{template "reels-set" .}}
+      {{template "cache-set" .}}
     {{else if or (eq $type "video") (eq $type "audio")}}
-      {{template "reels-av" .}}
+      {{template "cache-av" .}}
     {{else}}
       {{template "entry" .}}
     {{end}}
 {{end}}
 
-{{define "reels-set"}}
+{{define "cache-set"}}
 <div class="set">
     {{range .E.Entries}}
-      {{template "reels-entry" (eL . $.L)}}
+      {{template "cache-entry" (eL . $.L)}}
     {{end}}
 </div>
 {{end}}
 
-{{define "reels-av"}}
+{{define "cache-av"}}
 {{if eq .E.Type "audio"}}
-  <div class="column reels-audio">
+  <div class="column cache-audio">
     {{template "entry" .}}
   </div>
 {{else}}
   {{template "entry" .}}
 {{end}}
-  {{template "reels-transcript" .}}
+  {{template "cache-transcript" .}}
 
 {{end}}
 
-{{define "reels-transcript"}}
+{{define "cache-transcript"}}
   {{with .E.Transcript}}
     {{$text := index .Langs $.L}}
     {{if $text}}
-    <div class="transcript transcript-reels column">
+    <div class="transcript transcript-cache column">
       <h3>{{var "transcript" $.L}}</h3>
       <div class="{{$.E.Info.TextStyle}}">
         {{$text}}

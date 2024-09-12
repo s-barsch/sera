@@ -76,7 +76,7 @@
 
 {{define "graph-set"}}
 <div class="set set--graph">
-  {{/*template "graph-reels-desk" .*/}}
+  {{/*template "graph-cache-desk" .*/}}
     {{if eq 0 (len .E.Entries)}}
     <div class="tob text column">
     <div class="indent">
@@ -86,7 +86,7 @@
     {{end}}
     {{template "object-groups" (esL .E.Entries .L)}}
   <div class="column">
-  {{template "graph-reels-mobile" .}}
+  {{template "graph-cache-mobile" .}}
   </div>
   {{/* with .E.Footnotes}}
     <div class="column">
@@ -114,22 +114,22 @@
     {{end}}
 {{end}}
 
-{{define "graph-reels-mobile"}}
+{{define "graph-cache-mobile"}}
     {{with .E.Kine}}
-    <div class="graph-reels">
+    <div class="graph-cache">
       {{range .}}
-      <div class="graph-reels-mobile">
-        {{template "graph-reels-title" (eL . $.L)}}
+      <div class="graph-cache-mobile">
+        {{template "graph-cache-title" (eL . $.L)}}
       </div>
       {{end}}
     </div>
     {{end}}
 {{end}}
 
-{{define "graph-reels-title"}}
-<span class="graph-reels-title">
+{{define "graph-cache-title"}}
+<span class="graph-cache-title">
   <img alt="" class="icon" src="/static/svg/cam.svg">
-  <span class="reels-date-notes">{{template "reels-date" .}}</span>:
+  <span class="cache-date-notes">{{template "cache-date" .}}</span>:
   <a href="{{.E.Perma .L}}">
     {{.E.Title .L}}
   </a>
@@ -137,12 +137,12 @@
 {{end}}
 
 
-{{define "graph-reels-desk"}}
+{{define "graph-cache-desk"}}
     {{with .E.Kine}}
   <div class="desktop">
       {{range .}}
         {{if .Cover}}
-        <span class="graph-reels-image">
+        <span class="graph-cache-image">
         {{template "image" (eL .Cover $.L)}}
         </span>
         {{end}}

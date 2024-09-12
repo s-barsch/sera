@@ -1,4 +1,4 @@
-package reels
+package cache
 
 import (
 	"fmt"
@@ -13,17 +13,17 @@ import (
 	"g.sacerb.com/sacer/go/server/paths"
 )
 
-type reelsSingle struct {
+type cacheSingle struct {
 	Meta      *meta.Meta
 	Entry     entry.Entry
 	Neighbors []entry.Entry
 }
 
 func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta, p *paths.Path) {
-	reels := s.Trees["reels"].Access(m.Auth.Subscriber)[m.Lang]
-	e, err := reels.LookupEntryHash(p.Hash)
+	cache := s.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
+	e, err := cache.LookupEntryHash(p.Hash)
 	if err != nil {
-		http.Redirect(w, r, "/reels", http.StatusMovedPermanently)
+		http.Redirect(w, r, "/cache", http.StatusMovedPermanently)
 		return
 	}
 
@@ -34,7 +34,7 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, m *me
 	}
 
 	m.Title = getTitle(e, m.Lang)
-	m.Section = "reels"
+	m.Section = "cache"
 
 	err = m.Process(e)
 	if err != nil {
@@ -42,10 +42,10 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, m *me
 		return
 	}
 
-	err = s.ExecuteTemplate(w, "reels-single", &reelsSingle{
+	err = s.ExecuteTemplate(w, "cache-single", &cacheSingle{
 		Meta:  m,
 		Entry: e,
-		//Neighbors: getNeighbors(s.Recents["reels"].Access(m.Auth.Subscriber)[m.Lang], p.Hash),
+		//Neighbors: getNeighbors(s.Recents["cache"].Access(m.Auth.Subscriber)[m.Lang], p.Hash),
 	})
 	if err != nil {
 		log.Println(err)

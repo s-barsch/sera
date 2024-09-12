@@ -4,7 +4,7 @@
 {{template "top" .}}
 
 
-    {{template "reels-front" eL (index .Reels 0) .Meta.Lang}}
+    {{template "cache-front" eL (index .Cache 0) .Meta.Lang}}
 
 {{/*
     {{template "graph-col" .}}
@@ -15,11 +15,11 @@
     {{/*template "month-front" eL (index .Months 0) .Meta.Lang*/}}
 
 
-    {{/* template "reels-front" eL (index .Kine 0) .Meta.Lang */}}
+    {{/* template "cache-front" eL (index .Kine 0) .Meta.Lang */}}
 
 
     {{/*
-{{ template "reels-col" . }}
+{{ template "cache-col" . }}
   <div class="cols">
     <div class="col__content col--index">
     {{template "indecs-col" .}}
@@ -40,7 +40,7 @@
 {{template "bot" .Meta}}
 {{end}}
 
-{{define "reels-front"}}
+{{define "cache-front"}}
 <div class="stretch center">
   <a href="{{.Entry.Perma .Lang}}" class="frontcover"><picture>
       <source srcset="{{.Entry.Cover.SrcSet 1280 .L}},
@@ -52,7 +52,7 @@
            width="{{.Entry.Cover.Width 1280}}" height="{{.Entry.Cover.Height 1280}}">
     </picture></a>
   <br>
-  <span class="reels-title-front">
+  <span class="cache-title-front">
     Video: <a href="{{.Entry.Perma .Lang}}">{{.Entry.Info.Field "title" .Lang}}</a>
   </span>
 </div>
@@ -71,7 +71,7 @@
 </div>
 {{- end}}
 
-{{define "reels-col" -}}
+{{define "cache-col" -}}
     <div class="front-videos col--video">
       {{$c := 0}}
       {{range $i, $set := .Kine}}

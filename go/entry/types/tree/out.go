@@ -36,8 +36,8 @@ func (t *Tree) Perma(lang string) string {
 	switch t.Section() {
 	case "graph":
 		return graphPerma(t, lang)
-	case "reels":
-		return reelsPerma(t, lang)
+	case "cache":
+		return cachePerma(t, lang)
 	case "indecs":
 		return indecsPerma(t, lang)
 	case "about":
@@ -67,7 +67,7 @@ func extraPerma(t *Tree, lang string) string {
 }
 */
 
-func reelsPerma(t *Tree, lang string) string {
+func cachePerma(t *Tree, lang string) string {
 	start := fmt.Sprintf("/%v/%v", lang, tools.KineName[lang])
 	switch l := t.Level(); {
 	case l == 0:

@@ -1,4 +1,4 @@
-package reels
+package cache
 
 import (
 	//"fmt"
@@ -12,7 +12,7 @@ import (
 	"g.sacerb.com/sacer/go/server/meta"
 )
 
-type reelsMain struct {
+type cacheMain struct {
 	Meta    *meta.Meta
 	Tree    *tree.Tree
 	Entries entry.Entries
@@ -20,10 +20,10 @@ type reelsMain struct {
 
 func Main(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 
-	t := s.Trees["reels"].Access(m.Auth.Subscriber)[m.Lang]
+	t := s.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
 
 	m.Title = tools.Title(tools.KineName[m.Lang])
-	m.Section = "reels"
+	m.Section = "cache"
 	m.Desc = t.Info().Field("description", m.Lang)
 
 	err := m.Process(t)
@@ -32,9 +32,9 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta
 		return
 	}
 
-	entries := s.Recents["reels"].Access(m.Auth.Subscriber)[m.Lang].Limit(10)
+	entries := s.Recents["cache"].Access(m.Auth.Subscriber)[m.Lang].Limit(10)
 
-	err = s.ExecuteTemplate(w, "reels-main", &reelsMain{
+	err = s.ExecuteTemplate(w, "cache-main", &cacheMain{
 		Meta:    m,
 		Tree:    t,
 		Entries: entries,

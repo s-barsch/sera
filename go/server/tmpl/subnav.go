@@ -39,7 +39,7 @@ func (s *Subnav) NavTrees() tree.Trees {
 		panic("subnav Tree shouldnt be empty")
 	}
 	t := s.Tree
-	if t.Section() == "graph" || t.Section() == "reels" {
+	if t.Section() == "graph" || t.Section() == "cache" {
 		if t.Level() == 0 {
 			return t.Trees.Reverse()
 		}
@@ -50,7 +50,7 @@ func (s *Subnav) NavTrees() tree.Trees {
 			}
 		*/
 	}
-	if t.Section() == "reels" {
+	if t.Section() == "cache" {
 		/*
 			return t.Trees.Reverse()
 				if t.Level() == 1 {
@@ -67,7 +67,7 @@ func (s *Subnav) IsYear() bool {
 
 func (s *Subnav) IsDay() bool {
 	section := s.Tree.Section()
-	if section != "graph" && section != "reels" {
+	if section != "graph" && section != "cache" {
 		return false
 	}
 	if s.Tree.Level() != 2 {

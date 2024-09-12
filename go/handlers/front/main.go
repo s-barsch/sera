@@ -18,7 +18,7 @@ type frontMain struct {
 	Meta     *meta.Meta
 	Index    entry.Entries
 	Graph    entry.Entries
-	Reels    entry.Entries
+	Cache    entry.Entries
 	Log      entry.Entries
 	Months   tree.Trees
 	Featured entry.Entry
@@ -37,7 +37,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta
 
 	//indecs := s.Recents["indecs"].Access(m.Auth.Subscriber)[m.Lang]
 	graph := s.Recents["graph"].Access(m.Auth.Subscriber)[m.Lang]
-	reels := s.Recents["reels"].Access(m.Auth.Subscriber)[m.Lang]
+	cache := s.Recents["cache"].Access(m.Auth.Subscriber)[m.Lang]
 
 	months := s.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang].TraverseTrees()
 	newmonths := []*tree.Tree{}
@@ -54,7 +54,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta
 		Meta: m,
 		//Index:  indecs.Limit(s.Vars.FrontSettings.Index),
 		Graph:  graph.Limit(s.Vars.FrontSettings.Graph),
-		Reels:  reels.Limit(10),
+		Cache:  cache.Limit(10),
 		Months: months,
 		// Log:    s.Recents["log"].Access(true)["de"].Limit(s.Vars.FrontSettings.Log),
 	})
