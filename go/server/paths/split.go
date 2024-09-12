@@ -43,14 +43,14 @@ func (p *Path) IsFile() bool {
 // || strings.Contains(p.Raw, ".") {
 
 /*
-	/graph/2020/03/09-36e55605/cache/200310_012140-1280.jpg
+	/graph/2020/03/09-36e55605/img/200310_012140-1280.jpg
 
     &paths.Path{
             Page:       "graph",
             Holds:      {"2020", "03"},
             Name:       "09",
             hash:    "36e55605",
-            Subdir:     "cache",
+            Subdir:     "img",
             Subpath: "200310_012140-1280.jpg",
         }
 */
@@ -62,7 +62,7 @@ func Split(path string) *Path {
 	subpath := ""
 
 	for i, c := range chain {
-		if i > 1 && (c == "files" || c == "cache") {
+		if i > 1 && (c == "files" || c == "img") {
 			folder = c
 			subpath = strings.Join(chain[i+1:], "/")
 			chain = chain[:i]

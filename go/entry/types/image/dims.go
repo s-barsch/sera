@@ -13,15 +13,15 @@ type Dims struct {
 }
 
 func dimsFile(path string) string {
-	return p.Join(cacheFolder(path), "dims", p.Base(path)+".txt")
+	return p.Join(imgFolder(path), "dims", p.Base(path)+".txt")
 }
 
-func cacheFolder(path string) string {
-	return p.Join(p.Dir(path), "cache")
+func imgFolder(path string) string {
+	return p.Join(p.Dir(path), "img")
 }
 
 func loadDims(path string) (*Dims, error) {
-	// /dir/file.jpg/cache/dims/file.jpg.txt
+	// /dir/file.jpg/img/dims/file.jpg.txt
 	b, err := os.ReadFile(dimsFile(path))
 	if err != nil {
 		return nil, err

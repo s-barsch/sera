@@ -11,9 +11,9 @@ func (i *Image) Location(ext, size string) (string, error) {
 		return i.file.Path, nil
 	}
 	if ext == "webp" {
-		return p.Join(i.file.Dir(), "cache", size, i.file.NameNoExt()+".webp"), nil
+		return p.Join(i.file.Dir(), "img", size, i.file.NameNoExt()+".webp"), nil
 	}
-	return p.Join(i.file.Dir(), "cache", size, i.file.Name()), nil
+	return p.Join(i.file.Dir(), "img", size, i.file.Name()), nil
 }
 
 func (i *Image) ImagePath(size int, lang string) string {
@@ -22,7 +22,7 @@ func (i *Image) ImagePath(size int, lang string) string {
 	case "set", "tree":
 		parent = i.parent.Perma(lang)
 	}
-	return fmt.Sprintf("%v/cache/%v", parent, i.ImageName(size, i.info.Wall()))
+	return fmt.Sprintf("%v/img/%v", parent, i.ImageName(size, i.info.Wall()))
 }
 
 func (i *Image) ImagePathWebP(size int, lang string) string {
@@ -31,7 +31,7 @@ func (i *Image) ImagePathWebP(size int, lang string) string {
 	case "set", "tree":
 		parent = i.parent.Perma(lang)
 	}
-	return fmt.Sprintf("%v/cache/%v", parent, i.ImageNameWebP(size, i.info.Wall()))
+	return fmt.Sprintf("%v/img/%v", parent, i.ImageNameWebP(size, i.info.Wall()))
 }
 
 func (i *Image) ImageNameWebP(size int, blur bool) string {
@@ -61,9 +61,9 @@ func (i *Image) Permalink(lang string) string {
 /*
 func (i *Image) ImagePath(size int, lang string) string {
 	if i.File.Hold.Info["read"] != "false" {
-		return fmt.Sprintf("%v/cache/%v", i.File.Hold.Permalink(lang), i.ImageName(size))
+		return fmt.Sprintf("%v/img/%v", i.File.Hold.Permalink(lang), i.ImageName(size))
 	}
-	return fmt.Sprintf("%v/cache/%v", i.Permalink(lang), i.ImageName(size))
+	return fmt.Sprintf("%v/img/%v", i.Permalink(lang), i.ImageName(size))
 }
 
 

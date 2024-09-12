@@ -26,9 +26,9 @@ func (a *Audio) CaptionLocation(lang string) string {
 func (a *Audio) FilePath(lang string) string {
 	switch a.parent.Type() {
 	case "set", "tree":
-		return fmt.Sprintf("%v/cache/%v", a.parent.Perma(lang), a.file.Name())
+		return fmt.Sprintf("%v/img/%v", a.parent.Perma(lang), a.file.Name())
 	}
-	return fmt.Sprintf("%v/cache/%v", a.Perma(lang), a.file.Name())
+	return fmt.Sprintf("%v/img/%v", a.Perma(lang), a.file.Name())
 }
 
 func (a *Audio) HasCaptions(lang string) bool {

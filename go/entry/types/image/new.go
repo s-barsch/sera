@@ -28,7 +28,7 @@ func NewImage(path string, parent entry.Entry) (*Image, error) {
 		Func: "NewImage",
 	}
 
-	path = strings.Replace(path, "cache/1600/", "", -1)
+	path = strings.Replace(path, "img/1600/", "", -1)
 
 	file, err := file.NewFile(path)
 	if err != nil {
