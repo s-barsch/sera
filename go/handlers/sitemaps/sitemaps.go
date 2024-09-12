@@ -127,7 +127,7 @@ func coreEntries(s *server.Server, lang string) ([]*SitemapEntry, error) {
 			lastmod = tIndex
 		case "graph":
 			lastmod = tGraph
-		case "über", "about":
+		case "about":
 			lastmod = s.Trees["about"].Access(false)[lang].File().ModTime
 		}
 

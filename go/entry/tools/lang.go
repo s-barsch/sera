@@ -11,7 +11,7 @@ var Langs = map[string]string{
 }
 
 var AboutName = map[string]string{
-	"de": "über",
+	"de": "about",
 	"en": "about",
 }
 

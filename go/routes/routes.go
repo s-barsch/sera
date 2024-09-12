@@ -32,6 +32,7 @@ func Router(s *server.Server) *mux.Router {
 	r.PathPrefix("/de/cache").HandlerFunc(makeHandler(s, cache.Route))
 	r.PathPrefix("/en/cache").HandlerFunc(makeHandler(s, cache.Route))
 	r.PathPrefix("/de/ueber").HandlerFunc(makeHandler(s, about.Route))
+	r.PathPrefix("/de/about").HandlerFunc(makeHandler(s, about.Route))
 	r.PathPrefix("/en/about").HandlerFunc(makeHandler(s, about.Route))
 
 	r.PathPrefix("/ueber").HandlerFunc(makeHandler(s, about.Rewrites))
