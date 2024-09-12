@@ -1,10 +1,10 @@
 package paths
 
-/*
 import (
-	"github.com/kr/pretty"
 	"reflect"
 	"testing"
+
+	"github.com/kr/pretty"
 )
 
 type testCase struct {
@@ -13,61 +13,119 @@ type testCase struct {
 }
 
 var cases = []*testCase{
-	&testCase{
-		path: "/indecs/leben/ueberleben/oeffnungen-33ac2565",
+	{
+		path: "/de/indecs/leben/ueberleben/oeffnungen-33ac2565",
 		result: &Path{
-			Page:    "indecs",
-			Slugs:   []string{"leben", "ueberleben"},
-			Slug:    "oeffnungen",
-			Hash:    "33ac2565",
-			Subdir:  "",
-			Subpath: "",
+			Raw:    "/de/indecs/leben/ueberleben/oeffnungen-33ac2565",
+			Chain:  []string{"de", "indecs", "leben", "ueberleben"},
+			Slug:   "oeffnungen",
+			Hash:   "33ac2565",
+			Folder: "",
+			File:   &File{},
 		},
 	},
-	&testCase{
-		path: "/indecs/kunst/innen-aussen-35e1fcdd",
+	{
+		path: "/en/reels/24-08/10-well-i-call-it-art-theory-3f358b02/files/sizes/240810_094201-1080.mp4",
 		result: &Path{
-			Page:    "indecs",
-			Slugs:   []string{"kunst"},
-			Slug:    "innen-aussen",
-			Hash:    "35e1fcdd",
-			Subdir:  "",
-			Subpath: "",
+			Raw:    "/en/reels/24-08/10-well-i-call-it-art-theory-3f358b02/files/sizes/240810_094201-1080.mp4",
+			Chain:  []string{"en", "reels", "24-08"},
+			Slug:   "10-well-i-call-it-art-theory",
+			Hash:   "3f358b02",
+			Folder: "files",
+			File: &File{
+				Name:   "sizes/240810_094201.mp4",
+				Option: "1080",
+				Ext:    "mp4",
+			},
 		},
 	},
-	&testCase{
-		path: "/indecs/kunst/form-34a1a15e",
+	{
+		path: "/en/reels/24-08/10-well-i-call-it-art-theory-3f358b02/cache/cover-480.webp",
 		result: &Path{
-			Page:    "indecs",
-			Slugs:   []string{"kunst"},
-			Slug:    "form",
-			Hash:    "34a1a15e",
-			Subdir:  "",
-			Subpath: "",
+			Raw:    "/en/reels/24-08/10-well-i-call-it-art-theory-3f358b02/cache/cover-480.webp",
+			Chain:  []string{"en", "reels", "24-08"},
+			Slug:   "10-well-i-call-it-art-theory",
+			Hash:   "3f358b02",
+			Folder: "cache",
+			File: &File{
+				Name:   "cover.webp",
+				Option: "480",
+				Ext:    "webp",
+			},
 		},
 	},
-	&testCase{
-		path: "/graph/2020/03/09-36e55605/cache/200310_012140-1280.jpg",
+	{
+		path: "/en/cache/24-08/10-well-i-call-it-art-theory-3f358b02/cache/cover-480.webp",
 		result: &Path{
-			Page:    "graph",
-			Slugs:   []string{"2020", "03"},
-			Slug:    "09",
-			Hash:    "36e55605",
-			Subdir:  "cache",
-			Subpath: "200310_012140-1280.jpg",
+			Raw:    "/en/cache/24-08/10-well-i-call-it-art-theory-3f358b02/cache/cover-480.webp",
+			Chain:  []string{"en", "cache", "24-08"},
+			Slug:   "10-well-i-call-it-art-theory",
+			Hash:   "3f358b02",
+			Folder: "cache",
+			File: &File{
+				Name:   "cover.webp",
+				Option: "480",
+				Ext:    "webp",
+			},
 		},
 	},
-	&testCase{
-		path: "/graph/2020/03/14-3757ceb6/files/200116_235849.mp4",
-		result: &Path{
-			Page:    "graph",
-			Slugs:   []string{"2020", "03"},
-			Slug:    "14",
-			Hash:    "3757ceb6",
-			Subdir:  "files",
-			Subpath: "200116_235849.mp4",
+	/*
+		&testCase{
+			path: "/indecs/leben/ueberleben/oeffnungen-33ac2565",
+			result: &Path{
+				Page:    "indecs",
+				Slugs:   []string{"leben", "ueberleben"},
+				Slug:    "oeffnungen",
+				Hash:    "33ac2565",
+				Subdir:  "",
+				Subpath: "",
+			},
 		},
-	},
+		&testCase{
+			path: "/indecs/kunst/innen-aussen-35e1fcdd",
+			result: &Path{
+				Page:    "indecs",
+				Slugs:   []string{"kunst"},
+				Slug:    "innen-aussen",
+				Hash:    "35e1fcdd",
+				Subdir:  "",
+				Subpath: "",
+			},
+		},
+		&testCase{
+			path: "/indecs/kunst/form-34a1a15e",
+			result: &Path{
+				Page:    "indecs",
+				Slugs:   []string{"kunst"},
+				Slug:    "form",
+				Hash:    "34a1a15e",
+				Subdir:  "",
+				Subpath: "",
+			},
+		},
+		&testCase{
+			path: "/graph/2020/03/09-36e55605/cache/200310_012140-1280.jpg",
+			result: &Path{
+				Page:    "graph",
+				Slugs:   []string{"2020", "03"},
+				Slug:    "09",
+				Hash:    "36e55605",
+				Subdir:  "cache",
+				Subpath: "200310_012140-1280.jpg",
+			},
+		},
+		&testCase{
+			path: "/graph/2020/03/14-3757ceb6/files/200116_235849.mp4",
+			result: &Path{
+				Page:    "graph",
+				Slugs:   []string{"2020", "03"},
+				Slug:    "14",
+				Hash:    "3757ceb6",
+				Subdir:  "files",
+				Subpath: "200116_235849.mp4",
+			},
+		},
+	*/
 }
 
 func TestSplit(t *testing.T) {
@@ -80,5 +138,3 @@ func TestSplit(t *testing.T) {
 		t.Logf("Split produced:\n\n%# v", pretty.Formatter(p))
 	}
 }
-
-*/

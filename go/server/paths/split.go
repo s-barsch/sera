@@ -62,7 +62,7 @@ func Split(path string) *Path {
 	subpath := ""
 
 	for i, c := range chain {
-		if c == "files" || c == "cache" {
+		if i > 1 && (c == "files" || c == "cache") {
 			folder = c
 			subpath = strings.Join(chain[i+1:], "/")
 			chain = chain[:i]
