@@ -43,11 +43,7 @@ func (s *Server) ReadTrees() error {
 	recents := map[string]*DoubleEntries{}
 
 	for _, section := range sections {
-		folder := section
-		if section == "cache" {
-			folder = "kine"
-		}
-		t, err := tree.ReadTree(s.Paths.Data+"/"+folder, nil)
+		t, err := tree.ReadTree(s.Paths.Data+"/"+section, nil)
 		if err != nil {
 			return err
 		}
