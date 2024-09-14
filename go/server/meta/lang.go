@@ -2,6 +2,7 @@ package meta
 
 import (
 	"fmt"
+	"log"
 
 	"g.sacerb.com/sacer/go/entry"
 )
@@ -17,6 +18,23 @@ func Lang(path string) string {
 }
 
 type Langs []*Link
+
+func (langs Langs) Active(lang string) *Link {
+	for _, l := range langs {
+		if l.Name == lang {
+			return l
+		}
+	}
+	log.Printf("cannot find active link of lang: %v", lang)
+	return nil
+}
+
+func (langs Langs) Sort(lang string) Langs {
+	if langs[1].Name == lang {
+		return langs
+	}
+	return Langs{langs[1], langs[0]}
+}
 
 func (langs Langs) Hreflang(name string) *Link {
 	for _, l := range langs {

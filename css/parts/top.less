@@ -2,8 +2,10 @@
 // top nav
 
 .top-nav {
+    display:grid;
+    grid-template-columns: 1fr 9fr;
     padding-top:.25rem;
-    font-size: var(--fontsize-base);
+    //font-size: var(--fontsize-base);
 }
 
 .top-nav a {
@@ -32,31 +34,93 @@
     position:fixed;
     right:10%;
     */
-    float:right;
+    text-align: right;
 }
 
-#langs a {
-    /*
-    font-size: .8rem;
-    font-weight:500;
-    font-family: var(--fontfamily-sans);
-    */
-    color:var(--color-inactive);
+#langs svg {
 }
 
-#langs a.active {
-    /*
-    border:#d00c4d 2px solid;
-    padding:4px 3px 3px;
-    font-size: .98rem;
-    font-weight:500;
+#menu:hover .chevron,
+#menu:hover a {
+    opacity: 1;
+}
+
+#menu:hover .trigger {
+    opacity: .3;
+}
+
+#menu a, .trigger {
     font-family: var(--fontfamily-sans);
-    color:var(--color-red-second);
-    */
+    font-weight:450;
+    font-size: 1.05rem;
+    vertical-align: middle;
+    //padding:2px 6px;
+}
+
+#menu a {
+    //transition: opacity 0.1s;
+    opacity: 0;
+    //transform: background 0.1s;
     color:var(--color-fg-true);
+    color:var(--color-link);
+    border-bottom: 2px transparent solid;
 }
+
+#menu a:hover {
+    //border-radius:4px;
+    //background:#fffa96;
+    border-bottom: 2px var(--color-fg-true) solid;
+    border-color:var(--color-link);
+    //border:0;
+}
+
+
+#menu svg {
+    vertical-align: middle;
+}
+.chevron svg {
+    margin-left:.4rem;
+    margin-right:.2rem;
+    height:1.5rem;
+    width:auto;
+}
+
+
+.trigger {
+    color: var(--color-red-second);
+    background:transparent;
+    border:0;
+    padding-left:2px;
+    padding-right:2px;
+    //border-bottom:2px var(--color-red-second) solid;
+}
+
+.lang-symbol svg {
+    height:0.9rem;
+}
+
+
+#menu a.active:hover {
+    //background:transparent;
+}
+
+.chevron {
+    opacity: 0;
+}
+
+#menu a.active {
+    display: none;
+    //border-bottom:2px #d00c4d solid;
+    color:var(--color-fg-true);
+    color:var(--color-red-second);
+}
+
+#langs a:hover {
+}
+
 
 #options a {
+    font-size:1.3rem;
     vertical-align:middle;
     color:var(--color-fg-true);
 }
