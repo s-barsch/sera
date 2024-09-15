@@ -1,4 +1,4 @@
-var CACHE_NAME = "sacer";
+var CACHE_NAME = "sferall";
 var urlsToCache = [
   "/static/offline.html",
 ];

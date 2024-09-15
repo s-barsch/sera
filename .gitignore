@@ -12,7 +12,6 @@ static/screens
 static/svg/indecsmap-de.svg
 static/svg/indecsmap-en.svg
 static/svg/logo/save
-stferal
 static/img/matricaria-recutita.jpg
 static/fonts/P22MorrisTroy.woff2
 static/fonts/P22MorrisTroy.woff
@@ -20,10 +19,8 @@ css/compile
 token
 users.db
 .DS_Store
-sacer
 __debug_bin
 ga.html
-static/svg/logo/sacerferal-edit.svg
 static/svg/bw.svg
 js/.pnp.cjs
 js/package.json
