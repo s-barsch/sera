@@ -1,4 +1,4 @@
-module g.rg-s.com/sacer
+module g.rg-s.com/sferal
 
 go 1.23.0
 

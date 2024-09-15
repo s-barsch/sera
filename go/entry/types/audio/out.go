@@ -3,7 +3,7 @@ package audio
 import (
 	"fmt"
 
-	"g.rg-s.com/sacer/go/entry/tools"
+	"g.rg-s.com/sferal/go/entry/tools"
 )
 
 func (a *Audio) Location(arg string) (string, error) {

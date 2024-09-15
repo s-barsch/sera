@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"g.rg-s.com/sacer/go/entry"
-	"g.rg-s.com/sacer/go/server/paths"
-	usr "g.rg-s.com/sacer/go/server/users"
+	"g.rg-s.com/sferal/go/entry"
+	"g.rg-s.com/sferal/go/server/paths"
+	usr "g.rg-s.com/sferal/go/server/users"
 )
 
 type Meta struct {

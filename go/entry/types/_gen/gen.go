@@ -12,7 +12,7 @@ import (
 	"os/exec"
 	"text/template"
 
-	"g.rg-s.com/sacer/go/entry/tools"
+	"g.rg-s.com/sferal/go/entry/tools"
 )
 
 var typeDir = "types"

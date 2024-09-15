@@ -9,13 +9,13 @@ import (
 	"strings"
 	"time"
 
-	"g.rg-s.com/sacer/go/entry"
-	"g.rg-s.com/sacer/go/entry/file"
-	"g.rg-s.com/sacer/go/entry/info"
-	"g.rg-s.com/sacer/go/entry/tools"
-	"g.rg-s.com/sacer/go/entry/tools/script"
-	"g.rg-s.com/sacer/go/entry/tools/transcript"
-	"g.rg-s.com/sacer/go/server/paths"
+	"g.rg-s.com/sferal/go/entry"
+	"g.rg-s.com/sferal/go/entry/file"
+	"g.rg-s.com/sferal/go/entry/info"
+	"g.rg-s.com/sferal/go/entry/tools"
+	"g.rg-s.com/sferal/go/entry/tools/script"
+	"g.rg-s.com/sferal/go/entry/tools/transcript"
+	"g.rg-s.com/sferal/go/server/paths"
 
 	"github.com/alfg/mp4"
 )

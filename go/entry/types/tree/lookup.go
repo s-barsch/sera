@@ -3,8 +3,8 @@ package tree
 import (
 	"fmt"
 
-	"g.rg-s.com/sacer/go/entry"
-	"g.rg-s.com/sacer/go/entry/tools"
+	"g.rg-s.com/sferal/go/entry"
+	"g.rg-s.com/sferal/go/entry/tools"
 )
 
 func (t *Tree) LookupTreeHash(hash string) (*Tree, error) {

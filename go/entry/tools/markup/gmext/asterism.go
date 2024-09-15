@@ -3,7 +3,7 @@ package gmext
 import (
 	"unicode/utf8"
 
-	"g.rg-s.com/sacer/go/entry/tools/markup/gmext/ast"
+	"g.rg-s.com/sferal/go/entry/tools/markup/gmext/ast"
 	"github.com/yuin/goldmark"
 	gast "github.com/yuin/goldmark/ast"
 	"github.com/yuin/goldmark/parser"
