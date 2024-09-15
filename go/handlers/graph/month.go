@@ -67,9 +67,9 @@ func MonthPage(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta
 
 func metaDescription(d time.Time, lang string) string {
 	if lang == "de" {
-		return fmt.Sprintf("Monat %v %v des Graph von Sacer Feral.", tools.MonthLang(d, lang), d.Format("2006"))
+		return fmt.Sprintf("Monat %v %v des Graph von S. Feral.", tools.MonthLang(d, lang), d.Format("2006"))
 	}
-	return fmt.Sprintf("Month %v %v of Graph by Sacer Feral.", d.Format("January"), d.Format("2006"))
+	return fmt.Sprintf("Month %v %v of Graph by S. Feral.", d.Format("January"), d.Format("2006"))
 }
 
 func monthTitle(t *tree.Tree, lang string) string {

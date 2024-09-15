@@ -1,3 +1,4 @@
+#was inactive: svgo sacferal.svg -o sacferal-c.svg --config=compress.yaml
+#svgo sacerferal.svg -o sacerferal-c.svg --config=compress.yaml
 #svgo sacferal.svg -o sacferal-c.svg --config=compress.yaml
-svgo sacerferal.svg -o sacerferal-c.svg --config=compress.yaml
-svgo sacferal.svg -o sacferal-c.svg --config=compress.yaml
+svgo sferal.svg -o sferal-c.svg --config=svgo.config.js

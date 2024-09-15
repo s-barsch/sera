@@ -71,7 +71,7 @@ func (m *Meta) Process(e entry.Entry) error {
 }
 
 func SiteName(lang string) string {
-	return "Sacer Feral"
+	return "S. Feral"
 }
 
 func (m *Meta) PageTitle() string {

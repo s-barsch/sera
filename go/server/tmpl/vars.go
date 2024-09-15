@@ -127,8 +127,8 @@ func ReadInlineStatics(root string) (map[string]string, error) {
 			"indecsmap-de": "/static/svg/indecsmap-de.svg",
 			"indecsmap-en": "/static/svg/indecsmap-en.svg",
 		*/
-		"logo-mobile": "/static/svg/logo/sacferal-c.svg",
-		"logo-desk":   "/static/svg/logo/sacerferal-c.svg",
+		"logo-mobile": "/static/svg/logo/sferal-c-m.svg",
+		"logo-desk":   "/static/svg/logo/sferal-c.svg",
 		"pine":        "/static/img/icons/pine-c.svg",
 		"email":       "/static/svg/email.svg",
 	}
