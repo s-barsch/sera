@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"unicode/utf8"
 
-	"g.sacerb.com/sacer/go/entry/tools"
-	"g.sacerb.com/sacer/go/entry/tools/markup"
+	"g.rg-s.com/sacer/go/entry/tools"
+	"g.rg-s.com/sacer/go/entry/tools/markup"
 )
 
 type Script struct {

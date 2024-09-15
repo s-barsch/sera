@@ -1,7 +1,7 @@
 package meta
 
 import (
-	//"g.sacerb.com/sacer/go/entry"
+	//"g.rg-s.com/sacer/go/entry"
 	"time"
 )
 

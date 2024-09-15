@@ -7,8 +7,8 @@ import (
 	"log"
 	"net/http"
 
-	"g.sacerb.com/sacer/go/server"
-	"g.sacerb.com/sacer/go/server/users"
+	"g.rg-s.com/sacer/go/server"
+	"g.rg-s.com/sacer/go/server/users"
 )
 
 func Subscribe(s *server.Server, w http.ResponseWriter, r *http.Request) {

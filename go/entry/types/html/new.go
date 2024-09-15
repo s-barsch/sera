@@ -3,11 +3,11 @@ package html
 import (
 	"time"
 
-	"g.sacerb.com/sacer/go/entry"
-	"g.sacerb.com/sacer/go/entry/file"
-	"g.sacerb.com/sacer/go/entry/info"
-	"g.sacerb.com/sacer/go/entry/tools"
-	"g.sacerb.com/sacer/go/entry/types/text"
+	"g.rg-s.com/sacer/go/entry"
+	"g.rg-s.com/sacer/go/entry/file"
+	"g.rg-s.com/sacer/go/entry/info"
+	"g.rg-s.com/sacer/go/entry/tools"
+	"g.rg-s.com/sacer/go/entry/types/text"
 )
 
 type Html struct {

@@ -5,10 +5,10 @@ import (
 	"os"
 	p "path/filepath"
 
-	"g.sacerb.com/sacer/go/entry"
-	he "g.sacerb.com/sacer/go/entry/tools"
-	"g.sacerb.com/sacer/go/entry/tools/sort"
-	//"g.sacerb.com/sacer/go/entry/info"
+	"g.rg-s.com/sacer/go/entry"
+	he "g.rg-s.com/sacer/go/entry/tools"
+	"g.rg-s.com/sacer/go/entry/tools/sort"
+	//"g.rg-s.com/sacer/go/entry/info"
 	//"strings"
 )
 

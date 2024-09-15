@@ -5,9 +5,9 @@ import (
 	"log"
 	"net/http"
 
-	"g.sacerb.com/sacer/go/entry/types/tree"
-	"g.sacerb.com/sacer/go/server"
-	"g.sacerb.com/sacer/go/server/meta"
+	"g.rg-s.com/sacer/go/entry/types/tree"
+	"g.rg-s.com/sacer/go/server"
+	"g.rg-s.com/sacer/go/server/meta"
 )
 
 type indecsPage struct {

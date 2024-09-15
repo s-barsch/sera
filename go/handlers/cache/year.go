@@ -6,10 +6,10 @@ import (
 	"net/http"
 	"time"
 
-	"g.sacerb.com/sacer/go/entry/tools"
-	"g.sacerb.com/sacer/go/server"
-	"g.sacerb.com/sacer/go/server/meta"
-	"g.sacerb.com/sacer/go/server/paths"
+	"g.rg-s.com/sacer/go/entry/tools"
+	"g.rg-s.com/sacer/go/server"
+	"g.rg-s.com/sacer/go/server/meta"
+	"g.rg-s.com/sacer/go/server/paths"
 )
 
 /*

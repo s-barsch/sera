@@ -5,9 +5,9 @@ import (
 	"os"
 	"path/filepath"
 
-	"g.sacerb.com/sacer/go/entry/info"
-	"g.sacerb.com/sacer/go/entry/tools"
-	"g.sacerb.com/sacer/go/entry/tools/script"
+	"g.rg-s.com/sacer/go/entry/info"
+	"g.rg-s.com/sacer/go/entry/tools"
+	"g.rg-s.com/sacer/go/entry/tools/script"
 )
 
 func GetTranscripts(p string) (*script.Script, error) {

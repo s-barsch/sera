@@ -1,4 +1,4 @@
-module g.sacerb.com/sacer
+module g.rg-s.com/sacer
 
 go 1.23.0
 

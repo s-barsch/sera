@@ -5,10 +5,10 @@ import (
 	"net/http"
 	"time"
 
-	"g.sacerb.com/sacer/go/entry/types/tree"
-	"g.sacerb.com/sacer/go/server"
-	"g.sacerb.com/sacer/go/server/meta"
-	"g.sacerb.com/sacer/go/server/paths"
+	"g.rg-s.com/sacer/go/entry/types/tree"
+	"g.rg-s.com/sacer/go/server"
+	"g.rg-s.com/sacer/go/server/meta"
+	"g.rg-s.com/sacer/go/server/paths"
 )
 
 func MainRedirect(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
