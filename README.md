@@ -1,5 +1,3 @@
-# Sferal
-
 This application is a flat-file content management system for handling fragmented data such as text snippets, and audio and video clips
 
 `go build; ./sferal -a`
