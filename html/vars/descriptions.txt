@@ -1,2 +1,2 @@
-site-de: S. Feral ist ein deutschsprachiger Künstler und Philosoph.
-site-en: S. Feral is a German-speaking artist and philosopher.
+site-de: Sera Feral ist ein deutschsprachiger Künstler und Philosoph.
+site-en: Sera Feral is a German-speaking artist and philosopher.
