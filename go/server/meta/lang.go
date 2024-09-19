@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"g.rg-s.com/sferal/go/entry"
+	"g.rg-s.com/sera/go/entry"
 )
 
 func Lang(path string) string {

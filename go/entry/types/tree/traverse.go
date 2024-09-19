@@ -1,10 +1,10 @@
 package tree
 
 import (
-	"g.rg-s.com/sferal/go/entry"
-	"g.rg-s.com/sferal/go/entry/types/image"
-	"g.rg-s.com/sferal/go/entry/types/set"
-	"g.rg-s.com/sferal/go/entry/types/text"
+	"g.rg-s.com/sera/go/entry"
+	"g.rg-s.com/sera/go/entry/types/image"
+	"g.rg-s.com/sera/go/entry/types/set"
+	"g.rg-s.com/sera/go/entry/types/text"
 )
 
 func (ts Trees) Reverse() Trees {

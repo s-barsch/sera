@@ -5,7 +5,7 @@ import (
 	"math"
 	"path/filepath"
 
-	"g.rg-s.com/sferal/go/entry/tools"
+	"g.rg-s.com/sera/go/entry/tools"
 )
 
 func (v *Video) Ideal(res string) float64 {

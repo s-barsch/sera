@@ -6,7 +6,7 @@ import (
 	"io"
 	"os"
 
-	"g.rg-s.com/sferal/go/entry/tools"
+	"g.rg-s.com/sera/go/entry/tools"
 )
 
 var partNames = map[int]string{

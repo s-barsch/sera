@@ -7,9 +7,9 @@ import (
 	"strings"
 	"time"
 
-	"g.rg-s.com/sferal/go/server"
-	"g.rg-s.com/sferal/go/server/meta"
-	"g.rg-s.com/sferal/go/server/paths"
+	"g.rg-s.com/sera/go/server"
+	"g.rg-s.com/sera/go/server/meta"
+	"g.rg-s.com/sera/go/server/paths"
 )
 
 func serveStatic(w http.ResponseWriter, r *http.Request, p string) {

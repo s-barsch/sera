@@ -1,11 +1,11 @@
 package set
 
 import (
-	"g.rg-s.com/sferal/go/entry"
-	"g.rg-s.com/sferal/go/entry/tools"
-	"g.rg-s.com/sferal/go/entry/tools/read"
-	"g.rg-s.com/sferal/go/entry/tools/sort"
-	media "g.rg-s.com/sferal/go/entry/types"
+	"g.rg-s.com/sera/go/entry"
+	"g.rg-s.com/sera/go/entry/tools"
+	"g.rg-s.com/sera/go/entry/tools/read"
+	"g.rg-s.com/sera/go/entry/tools/sort"
+	media "g.rg-s.com/sera/go/entry/types"
 )
 
 func readEntries(path string, parent entry.Entry) (entry.Entries, error) {

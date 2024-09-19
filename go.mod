@@ -1,4 +1,4 @@
-module g.rg-s.com/sferal
+module g.rg-s.com/sera
 
 go 1.23.0
 

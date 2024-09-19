@@ -1,8 +1,8 @@
 package text
 
 import (
-	"g.rg-s.com/sferal/go/entry/tools/blur"
-	"g.rg-s.com/sferal/go/entry/tools/script"
+	"g.rg-s.com/sera/go/entry/tools/blur"
+	"g.rg-s.com/sera/go/entry/tools/script"
 )
 
 func (t *Text) Blur() *Text {

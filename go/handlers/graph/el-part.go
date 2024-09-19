@@ -6,10 +6,10 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"g.rg-s.com/sferal/go/entry"
-	"g.rg-s.com/sferal/go/server/meta"
-	"g.rg-s.com/sferal/go/server/paths"
-	"g.rg-s.com/sferal/go/server"
+	"g.rg-s.com/sera/go/entry"
+	"g.rg-s.com/sera/go/server/meta"
+	"g.rg-s.com/sera/go/server/paths"
+	"g.rg-s.com/sera/go/server"
 )
 
 type graphPart struct {

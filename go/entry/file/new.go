@@ -4,7 +4,7 @@ import (
 	"os"
 	"time"
 
-	"g.rg-s.com/sferal/go/entry/tools"
+	"g.rg-s.com/sera/go/entry/tools"
 )
 
 type File struct {

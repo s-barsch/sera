@@ -1,9 +1,9 @@
 package server
 
 import (
-	"g.rg-s.com/sferal/go/entry"
-	"g.rg-s.com/sferal/go/entry/tools"
-	"g.rg-s.com/sferal/go/entry/types/set"
+	"g.rg-s.com/sera/go/entry"
+	"g.rg-s.com/sera/go/entry/tools"
+	"g.rg-s.com/sera/go/entry/types/set"
 )
 
 func (s *Server) makeLinks() {

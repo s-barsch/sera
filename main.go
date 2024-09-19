@@ -6,8 +6,8 @@ import (
 	"log"
 	"net/http"
 
-	"g.rg-s.com/sferal/go/routes"
-	"g.rg-s.com/sferal/go/server"
+	"g.rg-s.com/sera/go/routes"
+	"g.rg-s.com/sera/go/server"
 )
 
 func main() {

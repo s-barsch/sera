@@ -3,11 +3,11 @@ package text
 import (
 	"time"
 
-	"g.rg-s.com/sferal/go/entry"
-	"g.rg-s.com/sferal/go/entry/file"
-	"g.rg-s.com/sferal/go/entry/info"
-	"g.rg-s.com/sferal/go/entry/tools"
-	"g.rg-s.com/sferal/go/entry/tools/script"
+	"g.rg-s.com/sera/go/entry"
+	"g.rg-s.com/sera/go/entry/file"
+	"g.rg-s.com/sera/go/entry/info"
+	"g.rg-s.com/sera/go/entry/tools"
+	"g.rg-s.com/sera/go/entry/tools/script"
 )
 
 type Text struct {

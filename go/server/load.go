@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"g.rg-s.com/sferal/go/server/tmpl"
+	"g.rg-s.com/sera/go/server/tmpl"
 )
 
 func (s *Server) LoadSafe() error {

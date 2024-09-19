@@ -3,7 +3,7 @@ package meta
 import (
 	"fmt"
 
-	"g.rg-s.com/sferal/go/entry/tools"
+	"g.rg-s.com/sera/go/entry/tools"
 
 	"github.com/kennygrant/sanitize"
 )

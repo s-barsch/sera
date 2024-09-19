@@ -3,7 +3,7 @@ package file
 import (
 	p "path/filepath"
 
-	"g.rg-s.com/sferal/go/entry/tools"
+	"g.rg-s.com/sera/go/entry/tools"
 )
 
 func (f *File) Dir() string {

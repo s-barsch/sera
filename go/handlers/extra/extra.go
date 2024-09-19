@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"strings"
 
-	"g.rg-s.com/sferal/go/entry/types/tree"
-	"g.rg-s.com/sferal/go/server"
-	"g.rg-s.com/sferal/go/server/meta"
+	"g.rg-s.com/sera/go/entry/types/tree"
+	"g.rg-s.com/sera/go/server"
+	"g.rg-s.com/sera/go/server/meta"
 )
 
 type extraHold struct {

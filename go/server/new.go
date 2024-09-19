@@ -7,8 +7,8 @@ import (
 	p "path/filepath"
 	"text/template"
 
-	"g.rg-s.com/sferal/go/server/tmpl"
-	"g.rg-s.com/sferal/go/server/users"
+	"g.rg-s.com/sera/go/server/tmpl"
+	"g.rg-s.com/sera/go/server/users"
 
 	"github.com/rjeczalik/notify"
 )

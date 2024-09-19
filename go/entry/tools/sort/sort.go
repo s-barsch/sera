@@ -4,7 +4,7 @@ import (
 	p "path/filepath"
 	"strings"
 
-	"g.rg-s.com/sferal/go/entry"
+	"g.rg-s.com/sera/go/entry"
 
 	//"sort"
 	"os"
