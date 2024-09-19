@@ -59,24 +59,21 @@
 }
 
 #menu a {
-    opacity: 0;
-    //transform: background 0.1s;
-    color:var(--color-fg-true);
     color:var(--color-link);
     border-bottom: 2px transparent solid;
 }
 
 #menu a:hover {
-    //border-radius:4px;
-    //background:#fffa96;
     border-bottom: 2px var(--color-fg-true) solid;
     border-color:var(--color-link);
-    //border:0;
 }
 
 
 #menu svg {
     vertical-align: middle;
+}
+
+#menu:hover .chevron svg {
 }
 .chevron svg {
     margin-left:.4rem;
@@ -91,13 +88,11 @@
 
 
 .trigger {
-    transition: opacity 0,3s;
     color: var(--color-red-second);
     background:transparent;
     border:0;
     padding-left:2px;
     padding-right:2px;
-    //border-bottom:2px var(--color-red-second) solid;
 }
 
 .lang-symbol svg {
@@ -109,6 +104,14 @@
     //background:transparent;
 }
 
+#menu a,
+.chevron,
+.lang-symbol,
+.trigger {
+    transition: opacity .1s cubic-bezier(0,0,.2,1);
+}
+
+#menu a,
 .chevron {
     opacity: 0;
 }
