@@ -86,7 +86,7 @@ func (m *Meta) AbsoluteURL(path, lang string) string {
 
 func (m *Meta) HostAddress() string {
 	if isHostnameLocal(m.Host) {
-		return "http://seraferal"
+		return "http://sera"
 	}
 	return "https://seraferal.com"
 }
