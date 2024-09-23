@@ -86,9 +86,9 @@ func (m *Meta) AbsoluteURL(path, lang string) string {
 
 func (m *Meta) HostAddress() string {
 	if isHostnameLocal(m.Host) {
-		return "http://sferal"
+		return "http://seraferal"
 	}
-	return "https://sferal.site"
+	return "https://seraferal.com"
 }
 
 func (m *Meta) IsHostnameLocal() bool {
@@ -97,7 +97,7 @@ func (m *Meta) IsHostnameLocal() bool {
 
 func isHostnameLocal(host string) bool {
 	switch host {
-	case "localhost:8013", "sferal":
+	case "localhost:8013", "sera":
 		return true
 	}
 	return false

@@ -13,7 +13,7 @@ func send(mail string, body string) error {
 	}
 
 	// Set the sender and recipient first
-	if err := c.Mail("m@sferal.site"); err != nil {
+	if err := c.Mail("m@seraferal.com"); err != nil {
 		return err
 	}
 	if err := c.Rcpt(mail); err != nil {

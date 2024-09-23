@@ -19,10 +19,10 @@ type SitemapEntry struct {
 }
 
 func Index(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	domain := "https://sferal.site"
+	domain := "https://seraferal.com"
 	if m.Lang == "en" {
 		panic("eng domain sitempas does not exist")
-		//domain = "https://en.sferal.site"
+		//domain = "https://en.seraferal.com"
 	}
 	err := s.Templates.ExecuteTemplate(w, "sitemap-index", struct{ Domain string }{domain})
 	if err != nil {
@@ -215,7 +215,7 @@ func elEntries(s *server.Server, page, lang string) ([]*SitemapEntry, error) {
 
 func absoluteURL(path, lang string) string {
 	if lang == "en" {
-		return fmt.Sprintf("https://en.sferal.site%v", path)
+		return fmt.Sprintf("https://en.seraferal.com%v", path)
 	}
-	return fmt.Sprintf("https://sferal.site%v", path)
+	return fmt.Sprintf("https://seraferal.com%v", path)
 }
