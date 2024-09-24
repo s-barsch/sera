@@ -1,1 +1,2 @@
 svgo sferal.svg -o sferal-c.svg --config=svgo.config.js
+svgo sferal.svg -o sferal-c-m.svg --config=svgo.config.js

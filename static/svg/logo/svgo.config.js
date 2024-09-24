@@ -4,7 +4,7 @@ module.exports = {
         {
             name: "removeAttrs",
             params: {
-                attrs: ["line-height", "font-size", "font-family", "line-height", "word-spacing", "letter-spacing", "style", "fill"],
+                attrs: ["xmlns", "xmlns:inkscape", "line-height", "font-size", "font-family", "line-height", "word-spacing", "letter-spacing", "style", "fill"],
             }
         }
     ]
