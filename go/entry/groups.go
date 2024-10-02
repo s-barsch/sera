@@ -1,5 +1,6 @@
 package entry
 
+// Groups splits Entries list into subsequent media groups
 func (es Entries) Groups() []Entries {
 	groups := []Entries{}
 
@@ -20,6 +21,7 @@ func isNewGroup(a, b Entry) bool {
 	return a.MediaObject() != b.MediaObject()
 }
 
+// Months splits Entries list into subsequent month lists
 func (es Entries) Months() []Entries {
 	months := []Entries{}
 	m := Entries{}
