@@ -15,6 +15,7 @@ import (
 	"g.rg-s.com/sera/go/entry/types/set"
 )
 
+// isMergeTree checks if folder name "06-0102" is present
 func isMergeTree(path string) bool {
 	return regexp.MustCompile(`\d{2}-\d{4}`).MatchString(p.Base(path))
 }
