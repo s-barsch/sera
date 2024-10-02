@@ -196,15 +196,3 @@ func isNotTranslated(e entry.Entry, lang string) bool {
 	*/
 	return lang != "de" && e.Info()["translated"] == "false"
 }
-
-/*
-func isEmptyText(e entry.Entry, lang string) bool {
-	tx, ok := e.(*text.Text)
-	if ok {
-		if tx.Script.Langs[lang] == "" {
-			return true
-		}
-	}
-	return false
-}
-*/

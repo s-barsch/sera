@@ -119,10 +119,3 @@ func extractCover(es entry.Entries) (*image.Image, entry.Entries) {
 	}
 	return nil, es
 }
-
-/*
-	cover, err := ReadCover(path, h)
-	if err != nil {
-		// log.Println(err)
-	}
-*/
