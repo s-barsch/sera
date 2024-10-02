@@ -163,10 +163,12 @@ func (t *Tree) Translated(lang string) *Tree {
 func langOnly(es entry.Entries, lang string, newParent entry.Entry) entry.Entries {
 	l := entry.Entries{}
 	for _, e := range es {
-		if isEmptyText(e, lang) {
-			// Formerly: continue.
+		/*
 			// Empty texts are now kept and displayed via html template.
-		}
+			if isEmptyText(e, lang) {
+				continuew
+			}
+		*/
 		e.SetParent(newParent)
 		s, ok := e.(*set.Set)
 		if ok {
@@ -195,6 +197,7 @@ func isNotTranslated(e entry.Entry, lang string) bool {
 	return lang != "de" && e.Info()["translated"] == "false"
 }
 
+/*
 func isEmptyText(e entry.Entry, lang string) bool {
 	tx, ok := e.(*text.Text)
 	if ok {
@@ -204,3 +207,4 @@ func isEmptyText(e entry.Entry, lang string) bool {
 	}
 	return false
 }
+*/

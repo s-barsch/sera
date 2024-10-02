@@ -50,14 +50,14 @@ func (s *Subnav) NavTrees() tree.Trees {
 			}
 		*/
 	}
-	if t.Section() == "cache" {
-		/*
-			return t.Trees.Reverse()
-				if t.Level() == 1 {
-					return t.Trees.Reverse()
-				}
-		*/
-	}
+	/*
+		if t.Section() == "cache" {
+				return t.Trees.Reverse()
+					if t.Level() == 1 {
+						return t.Trees.Reverse()
+					}
+		}
+	*/
 	return t.Trees
 }
 

@@ -18,5 +18,5 @@ func main() {
 	}
 
 	http.Handle("/", routes.Router(s))
-	http.ListenAndServe(":8013", nil)
+	log.Fatal(http.ListenAndServe(":8013", nil))
 }
