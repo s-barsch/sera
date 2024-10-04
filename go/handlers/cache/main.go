@@ -18,9 +18,9 @@ type cacheMain struct {
 	Entries entry.Entries
 }
 
-func Main(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+func Main(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 
-	t := s.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
+	t := server.Store.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
 
 	m.Title = tools.Title(tools.KineName[m.Lang])
 	m.Section = "cache"
@@ -32,9 +32,9 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta
 		return
 	}
 
-	entries := s.Recents["cache"].Access(m.Auth.Subscriber)[m.Lang].Limit(10)
+	entries := server.Store.Recents["cache"].Access(m.Auth.Subscriber)[m.Lang].Limit(10)
 
-	err = s.ExecuteTemplate(w, "cache-main", &cacheMain{
+	err = server.Store.ExecuteTemplate(w, "cache-main", &cacheMain{
 		Meta:    m,
 		Tree:    t,
 		Entries: entries,

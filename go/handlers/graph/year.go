@@ -11,7 +11,7 @@ import (
 	"g.rg-s.com/sera/go/server/paths"
 )
 
-func MainRedirect(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+func MainRedirect(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	path := fmt.Sprintf("/%v/graph/2021/04", m.Lang)
 	http.Redirect(w, r, path, http.StatusTemporaryRedirect)
 }
@@ -27,8 +27,8 @@ func MainRedirect(s *server.Server, w http.ResponseWriter, r *http.Request) {
 }
 */
 
-func YearRedirect(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta, p *paths.Path) {
-	t, err := findYear(s, p.Slug)
+func YearRedirect(w http.ResponseWriter, r *http.Request, m *meta.Meta, p *paths.Path) {
+	t, err := findYear(p.Slug)
 	if err != nil {
 		http.Redirect(w, r, "/graph", http.StatusTemporaryRedirect)
 		return
@@ -40,8 +40,8 @@ func YearRedirect(s *server.Server, w http.ResponseWriter, r *http.Request, m *m
 	http.Redirect(w, r, t.Trees[0].Perma(m.Lang), http.StatusTemporaryRedirect)
 }
 
-func findYear(s *server.Server, str string) (*tree.Tree, error) {
-	graph := s.Trees["graph"].Access(true)["de"]
+func findYear(str string) (*tree.Tree, error) {
+	graph := server.Store.Trees["graph"].Access(true)["de"]
 
 	id, err := getYearId(str)
 	if err != nil {

@@ -19,8 +19,8 @@ type cacheSingle struct {
 	Neighbors []entry.Entry
 }
 
-func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta, p *paths.Path) {
-	cache := s.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
+func ServeSingle(w http.ResponseWriter, r *http.Request, m *meta.Meta, p *paths.Path) {
+	cache := server.Store.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
 	e, err := cache.LookupEntryHash(p.Hash)
 	if err != nil {
 		http.Redirect(w, r, "/cache", http.StatusMovedPermanently)
@@ -42,7 +42,7 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, m *me
 		return
 	}
 
-	err = s.ExecuteTemplate(w, "cache-single", &cacheSingle{
+	err = server.Store.ExecuteTemplate(w, "cache-single", &cacheSingle{
 		Meta:  m,
 		Entry: e,
 		//Neighbors: getNeighbors(s.Recents["cache"].Access(m.Auth.Subscriber)[m.Lang], p.Hash),

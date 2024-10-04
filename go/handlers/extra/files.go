@@ -23,17 +23,17 @@ import (
 
 */
 
-func ServeFile(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta, path *paths.Path) {
-	err := serveFile(s, w, r, m, path)
+func ServeFile(w http.ResponseWriter, r *http.Request, m *meta.Meta, path *paths.Path) {
+	err := serveFile(w, r, m, path)
 	if err != nil {
 		log.Println(err)
 		http.NotFound(w, r)
 	}
 }
 
-func serveFile(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta, path *paths.Path) error {
+func serveFile(w http.ResponseWriter, r *http.Request, m *meta.Meta, path *paths.Path) error {
 	section := path.Section()
-	tree := s.Trees[section].Access(m.Auth.Subscriber)[m.Lang]
+	tree := server.Store.Trees[section].Access(m.Auth.Subscriber)[m.Lang]
 
 	e, err := getEntry(tree, path)
 	if err != nil {

@@ -20,8 +20,8 @@ type monthPage struct {
 	Next *tree.Tree
 }
 
-func MonthPage(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta, p *paths.Path) {
-	graph := s.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
+func MonthPage(w http.ResponseWriter, r *http.Request, m *meta.Meta, p *paths.Path) {
+	graph := server.Store.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
 
 	id, err := getMonthId(p)
 	if err != nil {
@@ -54,7 +54,7 @@ func MonthPage(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta
 		return
 	}
 
-	err = s.ExecuteTemplate(w, "graph-month", &monthPage{
+	err = server.Store.ExecuteTemplate(w, "graph-month", &monthPage{
 		Meta: m,
 		Tree: t,
 		Prev: prev,

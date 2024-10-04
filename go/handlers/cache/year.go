@@ -20,8 +20,8 @@ type cacheYear struct {
 }
 */
 
-func Year(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta, p *paths.Path) {
-	cache := s.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
+func Year(w http.ResponseWriter, r *http.Request, m *meta.Meta, p *paths.Path) {
+	cache := server.Store.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
 
 	id, err := getYearId(p.Slug)
 	if err != nil {
@@ -55,7 +55,7 @@ func Year(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta
 
 	entries := t.TraverseEntriesReverse()
 
-	err = s.ExecuteTemplate(w, "cache-year", &cacheMain{
+	err = server.Store.ExecuteTemplate(w, "cache-year", &cacheMain{
 		Meta:    m,
 		Tree:    t,
 		Entries: entries,

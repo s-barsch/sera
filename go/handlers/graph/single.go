@@ -20,8 +20,8 @@ type graphSingle struct {
 	Next  entry.Entry
 }
 
-func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta, p *paths.Path) {
-	graph := s.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
+func ServeSingle(w http.ResponseWriter, r *http.Request, m *meta.Meta, p *paths.Path) {
+	graph := server.Store.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
 	e, err := graph.LookupEntryHash(p.Hash)
 	if err != nil {
 		http.Redirect(w, r, "/graph", http.StatusMovedPermanently)
@@ -34,7 +34,7 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, m *me
 		return
 	}
 
-	prev, next := getPrevNext(s.Recents["graph"].Access(m.Auth.Subscriber)[m.Lang], e)
+	prev, next := getPrevNext(server.Store.Recents["graph"].Access(m.Auth.Subscriber)[m.Lang], e)
 
 	m.Title = graphEntryTitle(e, m.Lang)
 	m.Section = "graph"
@@ -54,7 +54,7 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, m *me
 		head.Schema = schema
 	*/
 
-	err = s.ExecuteTemplate(w, "graph-single", &graphSingle{
+	err = server.Store.ExecuteTemplate(w, "graph-single", &graphSingle{
 		Meta:  m,
 		Entry: e,
 		Prev:  prev,

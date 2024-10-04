@@ -34,20 +34,20 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Met
 
 	switch {
 	case p == "/en/graph" || p == "/de/graph":
-		MainRedirect(s, w, r, m)
+		MainRedirect(w, r, m)
 		//Main(s, w, r, a)
 
 	case path.IsFile():
-		extra.ServeFile(s, w, r, m, path)
+		extra.ServeFile(w, r, m, path)
 
 	case isYearPage(path.Slug):
-		YearRedirect(s, w, r, m, path)
+		YearRedirect(w, r, m, path)
 
 	case isMonth(path.Slug):
-		MonthPage(s, w, r, m, path)
+		MonthPage(w, r, m, path)
 
 	default:
-		ServeSingle(s, w, r, m, path)
+		ServeSingle(w, r, m, path)
 	}
 }
 
