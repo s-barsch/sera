@@ -5,7 +5,6 @@ import (
 	"strconv"
 
 	"g.rg-s.com/sera/go/handlers/extra"
-	"g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 	"g.rg-s.com/sera/go/server/paths"
 )
@@ -23,7 +22,7 @@ func graphPart(w http.ResponseWriter, r *http.Request) {
 	}
 */
 
-func Route(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+func Route(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	p, err := paths.Sanitize(r.URL.Path)
 	if err != nil {
 		http.NotFound(w, r)
@@ -70,6 +69,6 @@ func isYearPage(str string) bool {
 	return err == nil
 }
 
-func Rewrites(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+func Rewrites(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	http.Redirect(w, r, "/de"+m.Path, http.StatusMovedPermanently)
 }

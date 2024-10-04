@@ -25,14 +25,14 @@ func serveStatic(w http.ResponseWriter, r *http.Request, p string) {
 	http.ServeFile(w, r, p)
 }
 
-func ServiceWorker(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	serveStatic(w, r, s.Paths.Data+"/static/js"+r.URL.Path)
+func ServiceWorker(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+	serveStatic(w, r, server.Store.Paths.Data+"/static/js"+r.URL.Path)
 }
 
-func JSFiles(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+func JSFiles(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	path, err := paths.Sanitize(r.URL.Path)
 	if err != nil {
-		s.Debug(err)
+		server.Store.Debug(err)
 		http.NotFound(w, r)
 		return
 	}
@@ -43,13 +43,13 @@ func JSFiles(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.M
 		return
 	}
 
-	serveStatic(w, r, s.Paths.Data+"/static"+path)
+	serveStatic(w, r, server.Store.Paths.Data+"/static"+path)
 }
 
-func StaticFiles(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+func StaticFiles(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	path, err := paths.Sanitize(r.URL.Path)
 	if err != nil {
-		s.Debug(err)
+		server.Store.Debug(err)
 		http.NotFound(w, r)
 		return
 	}
@@ -60,10 +60,10 @@ func StaticFiles(s *server.Server, w http.ResponseWriter, r *http.Request, m *me
 		return
 	}
 
-	serveStatic(w, r, s.Paths.Data+path)
+	serveStatic(w, r, server.Store.Paths.Data+path)
 }
 
-func RobotsFiles(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	path := fmt.Sprintf("%v/static/seo/robots-de.txt", s.Paths.Data)
+func RobotsFiles(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+	path := fmt.Sprintf("%v/static/seo/robots-de.txt", server.Store.Paths.Data)
 	serveStatic(w, r, path)
 }

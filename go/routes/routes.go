@@ -24,21 +24,21 @@ import (
 func Router(s *server.Server) *mux.Router {
 	r := mux.NewRouter().StrictSlash(true)
 
-	r.HandleFunc("/", makeHandler(s, front.Main))
-	r.HandleFunc("/en", makeHandler(s, front.Rewrites))
-	r.HandleFunc("/en/", makeHandler(s, front.Rewrites))
-	r.HandleFunc("/de", makeHandler(s, front.Main))
-	r.PathPrefix("/de/graph").HandlerFunc(makeHandler(s, graph.Route))
-	r.PathPrefix("/en/graph").HandlerFunc(makeHandler(s, graph.Route))
-	r.PathPrefix("/de/cache").HandlerFunc(makeSHandler(cache.Route))
-	r.PathPrefix("/en/cache").HandlerFunc(makeSHandler(cache.Route))
-	r.PathPrefix("/de/ueber").HandlerFunc(makeSHandler(about.About))
-	r.PathPrefix("/de/about").HandlerFunc(makeSHandler(about.About))
-	r.PathPrefix("/en/about").HandlerFunc(makeSHandler(about.About))
+	r.HandleFunc("/", makeHandler(front.Main))
+	r.HandleFunc("/en", makeHandler(front.Rewrites))
+	r.HandleFunc("/en/", makeHandler(front.Rewrites))
+	r.HandleFunc("/de", makeHandler(front.Main))
+	r.PathPrefix("/de/graph").HandlerFunc(makeHandler(graph.Route))
+	r.PathPrefix("/en/graph").HandlerFunc(makeHandler(graph.Route))
+	r.PathPrefix("/de/cache").HandlerFunc(makeHandler(cache.Route))
+	r.PathPrefix("/en/cache").HandlerFunc(makeHandler(cache.Route))
+	r.PathPrefix("/de/ueber").HandlerFunc(makeHandler(about.About))
+	r.PathPrefix("/de/about").HandlerFunc(makeHandler(about.About))
+	r.PathPrefix("/en/about").HandlerFunc(makeHandler(about.About))
 
-	r.PathPrefix("/ueber").HandlerFunc(makeSHandler(about.Rewrites))
-	r.PathPrefix("/about").HandlerFunc(makeSHandler(about.Rewrites))
-	r.PathPrefix("/graph").HandlerFunc(makeHandler(s, graph.Rewrites))
+	r.PathPrefix("/ueber").HandlerFunc(makeHandler(about.Rewrites))
+	r.PathPrefix("/about").HandlerFunc(makeHandler(about.Rewrites))
+	r.PathPrefix("/graph").HandlerFunc(makeHandler(graph.Rewrites))
 
 	/*
 		r.PathPrefix("/indecs").HandlerFunc(makeHandler(s, indecs.Route))
@@ -46,33 +46,33 @@ func Router(s *server.Server) *mux.Router {
 		r.PathPrefix("/part/").HandlerFunc(makeHandler(s, graph.ElPart))
 	*/
 
-	r.PathPrefix("/api").HandlerFunc(makeHandler(s, auth.Route))
-	r.PathPrefix("/register").HandlerFunc(makeHandler(s, auth.Route))
-	r.PathPrefix("/subscribe").HandlerFunc(makeHandler(s, auth.Route))
-	r.PathPrefix("/login").HandlerFunc(makeHandler(s, auth.Route))
-	r.PathPrefix("/account").HandlerFunc(makeHandler(s, auth.Route))
+	r.PathPrefix("/api").HandlerFunc(makeHandler(auth.Route))
+	r.PathPrefix("/register").HandlerFunc(makeHandler(auth.Route))
+	r.PathPrefix("/subscribe").HandlerFunc(makeHandler(auth.Route))
+	r.PathPrefix("/login").HandlerFunc(makeHandler(auth.Route))
+	r.PathPrefix("/account").HandlerFunc(makeHandler(auth.Route))
 
 	/*
 		r.HandleFunc("/sitemaps.xml", makeHandler(s, sitemaps.Route))
 		r.PathPrefix("/sitemaps").HandlerFunc(makeHandler(s, sitemaps.Route))
 	*/
 
-	r.PathPrefix("/de/impressum").HandlerFunc(makeHandler(s, extra.Extra))
-	r.PathPrefix("/legal").HandlerFunc(makeHandler(s, extra.Extra))
-	r.PathPrefix("/de/datenschutz").HandlerFunc(makeHandler(s, extra.Extra))
-	r.PathPrefix("/privacy").HandlerFunc(makeHandler(s, extra.Extra))
+	r.PathPrefix("/de/impressum").HandlerFunc(makeHandler(extra.Extra))
+	r.PathPrefix("/legal").HandlerFunc(makeHandler(extra.Extra))
+	r.PathPrefix("/de/datenschutz").HandlerFunc(makeHandler(extra.Extra))
+	r.PathPrefix("/privacy").HandlerFunc(makeHandler(extra.Extra))
 
-	r.HandleFunc("/opt/{option}/{value}", makeHandler(s, extra.SetOption))
+	r.HandleFunc("/opt/{option}/{value}", makeHandler(extra.SetOption))
 
-	r.HandleFunc("/rl/", makeHandler(s, extra.Reload))
+	r.HandleFunc("/rl/", makeHandler(extra.Reload))
 
-	r.PathPrefix("/static/").HandlerFunc(makeHandler(s, extra.StaticFiles))
-	r.PathPrefix("/js/").HandlerFunc(makeHandler(s, extra.JSFiles))
-	r.HandleFunc("/sw.js", makeHandler(s, extra.ServiceWorker))
-	r.HandleFunc("/robots.txt", makeHandler(s, extra.RobotsFiles))
+	r.PathPrefix("/static/").HandlerFunc(makeHandler(extra.StaticFiles))
+	r.PathPrefix("/js/").HandlerFunc(makeHandler(extra.JSFiles))
+	r.HandleFunc("/sw.js", makeHandler(extra.ServiceWorker))
+	r.HandleFunc("/robots.txt", makeHandler(extra.RobotsFiles))
 
-	r.PathPrefix("/de/manifest.json").HandlerFunc(makeHandler(s, extra.Manifest))
-	r.PathPrefix("/manifest.json").HandlerFunc(makeHandler(s, extra.Manifest))
+	r.PathPrefix("/de/manifest.json").HandlerFunc(makeHandler(extra.Manifest))
+	r.PathPrefix("/manifest.json").HandlerFunc(makeHandler(extra.Manifest))
 
 	fileRoutes := map[string]string{
 		"/BingSiteAuth.xml": "/static/seo/BingSiteAuth.xml",
@@ -87,14 +87,14 @@ func Router(s *server.Server) *mux.Router {
 				log.Println(err)
 			}
 
-			extra.StaticFiles(s, w, r, m)
+			extra.StaticFiles(w, r, m)
 		})
 	}
 
 	return r
 }
 
-func makeSHandler(fn func(http.ResponseWriter, *http.Request, *meta.Meta)) http.HandlerFunc {
+func makeHandler(fn func(http.ResponseWriter, *http.Request, *meta.Meta)) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		m, err := meta.NewMeta(server.Store.Users, w, r)
 		if err != nil {
@@ -103,17 +103,5 @@ func makeSHandler(fn func(http.ResponseWriter, *http.Request, *meta.Meta)) http.
 			return
 		}
 		fn(w, r, m)
-	}
-}
-
-func makeHandler(s *server.Server, fn func(*server.Server, http.ResponseWriter, *http.Request, *meta.Meta)) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		m, err := meta.NewMeta(s.Users, w, r)
-		if err != nil {
-			log.Println(err)
-			http.Error(w, "internal error", http.StatusInternalServerError)
-			return
-		}
-		fn(s, w, r, m)
 	}
 }

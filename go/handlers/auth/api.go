@@ -11,7 +11,7 @@ import (
 	"g.rg-s.com/sera/go/server/users"
 )
 
-func Subscribe(s *server.Server, w http.ResponseWriter, r *http.Request) {
+func Subscribe(w http.ResponseWriter, r *http.Request) {
 	user := &users.User{}
 
 	err := json.NewDecoder(io.Reader(r.Body)).Decode(&user)
@@ -20,28 +20,28 @@ func Subscribe(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = s.Users.AddUser(user)
+	err = server.Store.Users.AddUser(user)
 	if err != nil {
 		fmt.Println(err)
 	}
 }
 
-func Register(s *server.Server, w http.ResponseWriter, r *http.Request) {
+func Register(w http.ResponseWriter, r *http.Request) {
 	user := &users.User{}
 
 	user.Name = r.FormValue("name")
 	user.Mail = r.FormValue("mail")
 
-	err := s.Users.AddUser(user)
+	err := server.Store.Users.AddUser(user)
 	if err != nil {
 		fmt.Println(err)
 		http.Error(w, err.Error(), 500)
 	}
 }
 
-func RequestLogin(s *server.Server, w http.ResponseWriter, r *http.Request) {
+func RequestLogin(w http.ResponseWriter, r *http.Request) {
 	mail := r.FormValue("mail")
-	user, err := s.Users.LookupUser(mail)
+	user, err := server.Store.Users.LookupUser(mail)
 	if err != nil {
 		log.Println(err)
 		return
@@ -53,7 +53,7 @@ func RequestLogin(s *server.Server, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = s.Users.StoreVerify(mail, key)
+	err = server.Store.Users.StoreVerify(mail, key)
 	if err != nil {
 		log.Println(err)
 		return
@@ -70,21 +70,21 @@ func RequestLogin(s *server.Server, w http.ResponseWriter, r *http.Request) {
 
 var loginTmpl = `Hello, here is your login link: <a href="/api/login/verify/%v">LINK</a>`
 
-func VerifyLogin(s *server.Server, w http.ResponseWriter, r *http.Request) {
+func VerifyLogin(w http.ResponseWriter, r *http.Request) {
 	mail, outsideKey, err := users.DecodeMailKey(r.URL.Path[len("/api/login/verify/"):])
 	if err != nil {
 		log.Println(err)
 		return
 	}
 
-	key, err := s.Users.GetVerify(mail)
+	key, err := server.Store.Users.GetVerify(mail)
 	if err != nil {
 		log.Println(err)
 		return
 	}
 
 	if outsideKey == key {
-		err = generateSession(s, w, mail)
+		err = generateSession(w, mail)
 		if err != nil {
 			log.Println(err)
 			return
@@ -95,14 +95,14 @@ func VerifyLogin(s *server.Server, w http.ResponseWriter, r *http.Request) {
 	http.Error(w, "server error", http.StatusInternalServerError)
 }
 
-func generateSession(s *server.Server, w http.ResponseWriter, mail string) error {
+func generateSession(w http.ResponseWriter, mail string) error {
 	key, err := users.GenerateSessionKey()
 	if err != nil {
 		return err
 	}
 
 	storeToCookie(w, mail, key)
-	return s.Users.StoreSession(mail, key)
+	return server.Store.Users.StoreSession(mail, key)
 }
 
 func storeToCookie(w http.ResponseWriter, mail, key string) {

@@ -8,9 +8,9 @@ import (
 	"g.rg-s.com/sera/go/server/meta"
 )
 
-func Manifest(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+func Manifest(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	m.Title = meta.SiteName(m.Lang)
-	m.Desc = s.Vars.Lang("site", m.Lang)
+	m.Desc = server.Store.Vars.Lang("site", m.Lang)
 
 	/*
 		err := m.Process(nil)
@@ -20,7 +20,7 @@ func Manifest(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.
 		}
 	*/
 
-	err := s.ExecuteTemplate(w, "manifest", m)
+	err := server.Store.ExecuteTemplate(w, "manifest", m)
 	if err != nil {
 		log.Println(err)
 	}

@@ -20,12 +20,12 @@ func lastItem(path string) string {
 	return items[len(items)-1]
 }
 
-func Extra(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+func Extra(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 
-	extra := s.Trees["extra"].Access(m.Auth.Subscriber)[m.Lang]
+	extra := server.Store.Trees["extra"].Access(m.Auth.Subscriber)[m.Lang]
 	t, err := extra.SearchTree(lastItem(m.Path), m.Lang)
 	if err != nil {
-		s.Debug(err)
+		server.Store.Debug(err)
 		http.NotFound(w, r)
 		return
 	}
@@ -44,7 +44,7 @@ func Extra(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Met
 		return
 	}
 
-	err = s.ExecuteTemplate(w, "extra-page", &extraHold{
+	err = server.Store.ExecuteTemplate(w, "extra-page", &extraHold{
 		Meta: m,
 		Tree: t,
 	})
