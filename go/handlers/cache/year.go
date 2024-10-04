@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"g.rg-s.com/sera/go/entry/tools"
-	"g.rg-s.com/sera/go/server"
+	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 	"g.rg-s.com/sera/go/server/paths"
 )
@@ -21,7 +21,7 @@ type cacheYear struct {
 */
 
 func Year(w http.ResponseWriter, r *http.Request, m *meta.Meta, p *paths.Path) {
-	cache := server.Store.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
+	cache := s.Store.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
 
 	id, err := getYearId(p.Slug)
 	if err != nil {
@@ -55,7 +55,7 @@ func Year(w http.ResponseWriter, r *http.Request, m *meta.Meta, p *paths.Path) {
 
 	entries := t.TraverseEntriesReverse()
 
-	err = server.Store.ExecuteTemplate(w, "cache-year", &cacheMain{
+	err = s.Store.ExecuteTemplate(w, "cache-year", &cacheMain{
 		Meta:    m,
 		Tree:    t,
 		Entries: entries,

@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"g.rg-s.com/sera/go/entry/types/tree"
-	"g.rg-s.com/sera/go/server"
+	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 )
 
@@ -40,7 +40,7 @@ func YearRedirect(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 }
 
 func findYear(str string) (*tree.Tree, error) {
-	graph := server.Store.Trees["graph"].Access(true)["de"]
+	graph := s.Store.Trees["graph"].Access(true)["de"]
 
 	id, err := getYearId(str)
 	if err != nil {

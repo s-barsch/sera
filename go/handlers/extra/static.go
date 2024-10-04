@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"g.rg-s.com/sera/go/server"
+	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 	"g.rg-s.com/sera/go/server/paths"
 )
@@ -26,13 +26,13 @@ func serveStatic(w http.ResponseWriter, r *http.Request, p string) {
 }
 
 func ServiceWorker(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	serveStatic(w, r, server.Store.Paths.Data+"/static/js"+r.URL.Path)
+	serveStatic(w, r, s.Store.Paths.Data+"/static/js"+r.URL.Path)
 }
 
 func JSFiles(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	path, err := paths.Sanitize(r.URL.Path)
 	if err != nil {
-		server.Store.Debug(err)
+		s.Store.Debug(err)
 		http.NotFound(w, r)
 		return
 	}
@@ -43,13 +43,13 @@ func JSFiles(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 		return
 	}
 
-	serveStatic(w, r, server.Store.Paths.Data+"/static"+path)
+	serveStatic(w, r, s.Store.Paths.Data+"/static"+path)
 }
 
 func StaticFiles(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	path, err := paths.Sanitize(r.URL.Path)
 	if err != nil {
-		server.Store.Debug(err)
+		s.Store.Debug(err)
 		http.NotFound(w, r)
 		return
 	}
@@ -60,10 +60,10 @@ func StaticFiles(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 		return
 	}
 
-	serveStatic(w, r, server.Store.Paths.Data+path)
+	serveStatic(w, r, s.Store.Paths.Data+path)
 }
 
 func RobotsFiles(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	path := fmt.Sprintf("%v/static/seo/robots-de.txt", server.Store.Paths.Data)
+	path := fmt.Sprintf("%v/static/seo/robots-de.txt", s.Store.Paths.Data)
 	serveStatic(w, r, path)
 }

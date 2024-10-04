@@ -8,7 +8,7 @@ import (
 	"g.rg-s.com/sera/go/entry"
 	"g.rg-s.com/sera/go/entry/tools"
 	"g.rg-s.com/sera/go/entry/types/tree"
-	"g.rg-s.com/sera/go/server"
+	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 )
 
@@ -20,7 +20,7 @@ type cacheMain struct {
 
 func Main(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 
-	t := server.Store.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
+	t := s.Store.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
 
 	m.Title = tools.Title(tools.KineName[m.Lang])
 	m.Section = "cache"
@@ -32,9 +32,9 @@ func Main(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 		return
 	}
 
-	entries := server.Store.Recents["cache"].Access(m.Auth.Subscriber)[m.Lang].Limit(10)
+	entries := s.Store.Recents["cache"].Access(m.Auth.Subscriber)[m.Lang].Limit(10)
 
-	err = server.Store.ExecuteTemplate(w, "cache-main", &cacheMain{
+	err = s.Store.ExecuteTemplate(w, "cache-main", &cacheMain{
 		Meta:    m,
 		Tree:    t,
 		Entries: entries,

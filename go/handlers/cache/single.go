@@ -8,7 +8,7 @@ import (
 
 	"g.rg-s.com/sera/go/entry"
 	"g.rg-s.com/sera/go/entry/tools"
-	"g.rg-s.com/sera/go/server"
+	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 	"g.rg-s.com/sera/go/server/paths"
 )
@@ -20,7 +20,7 @@ type cacheSingle struct {
 }
 
 func ServeSingle(w http.ResponseWriter, r *http.Request, m *meta.Meta, p *paths.Path) {
-	cache := server.Store.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
+	cache := s.Store.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
 	e, err := cache.LookupEntryHash(p.Hash)
 	if err != nil {
 		http.Redirect(w, r, "/cache", http.StatusMovedPermanently)
@@ -42,7 +42,7 @@ func ServeSingle(w http.ResponseWriter, r *http.Request, m *meta.Meta, p *paths.
 		return
 	}
 
-	err = server.Store.ExecuteTemplate(w, "cache-single", &cacheSingle{
+	err = s.Store.ExecuteTemplate(w, "cache-single", &cacheSingle{
 		Meta:  m,
 		Entry: e,
 		//Neighbors: getNeighbors(s.Recents["cache"].Access(m.Auth.Subscriber)[m.Lang], p.Hash),

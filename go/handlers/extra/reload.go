@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"g.rg-s.com/sera/go/server"
+	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 )
 
@@ -13,7 +13,7 @@ func AddSlash(w http.ResponseWriter, r *http.Request) {
 }
 
 func Reload(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	err := server.Store.LoadSafe()
+	err := s.Store.LoadSafe()
 	if err != nil {
 		log.Println(err)
 		http.Error(w, err.Error(), 500)

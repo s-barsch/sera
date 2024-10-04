@@ -12,7 +12,7 @@ import (
 	"g.rg-s.com/sera/go/entry/tools"
 	"g.rg-s.com/sera/go/entry/types/set"
 	"g.rg-s.com/sera/go/entry/types/tree"
-	"g.rg-s.com/sera/go/server"
+	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 	"g.rg-s.com/sera/go/server/paths"
 )
@@ -33,7 +33,7 @@ func ServeFile(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 
 func serveFile(w http.ResponseWriter, r *http.Request, m *meta.Meta) error {
 	section := m.Split.Section()
-	tree := server.Store.Trees[section].Access(m.Auth.Subscriber)[m.Lang]
+	tree := s.Store.Trees[section].Access(m.Auth.Subscriber)[m.Lang]
 
 	e, err := getEntry(tree, m.Split)
 	if err != nil {

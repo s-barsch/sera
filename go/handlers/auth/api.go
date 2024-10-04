@@ -7,7 +7,7 @@ import (
 	"log"
 	"net/http"
 
-	"g.rg-s.com/sera/go/server"
+	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/users"
 )
 
@@ -20,7 +20,7 @@ func Subscribe(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = server.Store.Users.AddUser(user)
+	err = s.Store.Users.AddUser(user)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -32,7 +32,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	user.Name = r.FormValue("name")
 	user.Mail = r.FormValue("mail")
 
-	err := server.Store.Users.AddUser(user)
+	err := s.Store.Users.AddUser(user)
 	if err != nil {
 		fmt.Println(err)
 		http.Error(w, err.Error(), 500)
@@ -41,7 +41,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 
 func RequestLogin(w http.ResponseWriter, r *http.Request) {
 	mail := r.FormValue("mail")
-	user, err := server.Store.Users.LookupUser(mail)
+	user, err := s.Store.Users.LookupUser(mail)
 	if err != nil {
 		log.Println(err)
 		return
@@ -53,7 +53,7 @@ func RequestLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = server.Store.Users.StoreVerify(mail, key)
+	err = s.Store.Users.StoreVerify(mail, key)
 	if err != nil {
 		log.Println(err)
 		return
@@ -77,7 +77,7 @@ func VerifyLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	key, err := server.Store.Users.GetVerify(mail)
+	key, err := s.Store.Users.GetVerify(mail)
 	if err != nil {
 		log.Println(err)
 		return
@@ -102,7 +102,7 @@ func generateSession(w http.ResponseWriter, mail string) error {
 	}
 
 	storeToCookie(w, mail, key)
-	return server.Store.Users.StoreSession(mail, key)
+	return s.Store.Users.StoreSession(mail, key)
 }
 
 func storeToCookie(w http.ResponseWriter, mail, key string) {

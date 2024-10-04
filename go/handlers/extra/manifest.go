@@ -4,13 +4,13 @@ import (
 	"log"
 	"net/http"
 
-	"g.rg-s.com/sera/go/server"
+	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 )
 
 func Manifest(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	m.Title = meta.SiteName(m.Lang)
-	m.Desc = server.Store.Vars.Lang("site", m.Lang)
+	m.Desc = s.Store.Vars.Lang("site", m.Lang)
 
 	/*
 		err := m.Process(nil)
@@ -20,7 +20,7 @@ func Manifest(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 		}
 	*/
 
-	err := server.Store.ExecuteTemplate(w, "manifest", m)
+	err := s.Store.ExecuteTemplate(w, "manifest", m)
 	if err != nil {
 		log.Println(err)
 	}

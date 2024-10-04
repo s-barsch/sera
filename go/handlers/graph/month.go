@@ -8,7 +8,7 @@ import (
 
 	"g.rg-s.com/sera/go/entry/tools"
 	"g.rg-s.com/sera/go/entry/types/tree"
-	"g.rg-s.com/sera/go/server"
+	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 	"g.rg-s.com/sera/go/server/paths"
 )
@@ -21,7 +21,7 @@ type monthPage struct {
 }
 
 func MonthPage(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	graph := server.Store.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
+	graph := s.Store.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
 
 	id, err := getMonthId(m.Split)
 	if err != nil {
@@ -54,7 +54,7 @@ func MonthPage(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 		return
 	}
 
-	err = server.Store.ExecuteTemplate(w, "graph-month", &monthPage{
+	err = s.Store.ExecuteTemplate(w, "graph-month", &monthPage{
 		Meta: m,
 		Tree: t,
 		Prev: prev,

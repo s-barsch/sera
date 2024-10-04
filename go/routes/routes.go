@@ -10,12 +10,13 @@ import (
 	"g.rg-s.com/sera/go/handlers/extra"
 	"g.rg-s.com/sera/go/handlers/front"
 	"g.rg-s.com/sera/go/handlers/graph"
+	"g.rg-s.com/sera/go/server"
 
 	//"g.rg-s.com/sera/go/handlers/indecs"
 	//"g.rg-s.com/sera/go/handlers/index"
 
 	//"g.rg-s.com/sera/go/handlers/sitemaps"
-	"g.rg-s.com/sera/go/server"
+	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 
 	"github.com/gorilla/mux"
@@ -96,7 +97,7 @@ func Router(s *server.Server) *mux.Router {
 
 func makeHandler(fn func(http.ResponseWriter, *http.Request, *meta.Meta)) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		m, err := meta.NewMeta(server.Store.Users, w, r)
+		m, err := meta.NewMeta(s.Store.Users, w, r)
 		if err != nil {
 			log.Println(err)
 			http.Error(w, "internal error", http.StatusInternalServerError)
