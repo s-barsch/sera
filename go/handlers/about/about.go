@@ -7,6 +7,7 @@ import (
 	"g.rg-s.com/sera/go/entry/types/tree"
 	"g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
+	"g.rg-s.com/sera/go/server/paths"
 )
 
 type aboutTree struct {
@@ -14,7 +15,16 @@ type aboutTree struct {
 	Tree *tree.Tree
 }
 
-func ServeAbout(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta, t *tree.Tree) {
+func About(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+	about := s.Trees["about"].Access(m.Auth.Subscriber)[m.Lang]
+
+	p := paths.Split(m.Path)
+	t, err := about.SearchTree(p.Slug, m.Lang)
+	if err != nil {
+		http.NotFound(w, r)
+		return
+	}
+
 	if perma := t.Perma(m.Lang); m.Path != perma {
 		http.Redirect(w, r, perma, http.StatusMovedPermanently)
 		return
@@ -23,7 +33,7 @@ func ServeAbout(s *server.Server, w http.ResponseWriter, r *http.Request, m *met
 	m.Title = t.Title(m.Lang)
 	m.Section = "about"
 
-	err := m.Process(t)
+	err = m.Process(t)
 	if err != nil {
 		s.Log.Println(err)
 		return

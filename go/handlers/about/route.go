@@ -5,21 +5,7 @@ import (
 
 	"g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
-	"g.rg-s.com/sera/go/server/paths"
 )
-
-func Route(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	about := s.Trees["about"].Access(m.Auth.Subscriber)[m.Lang]
-
-	p := paths.Split(m.Path)
-	t, err := about.SearchTree(p.Slug, m.Lang)
-	if err != nil {
-		http.NotFound(w, r)
-		return
-	}
-
-	ServeAbout(s, w, r, m, t)
-}
 
 func Rewrites(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	folder := m.Path[:len("/about")]
