@@ -11,12 +11,12 @@ import (
 )
 
 func main() {
-
-	s, err := server.LoadServer()
+	store, err := server.LoadServer()
 	if err != nil {
 		log.Fatal(err)
 	}
+	server.Store = store
 
-	http.Handle("/", routes.Router(s))
+	http.Handle("/", routes.Router(store))
 	log.Fatal(http.ListenAndServe(":8013", nil))
 }

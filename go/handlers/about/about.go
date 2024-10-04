@@ -15,8 +15,8 @@ type aboutTree struct {
 	Tree *tree.Tree
 }
 
-func About(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	about := s.Trees["about"].Access(m.Auth.Subscriber)[m.Lang]
+func About(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+	about := server.Store.Trees["about"].Access(m.Auth.Subscriber)[m.Lang]
 
 	p := paths.Split(m.Path)
 	t, err := about.SearchTree(p.Slug, m.Lang)
@@ -35,11 +35,11 @@ func About(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Met
 
 	err = m.Process(t)
 	if err != nil {
-		s.Log.Println(err)
+		log.Println(err)
 		return
 	}
 
-	err = s.ExecuteTemplate(w, aboutTemplate(t.Level()), &aboutTree{
+	err = server.Store.ExecuteTemplate(w, aboutTemplate(t.Level()), &aboutTree{
 		Meta: m,
 		Tree: t,
 	})
@@ -53,4 +53,12 @@ func aboutTemplate(level int) string {
 		return "about-main"
 	}
 	return "about-page"
+}
+
+func Rewrites(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+	folder := m.Path[:len("/about")]
+	if folder == "/about" {
+		http.Redirect(w, r, "/en"+m.Path, http.StatusMovedPermanently)
+		return
+	}
 }

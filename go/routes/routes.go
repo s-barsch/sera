@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"log"
 	"net/http"
 
 	"g.rg-s.com/sera/go/handlers/about"
@@ -31,12 +32,12 @@ func Router(s *server.Server) *mux.Router {
 	r.PathPrefix("/en/graph").HandlerFunc(makeHandler(s, graph.Route))
 	r.PathPrefix("/de/cache").HandlerFunc(makeHandler(s, cache.Route))
 	r.PathPrefix("/en/cache").HandlerFunc(makeHandler(s, cache.Route))
-	r.PathPrefix("/de/ueber").HandlerFunc(makeHandler(s, about.About))
-	r.PathPrefix("/de/about").HandlerFunc(makeHandler(s, about.About))
-	r.PathPrefix("/en/about").HandlerFunc(makeHandler(s, about.About))
+	r.PathPrefix("/de/ueber").HandlerFunc(makeSHandler(about.About))
+	r.PathPrefix("/de/about").HandlerFunc(makeSHandler(about.About))
+	r.PathPrefix("/en/about").HandlerFunc(makeSHandler(about.About))
 
-	r.PathPrefix("/ueber").HandlerFunc(makeHandler(s, about.Rewrites))
-	r.PathPrefix("/about").HandlerFunc(makeHandler(s, about.Rewrites))
+	r.PathPrefix("/ueber").HandlerFunc(makeSHandler(about.Rewrites))
+	r.PathPrefix("/about").HandlerFunc(makeSHandler(about.Rewrites))
 	r.PathPrefix("/graph").HandlerFunc(makeHandler(s, graph.Rewrites))
 
 	/*
@@ -91,6 +92,18 @@ func Router(s *server.Server) *mux.Router {
 	}
 
 	return r
+}
+
+func makeSHandler(fn func(http.ResponseWriter, *http.Request, *meta.Meta)) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		m, err := meta.NewMeta(server.Store.Users, w, r)
+		if err != nil {
+			log.Println(err)
+			http.Error(w, "internal error", http.StatusInternalServerError)
+			return
+		}
+		fn(w, r, m)
+	}
 }
 
 func makeHandler(s *server.Server, fn func(*server.Server, http.ResponseWriter, *http.Request, *meta.Meta)) http.HandlerFunc {

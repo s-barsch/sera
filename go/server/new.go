@@ -13,6 +13,8 @@ import (
 	"github.com/rjeczalik/notify"
 )
 
+var Store *Server
+
 type Server struct {
 	Paths *paths
 	Flags *flags
@@ -63,7 +65,6 @@ func NewServer() *Server {
 	}
 
 	s := &Server{
-		Log:   newLogger(),
 		Queue: make(chan int, 1),
 	}
 
@@ -88,6 +89,8 @@ func NewServer() *Server {
 
 func LoadServer() (*Server, error) {
 	s := NewServer()
+
+	log.SetFlags(log.LstdFlags)
 
 	if s.Flags.Debug {
 		err := s.SetupWatcher()
@@ -117,12 +120,8 @@ func (s *Server) CloseUsers() error {
 	return nil
 }
 
-func newLogger() *log.Logger {
-	return log.New(os.Stdout, "", log.LstdFlags)
-}
-
 func (s *Server) Debug(err error) {
 	if s.Flags.Debug {
-		s.Log.Println(err)
+		log.Println(err)
 	}
 }
