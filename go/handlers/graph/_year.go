@@ -27,14 +27,14 @@ func YearPage(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths
 	id, err := getYearId(p.Slug)
 	if err != nil {
 		http.NotFound(w, r)
-		s.Log.Println(err)
+		log.Println(err)
 		return
 	}
 
 	t, err := graph.LookupTree(id)
 	if err != nil {
 		http.NotFound(w, r)
-		s.Log.Println(err)
+		log.Println(err)
 		return
 	}
 
@@ -54,7 +54,7 @@ func YearPage(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths
 
 	err = head.Process(r)
 	if err != nil {
-		s.Log.Println(err)
+		log.Println(err)
 		return
 	}
 

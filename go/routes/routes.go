@@ -84,7 +84,7 @@ func Router(s *server.Server) *mux.Router {
 			r.URL.Path = path
 			m, err := meta.NewMeta(s.Users, w, r)
 			if err != nil {
-				s.Log.Println(err)
+				log.Println(err)
 			}
 
 			extra.StaticFiles(s, w, r, m)
@@ -110,7 +110,7 @@ func makeHandler(s *server.Server, fn func(*server.Server, http.ResponseWriter, 
 	return func(w http.ResponseWriter, r *http.Request) {
 		m, err := meta.NewMeta(s.Users, w, r)
 		if err != nil {
-			s.Log.Println(err)
+			log.Println(err)
 			http.Error(w, "internal error", http.StatusInternalServerError)
 			return
 		}

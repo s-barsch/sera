@@ -38,7 +38,7 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, m *me
 
 	err = m.Process(e)
 	if err != nil {
-		s.Log.Println(err)
+		log.Println(err)
 		return
 	}
 

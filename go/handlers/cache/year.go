@@ -26,14 +26,14 @@ func Year(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta
 	id, err := getYearId(p.Slug)
 	if err != nil {
 		http.NotFound(w, r)
-		s.Log.Println(err)
+		log.Println(err)
 		return
 	}
 
 	t, err := cache.LookupTree(id)
 	if err != nil {
 		http.NotFound(w, r)
-		s.Log.Println(err)
+		log.Println(err)
 		return
 	}
 
@@ -49,7 +49,7 @@ func Year(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta
 
 	err = m.Process(t)
 	if err != nil {
-		s.Log.Println(err)
+		log.Println(err)
 		return
 	}
 

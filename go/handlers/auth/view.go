@@ -40,7 +40,7 @@ func SysPage(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.M
 
 	err = m.Process(t)
 	if err != nil {
-		s.Log.Println(err)
+		log.Println(err)
 		return
 	}
 

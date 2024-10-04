@@ -26,14 +26,14 @@ func MonthPage(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta
 	id, err := getMonthId(p)
 	if err != nil {
 		http.NotFound(w, r)
-		s.Log.Println(err)
+		log.Println(err)
 		return
 	}
 
 	t, err := graph.LookupTree(id)
 	if err != nil {
 		http.NotFound(w, r)
-		s.Log.Println(err)
+		log.Println(err)
 		return
 	}
 
@@ -50,7 +50,7 @@ func MonthPage(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta
 
 	err = m.Process(t)
 	if err != nil {
-		s.Log.Println(err)
+		log.Println(err)
 		return
 	}
 

@@ -1,6 +1,7 @@
 package extra
 
 import (
+	"log"
 	"net/http"
 
 	"g.rg-s.com/sera/go/server"
@@ -14,13 +15,13 @@ func Manifest(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.
 	/*
 		err := m.Process(nil)
 		if err != nil {
-			s.Log.Println(err)
+			log.Println(err)
 			return
 		}
 	*/
 
 	err := s.ExecuteTemplate(w, "manifest", m)
 	if err != nil {
-		s.Log.Println(err)
+		log.Println(err)
 	}
 }

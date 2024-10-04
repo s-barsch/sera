@@ -1,6 +1,7 @@
 package indecs
 
 import (
+	"log"
 	"net/http"
 	"path/filepath"
 
@@ -62,7 +63,7 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Met
 	if p.Hash == "" {
 		t, err := indecs.SearchTree(p.Slug, m.Lang)
 		if err != nil {
-			s.Log.Println(err)
+			log.Println(err)
 			http.NotFound(w, r)
 			return
 		}

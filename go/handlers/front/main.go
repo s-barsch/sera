@@ -56,7 +56,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta
 		Graph:  graph.Limit(s.Vars.FrontSettings.Graph),
 		Cache:  cache.Limit(10),
 		Months: months,
-		// Log:    s.Recents["log"].Access(true)["de"].Limit(s.Vars.FrontSettings.Log),
+		// Log:    s.Recents["log"].Access(true)["de"].Limit(s.Vars.FrontSettinglog),
 	})
 	if err != nil {
 		log.Println(err)
@@ -66,7 +66,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta
 /*
 	e, err := s.Trees["graph"].Access(a.Subscriber)[m.Lang].LookupEntryHash(s.Vars.FrontSettings.Featured)
 	if err != nil {
-		s.Log.Println(err)
+		log.Println(err)
 	}
 */
 //Featured: e,

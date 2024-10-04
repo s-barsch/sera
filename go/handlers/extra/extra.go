@@ -40,7 +40,7 @@ func Extra(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Met
 
 	err = m.Process(t)
 	if err != nil {
-		s.Log.Println(err)
+		log.Println(err)
 		return
 	}
 
