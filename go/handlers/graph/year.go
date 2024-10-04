@@ -8,7 +8,6 @@ import (
 	"g.rg-s.com/sera/go/entry/types/tree"
 	"g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
-	"g.rg-s.com/sera/go/server/paths"
 )
 
 func MainRedirect(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
@@ -27,8 +26,8 @@ func MainRedirect(s *server.Server, w http.ResponseWriter, r *http.Request) {
 }
 */
 
-func YearRedirect(w http.ResponseWriter, r *http.Request, m *meta.Meta, p *paths.Path) {
-	t, err := findYear(p.Slug)
+func YearRedirect(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+	t, err := findYear(m.Split.Slug)
 	if err != nil {
 		http.Redirect(w, r, "/graph", http.StatusTemporaryRedirect)
 		return

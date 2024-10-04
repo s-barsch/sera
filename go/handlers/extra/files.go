@@ -23,19 +23,19 @@ import (
 
 */
 
-func ServeFile(w http.ResponseWriter, r *http.Request, m *meta.Meta, path *paths.Path) {
-	err := serveFile(w, r, m, path)
+func ServeFile(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+	err := serveFile(w, r, m)
 	if err != nil {
 		log.Println(err)
 		http.NotFound(w, r)
 	}
 }
 
-func serveFile(w http.ResponseWriter, r *http.Request, m *meta.Meta, path *paths.Path) error {
-	section := path.Section()
+func serveFile(w http.ResponseWriter, r *http.Request, m *meta.Meta) error {
+	section := m.Split.Section()
 	tree := server.Store.Trees[section].Access(m.Auth.Subscriber)[m.Lang]
 
-	e, err := getEntry(tree, path)
+	e, err := getEntry(tree, m.Split)
 	if err != nil {
 		return err
 	}
@@ -43,10 +43,10 @@ func serveFile(w http.ResponseWriter, r *http.Request, m *meta.Meta, path *paths
 	col, ok := e.(entry.Collection)
 
 	if !ok {
-		return serveSingleBlob(w, r, e, path)
+		return serveSingleBlob(w, r, e, m.Split)
 	}
 
-	return serveCollectionBlob(w, r, col, path)
+	return serveCollectionBlob(w, r, col, m.Split)
 }
 
 func serveSingleBlob(w http.ResponseWriter, r *http.Request, e entry.Entry, path *paths.Path) error {

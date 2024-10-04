@@ -10,7 +10,6 @@ import (
 	"g.rg-s.com/sera/go/entry/tools"
 	"g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
-	"g.rg-s.com/sera/go/server/paths"
 )
 
 type graphSingle struct {
@@ -20,9 +19,9 @@ type graphSingle struct {
 	Next  entry.Entry
 }
 
-func ServeSingle(w http.ResponseWriter, r *http.Request, m *meta.Meta, p *paths.Path) {
+func ServeSingle(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	graph := server.Store.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
-	e, err := graph.LookupEntryHash(p.Hash)
+	e, err := graph.LookupEntryHash(m.Split.Hash)
 	if err != nil {
 		http.Redirect(w, r, "/graph", http.StatusMovedPermanently)
 		return

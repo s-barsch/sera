@@ -16,6 +16,8 @@ type Meta struct {
 	Path string
 	Host string
 
+	Split *paths.Path
+
 	Title   string
 	Section string
 
@@ -42,6 +44,7 @@ func NewMeta(users *usr.Users, w http.ResponseWriter, r *http.Request) (*Meta, e
 	return &Meta{
 		Auth:    auth,
 		Path:    path,
+		Split:   paths.Split(path),
 		Lang:    Lang(path),
 		Host:    r.Host,
 		Options: GetOptions(r),

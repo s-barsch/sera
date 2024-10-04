@@ -20,10 +20,10 @@ type monthPage struct {
 	Next *tree.Tree
 }
 
-func MonthPage(w http.ResponseWriter, r *http.Request, m *meta.Meta, p *paths.Path) {
+func MonthPage(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	graph := server.Store.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
 
-	id, err := getMonthId(p)
+	id, err := getMonthId(m.Split)
 	if err != nil {
 		http.NotFound(w, r)
 		log.Println(err)

@@ -23,30 +23,22 @@ func graphPart(w http.ResponseWriter, r *http.Request) {
 */
 
 func Route(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	p, err := paths.Sanitize(r.URL.Path)
-	if err != nil {
-		http.NotFound(w, r)
-		return
-	}
-
-	path := paths.Split(p)
-
 	switch {
-	case p == "/en/graph" || p == "/de/graph":
+	case m.Path == "/en/graph" || m.Path == "/de/graph":
 		MainRedirect(w, r, m)
 		//Main(s, w, r, a)
 
-	case path.IsFile():
-		extra.ServeFile(w, r, m, path)
+	case m.Split.IsFile():
+		extra.ServeFile(w, r, m)
 
-	case isYearPage(path.Slug):
-		YearRedirect(w, r, m, path)
+	case isYearPage(m.Split.Slug):
+		YearRedirect(w, r, m)
 
-	case isMonth(path.Slug):
-		MonthPage(w, r, m, path)
+	case isMonth(m.Split.Slug):
+		MonthPage(w, r, m)
 
 	default:
-		ServeSingle(w, r, m, path)
+		ServeSingle(w, r, m)
 	}
 }
 

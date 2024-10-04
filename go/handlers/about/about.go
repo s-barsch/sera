@@ -7,7 +7,6 @@ import (
 	"g.rg-s.com/sera/go/entry/types/tree"
 	"g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
-	"g.rg-s.com/sera/go/server/paths"
 )
 
 type aboutTree struct {
@@ -18,8 +17,7 @@ type aboutTree struct {
 func About(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	about := server.Store.Trees["about"].Access(m.Auth.Subscriber)[m.Lang]
 
-	p := paths.Split(m.Path)
-	t, err := about.SearchTree(p.Slug, m.Lang)
+	t, err := about.SearchTree(m.Split.Slug, m.Lang)
 	if err != nil {
 		http.NotFound(w, r)
 		return

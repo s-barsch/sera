@@ -34,7 +34,7 @@ func Route(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	}
 
 	if path.IsFile() {
-		extra.ServeFile(w, r, m, path)
+		extra.ServeFile(w, r, m)
 		return
 	}
 
