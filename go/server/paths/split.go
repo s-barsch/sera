@@ -9,7 +9,7 @@ import (
 )
 
 type Path struct {
-	Raw    string
+	Path   string
 	Chain  []string
 	Slug   string
 	Hash   string
@@ -40,7 +40,7 @@ func (p *Path) IsFile() bool {
 	return p.Folder != ""
 }
 
-// || strings.Contains(p.Raw, ".") {
+// || strings.Contains(p.Path, ".") {
 
 /*
 	/graph/2020/03/09-36e55605/img/200310_012140-1280.jpg
@@ -75,7 +75,7 @@ func Split(path string) *Path {
 	chain = removeLast(chain)
 
 	return &Path{
-		Raw:    path,
+		Path:   path,
 		Chain:  chain,
 		Slug:   slug,
 		Hash:   hash,

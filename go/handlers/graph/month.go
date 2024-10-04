@@ -78,7 +78,7 @@ func monthTitle(t *tree.Tree, lang string) string {
 
 func getMonthId(p *paths.Path) (int64, error) {
 	if len(p.Chain) != 3 {
-		return 0, fmt.Errorf("could not parse month id: %v", p.Raw)
+		return 0, fmt.Errorf("could not parse month id: %v", p.Path)
 	}
 
 	slug := p.Slug

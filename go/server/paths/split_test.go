@@ -16,7 +16,7 @@ var cases = []*testCase{
 	{
 		path: "/de/indecs/leben/ueberleben/oeffnungen-33ac2565",
 		result: &Path{
-			Raw:    "/de/indecs/leben/ueberleben/oeffnungen-33ac2565",
+			Path:   "/de/indecs/leben/ueberleben/oeffnungen-33ac2565",
 			Chain:  []string{"de", "indecs", "leben", "ueberleben"},
 			Slug:   "oeffnungen",
 			Hash:   "33ac2565",
@@ -27,7 +27,7 @@ var cases = []*testCase{
 	{
 		path: "/en/cache/24-08/10-well-i-call-it-art-theory-3f358b02/files/sizes/240810_094201-1080.mp4",
 		result: &Path{
-			Raw:    "/en/cache/24-08/10-well-i-call-it-art-theory-3f358b02/files/sizes/240810_094201-1080.mp4",
+			Path:   "/en/cache/24-08/10-well-i-call-it-art-theory-3f358b02/files/sizes/240810_094201-1080.mp4",
 			Chain:  []string{"en", "cache", "24-08"},
 			Slug:   "10-well-i-call-it-art-theory",
 			Hash:   "3f358b02",
@@ -42,7 +42,7 @@ var cases = []*testCase{
 	{
 		path: "/en/cache/24-08/10-well-i-call-it-art-theory-3f358b02/img/cover-480.webp",
 		result: &Path{
-			Raw:    "/en/cache/24-08/10-well-i-call-it-art-theory-3f358b02/img/cover-480.webp",
+			Path:   "/en/cache/24-08/10-well-i-call-it-art-theory-3f358b02/img/cover-480.webp",
 			Chain:  []string{"en", "cache", "24-08"},
 			Slug:   "10-well-i-call-it-art-theory",
 			Hash:   "3f358b02",
@@ -57,7 +57,7 @@ var cases = []*testCase{
 	{
 		path: "/en/img/24-08/10-well-i-call-it-art-theory-3f358b02/img/cover-480.webp",
 		result: &Path{
-			Raw:    "/en/img/24-08/10-well-i-call-it-art-theory-3f358b02/img/cover-480.webp",
+			Path:   "/en/img/24-08/10-well-i-call-it-art-theory-3f358b02/img/cover-480.webp",
 			Chain:  []string{"en", "img", "24-08"},
 			Slug:   "10-well-i-call-it-art-theory",
 			Hash:   "3f358b02",
