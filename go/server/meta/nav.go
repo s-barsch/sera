@@ -30,7 +30,7 @@ func NewNav(lang string) Nav {
 	return []*Link{
 		{
 			Name: "home",
-			Href: fmt.Sprintf("/%v", homePath[lang]),
+			Href: homePath[lang],
 		},
 		{
 			Name: "graph",
