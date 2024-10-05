@@ -19,7 +19,7 @@ type Meta struct {
 	Split *paths.Path
 
 	Title   string
-	Section string
+	section string
 
 	Nav   Nav
 	Lang  string
@@ -27,6 +27,10 @@ type Meta struct {
 
 	Desc   string
 	Schema *Schema
+}
+
+func (m *Meta) Section() string {
+	return m.section
 }
 
 func NewMeta(users *usr.Users, w http.ResponseWriter, r *http.Request) (*Meta, error) {
@@ -68,7 +72,7 @@ func (m *Meta) SetHreflang(e entry.Entry) {
 }
 
 func (m *Meta) SetSection(section string) {
-	m.Section = section
+	m.section = section
 	m.SetNav(section)
 }
 
