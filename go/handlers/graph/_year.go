@@ -6,7 +6,6 @@ import (
 
 	"g.rg-s.com/sera/go/entry"
 	"g.rg-s.com/sera/go/entry/types/tree"
-	"g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 	"g.rg-s.com/sera/go/server/paths"
 )
@@ -19,10 +18,10 @@ type yearPage struct {
 	Next    *tree.Tree
 }
 
-func YearPage(s *server.Server, w http.ResponseWriter, r *http.Request, p *paths.Path) {
+func YearPage(w http.ResponseWriter, r *http.Request, p *paths.Path) {
 	lang := head.Lang(r.Host)
 
-	graph := s.Trees["graph"].Access(a.Subscriber)[lang]
+	graph := s.Store.Trees["graph"].Access(a.Subscriber)[lang]
 
 	id, err := getYearId(p.Slug)
 	if err != nil {

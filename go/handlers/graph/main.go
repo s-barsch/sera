@@ -7,7 +7,7 @@ import (
 
 	"g.rg-s.com/sera/go/entry"
 	"g.rg-s.com/sera/go/entry/types/tree"
-	"g.rg-s.com/sera/go/server"
+	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 )
 
@@ -19,8 +19,8 @@ type graphMain struct {
 	//Next *entry.Hold
 }
 
-func Main(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	t := s.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
+func Main(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+	t := s.Store.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
 
 	m.Title = "Graph"
 	m.Section = "graph"
@@ -33,9 +33,9 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta
 
 	prev, _ := yearSiblings(lastTree(t))
 
-	entries := s.Recents["graph"].Access(m.Auth.Subscriber)[m.Lang]
+	entries := s.Store.Recents["graph"].Access(m.Auth.Subscriber)[m.Lang]
 
-	err = s.ExecuteTemplate(w, "graph-main", &graphMain{
+	err = s.Store.ExecuteTemplate(w, "graph-main", &graphMain{
 		Meta:    m,
 		Tree:    t,
 		Entries: entries.Offset(0, 100),
