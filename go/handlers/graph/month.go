@@ -21,8 +21,6 @@ type monthPage struct {
 }
 
 func MonthPage(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	graph := s.Store.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
-
 	id, err := getMonthId(m.Split)
 	if err != nil {
 		http.NotFound(w, r)
@@ -30,6 +28,7 @@ func MonthPage(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 		return
 	}
 
+	graph := s.Store.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
 	t, err := graph.LookupTree(id)
 	if err != nil {
 		http.NotFound(w, r)

@@ -9,24 +9,11 @@ import (
 	"g.rg-s.com/sera/go/server/paths"
 )
 
-/*
-func graphPart(w http.ResponseWriter, r *http.Request) {
-	serveGraphElementPart(w, r, splitPath(r.URL.Path))
-}
-*/
-
-/*
-	if rel == "/check" {
-		Check(s, w, r)
-		return
-	}
-*/
-
 func Route(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	switch {
 	case m.Path == "/en/graph" || m.Path == "/de/graph":
+		// Main is currently not served directly.
 		MainRedirect(w, r, m)
-		//Main(s, w, r, a)
 
 	case m.Split.IsFile():
 		extra.ServeFile(w, r, m)

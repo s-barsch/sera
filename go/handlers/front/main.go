@@ -25,7 +25,6 @@ type frontMain struct {
 }
 
 func Main(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-
 	m.Title = ""
 	m.Section = "home"
 	m.Desc = s.Store.Vars.Lang("site", m.Lang)
@@ -62,11 +61,3 @@ func Main(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 		log.Println(err)
 	}
 }
-
-/*
-	e, err := s.Trees["graph"].Access(a.Subscriber)[m.Lang].LookupEntryHash(s.Vars.FrontSettings.Featured)
-	if err != nil {
-		log.Println(err)
-	}
-*/
-//Featured: e,

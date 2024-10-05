@@ -15,17 +15,6 @@ func MainRedirect(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	http.Redirect(w, r, path, http.StatusTemporaryRedirect)
 }
 
-/*
-func MainRedirect(s *server.Server, w http.ResponseWriter, r *http.Request) {
-	graph := s.Trees["graph"].Access(true)["de"]
-	if len(graph.Trees) < 1 {
-		http.Error(w, "graph not found", 500)
-		return
-	}
-	http.Redirect(w, r, graph.Trees[len(graph.Trees)-1].Perma("de"), 307)
-}
-*/
-
 func YearRedirect(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	t, err := findYear(m.Split.Slug)
 	if err != nil {
