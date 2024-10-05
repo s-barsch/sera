@@ -10,14 +10,19 @@ import (
 
 func Route(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	switch rel := m.Path[len("/de/cache"):]; {
+
 	case rel == "/":
 		http.Redirect(w, r, "/cache", http.StatusMovedPermanently)
+
 	case rel == "":
 		Main(w, r, m)
+
 	case isYearPage(m.Split.Slug):
 		Year(w, r, m)
+
 	case m.Split.IsFile():
 		extra.ServeFile(w, r, m)
+
 	default:
 		ServeSingle(w, r, m)
 	}
