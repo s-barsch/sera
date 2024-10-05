@@ -19,7 +19,6 @@ type cacheMain struct {
 }
 
 func Main(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-
 	t := s.Store.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
 
 	m.Title = tools.Title(tools.KineName[m.Lang])
