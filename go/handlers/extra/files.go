@@ -43,19 +43,19 @@ func serveFile(w http.ResponseWriter, r *http.Request, m *meta.Meta) error {
 	col, ok := e.(entry.Collection)
 
 	if !ok {
-		return serveSingleBlob(w, r, e, m.Split)
+		return serveSingleBlob(w, r, m, e)
 	}
 
-	return serveCollectionBlob(w, r, col, m.Split)
+	return serveCollectionBlob(w, r, m, col)
 }
 
-func serveSingleBlob(w http.ResponseWriter, r *http.Request, e entry.Entry, path *paths.Path) error {
+func serveSingleBlob(w http.ResponseWriter, r *http.Request, m *meta.Meta, e entry.Entry) error {
 	blob, ok := e.(entry.Blob)
 	if !ok {
 		return fmt.Errorf("file to serve (%v) is no blob", e.File().Name())
 	}
 
-	location, err := blob.Location(path.File.Ext, path.File.Option)
+	location, err := blob.Location(m.Split.File.Ext, m.Split.File.Option)
 	if err != nil {
 		return err
 	}
@@ -63,27 +63,27 @@ func serveSingleBlob(w http.ResponseWriter, r *http.Request, e entry.Entry, path
 	return nil
 }
 
-func serveCollectionBlob(w http.ResponseWriter, r *http.Request, col entry.Collection, path *paths.Path) error {
-	name := baseName(path.File.Name)
+func serveCollectionBlob(w http.ResponseWriter, r *http.Request, m *meta.Meta, col entry.Collection) error {
+	name := baseName(m.Split.File.Name)
 	for _, e := range col.Entries() {
 		if baseName(e.File().Name()) == name {
-			return serveSingleBlob(w, r, e, path)
+			return serveSingleBlob(w, r, m, e)
 		}
 	}
 
-	if name := path.File.Name; len(name) > 5 && name[:5] == "cover" {
+	if name := m.Split.File.Name; len(name) > 5 && name[:5] == "cover" {
 		set, ok := col.(*set.Set)
 		if ok && set.Cover != nil {
-			return serveSingleBlob(w, r, set.Cover, path)
+			return serveSingleBlob(w, r, m, set.Cover)
 		}
 		t, ok := col.(*tree.Tree)
 		if ok && t.Cover != nil {
-			return serveSingleBlob(w, r, t.Cover, path)
+			return serveSingleBlob(w, r, m, t.Cover)
 		}
-		return fmt.Errorf("serveCollectionBlob: Cover %v not found", path.File.Name)
+		return fmt.Errorf("serveCollectionBlob: Cover %v not found", m.Split.File.Name)
 	}
 
-	return fmt.Errorf("serveCollectionBlob: File %v not found", path.File.Name)
+	return fmt.Errorf("serveCollectionBlob: File %v not found", m.Split.File.Name)
 }
 
 func baseName(name string) string {
