@@ -33,14 +33,9 @@ func Year(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	}
 
 	m.Title = tools.Title(fmt.Sprintf("%v - %v", t.Date().Format("2006"), "Cache"))
-	m.Section = "cache"
 	// TODO: m.Desc = s.Vars.Lang("cache-desc", m.Lang)
-
-	err = m.Process(t)
-	if err != nil {
-		log.Println(err)
-		return
-	}
+	m.SetSection("cache")
+	m.SetHreflang(t)
 
 	entries := t.TraverseEntriesReverse()
 

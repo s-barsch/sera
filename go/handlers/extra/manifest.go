@@ -13,7 +13,7 @@ func Manifest(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	m.Desc = s.Store.Vars.Lang("site", m.Lang)
 
 	/*
-		err := m.Process(nil)
+		m.SetHreflang(nil)
 		if err != nil {
 			log.Println(err)
 			return

@@ -36,13 +36,9 @@ func ServeSingle(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	prev, next := getPrevNext(s.Store.Recents["graph"].Access(m.Auth.Subscriber)[m.Lang], e)
 
 	m.Title = graphEntryTitle(e, m.Lang)
-	m.Section = "graph"
 
-	err = m.Process(e)
-	if err != nil {
-		log.Println(err)
-		return
-	}
+	m.SetSection("graph")
+	m.SetHreflang(e)
 
 	/*
 		schema, err := head.ElSchema()

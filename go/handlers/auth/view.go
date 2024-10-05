@@ -36,13 +36,8 @@ func SysPage(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	}
 
 	m.Title = t.Title(m.Lang)
-	m.Section = "extra"
-
-	err = m.Process(t)
-	if err != nil {
-		log.Println(err)
-		return
-	}
+	m.SetSection("extra")
+	m.SetHreflang(t)
 
 	err = s.Store.ExecuteTemplate(w, t.Slug("en")+"-extra", &extraHold{
 		Meta: m,

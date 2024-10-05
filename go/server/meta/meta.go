@@ -63,19 +63,13 @@ func GetAuth(r *http.Request) (*usr.Auth, error) {
 	return a, nil
 }
 
-func (m *Meta) Process(e entry.Entry) error {
-	if m.Section == "" {
-		return fmt.Errorf("section not set")
-	}
-	m.Langs = m.MakeLangs(e)
-	// This needs section to be set. Thats why it is called later.
-	m.Nav = m.MakeNav(m.Section)
-
-	return nil
+func (m *Meta) SetHreflang(e entry.Entry) {
+	m.Langs = MakeHreflangs(m.HostAddress(), e)
 }
 
 func (m *Meta) SetSection(section string) {
-	m.Nav = m.MakeNav(section)
+	m.Section = section
+	m.SetNav(section)
 }
 
 func SiteName(lang string) string {

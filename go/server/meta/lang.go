@@ -45,26 +45,25 @@ func (langs Langs) Hreflang(name string) *Link {
 	return nil
 }
 
-func (m *Meta) MakeLangs(e entry.Entry) Langs {
+func MakeHreflangs(host string, e entry.Entry) Langs {
 	langs := []*Link{}
 	for _, lang := range []string{"de", "en"} {
-		langs = append(langs, getLink(m, e, lang))
+		langs = append(langs, getLink(host, e, lang))
 	}
 	return langs
 }
 
-func getLink(m *Meta, e entry.Entry, lang string) *Link {
-	href := ""
-
+func getLink(host string, e entry.Entry, lang string) *Link {
+	path := ""
 	if e == nil {
-		href = fmt.Sprintf("%v/%v", m.HostAddress(), homeAddress[lang])
+		path = homePath[lang]
 	} else {
-		href = m.AbsoluteURL(e.Perma(lang), lang)
+		path = e.Perma(lang)
 	}
 
 	return &Link{
 		Name: lang,
-		Href: href,
+		Href: fmt.Sprintf("%v%v", host, path),
 	}
 }
 
@@ -103,7 +102,7 @@ func isHostnameLocal(host string) bool {
 	return false
 }
 
-var homeAddress = map[string]string{
-	"de": "de",
-	"en": "",
+var homePath = map[string]string{
+	"de": "/de",
+	"en": "/",
 }

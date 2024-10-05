@@ -26,13 +26,10 @@ type frontMain struct {
 
 func Main(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	m.Title = ""
-	m.Section = "home"
 	m.Desc = s.Store.Vars.Lang("site", m.Lang)
 
-	err := m.Process(nil)
-	if err != nil {
-		return
-	}
+	m.SetSection("home")
+	m.SetHreflang(nil)
 
 	//indecs := s.Recents["indecs"].Access(m.Auth.Subscriber)[m.Lang]
 	graph := s.Store.Recents["graph"].Access(m.Auth.Subscriber)[m.Lang]
@@ -49,7 +46,7 @@ func Main(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 
 	months = newmonths
 
-	err = s.Store.ExecuteTemplate(w, "front", &frontMain{
+	err := s.Store.ExecuteTemplate(w, "front", &frontMain{
 		Meta: m,
 		//Index:  indecs.Limit(s.Vars.FrontSettings.Index),
 		Graph:  graph.Limit(s.Store.Vars.FrontSettings.Graph),

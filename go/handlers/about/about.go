@@ -29,13 +29,8 @@ func About(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	}
 
 	m.Title = t.Title(m.Lang)
-	m.Section = "about"
-
-	err = m.Process(t)
-	if err != nil {
-		log.Println(err)
-		return
-	}
+	m.SetSection("about")
+	m.SetHreflang(t)
 
 	err = s.Store.ExecuteTemplate(w, aboutTemplate(t.Level()), &aboutTree{
 		Meta: m,

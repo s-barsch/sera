@@ -23,19 +23,15 @@ func Main(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	t := s.Store.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
 
 	m.Title = "Graph"
-	m.Section = "graph"
 
-	err := m.Process(t)
-	if err != nil {
-		log.Println(err)
-		return
-	}
+	m.SetSection("graph")
+	m.SetHreflang(t)
 
 	prev, _ := yearSiblings(lastTree(t))
 
 	entries := s.Store.Recents["graph"].Access(m.Auth.Subscriber)[m.Lang]
 
-	err = s.Store.ExecuteTemplate(w, "graph-main", &graphMain{
+	err := s.Store.ExecuteTemplate(w, "graph-main", &graphMain{
 		Meta:    m,
 		Tree:    t,
 		Entries: entries.Offset(0, 100),

@@ -22,13 +22,9 @@ func IndexPage(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta
 	}
 
 	m.Title = indecsTitle(t, m.Lang)
-	m.Section = "indecs"
 
-	err := m.Process(t)
-	if err != nil {
-		log.Println(err)
-		return
-	}
+	m.SetSection("indecs")
+	m.SetHreflang(t)
 
 	err = s.ExecuteTemplate(w, "indecs-page", &indecsPage{
 		Meta: m,

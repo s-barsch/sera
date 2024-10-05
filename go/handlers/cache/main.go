@@ -22,17 +22,13 @@ func Main(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 
 	m.Title = "Cache"
 	m.Desc = t.Info().Field("description", m.Lang)
-	m.SetSection("cache")
 
-	err := m.Process(t)
-	if err != nil {
-		log.Println(err)
-		return
-	}
+	m.SetSection("cache")
+	m.SetHreflang(t)
 
 	entries := s.Store.Recents["cache"].Access(m.Auth.Subscriber)[m.Lang].Limit(10)
 
-	err = s.Store.ExecuteTemplate(w, "cache-main", &cacheMain{
+	err := s.Store.ExecuteTemplate(w, "cache-main", &cacheMain{
 		Meta:    m,
 		Tree:    t,
 		Entries: entries,

@@ -11,7 +11,7 @@ type Link struct {
 	Name, Href string
 }
 
-func (m *Meta) MakeNav(section string) Nav {
+func (m *Meta) SetNav(section string) {
 	nav := NewNav(m.Lang)
 
 	for _, l := range nav {
@@ -23,18 +23,14 @@ func (m *Meta) MakeNav(section string) Nav {
 		}
 	}
 
-	return nav
+	m.Nav = nav
 }
 
 func NewNav(lang string) Nav {
-	homeLang := ""
-	if lang == "de" {
-		homeLang = "de"
-	}
 	return []*Link{
 		{
 			Name: "home",
-			Href: fmt.Sprintf("/%v", homeLang),
+			Href: fmt.Sprintf("/%v", homePath[lang]),
 		},
 		{
 			Name: "graph",

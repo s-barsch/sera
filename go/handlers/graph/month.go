@@ -44,14 +44,10 @@ func MonthPage(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	prev, next := prevNext(t)
 
 	m.Title = monthTitle(t, m.Lang)
-	m.Section = "graph"
 	m.Desc = metaDescription(t.Date(), m.Lang)
 
-	err = m.Process(t)
-	if err != nil {
-		log.Println(err)
-		return
-	}
+	m.SetSection("graph")
+	m.SetHreflang(t)
 
 	err = s.Store.ExecuteTemplate(w, "graph-month", &monthPage{
 		Meta: m,

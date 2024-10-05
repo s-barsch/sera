@@ -20,13 +20,9 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta
 	t := s.Trees["indecs"].Access(m.Auth.Subscriber)[m.Lang]
 
 	m.Title = "indecs"
-	m.Section = "indecs"
 
-	err := m.Process(t)
-	if err != nil {
-		log.Println(err)
-		return
-	}
+	m.SetSection("indecs")
+	m.SetHreflang(t)
 
 	recents := s.Recents["indecs"].Access(m.Auth.Subscriber)[m.Lang]
 

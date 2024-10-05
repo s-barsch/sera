@@ -33,13 +33,8 @@ func ServeSingle(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	}
 
 	m.Title = getTitle(e, m.Lang)
-	m.Section = "cache"
-
-	err = m.Process(e)
-	if err != nil {
-		log.Println(err)
-		return
-	}
+	m.SetSection("cache")
+	m.SetHreflang(e)
 
 	err = s.Store.ExecuteTemplate(w, "cache-single", &cacheSingle{
 		Meta:  m,
