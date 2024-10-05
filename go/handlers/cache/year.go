@@ -32,7 +32,7 @@ func Year(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 		return
 	}
 
-	m.Title = tools.Title(fmt.Sprintf("%v - %v", t.Date().Format("2006"), tools.KineName[m.Lang]))
+	m.Title = tools.Title(fmt.Sprintf("%v - %v", t.Date().Format("2006"), "Cache"))
 	m.Section = "cache"
 	// TODO: m.Desc = s.Vars.Lang("cache-desc", m.Lang)
 

@@ -6,7 +6,6 @@ import (
 	"net/http"
 
 	"g.rg-s.com/sera/go/entry"
-	"g.rg-s.com/sera/go/entry/tools"
 	"g.rg-s.com/sera/go/entry/types/tree"
 	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
@@ -21,9 +20,9 @@ type cacheMain struct {
 func Main(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	t := s.Store.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
 
-	m.Title = tools.Title(tools.KineName[m.Lang])
-	m.Section = "cache"
+	m.Title = "Cache"
 	m.Desc = t.Info().Field("description", m.Lang)
+	m.SetSection("cache")
 
 	err := m.Process(t)
 	if err != nil {

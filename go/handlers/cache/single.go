@@ -55,7 +55,7 @@ func getDate(d time.Time, lang string) string {
 }
 
 func getTitle(e entry.Entry, lang string) string {
-	return fmt.Sprintf("%v - %v - %v", e.Title(lang), getDate(e.Date(), lang), tools.Title(tools.KineName[lang]))
+	return fmt.Sprintf("%v - %v - %v", e.Title(lang), getDate(e.Date(), lang), "Cache")
 }
 
 /*

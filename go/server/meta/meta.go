@@ -68,9 +68,14 @@ func (m *Meta) Process(e entry.Entry) error {
 		return fmt.Errorf("section not set")
 	}
 	m.Langs = m.MakeLangs(e)
-	m.Nav = m.MakeNav()
+	// This needs section to be set. Thats why it is called later.
+	m.Nav = m.MakeNav(m.Section)
 
 	return nil
+}
+
+func (m *Meta) SetSection(section string) {
+	m.Nav = m.MakeNav(section)
 }
 
 func SiteName(lang string) string {

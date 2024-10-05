@@ -10,16 +10,6 @@ var Langs = map[string]string{
 	"en": "English",
 }
 
-var AboutName = map[string]string{
-	"de": "about",
-	"en": "about",
-}
-
-var KineName = map[string]string{
-	"de": "cache",
-	"en": "cache",
-}
-
 func Title(str string) string {
 	return cases.Title(language.German).String(str)
 }
