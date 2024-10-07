@@ -42,10 +42,10 @@ func (p *Path) IsFile() bool {
 
 func Split(path string) *Path {
 	rawChain := strings.Split(strings.Trim(path, "/"), "/")
-	chain, folder, subpath := ExtractFolder(rawChain)
-	cutChain, name := ExtractName(chain)
 
-	slug, hash := splitSlugHash(name)
+	chain, folder, subpath := ExtractFolder(rawChain)
+
+	slug, hash := splitSlugHash(last(chain))
 
 	split, err := SplitFile(subpath)
 	if err != nil {
@@ -55,16 +55,12 @@ func Split(path string) *Path {
 
 	return &Path{
 		Path:   path,
-		Chain:  cutChain,
+		Chain:  removeLast(chain),
 		Slug:   slug,
 		Hash:   hash,
 		Folder: folder,
 		File:   split,
 	}
-}
-
-func ExtractName(chain []string) (cutChain []string, name string) {
-	return removeLast(chain), last(chain)
 }
 
 func ExtractFolder(chain []string) (cut []string, folder, subpath string) {
