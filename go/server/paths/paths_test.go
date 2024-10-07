@@ -81,3 +81,28 @@ func TestSplit(t *testing.T) {
 		t.Logf("Split produced:\n\n%# v", pretty.Formatter(p))
 	}
 }
+
+// TestSplitSlugHash tests the splitSlugHash function
+func TestSplitSlugHash(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    string
+		wantSlug string
+		wantHash string
+	}{
+		{"Normal case", "lonely-3f397f82", "lonely", "3f397f82"},
+		{"No hash", "just-a-slug", "just-a-slug", ""},
+		{"Merged months", "11-12", "11-12", ""},
+		{"All hash", "3f397f82", "", "3f397f82"},
+		{"Empty string", "", "", ""},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotSlug, gotHash := splitSlugHash(tt.input)
+			if gotSlug != tt.wantSlug || gotHash != tt.wantHash {
+				t.Errorf("splitSlugHash(%q) = (%q, %q), want (%q, %q)", tt.input, gotSlug, gotHash, tt.wantSlug, tt.wantHash)
+			}
+		})
+	}
+}

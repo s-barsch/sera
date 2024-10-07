@@ -76,35 +76,30 @@ func ExtractFolder(chain []string) (cut []string, folder, subpath string) {
 	return chain, folder, subpath
 }
 
-// Slug and hash are seperated by a dash
-// lonely-3f397f82
-// |slug  |hash
+// Slug and hash are seperated by a dash: lonely-3f397f82
 func splitSlugHash(str string) (slug, hash string) {
 	i := strings.LastIndex(str, "-")
-	// if no dash present: further checks
-	if i < 0 {
-		return discernName(str)
-	}
-	// for merged months "11-12": check via regex
+	// check if it's "11-12" format (contains dash)
 	if i == 2 && IsMergedMonths(str) {
 		return str, ""
 	}
-	// if proper split present: just return
-	return str[:i], str[i+1:]
-}
-
-// "name" understood as a mixture of slug and hash or
-// one of the two.
-func discernName(str string) (slug, hash string) {
-	// for year pages /graph/2006: all slug
+	// if contains dash: check if last word is in fact hash
+	if i > 0 {
+		slug = str[:i]
+		hash = str[i+1:]
+		if tools.IsHash(hash) {
+			return slug, hash
+		}
+	}
+	// short values like years and months are no hash
 	if len(str) < 5 {
 		return str, ""
 	}
-	// if parses: must be all hash
-	_, err := tools.ParseHash(str)
-	if err == nil {
+	// check if it is all hash
+	if tools.IsHash(str) {
 		return "", str
 	}
+	// must be all slug
 	return str, ""
 }
 
