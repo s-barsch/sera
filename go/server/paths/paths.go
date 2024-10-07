@@ -43,19 +43,13 @@ func (p *Path) IsFile() bool {
 func Split(path string) *Path {
 	rawChain := strings.Split(strings.Trim(path, "/"), "/")
 
-	chain, folder, subpath := ExtractFolder(rawChain)
+	cutChain, folder, split := extractSplitFile(rawChain)
 
-	slug, hash := splitSlugHash(last(chain))
-
-	split, err := SplitFile(subpath)
-	if err != nil {
-		log.Println(err)
-		split = &File{Name: subpath}
-	}
+	chain, slug, hash := extractSlugHash(cutChain)
 
 	return &Path{
 		Path:   path,
-		Chain:  removeLast(chain),
+		Chain:  chain,
 		Slug:   slug,
 		Hash:   hash,
 		Folder: folder,
@@ -63,7 +57,24 @@ func Split(path string) *Path {
 	}
 }
 
-func ExtractFolder(chain []string) (cut []string, folder, subpath string) {
+func extractSlugHash(chain []string) ([]string, string, string) {
+	slug, hash := splitSlugHash(last(chain))
+	return removeLast(chain), slug, hash
+}
+
+func extractSplitFile(rawChain []string) (chain []string, folder string, file *File) {
+	chain, folder, subpath := extractFolder(rawChain)
+
+	split, err := SplitFile(subpath)
+	if err != nil {
+		log.Println(err)
+		split = &File{Name: subpath}
+	}
+
+	return chain, folder, split
+}
+
+func extractFolder(chain []string) (cut []string, folder, subpath string) {
 	for i, c := range chain {
 		if i > 1 && (c == "files" || c == "img") {
 			return chain[:i], c, strings.Join(chain[i+1:], "/")
