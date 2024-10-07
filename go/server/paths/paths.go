@@ -79,7 +79,7 @@ func ExtractFolder(chain []string) (cut []string, folder, subpath string) {
 // Slug and hash are seperated by a dash: lonely-3f397f82
 func splitSlugHash(str string) (slug, hash string) {
 	i := strings.LastIndex(str, "-")
-	// check if it's "11-12" format (contains dash)
+	// if contains dash: check if it's "11-12" format
 	if i == 2 && IsMergedMonths(str) {
 		return str, ""
 	}
