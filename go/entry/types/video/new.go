@@ -185,7 +185,11 @@ func getSource(path string) (*Source, error) {
 		isTop = true
 	}
 
-	file := paths.SplitFile(path)
+	file, err := paths.SplitFile(path)
+	if err != nil {
+		return nil, fmt.Errorf("getSource: cannot find source since path is malformed. %w", err)
+	}
+
 	res, err := strconv.Atoi(file.Option)
 	if err != nil {
 		if isTop {

@@ -1,6 +1,7 @@
 package paths
 
 import (
+	"fmt"
 	"log"
 	"regexp"
 	"strings"
@@ -40,21 +41,6 @@ func (p *Path) IsFile() bool {
 	return p.Folder != ""
 }
 
-// || strings.Contains(p.Path, ".") {
-
-/*
-	/graph/2020/03/09-36e55605/img/200310_012140-1280.jpg
-
-    &paths.Path{
-            Page:       "graph",
-            Holds:      {"2020", "03"},
-            Name:       "09",
-            hash:    "36e55605",
-            Subdir:     "img",
-            Subpath: "200310_012140-1280.jpg",
-        }
-*/
-
 func Split(path string) *Path {
 	chain := strings.Split(strings.Trim(path, "/"), "/")
 
@@ -74,13 +60,21 @@ func Split(path string) *Path {
 
 	chain = removeLast(chain)
 
+	split, err := SplitFile(subpath)
+	if err != nil {
+		log.Println(err)
+		split = &File{
+			Name: subpath,
+		}
+	}
+
 	return &Path{
 		Path:   path,
 		Chain:  chain,
 		Slug:   slug,
 		Hash:   hash,
 		Folder: folder,
-		File:   SplitFile(subpath),
+		File:   split,
 	}
 }
 
@@ -128,52 +122,47 @@ func discernName(str string) (slug, hash string) {
 
 // filepath == 160403_124512-1600.jpg
 //			  |             |
-//			  filename	    size
+//			  name			option
+//
+// New filename: 160403_124512-1600.jpg
+// Option: 1600
+// Ext: "jpg"
 
-// 160403_124512-1600.jpg -> (160403_124512.jpg) (1600)
-/*
- * TODO: This function was supposed for images only. I also used it
- * for VTTs then. Now it has become too complex. Should be redone.
- */
-
-const minLen = len("vtt/x.de.vtt")
-
-func SplitFile(filep string) *File {
-	if len(filep) >= minLen && filep[:3] == "vtt" {
-		i := strings.Index(filep, ".")
-		j := strings.LastIndex(filep, ".")
-		if i < 0 || j < 0 || i == j {
-			log.Println("errornous vtt file name: ", filep)
-			return &File{
-				Name:   filep,
-				Option: "err",
-			}
-		}
-		return splitFileParamters(filep, i, j)
+func SplitFile(filep string) (*File, error) {
+	if len(filep) >= len("vtt/x.de.vtt") && filep[:3] == "vtt" {
+		return splitVTT(filep)
 	}
-	i := strings.LastIndex(filep, "-")
-	if i < 0 {
-		return &File{
-			Name: filep,
-		}
-	}
-	j := strings.LastIndex(filep, ".")
-	if j < 0 {
-		// No file extension.
-		// 160403_124512-1600 -> (160403_124512) (1600)
-		return &File{
-			Name:   filep[:i],
-			Option: filep[i+1:],
-		}
-	}
-	return splitFileParamters(filep, i, j)
+	return splitMedia(filep)
 }
 
-func splitFileParamters(filep string, i, j int) *File {
-	// Remove size and put filename back together.
+// splitMedia: for images and video
+
+func splitMedia(filep string) (*File, error) {
+	i := strings.LastIndex(filep, "-")
+	j := strings.LastIndex(filep, ".")
+
+	return splitFileParameters(filep, i, j)
+}
+
+// Sample filepath: vtt/x.de.vtt
+
+func splitVTT(filep string) (*File, error) {
+	i := strings.Index(filep, ".")
+	j := strings.LastIndex(filep, ".")
+
+	return splitFileParameters(filep, i, j)
+}
+
+// 160403_124512-1600.jpg -> (160403_124512.jpg) (1600)
+
+func splitFileParameters(filep string, i, j int) (*File, error) {
+	if i < 0 || j < 0 || i == j {
+		return nil, fmt.Errorf("splitFileParameters: errornous filename: %v", filep)
+	}
+
 	return &File{
 		Name:   filep[:i] + filep[j:],
 		Option: filep[i+1 : j],
 		Ext:    filep[j+1:],
-	}
+	}, nil
 }
