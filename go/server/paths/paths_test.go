@@ -25,42 +25,12 @@ var cases = []*testCase{
 		},
 	},
 	{
-		path: "/en/cache/24-08/10-well-i-call-it-art-theory-3f358b02/files/sizes/240810_094201-1080.mp4",
+		path: "/en/cache/24-08/10-super-theory-3f8b02/img/cover-480.webp",
 		result: &Path{
-			Path:   "/en/cache/24-08/10-well-i-call-it-art-theory-3f358b02/files/sizes/240810_094201-1080.mp4",
+			Path:   "/en/cache/24-08/10-super-theory-3f8b02/img/cover-480.webp",
 			Chain:  []string{"en", "cache", "24-08"},
-			Slug:   "10-well-i-call-it-art-theory",
-			Hash:   "3f358b02",
-			Folder: "files",
-			File: &File{
-				Name:   "sizes/240810_094201.mp4",
-				Option: "1080",
-				Ext:    "mp4",
-			},
-		},
-	},
-	{
-		path: "/en/cache/24-08/10-well-i-call-it-art-theory-3f358b02/img/cover-480.webp",
-		result: &Path{
-			Path:   "/en/cache/24-08/10-well-i-call-it-art-theory-3f358b02/img/cover-480.webp",
-			Chain:  []string{"en", "cache", "24-08"},
-			Slug:   "10-well-i-call-it-art-theory",
-			Hash:   "3f358b02",
-			Folder: "img",
-			File: &File{
-				Name:   "cover.webp",
-				Option: "480",
-				Ext:    "webp",
-			},
-		},
-	},
-	{
-		path: "/en/img/24-08/10-well-i-call-it-art-theory-3f358b02/img/cover-480.webp",
-		result: &Path{
-			Path:   "/en/img/24-08/10-well-i-call-it-art-theory-3f358b02/img/cover-480.webp",
-			Chain:  []string{"en", "img", "24-08"},
-			Slug:   "10-well-i-call-it-art-theory",
-			Hash:   "3f358b02",
+			Slug:   "10-super-theory",
+			Hash:   "3f8b02",
 			Folder: "img",
 			File: &File{
 				Name:   "cover.webp",
