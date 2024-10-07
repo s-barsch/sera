@@ -5,14 +5,8 @@ import (
 	"strings"
 )
 
-// filepath == 160403_124512-1600.jpg
-//			  |             |
-//			  name			option
-//
-// New filename: 160403_124512-1600.jpg
-// Option: 1600
-// Ext: "jpg"
-
+// 160403_124512-1600.jpg
+// (name)	     (option)(ext)
 func SplitFile(filep string) (*File, error) {
 	if filep == "" {
 		return nil, nil
@@ -41,7 +35,7 @@ func splitVTT(filep string) (*File, error) {
 	return splitFileParameters(filep, i, j)
 }
 
-// 160403_124512-1600.jpg -> (160403_124512.jpg) (1600)
+// new filename: 160403_124512-1600.jpg -> (160403_124512.jpg) (1600)
 
 func splitFileParameters(filep string, i, j int) (*File, error) {
 	if i < 0 || j < 0 || i == j {

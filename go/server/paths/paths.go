@@ -41,7 +41,7 @@ func (p *Path) IsFile() bool {
 }
 
 // /en/cache/24-08/ 10-super-theory- 3f412b02 /img/      cover-480.webp"
-// (chain)        (slug)             (hash)   (folder)   (file)
+// (chain)          (slug)           (hash)   (folder)   (file)
 func Split(path string) *Path {
 	rawChain := strings.Split(strings.Trim(path, "/"), "/")
 
