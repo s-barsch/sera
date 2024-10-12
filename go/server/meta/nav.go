@@ -36,10 +36,10 @@ func NewNav(lang string) Nav {
 			Name: "graph",
 			Href: fmt.Sprintf("/%v/graph", lang),
 		},
-		{
-			Name: "cache",
-			Href: fmt.Sprintf("/%v/%v", lang, "cache"),
-		},
+		// {
+		// 	Name: "cache",
+		// 	Href: fmt.Sprintf("/%v/%v", lang, "cache"),
+		// },
 		{
 			Name: "about",
 			Href: fmt.Sprintf("/%v/%v", lang, "about"),
