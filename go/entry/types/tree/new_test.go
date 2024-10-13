@@ -2,8 +2,9 @@ package tree
 
 import (
 	"fmt"
-	"github.com/kr/pretty"
 	"testing"
+
+	"github.com/kr/pretty"
 )
 
 func TestReadTree(t *testing.T) {

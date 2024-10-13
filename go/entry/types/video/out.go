@@ -85,7 +85,7 @@ func (v *Video) Captioned() bool {
 }
 
 func (v *Video) Transcripted() bool {
-	for _, str := range v.Transcript.Langs {
+	for _, str := range v.Transcript.LangMap {
 		if str == "" {
 			return false
 		}
