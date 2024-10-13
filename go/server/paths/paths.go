@@ -8,7 +8,7 @@ import (
 	"g.rg-s.com/sera/go/entry/tools"
 )
 
-type Path struct {
+type Split struct {
 	Path   string
 	Chain  []string
 	Slug   string
@@ -21,14 +21,14 @@ type File struct {
 	Name, Option, Ext string
 }
 
-func (p *Path) Lang() string {
+func (p *Split) Lang() string {
 	if len(p.Chain) > 0 {
 		return p.Chain[0]
 	}
 	return ""
 }
 
-func (p *Path) Section() string {
+func (p *Split) Section() string {
 	if len(p.Chain) > 1 {
 		section := p.Chain[1]
 		return section
@@ -36,20 +36,20 @@ func (p *Path) Section() string {
 	return ""
 }
 
-func (p *Path) IsFile() bool {
+func (p *Split) IsFile() bool {
 	return p.File != nil
 }
 
 // /en/cache/24-08/ 10-super-theory- 3f412b02 /img/      cover-480.webp"
 // (chain)          (slug)           (hash)   (folder)   (file)
-func Split(path string) *Path {
+func SplitPath(path string) *Split {
 	rawChain := strings.Split(strings.Trim(path, "/"), "/")
 
 	cutChain, folder, split := extractSplitFile(rawChain)
 
 	chain, slug, hash := extractSlugHash(cutChain)
 
-	return &Path{
+	return &Split{
 		Path:   path,
 		Chain:  chain,
 		Slug:   slug,

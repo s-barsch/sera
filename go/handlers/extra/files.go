@@ -107,7 +107,7 @@ func stripBlur(name string) string {
 	return name
 }
 
-func getEntry(t *tree.Tree, path *paths.Path) (entry.Entry, error) {
+func getEntry(t *tree.Tree, path *paths.Split) (entry.Entry, error) {
 	hash := path.Hash
 	if hash == "" {
 		h, err := getMonthHash(path)
@@ -119,7 +119,7 @@ func getEntry(t *tree.Tree, path *paths.Path) (entry.Entry, error) {
 	return t.LookupEntryHash(hash)
 }
 
-func getMonthHash(path *paths.Path) (string, error) {
+func getMonthHash(path *paths.Split) (string, error) {
 	if len(path.Chain) != 3 {
 		return "", fmt.Errorf("getMonthEntry: wrong month format. %v", path.Path)
 	}

@@ -9,13 +9,13 @@ import (
 
 type testCase struct {
 	path   string
-	result *Path
+	result *Split
 }
 
 var cases = []*testCase{
 	{
 		path: "/de/indecs/leben/ueberleben/oeffnungen-33ac2565",
-		result: &Path{
+		result: &Split{
 			Path:   "/de/indecs/leben/ueberleben/oeffnungen-33ac2565",
 			Chain:  []string{"de", "indecs", "leben", "ueberleben"},
 			Slug:   "oeffnungen",
@@ -26,7 +26,7 @@ var cases = []*testCase{
 	},
 	{
 		path: "/en/cache/24-08/10-super-theory-3f8b02/img/cover-480.webp",
-		result: &Path{
+		result: &Split{
 			Path:   "/en/cache/24-08/10-super-theory-3f8b02/img/cover-480.webp",
 			Chain:  []string{"en", "cache", "24-08"},
 			Slug:   "10-super-theory",
@@ -43,7 +43,7 @@ var cases = []*testCase{
 
 func TestSplit(t *testing.T) {
 	for _, c := range cases {
-		p := Split(c.path)
+		p := SplitPath(c.path)
 		if !reflect.DeepEqual(p, c.result) {
 			t.Errorf("Split failed. Want result:\n\n%# v", pretty.Formatter(c.result))
 		}

@@ -71,7 +71,7 @@ func monthTitle(t *tree.Tree, lang string) string {
 	return fmt.Sprintf("%v %v - Graph", t.Title(lang), t.Date().Format("2006"))
 }
 
-func getMonthId(p *paths.Path) (int64, error) {
+func getMonthId(p *paths.Split) (int64, error) {
 	if len(p.Chain) != 3 {
 		return 0, fmt.Errorf("could not parse month id: %v", p.Path)
 	}
