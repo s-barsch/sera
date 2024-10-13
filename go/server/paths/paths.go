@@ -14,7 +14,7 @@ type Split struct {
 	Slug   string
 	Hash   string
 	Folder string
-	File   *File
+	*File
 }
 
 type File struct {
