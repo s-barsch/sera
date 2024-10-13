@@ -10,8 +10,8 @@ import (
 )
 
 type Meta struct {
-	Auth    *usr.Auth
-	Options *Options
+	*usr.Auth
+	*Options
 
 	Path string
 	Host string
@@ -25,8 +25,8 @@ type Meta struct {
 	Lang  string
 	Langs Langs
 
-	Desc   string
-	Schema *Schema
+	Desc string
+	*Schema
 }
 
 func (m *Meta) Section() string {
