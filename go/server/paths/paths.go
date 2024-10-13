@@ -9,7 +9,7 @@ import (
 )
 
 type Split struct {
-	Path   string
+	Raw    string
 	Chain  []string
 	Slug   string
 	Hash   string
@@ -50,7 +50,7 @@ func SplitPath(path string) *Split {
 	chain, slug, hash := extractSlugHash(cutChain)
 
 	return &Split{
-		Path:   path,
+		Raw:    path,
 		Chain:  chain,
 		Slug:   slug,
 		Hash:   hash,

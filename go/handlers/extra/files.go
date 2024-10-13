@@ -121,7 +121,7 @@ func getEntry(t *tree.Tree, path *paths.Split) (entry.Entry, error) {
 
 func getMonthHash(path *paths.Split) (string, error) {
 	if len(path.Chain) != 3 {
-		return "", fmt.Errorf("getMonthEntry: wrong month format. %v", path.Path)
+		return "", fmt.Errorf("getMonthEntry: wrong month format. %v", path.Raw)
 	}
 
 	slug := path.Slug

@@ -16,7 +16,7 @@ var cases = []*testCase{
 	{
 		path: "/de/indecs/leben/ueberleben/oeffnungen-33ac2565",
 		result: &Split{
-			Path:   "/de/indecs/leben/ueberleben/oeffnungen-33ac2565",
+			Raw:    "/de/indecs/leben/ueberleben/oeffnungen-33ac2565",
 			Chain:  []string{"de", "indecs", "leben", "ueberleben"},
 			Slug:   "oeffnungen",
 			Hash:   "33ac2565",
@@ -27,7 +27,7 @@ var cases = []*testCase{
 	{
 		path: "/en/cache/24-08/10-super-theory-3f8b02/img/cover-480.webp",
 		result: &Split{
-			Path:   "/en/cache/24-08/10-super-theory-3f8b02/img/cover-480.webp",
+			Raw:    "/en/cache/24-08/10-super-theory-3f8b02/img/cover-480.webp",
 			Chain:  []string{"en", "cache", "24-08"},
 			Slug:   "10-super-theory",
 			Hash:   "3f8b02",
