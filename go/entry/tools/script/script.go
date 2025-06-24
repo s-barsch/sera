@@ -10,19 +10,19 @@ import (
 )
 
 type Script struct {
-	Langs     LangMap
-	Footnotes Footnotes
+	LangMap
+	Footnotes
 }
 
 func EmptyScript() *Script {
 	return &Script{
-		Langs:     map[string]string{},
+		LangMap:   map[string]string{},
 		Footnotes: map[string][]string{},
 	}
 }
 
 func (s *Script) Is() bool {
-	for _, str := range s.Langs {
+	for _, str := range s.LangMap {
 		if str != "" {
 			return true
 		}
@@ -45,14 +45,14 @@ func RenderScript(langs LangMap) *Script {
 	notes.ApplyMarkdown()
 
 	return &Script{
-		Langs:     langs,
+		LangMap:   langs,
 		Footnotes: notes,
 	}
 }
 
 func (s Script) Copy() *Script {
 	return &Script{
-		Langs:     s.Langs.Copy(),
+		LangMap:   s.LangMap.Copy(),
 		Footnotes: s.Footnotes.Copy(),
 	}
 }
@@ -113,7 +113,7 @@ func (s *Script) NumberFootnotes(init int) {
 		buf := bytes.Buffer{}
 
 		i := 0
-		t := s.Langs[lang]
+		t := s.LangMap[lang]
 		for len(t) > 0 {
 			c, size := utf8.DecodeRuneInString(t)
 			t = t[size:]
@@ -128,6 +128,6 @@ func (s *Script) NumberFootnotes(init int) {
 			buf.WriteString(string(c))
 		}
 
-		s.Langs[lang] = buf.String()
+		s.LangMap[lang] = buf.String()
 	}
 }
