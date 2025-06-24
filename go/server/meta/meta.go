@@ -77,7 +77,7 @@ func (m *Meta) SetSection(section string) {
 }
 
 func SiteName(lang string) string {
-	return "Sacer Cruor"
+	return "Sacer Feral"
 }
 
 func (m *Meta) PageTitle() string {
