@@ -8,9 +8,8 @@ import (
 
 	"g.rg-s.com/sera/go/entry"
 	"g.rg-s.com/sera/go/entry/tools"
-	"g.rg-s.com/sera/go/server"
+	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
-	"g.rg-s.com/sera/go/server/paths"
 )
 
 type graphSingle struct {
@@ -20,9 +19,9 @@ type graphSingle struct {
 	Next  entry.Entry
 }
 
-func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta, p *paths.Path) {
-	graph := s.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
-	e, err := graph.LookupEntryHash(p.Hash)
+func ServeSingle(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+	graph := s.Store.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
+	e, err := graph.LookupEntryHash(m.Split.Hash)
 	if err != nil {
 		http.Redirect(w, r, "/graph", http.StatusMovedPermanently)
 		return
@@ -34,27 +33,23 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, m *me
 		return
 	}
 
-	prev, next := getPrevNext(s.Recents["graph"].Access(m.Auth.Subscriber)[m.Lang], e)
+	prev, next := getPrevNext(s.Store.Recents["graph"].Access(m.Auth.Subscriber)[m.Lang], e)
 
 	m.Title = graphEntryTitle(e, m.Lang)
-	m.Section = "graph"
 
-	err = m.Process(e)
-	if err != nil {
-		s.Log.Println(err)
-		return
-	}
+	m.SetSection("graph")
+	m.SetHreflang(e)
 
 	/*
 		schema, err := head.ElSchema()
 		if err != nil {
-			s.Log.Println(err)
+			log.Println(err)
 			return
 		}
 		head.Schema = schema
 	*/
 
-	err = s.ExecuteTemplate(w, "graph-single", &graphSingle{
+	err = s.Store.ExecuteTemplate(w, "graph-single", &graphSingle{
 		Meta:  m,
 		Entry: e,
 		Prev:  prev,

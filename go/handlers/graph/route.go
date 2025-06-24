@@ -5,49 +5,27 @@ import (
 	"strconv"
 
 	"g.rg-s.com/sera/go/handlers/extra"
-	"g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 	"g.rg-s.com/sera/go/server/paths"
 )
 
-/*
-func graphPart(w http.ResponseWriter, r *http.Request) {
-	serveGraphElementPart(w, r, splitPath(r.URL.Path))
-}
-*/
-
-/*
-	if rel == "/check" {
-		Check(s, w, r)
-		return
-	}
-*/
-
-func Route(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	p, err := paths.Sanitize(r.URL.Path)
-	if err != nil {
-		http.NotFound(w, r)
-		return
-	}
-
-	path := paths.Split(p)
-
+func Route(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	switch {
-	case p == "/en/graph" || p == "/de/graph":
-		MainRedirect(s, w, r, m)
-		//Main(s, w, r, a)
+	case m.Path == "/en/graph" || m.Path == "/de/graph":
+		// Main is currently not served directly.
+		MainRedirect(w, r, m)
 
-	case path.IsFile():
-		extra.ServeFile(s, w, r, m, path)
+	case m.Split.IsFile():
+		extra.ServeFile(w, r, m)
 
-	case isYearPage(path.Slug):
-		YearRedirect(s, w, r, m, path)
+	case isYearPage(m.Split.Slug):
+		YearRedirect(w, r, m)
 
-	case isMonth(path.Slug):
-		MonthPage(s, w, r, m, path)
+	case isMonth(m.Split.Slug):
+		MonthPage(w, r, m)
 
 	default:
-		ServeSingle(s, w, r, m, path)
+		ServeSingle(w, r, m)
 	}
 }
 
@@ -70,6 +48,6 @@ func isYearPage(str string) bool {
 	return err == nil
 }
 
-func Rewrites(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+func Rewrites(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	http.Redirect(w, r, "/de"+m.Path, http.StatusMovedPermanently)
 }

@@ -8,7 +8,7 @@ import (
 
 	"g.rg-s.com/sera/go/entry/tools"
 	"g.rg-s.com/sera/go/entry/types/tree"
-	"g.rg-s.com/sera/go/server"
+	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 	"g.rg-s.com/sera/go/server/paths"
 )
@@ -20,20 +20,19 @@ type monthPage struct {
 	Next *tree.Tree
 }
 
-func MonthPage(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta, p *paths.Path) {
-	graph := s.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
-
-	id, err := getMonthId(p)
+func MonthPage(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+	id, err := getMonthId(m.Split)
 	if err != nil {
 		http.NotFound(w, r)
-		s.Log.Println(err)
+		log.Println(err)
 		return
 	}
 
+	graph := s.Store.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
 	t, err := graph.LookupTree(id)
 	if err != nil {
 		http.NotFound(w, r)
-		s.Log.Println(err)
+		log.Println(err)
 		return
 	}
 
@@ -45,16 +44,12 @@ func MonthPage(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta
 	prev, next := prevNext(t)
 
 	m.Title = monthTitle(t, m.Lang)
-	m.Section = "graph"
 	m.Desc = metaDescription(t.Date(), m.Lang)
 
-	err = m.Process(t)
-	if err != nil {
-		s.Log.Println(err)
-		return
-	}
+	m.SetSection("graph")
+	m.SetHreflang(t)
 
-	err = s.ExecuteTemplate(w, "graph-month", &monthPage{
+	err = s.Store.ExecuteTemplate(w, "graph-month", &monthPage{
 		Meta: m,
 		Tree: t,
 		Prev: prev,
@@ -76,7 +71,7 @@ func monthTitle(t *tree.Tree, lang string) string {
 	return fmt.Sprintf("%v %v - Graph", t.Title(lang), t.Date().Format("2006"))
 }
 
-func getMonthId(p *paths.Path) (int64, error) {
+func getMonthId(p *paths.Split) (int64, error) {
 	if len(p.Chain) != 3 {
 		return 0, fmt.Errorf("could not parse month id: %v", p.Raw)
 	}
