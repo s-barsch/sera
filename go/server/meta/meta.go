@@ -10,21 +10,27 @@ import (
 )
 
 type Meta struct {
-	Auth    *usr.Auth
-	Options *Options
+	*usr.Auth
+	*Options
 
 	Path string
 	Host string
 
+	Split *paths.Split
+
 	Title   string
-	Section string
+	section string
 
 	Nav   Nav
 	Lang  string
 	Langs Langs
 
-	Desc   string
-	Schema *Schema
+	Desc string
+	*Schema
+}
+
+func (m *Meta) Section() string {
+	return m.section
 }
 
 func NewMeta(users *usr.Users, w http.ResponseWriter, r *http.Request) (*Meta, error) {
@@ -42,6 +48,7 @@ func NewMeta(users *usr.Users, w http.ResponseWriter, r *http.Request) (*Meta, e
 	return &Meta{
 		Auth:    auth,
 		Path:    path,
+		Split:   paths.SplitPath(path),
 		Lang:    Lang(path),
 		Host:    r.Host,
 		Options: GetOptions(r),
@@ -60,18 +67,17 @@ func GetAuth(r *http.Request) (*usr.Auth, error) {
 	return a, nil
 }
 
-func (m *Meta) Process(e entry.Entry) error {
-	if m.Section == "" {
-		return fmt.Errorf("section not set")
-	}
-	m.Langs = m.MakeLangs(e)
-	m.Nav = m.MakeNav()
+func (m *Meta) SetHreflang(e entry.Entry) {
+	m.Langs = MakeHreflangs(m.HostAddress(), e)
+}
 
-	return nil
+func (m *Meta) SetSection(section string) {
+	m.section = section
+	m.SetNav(section)
 }
 
 func SiteName(lang string) string {
-	return "Sera Feral"
+	return "Sacer Cruor"
 }
 
 func (m *Meta) PageTitle() string {
