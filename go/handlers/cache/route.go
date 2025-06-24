@@ -5,41 +5,27 @@ import (
 	"strconv"
 
 	"g.rg-s.com/sera/go/handlers/extra"
-	"g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
-	"g.rg-s.com/sera/go/server/paths"
 )
 
-func Route(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	p, err := paths.Sanitize(r.URL.Path)
-	if err != nil {
-		http.NotFound(w, r)
-		return
-	}
-	rel := p[len("/de/cache"):]
+func Route(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+	switch rel := m.Path[len("/de/cache"):]; {
 
-	if rel == "/" {
+	case rel == "/":
 		http.Redirect(w, r, "/cache", http.StatusMovedPermanently)
-		return
-	}
 
-	if rel == "" {
-		Main(s, w, r, m)
-		return
-	}
-	path := paths.Split(p)
+	case rel == "":
+		Main(w, r, m)
 
-	if isYearPage(path.Slug) {
-		Year(s, w, r, m, path)
-		return
-	}
+	case isYearPage(m.Split.Slug):
+		Year(w, r, m)
 
-	if path.IsFile() {
-		extra.ServeFile(s, w, r, m, path)
-		return
-	}
+	case m.Split.IsFile():
+		extra.ServeFile(w, r, m)
 
-	ServeSingle(s, w, r, m, path)
+	default:
+		ServeSingle(w, r, m)
+	}
 }
 
 func isYearPage(str string) bool {

@@ -7,33 +7,23 @@ import (
 	"time"
 
 	"g.rg-s.com/sera/go/entry/tools"
-	"g.rg-s.com/sera/go/server"
+	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
-	"g.rg-s.com/sera/go/server/paths"
 )
 
-/*
-type cacheYear struct {
-	Meta    *meta.Meta
-	Tree    *tree.Tree
-	Entries entry.Entries
-}
-*/
-
-func Year(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta, p *paths.Path) {
-	cache := s.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
-
-	id, err := getYearId(p.Slug)
+func Year(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+	id, err := getYearId(m.Split.Slug)
 	if err != nil {
 		http.NotFound(w, r)
-		s.Log.Println(err)
+		log.Println(err)
 		return
 	}
 
+	cache := s.Store.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
 	t, err := cache.LookupTree(id)
 	if err != nil {
 		http.NotFound(w, r)
-		s.Log.Println(err)
+		log.Println(err)
 		return
 	}
 
@@ -42,20 +32,14 @@ func Year(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta
 		return
 	}
 
-	m.Title = tools.Title(fmt.Sprintf("%v - %v", t.Date().Format("2006"), tools.KineName[m.Lang]))
-	m.Section = "cache"
-	// TODO:
-	//m.Desc = s.Vars.Lang("cache-desc", m.Lang)
-
-	err = m.Process(t)
-	if err != nil {
-		s.Log.Println(err)
-		return
-	}
+	m.Title = tools.Title(fmt.Sprintf("%v - %v", t.Date().Format("2006"), "Cache"))
+	// TODO: m.Desc = s.Vars.Lang("cache-desc", m.Lang)
+	m.SetSection("cache")
+	m.SetHreflang(t)
 
 	entries := t.TraverseEntriesReverse()
 
-	err = s.ExecuteTemplate(w, "cache-year", &cacheMain{
+	err = s.Store.ExecuteTemplate(w, "cache-year", &cacheMain{
 		Meta:    m,
 		Tree:    t,
 		Entries: entries,

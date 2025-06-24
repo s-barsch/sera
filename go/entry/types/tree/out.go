@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"g.rg-s.com/sera/go/entry"
-	"g.rg-s.com/sera/go/entry/tools"
 )
 
 func (t *Tree) CombinedTitle(lang string) string {
@@ -68,7 +67,7 @@ func extraPerma(t *Tree, lang string) string {
 */
 
 func cachePerma(t *Tree, lang string) string {
-	start := fmt.Sprintf("/%v/%v", lang, tools.KineName[lang])
+	start := fmt.Sprintf("/%v/%v", lang, "cache")
 	switch l := t.Level(); {
 	case l == 0:
 		return start

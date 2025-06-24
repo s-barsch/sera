@@ -45,7 +45,7 @@ func (a *Audio) Captioned() bool {
 }
 
 func (a *Audio) Transcripted() bool {
-	for _, str := range a.Transcript.Langs {
+	for _, str := range a.Transcript.LangMap {
 		if str == "" {
 			return false
 		}

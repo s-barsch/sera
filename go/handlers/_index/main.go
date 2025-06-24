@@ -18,13 +18,9 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta
 	komposita := s.Trees["komposita"].Access(m.Auth.Subscriber)[m.Lang]
 
 	m.Title = "Index"
-	m.Section = "index"
 
-	err := m.Process(nil)
-	if err != nil {
-		s.Log.Println(err)
-		return
-	}
+	m.SetSection("index")
+	m.SetHreflang(nil)
 
 	err = s.ExecuteTemplate(w, "index-main", &indexMain{
 		Meta:   m,

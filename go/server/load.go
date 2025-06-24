@@ -2,6 +2,7 @@ package server
 
 import (
 	"fmt"
+	"log"
 	"time"
 
 	"g.rg-s.com/sera/go/server/tmpl"
@@ -38,7 +39,7 @@ func (s *Server) Load() error {
 	tDif := tEnd.Sub(tStart)
 
 	if s.Flags.Debug {
-		s.Log.Printf("Load: %v.\n", tDif)
+		log.Printf("Load: %v.\n", tDif)
 	}
 
 	return nil

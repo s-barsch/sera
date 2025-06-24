@@ -78,7 +78,7 @@ func LoadVars(root string) (*Vars, error) {
 }
 
 func ReadFrontSettings(root string) (*FrontSettings, error) {
-	path := fmt.Sprintf(root + "/data/front/front.txt")
+	path := root + "/data/front/front.txt"
 	b, err := os.ReadFile(path)
 	if err != nil {
 		return nil, err

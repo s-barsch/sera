@@ -8,15 +8,16 @@ import (
 
 	"g.rg-s.com/sera/go/routes"
 	"g.rg-s.com/sera/go/server"
+	s "g.rg-s.com/sera/go/server"
 )
 
 func main() {
-
-	s, err := server.LoadServer()
+	store, err := server.LoadServer()
 	if err != nil {
 		log.Fatal(err)
 	}
+	s.Store = store
 
-	http.Handle("/", routes.Router(s))
-	http.ListenAndServe(":8013", nil)
+	http.Handle("/", routes.Router(store))
+	log.Fatal(http.ListenAndServe(":8013", nil))
 }

@@ -97,7 +97,7 @@ func ReadTree(path string, parent *Tree) (*Tree, error) {
 		return nil, fnErr
 	}
 
-	cover := &image.Image{}
+	var cover *image.Image
 
 	cover, entries = extractCover(entries)
 

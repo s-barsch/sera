@@ -8,9 +8,8 @@ import (
 
 	"g.rg-s.com/sera/go/entry"
 	"g.rg-s.com/sera/go/entry/tools"
-	"g.rg-s.com/sera/go/server"
+	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
-	"g.rg-s.com/sera/go/server/paths"
 )
 
 type cacheSingle struct {
@@ -19,9 +18,9 @@ type cacheSingle struct {
 	Neighbors []entry.Entry
 }
 
-func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta, p *paths.Path) {
-	cache := s.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
-	e, err := cache.LookupEntryHash(p.Hash)
+func ServeSingle(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+	cache := s.Store.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
+	e, err := cache.LookupEntryHash(m.Split.Hash)
 	if err != nil {
 		http.Redirect(w, r, "/cache", http.StatusMovedPermanently)
 		return
@@ -34,18 +33,12 @@ func ServeSingle(s *server.Server, w http.ResponseWriter, r *http.Request, m *me
 	}
 
 	m.Title = getTitle(e, m.Lang)
-	m.Section = "cache"
+	m.SetSection("cache")
+	m.SetHreflang(e)
 
-	err = m.Process(e)
-	if err != nil {
-		s.Log.Println(err)
-		return
-	}
-
-	err = s.ExecuteTemplate(w, "cache-single", &cacheSingle{
+	err = s.Store.ExecuteTemplate(w, "cache-single", &cacheSingle{
 		Meta:  m,
 		Entry: e,
-		//Neighbors: getNeighbors(s.Recents["cache"].Access(m.Auth.Subscriber)[m.Lang], p.Hash),
 	})
 	if err != nil {
 		log.Println(err)
@@ -57,7 +50,7 @@ func getDate(d time.Time, lang string) string {
 }
 
 func getTitle(e entry.Entry, lang string) string {
-	return fmt.Sprintf("%v - %v - %v", e.Title(lang), getDate(e.Date(), lang), tools.Title(tools.KineName[lang]))
+	return fmt.Sprintf("%v - %v - %v", e.Title(lang), getDate(e.Date(), lang), "Cache")
 }
 
 /*

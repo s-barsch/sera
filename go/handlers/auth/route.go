@@ -3,12 +3,11 @@ package auth
 import (
 	"net/http"
 
-	"g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 	"g.rg-s.com/sera/go/server/paths"
 )
 
-func Route(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
+func Route(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	path, err := paths.Sanitize(r.URL.Path)
 	if err != nil {
 		http.NotFound(w, r)
@@ -17,19 +16,19 @@ func Route(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Met
 
 	vr := "/api/login/verify"
 	if len(vr) < len(path) && path[:len(vr)] == vr {
-		VerifyLogin(s, w, r)
+		VerifyLogin(w, r)
 		return
 	}
 
 	switch path {
 	case "/api/login/request":
-		RequestLogin(s, w, r)
+		RequestLogin(w, r)
 	case "/api/subscribe":
-		Subscribe(s, w, r)
+		Subscribe(w, r)
 	case "/api/register":
-		Register(s, w, r)
+		Register(w, r)
 	case "/subscribe", "/login", "/register", "/account":
-		SysPage(s, w, r, m)
+		SysPage(w, r, m)
 	default:
 		http.NotFound(w, r)
 	}

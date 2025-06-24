@@ -8,8 +8,6 @@ import (
 	"g.rg-s.com/sera/go/entry"
 	he "g.rg-s.com/sera/go/entry/tools"
 	"g.rg-s.com/sera/go/entry/tools/sort"
-	//"g.rg-s.com/sera/go/entry/info"
-	//"strings"
 )
 
 func readTrees(path string, parent *Tree) (Trees, error) {
@@ -39,7 +37,7 @@ func readTrees(path string, parent *Tree) (Trees, error) {
 	return toTrees(entries)
 }
 
-// I did that – apparently – to use the same sort function I use for entries.
+// TODO: I did that – apparently – to use the same sort function I use for entries.
 func toEntries(trees Trees) entry.Entries {
 	es := entry.Entries{}
 	for _, t := range trees {
@@ -75,12 +73,6 @@ func readTreeDirs(dirs []string, parent *Tree) (Trees, error) {
 	}
 	return trees, nil
 }
-
-/*
-func isSymLink(fi os.FileInfo) bool {
-	return !(fi.Mode()&os.ModeSymlink != 0)
-}
-*/
 
 func getTreeDirs(path string, parent *Tree) ([]string, error) {
 	l, err := os.ReadDir(path)
@@ -120,34 +112,3 @@ func getTreeDirs(path string, parent *Tree) ([]string, error) {
 func isDateTree(path string, parent *Tree) bool {
 	return parent.Level() < 2 && he.FileType(path) == "dir"
 }
-
-/*
-	if !isSymLink(fi) && !fi.IsDir() {
-		if !fi.IsDir() {
-			continue
-		}
-	}
-*/
-
-/*
-	// Holds that are completely empty are ommited.
-	if len(h.Holds) == 0 && len(h.Entries) == 0 {
-		continue
-	}
-*/
-
-/*
-func IsHold(path string) bool {
-	info, err := info.ReadInfo(path)
-	if err != nil {
-		if strings.Contains(path, "/graph") {
-			return true
-		}
-		return false
-	}
-	if info["inline"] == "true" {
-		return false
-	}
-	return true
-}
-*/
