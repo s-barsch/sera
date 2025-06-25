@@ -97,7 +97,7 @@ func Router(s *server.Server) *mux.Router {
 
 func makeHandler(fn func(http.ResponseWriter, *http.Request, *meta.Meta)) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		m, err := meta.NewMeta(s.Store.Users, w, r)
+		m, err := meta.NewMeta(s.Srv.Users, w, r)
 		if err != nil {
 			log.Println(err)
 			http.Error(w, "internal error", http.StatusInternalServerError)

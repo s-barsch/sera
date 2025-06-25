@@ -24,7 +24,7 @@ func Index(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 		panic("eng domain sitempas does not exist")
 		//domain = "https://en.seraferal.com"
 	}
-	err := s.Store.Templates.ExecuteTemplate(w, "sitemap-index", struct{ Domain string }{domain})
+	err := s.Srv.Templates.ExecuteTemplate(w, "sitemap-index", struct{ Domain string }{domain})
 	if err != nil {
 		log.Println(err)
 		return
@@ -39,7 +39,7 @@ func Core(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 		return
 	}
 
-	err = s.Store.Templates.ExecuteTemplate(w, "sitemap", entries)
+	err = s.Srv.Templates.ExecuteTemplate(w, "sitemap", entries)
 	if err != nil {
 		log.Println(err)
 		return
@@ -51,7 +51,7 @@ func Trees(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 
 	entries = append(entries, holdEntries(m.Lang)...)
 
-	err := s.Store.Templates.ExecuteTemplate(w, "sitemap", entries)
+	err := s.Srv.Templates.ExecuteTemplate(w, "sitemap", entries)
 	if err != nil {
 		log.Println(err)
 		return
@@ -83,7 +83,7 @@ func Kines(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 		return
 	}
 
-	err = s.Store.Templates.ExecuteTemplate(w, "sitemap", entries)
+	err = s.Srv.Templates.ExecuteTemplate(w, "sitemap", entries)
 	if err != nil {
 		log.Println(err)
 		return
@@ -98,7 +98,7 @@ func GraphEntries(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 		return
 	}
 
-	err = s.Store.Templates.ExecuteTemplate(w, "sitemap", entries)
+	err = s.Srv.Templates.ExecuteTemplate(w, "sitemap", entries)
 	if err != nil {
 		log.Println(err)
 		return
@@ -108,9 +108,9 @@ func GraphEntries(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 func coreEntries(lang string) ([]*SitemapEntry, error) {
 	entries := []*SitemapEntry{}
 
-	tIndex := s.Store.Recents["indecs"].Access(false)[lang][0].Date()
+	tIndex := s.Srv.Recents["indecs"].Access(false)[lang][0].Date()
 
-	tGraph := s.Store.Recents["graph"].Access(false)[lang][0].Date()
+	tGraph := s.Srv.Recents["graph"].Access(false)[lang][0].Date()
 
 	for _, v := range meta.NewNav(lang) {
 		priority := "0.9"
@@ -129,7 +129,7 @@ func coreEntries(lang string) ([]*SitemapEntry, error) {
 		case "graph":
 			lastmod = tGraph
 		case "about":
-			lastmod = s.Store.Trees["about"].Access(false)[lang].File().ModTime
+			lastmod = s.Srv.Trees["about"].Access(false)[lang].File().ModTime
 		}
 
 		entries = append(entries, &SitemapEntry{
@@ -143,7 +143,7 @@ func coreEntries(lang string) ([]*SitemapEntry, error) {
 
 func categoryTrees(lang string) []*SitemapEntry {
 	entries := []*SitemapEntry{}
-	trees := s.Store.Trees["graph"].Access(false)[lang].TraverseTrees()
+	trees := s.Srv.Trees["graph"].Access(false)[lang].TraverseTrees()
 	/*
 		trees := tree.Trees{
 			//s.Trees["indecs"].Access(false)[lang],
@@ -166,7 +166,7 @@ func holdEntries(lang string) []*SitemapEntry {
 
 func aboutHolds(lang string) []*SitemapEntry {
 	entries := []*SitemapEntry{}
-	trees := s.Store.Trees["about"].Access(false)[lang].TraverseTrees()
+	trees := s.Srv.Trees["about"].Access(false)[lang].TraverseTrees()
 	for _, t := range trees {
 		entries = append(entries, &SitemapEntry{
 			Loc:      absoluteURL(t.Perma(lang), lang),
@@ -200,7 +200,7 @@ func elEntries(page, lang string) ([]*SitemapEntry, error) {
 	prio := ""
 
 	//es := entry.Entries{}
-	es := s.Store.Recents[page].Access(false)[lang]
+	es := s.Srv.Recents[page].Access(false)[lang]
 	prio = "0.5"
 
 	for _, e := range es {

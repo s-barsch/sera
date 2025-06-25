@@ -26,16 +26,16 @@ type frontMain struct {
 
 func Main(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	m.Title = ""
-	m.Desc = s.Store.Vars.Lang("site", m.Lang)
+	m.Desc = s.Srv.Vars.Lang("site", m.Lang)
 
 	m.SetSection("home")
 	m.SetHreflang(nil)
 
 	//indecs := s.Recents["indecs"].Access(m.Auth.Subscriber)[m.Lang]
-	graph := s.Store.Recents["graph"].Access(m.Auth.Subscriber)[m.Lang]
-	cache := s.Store.Recents["cache"].Access(m.Auth.Subscriber)[m.Lang]
+	graph := s.Srv.Recents["graph"].Access(m.Auth.Subscriber)[m.Lang]
+	cache := s.Srv.Recents["cache"].Access(m.Auth.Subscriber)[m.Lang]
 
-	months := s.Store.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang].TraverseTrees()
+	months := s.Srv.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang].TraverseTrees()
 	newmonths := []*tree.Tree{}
 
 	for _, m := range months {
@@ -46,10 +46,10 @@ func Main(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 
 	months = newmonths
 
-	err := s.Store.ExecuteTemplate(w, "front", &frontMain{
+	err := s.Srv.ExecuteTemplate(w, "front", &frontMain{
 		Meta: m,
 		//Index:  indecs.Limit(s.Vars.FrontSettings.Index),
-		Graph:  graph.Limit(s.Store.Vars.FrontSettings.Graph),
+		Graph:  graph.Limit(s.Srv.Vars.FrontSettings.Graph),
 		Cache:  cache.Limit(10),
 		Months: months,
 		// Log:    s.Recents["log"].Access(true)["de"].Limit(s.Vars.FrontSettinglog),

@@ -16,7 +16,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	s.Store = store
+	s.Srv = store
 
 	http.Handle("/", routes.Router(store))
 	log.Fatal(http.ListenAndServe(":8013", nil))

@@ -13,7 +13,7 @@ import (
 	"github.com/rjeczalik/notify"
 )
 
-var Store *Server
+var Srv *Server
 
 type Server struct {
 	Paths *paths

@@ -20,7 +20,7 @@ type graphSingle struct {
 }
 
 func ServeSingle(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	graph := s.Store.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
+	graph := s.Srv.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
 	e, err := graph.LookupEntryHash(m.Split.Hash)
 	if err != nil {
 		http.Redirect(w, r, "/graph", http.StatusMovedPermanently)
@@ -33,7 +33,7 @@ func ServeSingle(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 		return
 	}
 
-	prev, next := getPrevNext(s.Store.Recents["graph"].Access(m.Auth.Subscriber)[m.Lang], e)
+	prev, next := getPrevNext(s.Srv.Recents["graph"].Access(m.Auth.Subscriber)[m.Lang], e)
 
 	m.Title = graphEntryTitle(e, m.Lang)
 
@@ -49,7 +49,7 @@ func ServeSingle(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 		head.Schema = schema
 	*/
 
-	err = s.Store.ExecuteTemplate(w, "graph-single", &graphSingle{
+	err = s.Srv.ExecuteTemplate(w, "graph-single", &graphSingle{
 		Meta:  m,
 		Entry: e,
 		Prev:  prev,

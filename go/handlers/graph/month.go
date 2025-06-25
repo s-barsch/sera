@@ -13,6 +13,23 @@ import (
 	"g.rg-s.com/sera/go/server/paths"
 )
 
+type Viewer interface {
+	View(w http.ResponseWriter, r *http.Request, m *meta.Meta)
+}
+
+type Graph struct {
+	Server *s.Server
+}
+
+type Request struct {
+	Request        *http.Request
+	ResponseWriter http.ResponseWriter
+	Meta           *meta.Meta
+	Path           Path
+}
+
+type Path struct {
+}
 type monthPage struct {
 	Meta *meta.Meta
 	Tree *tree.Tree
@@ -28,7 +45,7 @@ func MonthPage(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 		return
 	}
 
-	graph := s.Store.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
+	graph := s.Srv.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
 	t, err := graph.LookupTree(id)
 	if err != nil {
 		http.NotFound(w, r)
@@ -49,7 +66,7 @@ func MonthPage(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	m.SetSection("graph")
 	m.SetHreflang(t)
 
-	err = s.Store.ExecuteTemplate(w, "graph-month", &monthPage{
+	err = s.Srv.ExecuteTemplate(w, "graph-month", &monthPage{
 		Meta: m,
 		Tree: t,
 		Prev: prev,

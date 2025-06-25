@@ -13,7 +13,7 @@ func AddSlash(w http.ResponseWriter, r *http.Request) {
 }
 
 func Reload(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	err := s.Store.LoadSafe()
+	err := s.Srv.LoadSafe()
 	if err != nil {
 		log.Println(err)
 		http.Error(w, err.Error(), 500)

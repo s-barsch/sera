@@ -22,10 +22,10 @@ func lastItem(path string) string {
 
 func Extra(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 
-	extra := s.Store.Trees["extra"].Access(m.Auth.Subscriber)[m.Lang]
+	extra := s.Srv.Trees["extra"].Access(m.Auth.Subscriber)[m.Lang]
 	t, err := extra.SearchTree(lastItem(m.Path), m.Lang)
 	if err != nil {
-		s.Store.Debug(err)
+		s.Srv.Debug(err)
 		http.NotFound(w, r)
 		return
 	}
@@ -39,7 +39,7 @@ func Extra(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	m.SetSection("extra")
 	m.SetHreflang(t)
 
-	err = s.Store.ExecuteTemplate(w, "extra-page", &extraHold{
+	err = s.Srv.ExecuteTemplate(w, "extra-page", &extraHold{
 		Meta: m,
 		Tree: t,
 	})

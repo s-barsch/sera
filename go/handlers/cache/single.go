@@ -19,7 +19,7 @@ type cacheSingle struct {
 }
 
 func ServeSingle(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	cache := s.Store.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
+	cache := s.Srv.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
 	e, err := cache.LookupEntryHash(m.Split.Hash)
 	if err != nil {
 		http.Redirect(w, r, "/cache", http.StatusMovedPermanently)
@@ -36,7 +36,7 @@ func ServeSingle(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	m.SetSection("cache")
 	m.SetHreflang(e)
 
-	err = s.Store.ExecuteTemplate(w, "cache-single", &cacheSingle{
+	err = s.Srv.ExecuteTemplate(w, "cache-single", &cacheSingle{
 		Meta:  m,
 		Entry: e,
 	})

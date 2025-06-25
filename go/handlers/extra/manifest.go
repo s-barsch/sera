@@ -10,7 +10,7 @@ import (
 
 func Manifest(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	m.Title = meta.SiteName(m.Lang)
-	m.Desc = s.Store.Vars.Lang("site", m.Lang)
+	m.Desc = s.Srv.Vars.Lang("site", m.Lang)
 
 	/*
 		m.SetHreflang(nil)
@@ -20,7 +20,7 @@ func Manifest(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 		}
 	*/
 
-	err := s.Store.ExecuteTemplate(w, "manifest", m)
+	err := s.Srv.ExecuteTemplate(w, "manifest", m)
 	if err != nil {
 		log.Println(err)
 	}
