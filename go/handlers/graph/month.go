@@ -45,7 +45,7 @@ func MonthPage(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 		return
 	}
 
-	graph := s.Srv.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
+	graph := s.Srv.Store.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
 	t, err := graph.LookupTree(id)
 	if err != nil {
 		http.NotFound(w, r)

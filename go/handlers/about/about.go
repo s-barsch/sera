@@ -15,7 +15,7 @@ type aboutTree struct {
 }
 
 func About(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	about := s.Srv.Trees["about"].Access(m.Auth.Subscriber)[m.Lang]
+	about := s.Srv.Store.Trees["about"].Access(m.Auth.Subscriber)[m.Lang]
 
 	t, err := about.SearchTree(m.Split.Slug, m.Lang)
 	if err != nil {

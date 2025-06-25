@@ -29,7 +29,7 @@ func YearRedirect(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 }
 
 func findYear(str string) (*tree.Tree, error) {
-	graph := s.Srv.Trees["graph"].Access(true)["de"]
+	graph := s.Srv.Store.Trees["graph"].Access(true)["de"]
 
 	id, err := getYearId(str)
 	if err != nil {

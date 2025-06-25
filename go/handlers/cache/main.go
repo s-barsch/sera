@@ -18,7 +18,7 @@ type cacheMain struct {
 }
 
 func Main(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	t := s.Srv.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
+	t := s.Srv.Store.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
 
 	m.Title = "Cache"
 	m.Desc = t.Info().Field("description", m.Lang)
@@ -26,7 +26,7 @@ func Main(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	m.SetSection("cache")
 	m.SetHreflang(t)
 
-	entries := s.Srv.Recents["cache"].Access(m.Auth.Subscriber)[m.Lang].Limit(10)
+	entries := s.Srv.Store.Recents["cache"].Access(m.Auth.Subscriber)[m.Lang].Limit(10)
 
 	err := s.Srv.ExecuteTemplate(w, "cache-main", &cacheMain{
 		Meta:    m,

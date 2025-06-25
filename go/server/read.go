@@ -64,8 +64,8 @@ func (s *Server) ReadTrees() error {
 
 	}
 
-	s.Trees = trees
-	s.Recents = recents
+	s.Store.Trees = trees
+	s.Store.Recents = recents
 
 	return nil
 }

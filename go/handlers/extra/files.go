@@ -33,7 +33,7 @@ func ServeFile(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 
 func serveFile(w http.ResponseWriter, r *http.Request, m *meta.Meta) error {
 	section := m.Split.Section()
-	tree := s.Srv.Trees[section].Access(m.Auth.Subscriber)[m.Lang]
+	tree := s.Srv.Store.Trees[section].Access(m.Auth.Subscriber)[m.Lang]
 
 	e, err := getEntry(tree, m.Split)
 	if err != nil {

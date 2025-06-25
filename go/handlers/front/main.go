@@ -31,11 +31,11 @@ func Main(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	m.SetSection("home")
 	m.SetHreflang(nil)
 
-	//indecs := s.Recents["indecs"].Access(m.Auth.Subscriber)[m.Lang]
-	graph := s.Srv.Recents["graph"].Access(m.Auth.Subscriber)[m.Lang]
-	cache := s.Srv.Recents["cache"].Access(m.Auth.Subscriber)[m.Lang]
+	//indecs := s.Store.Recents["indecs"].Access(m.Auth.Subscriber)[m.Lang]
+	graph := s.Srv.Store.Recents["graph"].Access(m.Auth.Subscriber)[m.Lang]
+	cache := s.Srv.Store.Recents["cache"].Access(m.Auth.Subscriber)[m.Lang]
 
-	months := s.Srv.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang].TraverseTrees()
+	months := s.Srv.Store.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang].TraverseTrees()
 	newmonths := []*tree.Tree{}
 
 	for _, m := range months {
@@ -52,7 +52,7 @@ func Main(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 		Graph:  graph.Limit(s.Srv.Vars.FrontSettings.Graph),
 		Cache:  cache.Limit(10),
 		Months: months,
-		// Log:    s.Recents["log"].Access(true)["de"].Limit(s.Vars.FrontSettinglog),
+		// Log:    s.Store.Recents["log"].Access(true)["de"].Limit(s.Vars.FrontSettinglog),
 	})
 	if err != nil {
 		log.Println(err)

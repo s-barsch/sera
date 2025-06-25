@@ -21,7 +21,7 @@ func lastItem(path string) string {
 }
 
 func SysPage(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	extra := s.Srv.Trees["extra"].Access(m.Auth.Subscriber)[m.Lang]
+	extra := s.Srv.Store.Trees["extra"].Access(m.Auth.Subscriber)[m.Lang]
 
 	t, err := extra.SearchTree(lastItem(m.Path), m.Lang)
 	if err != nil {

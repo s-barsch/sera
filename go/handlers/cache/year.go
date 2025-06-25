@@ -19,7 +19,7 @@ func Year(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 		return
 	}
 
-	cache := s.Srv.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
+	cache := s.Srv.Store.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
 	t, err := cache.LookupTree(id)
 	if err != nil {
 		http.NotFound(w, r)

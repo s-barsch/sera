@@ -22,8 +22,7 @@ type Server struct {
 
 	Users *users.Users
 
-	Trees   map[string]*DoubleTree
-	Recents map[string]*DoubleEntries
+	Store *Store
 
 	Templates *template.Template
 	Vars      *tmpl.Vars
@@ -31,6 +30,11 @@ type Server struct {
 	Queue   chan int
 	Watcher chan notify.EventInfo
 	Quit    chan os.Signal
+}
+
+type Store struct {
+	Trees   map[string]*DoubleTree
+	Recents map[string]*DoubleEntries
 }
 
 type paths struct {

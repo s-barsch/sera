@@ -24,7 +24,7 @@ func Main(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta
 	m.SetSection("indecs")
 	m.SetHreflang(t)
 
-	recents := s.Recents["indecs"].Access(m.Auth.Subscriber)[m.Lang]
+	recents := s.Store.Recents["indecs"].Access(m.Auth.Subscriber)[m.Lang]
 
 	err = s.ExecuteTemplate(w, "indecs-main", &indecsMain{
 		Meta:    m,

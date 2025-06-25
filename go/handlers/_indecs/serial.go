@@ -33,7 +33,7 @@ func Serial(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Me
 		},
 	}
 
-	recents := s.Recents["indecs"].Access(m.Auth.Subscriber)[m.Lang]
+	recents := s.Store.Recents["indecs"].Access(m.Auth.Subscriber)[m.Lang]
 
 	err = s.ExecuteTemplate(w, "indecs-serial", &indecsSerial{
 		meta:    m,

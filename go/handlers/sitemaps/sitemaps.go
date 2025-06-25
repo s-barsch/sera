@@ -108,9 +108,9 @@ func GraphEntries(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 func coreEntries(lang string) ([]*SitemapEntry, error) {
 	entries := []*SitemapEntry{}
 
-	tIndex := s.Srv.Recents["indecs"].Access(false)[lang][0].Date()
+	tIndex := s.Srv.Store.Recents["indecs"].Access(false)[lang][0].Date()
 
-	tGraph := s.Srv.Recents["graph"].Access(false)[lang][0].Date()
+	tGraph := s.Srv.Store.Recents["graph"].Access(false)[lang][0].Date()
 
 	for _, v := range meta.NewNav(lang) {
 		priority := "0.9"
@@ -129,7 +129,7 @@ func coreEntries(lang string) ([]*SitemapEntry, error) {
 		case "graph":
 			lastmod = tGraph
 		case "about":
-			lastmod = s.Srv.Trees["about"].Access(false)[lang].File().ModTime
+			lastmod = s.Srv.Store.Trees["about"].Access(false)[lang].File().ModTime
 		}
 
 		entries = append(entries, &SitemapEntry{
@@ -143,7 +143,7 @@ func coreEntries(lang string) ([]*SitemapEntry, error) {
 
 func categoryTrees(lang string) []*SitemapEntry {
 	entries := []*SitemapEntry{}
-	trees := s.Srv.Trees["graph"].Access(false)[lang].TraverseTrees()
+	trees := s.Srv.Store.Trees["graph"].Access(false)[lang].TraverseTrees()
 	/*
 		trees := tree.Trees{
 			//s.Trees["indecs"].Access(false)[lang],
@@ -166,7 +166,7 @@ func holdEntries(lang string) []*SitemapEntry {
 
 func aboutHolds(lang string) []*SitemapEntry {
 	entries := []*SitemapEntry{}
-	trees := s.Srv.Trees["about"].Access(false)[lang].TraverseTrees()
+	trees := s.Srv.Store.Trees["about"].Access(false)[lang].TraverseTrees()
 	for _, t := range trees {
 		entries = append(entries, &SitemapEntry{
 			Loc:      absoluteURL(t.Perma(lang), lang),
@@ -200,7 +200,7 @@ func elEntries(page, lang string) ([]*SitemapEntry, error) {
 	prio := ""
 
 	//es := entry.Entries{}
-	es := s.Srv.Recents[page].Access(false)[lang]
+	es := s.Srv.Store.Recents[page].Access(false)[lang]
 	prio = "0.5"
 
 	for _, e := range es {
