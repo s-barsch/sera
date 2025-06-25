@@ -39,19 +39,19 @@ func (s *Server) Funcs() template.FuncMap {
 		},
 		"abbr": tools.Abbr,
 		"frontArticles": func() []*tmpl.Article {
-			return s.Vars.FrontSettings.Articles
+			return s.Engine.Vars.FrontSettings.Articles
 		},
 		"var": func(name, lang string) string {
-			return s.Vars.Lang(name, lang)
+			return s.Engine.Vars.Lang(name, lang)
 		},
 		"varRaw": func(name string) string {
-			return s.Vars.Strings[name]
+			return s.Engine.Vars.Strings[name]
 		},
 		"inlineFile": func(name string) string {
-			return s.Vars.Inlines[name]
+			return s.Engine.Vars.Inlines[name]
 		},
 		"inlineFileLang": func(name, lang string) string {
-			return s.Vars.Inlines[name+"-"+lang]
+			return s.Engine.Vars.Inlines[name+"-"+lang]
 		},
 		"isLocal": func() bool {
 			return s.Flags.Local

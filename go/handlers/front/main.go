@@ -26,7 +26,7 @@ type frontMain struct {
 
 func Main(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	m.Title = ""
-	m.Desc = s.Srv.Vars.Lang("site", m.Lang)
+	m.Desc = s.Srv.Engine.Vars.Lang("site", m.Lang)
 
 	m.SetSection("home")
 	m.SetHreflang(nil)
@@ -48,11 +48,11 @@ func Main(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 
 	err := s.Srv.ExecuteTemplate(w, "front", &frontMain{
 		Meta: m,
-		//Index:  indecs.Limit(s.Vars.FrontSettings.Index),
-		Graph:  graph.Limit(s.Srv.Vars.FrontSettings.Graph),
+		//Index:  indecs.Limit(s.Engine.Vars.FrontSettings.Index),
+		Graph:  graph.Limit(s.Srv.Engine.Vars.FrontSettings.Graph),
 		Cache:  cache.Limit(10),
 		Months: months,
-		// Log:    s.Store.Recents["log"].Access(true)["de"].Limit(s.Vars.FrontSettinglog),
+		// Log:    s.Store.Recents["log"].Access(true)["de"].Limit(s.Engine.Vars.FrontSettinglog),
 	})
 	if err != nil {
 		log.Println(err)

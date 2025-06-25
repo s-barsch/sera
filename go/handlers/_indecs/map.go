@@ -27,7 +27,7 @@ func MapDot(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Me
 
 func printMapDot(s *server.Server, w io.Writer, lang string, all bool) error {
 	t := s.Trees["indecs"].Access(false)[lang].Public()
-	return s.Templates.ExecuteTemplate(w, "map", struct {
+	return s.Engine.Templates.ExecuteTemplate(w, "map", struct {
 		Lang string
 		Tree *tree.Tree
 		All  bool

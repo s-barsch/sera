@@ -22,14 +22,17 @@ type Server struct {
 
 	Users *users.Users
 
-	Store *Store
-
-	Templates *template.Template
-	Vars      *tmpl.Vars
+	Store  *Store
+	Engine *Engine
 
 	Queue   chan int
 	Watcher chan notify.EventInfo
 	Quit    chan os.Signal
+}
+
+type Engine struct {
+	Templates *template.Template
+	Vars      *tmpl.Vars
 }
 
 type Store struct {

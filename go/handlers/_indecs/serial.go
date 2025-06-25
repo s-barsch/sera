@@ -17,7 +17,7 @@ type indecsSerial struct {
 func Serial(s *server.Server, w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 	m.Title = "Serial - Index"
 
-	//Desc:    s.Vars.Lang("serial", meta.Lang(r.Host)),
+	//Desc:    s.Engine.Vars.Lang("serial", meta.Lang(r.Host)),
 
 	m.SetSection("indecs")
 	m.SetHreflang(nil)

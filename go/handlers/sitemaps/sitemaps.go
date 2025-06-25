@@ -24,7 +24,7 @@ func Index(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 		panic("eng domain sitempas does not exist")
 		//domain = "https://en.seraferal.com"
 	}
-	err := s.Srv.Templates.ExecuteTemplate(w, "sitemap-index", struct{ Domain string }{domain})
+	err := s.Srv.Engine.Templates.ExecuteTemplate(w, "sitemap-index", struct{ Domain string }{domain})
 	if err != nil {
 		log.Println(err)
 		return
@@ -39,7 +39,7 @@ func Core(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 		return
 	}
 
-	err = s.Srv.Templates.ExecuteTemplate(w, "sitemap", entries)
+	err = s.Srv.Engine.Templates.ExecuteTemplate(w, "sitemap", entries)
 	if err != nil {
 		log.Println(err)
 		return
@@ -51,7 +51,7 @@ func Trees(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 
 	entries = append(entries, holdEntries(m.Lang)...)
 
-	err := s.Srv.Templates.ExecuteTemplate(w, "sitemap", entries)
+	err := s.Srv.Engine.Templates.ExecuteTemplate(w, "sitemap", entries)
 	if err != nil {
 		log.Println(err)
 		return
@@ -83,7 +83,7 @@ func Kines(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 		return
 	}
 
-	err = s.Srv.Templates.ExecuteTemplate(w, "sitemap", entries)
+	err = s.Srv.Engine.Templates.ExecuteTemplate(w, "sitemap", entries)
 	if err != nil {
 		log.Println(err)
 		return
@@ -98,7 +98,7 @@ func GraphEntries(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
 		return
 	}
 
-	err = s.Srv.Templates.ExecuteTemplate(w, "sitemap", entries)
+	err = s.Srv.Engine.Templates.ExecuteTemplate(w, "sitemap", entries)
 	if err != nil {
 		log.Println(err)
 		return

@@ -56,8 +56,8 @@ func (s *Server) LoadTemplates() error {
 		return err
 	}
 
-	s.Templates = ts
-	s.Vars = vars
+	s.Engine.Templates = ts
+	s.Engine.Vars = vars
 
 	return nil
 }
