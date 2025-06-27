@@ -10,8 +10,8 @@ require (
 	github.com/mattn/go-sqlite3 v1.14.28
 	github.com/rjeczalik/notify v0.9.3
 	github.com/tdewolff/minify v2.3.6+incompatible
-	github.com/yuin/goldmark v1.7.10
-	golang.org/x/text v0.24.0
+	github.com/yuin/goldmark v1.7.12
+	golang.org/x/text v0.26.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
@@ -20,6 +20,6 @@ require (
 	github.com/rogpeppe/go-internal v1.9.0 // indirect
 	github.com/tdewolff/parse v2.3.4+incompatible // indirect
 	github.com/tdewolff/test v1.0.10 // indirect
-	golang.org/x/net v0.39.0 // indirect
-	golang.org/x/sys v0.32.0 // indirect
+	golang.org/x/net v0.41.0 // indirect
+	golang.org/x/sys v0.33.0 // indirect
 )
