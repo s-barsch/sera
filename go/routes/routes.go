@@ -1,7 +1,6 @@
 package routes
 
 import (
-	"log"
 	"net/http"
 
 	"g.rg-s.com/sera/go/handlers/about"
@@ -11,98 +10,92 @@ import (
 	"g.rg-s.com/sera/go/handlers/front"
 	"g.rg-s.com/sera/go/handlers/graph"
 	"g.rg-s.com/sera/go/server"
+	"g.rg-s.com/sera/go/viewer"
 
 	//"g.rg-s.com/sera/go/handlers/indecs"
 	//"g.rg-s.com/sera/go/handlers/index"
 
 	//"g.rg-s.com/sera/go/handlers/sitemaps"
-	s "g.rg-s.com/sera/go/server"
-	"g.rg-s.com/sera/go/server/meta"
 
 	"github.com/gorilla/mux"
 )
 
-func Router(s *server.Server) *mux.Router {
-	r := mux.NewRouter().StrictSlash(true)
-
-	r.HandleFunc("/", makeHandler(front.Main))
-	r.HandleFunc("/en", makeHandler(front.Rewrites))
-	r.HandleFunc("/en/", makeHandler(front.Rewrites))
-	r.HandleFunc("/de", makeHandler(front.Main))
-	r.PathPrefix("/de/graph").HandlerFunc(makeHandler(graph.Route))
-	r.PathPrefix("/en/graph").HandlerFunc(makeHandler(graph.Route))
-	r.PathPrefix("/de/cache").HandlerFunc(makeHandler(cache.Route))
-	r.PathPrefix("/en/cache").HandlerFunc(makeHandler(cache.Route))
-	r.PathPrefix("/de/ueber").HandlerFunc(makeHandler(about.About))
-	r.PathPrefix("/de/about").HandlerFunc(makeHandler(about.About))
-	r.PathPrefix("/en/about").HandlerFunc(makeHandler(about.About))
-
-	r.PathPrefix("/ueber").HandlerFunc(makeHandler(about.Rewrites))
-	r.PathPrefix("/about").HandlerFunc(makeHandler(about.Rewrites))
-	r.PathPrefix("/graph").HandlerFunc(makeHandler(graph.Rewrites))
-
-	/*
-		r.PathPrefix("/indecs").HandlerFunc(makeHandler(s, indecs.Route))
-		r.PathPrefix("/index").HandlerFunc(makeHandler(s, index.Route))
-		r.PathPrefix("/part/").HandlerFunc(makeHandler(s, graph.ElPart))
-	*/
-
-	r.PathPrefix("/api").HandlerFunc(makeHandler(auth.Route))
-	r.PathPrefix("/register").HandlerFunc(makeHandler(auth.Route))
-	r.PathPrefix("/subscribe").HandlerFunc(makeHandler(auth.Route))
-	r.PathPrefix("/login").HandlerFunc(makeHandler(auth.Route))
-	r.PathPrefix("/account").HandlerFunc(makeHandler(auth.Route))
-
-	/*
-		r.HandleFunc("/sitemaps.xml", makeHandler(s, sitemaps.Route))
-		r.PathPrefix("/sitemaps").HandlerFunc(makeHandler(s, sitemaps.Route))
-	*/
-
-	r.PathPrefix("/de/impressum").HandlerFunc(makeHandler(extra.Extra))
-	r.PathPrefix("/legal").HandlerFunc(makeHandler(extra.Extra))
-	r.PathPrefix("/de/datenschutz").HandlerFunc(makeHandler(extra.Extra))
-	r.PathPrefix("/privacy").HandlerFunc(makeHandler(extra.Extra))
-
-	r.HandleFunc("/opt/{option}/{value}", makeHandler(extra.SetOption))
-
-	r.HandleFunc("/rl/", makeHandler(extra.Reload))
-
-	r.PathPrefix("/static/").HandlerFunc(makeHandler(extra.StaticFiles))
-	r.PathPrefix("/js/").HandlerFunc(makeHandler(extra.JSFiles))
-	r.HandleFunc("/sw.js", makeHandler(extra.ServiceWorker))
-	r.HandleFunc("/robots.txt", makeHandler(extra.RobotsFiles))
-
-	r.PathPrefix("/de/manifest.json").HandlerFunc(makeHandler(extra.Manifest))
-	r.PathPrefix("/manifest.json").HandlerFunc(makeHandler(extra.Manifest))
-
-	fileRoutes := map[string]string{
-		"/BingSiteAuth.xml": "/static/seo/BingSiteAuth.xml",
-	}
-
-	for query := range fileRoutes {
-		path := fileRoutes[query]
-		r.HandleFunc(query, func(w http.ResponseWriter, r *http.Request) {
-			r.URL.Path = path
-			m, err := meta.NewMeta(s.Users, w, r)
-			if err != nil {
-				log.Println(err)
-			}
-
-			extra.StaticFiles(w, r, m)
-		})
-	}
-
-	return r
+type router struct {
+	viewer *viewer.Viewer
+	mux    *mux.Router
 }
 
-func makeHandler(fn func(http.ResponseWriter, *http.Request, *meta.Meta)) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		m, err := meta.NewMeta(s.Srv.Users, w, r)
-		if err != nil {
-			log.Println(err)
-			http.Error(w, "internal error", http.StatusInternalServerError)
-			return
-		}
-		fn(w, r, m)
+func newRouter(v *viewer.Viewer) *router {
+	return &router{
+		viewer: v,
+		mux:    mux.NewRouter().StrictSlash(true),
 	}
+}
+
+func (r *router) Mux() http.Handler {
+	return r.mux
+}
+
+func (r *router) register(path string, f viewer.HandleFunc) {
+	r.mux.PathPrefix(path).HandlerFunc(r.viewer.View(f))
+}
+
+func (r *router) registerExact(path string, f viewer.HandleFunc) {
+	r.mux.HandleFunc(path, r.viewer.View(f))
+}
+
+func Router(s *server.Server) http.Handler {
+	r := newRouter(&viewer.Viewer{})
+
+	r.registerExact("/", front.Main)
+	r.registerExact("/en", front.Rewrites)
+	r.registerExact("/en/", front.Rewrites)
+	r.registerExact("/de", front.Main)
+	r.register("/de/graph", graph.Route)
+	r.register("/en/graph", graph.Route)
+	r.register("/de/cache", cache.Route)
+	r.register("/en/cache", cache.Route)
+	r.register("/de/ueber", about.About)
+	r.register("/de/about", about.About)
+	r.register("/en/about", about.About)
+
+	r.register("/ueber", about.Rewrites)
+	r.register("/about", about.Rewrites)
+	r.register("/graph", graph.Rewrites)
+
+	/*
+		r.register("/indecs", s, indecs.Route))
+		r.register("/index", s, index.Route))
+		r.register("/part/", s, graph.ElPart))
+	*/
+
+	r.register("/api", auth.Route)
+	r.register("/register", auth.Route)
+	r.register("/subscribe", auth.Route)
+	r.register("/login", auth.Route)
+	r.register("/account", auth.Route)
+
+	/*
+		r.registerExact("/sitemaps.xml", makeHandler(s, sitemaps.Route))
+		r.register("/sitemaps", s, sitemaps.Route))
+	*/
+
+	r.register("/de/impressum", extra.Extra)
+	r.register("/legal", extra.Extra)
+	r.register("/de/datenschutz", extra.Extra)
+	r.register("/privacy", extra.Extra)
+
+	r.registerExact("/opt/{option}/{value}", extra.SetOption)
+
+	r.registerExact("/rl/", extra.Reload)
+
+	r.register("/static/", extra.StaticFiles)
+	r.register("/js/", extra.JSFiles)
+	r.registerExact("/sw.js", extra.ServiceWorker)
+	r.registerExact("/robots.txt", extra.RobotsFiles)
+
+	r.register("/de/manifest.json", extra.Manifest)
+	r.register("/manifest.json", extra.Manifest)
+
+	return r.Mux()
 }
