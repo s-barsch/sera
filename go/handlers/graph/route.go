@@ -11,24 +11,22 @@ import (
 )
 
 func Route(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		switch {
-		case m.Path == "/en/graph" || m.Path == "/de/graph":
-			// Main is currently not served directly.
-			MainRedirect(w, r, m)
+	switch {
+	case m.Path == "/en/graph" || m.Path == "/de/graph":
+		// Main is currently not served directly.
+		return MainRedirect(v, m)
 
-		case m.Split.IsFile():
-			extra.ServeFile(w, r, m)
+	case m.Split.IsFile():
+		return extra.ServeFile(v, m)
 
-		case isYearPage(m.Split.Slug):
-			YearRedirect(w, r, m)
+	case isYearPage(m.Split.Slug):
+		return YearRedirect(v, m)
 
-		case isMonth(m.Split.Slug):
-			MonthPage(w, r, m)
+	case isMonth(m.Split.Slug):
+		return MonthPage(v, m)
 
-		default:
-			ServeSingle(w, r, m)
-		}
+	default:
+		return ServeSingle(v, m)
 	}
 }
 

@@ -10,24 +10,24 @@ import (
 )
 
 func Route(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		switch rel := m.Path[len("/de/cache"):]; {
+	switch rel := m.Path[len("/de/cache"):]; {
+	case rel == "/":
+		return func() http.HandlerFunc {
+			return func(w http.ResponseWriter, r *http.Request) {
+				http.Redirect(w, r, "/cache", http.StatusMovedPermanently)
+			}
+		}()
+	case rel == "":
+		return Main(v, m)
 
-		case rel == "/":
-			http.Redirect(w, r, "/cache", http.StatusMovedPermanently)
+	case isYearPage(m.Split.Slug):
+		return Year(v, m)
 
-		case rel == "":
-			Main(w, r, m)
+	case m.Split.IsFile():
+		return extra.ServeFile(v, m)
 
-		case isYearPage(m.Split.Slug):
-			Year(w, r, m)
-
-		case m.Split.IsFile():
-			extra.ServeFile(w, r, m)
-
-		default:
-			ServeSingle(w, r, m)
-		}
+	default:
+		return ServeSingle(v, m)
 	}
 }
 

@@ -10,6 +10,7 @@ import (
 	"g.rg-s.com/sera/go/entry/tools"
 	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
+	"g.rg-s.com/sera/go/viewer"
 )
 
 type cacheSingle struct {
@@ -18,30 +19,32 @@ type cacheSingle struct {
 	Neighbors []entry.Entry
 }
 
-func ServeSingle(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	cache := s.Srv.Store.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
-	e, err := cache.LookupEntryHash(m.Split.Hash)
-	if err != nil {
-		http.Redirect(w, r, "/cache", http.StatusMovedPermanently)
-		return
-	}
+func ServeSingle(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		cache := s.Srv.Store.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
+		e, err := cache.LookupEntryHash(m.Split.Hash)
+		if err != nil {
+			http.Redirect(w, r, "/cache", http.StatusMovedPermanently)
+			return
+		}
 
-	perma := e.Perma(m.Lang)
-	if m.Path != perma {
-		http.Redirect(w, r, perma, http.StatusMovedPermanently)
-		return
-	}
+		perma := e.Perma(m.Lang)
+		if m.Path != perma {
+			http.Redirect(w, r, perma, http.StatusMovedPermanently)
+			return
+		}
 
-	m.Title = getTitle(e, m.Lang)
-	m.SetSection("cache")
-	m.SetHreflang(e)
+		m.Title = getTitle(e, m.Lang)
+		m.SetSection("cache")
+		m.SetHreflang(e)
 
-	err = s.Srv.ExecuteTemplate(w, "cache-single", &cacheSingle{
-		Meta:  m,
-		Entry: e,
-	})
-	if err != nil {
-		log.Println(err)
+		err = s.Srv.ExecuteTemplate(w, "cache-single", &cacheSingle{
+			Meta:  m,
+			Entry: e,
+		})
+		if err != nil {
+			log.Println(err)
+		}
 	}
 }
 

@@ -15,6 +15,7 @@ import (
 	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 	"g.rg-s.com/sera/go/server/paths"
+	"g.rg-s.com/sera/go/viewer"
 )
 
 /*
@@ -23,11 +24,13 @@ import (
 
 */
 
-func ServeFile(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	err := serveFile(w, r, m)
-	if err != nil {
-		log.Println(err)
-		http.NotFound(w, r)
+func ServeFile(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		err := serveFile(w, r, m)
+		if err != nil {
+			log.Println(err)
+			http.NotFound(w, r)
+		}
 	}
 }
 

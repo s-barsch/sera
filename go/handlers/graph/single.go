@@ -10,6 +10,7 @@ import (
 	"g.rg-s.com/sera/go/entry/tools"
 	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
+	"g.rg-s.com/sera/go/viewer"
 )
 
 type graphSingle struct {
@@ -19,44 +20,46 @@ type graphSingle struct {
 	Next  entry.Entry
 }
 
-func ServeSingle(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	graph := s.Srv.Store.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
-	e, err := graph.LookupEntryHash(m.Split.Hash)
-	if err != nil {
-		http.Redirect(w, r, "/graph", http.StatusMovedPermanently)
-		return
-	}
-
-	perma := e.Perma(m.Lang)
-	if m.Path != perma {
-		http.Redirect(w, r, perma, http.StatusMovedPermanently)
-		return
-	}
-
-	prev, next := getPrevNext(s.Srv.Store.Recents["graph"].Access(m.Auth.Subscriber)[m.Lang], e)
-
-	m.Title = graphEntryTitle(e, m.Lang)
-
-	m.SetSection("graph")
-	m.SetHreflang(e)
-
-	/*
-		schema, err := head.ElSchema()
+func ServeSingle(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		graph := s.Srv.Store.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
+		e, err := graph.LookupEntryHash(m.Split.Hash)
 		if err != nil {
-			log.Println(err)
+			http.Redirect(w, r, "/graph", http.StatusMovedPermanently)
 			return
 		}
-		head.Schema = schema
-	*/
 
-	err = s.Srv.ExecuteTemplate(w, "graph-single", &graphSingle{
-		Meta:  m,
-		Entry: e,
-		Prev:  prev,
-		Next:  next,
-	})
-	if err != nil {
-		log.Println(err)
+		perma := e.Perma(m.Lang)
+		if m.Path != perma {
+			http.Redirect(w, r, perma, http.StatusMovedPermanently)
+			return
+		}
+
+		prev, next := getPrevNext(s.Srv.Store.Recents["graph"].Access(m.Auth.Subscriber)[m.Lang], e)
+
+		m.Title = graphEntryTitle(e, m.Lang)
+
+		m.SetSection("graph")
+		m.SetHreflang(e)
+
+		/*
+			schema, err := head.ElSchema()
+			if err != nil {
+				log.Println(err)
+				return
+			}
+			head.Schema = schema
+		*/
+
+		err = s.Srv.ExecuteTemplate(w, "graph-single", &graphSingle{
+			Meta:  m,
+			Entry: e,
+			Prev:  prev,
+			Next:  next,
+		})
+		if err != nil {
+			log.Println(err)
+		}
 	}
 }
 

@@ -11,6 +11,7 @@ import (
 	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 	"g.rg-s.com/sera/go/server/paths"
+	"g.rg-s.com/sera/go/viewer"
 )
 
 type Viewer interface {
@@ -37,43 +38,45 @@ type monthPage struct {
 	Next *tree.Tree
 }
 
-func MonthPage(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	id, err := getMonthId(m.Split)
-	if err != nil {
-		http.NotFound(w, r)
-		log.Println(err)
-		return
-	}
+func MonthPage(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		id, err := getMonthId(m.Split)
+		if err != nil {
+			http.NotFound(w, r)
+			log.Println(err)
+			return
+		}
 
-	graph := s.Srv.Store.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
-	t, err := graph.LookupTree(id)
-	if err != nil {
-		http.NotFound(w, r)
-		log.Println(err)
-		return
-	}
+		graph := s.Srv.Store.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
+		t, err := graph.LookupTree(id)
+		if err != nil {
+			http.NotFound(w, r)
+			log.Println(err)
+			return
+		}
 
-	if perma := t.Perma(m.Lang); m.Path != perma {
-		http.Redirect(w, r, perma, http.StatusMovedPermanently)
-		return
-	}
+		if perma := t.Perma(m.Lang); m.Path != perma {
+			http.Redirect(w, r, perma, http.StatusMovedPermanently)
+			return
+		}
 
-	prev, next := prevNext(t)
+		prev, next := prevNext(t)
 
-	m.Title = monthTitle(t, m.Lang)
-	m.Desc = metaDescription(t.Date(), m.Lang)
+		m.Title = monthTitle(t, m.Lang)
+		m.Desc = metaDescription(t.Date(), m.Lang)
 
-	m.SetSection("graph")
-	m.SetHreflang(t)
+		m.SetSection("graph")
+		m.SetHreflang(t)
 
-	err = s.Srv.ExecuteTemplate(w, "graph-month", &monthPage{
-		Meta: m,
-		Tree: t,
-		Prev: prev,
-		Next: next,
-	})
-	if err != nil {
-		log.Println(err)
+		err = s.Srv.ExecuteTemplate(w, "graph-month", &monthPage{
+			Meta: m,
+			Tree: t,
+			Prev: prev,
+			Next: next,
+		})
+		if err != nil {
+			log.Println(err)
+		}
 	}
 }
 

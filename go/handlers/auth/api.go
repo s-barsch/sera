@@ -8,91 +8,101 @@ import (
 	"net/http"
 
 	s "g.rg-s.com/sera/go/server"
+	"g.rg-s.com/sera/go/server/meta"
 	"g.rg-s.com/sera/go/server/users"
+	"g.rg-s.com/sera/go/viewer"
 )
 
-func Subscribe(w http.ResponseWriter, r *http.Request) {
-	user := &users.User{}
+func Subscribe(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		user := &users.User{}
 
-	err := json.NewDecoder(io.Reader(r.Body)).Decode(&user)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
+		err := json.NewDecoder(io.Reader(r.Body)).Decode(&user)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
 
-	err = s.Srv.Users.AddUser(user)
-	if err != nil {
-		fmt.Println(err)
-	}
-}
-
-func Register(w http.ResponseWriter, r *http.Request) {
-	user := &users.User{}
-
-	user.Name = r.FormValue("name")
-	user.Mail = r.FormValue("mail")
-
-	err := s.Srv.Users.AddUser(user)
-	if err != nil {
-		fmt.Println(err)
-		http.Error(w, err.Error(), 500)
+		err = s.Srv.Users.AddUser(user)
+		if err != nil {
+			fmt.Println(err)
+		}
 	}
 }
 
-func RequestLogin(w http.ResponseWriter, r *http.Request) {
-	mail := r.FormValue("mail")
-	user, err := s.Srv.Users.LookupUser(mail)
-	if err != nil {
-		log.Println(err)
-		return
-	}
+func Register(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		user := &users.User{}
 
-	key, err := users.GenerateLoginKey()
-	if err != nil {
-		log.Println(err)
-		return
-	}
+		user.Name = r.FormValue("name")
+		user.Mail = r.FormValue("mail")
 
-	err = s.Srv.Users.StoreVerify(mail, key)
-	if err != nil {
-		log.Println(err)
-		return
+		err := s.Srv.Users.AddUser(user)
+		if err != nil {
+			fmt.Println(err)
+			http.Error(w, err.Error(), 500)
+		}
 	}
-
-	err = send(user.Mail, fmt.Sprintf(loginTmpl, users.EncodeMailKey(mail, key)))
-	if err != nil {
-		log.Println(err)
-		return
-	}
-	println("apperantly i sent")
-	// redirect page
 }
 
-var loginTmpl = `Hello, here is your login link: <a href="/api/login/verify/%v">LINK</a>`
-
-func VerifyLogin(w http.ResponseWriter, r *http.Request) {
-	mail, outsideKey, err := users.DecodeMailKey(r.URL.Path[len("/api/login/verify/"):])
-	if err != nil {
-		log.Println(err)
-		return
-	}
-
-	key, err := s.Srv.Users.GetVerify(mail)
-	if err != nil {
-		log.Println(err)
-		return
-	}
-
-	if outsideKey == key {
-		err = generateSession(w, mail)
+func RequestLogin(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		mail := r.FormValue("mail")
+		user, err := s.Srv.Users.LookupUser(mail)
 		if err != nil {
 			log.Println(err)
 			return
 		}
-		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
-		return
+
+		key, err := users.GenerateLoginKey()
+		if err != nil {
+			log.Println(err)
+			return
+		}
+
+		err = s.Srv.Users.StoreVerify(mail, key)
+		if err != nil {
+			log.Println(err)
+			return
+		}
+
+		err = send(user.Mail, fmt.Sprintf(loginTmpl, users.EncodeMailKey(mail, key)))
+		if err != nil {
+			log.Println(err)
+			return
+		}
+		println("apperantly i sent")
+		// redirect page
 	}
-	http.Error(w, "server error", http.StatusInternalServerError)
+}
+
+var loginTmpl = `Hello, here is your login link: <a href="/api/login/verify/%v">LINK</a>`
+
+func VerifyLogin(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		mail, outsideKey, err := users.DecodeMailKey(r.URL.Path[len("/api/login/verify/"):])
+		if err != nil {
+			log.Println(err)
+			return
+		}
+
+		key, err := s.Srv.Users.GetVerify(mail)
+		if err != nil {
+			log.Println(err)
+			return
+		}
+
+		if outsideKey == key {
+			err = generateSession(w, mail)
+			if err != nil {
+				log.Println(err)
+				return
+			}
+			http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
+			return
+		}
+		http.Error(w, "server error", http.StatusInternalServerError)
+	}
 }
 
 func generateSession(w http.ResponseWriter, mail string) error {
