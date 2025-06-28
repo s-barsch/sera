@@ -9,7 +9,6 @@ import (
 	"g.rg-s.com/sera/go/handlers/extra"
 	"g.rg-s.com/sera/go/handlers/front"
 	"g.rg-s.com/sera/go/handlers/graph"
-	"g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/viewer"
 
 	//"g.rg-s.com/sera/go/handlers/indecs"
@@ -44,8 +43,8 @@ func (r *router) registerExact(path string, f viewer.HandleFunc) {
 	r.mux.HandleFunc(path, r.viewer.View(f))
 }
 
-func Router(s *server.Server) http.Handler {
-	r := newRouter(&viewer.Viewer{})
+func Router(v *viewer.Viewer) http.Handler {
+	r := newRouter(v)
 
 	r.registerExact("/", front.Main)
 	r.registerExact("/en", front.Rewrites)

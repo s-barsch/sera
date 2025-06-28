@@ -15,17 +15,33 @@ type Viewer struct {
 	Store  *server.Store
 	Engine *server.Engine
 	Users  *users.Users
-	reload chan struct{}
+	Reload func() error
 }
 
 type HandleFunc func(v *Viewer, meta *meta.Meta) http.HandlerFunc
+
+func NewViewer(logger *logrus.Logger, store *server.Store, engine *server.Engine, users *users.Users, reload func() error) (*Viewer, error) {
+	if logger == nil {
+		return nil, errors.New("logger cannot be nil")
+	}
+	if store == nil {
+		return nil, errors.New("store cannot be nil")
+	}
+	if engine == nil {
+		return nil, errors.New("engine cannot be nil")
+	}
+
+	return &Viewer{
+		Logger: logger,
+		Store:  store,
+		Engine: engine,
+		Users:  users,
+		Reload: reload,
+	}, nil
+}
 
 func (v *Viewer) View(h func(v *Viewer, meta *meta.Meta) http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		h(v, &meta.Meta{})(w, r)
 	}
-}
-
-func (v *Viewer) Reload() error {
-	return errors.New("not implemented")
 }

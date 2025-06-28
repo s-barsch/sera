@@ -11,12 +11,13 @@ import (
 	"g.rg-s.com/sera/go/server/users"
 
 	"github.com/rjeczalik/notify"
+	"github.com/sirupsen/logrus"
 )
 
 type Server struct {
-	Paths tmpl.Paths
-	Flags *flags
-	Log   *log.Logger
+	Paths  tmpl.Paths
+	Flags  *flags
+	Logger *logrus.Logger
 
 	Users *users.Users
 
@@ -116,10 +117,4 @@ func (s *Server) CloseUsers() error {
 		log.Println("Closed user database.")
 	}
 	return nil
-}
-
-func (s *Server) Debug(err error) {
-	if s.Flags.Debug {
-		log.Println(err)
-	}
 }
