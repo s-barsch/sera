@@ -43,7 +43,7 @@ func (r *router) registerExact(path string, f viewer.HandleFunc) {
 	r.mux.HandleFunc(path, r.viewer.View(f))
 }
 
-func Router(v *viewer.Viewer) http.Handler {
+func New(v *viewer.Viewer) http.Handler {
 	r := newRouter(v)
 
 	r.registerExact("/", front.Main)

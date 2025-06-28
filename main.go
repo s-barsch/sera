@@ -6,7 +6,7 @@ import (
 	"log"
 	"net/http"
 
-	"g.rg-s.com/sera/go/routes"
+	"g.rg-s.com/sera/go/router"
 	"g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/viewer"
 )
@@ -22,5 +22,5 @@ func main() {
 		log.Fatal(err)
 	}
 
-	log.Fatal(http.ListenAndServe(":8013", routes.Router(v)))
+	log.Fatal(http.ListenAndServe(":8013", router.New(v)))
 }
