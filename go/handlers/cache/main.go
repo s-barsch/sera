@@ -7,7 +7,6 @@ import (
 
 	"g.rg-s.com/sera/go/entry"
 	"g.rg-s.com/sera/go/entry/types/tree"
-	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 	"g.rg-s.com/sera/go/viewer"
 )
@@ -20,7 +19,7 @@ type cacheMain struct {
 
 func Main(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		t := s.Srv.Store.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
+		t := v.Store.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
 
 		m.Title = "Cache"
 		m.Desc = t.Info().Field("description", m.Lang)
@@ -28,9 +27,9 @@ func Main(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 		m.SetSection("cache")
 		m.SetHreflang(t)
 
-		entries := s.Srv.Store.Recents["cache"].Access(m.Auth.Subscriber)[m.Lang].Limit(10)
+		entries := v.Store.Recents["cache"].Access(m.Auth.Subscriber)[m.Lang].Limit(10)
 
-		err := s.Srv.ExecuteTemplate(w, "cache-main", &cacheMain{
+		err := v.Engine.ExecuteTemplate(w, "cache-main", &cacheMain{
 			Meta:    m,
 			Tree:    t,
 			Entries: entries,

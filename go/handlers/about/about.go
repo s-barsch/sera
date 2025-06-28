@@ -5,7 +5,6 @@ import (
 	"net/http"
 
 	"g.rg-s.com/sera/go/entry/types/tree"
-	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 	"g.rg-s.com/sera/go/viewer"
 )
@@ -17,7 +16,7 @@ type aboutTree struct {
 
 func About(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		about := s.Srv.Store.Trees["about"].Access(m.Auth.Subscriber)[m.Lang]
+		about := v.Store.Trees["about"].Access(m.Auth.Subscriber)[m.Lang]
 
 		t, err := about.SearchTree(m.Split.Slug, m.Lang)
 		if err != nil {
@@ -34,7 +33,7 @@ func About(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 		m.SetSection("about")
 		m.SetHreflang(t)
 
-		err = s.Srv.ExecuteTemplate(w, aboutTemplate(t.Level()), &aboutTree{
+		err = v.Engine.ExecuteTemplate(w, aboutTemplate(t.Level()), &aboutTree{
 			Meta: m,
 			Tree: t,
 		})

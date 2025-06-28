@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"g.rg-s.com/sera/go/entry/types/tree"
-	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 	"g.rg-s.com/sera/go/viewer"
 )
@@ -20,7 +19,7 @@ func MainRedirect(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 
 func YearRedirect(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		t, err := findYear(m.Split.Slug)
+		t, err := findYear(v, m.Split.Slug)
 		if err != nil {
 			http.Redirect(w, r, "/graph", http.StatusTemporaryRedirect)
 			return
@@ -33,8 +32,8 @@ func YearRedirect(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 	}
 }
 
-func findYear(str string) (*tree.Tree, error) {
-	graph := s.Srv.Store.Trees["graph"].Access(true)["de"]
+func findYear(v *viewer.Viewer, str string) (*tree.Tree, error) {
+	graph := v.Store.Trees["graph"].Access(true)["de"]
 
 	id, err := getYearId(str)
 	if err != nil {

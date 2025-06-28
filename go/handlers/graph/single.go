@@ -8,7 +8,6 @@ import (
 
 	"g.rg-s.com/sera/go/entry"
 	"g.rg-s.com/sera/go/entry/tools"
-	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 	"g.rg-s.com/sera/go/viewer"
 )
@@ -22,7 +21,7 @@ type graphSingle struct {
 
 func ServeSingle(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		graph := s.Srv.Store.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
+		graph := v.Store.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
 		e, err := graph.LookupEntryHash(m.Split.Hash)
 		if err != nil {
 			http.Redirect(w, r, "/graph", http.StatusMovedPermanently)
@@ -35,7 +34,7 @@ func ServeSingle(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 			return
 		}
 
-		prev, next := getPrevNext(s.Srv.Store.Recents["graph"].Access(m.Auth.Subscriber)[m.Lang], e)
+		prev, next := getPrevNext(v.Store.Recents["graph"].Access(m.Auth.Subscriber)[m.Lang], e)
 
 		m.Title = graphEntryTitle(e, m.Lang)
 
@@ -51,7 +50,7 @@ func ServeSingle(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 			head.Schema = schema
 		*/
 
-		err = s.Srv.ExecuteTemplate(w, "graph-single", &graphSingle{
+		err = v.Engine.ExecuteTemplate(w, "graph-single", &graphSingle{
 			Meta:  m,
 			Entry: e,
 			Prev:  prev,

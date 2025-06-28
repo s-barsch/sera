@@ -13,10 +13,8 @@ import (
 	"github.com/rjeczalik/notify"
 )
 
-var Srv *Server
-
 type Server struct {
-	Paths *paths
+	Paths tmpl.Paths
 	Flags *flags
 	Log   *log.Logger
 
@@ -31,18 +29,13 @@ type Server struct {
 }
 
 type Engine struct {
-	Templates *template.Template
-	Vars      *tmpl.Vars
+	*template.Template
+	Vars *tmpl.Vars
 }
 
 type Store struct {
 	Trees   map[string]*DoubleTree
 	Recents map[string]*DoubleEntries
-}
-
-type paths struct {
-	Root string
-	Data string
 }
 
 type flags struct {
@@ -75,10 +68,8 @@ func NewServer() *Server {
 		Queue: make(chan int, 1),
 	}
 
-	s.Paths = &paths{
+	s.Paths = tmpl.Paths{
 		Root: *path,
-		// `Clean` is necessary to harmonize this path with later paths
-		// that are processed by path/filepath functions.
 		Data: p.Clean(*path + "/data"),
 	}
 

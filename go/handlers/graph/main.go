@@ -7,8 +7,8 @@ import (
 
 	"g.rg-s.com/sera/go/entry"
 	"g.rg-s.com/sera/go/entry/types/tree"
-	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
+	"g.rg-s.com/sera/go/viewer"
 )
 
 type GraphViewer struct {
@@ -22,26 +22,28 @@ type graphMain struct {
 	//Next *entry.Hold
 }
 
-func Main(w http.ResponseWriter, r *http.Request, m *meta.Meta) {
-	t := s.Srv.Store.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
+func Main(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		t := v.Store.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
 
-	m.Title = "Graph"
+		m.Title = "Graph"
 
-	m.SetSection("graph")
-	m.SetHreflang(t)
+		m.SetSection("graph")
+		m.SetHreflang(t)
 
-	prev, _ := yearSiblings(lastTree(t))
+		prev, _ := yearSiblings(lastTree(t))
 
-	entries := s.Srv.Store.Recents["graph"].Access(m.Auth.Subscriber)[m.Lang]
+		entries := v.Store.Recents["graph"].Access(m.Auth.Subscriber)[m.Lang]
 
-	err := s.Srv.ExecuteTemplate(w, "graph-main", &graphMain{
-		Meta:    m,
-		Tree:    t,
-		Entries: entries.Offset(0, 100),
-		Prev:    prev,
-	})
-	if err != nil {
-		log.Println(err)
+		err := v.Engine.ExecuteTemplate(w, "graph-main", &graphMain{
+			Meta:    m,
+			Tree:    t,
+			Entries: entries.Offset(0, 100),
+			Prev:    prev,
+		})
+		if err != nil {
+			log.Println(err)
+		}
 	}
 }
 

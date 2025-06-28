@@ -8,7 +8,6 @@ import (
 
 	"g.rg-s.com/sera/go/entry"
 	"g.rg-s.com/sera/go/entry/tools"
-	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 	"g.rg-s.com/sera/go/viewer"
 )
@@ -21,7 +20,7 @@ type cacheSingle struct {
 
 func ServeSingle(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		cache := s.Srv.Store.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
+		cache := v.Store.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
 		e, err := cache.LookupEntryHash(m.Split.Hash)
 		if err != nil {
 			http.Redirect(w, r, "/cache", http.StatusMovedPermanently)
@@ -38,7 +37,7 @@ func ServeSingle(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 		m.SetSection("cache")
 		m.SetHreflang(e)
 
-		err = s.Srv.ExecuteTemplate(w, "cache-single", &cacheSingle{
+		err = v.Engine.ExecuteTemplate(w, "cache-single", &cacheSingle{
 			Meta:  m,
 			Entry: e,
 		})

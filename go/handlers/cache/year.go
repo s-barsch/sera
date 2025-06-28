@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"g.rg-s.com/sera/go/entry/tools"
-	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 	"g.rg-s.com/sera/go/viewer"
 )
@@ -21,7 +20,7 @@ func Year(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 			return
 		}
 
-		cache := s.Srv.Store.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
+		cache := v.Store.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
 		t, err := cache.LookupTree(id)
 		if err != nil {
 			http.NotFound(w, r)
@@ -41,7 +40,7 @@ func Year(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 
 		entries := t.TraverseEntriesReverse()
 
-		err = s.Srv.ExecuteTemplate(w, "cache-year", &cacheMain{
+		err = v.Engine.ExecuteTemplate(w, "cache-year", &cacheMain{
 			Meta:    m,
 			Tree:    t,
 			Entries: entries,

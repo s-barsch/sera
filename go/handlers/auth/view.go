@@ -6,7 +6,6 @@ import (
 	"strings"
 
 	"g.rg-s.com/sera/go/entry/types/tree"
-	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 	"g.rg-s.com/sera/go/viewer"
 )
@@ -23,11 +22,11 @@ func lastItem(path string) string {
 
 func SysPage(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		extra := s.Srv.Store.Trees["extra"].Access(m.Auth.Subscriber)[m.Lang]
+		extra := v.Store.Trees["extra"].Access(m.Auth.Subscriber)[m.Lang]
 
 		t, err := extra.SearchTree(lastItem(m.Path), m.Lang)
 		if err != nil {
-			s.Srv.Debug(err)
+			v.Logger.Info(err)
 			http.NotFound(w, r)
 			return
 		}
@@ -41,7 +40,7 @@ func SysPage(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 		m.SetSection("extra")
 		m.SetHreflang(t)
 
-		err = s.Srv.ExecuteTemplate(w, t.Slug("en")+"-extra", &extraHold{
+		err = v.Engine.ExecuteTemplate(w, t.Slug("en")+"-extra", &extraHold{
 			Meta: m,
 			Tree: t,
 		})

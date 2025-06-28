@@ -12,7 +12,6 @@ import (
 	"g.rg-s.com/sera/go/entry/tools"
 	"g.rg-s.com/sera/go/entry/types/set"
 	"g.rg-s.com/sera/go/entry/types/tree"
-	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 	"g.rg-s.com/sera/go/server/paths"
 	"g.rg-s.com/sera/go/viewer"
@@ -26,7 +25,7 @@ import (
 
 func ServeFile(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		err := serveFile(w, r, m)
+		err := serveFile(w, r, v, m)
 		if err != nil {
 			log.Println(err)
 			http.NotFound(w, r)
@@ -34,9 +33,9 @@ func ServeFile(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 	}
 }
 
-func serveFile(w http.ResponseWriter, r *http.Request, m *meta.Meta) error {
+func serveFile(w http.ResponseWriter, r *http.Request, v *viewer.Viewer, m *meta.Meta) error {
 	section := m.Split.Section()
-	tree := s.Srv.Store.Trees[section].Access(m.Auth.Subscriber)[m.Lang]
+	tree := v.Store.Trees[section].Access(m.Auth.Subscriber)[m.Lang]
 
 	e, err := getEntry(tree, m.Split)
 	if err != nil {

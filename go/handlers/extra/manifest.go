@@ -4,7 +4,6 @@ import (
 	"log"
 	"net/http"
 
-	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 	"g.rg-s.com/sera/go/viewer"
 )
@@ -12,7 +11,7 @@ import (
 func Manifest(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		m.Title = meta.SiteName(m.Lang)
-		m.Desc = s.Srv.Engine.Vars.Lang("site", m.Lang)
+		m.Desc = v.Engine.Vars.Lang("site", m.Lang)
 
 		/*
 			m.SetHreflang(nil)
@@ -22,7 +21,7 @@ func Manifest(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 			}
 		*/
 
-		err := s.Srv.ExecuteTemplate(w, "manifest", m)
+		err := v.Engine.ExecuteTemplate(w, "manifest", m)
 		if err != nil {
 			log.Println(err)
 		}

@@ -7,7 +7,6 @@ import (
 	"strings"
 	"time"
 
-	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 	"g.rg-s.com/sera/go/server/paths"
 	"g.rg-s.com/sera/go/viewer"
@@ -28,7 +27,7 @@ func serveStatic(w http.ResponseWriter, r *http.Request, p string) {
 
 func ServiceWorker(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		serveStatic(w, r, s.Srv.Paths.Data+"/static/js"+r.URL.Path)
+		serveStatic(w, r, v.Engine.Vars.Paths.Data+"/static/js"+r.URL.Path)
 	}
 }
 
@@ -36,7 +35,7 @@ func JSFiles(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		path, err := paths.Sanitize(r.URL.Path)
 		if err != nil {
-			s.Srv.Debug(err)
+			v.Logger.Info(err)
 			http.NotFound(w, r)
 			return
 		}
@@ -47,7 +46,7 @@ func JSFiles(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 			return
 		}
 
-		serveStatic(w, r, s.Srv.Paths.Data+"/static"+path)
+		serveStatic(w, r, v.Engine.Vars.Paths.Data+"/static"+path)
 	}
 }
 
@@ -55,7 +54,7 @@ func StaticFiles(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		path, err := paths.Sanitize(r.URL.Path)
 		if err != nil {
-			s.Srv.Debug(err)
+			v.Logger.Info(err)
 			http.NotFound(w, r)
 			return
 		}
@@ -66,13 +65,13 @@ func StaticFiles(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 			return
 		}
 
-		serveStatic(w, r, s.Srv.Paths.Data+path)
+		serveStatic(w, r, v.Engine.Vars.Paths.Data+path)
 	}
 }
 
 func RobotsFiles(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		path := fmt.Sprintf("%v/static/seo/robots-de.txt", s.Srv.Paths.Data)
+		path := fmt.Sprintf("%v/static/seo/robots-de.txt", v.Engine.Vars.Paths.Data)
 		serveStatic(w, r, path)
 	}
 }

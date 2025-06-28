@@ -9,10 +9,16 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+type Paths struct {
+	Root string
+	Data string
+}
+
 type Vars struct {
 	FrontSettings *FrontSettings
 	Strings       map[string]string
 	Inlines       map[string]string
+	Paths         Paths
 }
 
 type Article struct {

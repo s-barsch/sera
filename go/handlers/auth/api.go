@@ -7,7 +7,6 @@ import (
 	"log"
 	"net/http"
 
-	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 	"g.rg-s.com/sera/go/server/users"
 	"g.rg-s.com/sera/go/viewer"
@@ -23,7 +22,7 @@ func Subscribe(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 			return
 		}
 
-		err = s.Srv.Users.AddUser(user)
+		err = v.Users.AddUser(user)
 		if err != nil {
 			fmt.Println(err)
 		}
@@ -37,7 +36,7 @@ func Register(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 		user.Name = r.FormValue("name")
 		user.Mail = r.FormValue("mail")
 
-		err := s.Srv.Users.AddUser(user)
+		err := v.Users.AddUser(user)
 		if err != nil {
 			fmt.Println(err)
 			http.Error(w, err.Error(), 500)
@@ -48,7 +47,7 @@ func Register(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 func RequestLogin(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		mail := r.FormValue("mail")
-		user, err := s.Srv.Users.LookupUser(mail)
+		user, err := v.Users.LookupUser(mail)
 		if err != nil {
 			log.Println(err)
 			return
@@ -60,7 +59,7 @@ func RequestLogin(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 			return
 		}
 
-		err = s.Srv.Users.StoreVerify(mail, key)
+		err = v.Users.StoreVerify(mail, key)
 		if err != nil {
 			log.Println(err)
 			return
@@ -86,14 +85,14 @@ func VerifyLogin(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 			return
 		}
 
-		key, err := s.Srv.Users.GetVerify(mail)
+		key, err := v.Users.GetVerify(mail)
 		if err != nil {
 			log.Println(err)
 			return
 		}
 
 		if outsideKey == key {
-			err = generateSession(w, mail)
+			err = generateSession(v, w, mail)
 			if err != nil {
 				log.Println(err)
 				return
@@ -105,14 +104,14 @@ func VerifyLogin(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 	}
 }
 
-func generateSession(w http.ResponseWriter, mail string) error {
+func generateSession(v *viewer.Viewer, w http.ResponseWriter, mail string) error {
 	key, err := users.GenerateSessionKey()
 	if err != nil {
 		return err
 	}
 
 	storeToCookie(w, mail, key)
-	return s.Srv.Users.StoreSession(mail, key)
+	return v.Users.StoreSession(mail, key)
 }
 
 func storeToCookie(w http.ResponseWriter, mail, key string) {

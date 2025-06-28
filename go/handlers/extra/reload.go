@@ -4,7 +4,6 @@ import (
 	"log"
 	"net/http"
 
-	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 	"g.rg-s.com/sera/go/viewer"
 )
@@ -15,7 +14,7 @@ func AddSlash(w http.ResponseWriter, r *http.Request) {
 
 func Reload(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		err := s.Srv.LoadSafe()
+		err := v.Reload()
 		if err != nil {
 			log.Println(err)
 			http.Error(w, err.Error(), 500)

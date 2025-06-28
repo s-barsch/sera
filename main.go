@@ -8,7 +8,6 @@ import (
 
 	"g.rg-s.com/sera/go/routes"
 	"g.rg-s.com/sera/go/server"
-	s "g.rg-s.com/sera/go/server"
 )
 
 func main() {
@@ -16,7 +15,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	s.Srv = store
 
 	log.Fatal(http.ListenAndServe(":8013", routes.Router(store)))
 }

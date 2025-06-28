@@ -47,7 +47,7 @@ func MonthPage(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 			return
 		}
 
-		graph := s.Srv.Store.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
+		graph := v.Store.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
 		t, err := graph.LookupTree(id)
 		if err != nil {
 			http.NotFound(w, r)
@@ -68,7 +68,7 @@ func MonthPage(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 		m.SetSection("graph")
 		m.SetHreflang(t)
 
-		err = s.Srv.ExecuteTemplate(w, "graph-month", &monthPage{
+		err = v.Engine.ExecuteTemplate(w, "graph-month", &monthPage{
 			Meta: m,
 			Tree: t,
 			Prev: prev,
