@@ -11,9 +11,6 @@ import (
 	"g.rg-s.com/sera/go/viewer"
 )
 
-type GraphViewer struct {
-	Viewer
-}
 type graphMain struct {
 	Meta    *meta.Meta
 	Tree    *tree.Tree

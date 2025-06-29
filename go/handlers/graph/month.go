@@ -8,29 +8,11 @@ import (
 
 	"g.rg-s.com/sera/go/entry/tools"
 	"g.rg-s.com/sera/go/entry/types/tree"
-	s "g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 	"g.rg-s.com/sera/go/server/paths"
 	"g.rg-s.com/sera/go/viewer"
 )
 
-type Viewer interface {
-	View(w http.ResponseWriter, r *http.Request, m *meta.Meta)
-}
-
-type Graph struct {
-	Server *s.Server
-}
-
-type Request struct {
-	Request        *http.Request
-	ResponseWriter http.ResponseWriter
-	Meta           *meta.Meta
-	Path           Path
-}
-
-type Path struct {
-}
 type monthPage struct {
 	Meta *meta.Meta
 	Tree *tree.Tree
