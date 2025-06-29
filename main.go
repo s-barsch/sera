@@ -6,21 +6,15 @@ import (
 	"log"
 	"net/http"
 
-	"g.rg-s.com/sera/go/router"
-	"g.rg-s.com/sera/go/server"
-	"g.rg-s.com/sera/go/viewer"
+	"g.rg-s.com/sera/go/app"
+	"g.rg-s.com/sera/go/server/flags"
 )
 
 func main() {
-	s, err := server.LoadServer()
+	a, err := app.Create(flags.Parse())
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	v, err := viewer.NewViewer(s.Logger, s.Store, s.Engine, s.Users, s.LoadSafe)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	log.Fatal(http.ListenAndServe(":8013", router.New(v)))
+	log.Fatal(http.ListenAndServe(":8013", a.Router))
 }

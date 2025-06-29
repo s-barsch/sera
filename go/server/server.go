@@ -1,12 +1,11 @@
 package server
 
 import (
-	"flag"
 	"log"
 	"os"
-	p "path/filepath"
 	"text/template"
 
+	"g.rg-s.com/sera/go/server/flags"
 	"g.rg-s.com/sera/go/server/tmpl"
 	"g.rg-s.com/sera/go/server/users"
 
@@ -15,8 +14,8 @@ import (
 )
 
 type Server struct {
+	Flags
 	Paths  tmpl.Paths
-	Flags  *flags
 	Logger *logrus.Logger
 
 	Users *users.Users
@@ -29,6 +28,12 @@ type Server struct {
 	Quit    chan os.Signal
 }
 
+type Flags struct {
+	Debug bool
+	Local bool
+	Info  bool
+}
+
 type Engine struct {
 	*template.Template
 	Vars *tmpl.Vars
@@ -39,59 +44,25 @@ type Store struct {
 	Recents map[string]*DoubleEntries
 }
 
-type flags struct {
-	Host   string
-	Local  bool
-	Debug  bool
-	Reload bool
-	Mobile bool
-	Info   bool
-}
-
-func NewServer() *Server {
-	host := flag.String("host", "", "override host variable for testing")
-	path := flag.String("path", ".", "set the root path of this app")
-	all := flag.Bool("a", false, "sets debug and local to true")
-	debug := flag.Bool("debug", false, "log to stdout")
-	local := flag.Bool("local", false, "enable local testing")
-	reload := flag.Bool("reload", false, "reload files on every request")
-	mobile := flag.Bool("mobile", false, "adjust polyfill path")
-	info := flag.Bool("info", false, "display more video infos")
-
-	flag.Parse()
-
-	if *all {
-		*debug = true
-		*local = true
-	}
+func NewServer(flags flags.Flags) *Server {
 
 	s := &Server{
+		Flags: Flags{
+			Debug: flags.Debug,
+			Local: flags.Local,
+			Info:  flags.Info,
+		},
 		Queue: make(chan int, 1),
 	}
-
-	s.Paths = tmpl.Paths{
-		Root: *path,
-		Data: p.Clean(*path + "/data"),
-	}
-
-	s.Flags = &flags{
-		Host:   *host,
-		Debug:  *debug,
-		Local:  *local,
-		Reload: *reload,
-		Mobile: *mobile,
-		Info:   *info,
-	}
-
 	return s
 }
 
-func LoadServer() (*Server, error) {
-	s := NewServer()
+func LoadServer(flags flags.Flags) (*Server, error) {
+	s := NewServer(flags)
 
 	log.SetFlags(log.LstdFlags)
 
-	if s.Flags.Debug {
+	if flags.Debug {
 		err := s.SetupWatcher()
 		if err != nil {
 			return nil, err
@@ -113,7 +84,7 @@ func (s *Server) CloseUsers() error {
 	if err != nil {
 		return err
 	}
-	if s.Flags.Debug {
+	if s.Debug {
 		log.Println("Closed user database.")
 	}
 	return nil
