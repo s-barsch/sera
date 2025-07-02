@@ -7,7 +7,6 @@ import (
 
 	"g.rg-s.com/sera/go/server/flags"
 	"g.rg-s.com/sera/go/server/tmpl"
-	"g.rg-s.com/sera/go/server/users"
 
 	"github.com/rjeczalik/notify"
 	"github.com/sirupsen/logrus"
@@ -17,8 +16,6 @@ type Server struct {
 	Flags
 	Paths  tmpl.Paths
 	Logger *logrus.Logger
-
-	Users *users.Users
 
 	Store  *Store
 	Engine *Engine
@@ -69,16 +66,10 @@ func LoadServer(flags flags.Flags) (*Server, error) {
 		}
 	}
 
-	u, err := users.LoadUsers()
-	if err != nil {
-		return nil, err
-	}
-
-	s.Users = u
-
 	return s, s.Load()
 }
 
+/*
 func (s *Server) CloseUsers() error {
 	err := s.Users.Close()
 	if err != nil {
@@ -89,3 +80,4 @@ func (s *Server) CloseUsers() error {
 	}
 	return nil
 }
+*/
