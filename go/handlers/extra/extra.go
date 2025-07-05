@@ -23,8 +23,7 @@ func lastItem(path string) string {
 func Extra(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 
-		extra := v.Store.Trees["extra"].Access(m.Auth.Subscriber)[m.Lang]
-		t, err := extra.SearchTree(lastItem(m.Path), m.Lang)
+		t, err := v.Store.Extra().SearchTree(lastItem(m.Path), m.Lang)
 		if err != nil {
 			v.Logger.Info(err)
 			http.NotFound(w, r)

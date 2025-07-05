@@ -7,7 +7,13 @@ import (
 	"g.rg-s.com/sera/go/entry/tools"
 )
 
+var ErrNilTree = fmt.Errorf("tree is nil")
+
 func (t *Tree) LookupTreeHash(hash string) (*Tree, error) {
+	if t == nil {
+		return nil, ErrNilTree
+	}
+
 	id, err := tools.ParseHash(hash)
 	if err != nil {
 		return nil, fmt.Errorf("fn LookupTreeHash: Couldn’t parse hash %v", err)
@@ -16,6 +22,10 @@ func (t *Tree) LookupTreeHash(hash string) (*Tree, error) {
 }
 
 func (t *Tree) LookupTree(id int64) (*Tree, error) {
+	if t == nil {
+		return nil, ErrNilTree
+	}
+
 	e, err := t.LookupEntry(id)
 	if err != nil {
 		return nil, err
@@ -28,6 +38,10 @@ func (t *Tree) LookupTree(id int64) (*Tree, error) {
 }
 
 func (t *Tree) LookupEntryHash(hash string) (entry.Entry, error) {
+	if t == nil {
+		return nil, ErrNilTree
+	}
+
 	id, err := tools.ParseHash(hash)
 	if err != nil {
 		return nil, fmt.Errorf("fn LookupEntryHash: could not parse hash %v", err)
@@ -37,11 +51,19 @@ func (t *Tree) LookupEntryHash(hash string) (entry.Entry, error) {
 
 // Starting recursive function
 func (t *Tree) LookupEntry(id int64) (entry.Entry, error) {
+	if t == nil {
+		return nil, ErrNilTree
+	}
+
 	return t.lookup([]*Tree{}, id)
 }
 
 // Recursive function
 func (t *Tree) lookup(stack []*Tree, id int64) (entry.Entry, error) {
+	if t == nil {
+		return nil, ErrNilTree
+	}
+
 	if t.Id() == id {
 		return t, nil
 	}
@@ -66,10 +88,18 @@ func (t *Tree) lookup(stack []*Tree, id int64) (entry.Entry, error) {
 // search
 
 func (t *Tree) SearchTree(slug, lang string) (*Tree, error) {
+	if t == nil {
+		return nil, ErrNilTree
+	}
+
 	return t.search([]*Tree{}, slug, lang)
 }
 
 func (t *Tree) search(stack []*Tree, slug, lang string) (*Tree, error) {
+	if t == nil {
+		return nil, ErrNilTree
+	}
+
 	if t.Slug(lang) == slug {
 		return t, nil
 	}
@@ -88,5 +118,6 @@ func (t *Tree) search(stack []*Tree, slug, lang string) (*Tree, error) {
 			return h.search(stack[1:], slug, lang)
 		}
 	}
+
 	return nil, fmt.Errorf("could not find slug %v in Tree", slug)
 }

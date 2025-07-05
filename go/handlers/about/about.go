@@ -16,9 +16,7 @@ type aboutTree struct {
 
 func About(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		about := v.Store.Trees["about"].Access(m.Auth.Subscriber)[m.Lang]
-
-		t, err := about.SearchTree(m.Split.Slug, m.Lang)
+		t, err := v.Store.About().SearchTree(m.Split.Slug, m.Lang)
 		if err != nil {
 			http.NotFound(w, r)
 			return

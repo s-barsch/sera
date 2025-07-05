@@ -19,9 +19,6 @@ func Route(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 	case m.Split.IsFile():
 		return extra.ServeFile(v, m)
 
-	case isYearPage(m.Split.Slug):
-		return YearRedirect(v, m)
-
 	case isMonth(m.Split.Slug):
 		return MonthPage(v, m)
 
@@ -35,14 +32,6 @@ func isMonth(str string) bool {
 		return true
 	}
 	if len(str) != 2 {
-		return false
-	}
-	_, err := strconv.Atoi(str)
-	return err == nil
-}
-
-func isYearPage(str string) bool {
-	if len(str) != 4 {
 		return false
 	}
 	_, err := strconv.Atoi(str)

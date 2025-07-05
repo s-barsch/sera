@@ -34,28 +34,8 @@ func Main(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 		m.SetSection("home")
 		m.SetHreflang(nil)
 
-		//indecs := s.Store.Recents["indecs"].Access(m.Auth.Subscriber)[m.Lang]
-		graph := v.Store.Recents["graph"].Access(m.Auth.Subscriber)[m.Lang]
-		cache := v.Store.Recents["cache"].Access(m.Auth.Subscriber)[m.Lang]
-
-		months := v.Store.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang].TraverseTrees()
-		newmonths := []*tree.Tree{}
-
-		for _, m := range months {
-			if m.Info()["release"] != "" {
-				newmonths = append(newmonths, m)
-			}
-		}
-
-		months = newmonths
-
 		err := v.Engine.ExecuteTemplate(w, "front", &frontMain{
 			Meta: m,
-			//Index:  indecs.Limit(s.Engine.Vars.FrontSettings.Index),
-			Graph:  graph.Limit(v.Engine.Vars.FrontSettings.Graph),
-			Cache:  cache.Limit(10),
-			Months: months,
-			// Log:    s.Store.Recents["log"].Access(true)["de"].Limit(s.Engine.Vars.FrontSettinglog),
 		})
 		if err != nil {
 			log.Println(err)

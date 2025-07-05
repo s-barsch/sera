@@ -29,8 +29,7 @@ func MonthPage(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 			return
 		}
 
-		graph := v.Store.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
-		t, err := graph.LookupTree(id)
+		t, err := v.Store.Graph().LookupTree(id)
 		if err != nil {
 			http.NotFound(w, r)
 			log.Println(err)

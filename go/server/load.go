@@ -22,14 +22,14 @@ func (s *Server) LoadSafe() error {
 func (s *Server) Load() error {
 	tStart := time.Now()
 
-	err := s.ReadTrees()
-	if err != nil {
-		return err
-	}
+	/*
+		err := s.ReadTrees()
+		if err != nil {
+			return err
+		}
+	*/
 
-	s.makeLinks()
-
-	err = s.LoadTemplates()
+	err := s.LoadTemplates()
 	if err != nil {
 		return err
 

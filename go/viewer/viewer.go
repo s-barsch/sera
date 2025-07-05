@@ -7,12 +7,13 @@ import (
 	"g.rg-s.com/sera/go/server"
 	"g.rg-s.com/sera/go/server/meta"
 	"g.rg-s.com/sera/go/server/users"
+	"g.rg-s.com/sera/go/store"
 	"github.com/sirupsen/logrus"
 )
 
 type Viewer struct {
 	Logger *logrus.Logger
-	Store  *server.Store
+	Store  *store.Store
 	Engine *server.Engine
 	Users  *users.Users
 	Reload func() error
@@ -20,7 +21,7 @@ type Viewer struct {
 
 type HandleFunc func(v *Viewer, meta *meta.Meta) http.HandlerFunc
 
-func NewViewer(logger *logrus.Logger, store *server.Store, engine *server.Engine, users *users.Users, reload func() error) (*Viewer, error) {
+func NewViewer(logger *logrus.Logger, store *store.Store, engine *server.Engine, users *users.Users, reload func() error) (*Viewer, error) {
 	if logger == nil {
 		return nil, errors.New("logger cannot be nil")
 	}

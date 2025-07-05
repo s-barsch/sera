@@ -20,8 +20,7 @@ func Year(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 			return
 		}
 
-		cache := v.Store.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
-		t, err := cache.LookupTree(id)
+		t, err := v.Store.Cache().LookupTree(id)
 		if err != nil {
 			http.NotFound(w, r)
 			log.Println(err)
@@ -38,7 +37,7 @@ func Year(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 		m.SetSection("cache")
 		m.SetHreflang(t)
 
-		entries := t.TraverseEntriesReverse()
+		entries := t.Flatten()
 
 		err = v.Engine.ExecuteTemplate(w, "cache-year", &cacheMain{
 			Meta:    m,

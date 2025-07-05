@@ -21,8 +21,7 @@ type graphSingle struct {
 
 func ServeSingle(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		graph := v.Store.Trees["graph"].Access(m.Auth.Subscriber)[m.Lang]
-		e, err := graph.LookupEntryHash(m.Split.Hash)
+		e, err := v.Store.Graph().LookupEntryHash(m.Split.Hash)
 		if err != nil {
 			http.Redirect(w, r, "/graph", http.StatusMovedPermanently)
 			return
@@ -34,7 +33,7 @@ func ServeSingle(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 			return
 		}
 
-		prev, next := getPrevNext(v.Store.Recents["graph"].Access(m.Auth.Subscriber)[m.Lang], e)
+		prev, next := getPrevNext(v.Store.GraphFlat(), e)
 
 		m.Title = graphEntryTitle(e, m.Lang)
 

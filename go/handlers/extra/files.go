@@ -35,7 +35,11 @@ func ServeFile(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 
 func serveFile(w http.ResponseWriter, r *http.Request, v *viewer.Viewer, m *meta.Meta) error {
 	section := m.Split.Section()
-	tree := v.Store.Trees[section].Access(m.Auth.Subscriber)[m.Lang]
+
+	tree, ok := v.Store.TreeByString(section)
+	if !ok {
+		return fmt.Errorf("no tree found for section %q", section)
+	}
 
 	e, err := getEntry(tree, m.Split)
 	if err != nil {

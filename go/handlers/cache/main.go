@@ -19,20 +19,17 @@ type cacheMain struct {
 
 func Main(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		t := v.Store.Trees["cache"].Access(m.Auth.Subscriber)[m.Lang]
-
+		t := v.Store.Cache()
 		m.Title = "Cache"
 		m.Desc = t.Info().Field("description", m.Lang)
 
 		m.SetSection("cache")
 		m.SetHreflang(t)
 
-		entries := v.Store.Recents["cache"].Access(m.Auth.Subscriber)[m.Lang].Limit(10)
-
 		err := v.Engine.ExecuteTemplate(w, "cache-main", &cacheMain{
 			Meta:    m,
 			Tree:    t,
-			Entries: entries,
+			Entries: v.Store.CacheFlat().Limit(10),
 		})
 		if err != nil {
 			log.Println(err)

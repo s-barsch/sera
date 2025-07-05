@@ -7,6 +7,7 @@ import (
 
 	"g.rg-s.com/sera/go/server/flags"
 	"g.rg-s.com/sera/go/server/tmpl"
+	"g.rg-s.com/sera/go/store"
 
 	"github.com/rjeczalik/notify"
 	"github.com/sirupsen/logrus"
@@ -17,7 +18,7 @@ type Server struct {
 	Paths  tmpl.Paths
 	Logger *logrus.Logger
 
-	Store  *Store
+	*store.Store
 	Engine *Engine
 
 	Queue   chan int
@@ -34,11 +35,6 @@ type Flags struct {
 type Engine struct {
 	*template.Template
 	Vars *tmpl.Vars
-}
-
-type Store struct {
-	Trees   map[string]*DoubleTree
-	Recents map[string]*DoubleEntries
 }
 
 func NewServer(flags flags.Flags) *Server {
