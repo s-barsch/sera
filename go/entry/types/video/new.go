@@ -15,7 +15,7 @@ import (
 	"g.rg-s.com/sera/go/entry/tools"
 	"g.rg-s.com/sera/go/entry/tools/script"
 	"g.rg-s.com/sera/go/entry/tools/transcript"
-	"g.rg-s.com/sera/go/server/paths"
+	"g.rg-s.com/sera/go/requests/split"
 
 	"github.com/alfg/mp4"
 )
@@ -185,7 +185,7 @@ func getSource(path string) (*Source, error) {
 		isTop = true
 	}
 
-	file, err := paths.SplitFile(path)
+	file, err := split.SplitFile(path)
 	if err != nil {
 		return nil, fmt.Errorf("getSource: cannot find source since path is malformed. %w", err)
 	}
