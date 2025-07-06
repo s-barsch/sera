@@ -2,28 +2,28 @@ package server
 
 import (
 	"log"
-	"os"
 	"text/template"
 
 	"g.rg-s.com/sera/go/server/flags"
+	"g.rg-s.com/sera/go/server/store"
 	"g.rg-s.com/sera/go/server/tmpl"
-	"g.rg-s.com/sera/go/store"
 
-	"github.com/rjeczalik/notify"
 	"github.com/sirupsen/logrus"
 )
 
 type Server struct {
-	Flags
-	Paths  tmpl.Paths
-	Logger *logrus.Logger
+	logger *logrus.Logger
+	config config
 
-	*store.Store
-	Engine *Engine
+	store  *store.Store
+	engine *Engine
 
-	Queue   chan int
-	Watcher chan notify.EventInfo
-	Quit    chan os.Signal
+	trigger chan struct{}
+}
+
+type config struct {
+	Paths tmpl.Paths
+	Flags Flags
 }
 
 type Flags struct {
@@ -37,32 +37,11 @@ type Engine struct {
 	Vars *tmpl.Vars
 }
 
-func NewServer(flags flags.Flags) *Server {
-
-	s := &Server{
-		Flags: Flags{
-			Debug: flags.Debug,
-			Local: flags.Local,
-			Info:  flags.Info,
-		},
-		Queue: make(chan int, 1),
-	}
-	return s
-}
-
-func LoadServer(flags flags.Flags) (*Server, error) {
-	s := NewServer(flags)
-
+func New(logger *logrus.Logger, flags flags.Flags) (*Server, error) {
 	log.SetFlags(log.LstdFlags)
-
-	if flags.Debug {
-		err := s.SetupWatcher()
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	return s, s.Load()
+	return &Server{
+		logger: logger,
+	}, nil
 }
 
 /*
