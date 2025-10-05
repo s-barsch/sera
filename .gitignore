@@ -29,3 +29,7 @@ js/.pnp.loader.mjs
 install-state.gz
 .yarn
 sera
+static/register
+sacer
+sera.back
+css/main.css
