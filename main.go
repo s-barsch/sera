@@ -6,9 +6,9 @@ import (
 	"log"
 	"net/http"
 
-	"g.rg-s.com/sacer/go/requests/flags"
 	"g.rg-s.com/sacer/go/requests/watcher"
 	"g.rg-s.com/sacer/go/server"
+	"g.rg-s.com/sacer/go/server/flags"
 	"github.com/sirupsen/logrus"
 )
 
