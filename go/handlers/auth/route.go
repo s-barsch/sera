@@ -3,7 +3,7 @@ package auth
 import (
 	"net/http"
 
-	"g.rg-s.com/sacer/go/server/meta"
+	"g.rg-s.com/sacer/go/requests/meta"
 	"g.rg-s.com/sacer/go/viewer"
 )
 

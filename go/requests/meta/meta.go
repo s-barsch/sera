@@ -5,8 +5,8 @@ import (
 	"net/http"
 
 	"g.rg-s.com/sacer/go/entry"
-	"g.rg-s.com/sacer/go/server/paths"
-	usr "g.rg-s.com/sacer/go/server/users"
+	"g.rg-s.com/sacer/go/requests/paths"
+	usr "g.rg-s.com/sacer/go/requests/users"
 )
 
 type Meta struct {

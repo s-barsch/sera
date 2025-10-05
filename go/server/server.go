@@ -4,9 +4,9 @@ import (
 	"log"
 	"text/template"
 
-	"g.rg-s.com/sacer/go/server/flags"
-	"g.rg-s.com/sacer/go/server/store"
-	"g.rg-s.com/sacer/go/server/tmpl"
+	"g.rg-s.com/sacer/go/requests/flags"
+	"g.rg-s.com/sacer/go/requests/store"
+	"g.rg-s.com/sacer/go/requests/tmpl"
 
 	"github.com/sirupsen/logrus"
 )

@@ -5,7 +5,7 @@ import (
 	"log"
 	"time"
 
-	"g.rg-s.com/sacer/go/server/tmpl"
+	"g.rg-s.com/sacer/go/requests/tmpl"
 )
 
 func (s *Server) LoadSafe() error {

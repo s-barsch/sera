@@ -11,7 +11,7 @@ import (
 	"g.rg-s.com/sacer/go/entry/tools"
 	"g.rg-s.com/sacer/go/entry/types/set"
 	"g.rg-s.com/sacer/go/entry/types/video"
-	"g.rg-s.com/sacer/go/server/tmpl"
+	"g.rg-s.com/sacer/go/requests/tmpl"
 )
 
 func (s *Server) Funcs() template.FuncMap {
