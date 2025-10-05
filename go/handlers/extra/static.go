@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"g.rg-s.com/sacer/go/requests/meta"
-	"g.rg-s.com/sacer/go/requests/paths"
+	"g.rg-s.com/sacer/go/requests/split"
 	"g.rg-s.com/sacer/go/viewer"
 )
 
@@ -33,7 +33,7 @@ func ServiceWorker(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 
 func JSFiles(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		path, err := paths.Sanitize(r.URL.Path)
+		path, err := split.Sanitize(r.URL.Path)
 		if err != nil {
 			v.Logger.Info(err)
 			http.NotFound(w, r)
@@ -52,7 +52,7 @@ func JSFiles(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 
 func StaticFiles(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		path, err := paths.Sanitize(r.URL.Path)
+		path, err := split.Sanitize(r.URL.Path)
 		if err != nil {
 			v.Logger.Info(err)
 			http.NotFound(w, r)

@@ -1,4 +1,4 @@
-package server
+package engine
 
 import (
 	"bytes"
@@ -10,15 +10,15 @@ import (
 	"github.com/tdewolff/minify/svg"
 )
 
-func (s *Server) ExecuteTemplate(w io.Writer, tmpl string, d interface{}) error {
+func (e *Engine) ExecuteTemplate(w io.Writer, tmpl string, d interface{}) error {
 	mw := MinifyFilter("text/html", w)
 	defer mw.Close()
 	w = mw
-	return s.engine.ExecuteTemplate(w, tmpl, d)
+	return e.ExecuteTemplate(w, tmpl, d)
 }
 
 // Used within HTML templates.
-func (s *Server) RenderTemplate(tname string, d interface{}) (string, error) {
+func (e *Engine) RenderTemplate(tname string, d interface{}) (string, error) {
 	m := minify.New()
 	m.Add("text/html", &html.Minifier{
 		KeepDefaultAttrVals: true,
@@ -26,7 +26,7 @@ func (s *Server) RenderTemplate(tname string, d interface{}) (string, error) {
 		//KeepEndTags:       true,
 	})
 	var b bytes.Buffer
-	err := s.engine.ExecuteTemplate(&b, tname, d)
+	err := e.ExecuteTemplate(&b, tname, d)
 	if err != nil {
 		return "", err
 	}

@@ -4,7 +4,6 @@ import (
 	"net/http"
 
 	"g.rg-s.com/sacer/go/handlers/about"
-	"g.rg-s.com/sacer/go/handlers/auth"
 	"g.rg-s.com/sacer/go/handlers/cache"
 	"g.rg-s.com/sacer/go/handlers/extra"
 	"g.rg-s.com/sacer/go/handlers/front"
@@ -55,12 +54,6 @@ func New(v *viewer.Viewer) http.Handler {
 	r.register("/ueber", about.Rewrites)
 	r.register("/about", about.Rewrites)
 	r.register("/graph", graph.Rewrites)
-
-	r.register("/api", auth.Route)
-	r.register("/register", auth.Route)
-	r.register("/subscribe", auth.Route)
-	r.register("/login", auth.Route)
-	r.register("/account", auth.Route)
 
 	r.register("/de/impressum", extra.Extra)
 	r.register("/legal", extra.Extra)

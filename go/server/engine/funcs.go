@@ -1,4 +1,4 @@
-package server
+package engine
 
 import (
 	"fmt"
@@ -14,7 +14,7 @@ import (
 	"g.rg-s.com/sacer/go/requests/tmpl"
 )
 
-func (s *Server) Funcs() template.FuncMap {
+func (e *Engine) Funcs() template.FuncMap {
 	return template.FuncMap{
 		"aboutTitle": func(lang string) string {
 			switch lang {

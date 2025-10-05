@@ -6,26 +6,24 @@ import (
 	"log"
 	"net/http"
 
-	"g.rg-s.com/sacer/go/requests/watcher"
+	router "g.rg-s.com/sacer/go/routes"
 	"g.rg-s.com/sacer/go/server"
 	"g.rg-s.com/sacer/go/server/flags"
+	"g.rg-s.com/sacer/go/viewer"
 	"github.com/sirupsen/logrus"
 )
 
 func main() {
-	s, err := initServer()
+	v, err := viewer.New(logrus.New(), nil, nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	log.Fatal(http.ListenAndServe(":8013", newRouter(s)))
+	log.Fatal(http.ListenAndServe(":8013", router.New(v)))
 }
 
 func initServer() (*server.Server, error) {
-	flags, err := flags.Parse()
-	if err != nil {
-		return nil, err
-	}
+	flags := flags.Parse()
 
 	logger := logrus.New()
 
@@ -34,10 +32,12 @@ func initServer() (*server.Server, error) {
 		return nil, err
 	}
 
-	err = watcher.Init(logger, s.Paths, s.Trigger)
-	if err != nil {
-		return nil, err
-	}
+	/*
+		err = watcher.Init(logger, s.Paths, s.Trigger)
+		if err != nil {
+			return nil, err
+		}
+	*/
 
 	return s, nil
 }

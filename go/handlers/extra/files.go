@@ -13,7 +13,7 @@ import (
 	"g.rg-s.com/sacer/go/entry/types/set"
 	"g.rg-s.com/sacer/go/entry/types/tree"
 	"g.rg-s.com/sacer/go/requests/meta"
-	"g.rg-s.com/sacer/go/requests/paths"
+	"g.rg-s.com/sacer/go/requests/split"
 	"g.rg-s.com/sacer/go/viewer"
 )
 
@@ -113,7 +113,7 @@ func stripBlur(name string) string {
 	return name
 }
 
-func getEntry(t *tree.Tree, path *paths.Split) (entry.Entry, error) {
+func getEntry(t *tree.Tree, path *split.Split) (entry.Entry, error) {
 	hash := path.Hash
 	if hash == "" {
 		h, err := getMonthHash(path)
@@ -125,13 +125,13 @@ func getEntry(t *tree.Tree, path *paths.Split) (entry.Entry, error) {
 	return t.LookupEntryHash(hash)
 }
 
-func getMonthHash(path *paths.Split) (string, error) {
+func getMonthHash(path *split.Split) (string, error) {
 	if len(path.Chain) != 3 {
 		return "", fmt.Errorf("getMonthEntry: wrong month format. %v", path.Raw)
 	}
 
 	slug := path.Slug
-	if paths.IsMergedMonths(path.Slug) {
+	if split.IsMergedMonths(path.Slug) {
 		slug = slug[:2]
 	}
 

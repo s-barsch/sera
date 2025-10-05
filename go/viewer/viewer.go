@@ -6,6 +6,7 @@ import (
 
 	"g.rg-s.com/sacer/go/requests/meta"
 	"g.rg-s.com/sacer/go/server"
+	"g.rg-s.com/sacer/go/server/engine"
 	"g.rg-s.com/sacer/go/server/store"
 	"github.com/sirupsen/logrus"
 )
@@ -13,13 +14,13 @@ import (
 type Viewer struct {
 	Logger *logrus.Logger
 	Store  *store.Store
-	Engine *server.Engine
+	Engine *engine.Engine
 	Reload func() error
 }
 
 type HandleFunc func(v *Viewer, meta *meta.Meta) http.HandlerFunc
 
-func NewViewer(logger *logrus.Logger, store *store.Store, engine *server.Engine, reload func() error) (*Viewer, error) {
+func New(logger *logrus.Logger, store *store.Store, engine *server.Engine, reload func() error) (*Viewer, error) {
 	if logger == nil {
 		return nil, errors.New("logger cannot be nil")
 	}
@@ -28,6 +29,9 @@ func NewViewer(logger *logrus.Logger, store *store.Store, engine *server.Engine,
 	}
 	if engine == nil {
 		return nil, errors.New("engine cannot be nil")
+	}
+	if reload == nil {
+		return nil, errors.New("reload function cannot be nil")
 	}
 
 	return &Viewer{
