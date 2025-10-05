@@ -7,14 +7,13 @@ import (
 	"github.com/tdewolff/minify"
 	"github.com/tdewolff/minify/html"
 	"github.com/tdewolff/minify/json"
-	"github.com/tdewolff/minify/svg"
 )
 
 func (e *Engine) ExecuteTemplate(w io.Writer, tmpl string, d interface{}) error {
 	mw := MinifyFilter("text/html", w)
 	defer mw.Close()
 	w = mw
-	return e.ExecuteTemplate(w, tmpl, d)
+	return e.templates.ExecuteTemplate(w, tmpl, d)
 }
 
 // Used within HTML templates.
@@ -63,12 +62,4 @@ func MinifyFilter(mediatype string, res io.Writer) MinifyResponseWriter {
 
 	mw := m.Writer(mediatype, res)
 	return MinifyResponseWriter{res, mw}
-}
-
-func minifySVG(str string) (string, error) {
-	m := minify.New()
-	m.Add("text/svg", &svg.Minifier{
-		Decimals: -1,
-	})
-	return m.String("text/svg", str)
 }

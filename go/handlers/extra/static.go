@@ -27,7 +27,7 @@ func serveStatic(w http.ResponseWriter, r *http.Request, p string) {
 
 func ServiceWorker(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		serveStatic(w, r, v.Engine.Vars.Paths.Data+"/static/js"+r.URL.Path)
+		serveStatic(w, r, v.Engine.Config.Paths.Data+"/static/js"+r.URL.Path)
 	}
 }
 
@@ -46,7 +46,7 @@ func JSFiles(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 			return
 		}
 
-		serveStatic(w, r, v.Engine.Vars.Paths.Data+"/static"+path)
+		serveStatic(w, r, v.Engine.Config.Paths.Data+"/static"+path)
 	}
 }
 
@@ -65,13 +65,13 @@ func StaticFiles(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 			return
 		}
 
-		serveStatic(w, r, v.Engine.Vars.Paths.Data+path)
+		serveStatic(w, r, v.Engine.Config.Paths.Data+path)
 	}
 }
 
 func RobotsFiles(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		path := fmt.Sprintf("%v/static/seo/robots-de.txt", v.Engine.Vars.Paths.Data)
+		path := fmt.Sprintf("%v/static/seo/robots-de.txt", v.Engine.Config.Paths.Data)
 		serveStatic(w, r, path)
 	}
 }

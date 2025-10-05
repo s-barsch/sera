@@ -5,7 +5,6 @@ import (
 	"net/http"
 
 	"g.rg-s.com/sacer/go/requests/meta"
-	"g.rg-s.com/sacer/go/server"
 	"g.rg-s.com/sacer/go/server/engine"
 	"g.rg-s.com/sacer/go/server/store"
 	"github.com/sirupsen/logrus"
@@ -20,7 +19,7 @@ type Viewer struct {
 
 type HandleFunc func(v *Viewer, meta *meta.Meta) http.HandlerFunc
 
-func New(logger *logrus.Logger, store *store.Store, engine *server.Engine, reload func() error) (*Viewer, error) {
+func New(logger *logrus.Logger, store *store.Store, engine *engine.Engine, reload func() error) (*Viewer, error) {
 	if logger == nil {
 		return nil, errors.New("logger cannot be nil")
 	}

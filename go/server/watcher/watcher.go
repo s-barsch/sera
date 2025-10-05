@@ -5,6 +5,7 @@ import (
 	"os/signal"
 	"strings"
 
+	"g.rg-s.com/sacer/go/requests/tmpl"
 	"github.com/rjeczalik/notify"
 	"github.com/sirupsen/logrus"
 )
@@ -16,7 +17,7 @@ type watcher struct {
 	quitter  chan os.Signal
 }
 
-func Init(paths server.Paths, trigger chan struct{}) error {
+func Init(paths tmpl.Paths, trigger chan struct{}) error {
 	quitter := make(chan os.Signal, 1)
 	notifier := make(chan notify.EventInfo, 1)
 
@@ -26,12 +27,17 @@ func Init(paths server.Paths, trigger chan struct{}) error {
 		quitter:  quitter,
 	}
 
+	err := w.register(paths)
+	if err != nil {
+		return err
+	}
+
 	go w.watch()
 
 	return nil
 }
 
-func (w *watcher) register(paths server.Paths) error {
+func (w *watcher) register(paths tmpl.Paths) error {
 	signal.Notify(w.quitter, os.Interrupt)
 
 	register := []string{

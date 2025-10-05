@@ -14,7 +14,7 @@ type Paths struct {
 	Data string
 }
 
-type Vars struct {
+type Config struct {
 	FrontSettings *FrontSettings
 	Strings       map[string]string
 	Inlines       map[string]string
@@ -42,11 +42,11 @@ type FrontSettings struct {
 	Articles []*Article
 }
 
-func (v Vars) Lang(key, lang string) string {
+func (v Config) Lang(key, lang string) string {
 	return v.Strings[fmt.Sprintf("%v-%v", strings.ToLower(key), lang)]
 }
 
-func LoadVars(root string) (*Vars, error) {
+func LoadVars(root string) (*Config, error) {
 	s, err := ReadVarFiles(root)
 	if err != nil {
 		return nil, err
@@ -76,7 +76,7 @@ func LoadVars(root string) (*Vars, error) {
 		return nil, err
 	}
 
-	return &Vars{
+	return &Config{
 		Strings:       s,
 		Inlines:       inlines,
 		FrontSettings: fr,

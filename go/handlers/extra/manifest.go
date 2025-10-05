@@ -11,7 +11,7 @@ import (
 func Manifest(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		m.Title = meta.SiteName(m.Lang)
-		m.Desc = v.Engine.Vars.Lang("site", m.Lang)
+		m.Desc = v.Engine.Config.Lang("site", m.Lang)
 
 		/*
 			m.SetHreflang(nil)

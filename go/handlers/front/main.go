@@ -29,7 +29,7 @@ type frontMain struct {
 func Main(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		m.Title = ""
-		m.Desc = v.Engine.Vars.Lang("site", m.Lang)
+		m.Desc = v.Engine.Config.Lang("site", m.Lang)
 
 		m.SetSection("home")
 		m.SetHreflang(nil)

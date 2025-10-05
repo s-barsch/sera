@@ -7,6 +7,6 @@ import (
 )
 
 type Engine struct {
-	*template.Template
-	Vars *tmpl.Vars
+	templates *template.Template
+	Config    *tmpl.Config
 }
