@@ -9,7 +9,7 @@ import (
 	"g.rg-s.com/sacer/go/entry/tools"
 	"g.rg-s.com/sacer/go/entry/types/tree"
 	"g.rg-s.com/sacer/go/requests/meta"
-	"g.rg-s.com/sacer/go/requests/paths"
+	"g.rg-s.com/sacer/go/requests/split"
 	"g.rg-s.com/sacer/go/viewer"
 )
 
@@ -72,13 +72,13 @@ func monthTitle(t *tree.Tree, lang string) string {
 	return fmt.Sprintf("%v %v - Graph", t.Title(lang), t.Date().Format("2006"))
 }
 
-func getMonthId(p *paths.Split) (int64, error) {
+func getMonthId(p *split.Split) (int64, error) {
 	if len(p.Chain) != 3 {
 		return 0, fmt.Errorf("could not parse month id: %v", p.Raw)
 	}
 
 	slug := p.Slug
-	if paths.IsMergedMonths(p.Slug) {
+	if split.IsMergedMonths(p.Slug) {
 		slug = slug[:2]
 	}
 
