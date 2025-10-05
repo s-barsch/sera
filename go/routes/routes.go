@@ -10,12 +10,6 @@ import (
 	"g.rg-s.com/sera/go/handlers/front"
 	"g.rg-s.com/sera/go/handlers/graph"
 	"g.rg-s.com/sera/go/viewer"
-
-	//"g.rg-s.com/sera/go/handlers/indecs"
-	//"g.rg-s.com/sera/go/handlers/index"
-
-	//"g.rg-s.com/sera/go/handlers/sitemaps"
-
 	"github.com/gorilla/mux"
 )
 
@@ -62,22 +56,11 @@ func New(v *viewer.Viewer) http.Handler {
 	r.register("/about", about.Rewrites)
 	r.register("/graph", graph.Rewrites)
 
-	/*
-		r.register("/indecs", s, indecs.Route))
-		r.register("/index", s, index.Route))
-		r.register("/part/", s, graph.ElPart))
-	*/
-
 	r.register("/api", auth.Route)
 	r.register("/register", auth.Route)
 	r.register("/subscribe", auth.Route)
 	r.register("/login", auth.Route)
 	r.register("/account", auth.Route)
-
-	/*
-		r.registerExact("/sitemaps.xml", makeHandler(s, sitemaps.Route))
-		r.register("/sitemaps", s, sitemaps.Route))
-	*/
 
 	r.register("/de/impressum", extra.Extra)
 	r.register("/legal", extra.Extra)
