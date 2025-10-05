@@ -3,7 +3,7 @@ package info
 import (
 	"time"
 
-	"g.rg-s.com/sera/go/entry/tools"
+	"g.rg-s.com/sacer/go/entry/tools"
 )
 
 func (i Info) Title(lang string) string {

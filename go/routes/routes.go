@@ -3,13 +3,13 @@ package router
 import (
 	"net/http"
 
-	"g.rg-s.com/sera/go/handlers/about"
-	"g.rg-s.com/sera/go/handlers/auth"
-	"g.rg-s.com/sera/go/handlers/cache"
-	"g.rg-s.com/sera/go/handlers/extra"
-	"g.rg-s.com/sera/go/handlers/front"
-	"g.rg-s.com/sera/go/handlers/graph"
-	"g.rg-s.com/sera/go/viewer"
+	"g.rg-s.com/sacer/go/handlers/about"
+	"g.rg-s.com/sacer/go/handlers/auth"
+	"g.rg-s.com/sacer/go/handlers/cache"
+	"g.rg-s.com/sacer/go/handlers/extra"
+	"g.rg-s.com/sacer/go/handlers/front"
+	"g.rg-s.com/sacer/go/handlers/graph"
+	"g.rg-s.com/sacer/go/viewer"
 	"github.com/gorilla/mux"
 )
 

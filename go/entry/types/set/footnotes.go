@@ -1,9 +1,9 @@
 package set
 
 import (
-	"g.rg-s.com/sera/go/entry"
-	"g.rg-s.com/sera/go/entry/tools/script"
-	"g.rg-s.com/sera/go/entry/types/text"
+	"g.rg-s.com/sacer/go/entry"
+	"g.rg-s.com/sacer/go/entry/tools/script"
+	"g.rg-s.com/sacer/go/entry/types/text"
 )
 
 func NumberFootnotes(entries entry.Entries) script.Footnotes {

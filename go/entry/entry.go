@@ -3,8 +3,8 @@ package entry
 import (
 	"time"
 
-	"g.rg-s.com/sera/go/entry/file"
-	"g.rg-s.com/sera/go/entry/info"
+	"g.rg-s.com/sacer/go/entry/file"
+	"g.rg-s.com/sacer/go/entry/info"
 )
 
 type Entry interface {

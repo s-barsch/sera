@@ -7,9 +7,9 @@ import (
 	"strings"
 	"time"
 
-	"g.rg-s.com/sera/go/server/meta"
-	"g.rg-s.com/sera/go/server/paths"
-	"g.rg-s.com/sera/go/viewer"
+	"g.rg-s.com/sacer/go/server/meta"
+	"g.rg-s.com/sacer/go/server/paths"
+	"g.rg-s.com/sacer/go/viewer"
 )
 
 func serveStatic(w http.ResponseWriter, r *http.Request, p string) {

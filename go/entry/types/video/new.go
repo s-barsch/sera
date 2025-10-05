@@ -9,13 +9,13 @@ import (
 	"strings"
 	"time"
 
-	"g.rg-s.com/sera/go/entry"
-	"g.rg-s.com/sera/go/entry/file"
-	"g.rg-s.com/sera/go/entry/info"
-	"g.rg-s.com/sera/go/entry/tools"
-	"g.rg-s.com/sera/go/entry/tools/script"
-	"g.rg-s.com/sera/go/entry/tools/transcript"
-	"g.rg-s.com/sera/go/requests/split"
+	"g.rg-s.com/sacer/go/entry"
+	"g.rg-s.com/sacer/go/entry/file"
+	"g.rg-s.com/sacer/go/entry/info"
+	"g.rg-s.com/sacer/go/entry/tools"
+	"g.rg-s.com/sacer/go/entry/tools/script"
+	"g.rg-s.com/sacer/go/entry/tools/transcript"
+	"g.rg-s.com/sacer/go/requests/split"
 
 	"github.com/alfg/mp4"
 )

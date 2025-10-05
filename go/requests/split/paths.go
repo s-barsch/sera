@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"strings"
 
-	"g.rg-s.com/sera/go/entry/tools"
+	"g.rg-s.com/sacer/go/entry/tools"
 )
 
 type Split struct {

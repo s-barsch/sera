@@ -4,10 +4,10 @@ import (
 	"net/http"
 	"strconv"
 
-	"g.rg-s.com/sera/go/handlers/extra"
-	"g.rg-s.com/sera/go/server/meta"
-	"g.rg-s.com/sera/go/server/paths"
-	"g.rg-s.com/sera/go/viewer"
+	"g.rg-s.com/sacer/go/handlers/extra"
+	"g.rg-s.com/sacer/go/server/meta"
+	"g.rg-s.com/sacer/go/server/paths"
+	"g.rg-s.com/sacer/go/viewer"
 )
 
 func Route(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {

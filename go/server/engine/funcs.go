@@ -7,11 +7,11 @@ import (
 	"text/template"
 	"time"
 
-	"g.rg-s.com/sera/go/entry"
-	"g.rg-s.com/sera/go/entry/tools"
-	"g.rg-s.com/sera/go/entry/types/set"
-	"g.rg-s.com/sera/go/entry/types/video"
-	"g.rg-s.com/sera/go/server/tmpl"
+	"g.rg-s.com/sacer/go/entry"
+	"g.rg-s.com/sacer/go/entry/tools"
+	"g.rg-s.com/sacer/go/entry/types/set"
+	"g.rg-s.com/sacer/go/entry/types/video"
+	"g.rg-s.com/sacer/go/server/tmpl"
 )
 
 func (s *Server) Funcs() template.FuncMap {

@@ -3,13 +3,13 @@ package media
 import (
 	"fmt"
 
-	"g.rg-s.com/sera/go/entry"
-	"g.rg-s.com/sera/go/entry/tools"
-	"g.rg-s.com/sera/go/entry/types/audio"
-	"g.rg-s.com/sera/go/entry/types/html"
-	"g.rg-s.com/sera/go/entry/types/image"
-	"g.rg-s.com/sera/go/entry/types/text"
-	"g.rg-s.com/sera/go/entry/types/video"
+	"g.rg-s.com/sacer/go/entry"
+	"g.rg-s.com/sacer/go/entry/tools"
+	"g.rg-s.com/sacer/go/entry/types/audio"
+	"g.rg-s.com/sacer/go/entry/types/html"
+	"g.rg-s.com/sacer/go/entry/types/image"
+	"g.rg-s.com/sacer/go/entry/types/text"
+	"g.rg-s.com/sacer/go/entry/types/video"
 )
 
 func NewMediaEntry(path string, parent entry.Entry) (entry.Entry, error) {

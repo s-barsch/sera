@@ -3,7 +3,7 @@ package tree
 import (
 	"fmt"
 
-	"g.rg-s.com/sera/go/entry"
+	"g.rg-s.com/sacer/go/entry"
 )
 
 func (t *Tree) CombinedTitle(lang string) string {

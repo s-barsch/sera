@@ -3,8 +3,8 @@ package auth
 import (
 	"net/http"
 
-	"g.rg-s.com/sera/go/server/meta"
-	"g.rg-s.com/sera/go/viewer"
+	"g.rg-s.com/sacer/go/server/meta"
+	"g.rg-s.com/sacer/go/viewer"
 )
 
 func Route(v *viewer.Viewer, m *meta.Meta) http.HandlerFunc {

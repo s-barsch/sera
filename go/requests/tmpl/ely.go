@@ -1,8 +1,8 @@
 package tmpl
 
 import (
-	"g.rg-s.com/sera/go/entry"
-	"g.rg-s.com/sera/go/entry/tools/script"
+	"g.rg-s.com/sacer/go/entry"
+	"g.rg-s.com/sacer/go/entry/tools/script"
 )
 
 type NotesLang struct {

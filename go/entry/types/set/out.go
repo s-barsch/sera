@@ -1,7 +1,7 @@
 package set
 
 import (
-	"g.rg-s.com/sera/go/entry"
+	"g.rg-s.com/sacer/go/entry"
 )
 
 func (s *Set) SetEntries(es entry.Entries) {

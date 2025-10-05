@@ -6,7 +6,7 @@ import (
 	"regexp"
 	"strings"
 
-	"g.rg-s.com/sera/go/entry/tools/markup/gmext"
+	"g.rg-s.com/sacer/go/entry/tools/markup/gmext"
 	"github.com/kennygrant/sanitize"
 	"github.com/yuin/goldmark"
 	"github.com/yuin/goldmark/extension"

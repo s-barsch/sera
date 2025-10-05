@@ -4,8 +4,8 @@ import (
 	"cmp"
 	"slices"
 
-	"g.rg-s.com/sera/go/entry"
-	"g.rg-s.com/sera/go/entry/types/set"
+	"g.rg-s.com/sacer/go/entry"
+	"g.rg-s.com/sacer/go/entry/types/set"
 )
 
 func (ts Trees) Reverse() Trees {
